@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBAN GRID | Трендові Кросівки, Футболки та Штани — Дропшипінг Україна</title>
+    <meta name="description" content="Офіційний каталог трендового стрітвеар одягу та взуття в Україні. Кросівки, оверсайз футболки та карго штани. Оплата при отриманні, швидка доставка 1-2 дні Новою Поштою!">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container announcement-content">
+            <span class="badge-fire">🔥 СЕЗОННИЙ РОЗПРОДАЖ</span>
+            <span>Знижки до -45% на топовий дроп + <b>ДАРУЄМО ШКАРПЕТКИ</b> при замовленні від 2-х позицій!</span>
+            <div class="timer-box">
+                <span>До кінця акції:</span>
+                <div id="countdown" class="countdown-timer">
+                    <span id="hours">04</span>:<span id="minutes">28</span>:<span id="seconds">42</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-accent">URBAN</span>GRID<span class="logo-tag">UA</span>
+            </a>
+            
+            <div class="header-status">
+                <span class="status-dot"></span>
+                <span>Склад у Дніпрі: <b>В наявності</b></span>
+            </div>
+
+            <div class="header-actions">
+                <a href="https://t.me/" target="_blank" class="btn-messenger telegram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .54-1.42.53-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.74 6.66-2.89 8.01-3.46 3.81-1.58 4.6-.1.21 0z"/></svg>
+                    Telegram
+                </a>
+                <a href="#order-form" class="btn-primary-sm">Замовити зі знижкою</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="icon">⚡</span> ЛІДЕР ПРОДАЖІВ 2026 В УКРАЇНІ
+                </div>
+                <h1>ТОПОВИЙ СТРІТВЕАР ЛУК: <span class="highlight-text">КРОСІВКИ, ФУТБОЛКИ ТА КАРГО</span></h1>
+                <p class="hero-desc">
+                    Отримуй стильний вуличний аутфіт преміальної якості без переплат. Швидка відправка в день замовлення Новою Поштою. Оплата <b>виключно після огляду та примірки</b> на пошті!
+                </p>
+                
+                <div class="hero-features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon">📦</div>
+                        <div>
+                            <b>Накладений платіж</b>
+                            <span>Без передплат. Огляд на пошті</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🚀</div>
+                        <div>
+                            <b>Доставка 1-2 дні</b>
+                            <span>Відправка Новою Поштою щодня</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div>
+                            <b>100% Обмін розміру</b>
+                            <span>Якщо не підійде — міняємо за 1 день</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-cta-group">
+                    <a href="#catalog" class="btn-primary btn-glow">
+                        Переглянути каталог та знижки
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <button onclick="openSizeGuideModal()" class="btn-outline">
+                        📏 Калькулятор розміру
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-image-box">
+                <div class="hero-main-card">
+                    <span class="card-discount-badge">-45% ЗНИЖКА</span>
+                    <img src="images/sneakers.jpg" alt="Urban Runner Neon Flex Sneakers" id="heroProductImg">
+                    <div class="hero-card-info">
+                        <h3>Urban Runner Neon Flex</h3>
+                        <p>Дихаюча сітка, амортизуюча підошва, стильний неоновий акцент</p>
+                        <div class="price-row">
+                            <span class="current-price">1 490 грн</span>
+                            <span class="old-price">2 200 грн</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bundle Promotion Banner -->
+    <section class="bundle-banner">
+        <div class="container">
+            <div class="bundle-card">
+                <div class="bundle-badge">🔥 СУПЕР-ПРОПОЗИЦІЯ "ПОВНИЙ СЕТ"</div>
+                <div class="bundle-content">
+                    <div class="bundle-info">
+                        <h2>ЗБЕРИ ПОВНИЙ АУТФІТ ТА ЗЕКОНОМ <b>580 ГРН!</b></h2>
+                        <p>Кросівки + Оверсайз футболка + Карго штани = <b>Всього 2 890 грн</b> (замість 3 470 грн) + <mark>Шкарпетки у подарунок</mark>!</p>
+                    </div>
+                    <button onclick="selectBundleOffer()" class="btn-bundle">
+                        Замовити Сет 3-в-1 за 2 890 грн
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog" id="catalog">
+        <div class="container">
+            <div class="section-header">
+                <h2>ОБИРАЙ СВІЙ СТИЛЬНИЙ ДРОП</h2>
+                <p>Усі позиції виготовлені з якісних зносостійких матеріалів і проходять подвійну перевірку перед відправкою</p>
+            </div>
+
+            <div class="products-grid">
+                
+                <!-- Product 1: Sneakers -->
+                <div class="product-card" id="prod-1">
+                    <div class="product-badge">ХІТ ПРОДАЖІВ</div>
+                    <div class="product-img-wrapper">
+                        <img src="images/sneakers.jpg" alt="Кросівки Urban Runner">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / URBAN FOOTWEAR</div>
+                        <h3 class="product-title">Кросівки Urban Runner Neon Flex</h3>
+                        <p class="product-desc">Полегшені міські кросівки з рефлективними елементами та анатомічною устілкою.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (EU):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40')">40 (26см)</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '41')">41 (26.5см)</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '42')">42 (27.5см)</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43')">43 (28см)</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44')">44 (29см)</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45')">45 (29.5см)</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">1 490 грн</span>
+                                <span class="price-was">2 200 грн</span>
+                            </div>
+                            <button class="btn-buy" onclick="quickOrderProduct('Кросівки Urban Runner Neon Flex', 1490)">
+                                Замовити
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: T-Shirt -->
+                <div class="product-card" id="prod-2">
+                    <div class="product-badge accent">ОБМЕЖЕНИЙ ДРОП</div>
+                    <div class="product-img-wrapper">
+                        <img src="images/tshirt.jpg" alt="Футболка District 08">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ОДЯГ / OVERSIZE T-SHIRT</div>
+                        <h3 class="product-title">Футболка District 08 Oversize</h3>
+                        <p class="product-desc">100% щільний турецький кулір (240 г/м²). Зберігає форму після 50+ прань.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір:</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'S')">S</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, 'M')">M</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'L')">L</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'XL')">XL</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'XXL')">XXL</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">790 грн</span>
+                                <span class="price-was">1 200 грн</span>
+                            </div>
+                            <button class="btn-buy" onclick="quickOrderProduct('Футболка District 08 Oversize', 790)">
+                                Замовити
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Cargo Pants -->
+                <div class="product-card" id="prod-3">
+                    <div class="product-badge">NEW COLLECTION</div>
+                    <div class="product-img-wrapper">
+                        <img src="images/pants.jpg" alt="Штани карго Tactical Black">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ОДЯГ / CARGO PANTS</div>
+                        <h3 class="product-title">Карго штани Tactical Black Edition</h3>
+                        <p class="product-desc">Вологозахисна тканина Rip-Stop. 6 зручних кишень, анатомічний крій та стропи.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір:</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'S')">S</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'M')">M</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, 'L')">L</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'XL')">XL</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, 'XXL')">XXL</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">1 190 грн</span>
+                                <span class="price-was">1 750 грн</span>
+                            </div>
+                            <button class="btn-buy" onclick="quickOrderProduct('Карго штани Tactical Black', 1190)">
+                                Замовити
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us / Trust Badges -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-card">
+                    <div class="trust-icon">🛡️</div>
+                    <h3>Безпечна покупка</h3>
+                    <p>Нічого не платиш наперед. Приміряй товар у відділенні Нової Пошти, і якщо все підходить — оплачуй.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">📏</div>
+                    <h3>Точний підбір розміру</h3>
+                    <p>Наш менеджер перед відправкою зв'яжеться з тобою та перевірить розмір по твоїй вазі, зросту чи устілці.</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">🚚</div>
+                    <h3>Доставка 24-48 годин</h3>
+                    <p>Відправляємо Новою Поштою у будь-яку точку України (Київ, Львів, Одеса, Дніпро, Харків та інші).</p>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">⭐</div>
+                    <h3>1400+ Задоволених клієнтів</h3>
+                    <p>Понад 3 роки поставляємо якісний стрітвеар одяг та взуття з найвищою оцінкою довіри.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fast Order Form Section -->
+    <section class="order-section" id="order-form">
+        <div class="container">
+            <div class="order-wrapper">
+                <div class="order-header">
+                    <h2>ШВИДКЕ ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
+                    <p>Заповни форму за 15 секунд. Менеджер зателефонує для уточнення розміру та адреси відправки!</p>
+                </div>
+
+                <form id="checkoutForm" class="checkout-form" onsubmit="submitOrder(event)">
+                    <div class="form-group">
+                        <label for="productSelect">Обраний товар / Комплект:</label>
+                        <select id="productSelect" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Кросівки Urban Runner (1490 грн)">👟 Кросівки Urban Runner Neon Flex — 1 490 грн</option>
+                            <option value="Футболка District 08 Oversize (790 грн)">👕 Футболка District 08 Oversize — 790 грн</option>
+                            <option value="Карго штани Tactical Black (1190 грн)">👖 Карго штани Tactical Black — 1 190 грн</option>
+                            <option value="Повний сет 3-в-1 (2890 грн)" selected>🔥 ПОВНИЙ СЕТ (Кросівки + Футболка + Штани) — 2 890 грн [Економія 580 грн]</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="selectedSize">Ваш розмір:</label>
+                            <input type="text" id="selectedSize" class="form-input" placeholder="Наприклад: 42 кросівки, L одяг" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fullName">Ваше Ім'я та Прізвище:</label>
+                            <input type="text" id="fullName" class="form-input" placeholder="Іван Іванов" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Номер телефону:</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="+38 (067) 000-00-00" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cityNP">Місто та № Нової Пошти:</label>
+                            <input type="text" id="cityNP" class="form-input" placeholder="м. Київ, №125" required>
+                        </div>
+                    </div>
+
+                    <div class="order-summary-box">
+                        <span>Разом до сплати при отриманні:</span>
+                        <b id="finalOrderPrice">2 890 грн</b>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-submit btn-glow">
+                        ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (ОПЛАТА НА ПОШТІ)
+                    </button>
+
+                    <p class="form-security-note">
+                        🔒 Твої дані захищені. Замовлення відправляється Новою Поштою. Оплата після перевірки.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>ВІДГУКИ НАШИХ КЛІЄНТІВ</h2>
+                <p>Реальні оцінки від хлопців та дівчат, які вже отримали свої посилки</p>
+            </div>
+
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Кросівки бомба! Якість на висоті, підошва дуже м'яка. Прийшли на наступний день після замовлення в Одесу. Розмір підійшов ідеально!"</p>
+                    <div class="review-author">
+                        <b>Владислав К.</b>
+                        <span>м. Одеса (Кросівки Urban Runner)</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Взяв повний сет за 2890 грн. Тканина футболки реально щільна, не як марля на базарі. Карго штани сидять суперово. Дякую менеджеру за швидкий дзвінок!"</p>
+                    <div class="review-author">
+                        <b>Артем М.</b>
+                        <span>м. Київ (Повний Сет 3-в-1)</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">"Швидка доставка Новою Поштою. Перевірив прямо на пошті, взув — сіли якраз. Окремий плюс за шкарпетки в подарунок, дуже приємний бонус!"</p>
+                    <div class="review-author">
+                        <b>Денис П.</b>
+                        <span>м. Львів (Кросівки + Штани)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Size Calculator Modal -->
+    <div id="sizeModal" class="modal-overlay">
+        <div class="modal-card">
+            <button onclick="closeSizeGuideModal()" class="modal-close">&times;</button>
+            <h3>📏 КАЛЬКУЛЯТОР ПІДБОРУ РОЗМІРУ</h3>
+            <p>Вкажи свої параметри, щоб підібрати ідеальний розмір:</p>
+
+            <div class="modal-calc-form">
+                <div class="form-group">
+                    <label>Твоя вага (кг):</label>
+                    <input type="number" id="userWeight" class="form-input" placeholder="75">
+                </div>
+                <div class="form-group">
+                    <label>Твій зріст (см):</label>
+                    <input type="number" id="userHeight" class="form-input" placeholder="180">
+                </div>
+                <div class="form-group">
+                    <label>Довжина устілки взуття (см):</label>
+                    <input type="number" id="userFoot" class="form-input" placeholder="27">
+                </div>
+
+                <button onclick="calculateRecommendedSize()" class="btn-primary">Розрахувати мої розміри</button>
+            </div>
+
+            <div id="calcResult" class="calc-result hidden">
+                <h4>Рекомендований розмір:</h4>
+                <p>Одяг: <b id="recClothingSize">L</b> | Взуття: <b id="recShoeSize">42 (27 см)</b></p>
+                <button onclick="applyCalculatedSize()" class="btn-primary-sm">Застосувати до замовлення</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Toast Purchase Notification -->
+    <div id="purchaseToast" class="toast-notification">
+        <div class="toast-icon">🛒</div>
+        <div class="toast-text">
+            <b id="toastName">Максим з м. Харків</b>
+            <span id="toastDetails">щойно замовив Повний Сет (3 хв тому)</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>© 2026 URBAN GRID UA. Усі права захищено. Магазин трендового стрітвеар одягу та взуття.</p>
+            <p>Офіційний партнер доставки: <b>Нова Пошта Україна</b></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
