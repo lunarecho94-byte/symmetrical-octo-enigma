@@ -1,3 +1,17 @@
+// Gallery Image Switcher
+function switchGalleryImg(thumbElement, imgSrc) {
+    const mainImg = document.getElementById('mainGalleryImg');
+    if (mainImg) {
+        mainImg.src = imgSrc;
+    }
+
+    const thumbs = document.querySelectorAll('.thumb-img');
+    thumbs.forEach(t => t.classList.remove('active'));
+    if (thumbElement) {
+        thumbElement.classList.add('active');
+    }
+}
+
 // Countdown Timer
 function startTimer(durationSeconds) {
     let timer = durationSeconds;
@@ -15,7 +29,7 @@ function startTimer(durationSeconds) {
         if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
 
         if (--timer < 0) {
-            timer = 16000; // Reset
+            timer = 15500;
         }
     }, 1000);
 }
@@ -28,43 +42,10 @@ function selectSize(btnElement, sizeValue) {
     parentContainer.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
     btnElement.classList.add('active');
 
-    // Update size in order form
+    // Update size input in order form
     const sizeInput = document.getElementById('selectedSize');
     if (sizeInput) {
         sizeInput.value = sizeValue;
-    }
-}
-
-// Quick Order Product Button
-function quickOrderProduct(productName, price) {
-    const select = document.getElementById('productSelect');
-    if (select) {
-        for (let i = 0; i < select.options.length; i++) {
-            if (select.options[i].value.includes(productName)) {
-                select.selectedIndex = i;
-                break;
-            }
-        }
-        updateFormPrice();
-    }
-
-    const orderSection = document.getElementById('order-form');
-    if (orderSection) {
-        orderSection.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Bundle Offer Selection
-function selectBundleOffer() {
-    const select = document.getElementById('productSelect');
-    if (select) {
-        select.selectedIndex = select.options.length - 1; // Select full bundle
-        updateFormPrice();
-    }
-
-    const orderSection = document.getElementById('order-form');
-    if (orderSection) {
-        orderSection.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
@@ -75,14 +56,10 @@ function updateFormPrice() {
     if (!select || !priceDisplay) return;
 
     const val = select.value;
-    if (val.includes('1490')) {
-        priceDisplay.textContent = '1 490 грн';
-    } else if (val.includes('790')) {
-        priceDisplay.textContent = '790 грн';
-    } else if (val.includes('1190')) {
-        priceDisplay.textContent = '1 190 грн';
-    } else if (val.includes('2890')) {
-        priceDisplay.textContent = '2 890 грн';
+    if (val.includes('5500')) {
+        priceDisplay.textContent = '5 500 грн';
+    } else {
+        priceDisplay.textContent = '2 950 грн';
     }
 }
 
@@ -98,35 +75,26 @@ function closeSizeGuideModal() {
 }
 
 function calculateRecommendedSize() {
-    const weight = parseFloat(document.getElementById('userWeight').value) || 75;
-    const height = parseFloat(document.getElementById('userHeight').value) || 178;
-    const foot = parseFloat(document.getElementById('userFoot').value) || 27;
+    const foot = parseFloat(document.getElementById('userFoot').value) || 24;
 
-    let clothing = 'M';
-    if (weight > 85 || height > 185) clothing = 'XL';
-    else if (weight > 78 || height > 180) clothing = 'L';
-    else if (weight < 65 && height < 170) clothing = 'S';
+    let shoe = '38 (24 см)';
+    if (foot >= 26) shoe = '41 (26.5 см)';
+    else if (foot >= 25) shoe = '40 (25.5 см)';
+    else if (foot >= 24.2) shoe = '39 (24.5 см)';
+    else if (foot >= 23.8) shoe = '38 (24 см)';
+    else if (foot >= 23.2) shoe = '37 (23.5 см)';
+    else shoe = '36 (23 см)';
 
-    let shoe = '42 (27см)';
-    if (foot >= 29) shoe = '45 (29.5см)';
-    else if (foot >= 28.5) shoe = '44 (29см)';
-    else if (foot >= 27.5) shoe = '43 (28см)';
-    else if (foot >= 26.5) shoe = '42 (27.5см)';
-    else if (foot >= 25.5) shoe = '41 (26.5см)';
-    else shoe = '40 (26см)';
-
-    document.getElementById('recClothingSize').textContent = clothing;
     document.getElementById('recShoeSize').textContent = shoe;
     document.getElementById('calcResult').classList.remove('hidden');
 }
 
 function applyCalculatedSize() {
-    const clothing = document.getElementById('recClothingSize').textContent;
     const shoe = document.getElementById('recShoeSize').textContent;
 
     const sizeInput = document.getElementById('selectedSize');
     if (sizeInput) {
-        sizeInput.value = `Взуття: ${shoe}, Одяг: ${clothing}`;
+        sizeInput.value = shoe;
     }
     closeSizeGuideModal();
 
@@ -142,18 +110,19 @@ function submitOrder(e) {
     const name = document.getElementById('fullName').value;
     const phone = document.getElementById('phone').value;
     const product = document.getElementById('productSelect').value;
+    const size = document.getElementById('selectedSize').value;
     const price = document.getElementById('finalOrderPrice').textContent;
 
-    alert(`🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ, ${name.toUpperCase()}!\n\nВаше замовлення: ${product}\nСума до сплати при отриманні: ${price}\n\nМенеджер зателефонує на номер ${phone} протягом 10 хвилин для підтвердження відправки!`);
+    alert(`🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ, ${name.toUpperCase()}!\n\nМодель: ${product}\nРозмір: ${size}\nСума до сплати при отриманні: ${price}\n\nМенеджер зателефонує на номер ${phone} протягом 10 хвилин для підтвердження відправки Новою Поштою!`);
 }
 
 // Live Purchase Toast Notifications
 const toastData = [
-    { name: "Олександр з м. Київ", text: "щойно замовив Повний Сет 3-в-1 (2 хв тому)" },
-    { name: "Богдан з м. Львів", text: "замовив Кросівки Urban Runner 43 розміру" },
-    { name: "Дмитро з м. Дніпро", text: "замовив Футболку District 08 Oversize" },
-    { name: "Сергій з м. Одеса", text: "замовив Повний Сет (Отримав шкарпетки в подарунок)" },
-    { name: "Андрій з м. Харків", text: "замовив Карго штани Tactical Black L" }
+    { name: "Ангеліна з м. Київ", text: "щойно замовила Nike SB Dunk Low 38 розміру (2 хв тому)" },
+    { name: "Олена з м. Львів", text: "замовила Nike SB Dunk Low 37 розміру" },
+    { name: "Вікторія з м. Дніпро", text: "замовила 2 пари Nike SB Dunk Low Premium" },
+    { name: "Дмитро з м. Одеса", text: "замовив Nike SB Dunk Low 40 розміру в подарунок" },
+    { name: "Катерина з м. Харків", text: "замовила Nike SB Dunk Low 39 розміру" }
 ];
 
 let toastIndex = 0;
@@ -179,7 +148,7 @@ function showPurchaseToast() {
 
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
-    startTimer(16122); // 4 hours countdown
+    startTimer(15500); // 4 hours countdown
     setInterval(showPurchaseToast, 9000);
     setTimeout(showPurchaseToast, 3000);
 });
