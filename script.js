@@ -56,10 +56,12 @@ function updateFormPrice() {
     if (!select || !priceDisplay) return;
 
     const val = select.value;
-    if (val.includes('5500')) {
-        priceDisplay.textContent = '5 500 грн';
-    } else {
+    if (val.includes('5300')) {
+        priceDisplay.textContent = '5 300 грн';
+    } else if (val.includes('2950')) {
         priceDisplay.textContent = '2 950 грн';
+    } else {
+        priceDisplay.textContent = '2 850 грн';
     }
 }
 
