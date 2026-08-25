@@ -225,6 +225,11 @@ body {
     gap: 6px;
 }
 
+.footer-hours {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
 .footer-phone-link {
     color: var(--accent-cyan);
     font-weight: 800;
