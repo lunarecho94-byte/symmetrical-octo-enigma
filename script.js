@@ -49,6 +49,23 @@ function selectSize(btnElement, sizeValue) {
     }
 }
 
+// Select specific model in order form
+function selectModelInForm(modelVal, priceStr) {
+    const select = document.getElementById('productSelect');
+    if (select) {
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value.includes(modelVal) || select.options[i].text.includes(modelVal)) {
+                select.selectedIndex = i;
+                break;
+            }
+        }
+    }
+    const priceDisplay = document.getElementById('finalOrderPrice');
+    if (priceDisplay && priceStr) {
+        priceDisplay.textContent = priceStr;
+    }
+}
+
 // Update Price in Checkout Form
 function updateFormPrice() {
     const select = document.getElementById('productSelect');
@@ -56,12 +73,12 @@ function updateFormPrice() {
     if (!select || !priceDisplay) return;
 
     const val = select.value;
-    if (val.includes('5300')) {
-        priceDisplay.textContent = '5 300 грн';
-    } else if (val.includes('2950')) {
-        priceDisplay.textContent = '2 950 грн';
-    } else {
+    if (val.includes('5000')) {
+        priceDisplay.textContent = '5 000 грн';
+    } else if (val.includes('2850')) {
         priceDisplay.textContent = '2 850 грн';
+    } else {
+        priceDisplay.textContent = '2 550 грн';
     }
 }
 
