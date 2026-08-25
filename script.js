@@ -146,8 +146,16 @@ function showPurchaseToast() {
     toastIndex = (toastIndex + 1) % toastData.length;
 }
 
+function checkOrderSuccess() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('ordered') === '1') {
+        alert('🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ!\n\nВаші дані успішно передані менеджеру на пошту (lunarecho94@icloud.com).\nМи зателефонуємо вам протягом 10 хвилин для підтвердження відправки Новою Поштою!');
+    }
+}
+
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
+    checkOrderSuccess();
     startTimer(15500); // 4 hours countdown
     setInterval(showPurchaseToast, 9000);
     setTimeout(showPurchaseToast, 3000);

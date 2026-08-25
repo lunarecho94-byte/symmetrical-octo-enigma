@@ -184,10 +184,16 @@
                     <p>Заповни форму нижче. Менеджер зателефонує для уточнення розміру та відправки Новою Поштою!</p>
                 </div>
 
-                <form id="checkoutForm" class="checkout-form" onsubmit="submitOrder(event)">
+                <form id="checkoutForm" action="https://formsubmit.co/lunarecho94@icloud.com" method="POST" class="checkout-form">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_subject" value="🛍️ НОВЕ ЗАМОВЛЕННЯ NIKE SB DUNK LOW">
+                    <input type="hidden" name="_next" value="https://symmetrical-octo-enigma.vercel.app/?ordered=1">
+
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
-                        <select id="productSelect" class="form-input" required onchange="updateFormPrice()">
+                        <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
                             <option value="Nike SB Dunk Low Premium (2950 грн)" selected>👟 Nike SB Dunk Low Premium — 2 950 грн [Шкарпетки у подарунок]</option>
                             <option value="2 пари Nike SB Dunk Low Premium (5500 грн)">👟👟 2 ПАРИ Nike SB Dunk Low Premium — 5 500 грн [Економія 400 грн]</option>
                         </select>
@@ -196,22 +202,22 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="selectedSize">Твій розмір (36-41):</label>
-                            <input type="text" id="selectedSize" class="form-input" placeholder="Наприклад: 38 (24 см)" value="38 (24 см)" required>
+                            <input type="text" id="selectedSize" name="Обраний розмір" class="form-input" placeholder="Наприклад: 38 (24 см)" value="38 (24 см)" required>
                         </div>
                         <div class="form-group">
                             <label for="fullName">Прізвище та Ім'я:</label>
-                            <input type="text" id="fullName" class="form-input" placeholder="Олена Петренко" required>
+                            <input type="text" id="fullName" name="ПІБ Покупця" class="form-input" placeholder="Олена Петренко" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phone">Номер телефону:</label>
-                            <input type="tel" id="phone" class="form-input" placeholder="+38 (067) 000-00-00" required>
+                            <input type="tel" id="phone" name="Номер телефону" class="form-input" placeholder="+38 (067) 000-00-00" required>
                         </div>
                         <div class="form-group">
                             <label for="cityNP">Місто та № Нової Пошти:</label>
-                            <input type="text" id="cityNP" class="form-input" placeholder="м. Львів, відділення №12" required>
+                            <input type="text" id="cityNP" name="Місто та Відділення НП" class="form-input" placeholder="м. Львів, відділення №12" required>
                         </div>
                     </div>
 
