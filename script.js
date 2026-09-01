@@ -148,37 +148,6 @@ function submitOrder(e) {
 
     alert(`🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ, ${name.toUpperCase()}!\n\nМодель: ${product}\nРозмір: ${size}\nСума до сплати при отриманні: ${price}\n\nМенеджер зателефонує на номер ${phone} протягом 10 хвилин для підтвердження відправки Новою Поштою!`);
 }
-
-// Live Purchase Toast Notifications
-const toastData = [
-    { name: "Ангеліна з м. Київ", text: "щойно замовила Nike SB Dunk Low 38 розміру (2 хв тому)" },
-    { name: "Олена з м. Львів", text: "замовила Nike SB Dunk Low 37 розміру" },
-    { name: "Вікторія з м. Дніпро", text: "замовила 2 пари Nike SB Dunk Low Premium" },
-    { name: "Дмитро з м. Одеса", text: "замовив Nike SB Dunk Low 40 розміру в подарунок" },
-    { name: "Катерина з м. Харків", text: "замовила Nike SB Dunk Low 39 розміру" }
-];
-
-let toastIndex = 0;
-function showPurchaseToast() {
-    const toast = document.getElementById('purchaseToast');
-    const toastName = document.getElementById('toastName');
-    const toastDetails = document.getElementById('toastDetails');
-
-    if (!toast || !toastName || !toastDetails) return;
-
-    const current = toastData[toastIndex];
-    toastName.textContent = current.name;
-    toastDetails.textContent = current.text;
-
-    toast.classList.add('show');
-
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 4000);
-
-    toastIndex = (toastIndex + 1) % toastData.length;
-}
-
 function checkOrderSuccess() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('ordered') === '1') {
@@ -189,7 +158,4 @@ function checkOrderSuccess() {
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     checkOrderSuccess();
-    startTimer(15500); // 4 hours countdown
-    setInterval(showPurchaseToast, 9000);
-    setTimeout(showPurchaseToast, 3000);
 });
