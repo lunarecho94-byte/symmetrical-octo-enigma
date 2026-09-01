@@ -105,12 +105,12 @@
         </div>
     </section>
 
-    <!-- Full Catalog Grid: All 19 Top Models -->
+    <!-- Full Catalog Grid: All 19 Top Models with Multi-Photo Carousels -->
     <section class="catalog" id="catalog">
         <div class="container">
             <div class="section-header">
                 <h2>ОФІЦІЙНИЙ КАТАЛОГ ВЗУТТЯ</h2>
-                <p>Усі моделі виготовлені з якісних матеріалів (шкіра/сітка/замш) у В'єтнамі та поставляються у фірмових коробках</p>
+                <p>Усі моделі мають реальні живі фотографії з усіх ракурсів. Натискайте на мініатюри під фото, щоб переглянути деталі!</p>
             </div>
 
             <div class="products-grid">
@@ -118,7 +118,10 @@
                 <!-- Product Card 1: Nike Court Legacy Lift Premium N00152 -->
                 <div class="product-card" id="prod-nike-court-lift">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_court_legacy_lift_1.jpg" alt="Nike Court Legacy Lift Premium">
+                        <img src="images/nike_court_legacy_lift_1.jpg" alt="Nike Court Legacy Lift Premium" id="cardImg-court-lift">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_court_legacy_lift_1.jpg" alt="Nike Court Lift 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-court-lift', 'images/nike_court_legacy_lift_1.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE COURT | КОД: N00152</div>
@@ -148,10 +151,16 @@
                     </div>
                 </div>
 
-                <!-- Product Card 2: Nike V5 RNR White S1493 -->
+                <!-- Product Card 2: Nike V5 RNR White S1493 (4 Photos) -->
                 <div class="product-card" id="prod-v5-white">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_v5_white_1.jpg" alt="Nike V5 RNR White">
+                        <img src="images/nike_v5_white_1.jpg" alt="Nike V5 RNR White" id="cardImg-v5-white">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_v5_white_1.jpg" alt="Nike V5 White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-v5-white', 'images/nike_v5_white_1.jpg')">
+                        <img src="images/nike_v5_white_2.jpg" alt="Nike V5 White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5-white', 'images/nike_v5_white_2.jpg')">
+                        <img src="images/nike_v5_white_3.jpg" alt="Nike V5 White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5-white', 'images/nike_v5_white_3.jpg')">
+                        <img src="images/nike_v5_white_4.jpg" alt="Nike V5 White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5-white', 'images/nike_v5_white_4.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE RNR | АРТ: S1493</div>
@@ -181,10 +190,15 @@
                     </div>
                 </div>
 
-                <!-- Product Card 3: Nike V2K Runtekk White Grey S1495 -->
+                <!-- Product Card 3: Nike V2K Runtekk White Grey S1495 (3 Photos) -->
                 <div class="product-card" id="prod-v2k-white-grey">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_v2k_white_grey_1.jpg" alt="Nike V2K Runtekk White Grey">
+                        <img src="images/nike_v2k_white_grey_1.jpg" alt="Nike V2K Runtekk White Grey" id="cardImg-v2k-white-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_v2k_white_grey_1.jpg" alt="Nike V2K White Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-v2k-white-grey', 'images/nike_v2k_white_grey_1.jpg')">
+                        <img src="images/nike_v2k_white_grey_2.jpg" alt="Nike V2K White Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v2k-white-grey', 'images/nike_v2k_white_grey_2.jpg')">
+                        <img src="images/nike_v2k_white_grey_3.jpg" alt="Nike V2K White Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v2k-white-grey', 'images/nike_v2k_white_grey_3.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE V2K | АРТ: S1495</div>
@@ -213,10 +227,15 @@
                     </div>
                 </div>
 
-                <!-- Product Card 4: New Balance 740 White Navy Blue S1498 -->
+                <!-- Product Card 4: New Balance 740 White Navy Blue S1498 (3 Photos) -->
                 <div class="product-card" id="prod-nb740-navy">
                     <div class="product-img-wrapper">
-                        <img src="images/nb740_navy_1.jpg" alt="New Balance 740 White Navy Blue">
+                        <img src="images/nb740_navy_1.jpg" alt="New Balance 740 White Navy Blue" id="cardImg-nb740-navy">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb740_navy_1.jpg" alt="NB 740 Navy 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb740-navy', 'images/nb740_navy_1.jpg')">
+                        <img src="images/nb740_navy_2.jpg" alt="NB 740 Navy 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb740-navy', 'images/nb740_navy_2.jpg')">
+                        <img src="images/nb740_navy_3.jpg" alt="NB 740 Navy 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb740-navy', 'images/nb740_navy_3.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NEW BALANCE 740 | АРТ: S1498</div>
@@ -246,10 +265,14 @@
                     </div>
                 </div>
 
-                <!-- Product Card 5: Adidas Samba Black S1291 -->
+                <!-- Product Card 5: Adidas Samba Black S1291 (2 Photos) -->
                 <div class="product-card" id="prod-samba-black">
                     <div class="product-img-wrapper">
-                        <img src="images/adidas_samba_black_1.jpg" alt="Adidas Samba Black">
+                        <img src="images/adidas_samba_black_1.jpg" alt="Adidas Samba Black" id="cardImg-samba-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_samba_black_1.jpg" alt="Samba Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-samba-black', 'images/adidas_samba_black_1.jpg')">
+                        <img src="images/adidas_samba_black_2.jpg" alt="Samba Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-samba-black', 'images/adidas_samba_black_2.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / ADIDAS SAMBA | АРТ: S1291</div>
@@ -279,10 +302,14 @@
                     </div>
                 </div>
 
-                <!-- Product Card 6: Nike Dunk Brown Cacao S1423 -->
+                <!-- Product Card 6: Nike Dunk Brown Cacao S1423 (2 Photos) -->
                 <div class="product-card" id="prod-dunk-brown">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_dunk_brown_1.jpg" alt="Nike Dunk Brown Cacao">
+                        <img src="images/nike_dunk_brown_1.jpg" alt="Nike Dunk Brown Cacao" id="cardImg-dunk-brown">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_dunk_brown_1.jpg" alt="Nike Dunk Brown 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-dunk-brown', 'images/nike_dunk_brown_1.jpg')">
+                        <img src="images/nike_dunk_brown_2.jpg" alt="Nike Dunk Brown 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-dunk-brown', 'images/nike_dunk_brown_2.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1423</div>
@@ -312,10 +339,15 @@
                     </div>
                 </div>
 
-                <!-- Product Card 7: NB 9060 Joe Freshgoods Dark Gray S1298 -->
+                <!-- Product Card 7: NB 9060 Joe Freshgoods Dark Gray S1298 (3 Photos) -->
                 <div class="product-card" id="prod-nb-jfg">
                     <div class="product-img-wrapper">
-                        <img src="images/nb9060_jfg_darkgray_1.jpg" alt="New Balance 9060 Joe Freshgoods Dark Gray">
+                        <img src="images/nb9060_jfg_darkgray_1.jpg" alt="New Balance 9060 Joe Freshgoods Dark Gray" id="cardImg-nb-jfg">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb9060_jfg_darkgray_1.jpg" alt="NB 9060 JFG 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-jfg', 'images/nb9060_jfg_darkgray_1.jpg')">
+                        <img src="images/nb9060_jfg_darkgray_2.jpg" alt="NB 9060 JFG 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-jfg', 'images/nb9060_jfg_darkgray_2.jpg')">
+                        <img src="images/nb9060_jfg_darkgray_3.jpg" alt="NB 9060 JFG 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-jfg', 'images/nb9060_jfg_darkgray_3.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1298</div>
@@ -344,10 +376,15 @@
                     </div>
                 </div>
 
-                <!-- Product Card 8: New Balance 9060 Black Green S1499 -->
+                <!-- Product Card 8: New Balance 9060 Black Green S1499 (3 Photos) -->
                 <div class="product-card" id="prod-nb-black">
                     <div class="product-img-wrapper">
-                        <img src="images/nb9060_black_green_1.jpg" alt="New Balance 9060 Black Green">
+                        <img src="images/nb9060_black_green_1.jpg" alt="New Balance 9060 Black Green" id="cardImg-nb-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb9060_black_green_1.jpg" alt="NB 9060 Black Green 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-black', 'images/nb9060_black_green_1.jpg')">
+                        <img src="images/nb9060_black_green_2.jpg" alt="NB 9060 Black Green 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-black', 'images/nb9060_black_green_2.jpg')">
+                        <img src="images/nb9060_black_green_3.jpg" alt="NB 9060 Black Green 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-black', 'images/nb9060_black_green_3.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1499</div>
@@ -376,10 +413,15 @@
                     </div>
                 </div>
 
-                <!-- Product Card 9: Nike V2K Runtekk Brown Beige S1512 -->
+                <!-- Product Card 9: Nike V2K Runtekk Brown Beige S1512 (3 Photos) -->
                 <div class="product-card" id="prod-v2k-brown">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_v2k_brown_3.jpg" alt="Nike V2K Runtekk Brown Beige">
+                        <img src="images/nike_v2k_brown_3.jpg" alt="Nike V2K Runtekk Brown Beige" id="cardImg-v2k-brown">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_v2k_brown_3.jpg" alt="Nike V2K Brown 3" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-v2k-brown', 'images/nike_v2k_brown_3.jpg')">
+                        <img src="images/nike_v2k_brown_1.jpg" alt="Nike V2K Brown 1" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v2k-brown', 'images/nike_v2k_brown_1.jpg')">
+                        <img src="images/nike_v2k_brown_2.jpg" alt="Nike V2K Brown 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v2k-brown', 'images/nike_v2k_brown_2.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE V2K | АРТ: S1512</div>
@@ -409,10 +451,14 @@
                     </div>
                 </div>
 
-                <!-- Product Card 10: Nike V5 RNR White Silver Gold S1510 -->
+                <!-- Product Card 10: Nike V5 RNR White Silver Gold S1510 (2 Photos) -->
                 <div class="product-card" id="prod-v5-gold">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_v5_gold_1.jpg" alt="Nike V5 RNR White Silver Gold">
+                        <img src="images/nike_v5_gold_1.jpg" alt="Nike V5 RNR White Silver Gold" id="cardImg-v5-gold">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_v5_gold_1.jpg" alt="Nike V5 Gold 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-v5-gold', 'images/nike_v5_gold_1.jpg')">
+                        <img src="images/nike_v5_gold_2.jpg" alt="Nike V5 Gold 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5-gold', 'images/nike_v5_gold_2.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE RNR | АРТ: S1510</div>
@@ -442,10 +488,16 @@
                     </div>
                 </div>
 
-                <!-- Product Card 11: Nike V5 RNR White Metallic S1515 -->
+                <!-- Product Card 11: Nike V5 RNR White Metallic S1515 (4 Photos) -->
                 <div class="product-card" id="prod-v5">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_v5_3.jpg" alt="Nike V5 RNR White Metallic">
+                        <img src="images/nike_v5_3.jpg" alt="Nike V5 RNR White Metallic" id="cardImg-v5">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_v5_3.jpg" alt="Nike V5 Metallic 3" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-v5', 'images/nike_v5_3.jpg')">
+                        <img src="images/nike_v5_1.jpg" alt="Nike V5 Metallic 1" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5', 'images/nike_v5_1.jpg')">
+                        <img src="images/nike_v5_2.jpg" alt="Nike V5 Metallic 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5', 'images/nike_v5_2.jpg')">
+                        <img src="images/nike_v5_4.jpg" alt="Nike V5 Metallic 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-v5', 'images/nike_v5_4.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE RNR | АРТ: S1515</div>
@@ -475,10 +527,15 @@
                     </div>
                 </div>
 
-                <!-- Product Card 12: Adidas Gazelle Beige S1500 -->
+                <!-- Product Card 12: Adidas Gazelle Beige S1500 (3 Photos) -->
                 <div class="product-card" id="prod-gazelle">
                     <div class="product-img-wrapper">
-                        <img src="images/adidas_gazelle_1.jpg" alt="Adidas Gazelle Beige">
+                        <img src="images/adidas_gazelle_1.jpg" alt="Adidas Gazelle Beige" id="cardImg-gazelle">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_gazelle_1.jpg" alt="Gazelle Beige 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-gazelle', 'images/adidas_gazelle_1.jpg')">
+                        <img src="images/adidas_gazelle_2.jpg" alt="Gazelle Beige 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-gazelle', 'images/adidas_gazelle_2.jpg')">
+                        <img src="images/adidas_gazelle_3.jpg" alt="Gazelle Beige 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-gazelle', 'images/adidas_gazelle_3.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / ADIDAS GAZELLE | АРТ: S1500</div>
@@ -508,10 +565,14 @@
                     </div>
                 </div>
 
-                <!-- Product Card 13: Nike Dunk Grey White S1502 -->
+                <!-- Product Card 13: Nike Dunk Grey White S1502 (2 Photos) -->
                 <div class="product-card" id="prod-grey-blue">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_grey_blue_1.jpg" alt="Nike Dunk Grey White">
+                        <img src="images/nike_grey_blue_1.jpg" alt="Nike Dunk Grey White" id="cardImg-grey-blue">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_grey_blue_1.jpg" alt="Nike Dunk Grey Blue 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-grey-blue', 'images/nike_grey_blue_1.jpg')">
+                        <img src="images/nike_grey_blue_2.jpg" alt="Nike Dunk Grey Blue 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-grey-blue', 'images/nike_grey_blue_2.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1502</div>
@@ -541,10 +602,14 @@
                     </div>
                 </div>
 
-                <!-- Product Card 14: Nike Dunk Burgundy Croc -->
+                <!-- Product Card 14: Nike Dunk Burgundy Croc S1501 (2 Photos) -->
                 <div class="product-card" id="prod-croc">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_croc_1.jpg" alt="Nike Dunk Burgundy Croc">
+                        <img src="images/nike_croc_1.jpg" alt="Nike Dunk Burgundy Croc" id="cardImg-croc">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_croc_1.jpg" alt="Nike Croc 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-croc', 'images/nike_croc_1.jpg')">
+                        <img src="images/nike_croc_2.jpg" alt="Nike Croc 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-croc', 'images/nike_croc_2.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1501</div>
@@ -574,10 +639,13 @@
                     </div>
                 </div>
 
-                <!-- Product Card 15: New Balance 9060 Brown Mushroom -->
+                <!-- Product Card 15: New Balance 9060 Brown Mushroom S1507 -->
                 <div class="product-card" id="prod-nb-brown">
                     <div class="product-img-wrapper">
-                        <img src="images/nb9060_brown_1.jpg" alt="New Balance 9060 Brown Mushroom">
+                        <img src="images/nb9060_brown_1.jpg" alt="New Balance 9060 Brown Mushroom" id="cardImg-nb-brown">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb9060_brown_1.jpg" alt="NB 9060 Brown 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-brown', 'images/nb9060_brown_1.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1507</div>
@@ -606,10 +674,17 @@
                     </div>
                 </div>
 
-                <!-- Product Card 16: Nike Dunk White Grey S1503 -->
+                <!-- Product Card 16: Nike Dunk White Grey S1503 (5 Photos) -->
                 <div class="product-card" id="prod-grey">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_grey_1.jpg" alt="Nike Dunk White Grey">
+                        <img src="images/nike_grey_1.jpg" alt="Nike Dunk White Grey" id="cardImg-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_grey_1.jpg" alt="Nike Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-grey', 'images/nike_grey_1.jpg')">
+                        <img src="images/nike_grey_2.jpg" alt="Nike Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-grey', 'images/nike_grey_2.jpg')">
+                        <img src="images/nike_grey_3.jpg" alt="Nike Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-grey', 'images/nike_grey_3.jpg')">
+                        <img src="images/nike_grey_4.jpg" alt="Nike Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-grey', 'images/nike_grey_4.jpg')">
+                        <img src="images/nike_grey_5.jpg" alt="Nike Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-grey', 'images/nike_grey_5.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1503</div>
@@ -639,10 +714,17 @@
                     </div>
                 </div>
 
-                <!-- Product Card 17: Nike Dunk Low Bordo White -->
+                <!-- Product Card 17: Nike Dunk Low Bordo White S1467 (5 Photos) -->
                 <div class="product-card" id="prod-bordo">
                     <div class="product-img-wrapper">
-                        <img src="images/nike_bordo_1.jpg" alt="Nike Dunk Low Bordo White">
+                        <img src="images/nike_bordo_1.jpg" alt="Nike Dunk Low Bordo White" id="cardImg-bordo">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_bordo_1.jpg" alt="Nike Bordo 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-bordo', 'images/nike_bordo_1.jpg')">
+                        <img src="images/nike_bordo_2.jpg" alt="Nike Bordo 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-bordo', 'images/nike_bordo_2.jpg')">
+                        <img src="images/nike_bordo_3.jpg" alt="Nike Bordo 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-bordo', 'images/nike_bordo_3.jpg')">
+                        <img src="images/nike_bordo_4.jpg" alt="Nike Bordo 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-bordo', 'images/nike_bordo_4.jpg')">
+                        <img src="images/nike_bordo_5.jpg" alt="Nike Bordo 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-bordo', 'images/nike_bordo_5.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1467</div>
@@ -672,10 +754,16 @@
                     </div>
                 </div>
 
-                <!-- Product Card 18: Vans Knu Skool -->
+                <!-- Product Card 18: Vans Knu Skool S1314 (4 Photos) -->
                 <div class="product-card" id="prod-vans">
                     <div class="product-img-wrapper">
-                        <img src="images/vans_knu_1.jpg" alt="Vans Knu Skool Black White">
+                        <img src="images/vans_knu_1.jpg" alt="Vans Knu Skool Black White" id="cardImg-vans">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/vans_knu_1.jpg" alt="Vans Knu 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-vans', 'images/vans_knu_1.jpg')">
+                        <img src="images/vans_knu_2.jpg" alt="Vans Knu 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-vans', 'images/vans_knu_2.jpg')">
+                        <img src="images/vans_knu_3.jpg" alt="Vans Knu 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-vans', 'images/vans_knu_3.jpg')">
+                        <img src="images/vans_knu_4.jpg" alt="Vans Knu 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-vans', 'images/vans_knu_4.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / VANS KNU SKOOL | АРТ: S1314</div>
@@ -705,10 +793,16 @@
                     </div>
                 </div>
 
-                <!-- Product Card 19: New Balance 9060 Quartz Grey -->
+                <!-- Product Card 19: New Balance 9060 Quartz Grey S4059 (4 Photos) -->
                 <div class="product-card" id="prod-nb">
                     <div class="product-img-wrapper">
-                        <img src="images/nb9060_2.jpg" alt="New Balance 9060 Quartz Grey Cream">
+                        <img src="images/nb9060_2.jpg" alt="New Balance 9060 Quartz Grey Cream" id="cardImg-nb">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb9060_2.jpg" alt="NB 9060 Quartz 2" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb', 'images/nb9060_2.jpg')">
+                        <img src="images/nb9060_1.jpg" alt="NB 9060 Quartz 1" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb', 'images/nb9060_1.jpg')">
+                        <img src="images/nb9060_3.jpg" alt="NB 9060 Quartz 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb', 'images/nb9060_3.jpg')">
+                        <img src="images/nb9060_4.jpg" alt="NB 9060 Quartz 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb', 'images/nb9060_4.jpg')">
                     </div>
                     <div class="product-details">
                         <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S4059</div>

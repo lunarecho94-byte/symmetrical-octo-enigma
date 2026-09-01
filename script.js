@@ -1,4 +1,4 @@
-// Gallery Image Switcher
+// Gallery Image Switcher (Hero)
 function switchGalleryImg(thumbElement, imgSrc) {
     const mainImg = document.getElementById('mainGalleryImg');
     if (mainImg) {
@@ -10,6 +10,19 @@ function switchGalleryImg(thumbElement, imgSrc) {
     if (thumbElement) {
         thumbElement.classList.add('active');
     }
+}
+
+// Universal Card Image Switcher (Catalog Products)
+function switchCardImg(thumbElement, targetImgId, imgSrc) {
+    const targetImg = document.getElementById(targetImgId);
+    if (targetImg) {
+        targetImg.src = imgSrc;
+    }
+    const container = thumbElement.closest('.card-thumbnails') || thumbElement.parentElement;
+    if (container) {
+        container.querySelectorAll('.card-thumb-img').forEach(t => t.classList.remove('active'));
+    }
+    thumbElement.classList.add('active');
 }
 
 // Countdown Timer
