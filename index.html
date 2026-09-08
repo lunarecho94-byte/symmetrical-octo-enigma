@@ -120,17 +120,57 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (22)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (23)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (6)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (2)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (2)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
             </div>
 
             <div class="products-grid">
                 
-                <!-- Product Card 22 (NEW): New Balance 530 White/Silver S1325 (5 Photos) -->
+                <!-- Product Card 23 (NEW): Puma Suede XL Mint Grey White S1470 (5 Photos) -->
+                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА</span>
+                        <img src="images/puma_suede_mint_1.jpg" alt="Puma Suede XL Mint Grey White" id="cardImg-puma-suede-mint">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/puma_suede_mint_1.jpg" alt="Puma Suede Mint 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-puma-suede-mint', 'images/puma_suede_mint_1.jpg')">
+                        <img src="images/puma_suede_mint_2.jpg" alt="Puma Suede Mint 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-puma-suede-mint', 'images/puma_suede_mint_2.jpg')">
+                        <img src="images/puma_suede_mint_3.jpg" alt="Puma Suede Mint 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-puma-suede-mint', 'images/puma_suede_mint_3.jpg')">
+                        <img src="images/puma_suede_mint_4.jpg" alt="Puma Suede Mint 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-puma-suede-mint', 'images/puma_suede_mint_4.jpg')">
+                        <img src="images/puma_suede_mint_5.jpg" alt="Puma Suede Mint 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-puma-suede-mint', 'images/puma_suede_mint_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / PUMA SUEDE XL | АРТ: S1470</div>
+                        <h3 class="product-title">Puma Suede XL Mint Grey White</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральний Замш, об'ємні шнурки • <b>Виробник:</b> В'єтнам • Фірмова коробка.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-40):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">2 600 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Puma Suede XL Mint Grey White (2600 грн)', '2 600 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 22: New Balance 530 White/Silver S1325 (5 Photos) -->
                 <div class="product-card" id="prod-nb-530-silver" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
@@ -991,6 +1031,7 @@
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Puma Suede XL Mint Grey White (2600 грн)">🔥👟 Puma Suede XL Mint Grey White (Арт: S1470) — 2 600 грн [НОВИНКА]</option>
                             <option value="New Balance 530 White/Silver (2350 грн)">🔥👟 New Balance 530 White/Silver (Арт: S1325) — 2 350 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Dusty Pink (2600 грн)">🔥🌸 Nike Dunk Low Dusty Pink (Арт: S1405) — 2 600 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Sail Beige (2800 грн)">🔥💖 Nike Dunk Low Sail Beige / Puma Suede XL (Арт: S1469) — 2 800 грн [НОВИНКА]</option>
