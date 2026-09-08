@@ -177,16 +177,56 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (24)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (25)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (6)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (3)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (4)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
             </div>
 
             <div class="products-grid">
                 
+                <!-- Product Card 25 (NEW): Adidas Slip-On Dark Grey Black 3760 (5 Photos) -->
+                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА</span>
+                        <img src="images/adidas_slipon_grey_1.jpg" alt="Adidas Slip-On Dark Grey Black" id="cardImg-adidas-slipon-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_slipon_grey_1.jpg" alt="Adidas Slip-On Dark Grey Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-adidas-slipon-grey', 'images/adidas_slipon_grey_1.jpg')">
+                        <img src="images/adidas_slipon_grey_2.jpg" alt="Adidas Slip-On Dark Grey Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-slipon-grey', 'images/adidas_slipon_grey_2.jpg')">
+                        <img src="images/adidas_slipon_grey_3.jpg" alt="Adidas Slip-On Dark Grey Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-slipon-grey', 'images/adidas_slipon_grey_3.jpg')">
+                        <img src="images/adidas_slipon_grey_4.jpg" alt="Adidas Slip-On Dark Grey Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-slipon-grey', 'images/adidas_slipon_grey_4.jpg')">
+                        <img src="images/adidas_slipon_grey_5.jpg" alt="Adidas Slip-On Dark Grey Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-slipon-grey', 'images/adidas_slipon_grey_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS SLIP-ON | АРТ: 3760 (ЧОЛОВІЧІ)</div>
+                        <h3 class="product-title">Adidas Slip-On Dark Grey Black</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Текстиль (наскрізна дихаюча сітка), підошва пінка • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (41-46):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '41 (26 см)')">41</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29.5 см)')">46</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">1 690 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Adidas Slip-On Dark Grey Black (1690 грн)', '1 690 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 24 (NEW): Adidas Iniki Black White 4424 (5 Photos) -->
                 <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas">
                     <div class="product-img-wrapper">
@@ -1126,6 +1166,7 @@
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Adidas Slip-On Dark Grey Black (1690 грн)">🔥👟 Adidas Slip-On Dark Grey Black (Арт: 3760) — 1 690 грн [НОВИНКА]</option>
                             <option value="Adidas Iniki Black White (2200 грн)">🔥👟 Adidas Iniki Black White (Арт: 4424) — 2 200 грн [НОВИНКА]</option>
                             <option value="Puma Suede XL Grey White (2600 грн)">🔥👟 Puma Suede XL Grey White (Арт: S1470) — 2 600 грн [НОВИНКА]</option>
                             <option value="New Balance 530 White/Silver (2350 грн)">🔥👟 New Balance 530 White/Silver (Арт: S1325) — 2 350 грн [НОВИНКА]</option>
