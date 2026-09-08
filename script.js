@@ -683,8 +683,13 @@ async function handleCheckoutFormSubmit(e) {
         }
     }
 
-    // Attach PDF to Form
-    let attachedViaDataTransfer = false;
+    // Ensure _url is set to current origin
+    const urlInput = document.getElementById('formSubmitUrl');
+    if (urlInput) {
+        urlInput.value = window.location.origin || 'https://urbangrid.com.ua';
+    }
+
+    // Attach PDF to Form via DataTransfer (for fallback)
     if (pdfResult && pdfResult.blob) {
         try {
             const pdfFile = new File([pdfResult.blob], pdfResult.fileName, { type: 'application/pdf' });
@@ -694,7 +699,6 @@ async function handleCheckoutFormSubmit(e) {
                 const fileInput = document.getElementById('orderPdfAttachment');
                 if (fileInput) {
                     fileInput.files = dt.files;
-                    attachedViaDataTransfer = fileInput.files && fileInput.files.length > 0;
                 }
             }
         } catch (dtErr) {
@@ -702,25 +706,35 @@ async function handleCheckoutFormSubmit(e) {
         }
     }
 
-    if (attachedViaDataTransfer) {
-        // Native submit with multipart/form-data containing the PDF file
-        form.submit();
-    } else if (pdfResult && pdfResult.blob) {
-        // Fallback: Submit via fetch FormData
-        const formData = new FormData(form);
-        formData.append('attachment', pdfResult.blob, pdfResult.fileName);
+    // Prepare FormData for AJAX submission
+    const formData = new FormData(form);
+    if (pdfResult && pdfResult.blob) {
+        formData.set('attachment', pdfResult.blob, pdfResult.fileName);
+    }
 
-        fetch('https://formsubmit.co/lunarecho94@icloud.com', {
+    try {
+        const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
             method: 'POST',
             body: formData
-        }).then(() => {
-            window.location.href = 'https://urbangrid.com.ua/?ordered=1';
-        }).catch((fetchErr) => {
-            console.warn('Fetch submission error, fallback to form.submit():', fetchErr);
-            form.submit();
         });
-    } else {
-        // Ultimate fallback if PDF couldn't be generated
+        const result = await response.json();
+
+        if (result.success === 'true' || result.success === true) {
+            clearCart();
+            isSubmittingOrder = false;
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
+            }
+            showOrderSuccessModal(pdfResult ? pdfResult.orderData : null);
+            return;
+        } else {
+            console.warn('FormSubmit returned non-success:', result);
+            throw new Error(result.message || 'Submission failed');
+        }
+    } catch (fetchErr) {
+        console.warn('AJAX submission failed, attempting native form submit fallback:', fetchErr);
+        form.action = 'https://formsubmit.co/lunarecho94@icloud.com';
         form.submit();
     }
 }
