@@ -184,7 +184,7 @@ function filterCatalog(brand, btn) {
     });
 }
 
-// Mobile Swipe Support for Product Cards
+// Mobile Swipe Support for Product Cards (Strictly horizontal intentional swipe)
 function initSwipeGalleries() {
     document.querySelectorAll('.product-card').forEach(card => {
         const wrapper = card.querySelector('.product-img-wrapper');
@@ -193,11 +193,13 @@ function initSwipeGalleries() {
 
         let startX = 0;
         let startY = 0;
+        let startTime = 0;
 
         wrapper.addEventListener('touchstart', (e) => {
             if (e.touches.length > 0) {
                 startX = e.touches[0].clientX;
                 startY = e.touches[0].clientY;
+                startTime = Date.now();
             }
         }, { passive: true });
 
@@ -207,9 +209,10 @@ function initSwipeGalleries() {
                 const endY = e.changedTouches[0].clientY;
                 const diffX = endX - startX;
                 const diffY = endY - startY;
+                const elapsedTime = Date.now() - startTime;
 
-                // Detect horizontal swipe
-                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                // Only trigger on fast, intentional horizontal swipe (prevents accidental triggers during vertical scroll)
+                if (elapsedTime < 450 && Math.abs(diffX) > 65 && Math.abs(diffX) > Math.abs(diffY) * 2.5) {
                     const currentActive = card.querySelector('.card-thumb-img.active') || thumbs[0];
                     let currentIndex = Array.from(thumbs).indexOf(currentActive);
 
