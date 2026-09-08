@@ -177,9 +177,9 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (27)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (28)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (6)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (6)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -187,6 +187,47 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 28 (NEW): New Balance 574 Dark Grey White 4414 (5 Photos) -->
+                <div class="product-card" id="prod-nb-574-grey" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА</span>
+                        <img src="images/nb_574_darkgrey_1.jpg" alt="New Balance 574 Dark Grey White" id="cardImg-nb-574-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb_574_darkgrey_1.jpg" alt="New Balance 574 Dark Grey White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-574-grey', 'images/nb_574_darkgrey_1.jpg')">
+                        <img src="images/nb_574_darkgrey_2.jpg" alt="New Balance 574 Dark Grey White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-grey', 'images/nb_574_darkgrey_2.jpg')">
+                        <img src="images/nb_574_darkgrey_3.jpg" alt="New Balance 574 Dark Grey White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-grey', 'images/nb_574_darkgrey_3.jpg')">
+                        <img src="images/nb_574_darkgrey_4.jpg" alt="New Balance 574 Dark Grey White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-grey', 'images/nb_574_darkgrey_4.jpg')">
+                        <img src="images/nb_574_darkgrey_5.jpg" alt="New Balance 574 Dark Grey White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-grey', 'images/nb_574_darkgrey_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 574 | АРТ: 4414 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">New Balance 574 Dark Grey White</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральний замш, текстиль, підошва пінка (ENCAP) • <b>Сезон:</b> Демісезон • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (24.5 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">2 320 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 574 Dark Grey White (2320 грн)', '2 320 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 27 (NEW): Adidas Sambae Platform Black White 4464 (5 Photos) -->
                 <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas">
                     <div class="product-img-wrapper">
@@ -1248,6 +1289,7 @@
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 574 Dark Grey White (2320 грн)">🔥👟 New Balance 574 Dark Grey White (Арт: 4414) — 2 320 грн [НОВИНКА]</option>
                             <option value="Adidas Sambae Platform Black White (1990 грн)">🔥👟 Adidas Sambae Platform Black White (Арт: 4464) — 1 990 грн [АКЦІЯ]</option>
                             <option value="Adidas Handball Spezial Grey Black (2140 грн)">🔥👟 Adidas Handball Spezial Grey Black (Арт: 3763) — 2 140 грн [НОВИНКА]</option>
                             <option value="Adidas Slip-On Dark Grey Black (1690 грн)">🔥👟 Adidas Slip-On Dark Grey Black (Арт: 3760) — 1 690 грн [НОВИНКА]</option>
