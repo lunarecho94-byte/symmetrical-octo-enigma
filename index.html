@@ -177,9 +177,9 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (28)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (29)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (7)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (8)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (6)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -187,6 +187,45 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 29 (NEW): New Balance 530 White Black 4354 (5 Photos) -->
+                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА</span>
+                        <img src="images/nb_530_whiteblack_1.jpg" alt="New Balance 530 White Black" id="cardImg-nb-530-whiteblack">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb_530_whiteblack_1.jpg" alt="New Balance 530 White Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-530-whiteblack', 'images/nb_530_whiteblack_1.jpg')">
+                        <img src="images/nb_530_whiteblack_2.jpg" alt="New Balance 530 White Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-whiteblack', 'images/nb_530_whiteblack_2.jpg')">
+                        <img src="images/nb_530_whiteblack_3.jpg" alt="New Balance 530 White Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-whiteblack', 'images/nb_530_whiteblack_3.jpg')">
+                        <img src="images/nb_530_whiteblack_4.jpg" alt="New Balance 530 White Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-whiteblack', 'images/nb_530_whiteblack_4.jpg')">
+                        <img src="images/nb_530_whiteblack_5.jpg" alt="New Balance 530 White Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-whiteblack', 'images/nb_530_whiteblack_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 530 | АРТ: 4354 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">New Balance 530 White Black</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Шкіра, дихаюча сітка, підошва пінка (Abzorb) • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (38-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">2 260 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 530 White Black (2260 грн)', '2 260 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 28 (NEW): New Balance 574 Dark Grey White 4414 (5 Photos) -->
                 <div class="product-card" id="prod-nb-574-grey" data-brand="nb">
                     <div class="product-img-wrapper">
@@ -1289,6 +1328,7 @@
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 530 White Black (2260 грн)">🔥👟 New Balance 530 White Black (Арт: 4354) — 2 260 грн [НОВИНКА]</option>
                             <option value="New Balance 574 Dark Grey White (2320 грн)">🔥👟 New Balance 574 Dark Grey White (Арт: 4414) — 2 320 грн [НОВИНКА]</option>
                             <option value="Adidas Sambae Platform Black White (1990 грн)">🔥👟 Adidas Sambae Platform Black White (Арт: 4464) — 1 990 грн [АКЦІЯ]</option>
                             <option value="Adidas Handball Spezial Grey Black (2140 грн)">🔥👟 Adidas Handball Spezial Grey Black (Арт: 3763) — 2 140 грн [НОВИНКА]</option>
