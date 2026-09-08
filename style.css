@@ -510,6 +510,23 @@ section, header, footer, .announcement-bar {
     z-index: 2;
 }
 
+.badge-new-arrival {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: linear-gradient(135deg, #ff3b60, #ff758c);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    z-index: 5;
+    box-shadow: 0 4px 12px rgba(255, 59, 96, 0.4);
+    pointer-events: none;
+}
+
 .hero-main-card img#mainGalleryImg {
     width: 100%;
     aspect-ratio: 4/3;
