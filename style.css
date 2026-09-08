@@ -399,10 +399,17 @@ section, header, footer, .announcement-bar {
     border-color: #cbd5e1;
 }
 
-/* Hero Section */
+/* Hero & Store Intro Section */
 .hero {
     padding: 50px 0;
     position: relative;
+}
+
+.store-intro {
+    padding: 70px 0;
+    background: #f8fafc;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .hero-grid {
@@ -426,9 +433,10 @@ section, header, footer, .announcement-bar {
     margin-bottom: 20px;
 }
 
-.hero-text h1 {
+.hero-text h1,
+.hero-text h2 {
     font-family: var(--font-heading);
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     font-weight: 900;
     line-height: 1.15;
     margin-bottom: 16px;
@@ -751,15 +759,16 @@ section, header, footer, .announcement-bar {
 
 /* Specs & Catalog */
 .catalog {
-    padding: 60px 0;
+    padding: 35px 0 60px;
 }
 
 .section-header {
     text-align: center;
     max-width: 650px;
-    margin: 0 auto 50px;
+    margin: 0 auto 40px;
 }
 
+.section-header h1,
 .section-header h2 {
     font-family: var(--font-heading);
     font-size: 2.2rem;
@@ -1570,11 +1579,13 @@ section, header, footer, .announcement-bar {
         box-sizing: border-box;
     }
 
-    .hero {
-        padding: 20px 0 35px;
+    .hero,
+    .store-intro {
+        padding: 35px 0 45px;
     }
 
-    .hero-text h1 {
+    .hero-text h1,
+    .hero-text h2 {
         font-size: clamp(1.6rem, 6.5vw, 2.2rem);
         letter-spacing: -0.5px;
         line-height: 1.2;
@@ -1662,13 +1673,14 @@ section, header, footer, .announcement-bar {
     }
 
     .catalog {
-        padding: 35px 0;
+        padding: 20px 0 35px;
     }
 
     .section-header {
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
+    .section-header h1,
     .section-header h2 {
         font-size: 1.55rem;
     }
