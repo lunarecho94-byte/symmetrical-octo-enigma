@@ -112,6 +112,8 @@ function updateFormPrice() {
         priceDisplay.textContent = '2 200 грн';
     } else if (val.includes('2140')) {
         priceDisplay.textContent = '2 140 грн';
+    } else if (val.includes('1990')) {
+        priceDisplay.textContent = '1 990 грн';
     } else if (val.includes('1690')) {
         priceDisplay.textContent = '1 690 грн';
     } else {

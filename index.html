@@ -177,16 +177,57 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (26)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (27)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (6)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (5)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (6)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
             </div>
 
             <div class="products-grid">
                 
+                <!-- Product Card 27 (NEW): Adidas Sambae Platform Black White 4464 (5 Photos) -->
+                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 АКЦІЯ • НОВИНКА</span>
+                        <img src="images/adidas_samba_platform_1.jpg" alt="Adidas Sambae Platform Black White" id="cardImg-adidas-samba-platform">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_samba_platform_1.jpg" alt="Adidas Sambae Platform Black White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-adidas-samba-platform', 'images/adidas_samba_platform_1.jpg')">
+                        <img src="images/adidas_samba_platform_2.jpg" alt="Adidas Sambae Platform Black White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-samba-platform', 'images/adidas_samba_platform_2.jpg')">
+                        <img src="images/adidas_samba_platform_3.jpg" alt="Adidas Sambae Platform Black White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-samba-platform', 'images/adidas_samba_platform_3.jpg')">
+                        <img src="images/adidas_samba_platform_4.jpg" alt="Adidas Sambae Platform Black White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-samba-platform', 'images/adidas_samba_platform_4.jpg')">
+                        <img src="images/adidas_samba_platform_5.jpg" alt="Adidas Sambae Platform Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-samba-platform', 'images/adidas_samba_platform_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS SAMBAE | АРТ: 4464 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">Adidas Sambae Platform Black White</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, стильна платформа з гумовою підошвою • ТОП якість (ЛІЦЕНЗІЯ) • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">1 990 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Adidas Sambae Platform Black White (1990 грн)', '1 990 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 26 (NEW): Adidas Handball Spezial Grey Black 3763 (5 Photos) -->
                 <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas">
                     <div class="product-img-wrapper">
@@ -1207,6 +1248,7 @@
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Adidas Sambae Platform Black White (1990 грн)">🔥👟 Adidas Sambae Platform Black White (Арт: 4464) — 1 990 грн [АКЦІЯ]</option>
                             <option value="Adidas Handball Spezial Grey Black (2140 грн)">🔥👟 Adidas Handball Spezial Grey Black (Арт: 3763) — 2 140 грн [НОВИНКА]</option>
                             <option value="Adidas Slip-On Dark Grey Black (1690 грн)">🔥👟 Adidas Slip-On Dark Grey Black (Арт: 3760) — 1 690 грн [НОВИНКА]</option>
                             <option value="Adidas Iniki Black White (2200 грн)">🔥👟 Adidas Iniki Black White (Арт: 4424) — 2 200 грн [НОВИНКА]</option>
