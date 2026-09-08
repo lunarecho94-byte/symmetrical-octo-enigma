@@ -536,6 +536,189 @@ section, header, footer, .announcement-bar {
     transition: var(--transition);
 }
 
+/* Store Overview Card (Hero presentation) */
+.store-overview-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.store-overview-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.overview-header {
+    text-align: left;
+}
+
+.overview-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.overview-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.25;
+}
+
+.brand-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.brand-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.brand-pill:hover {
+    border-color: var(--accent-cyan);
+    background: rgba(0, 242, 254, 0.08);
+}
+
+.store-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stat-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    text-align: left;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: var(--accent-cyan);
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.25;
+}
+
+.trust-notice-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(0, 242, 254, 0.05);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+}
+
+.trust-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.trust-text b {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    margin-bottom: 2px;
+}
+
+.trust-text p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+}
+
+.store-quick-contact {
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.store-quick-contact > span {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.quick-contact-btns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-contact-pill.telegram {
+    background: rgba(0, 136, 204, 0.15);
+    border: 1px solid rgba(0, 136, 204, 0.35);
+    color: #38bdf8;
+}
+
+.btn-contact-pill.viber {
+    background: rgba(115, 96, 242, 0.15);
+    border: 1px solid rgba(115, 96, 242, 0.35);
+    color: #a78bfa;
+}
+
+.btn-contact-pill.phone {
+    background: rgba(0, 230, 118, 0.15);
+    border: 1px solid rgba(0, 230, 118, 0.35);
+    color: #4ade80;
+}
+
+.btn-contact-pill:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+}
+
 .gallery-thumbnails {
     display: flex;
     gap: 10px;
@@ -1248,6 +1431,28 @@ section, header, footer, .announcement-bar {
     .hero-main-card {
         padding: 12px;
         border-radius: var(--radius-md);
+    }
+
+    .store-overview-card {
+        padding: 16px;
+        border-radius: var(--radius-md);
+        gap: 14px;
+    }
+
+    .overview-title {
+        font-size: 1.15rem;
+    }
+
+    .store-stats-grid {
+        gap: 8px;
+    }
+
+    .stat-box {
+        padding: 10px 12px;
+    }
+
+    .stat-number {
+        font-size: 1.25rem;
     }
 
     .gallery-thumbnails {
