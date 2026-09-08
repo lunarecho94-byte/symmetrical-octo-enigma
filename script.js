@@ -88,6 +88,8 @@ function updateFormPrice() {
     const val = select.value;
     if (val.includes('2850')) {
         priceDisplay.textContent = '2 850 грн';
+    } else if (val.includes('2800')) {
+        priceDisplay.textContent = '2 800 грн';
     } else if (val.includes('2750')) {
         priceDisplay.textContent = '2 750 грн';
     } else if (val.includes('2670')) {
