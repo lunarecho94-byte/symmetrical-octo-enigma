@@ -111,6 +111,30 @@ function updateFormPrice() {
     }
 }
 
+// Payment Method Switcher (COD vs Prepayment)
+function handlePaymentChange(input) {
+    document.querySelectorAll('.payment-card').forEach(card => card.classList.remove('active'));
+    const parent = input.closest('.payment-card');
+    if (parent) parent.classList.add('active');
+
+    const submitBtn = document.getElementById('submitOrderBtn');
+    const summaryLabel = document.getElementById('orderSummaryLabel');
+    const paymentSubtext = document.getElementById('orderPaymentSubtext');
+    const securityNote = document.getElementById('formSecurityNote');
+
+    if (input.value.includes('Передплата') || input.value.includes('передплата')) {
+        if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (ОПЛАТА НА КАРТКУ)';
+        if (summaryLabel) summaryLabel.textContent = 'Разом до сплати (передплата):';
+        if (paymentSubtext) paymentSubtext.textContent = 'Економія на комісії Нової Пошти (без переплат за переказ)';
+        if (securityNote) securityNote.innerHTML = '💳 <b>Передплата:</b> реквізити для оплати надішле менеджер після підтвердження замовлення.';
+    } else {
+        if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
+        if (summaryLabel) summaryLabel.textContent = 'Разом до сплати при отриманні:';
+        if (paymentSubtext) paymentSubtext.textContent = 'Огляд та примірка перед оплатою на Новій Пошті';
+        if (securityNote) securityNote.innerHTML = '🔒 <b>Накладений платіж:</b> без обов\'язкової передплати, оплата після огляду та примірки.';
+    }
+}
+
 // Size Calculator Modal
 function openSizeGuideModal() {
     const modal = document.getElementById('sizeModal');

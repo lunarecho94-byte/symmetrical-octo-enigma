@@ -59,15 +59,15 @@
                     <b>URBAN GRID</b> — це стильне, сучасне та зручне взуття від провідних світових брендів: <b>Nike, New Balance, Puma, Adidas та Vans</b>. У нашому каталозі зібрані найпопулярніші та найсвіжіші моделі сезону.
                 </p>
                 <p class="hero-desc" style="margin-top: -10px;">
-                    Тільки перевірена фабрична якість (В'єтнам), натуральні матеріали та відправка <b>без жодних обов'язкових передплат</b> — оглядайте та міряйте кросівки при отриманні на Новій Пошті!
+                    Тільки перевірена фабрична якість (В'єтнам), натуральні матеріали та зручна оплата: <b>накладений платіж при отриманні на пошті або передплата на картку</b>.
                 </p>
 
                 <div class="hero-features-list">
                     <div class="feature-item">
                         <div class="feature-icon">📦</div>
                         <div>
-                            <b>Накладений платіж Нова Пошта</b>
-                            <span>Без ризиків! Оглядайте та міряйте пару прямо у відділенні</span>
+                            <b>Оплата: Накладений платіж або Передплата</b>
+                            <span>Оглядайте та міряйте на Новій Пошті або сплачуйте на картку без комісій</span>
                         </div>
                     </div>
                     <div class="feature-item">
@@ -121,8 +121,8 @@
                             <span class="stat-label">Моделей у наявності</span>
                         </div>
                         <div class="stat-box">
-                            <span class="stat-number">0 грн</span>
-                            <span class="stat-label">Обов'язкової передплати</span>
+                            <span class="stat-number">Наложка / IBAN</span>
+                            <span class="stat-label">Оплата на пошті або картку</span>
                         </div>
                         <div class="stat-box">
                             <span class="stat-number">1-2 дні</span>
@@ -1135,17 +1135,50 @@
                         </div>
                     </div>
 
+                    <!-- Payment Method Selector -->
+                    <div class="form-group payment-method-group">
+                        <label>Оберіть спосіб оплати:</label>
+                        <div class="payment-options-grid">
+                            <label class="payment-card active" id="payCardNalozhka">
+                                <input type="radio" name="Спосіб оплати" value="Накладений платіж (при отриманні на пошті)" checked onchange="handlePaymentChange(this)">
+                                <div class="payment-card-content">
+                                    <div class="payment-card-header">
+                                        <span class="payment-icon">📦</span>
+                                        <span class="payment-title">Накладений платіж</span>
+                                        <span class="payment-badge-rec">Популярно</span>
+                                    </div>
+                                    <p class="payment-desc">Оплата при отриманні та огляді у відділенні Нової Пошти (готівкою або карткою).</p>
+                                </div>
+                            </label>
+
+                            <label class="payment-card" id="payCardPredoplata">
+                                <input type="radio" name="Спосіб оплати" value="Повна передплата (на картку / IBAN)" onchange="handlePaymentChange(this)">
+                                <div class="payment-card-content">
+                                    <div class="payment-card-header">
+                                        <span class="payment-icon">💳</span>
+                                        <span class="payment-title">Передплата на картку</span>
+                                        <span class="payment-badge-save">Без комісії</span>
+                                    </div>
+                                    <p class="payment-desc">Економія на комісії Нової Пошти (20 грн + 2%). Реквізити надішле менеджер після підтвердження.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="order-summary-box">
-                        <span>Разом до сплати при отриманні:</span>
+                        <div class="summary-text-block">
+                            <span id="orderSummaryLabel">Разом до сплати при отриманні:</span>
+                            <small id="orderPaymentSubtext">Огляд та примірка перед оплатою на Новій Пошті</small>
+                        </div>
                         <b id="finalOrderPrice">2 670 грн</b>
                     </div>
 
-                    <button type="submit" class="btn-primary btn-submit btn-glow">
-                        ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (ОПЛАТА НА ПОШТІ)
+                    <button type="submit" id="submitOrderBtn" class="btn-primary btn-submit btn-glow">
+                        ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)
                     </button>
 
-                    <p class="form-security-note">
-                        🔒 Накладений платіж без передплати. Огляд та примірка у відділенні Нової Пошти.
+                    <p id="formSecurityNote" class="form-security-note">
+                        🔒 Накладений платіж без обов'язкової передплати. Огляд та примірка у відділенні Нової Пошти.
                     </p>
                 </form>
             </div>
