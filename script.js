@@ -170,7 +170,80 @@ function checkOrderSuccess() {
     }
 }
 
+// Category Filtering
+function filterCatalog(brand, btn) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+        if (brand === 'all' || card.dataset.brand === brand) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// Mobile Swipe Support for Product Cards
+function initSwipeGalleries() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const wrapper = card.querySelector('.product-img-wrapper');
+        const thumbs = card.querySelectorAll('.card-thumb-img');
+        if (!wrapper || thumbs.length <= 1) return;
+
+        let startX = 0;
+        let startY = 0;
+
+        wrapper.addEventListener('touchstart', (e) => {
+            if (e.touches.length > 0) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        wrapper.addEventListener('touchend', (e) => {
+            if (e.changedTouches.length > 0) {
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                const diffX = endX - startX;
+                const diffY = endY - startY;
+
+                // Detect horizontal swipe
+                if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                    const currentActive = card.querySelector('.card-thumb-img.active') || thumbs[0];
+                    let currentIndex = Array.from(thumbs).indexOf(currentActive);
+
+                    if (diffX < 0) {
+                        // Swipe Left -> Next
+                        currentIndex = (currentIndex + 1) % thumbs.length;
+                    } else {
+                        // Swipe Right -> Prev
+                        currentIndex = (currentIndex - 1 + thumbs.length) % thumbs.length;
+                    }
+                    thumbs[currentIndex].click();
+                }
+            }
+        }, { passive: true });
+    });
+}
+
+// Scroll to Top Floating Button
+function initScrollTop() {
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (scrollBtn) {
+            if (window.scrollY > 450) {
+                scrollBtn.style.display = 'inline-flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        }
+    }, { passive: true });
+}
+
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     checkOrderSuccess();
+    initSwipeGalleries();
+    initScrollTop();
 });
