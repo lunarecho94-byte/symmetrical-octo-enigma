@@ -1,12 +1,12 @@
 :root {
-    --bg-main: #0c0e14;
-    --bg-card: #151822;
-    --bg-card-hover: #1c202e;
-    --accent-cyan: #00f2fe;
-    --accent-blue: #4facfe;
-    --accent-pink: #ff3b60;
+    --bg-main: #0a0b10;
+    --bg-card: #13151f;
+    --bg-card-hover: #191c28;
+    --accent-cyan: #ff6b35;
+    --accent-blue: #ff3366;
+    --accent-pink: #ff2d55;
     --accent-green: #00e676;
-    --text-main: #f1f5f9;
+    --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --border-color: rgba(255, 255, 255, 0.08);
     --font-heading: 'Outfit', sans-serif;
@@ -58,7 +58,7 @@ section, header, footer, .announcement-bar {
 
 /* Announcement Bar */
 .announcement-bar {
-    background: linear-gradient(90deg, #1f102c, #101c38, #2a0b18);
+    background: linear-gradient(90deg, #1f0c16, #241113, #2a140d);
     border-bottom: 1px solid var(--border-color);
     padding: 10px 0;
     font-size: 0.9rem;
@@ -73,7 +73,7 @@ section, header, footer, .announcement-bar {
 }
 
 .announcement-content mark {
-    background: rgba(0, 242, 254, 0.2);
+    background: rgba(255, 107, 53, 0.2);
     color: var(--accent-cyan);
     padding: 2px 6px;
     border-radius: 4px;
@@ -142,7 +142,7 @@ section, header, footer, .announcement-bar {
 
 .logo-tag {
     font-size: 0.7rem;
-    background: rgba(0, 242, 254, 0.15);
+    background: rgba(255, 107, 53, 0.15);
     color: var(--accent-cyan);
     padding: 2px 6px;
     border-radius: 4px;
@@ -241,16 +241,16 @@ section, header, footer, .announcement-bar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 242, 254, 0.08);
+    background: rgba(255, 107, 53, 0.08);
     border-radius: var(--radius-sm);
-    border: 1px solid rgba(0, 242, 254, 0.25);
+    border: 1px solid rgba(255, 107, 53, 0.25);
     transition: var(--transition);
     white-space: nowrap;
     box-sizing: border-box;
 }
 
 .header-phone:hover {
-    background: rgba(0, 242, 254, 0.2);
+    background: rgba(255, 107, 53, 0.2);
     border-color: var(--accent-cyan);
     color: #fff;
 }
@@ -294,7 +294,8 @@ section, header, footer, .announcement-bar {
 /* Buttons */
 .btn-primary {
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-    color: #000;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     font-weight: 800;
     font-family: var(--font-heading);
     padding: 16px 32px;
@@ -311,12 +312,13 @@ section, header, footer, .announcement-bar {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 242, 254, 0.4);
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
 }
 
 .btn-primary-sm {
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-    color: #000;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     font-weight: 800;
     font-family: var(--font-heading);
     padding: 0 16px;
@@ -335,11 +337,11 @@ section, header, footer, .announcement-bar {
 
 .btn-primary-sm:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .btn-glow {
-    box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
 }
 
 .btn-outline {
@@ -375,9 +377,9 @@ section, header, footer, .announcement-bar {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(0, 242, 254, 0.15);
+    background: rgba(255, 107, 53, 0.15);
     color: var(--accent-cyan);
-    border: 1px solid rgba(0, 242, 254, 0.3);
+    border: 1px solid rgba(255, 107, 53, 0.3);
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -557,7 +559,7 @@ section, header, footer, .announcement-bar {
     right: -50px;
     width: 180px;
     height: 180px;
-    background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.12) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -601,7 +603,7 @@ section, header, footer, .announcement-bar {
 
 .brand-pill:hover {
     border-color: var(--accent-cyan);
-    background: rgba(0, 242, 254, 0.08);
+    background: rgba(255, 107, 53, 0.08);
 }
 
 .store-stats-grid {
@@ -639,8 +641,8 @@ section, header, footer, .announcement-bar {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: rgba(0, 242, 254, 0.05);
-    border: 1px solid rgba(0, 242, 254, 0.2);
+    background: rgba(255, 107, 53, 0.05);
+    border: 1px solid rgba(255, 107, 53, 0.2);
     border-radius: var(--radius-sm);
     padding: 14px;
 }
@@ -815,10 +817,10 @@ section, header, footer, .announcement-bar {
 
 .filter-chip:hover,
 .filter-chip.active {
-    background: rgba(0, 242, 254, 0.15);
+    background: rgba(255, 107, 53, 0.15);
     border-color: var(--accent-cyan);
     color: #fff;
-    box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);
+    box-shadow: 0 0 14px rgba(255, 107, 53, 0.3);
     transform: translateY(-1px);
 }
 
@@ -841,9 +843,9 @@ section, header, footer, .announcement-bar {
 }
 
 .product-card:hover {
-    border-color: rgba(0, 242, 254, 0.4);
+    border-color: rgba(255, 107, 53, 0.4);
     transform: translateY(-4px);
-    box-shadow: 0 15px 35px rgba(0, 242, 254, 0.15);
+    box-shadow: 0 15px 35px rgba(255, 107, 53, 0.15);
 }
 
 .product-img-wrapper {
@@ -931,9 +933,9 @@ section, header, footer, .announcement-bar {
 
 .scroll-top-btn:hover {
     background: var(--accent-cyan);
-    color: #000;
+    color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
 .product-details {
@@ -988,10 +990,10 @@ section, header, footer, .announcement-bar {
 
 .size-btn:hover, .size-btn.active {
     background: var(--accent-cyan);
-    color: #000;
+    color: #fff;
     font-weight: 800;
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    box-shadow: 0 0 12px rgba(255, 107, 53, 0.4);
 }
 
 .price-container {
@@ -1004,7 +1006,8 @@ section, header, footer, .announcement-bar {
 
 .btn-buy {
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-    color: #000;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     font-weight: 800;
     border: none;
     padding: 12px 28px;
@@ -1078,7 +1081,7 @@ section, header, footer, .announcement-bar {
 
 .form-input:focus {
     border-color: var(--accent-cyan);
-    box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 12px rgba(255, 107, 53, 0.2);
 }
 
 .form-row {
@@ -1114,14 +1117,14 @@ section, header, footer, .announcement-bar {
 }
 
 .payment-card:hover {
-    border-color: rgba(0, 242, 254, 0.4);
-    background: rgba(0, 242, 254, 0.03);
+    border-color: rgba(255, 107, 53, 0.4);
+    background: rgba(255, 107, 53, 0.03);
 }
 
 .payment-card.active {
     border-color: var(--accent-cyan);
-    background: rgba(0, 242, 254, 0.08);
-    box-shadow: 0 0 16px rgba(0, 242, 254, 0.15);
+    background: rgba(255, 107, 53, 0.08);
+    box-shadow: 0 0 16px rgba(255, 107, 53, 0.15);
 }
 
 .payment-card input[type="radio"] {
@@ -1159,9 +1162,9 @@ section, header, footer, .announcement-bar {
 }
 
 .payment-badge-rec {
-    background: rgba(0, 242, 254, 0.18);
+    background: rgba(255, 107, 53, 0.18);
     color: var(--accent-cyan);
-    border: 1px solid rgba(0, 242, 254, 0.35);
+    border: 1px solid rgba(255, 107, 53, 0.35);
     font-size: 0.65rem;
     font-weight: 800;
     padding: 2px 7px;
@@ -1190,7 +1193,7 @@ section, header, footer, .announcement-bar {
 }
 
 .order-summary-box {
-    background: rgba(0, 242, 254, 0.05);
+    background: rgba(255, 107, 53, 0.05);
     border: 1px dashed var(--accent-cyan);
     padding: 16px 20px;
     border-radius: var(--radius-sm);
@@ -1325,7 +1328,7 @@ section, header, footer, .announcement-bar {
 }
 
 .calc-result {
-    background: rgba(0, 242, 254, 0.1);
+    background: rgba(255, 107, 53, 0.1);
     border: 1px solid var(--accent-cyan);
     padding: 16px;
     border-radius: var(--radius-sm);
@@ -1795,11 +1798,12 @@ section, header, footer, .announcement-bar {
 
     .mobile-sticky-btn.order-now {
         background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-        color: #000;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         flex: 1.4;
         font-weight: 800;
         font-size: 0.92rem;
-        box-shadow: 0 0 14px rgba(0, 242, 254, 0.35);
+        box-shadow: 0 0 14px rgba(255, 107, 53, 0.35);
     }
 
     .mobile-sticky-btn span {
