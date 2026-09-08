@@ -62,20 +62,317 @@ function selectSize(btnElement, sizeValue) {
     }
 }
 
-// Select specific model in order form
-function selectModelInForm(modelVal, priceStr) {
+// ==========================================
+// URBAN GRID SHOPPING CART SYSTEM
+// ==========================================
+
+const CART_STORAGE_KEY = 'urbangrid_cart_v1';
+
+// Get Cart from localStorage
+function getCart() {
+    try {
+        const data = localStorage.getItem(CART_STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+// Save Cart to localStorage and update UI
+function saveCart(cart) {
+    try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (e) {}
+    renderCart();
+}
+
+// Show animated Toast Notification
+function showCartToast(msg) {
+    let toast = document.getElementById('cartToast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    if (window._cartToastTimeout) clearTimeout(window._cartToastTimeout);
+    window._cartToastTimeout = setTimeout(() => {
+        toast.classList.remove('visible');
+    }, 2800);
+}
+
+// Add Item to Cart
+function addToCart(item) {
+    const cart = getCart();
+    const existingIndex = cart.findIndex(i => i.id === item.id);
+    if (existingIndex > -1) {
+        cart[existingIndex].qty += (item.qty || 1);
+    } else {
+        cart.push(item);
+    }
+    saveCart(cart);
+    showCartToast(`✅ "${item.title}" (${item.size}) додано в кошик!`);
+    openCart();
+}
+
+// Update Item Quantity in Cart
+function updateCartQty(id, delta) {
+    let cart = getCart();
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+
+    item.qty += delta;
+    if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== id);
+        showCartToast(`🗑️ Товар видалено з кошика`);
+    }
+    saveCart(cart);
+}
+
+// Remove Item from Cart
+function removeFromCart(id) {
+    let cart = getCart();
+    cart = cart.filter(i => i.id !== id);
+    saveCart(cart);
+    showCartToast(`🗑️ Товар видалено з кошика`);
+}
+
+// Clear Entire Cart
+function clearCart() {
+    try {
+        localStorage.removeItem(CART_STORAGE_KEY);
+    } catch (e) {}
+    renderCart();
+}
+
+// Open Cart Drawer
+function openCart() {
+    const drawer = document.getElementById('cartDrawer');
+    const overlay = document.getElementById('cartDrawerOverlay');
+    if (drawer) drawer.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+    document.body.classList.add('cart-open');
+}
+
+// Close Cart Drawer
+function closeCart() {
+    const drawer = document.getElementById('cartDrawer');
+    const overlay = document.getElementById('cartDrawerOverlay');
+    if (drawer) drawer.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+    document.body.classList.remove('cart-open');
+}
+
+// Toggle Cart Drawer
+function toggleCart() {
+    const drawer = document.getElementById('cartDrawer');
+    if (drawer && drawer.classList.contains('active')) {
+        closeCart();
+    } else {
+        openCart();
+    }
+}
+
+// Render Cart UI (Drawer, Badges, Checkout Summary)
+function renderCart() {
+    const cart = getCart();
+    const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    // Update Badges
+    const badgeEls = document.querySelectorAll('.cart-badge');
+    badgeEls.forEach(badge => {
+        badge.textContent = totalCount;
+        if (totalCount > 0) {
+            badge.classList.add('has-items');
+        } else {
+            badge.classList.remove('has-items');
+        }
+    });
+
+    const drawerCountEl = document.getElementById('cartDrawerTotalCount');
+    if (drawerCountEl) drawerCountEl.textContent = totalCount;
+
+    const drawerPriceEl = document.getElementById('cartDrawerTotalPrice');
+    if (drawerPriceEl) {
+        drawerPriceEl.textContent = totalPrice.toLocaleString('uk-UA') + ' грн';
+    }
+
+    // Render Drawer Items
+    const drawerBody = document.getElementById('cartDrawerBody');
+    const drawerFooter = document.getElementById('cartDrawerFooter');
+
+    if (drawerBody) {
+        if (cart.length === 0) {
+            drawerBody.innerHTML = `
+                <div class="cart-empty-state">
+                    <div class="cart-empty-icon">🛒</div>
+                    <h4>Ваш кошик порожній</h4>
+                    <p>Перегляньте наш каталог трендових кросівок та оберіть свою пару!</p>
+                    <a href="#catalog" class="btn-primary-sm btn-go-catalog" onclick="closeCart()">
+                        Перейти до каталогу
+                    </a>
+                </div>
+            `;
+            if (drawerFooter) drawerFooter.style.display = 'none';
+        } else {
+            if (drawerFooter) drawerFooter.style.display = 'block';
+            let html = '<div class="cart-items-list">';
+            cart.forEach(item => {
+                const itemTotal = (item.price * item.qty).toLocaleString('uk-UA');
+                html += `
+                    <div class="cart-item" data-id="${item.id}">
+                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" onerror="this.src='images/nike_court_legacy_lift_1.jpg'">
+                        <div class="cart-item-info">
+                            <h4 class="cart-item-title">${item.title}</h4>
+                            <div class="cart-item-meta">
+                                <span class="cart-item-size">Розмір: <b>${item.size}</b></span>
+                            </div>
+                            <div class="cart-item-price-row">
+                                <span class="cart-item-price">${itemTotal} грн</span>
+                                <div class="cart-qty-ctrls">
+                                    <button type="button" class="cart-qty-btn minus" onclick="updateCartQty('${item.id}', -1)" aria-label="Зменшити">−</button>
+                                    <span class="cart-qty-val">${item.qty}</span>
+                                    <button type="button" class="cart-qty-btn plus" onclick="updateCartQty('${item.id}', 1)" aria-label="Збільшити">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="cart-item-remove" onclick="removeFromCart('${item.id}')" aria-label="Видалити">✕</button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            drawerBody.innerHTML = html;
+        }
+    }
+
+    // Sync Checkout Form
+    syncCartWithForm();
+}
+
+// Synchronize Cart Data into Checkout Form
+function syncCartWithForm() {
+    const cart = getCart();
+    const summaryBox = document.getElementById('cartOrderSummaryBox');
+    const summaryList = document.getElementById('cartOrderSummaryList');
+    const hiddenDetails = document.getElementById('cartOrderDetails');
+    const hiddenTotal = document.getElementById('cartTotalSum');
+    const finalPriceDisplay = document.getElementById('finalOrderPrice');
+
+    if (cart.length > 0) {
+        const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        const formattedTotal = totalPrice.toLocaleString('uk-UA') + ' грн';
+
+        if (summaryBox) summaryBox.style.display = 'block';
+        if (summaryList) {
+            let listHtml = '';
+            cart.forEach((item, idx) => {
+                listHtml += `
+                    <div class="cart-summary-line-item">
+                        <img src="${item.img}" alt="${item.title}" class="cart-summary-item-img">
+                        <div class="cart-summary-item-text">
+                            <b>${idx + 1}. ${item.title}</b>
+                            <span>Розмір: <b>${item.size}</b> | К-сть: <b>${item.qty} шт.</b> — ${(item.price * item.qty).toLocaleString('uk-UA')} грн</span>
+                        </div>
+                    </div>
+                `;
+            });
+            summaryList.innerHTML = listHtml;
+        }
+
+        // Formatted plain text for email in FormSubmit
+        if (hiddenDetails) {
+            let text = `Кількість позицій у кошику: ${totalCount}\n`;
+            cart.forEach((item, idx) => {
+                text += `${idx + 1}. ${item.title} | Розмір: ${item.size} | Кількість: ${item.qty} шт. | Вартість: ${(item.price * item.qty)} грн\n`;
+            });
+            text += `ЗАГАЛЬНА СУМА: ${formattedTotal}`;
+            hiddenDetails.value = text;
+        }
+
+        if (hiddenTotal) {
+            hiddenTotal.value = formattedTotal;
+        }
+
+        if (finalPriceDisplay) {
+            finalPriceDisplay.textContent = formattedTotal;
+        }
+    } else {
+        if (summaryBox) summaryBox.style.display = 'none';
+        if (hiddenDetails) hiddenDetails.value = '';
+        if (hiddenTotal) hiddenTotal.value = '';
+        updateFormPrice();
+    }
+}
+
+// Proceed to Checkout from Cart Drawer
+function proceedToCheckoutFromCart() {
+    closeCart();
+    const orderSection = document.getElementById('order-form');
+    if (orderSection) {
+        orderSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    setTimeout(() => {
+        const nameInput = document.getElementById('fullName');
+        if (nameInput) nameInput.focus();
+    }, 450);
+}
+
+// Select specific model and add to cart from product cards
+function selectModelInForm(modelVal, priceStr, evt) {
+    const event = evt || window.event;
+    if (event && event.preventDefault) {
+        event.preventDefault();
+    }
+
+    const clickedEl = event ? event.target : null;
+    const card = clickedEl ? clickedEl.closest('.product-card') : null;
+
+    let selectedSizeVal = '38 (24 см)';
+    let imgUrl = 'images/nike_court_legacy_lift_1.jpg';
+    let cleanTitle = modelVal.replace(/\s*\(\d+\s*грн\)$/i, '').trim();
+
+    if (card) {
+        const activeSizeBtn = card.querySelector('.size-btn.active');
+        if (activeSizeBtn) {
+            const onclickAttr = activeSizeBtn.getAttribute('onclick') || '';
+            const match = onclickAttr.match(/selectSize\(this,\s*['"]([^'"]+)['"]\)/);
+            selectedSizeVal = match ? match[1] : activeSizeBtn.textContent.trim();
+        }
+        const img = card.querySelector('.product-img-wrapper img');
+        if (img) {
+            imgUrl = img.getAttribute('src') || img.src;
+        }
+        const titleEl = card.querySelector('.product-title');
+        if (titleEl && titleEl.textContent.trim()) {
+            cleanTitle = titleEl.textContent.trim();
+        }
+    }
+
+    const numericPrice = parseInt(priceStr.replace(/\D/g, ''), 10) || 0;
+
+    // Add to cart
+    addToCart({
+        id: cleanTitle + '___' + selectedSizeVal,
+        title: cleanTitle,
+        size: selectedSizeVal,
+        price: numericPrice,
+        priceFormatted: priceStr,
+        img: imgUrl,
+        qty: 1
+    });
+
+    // Also update single-product select in form for backup
     const select = document.getElementById('productSelect');
     if (select) {
         for (let i = 0; i < select.options.length; i++) {
-            if (select.options[i].value.includes(modelVal) || select.options[i].text.includes(modelVal)) {
+            if (select.options[i].value.includes(modelVal) || select.options[i].text.includes(cleanTitle)) {
                 select.selectedIndex = i;
                 break;
             }
         }
     }
-    const priceDisplay = document.getElementById('finalOrderPrice');
-    if (priceDisplay && priceStr) {
-        priceDisplay.textContent = priceStr;
+    const sizeInput = document.getElementById('selectedSize');
+    if (sizeInput) {
+        sizeInput.value = selectedSizeVal;
     }
 }
 
@@ -206,6 +503,7 @@ function submitOrder(e) {
 function checkOrderSuccess() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('ordered') === '1') {
+        clearCart();
         alert('🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ!\n\nВаші дані успішно передані менеджеру на пошту (lunarecho94@icloud.com).\nМи зателефонуємо вам протягом 10 хвилин для підтвердження відправки Новою Поштою!');
     }
 }
@@ -287,6 +585,23 @@ function initScrollTop() {
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     checkOrderSuccess();
+    renderCart();
     initSwipeGalleries();
     initScrollTop();
+
+    // Close Cart on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeCart();
+            closeSizeGuideModal();
+        }
+    });
+
+    // Sync Cart on Form Submit
+    const form = document.getElementById('checkoutForm');
+    if (form) {
+        form.addEventListener('submit', () => {
+            syncCartWithForm();
+        });
+    }
 });
