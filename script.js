@@ -110,6 +110,26 @@ function addToCart(item) {
     saveCart(cart);
     showCartToast(`✅ "${item.title}" (${item.size}) додано в кошик!`);
     openCart();
+
+    // Ad Conversion Tracking (Meta Pixel & GA4)
+    if (window.fbq) {
+        try {
+            fbq('track', 'AddToCart', {
+                content_name: item.title,
+                value: item.price,
+                currency: 'UAH'
+            });
+        } catch (e) {}
+    }
+    if (window.gtag) {
+        try {
+            gtag('event', 'add_to_cart', {
+                currency: 'UAH',
+                value: item.price,
+                items: [{ item_name: item.title, price: item.price, quantity: item.qty || 1 }]
+            });
+        } catch (e) {}
+    }
 }
 
 // Update Item Quantity in Cart
@@ -720,6 +740,27 @@ async function handleCheckoutFormSubmit(e) {
         const result = await response.json();
 
         if (result.success === 'true' || result.success === true) {
+            // Ad Conversion Tracking (Meta Pixel & GA4)
+            const orderTotalNum = parseInt((document.getElementById('pdfGrandTotalSum')?.textContent || '2500').replace(/\D/g, ''), 10) || 2500;
+            if (window.fbq) {
+                try {
+                    fbq('track', 'Purchase', {
+                        value: orderTotalNum,
+                        currency: 'UAH',
+                        content_type: 'product'
+                    });
+                } catch (e) {}
+            }
+            if (window.gtag) {
+                try {
+                    gtag('event', 'purchase', {
+                        transaction_id: orderId,
+                        value: orderTotalNum,
+                        currency: 'UAH'
+                    });
+                } catch (e) {}
+            }
+
             clearCart();
             isSubmittingOrder = false;
             if (submitBtn) {
