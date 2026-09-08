@@ -1091,7 +1091,7 @@ section, header, footer, .announcement-bar {
 /* Mobile Phones (max-width: 768px) */
 @media (max-width: 768px) {
     body {
-        padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
         touch-action: pan-y;
     }
 
@@ -1406,6 +1406,7 @@ section, header, footer, .announcement-bar {
         padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
         gap: 8px;
         align-items: center;
+        justify-content: space-between;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
     }
 
@@ -1413,39 +1414,50 @@ section, header, footer, .announcement-bar {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 5px;
-        padding: 10px 8px;
+        text-align: center;
+        gap: 6px;
+        padding: 0 10px;
         border-radius: var(--radius-sm);
         text-decoration: none;
         font-weight: 700;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
+        height: 44px;
+        line-height: 1;
+        white-space: nowrap;
         transition: var(--transition);
-        min-height: 44px;
+        box-sizing: border-box;
     }
 
     .mobile-sticky-btn.telegram {
         background: rgba(0, 136, 204, 0.25);
         color: #2babee;
         border: 1px solid rgba(0, 136, 204, 0.5);
-        flex: 0 0 auto;
-        padding: 10px 12px;
+        flex: 1;
     }
 
     .mobile-sticky-btn.viber {
         background: rgba(123, 81, 157, 0.25);
         color: #c084fc;
         border: 1px solid rgba(123, 81, 157, 0.5);
-        flex: 0 0 auto;
-        padding: 10px 12px;
+        flex: 1;
     }
 
     .mobile-sticky-btn.order-now {
         background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
         color: #000;
-        flex: 1;
+        flex: 1.4;
         font-weight: 800;
-        font-size: 0.88rem;
+        font-size: 0.92rem;
         box-shadow: 0 0 14px rgba(0, 242, 254, 0.35);
+    }
+
+    .mobile-sticky-btn span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1;
+        white-space: nowrap;
     }
 }
 
@@ -1465,8 +1477,19 @@ section, header, footer, .announcement-bar {
         padding: 0 6px;
     }
 
+    .mobile-sticky-btn {
+        padding: 0 6px;
+        font-size: 0.78rem;
+        gap: 4px;
+    }
+
+    .mobile-sticky-btn svg {
+        width: 15px;
+        height: 15px;
+    }
+
     .mobile-sticky-btn span {
-        font-size: 0.75rem;
+        font-size: 0.78rem;
     }
 }
 
