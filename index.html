@@ -120,9 +120,9 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (21)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (22)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (5)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (6)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (2)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (2)</button>
                 </div>
@@ -130,7 +130,48 @@
 
             <div class="products-grid">
                 
-                <!-- Product Card 21 (NEW): Nike Dunk Low Dusty Pink / Puma Suede XL S1405 (5 Photos) -->
+                <!-- Product Card 22 (NEW): New Balance 530 White/Silver S1325 (5 Photos) -->
+                <div class="product-card" id="prod-nb-530-silver" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА</span>
+                        <img src="images/nb_530_silver_1.jpg" alt="New Balance 530 White/Silver" id="cardImg-nb-530-silver">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb_530_silver_1.jpg" alt="New Balance 530 Silver 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-530-silver', 'images/nb_530_silver_1.jpg')">
+                        <img src="images/nb_530_silver_2.jpg" alt="New Balance 530 Silver 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-silver', 'images/nb_530_silver_2.jpg')">
+                        <img src="images/nb_530_silver_3.jpg" alt="New Balance 530 Silver 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-silver', 'images/nb_530_silver_3.jpg')">
+                        <img src="images/nb_530_silver_4.jpg" alt="New Balance 530 Silver 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-silver', 'images/nb_530_silver_4.jpg')">
+                        <img src="images/nb_530_silver_5.jpg" alt="New Balance 530 Silver 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-silver', 'images/nb_530_silver_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 530 | АРТ: S1325</div>
+                        <h3 class="product-title">New Balance 530 White/Silver</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Текстиль, дихаюча сітка • <b>Виробник:</b> В'єтнам • Фірмова коробка.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">2 350 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 530 White/Silver (2350 грн)', '2 350 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 21: Nike Dunk Low Dusty Pink / Puma Suede XL S1405 (5 Photos) -->
                 <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
@@ -950,6 +991,7 @@
                     <div class="form-group">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 530 White/Silver (2350 грн)">🔥👟 New Balance 530 White/Silver (Арт: S1325) — 2 350 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Dusty Pink (2600 грн)">🔥🌸 Nike Dunk Low Dusty Pink (Арт: S1405) — 2 600 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Sail Beige (2800 грн)">🔥💖 Nike Dunk Low Sail Beige / Puma Suede XL (Арт: S1469) — 2 800 грн [НОВИНКА]</option>
                             <option value="Nike Court Legacy Lift Premium (2670 грн)" selected>✨ Nike Court Legacy Lift Premium (Код: N00152) — 2 670 грн</option>
