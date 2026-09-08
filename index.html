@@ -120,8 +120,8 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (20)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (11)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (21)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (5)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (2)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (2)</button>
@@ -886,6 +886,45 @@
                     </div>
                 </div>
 
+                <!-- Product Card 21: Nike Dunk Low Dusty Pink / Puma Suede XL S1405 (5 Photos) -->
+                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <img src="images/nike_dunk_pink_1.jpg" alt="Nike Dunk Low Dusty Pink / Puma Suede XL" id="cardImg-nike-dunk-pink">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_dunk_pink_1.jpg" alt="Nike Dunk Pink 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink', 'images/nike_dunk_pink_1.jpg')">
+                        <img src="images/nike_dunk_pink_2.jpg" alt="Nike Dunk Pink 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink', 'images/nike_dunk_pink_2.jpg')">
+                        <img src="images/nike_dunk_pink_3.jpg" alt="Nike Dunk Pink 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink', 'images/nike_dunk_pink_3.jpg')">
+                        <img src="images/nike_dunk_pink_4.jpg" alt="Nike Dunk Pink 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink', 'images/nike_dunk_pink_4.jpg')">
+                        <img src="images/nike_dunk_pink_5.jpg" alt="Nike Dunk Pink 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink', 'images/nike_dunk_pink_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1405</div>
+                        <h3 class="product-title">Nike Dunk Low Dusty Pink</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральний Замш, шкіра, золотий Nike Swoosh Pin • <b>Виробник:</b> В'єтнам • Фірмова коробка.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-40):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                            </div>
+                        </div>
+
+                        <div class="price-container">
+                            <div class="prices">
+                                <span class="price-now">2 600 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Dunk Low Dusty Pink (2600 грн)', '2 600 грн')">
+                                Замовити
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -929,6 +968,7 @@
                             <option value="Vans Knu Skool Black White (2550 грн)">🛹 Vans Knu Skool Black White (Арт: S1314) — 2 550 грн</option>
                             <option value="New Balance 9060 Quartz Grey Cream (2850 грн)">👟 New Balance 9060 Quartz Grey Cream (Арт: S4059) — 2 850 грн</option>
                             <option value="Nike Dunk Low Sail Beige (2800 грн)">💖 Nike Dunk Low Sail Beige / Puma Suede XL (Арт: S1469) — 2 800 грн</option>
+                            <option value="Nike Dunk Low Dusty Pink (2600 грн)">🌸 Nike Dunk Low Dusty Pink (Арт: S1405) — 2 600 грн</option>
                         </select>
                     </div>
 
