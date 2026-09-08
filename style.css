@@ -2,10 +2,11 @@
     --bg-main: #f8fafc;
     --bg-card: #ffffff;
     --bg-card-hover: #ffffff;
-    --accent-cyan: #ff5722;
-    --accent-blue: #ff2d55;
-    --accent-pink: #ff2d55;
+    --accent-cyan: #10b981;
+    --accent-blue: #7c3aed;
+    --accent-pink: #8b5cf6;
     --accent-green: #10b981;
+    --accent-purple: #7c3aed;
     --text-main: #0f172a;
     --text-muted: #64748b;
     --border-color: #e2e8f0;
@@ -58,7 +59,7 @@ section, header, footer, .announcement-bar {
 
 /* Announcement Bar */
 .announcement-bar {
-    background: linear-gradient(90deg, #0f172a, #1e293b);
+    background: linear-gradient(90deg, #180d2b, #09171f);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 10px 0;
     font-size: 0.9rem;
@@ -74,14 +75,14 @@ section, header, footer, .announcement-bar {
 }
 
 .announcement-content mark {
-    background: rgba(255, 87, 34, 0.25);
-    color: #ffedd5;
+    background: rgba(16, 185, 129, 0.25);
+    color: #6ee7b7;
     padding: 2px 6px;
     border-radius: 4px;
 }
 
 .badge-fire {
-    background: var(--accent-pink);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
     color: #fff;
     font-weight: 700;
     font-size: 0.75rem;
@@ -103,7 +104,7 @@ section, header, footer, .announcement-bar {
 .countdown-timer {
     font-family: var(--font-heading);
     font-weight: 700;
-    color: #ff9f43;
+    color: #10b981;
     font-size: 1rem;
     letter-spacing: 1px;
 }
@@ -144,9 +145,9 @@ section, header, footer, .announcement-bar {
 
 .logo-tag {
     font-size: 0.7rem;
-    background: #fff1f2;
+    background: #f5f3ff;
     color: var(--accent-blue);
-    border: 1px solid #ffe4e6;
+    border: 1px solid #ddd6fe;
     padding: 2px 6px;
     border-radius: 4px;
     margin-left: 4px;
@@ -317,7 +318,7 @@ section, header, footer, .announcement-bar {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
 }
 
 .btn-primary-sm {
@@ -342,11 +343,11 @@ section, header, footer, .announcement-bar {
 
 .btn-primary-sm:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
 }
 
 .btn-glow {
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
 }
 
 .btn-outline {
@@ -383,9 +384,9 @@ section, header, footer, .announcement-bar {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #fff1f2;
+    background: #f5f3ff;
     color: var(--accent-blue);
-    border: 1px solid #ffe4e6;
+    border: 1px solid #ddd6fe;
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -472,7 +473,7 @@ section, header, footer, .announcement-bar {
     position: absolute;
     top: 25px;
     right: 25px;
-    background: var(--accent-pink);
+    background: var(--accent-cyan);
     color: #fff;
     font-weight: 800;
     font-size: 0.85rem;
@@ -485,7 +486,7 @@ section, header, footer, .announcement-bar {
     position: absolute;
     top: 12px;
     left: 12px;
-    background: linear-gradient(135deg, #ff3b60, #ff758c);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
     color: #fff;
     font-weight: 800;
     font-size: 0.72rem;
@@ -494,7 +495,7 @@ section, header, footer, .announcement-bar {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     z-index: 5;
-    box-shadow: 0 4px 12px rgba(255, 59, 96, 0.4);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
     pointer-events: none;
 }
 
@@ -528,7 +529,7 @@ section, header, footer, .announcement-bar {
     right: -50px;
     width: 180px;
     height: 180px;
-    background: radial-gradient(circle, rgba(255, 87, 34, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -572,7 +573,7 @@ section, header, footer, .announcement-bar {
 
 .brand-pill:hover {
     border-color: var(--accent-blue);
-    background: #fff1f2;
+    background: #f5f3ff;
     color: var(--accent-blue);
 }
 
@@ -791,7 +792,7 @@ section, header, footer, .announcement-bar {
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
     border-color: transparent;
     color: #ffffff;
-    box-shadow: 0 4px 14px rgba(255, 45, 85, 0.3);
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
     transform: translateY(-1px);
 }
 
@@ -814,9 +815,9 @@ section, header, footer, .announcement-bar {
 }
 
 .product-card:hover {
-    border-color: rgba(255, 45, 85, 0.4);
+    border-color: rgba(124, 58, 237, 0.4);
     transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.12);
 }
 
 .product-img-wrapper {
@@ -908,7 +909,7 @@ section, header, footer, .announcement-bar {
     color: #fff;
     border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 45, 85, 0.35);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
 }
 
 .product-details {
@@ -967,7 +968,7 @@ section, header, footer, .announcement-bar {
     color: #fff;
     font-weight: 800;
     border-color: transparent;
-    box-shadow: 0 4px 12px rgba(255, 45, 85, 0.35);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
 }
 
 .price-container {
@@ -1000,7 +1001,7 @@ section, header, footer, .announcement-bar {
 
 .btn-buy:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(255, 45, 85, 0.35);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
 }
 
 /* Order Section */
@@ -1067,7 +1068,7 @@ section, header, footer, .announcement-bar {
 .form-input:focus {
     background: #ffffff;
     border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(255, 45, 85, 0.15);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 .form-row {
@@ -1109,8 +1110,8 @@ section, header, footer, .announcement-bar {
 
 .payment-card.active {
     border-color: var(--accent-blue);
-    background: #fff1f2;
-    box-shadow: 0 4px 16px rgba(255, 45, 85, 0.12);
+    background: #f5f3ff;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.12);
 }
 
 .payment-card input[type="radio"] {
@@ -1148,9 +1149,9 @@ section, header, footer, .announcement-bar {
 }
 
 .payment-badge-rec {
-    background: #ffedd5;
-    color: #c2410c;
-    border: 1px solid #fed7aa;
+    background: #f5f3ff;
+    color: #7c3aed;
+    border: 1px solid #ddd6fe;
     font-size: 0.65rem;
     font-weight: 800;
     padding: 2px 7px;
@@ -1160,9 +1161,9 @@ section, header, footer, .announcement-bar {
 }
 
 .payment-badge-save {
-    background: #dcfce7;
-    color: #15803d;
-    border: 1px solid #bbf7d0;
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
     font-size: 0.65rem;
     font-weight: 800;
     padding: 2px 7px;
@@ -1179,8 +1180,8 @@ section, header, footer, .announcement-bar {
 }
 
 .order-summary-box {
-    background: #fff7ed;
-    border: 1.5px dashed var(--accent-cyan);
+    background: #faf8ff;
+    border: 1.5px dashed var(--accent-blue);
     padding: 16px 20px;
     border-radius: var(--radius-sm);
     display: flex;
@@ -1331,8 +1332,8 @@ section, header, footer, .announcement-bar {
 }
 
 .calc-result {
-    background: #fff7ed;
-    border: 1px solid var(--accent-cyan);
+    background: #f5f3ff;
+    border: 1px solid var(--accent-blue);
     padding: 16px;
     border-radius: var(--radius-sm);
     text-align: center;
@@ -1807,7 +1808,7 @@ section, header, footer, .announcement-bar {
         flex: 1.4;
         font-weight: 800;
         font-size: 0.92rem;
-        box-shadow: 0 4px 14px rgba(255, 45, 85, 0.35);
+        box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
     }
 
     .mobile-sticky-btn span {
