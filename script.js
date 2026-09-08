@@ -489,22 +489,354 @@ function applyCalculatedSize() {
     }
 }
 
-// Order Form Submit
-function submitOrder(e) {
-    e.preventDefault();
-    const name = document.getElementById('fullName').value;
-    const phone = document.getElementById('phone').value;
-    const product = document.getElementById('productSelect').value;
-    const size = document.getElementById('selectedSize').value;
-    const price = document.getElementById('finalOrderPrice').textContent;
+// ==========================================================================
+// PDF INVOICE GENERATION & ORDER SUBMISSION
+// ==========================================================================
+let lastGeneratedPdfBlob = null;
+let lastGeneratedPdfName = 'Zamovlennya_URBAN_GRID.pdf';
+let isSubmittingOrder = false;
 
-    alert(`🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ, ${name.toUpperCase()}!\n\nМодель: ${product}\nРозмір: ${size}\nСума до сплати при отриманні: ${price}\n\nМенеджер зателефонує на номер ${phone} протягом 10 хвилин для підтвердження відправки Новою Поштою!`);
+function populatePdfTemplate(orderId, orderDate) {
+    const customerName = (document.getElementById('fullName')?.value || '').trim() || 'Покупець';
+    const customerPhone = (document.getElementById('phone')?.value || '').trim() || '—';
+    const customerAddress = (document.getElementById('cityNP')?.value || '').trim() || '—';
+    
+    const payRadio = document.querySelector('input[name="Спосіб оплати"]:checked');
+    const paymentMethod = payRadio ? payRadio.value : 'Накладений платіж (при отриманні)';
+
+    // Update Header Meta
+    const badgeEl = document.getElementById('pdfOrderNumberBadge');
+    if (badgeEl) badgeEl.textContent = `№ ${orderId}`;
+    
+    const dateEl = document.getElementById('pdfOrderDateText');
+    if (dateEl) dateEl.textContent = orderDate;
+
+    // Update Customer Info
+    const nameEl = document.getElementById('pdfCustomerName');
+    if (nameEl) nameEl.textContent = customerName;
+
+    const phoneEl = document.getElementById('pdfCustomerPhone');
+    if (phoneEl) phoneEl.textContent = customerPhone;
+
+    const addrEl = document.getElementById('pdfCustomerAddress');
+    if (addrEl) addrEl.textContent = customerAddress;
+
+    const payEl = document.getElementById('pdfPaymentMethod');
+    if (payEl) payEl.textContent = paymentMethod;
+
+    const payNoteEl = document.getElementById('pdfPaymentTypeNote');
+    if (payNoteEl) payNoteEl.textContent = paymentMethod;
+
+    // Update Items Table
+    const tbody = document.getElementById('pdfOrderItemsList');
+    let subtotal = 0;
+
+    if (tbody) {
+        let rowsHtml = '';
+        if (cart && cart.length > 0) {
+            cart.forEach((item, index) => {
+                const itemTotal = (item.price || 0) * (item.qty || 1);
+                subtotal += itemTotal;
+                rowsHtml += `
+                    <tr>
+                        <td style="text-align: center;">${index + 1}</td>
+                        <td>
+                            <div class="pdf-item-title">${item.title}</div>
+                        </td>
+                        <td style="text-align: center;"><b>${item.size}</b></td>
+                        <td style="text-align: center;">${item.qty}</td>
+                        <td style="text-align: right;">${item.price.toLocaleString('uk-UA')} грн</td>
+                        <td style="text-align: right;"><b>${itemTotal.toLocaleString('uk-UA')} грн</b></td>
+                    </tr>
+                `;
+            });
+        } else {
+            const productSelect = document.getElementById('productSelect');
+            const selectedModel = productSelect ? productSelect.value : 'Кросівки URBAN GRID';
+            const sizeInput = document.getElementById('selectedSize');
+            const chosenSize = sizeInput ? sizeInput.value : '38 (24 см)';
+            const finalPriceEl = document.getElementById('finalOrderPrice');
+            const priceText = finalPriceEl ? finalPriceEl.textContent : '2 670 грн';
+            const numPrice = parseInt(priceText.replace(/\D/g, ''), 10) || 2670;
+            subtotal = numPrice;
+
+            rowsHtml = `
+                <tr>
+                    <td style="text-align: center;">1</td>
+                    <td>
+                        <div class="pdf-item-title">${selectedModel}</div>
+                    </td>
+                    <td style="text-align: center;"><b>${chosenSize}</b></td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: right;">${numPrice.toLocaleString('uk-UA')} грн</td>
+                    <td style="text-align: right;"><b>${numPrice.toLocaleString('uk-UA')} грн</b></td>
+                </tr>
+            `;
+        }
+        tbody.innerHTML = rowsHtml;
+    }
+
+    const subtotalEl = document.getElementById('pdfSubtotalSum');
+    if (subtotalEl) subtotalEl.textContent = `${subtotal.toLocaleString('uk-UA')} грн`;
+
+    const grandTotalEl = document.getElementById('pdfGrandTotalSum');
+    if (grandTotalEl) grandTotalEl.textContent = `${subtotal.toLocaleString('uk-UA')} грн`;
+
+    return {
+        orderId,
+        orderDate,
+        customerName,
+        customerPhone,
+        customerAddress,
+        paymentMethod,
+        subtotalFormatted: `${subtotal.toLocaleString('uk-UA')} грн`,
+        itemsSummary: cart && cart.length > 0 
+            ? cart.map(i => `${i.title} [${i.size}] × ${i.qty}`).join(', ')
+            : `${document.getElementById('productSelect')?.value || ''} [${document.getElementById('selectedSize')?.value || ''}]`
+    };
 }
+
+async function generateOrderPdf(orderId, orderDate) {
+    const orderData = populatePdfTemplate(orderId, orderDate);
+    const element = document.getElementById('orderPdfInvoiceTemplate');
+    if (!element) return null;
+
+    const cleanId = orderId.replace(/[^a-zA-Z0-9_-]/g, '');
+    const fileName = `Zamovlennya_${cleanId}.pdf`;
+
+    const opt = {
+        margin: [6, 6, 6, 6],
+        filename: fileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    if (typeof html2pdf !== 'undefined') {
+        try {
+            const blob = await html2pdf().set(opt).from(element).outputPdf('blob');
+            lastGeneratedPdfBlob = blob;
+            lastGeneratedPdfName = fileName;
+            return { blob, fileName, orderData };
+        } catch (err) {
+            console.error('Error generating PDF:', err);
+            return null;
+        }
+    } else {
+        console.warn('html2pdf library is not yet loaded');
+        return null;
+    }
+}
+
+async function handleCheckoutFormSubmit(e) {
+    if (e && e.preventDefault) {
+        e.preventDefault();
+    }
+
+    if (isSubmittingOrder) return;
+
+    const form = document.getElementById('checkoutForm');
+    if (!form) return;
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    // Sync cart with hidden form fields
+    syncCartWithForm();
+
+    const submitBtn = document.getElementById('submitOrderBtn');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ Формування замовлення та PDF...';
+    }
+    isSubmittingOrder = true;
+
+    // Generate Order ID and Date
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    const orderId = `UG-${randomNum}`;
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' }) + 
+        ', ' + now.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+
+    const orderNumInput = document.getElementById('orderNumberInput');
+    if (orderNumInput) orderNumInput.value = `#${orderId}`;
+
+    const orderDateInput = document.getElementById('orderDateInput');
+    if (orderDateInput) orderDateInput.value = formattedDate;
+
+    // Generate the PDF
+    let pdfResult = null;
+    try {
+        pdfResult = await generateOrderPdf(orderId, formattedDate);
+    } catch (pdfErr) {
+        console.error('PDF generation error:', pdfErr);
+    }
+
+    // Save order data to sessionStorage for thank-you screen
+    if (pdfResult && pdfResult.orderData) {
+        try {
+            sessionStorage.setItem('ug_last_order', JSON.stringify(pdfResult.orderData));
+        } catch (storageErr) {
+            console.warn('sessionStorage error:', storageErr);
+        }
+    }
+
+    // Attach PDF to Form
+    let attachedViaDataTransfer = false;
+    if (pdfResult && pdfResult.blob) {
+        try {
+            const pdfFile = new File([pdfResult.blob], pdfResult.fileName, { type: 'application/pdf' });
+            if (window.DataTransfer) {
+                const dt = new DataTransfer();
+                dt.items.add(pdfFile);
+                const fileInput = document.getElementById('orderPdfAttachment');
+                if (fileInput) {
+                    fileInput.files = dt.files;
+                    attachedViaDataTransfer = fileInput.files && fileInput.files.length > 0;
+                }
+            }
+        } catch (dtErr) {
+            console.warn('DataTransfer error:', dtErr);
+        }
+    }
+
+    if (attachedViaDataTransfer) {
+        // Native submit with multipart/form-data containing the PDF file
+        form.submit();
+    } else if (pdfResult && pdfResult.blob) {
+        // Fallback: Submit via fetch FormData
+        const formData = new FormData(form);
+        formData.append('attachment', pdfResult.blob, pdfResult.fileName);
+
+        fetch('https://formsubmit.co/lunarecho94@icloud.com', {
+            method: 'POST',
+            body: formData
+        }).then(() => {
+            window.location.href = 'https://urbangrid.com.ua/?ordered=1';
+        }).catch((fetchErr) => {
+            console.warn('Fetch submission error, fallback to form.submit():', fetchErr);
+            form.submit();
+        });
+    } else {
+        // Ultimate fallback if PDF couldn't be generated
+        form.submit();
+    }
+}
+
 function checkOrderSuccess() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('ordered') === '1') {
         clearCart();
-        alert('🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ!\n\nВаші дані успішно передані менеджеру на пошту (lunarecho94@icloud.com).\nМи зателефонуємо вам протягом 10 хвилин для підтвердження відправки Новою Поштою!');
+
+        // Retrieve last order details from sessionStorage if available
+        let orderInfo = null;
+        try {
+            const stored = sessionStorage.getItem('ug_last_order');
+            if (stored) orderInfo = JSON.parse(stored);
+        } catch (e) {}
+
+        showOrderSuccessModal(orderInfo);
+
+        // Remove ?ordered=1 from URL without reload
+        if (window.history && window.history.replaceState) {
+            const cleanUrl = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, document.title, cleanUrl);
+        }
+    }
+}
+
+function showOrderSuccessModal(orderInfo) {
+    const modal = document.getElementById('orderSuccessModal');
+    if (!modal) {
+        alert('🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ!\n\nВаше замовлення успішно передано менеджеру на пошту (lunarecho94@icloud.com) у форматі PDF.\nМи зателефонуємо вам протягом 10 хвилин для підтвердження відправки Новою Поштою!');
+        return;
+    }
+
+    const orderNumEl = document.getElementById('successOrderNum');
+    const detailsBox = document.getElementById('successOrderDetailsBox');
+
+    if (orderInfo) {
+        if (orderNumEl) orderNumEl.textContent = `№ ${orderInfo.orderId}`;
+        if (detailsBox) {
+            detailsBox.innerHTML = `
+                <div class="details-row"><span>Одержувач:</span> <b>${orderInfo.customerName}</b></div>
+                <div class="details-row"><span>Телефон:</span> <b>${orderInfo.customerPhone}</b></div>
+                <div class="details-row"><span>Доставка:</span> <b>${orderInfo.customerAddress}</b></div>
+                <div class="details-row"><span>Оплата:</span> <b>${orderInfo.paymentMethod}</b></div>
+                <div class="details-row"><span>Товари:</span> <b>${orderInfo.itemsSummary}</b></div>
+                <div class="details-row"><span>Сума до сплати:</span> <b>${orderInfo.subtotalFormatted}</b></div>
+            `;
+        }
+    } else {
+        if (orderNumEl) orderNumEl.textContent = 'УСПІШНО';
+        if (detailsBox) {
+            detailsBox.innerHTML = `
+                <div class="details-row"><span>Статус:</span> <b>Замовлення надіслано на пошту менеджера</b></div>
+                <div class="details-row"><span>Формат:</span> <b>Електронна накладна (PDF)</b></div>
+                <div class="details-row"><span>Доставка:</span> <b>Нова Пошта (1-2 дні по Україні)</b></div>
+            `;
+        }
+    }
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeOrderSuccessModal() {
+    const modal = document.getElementById('orderSuccessModal');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+async function downloadLastGeneratedPdf() {
+    const btn = document.getElementById('btnDownloadSuccessPdf');
+    if (btn) {
+        btn.innerHTML = '⏳ Підготовка PDF...';
+        btn.disabled = true;
+    }
+
+    try {
+        if (lastGeneratedPdfBlob) {
+            const url = URL.createObjectURL(lastGeneratedPdfBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = lastGeneratedPdfName || 'Zamovlennya_URBAN_GRID.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } else {
+            // Re-generate from template with stored data
+            let orderInfo = null;
+            try {
+                const stored = sessionStorage.getItem('ug_last_order');
+                if (stored) orderInfo = JSON.parse(stored);
+            } catch (e) {}
+
+            const orderId = orderInfo ? orderInfo.orderId : 'UG-2026';
+            const orderDate = orderInfo ? orderInfo.orderDate : new Date().toLocaleDateString('uk-UA');
+            
+            const res = await generateOrderPdf(orderId, orderDate);
+            if (res && res.blob) {
+                const url = URL.createObjectURL(res.blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = res.fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        }
+    } catch (err) {
+        console.error('Download PDF error:', err);
+    } finally {
+        if (btn) {
+            btn.innerHTML = '📥 Завантажити електронний чек (PDF)';
+            btn.disabled = false;
+        }
     }
 }
 
@@ -597,11 +929,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Sync Cart on Form Submit
+    // Handle Form Submit with PDF Generation
     const form = document.getElementById('checkoutForm');
     if (form) {
-        form.addEventListener('submit', () => {
-            syncCartWithForm();
-        });
+        form.addEventListener('submit', handleCheckoutFormSubmit);
     }
 });

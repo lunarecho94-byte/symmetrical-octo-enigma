@@ -1367,12 +1367,17 @@
                     <p>Заповни форму нижче. Менеджер зателефонує у робочий час (<b>Пн-Пт з 10:00 до 18:00</b>) для підтвердження розміру та відправки Новою Поштою!</p>
                 </div>
 
-                <form id="checkoutForm" action="https://formsubmit.co/lunarecho94@icloud.com" method="POST" class="checkout-form">
+                <form id="checkoutForm" action="https://formsubmit.co/lunarecho94@icloud.com" method="POST" enctype="multipart/form-data" class="checkout-form">
                     <!-- FormSubmit Configuration -->
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_subject" value="🛍️ НОВЕ ЗАМОВЛЕННЯ ВЗУТТЯ URBAN GRID">
+                    <input type="hidden" name="_subject" value="🛍️ НОВЕ ЗАМОВЛЕННЯ ВЗУТТЯ URBAN GRID (з вкладенням PDF)">
                     <input type="hidden" name="_next" value="https://urbangrid.com.ua/?ordered=1">
+
+                    <!-- PDF Attachment & Order Details -->
+                    <input type="hidden" id="orderNumberInput" name="Номер замовлення" value="">
+                    <input type="hidden" id="orderDateInput" name="Дата замовлення" value="">
+                    <input type="file" id="orderPdfAttachment" name="attachment" style="display:none;" accept="application/pdf">
 
                     <!-- Shopping Cart Order Integration -->
                     <input type="hidden" id="cartOrderDetails" name="Деталі замовлення (Кошик)" value="">
@@ -1662,7 +1667,166 @@
     <!-- Cart Toast Notification -->
     <div id="cartToast" class="cart-toast" role="status" aria-live="polite"></div>
 
+    <!-- Order Success Modal with PDF Download -->
+    <div id="orderSuccessModal" class="order-success-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="successModalTitle">
+        <div class="order-success-overlay" onclick="closeOrderSuccessModal()"></div>
+        <div class="order-success-card">
+            <button type="button" class="btn-close-modal" onclick="closeOrderSuccessModal()" aria-label="Закрити">✕</button>
+            <div class="order-success-icon">🎉</div>
+            <h3 class="order-success-title" id="successModalTitle">ДЯКУЄМО ЗА ВАШЕ ЗАМОВЛЕННЯ!</h3>
+            <p class="order-success-sub">Замовлення <span id="successOrderNum" class="success-order-num">#UG-00000</span> успішно прийнято в обробку та надіслано менеджеру у форматі PDF.</p>
+            
+            <div id="successOrderDetailsBox" class="success-order-details-box"></div>
+
+            <div class="order-success-actions">
+                <button type="button" id="btnDownloadSuccessPdf" class="btn-primary btn-download-pdf-receipt" onclick="downloadLastGeneratedPdf()">
+                    📥 Завантажити електронний чек (PDF)
+                </button>
+                <button type="button" class="btn-secondary-outline" onclick="closeOrderSuccessModal()">
+                    ← Продовжити покупки
+                </button>
+            </div>
+
+            <div class="order-success-footer-note">
+                <p>📞 Менеджер зателефонує вам протягом 10 хвилин у робочий час (<b>Пн-Пт 10:00 - 18:00</b>) для узгодження розміру та відправки Новою Поштою.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden PDF Invoice Template Container (rendered by html2pdf) -->
+    <div id="pdfRenderWrapper" class="pdf-render-wrapper" style="position: absolute; left: -9999px; top: 0; width: 794px; background: #ffffff; z-index: -9999; pointer-events: none;">
+        <div id="orderPdfInvoiceTemplate" class="pdf-invoice-container">
+            <!-- PDF Header -->
+            <div class="pdf-inv-header">
+                <div class="pdf-inv-brand">
+                    <div class="pdf-inv-logo">URBAN<span>GRID</span> <small>PREMIUM</small></div>
+                    <div class="pdf-inv-tagline">ОФІЦІЙНИЙ МАГАЗИН КРОСІВОК В УКРАЇНІ</div>
+                    <div class="pdf-inv-contacts">
+                        <span>🌐 <b>urbangrid.com.ua</b></span> • 
+                        <span>📞 <b>+38 (063) 492-49-48</b></span> • 
+                        <span>💬 <b>Telegram: @lunarecho94</b></span>
+                    </div>
+                </div>
+                <div class="pdf-inv-meta">
+                    <div class="pdf-doc-badge">ТОВАРНИЙ ЧЕК / НАКЛАДНА</div>
+                    <div class="pdf-meta-num" id="pdfOrderNumberBadge">№ UG-2026-00000</div>
+                    <div class="pdf-meta-date" id="pdfOrderDateText">09.09.2026, 00:00</div>
+                    <div class="pdf-meta-status">Статус: <b>Нове замовлення</b></div>
+                </div>
+            </div>
+
+            <div class="pdf-inv-divider"></div>
+
+            <!-- Customer & Delivery Info Grid -->
+            <div class="pdf-inv-info-grid">
+                <div class="pdf-info-box">
+                    <div class="pdf-box-title">👤 ДАНІ ПОКУПЦЯ</div>
+                    <table class="pdf-box-table">
+                        <tr>
+                            <td class="pdf-lbl">ПІБ:</td>
+                            <td><b id="pdfCustomerName">—</b></td>
+                        </tr>
+                        <tr>
+                            <td class="pdf-lbl">Телефон:</td>
+                            <td><b id="pdfCustomerPhone">—</b></td>
+                        </tr>
+                        <tr>
+                            <td class="pdf-lbl">Оплата:</td>
+                            <td><span id="pdfPaymentMethod">—</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="pdf-info-box">
+                    <div class="pdf-box-title">🚚 ДОСТАВКА ТА ВІДПРАВКА</div>
+                    <table class="pdf-box-table">
+                        <tr>
+                            <td class="pdf-lbl">Перевізник:</td>
+                            <td><b>Нова Пошта (Україна)</b></td>
+                        </tr>
+                        <tr>
+                            <td class="pdf-lbl">Одержувач:</td>
+                            <td><b id="pdfCustomerAddress">—</b></td>
+                        </tr>
+                        <tr>
+                            <td class="pdf-lbl">Термін:</td>
+                            <td><b>1-2 дні з моменту підтвердження</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <div class="pdf-inv-table-section">
+                <div class="pdf-section-title">СПИСОК ЗАМОВЛЕНИХ ТОВАРІВ</div>
+                <table class="pdf-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 38px; text-align: center;">№</th>
+                            <th style="text-align: left;">Найменування товару</th>
+                            <th style="width: 130px; text-align: center;">Розмір (устілка)</th>
+                            <th style="width: 65px; text-align: center;">К-сть</th>
+                            <th style="width: 105px; text-align: right;">Ціна</th>
+                            <th style="width: 110px; text-align: right;">Сума</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdfOrderItemsList">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Totals & Payment Summary -->
+            <div class="pdf-inv-summary-row">
+                <div class="pdf-summary-notes">
+                    <div class="pdf-badge-guarantee">🛡️ ГАРАНТІЯ ТА СЕРВІС URBAN GRID</div>
+                    <ul class="pdf-guarantee-list">
+                        <li><b>Огляд та примірка:</b> Ви маєте право приміряти взуття у відділенні Нової Пошти перед здійсненням оплати.</li>
+                        <li><b>Обмін та повернення:</b> Протягом 14 днів у товарному вигляді та фірмовій коробці.</li>
+                        <li><b>Оригінальні матеріали:</b> Натуральна шкіра/замша, ліцензійна фабрична якість (В'єтнам).</li>
+                    </ul>
+                </div>
+                <div class="pdf-totals-box">
+                    <div class="pdf-tot-row">
+                        <span>Сума за товари:</span>
+                        <b id="pdfSubtotalSum">0 грн</b>
+                    </div>
+                    <div class="pdf-tot-row">
+                        <span>Доставка (Нова Пошта):</span>
+                        <span>За тарифами НП</span>
+                    </div>
+                    <div class="pdf-tot-divider"></div>
+                    <div class="pdf-tot-row pdf-grand-total">
+                        <span>РАЗОМ ДО СПЛАТИ:</span>
+                        <b id="pdfGrandTotalSum">0 грн</b>
+                    </div>
+                    <div class="pdf-tot-payment-type" id="pdfPaymentTypeNote">Накладений платіж при отриманні</div>
+                </div>
+            </div>
+
+            <!-- Signature & Stamp Section -->
+            <div class="pdf-inv-footer">
+                <div class="pdf-stamp-area">
+                    <div class="pdf-stamp-seal">
+                        <div class="pdf-seal-inner">
+                            <span class="pdf-seal-brand">URBAN GRID</span>
+                            <span class="pdf-seal-dept">ВІДДІЛ ВІДПРАВОК</span>
+                            <span class="pdf-seal-status">✓ ПІДТВЕРДЖЕНО</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pdf-sign-area">
+                    <div class="pdf-sign-row">
+                        <span>Відповідальний менеджер:</span>
+                        <span class="pdf-sign-line">URBAN GRID / Відділ логістики</span>
+                    </div>
+                    <p class="pdf-final-thanks">Дякуємо за ваше замовлення! Гарного дня та приємного користування новим взуттям!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
+    <script src="html2pdf.bundle.min.js" defer></script>
     <script src="script.js"></script>
 </body>
 </html>
