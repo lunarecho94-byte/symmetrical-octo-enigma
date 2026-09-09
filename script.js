@@ -63,7 +63,7 @@ function selectSize(btnElement, sizeValue) {
 }
 
 // ==========================================
-// URBAN GRID SHOPPING CART SYSTEM
+// URBANO SHOPPING CART SYSTEM
 // ==========================================
 
 const CART_STORAGE_KEY = 'urbangrid_cart_v1';
@@ -513,7 +513,7 @@ function applyCalculatedSize() {
 // PDF INVOICE GENERATION & ORDER SUBMISSION
 // ==========================================================================
 let lastGeneratedPdfBlob = null;
-let lastGeneratedPdfName = 'Zamovlennya_URBAN_GRID.pdf';
+let lastGeneratedPdfName = 'Zamovlennya_URBANO.pdf';
 let isSubmittingOrder = false;
 
 function populatePdfTemplate(orderId, orderDate) {
@@ -572,7 +572,7 @@ function populatePdfTemplate(orderId, orderDate) {
             });
         } else {
             const productSelect = document.getElementById('productSelect');
-            const selectedModel = productSelect ? productSelect.value : 'Кросівки URBAN GRID';
+            const selectedModel = productSelect ? productSelect.value : 'Кросівки URBANO';
             const sizeInput = document.getElementById('selectedSize');
             const chosenSize = sizeInput ? sizeInput.value : '38 (24 см)';
             const finalPriceEl = document.getElementById('finalOrderPrice');
@@ -857,7 +857,7 @@ async function downloadLastGeneratedPdf() {
             const url = URL.createObjectURL(lastGeneratedPdfBlob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = lastGeneratedPdfName || 'Zamovlennya_URBAN_GRID.pdf';
+            a.download = lastGeneratedPdfName || 'Zamovlennya_URBANO.pdf';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
