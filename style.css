@@ -1119,35 +1119,71 @@ section, header, footer, .announcement-bar {
     transform: scale(1.06);
 }
 
-/* Floating Scroll to Top */
+/* Floating Scroll to Top (Instant One-Touch Return) */
 .scroll-top-btn {
     position: fixed;
-    bottom: 85px;
+    bottom: 92px;
     right: 18px;
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid rgba(79, 70, 229, 0.28);
     color: var(--accent-blue);
-    font-size: 1.2rem;
-    font-weight: 700;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 99;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+    z-index: 999;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.9) inset;
     cursor: pointer;
-    backdrop-filter: blur(12px);
-    transition: var(--transition);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.88);
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.25s,
+                background 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
 }
 
 .scroll-top-btn:hover {
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-    color: #fff;
+    background: linear-gradient(135deg, var(--accent-blue), #06b6d4);
+    color: #ffffff;
     border-color: transparent;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 22px rgba(79, 70, 229, 0.35);
+}
+
+.scroll-top-btn:active {
+    transform: scale(0.90);
+    background: linear-gradient(135deg, #4338ca, #0891b2);
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(79, 70, 229, 0.3);
+}
+
+.scroll-top-btn svg {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.2s ease;
+}
+
+.scroll-top-btn:hover svg {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
 }
 
 .product-details {
@@ -2809,8 +2845,10 @@ body.cart-open {
     }
 
     .scroll-top-btn {
-        bottom: 134px !important;
+        bottom: 140px !important;
         right: 16px;
+        width: 48px;
+        height: 48px;
     }
 
     .cart-drawer {

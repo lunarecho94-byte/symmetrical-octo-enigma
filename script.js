@@ -955,18 +955,103 @@ function initSwipeGalleries() {
     });
 }
 
-// Scroll to Top Floating Button
+// High-Speed Smooth Scroll to Top (Ease-Out-Quint)
+function scrollToTopAnimated(duration = 360) {
+    const startY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (startY <= 0) return;
+
+    // Subtle haptic tick on supported mobile devices
+    if (navigator.vibrate) {
+        try { navigator.vibrate(15); } catch (_) {}
+    }
+
+    const startTime = ('now' in window.performance) ? performance.now() : new Date().getTime();
+
+    // Ease-out quint: rapid initial burst that lands with buttery smoothness
+    function easeOutQuint(t) {
+        return 1 - Math.pow(1 - t, 5);
+    }
+
+    function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = easeOutQuint(progress);
+
+        window.scrollTo(0, Math.round(startY * (1 - ease)));
+
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        } else {
+            window.scrollTo(0, 0);
+        }
+    }
+
+    window.requestAnimationFrame(step);
+}
+
+// Scroll to Top Floating Button (Instant One-Touch Return)
 function initScrollTop() {
     const scrollBtn = document.getElementById('scrollTopBtn');
+    if (!scrollBtn) return;
+
+    let isTicking = false;
+    const updateScrollVisibility = () => {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        if (scrollY > 280) {
+            scrollBtn.classList.add('visible');
+        } else {
+            scrollBtn.classList.remove('visible');
+        }
+        isTicking = false;
+    };
+
     window.addEventListener('scroll', () => {
-        if (scrollBtn) {
-            if (window.scrollY > 450) {
-                scrollBtn.style.display = 'inline-flex';
-            } else {
-                scrollBtn.style.display = 'none';
-            }
+        if (!isTicking) {
+            window.requestAnimationFrame(updateScrollVisibility);
+            isTicking = true;
         }
     }, { passive: true });
+    updateScrollVisibility();
+
+    // Instant one-touch response without 300ms click delay or momentum scroll suppression
+    let touchHandled = false;
+
+    const handleTrigger = (e) => {
+        if (e && e.cancelable) e.preventDefault();
+        if (e && e.stopPropagation) e.stopPropagation();
+        scrollToTopAnimated(360);
+    };
+
+    // touchend fires immediately on the first finger release
+    scrollBtn.addEventListener('touchend', (e) => {
+        touchHandled = true;
+        handleTrigger(e);
+        setTimeout(() => { touchHandled = false; }, 400);
+    }, { passive: false });
+
+    // pointerup for pointer devices
+    scrollBtn.addEventListener('pointerup', (e) => {
+        if (e.pointerType === 'touch') return;
+        handleTrigger(e);
+    });
+
+    // click as desktop/mouse fallback
+    scrollBtn.addEventListener('click', (e) => {
+        if (touchHandled) return;
+        handleTrigger(e);
+    });
+
+    // Logo click in sticky header also smoothly scrolls to top
+    const brandLogo = document.querySelector('.urbano-animated-logo, .header .logo');
+    if (brandLogo) {
+        brandLogo.addEventListener('click', (e) => {
+            const currentY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            if (currentY > 120) {
+                e.preventDefault();
+                scrollToTopAnimated(360);
+            }
+        });
+    }
 }
 
 // Initialize on Load
