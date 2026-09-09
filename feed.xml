@@ -23,6 +23,24 @@
       </g:shipping>
     </item>
     <item>
+      <g:id>prod-adidas-iniki-black</g:id>
+      <title>Adidas Iniki Black White</title>
+      <description>Матеріал: Натуральний замш, підошва піна з гумовою накладкою • ТОП якість (ЛІЦЕНЗІЯ) • Виробник: В'єтнам • Фірмова коробка Adidas.</description>
+      <link>https://urbangrid.com.ua/#prod-adidas-iniki-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/adidas_iniki_black_1.jpg</g:image_link>
+      <g:brand>Adidas</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2200 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>prod-adidas-terrex-black</g:id>
       <title>Adidas Terrex Gore-Tex Black</title>
       <description>Матеріал: Вологозахисний нейлон, мембрана GORE-TEX, нубук, підошва пінка з протектором • Сезон: Демісезон • Відмінна якість • Виробник: В'єтнам • Фірмова коробка Adidas.</description>
@@ -122,24 +140,6 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1690 UAH</g:price>
-      <g:google_product_category>187</g:google_product_category>
-      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-adidas-iniki-black</g:id>
-      <title>Adidas Iniki Black White</title>
-      <description>Матеріал: Натуральний замш, підошва піна з гумовою накладкою • ТОП якість (ЛІЦЕНЗІЯ) • Виробник: В'єтнам • Фірмова коробка Adidas.</description>
-      <link>https://urbangrid.com.ua/#prod-adidas-iniki-black</link>
-      <g:image_link>https://urbangrid.com.ua/images/adidas_iniki_black_1.jpg</g:image_link>
-      <g:brand>Adidas</g:brand>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2200 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
