@@ -5,6 +5,24 @@
     <link>https://urbangrid.com.ua</link>
     <description>Офіційний каталог трендових кросівок Nike, Adidas, New Balance, Puma в Україні. Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
+      <g:id>prod-nike-initiator-goretex-grey</g:id>
+      <title>Nike Initiator Gore-Tex Grey (Термо)</title>
+      <description>Матеріал: Натуральна шкіра, водонепроникний нейлон + Gore-Tex, утеплена термо-підкладка, підошва пінка • Сезон: Демісезон / Єврозима • Відмінна якість • Виробник: В'єтнам • Фірмова коробка Nike.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-initiator-goretex-grey</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_initiator_goretex_grey_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2380 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>prod-adidas-terrex-black</g:id>
       <title>Adidas Terrex Gore-Tex Black</title>
       <description>Матеріал: Вологозахисний нейлон, мембрана GORE-TEX, нубук, підошва пінка з протектором • Сезон: Демісезон • Відмінна якість • Виробник: В'єтнам • Фірмова коробка Adidas.</description>

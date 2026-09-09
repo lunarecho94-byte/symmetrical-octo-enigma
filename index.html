@@ -101,8 +101,8 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (30)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (12)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (31)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (13)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (8)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
@@ -111,6 +111,46 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 31 (NEW): Nike Initiator Gore-Tex Grey 5181 (5 Photos) -->
+                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
+                        <img src="images/nike_initiator_goretex_grey_1.jpg" alt="Nike Initiator Gore-Tex Grey" id="cardImg-nike-initiator-goretex-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_initiator_goretex_grey_1.jpg" alt="Nike Initiator Gore-Tex Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-grey', 'images/nike_initiator_goretex_grey_1.jpg')">
+                        <img src="images/nike_initiator_goretex_grey_2.jpg" alt="Nike Initiator Gore-Tex Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-grey', 'images/nike_initiator_goretex_grey_2.jpg')">
+                        <img src="images/nike_initiator_goretex_grey_3.jpg" alt="Nike Initiator Gore-Tex Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-grey', 'images/nike_initiator_goretex_grey_3.jpg')">
+                        <img src="images/nike_initiator_goretex_grey_4.jpg" alt="Nike Initiator Gore-Tex Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-grey', 'images/nike_initiator_goretex_grey_4.jpg')">
+                        <img src="images/nike_initiator_goretex_grey_5.jpg" alt="Nike Initiator Gore-Tex Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-grey', 'images/nike_initiator_goretex_grey_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE INITIATOR | АРТ: 5181 (ЖІНОЧІ ТЕРМО ❄️)</div>
+                        <h3 class="product-title">Nike Initiator Gore-Tex Grey (Термо)</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, водонепроникний нейлон + Gore-Tex, утеплена термо-підкладка, підошва пінка • <b>Сезон:</b> Демісезон / Єврозима • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (37-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 380 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Initiator Gore-Tex Grey (2380 грн)', '2 380 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 30 (NEW): Adidas Terrex Gore-Tex Black 3770 (5 Photos) -->
                 <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas">
                     <div class="product-img-wrapper">
@@ -1429,6 +1469,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Initiator Gore-Tex Grey (2380 грн)">🔥❄️ Nike Initiator Gore-Tex Grey Термо (Арт: 5181) — 2 380 грн [НОВИНКА]</option>
                             <option value="Adidas Terrex Gore-Tex Black (2330 грн)">🔥👟 Adidas Terrex Gore-Tex Black (Арт: 3770) — 2 330 грн [НОВИНКА]</option>
                             <option value="New Balance 530 White Black (2260 грн)">🔥👟 New Balance 530 White Black (Арт: 4354) — 2 260 грн [НОВИНКА]</option>
                             <option value="New Balance 574 Dark Grey White (2320 грн)">🔥👟 New Balance 574 Dark Grey White (Арт: 4414) — 2 320 грн [НОВИНКА]</option>
