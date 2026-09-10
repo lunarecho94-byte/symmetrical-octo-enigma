@@ -510,6 +510,19 @@ section, header, footer, .announcement-bar {
     text-decoration: none;
 }
 
+.footer-email-link {
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-email-link:hover {
+    color: var(--accent-blue);
+    text-decoration: underline;
+}
+
 .footer-messengers {
     display: flex;
     gap: 10px;
