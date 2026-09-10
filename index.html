@@ -124,6 +124,47 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 34 (NEW): Nike Dunk Low Pink Paisley S1365 (5 Photos) -->
+                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 ХІТ • PAISLEY 🌸</span>
+                        <img src="images/nike_dunk_pink_paisley_1.jpg" alt="Nike Dunk Low Pink Paisley" id="cardImg-nike-dunk-pink-paisley">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_dunk_pink_paisley_1.jpg" alt="Nike Dunk Low Pink Paisley 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink-paisley', 'images/nike_dunk_pink_paisley_1.jpg')">
+                        <img src="images/nike_dunk_pink_paisley_2.jpg" alt="Nike Dunk Low Pink Paisley 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink-paisley', 'images/nike_dunk_pink_paisley_2.jpg')">
+                        <img src="images/nike_dunk_pink_paisley_3.jpg" alt="Nike Dunk Low Pink Paisley 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink-paisley', 'images/nike_dunk_pink_paisley_3.jpg')">
+                        <img src="images/nike_dunk_pink_paisley_4.jpg" alt="Nike Dunk Low Pink Paisley 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink-paisley', 'images/nike_dunk_pink_paisley_4.jpg')">
+                        <img src="images/nike_dunk_pink_paisley_5.jpg" alt="Nike Dunk Low Pink Paisley 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink-paisley', 'images/nike_dunk_pink_paisley_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1365 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">Nike Dunk Low Pink Paisley</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра преміум якості, текстильний логотип Paisley Swoosh, підошва гумова з амортизацією • Додаткові рожеві шнурки в комплекті • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 800 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Dunk Low Pink Paisley (2800 грн)', '2 800 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 33 (NEW): Nike Initiator Gore-Tex Black White 5182 (5 Photos) -->
                 <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike">
                     <div class="product-img-wrapper">
@@ -1562,6 +1603,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Dunk Low Pink Paisley (2800 грн)">🔥🌸 Nike Dunk Low Pink Paisley (Арт: S1365) — 2 800 грн [НОВИНКА]</option>
                             <option value="Nike Initiator Gore-Tex Black White (2280 грн)">🔥❄️ Nike Initiator Gore-Tex Black White Термо (Арт: 5182) — 2 280 грн [НОВИНКА]</option>
                             <option value="New Balance 9060 Black Grey Cordura (2590 грн)">🔥👟 New Balance 9060 Black Grey Cordura (Арт: 3771) — 2 590 грн [НОВИНКА]</option>
                             <option value="Nike Initiator Gore-Tex Grey (2380 грн)">🔥❄️ Nike Initiator Gore-Tex Grey Термо (Арт: 5181) — 2 380 грн [НОВИНКА]</option>
