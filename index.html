@@ -124,6 +124,47 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 35 (NEW): Nike Jordan Low Little Paris S1485 (5 Photos) -->
+                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • PARIS 🕊️</span>
+                        <img src="images/nike_jordan_little_paris_1.jpg" alt="Nike Jordan Low Little Paris" id="cardImg-nike-jordan-little-paris">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_jordan_little_paris_1.jpg" alt="Nike Jordan Low Little Paris 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-jordan-little-paris', 'images/nike_jordan_little_paris_1.jpg')">
+                        <img src="images/nike_jordan_little_paris_2.jpg" alt="Nike Jordan Low Little Paris 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-little-paris', 'images/nike_jordan_little_paris_2.jpg')">
+                        <img src="images/nike_jordan_little_paris_3.jpg" alt="Nike Jordan Low Little Paris 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-little-paris', 'images/nike_jordan_little_paris_3.jpg')">
+                        <img src="images/nike_jordan_little_paris_4.jpg" alt="Nike Jordan Low Little Paris 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-little-paris', 'images/nike_jordan_little_paris_4.jpg')">
+                        <img src="images/nike_jordan_little_paris_5.jpg" alt="Nike Jordan Low Little Paris 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-little-paris', 'images/nike_jordan_little_paris_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN | АРТ: S1485 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">Nike Jordan Low Little Paris</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральний замш, преміум шкіра, підошва з амортизацією Air • Ексклюзивний колорвей у відтінках Парижа, золотистий Jumpman, додаткові шнурки в комплекті • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike Jordan.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 550 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Jordan Low Little Paris (2550 грн)', '2 550 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 34 (NEW): Nike Dunk Low Pink Paisley S1365 (5 Photos) -->
                 <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike">
                     <div class="product-img-wrapper">
@@ -1603,6 +1644,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Jordan Low Little Paris (2550 грн)">🔥👟 Nike Jordan Low Little Paris (Арт: S1485) — 2 550 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Pink Paisley (2800 грн)">🔥🌸 Nike Dunk Low Pink Paisley (Арт: S1365) — 2 800 грн [НОВИНКА]</option>
                             <option value="Nike Initiator Gore-Tex Black White (2280 грн)">🔥❄️ Nike Initiator Gore-Tex Black White Термо (Арт: 5182) — 2 280 грн [НОВИНКА]</option>
                             <option value="New Balance 9060 Black Grey Cordura (2590 грн)">🔥👟 New Balance 9060 Black Grey Cordura (Арт: 3771) — 2 590 грн [НОВИНКА]</option>
