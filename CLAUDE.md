@@ -8,7 +8,7 @@
 - **Живий домен:** https://urbangrid.com.ua
 - **Формат:** High-speed Vanilla E-Commerce Landing (HTML5, CSS3, ES6+ JS)
 - **Email для замовлень:** lunarecho94@icloud.com
-- **Підтримка:** +380505921216 (Telegram / Viber)
+- **Підтримка:** +380974524435 (Telegram / Viber)
 
 ## Залізні правила
 1. **Власник — не програміст:** роби все сам, звітуй простою людською мовою, без коду й технічного жаргону.
