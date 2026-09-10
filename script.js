@@ -415,6 +415,8 @@ function updateFormPrice() {
         priceDisplay.textContent = '2 620 грн';
     } else if (val.includes('2600')) {
         priceDisplay.textContent = '2 600 грн';
+    } else if (val.includes('2590')) {
+        priceDisplay.textContent = '2 590 грн';
     } else if (val.includes('2550')) {
         priceDisplay.textContent = '2 550 грн';
     } else if (val.includes('2500')) {
@@ -423,6 +425,8 @@ function updateFormPrice() {
         priceDisplay.textContent = '2 450 грн';
     } else if (val.includes('2400')) {
         priceDisplay.textContent = '2 400 грн';
+    } else if (val.includes('2380')) {
+        priceDisplay.textContent = '2 380 грн';
     } else if (val.includes('2350')) {
         priceDisplay.textContent = '2 350 грн';
     } else if (val.includes('2330')) {

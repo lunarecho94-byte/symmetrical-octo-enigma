@@ -124,6 +124,46 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 32 (NEW): New Balance 9060 Black Grey Cordura 3771 (5 Photos) -->
+                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • CORDURA</span>
+                        <img src="images/new_balance_9060_black_1.jpg" alt="New Balance 9060 Black Grey Cordura" id="cardImg-nb-9060-black-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/new_balance_9060_black_1.jpg" alt="New Balance 9060 Black Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-9060-black-grey', 'images/new_balance_9060_black_1.jpg')">
+                        <img src="images/new_balance_9060_black_2.jpg" alt="New Balance 9060 Black Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-black-grey', 'images/new_balance_9060_black_2.jpg')">
+                        <img src="images/new_balance_9060_black_3.jpg" alt="New Balance 9060 Black Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-black-grey', 'images/new_balance_9060_black_3.jpg')">
+                        <img src="images/new_balance_9060_black_4.jpg" alt="New Balance 9060 Black Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-black-grey', 'images/new_balance_9060_black_4.jpg')">
+                        <img src="images/new_balance_9060_black_5.jpg" alt="New Balance 9060 Black Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-black-grey', 'images/new_balance_9060_black_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: 3771 (ЧОЛОВІЧІ)</div>
+                        <h3 class="product-title">New Balance 9060 Black Grey (Cordura)</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна замша, зносостійка нейлонова тканина Cordura, підошва пінка, документи додаються до пари • <b>Сезон:</b> Демісезон • ТОП якість (ЛІЦЕНЗІЯ) • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (41-45, маломірять):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (25.5 см)')">41</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.2 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (27.5 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.2 см)')">45</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 590 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 9060 Black Grey Cordura (2590 грн)', '2 590 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 31 (NEW): Nike Initiator Gore-Tex Grey 5181 (5 Photos) -->
                 <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike">
                     <div class="product-img-wrapper">
@@ -1482,6 +1522,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 9060 Black Grey Cordura (2590 грн)">🔥👟 New Balance 9060 Black Grey Cordura (Арт: 3771) — 2 590 грн [НОВИНКА]</option>
                             <option value="Nike Initiator Gore-Tex Grey (2380 грн)">🔥❄️ Nike Initiator Gore-Tex Grey Термо (Арт: 5181) — 2 380 грн [НОВИНКА]</option>
                             <option value="Adidas Iniki Black White (2200 грн)">🔥👟 Adidas Iniki Black White (Арт: 4424) — 2 200 грн [ХІТ]</option>
                             <option value="Adidas Terrex Gore-Tex Black (2330 грн)">🔥👟 Adidas Terrex Gore-Tex Black (Арт: 3770) — 2 330 грн [НОВИНКА]</option>
