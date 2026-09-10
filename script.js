@@ -403,7 +403,9 @@ function updateFormPrice() {
     if (!select || !priceDisplay) return;
 
     const val = select.value;
-    if (val.includes('2850')) {
+    if (val.includes('3000')) {
+        priceDisplay.textContent = '3 000 грн';
+    } else if (val.includes('2850')) {
         priceDisplay.textContent = '2 850 грн';
     } else if (val.includes('2800')) {
         priceDisplay.textContent = '2 800 грн';
