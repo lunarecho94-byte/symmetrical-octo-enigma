@@ -88,6 +88,10 @@
                     </a>
                 </div>
                 <div class="header-cta-line">
+                    <button type="button" class="header-search-btn" onclick="focusSearchInput(event)" aria-label="Швидкий пошук у каталозі" title="Пошук кросівок">
+                        <span class="search-btn-icon">🔍</span>
+                        <span class="header-search-label">Пошук</span>
+                    </button>
                     <a href="tel:+380974524435" class="header-phone" title="Зателефонувати: +380974524435" aria-label="Зателефонувати">
                         <span class="phone-icon">📞</span>
                         <span class="phone-text">+380974524435</span>
@@ -103,7 +107,7 @@
         </div>
     </header>
 
-    <!-- Full Catalog Grid: All 30 Top Models with Multi-Photo Carousels -->
+    <!-- Full Catalog Grid: All Models with Multi-Photo Carousels -->
     <section class="catalog" id="catalog">
         <div class="container">
             <div class="section-header">
@@ -111,18 +115,63 @@
                 <p>Гортайте фото свайпом на телефоні або натискайте мініатюри під кожною парою!</p>
             </div>
 
+            <!-- Interactive Catalog Search Bar -->
+            <div class="catalog-search-wrapper">
+                <div class="catalog-search-box">
+                    <span class="search-lens-icon">🔍</span>
+                    <input 
+                        type="search" 
+                        id="catalogSearchInput" 
+                        class="catalog-search-input" 
+                        placeholder="Пошук кросівок: назва, бренд, термо, код (напр. 1906, Jordan, Cordura, NK1031)..." 
+                        aria-label="Пошук кросівок"
+                        autocomplete="off" 
+                        spellcheck="false"
+                        oninput="handleCatalogSearch(this.value)"
+                    >
+                    <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
+                </div>
+
+                <!-- Quick Search Tags -->
+                <div class="search-quick-tags">
+                    <span class="quick-tags-label">Швидкий вибір:</span>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Термо')">❄️ Термо</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Gore-Tex')">🛡️ Gore-Tex</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Cordura')">💪 Cordura</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Jordan')">🏀 Jordan</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Dunk')">🌸 Dunk</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('1906')">👟 1906R</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Samba')">⚽ Samba</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('9060')">⚡ 9060</button>
+                </div>
+
+                <!-- Live Results Counter & Reset Action -->
+                <div id="searchResultsInfo" class="search-results-info" style="display: none;">
+                    <span id="searchResultsCount">Знайдено: 0 моделей</span>
+                    <button type="button" class="btn-reset-search" onclick="clearCatalogSearch()">Скинути пошук ✕</button>
+                </div>
+            </div>
+
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (31)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (13)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (8)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (37)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (17)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (10)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
             </div>
 
             <div class="products-grid">
+                
+                <!-- Empty Search Results Box -->
+                <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
+                    <div class="no-results-icon">🔍</div>
+                    <h3>За вашим запитом пари не знайдено</h3>
+                    <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 37 моделей</button>
+                </div>
                 
                 <!-- Product Card 37 (NEW): Nike Zoom Winflo Termo Light Grey NK1031-N (5 Photos) -->
                 <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike">

@@ -901,18 +901,142 @@ async function downloadLastGeneratedPdf() {
     }
 }
 
-// Category Filtering
+// ==========================================
+// Catalog Search & Category Filtering
+// ==========================================
+let currentCatalogBrand = 'all';
+let currentCatalogSearchQuery = '';
+let cachedProductCards = [];
+
+function initCatalogCardsCache() {
+    const cards = document.querySelectorAll('.product-card');
+    cachedProductCards = Array.from(cards).map(card => {
+        const title = card.querySelector('.product-title')?.textContent || '';
+        const cat = card.querySelector('.product-cat')?.textContent || '';
+        const desc = card.querySelector('.product-desc')?.textContent || '';
+        const badge = card.querySelector('.badge-new-arrival')?.textContent || '';
+        const brand = card.dataset.brand || '';
+        const id = card.id || '';
+        const price = card.querySelector('.price-now')?.textContent || '';
+        const searchText = `${title} ${cat} ${desc} ${badge} ${brand} ${id} ${price}`.toLowerCase();
+        return {
+            el: card,
+            brand: brand,
+            searchText: searchText
+        };
+    });
+}
+
+function applyCatalogFilters() {
+    if (!cachedProductCards.length) {
+        initCatalogCardsCache();
+    }
+
+    const query = currentCatalogSearchQuery.trim().toLowerCase();
+    const queryTokens = query ? query.split(/\s+/).filter(Boolean) : [];
+    const clearBtn = document.getElementById('clearSearchBtn');
+    const resultsInfo = document.getElementById('searchResultsInfo');
+    const resultsCountEl = document.getElementById('searchResultsCount');
+    const noResultsBox = document.getElementById('noSearchResultsBox');
+
+    if (clearBtn) {
+        clearBtn.style.display = query ? 'flex' : 'none';
+    }
+
+    let visibleCount = 0;
+
+    cachedProductCards.forEach(item => {
+        const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand);
+        const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => item.searchText.includes(token));
+
+        if (matchesBrand && matchesSearch) {
+            item.el.style.display = '';
+            visibleCount++;
+        } else {
+            item.el.style.display = 'none';
+        }
+    });
+
+    // Update results counter info
+    if (resultsInfo && resultsCountEl) {
+        if (query || currentCatalogBrand !== 'all') {
+            resultsInfo.style.display = 'flex';
+            let brandLabel = '';
+            if (currentCatalogBrand === 'nike') brandLabel = ' у Nike';
+            else if (currentCatalogBrand === 'nb') brandLabel = ' у New Balance';
+            else if (currentCatalogBrand === 'adidas') brandLabel = ' в Adidas';
+            else if (currentCatalogBrand === 'skate') brandLabel = ' у Vans & Puma';
+
+            let countWord = 'моделей';
+            if (visibleCount % 10 === 1 && visibleCount % 100 !== 11) countWord = 'модель';
+            else if ([2, 3, 4].includes(visibleCount % 10) && ![12, 13, 14].includes(visibleCount % 100)) countWord = 'моделі';
+
+            resultsCountEl.textContent = query 
+                ? `Знайдено: ${visibleCount} ${countWord}${brandLabel} за запитом «${currentCatalogSearchQuery}»`
+                : `Обрано: ${visibleCount} ${countWord}${brandLabel}`;
+        } else {
+            resultsInfo.style.display = 'none';
+        }
+    }
+
+    // Show/hide empty state
+    if (noResultsBox) {
+        noResultsBox.style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+}
+
 function filterCatalog(brand, btn) {
     document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    const cards = document.querySelectorAll('.product-card');
-    cards.forEach(card => {
-        if (brand === 'all' || card.dataset.brand === brand) {
-            card.style.display = '';
-        } else {
-            card.style.display = 'none';
-        }
-    });
+    currentCatalogBrand = brand;
+    applyCatalogFilters();
+}
+
+function handleCatalogSearch(query) {
+    currentCatalogSearchQuery = query;
+    applyCatalogFilters();
+}
+
+function clearCatalogSearch() {
+    const input = document.getElementById('catalogSearchInput');
+    if (input) {
+        input.value = '';
+    }
+    currentCatalogSearchQuery = '';
+    currentCatalogBrand = 'all';
+
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    const allChip = document.querySelector('.filter-chip');
+    if (allChip) allChip.classList.add('active');
+
+    applyCatalogFilters();
+}
+
+function quickSearch(term) {
+    const input = document.getElementById('catalogSearchInput');
+    if (input) {
+        input.value = term;
+        input.focus();
+    }
+    currentCatalogSearchQuery = term;
+    currentCatalogBrand = 'all';
+
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    const allChip = document.querySelector('.filter-chip');
+    if (allChip) allChip.classList.add('active');
+
+    applyCatalogFilters();
+}
+
+function focusSearchInput(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const input = document.getElementById('catalogSearchInput');
+    if (input) {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+            input.focus();
+        }, 300);
+    }
 }
 
 // Mobile Swipe Support for Product Cards (Strictly horizontal intentional swipe)
@@ -1066,6 +1190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
     initSwipeGalleries();
     initScrollTop();
+    initCatalogCardsCache();
 
     // Close Cart on Escape
     document.addEventListener('keydown', (e) => {
