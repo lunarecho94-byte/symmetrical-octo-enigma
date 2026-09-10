@@ -124,6 +124,47 @@
 
             <div class="products-grid">
                 
+                <!-- Product Card 37 (NEW): Nike Zoom Winflo Termo Light Grey NK1031-N (5 Photos) -->
+                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
+                        <img src="images/nike_winflo_grey_1.jpg" alt="Nike Zoom Winflo Termo Light Grey" id="cardImg-nike-zoom-winflo-termo-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_winflo_grey_1.jpg" alt="Nike Zoom Winflo Termo Light Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-zoom-winflo-termo-grey', 'images/nike_winflo_grey_1.jpg')">
+                        <img src="images/nike_winflo_grey_2.jpg" alt="Nike Zoom Winflo Termo Light Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-zoom-winflo-termo-grey', 'images/nike_winflo_grey_2.jpg')">
+                        <img src="images/nike_winflo_grey_3.jpg" alt="Nike Zoom Winflo Termo Light Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-zoom-winflo-termo-grey', 'images/nike_winflo_grey_3.jpg')">
+                        <img src="images/nike_winflo_grey_4.jpg" alt="Nike Zoom Winflo Termo Light Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-zoom-winflo-termo-grey', 'images/nike_winflo_grey_4.jpg')">
+                        <img src="images/nike_winflo_grey_5.jpg" alt="Nike Zoom Winflo Termo Light Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-zoom-winflo-termo-grey', 'images/nike_winflo_grey_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE ZOOM WINFLO | АРТ: NK1031-N (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <h3 class="product-title">Nike Zoom Winflo Termo Light Grey</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Преміум шкіра, зносостійкий текстиль Cordura, підошва піна та гума (Zoom Air) • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (41-46):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29 см)')">46</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 400 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Zoom Winflo Termo Light Grey (2400 грн)', '2 400 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 36 (NEW): New Balance 1906R Termo Beige Black NB219 (4 Photos) -->
                 <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb">
                     <div class="product-img-wrapper">
@@ -1684,6 +1725,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Zoom Winflo Termo Light Grey (2400 грн)">🔥❄️ Nike Zoom Winflo Termo Light Grey (Арт: NK1031-N) — 2 400 грн [НОВИНКА]</option>
                             <option value="New Balance 1906R Termo Beige Black (2500 грн)">🔥❄️ New Balance 1906R Termo Beige Black (Арт: NB219) — 2 500 грн [НОВИНКА]</option>
                             <option value="Nike Jordan Low Little Paris (2550 грн)">🔥👟 Nike Jordan Low Little Paris (Арт: S1485) — 2 550 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Pink Paisley (2800 грн)">🔥🌸 Nike Dunk Low Pink Paisley (Арт: S1365) — 2 800 грн [НОВИНКА]</option>
