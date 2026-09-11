@@ -155,8 +155,8 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (39)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (17)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (40)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (18)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (12)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
@@ -170,9 +170,50 @@
                     <div class="no-results-icon">🔍</div>
                     <h3>За вашим запитом пари не знайдено</h3>
                     <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 39 моделей</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 40 моделей</button>
                 </div>
                 
+                <!-- Product Card 40 (NEW): Nike Dunk Low Lace Pack Regal Pink S1456 (5 Photos) -->
+                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • LACE PACK 🌸</span>
+                        <img src="images/nike_dunk_regal_pink_1.jpg" alt="Nike Dunk Low Lace Pack Regal Pink" id="cardImg-nike-dunk-lace-pink">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_dunk_regal_pink_1.jpg" alt="Nike Dunk Low Lace Pack Regal Pink 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-pink', 'images/nike_dunk_regal_pink_1.jpg')">
+                        <img src="images/nike_dunk_regal_pink_2.jpg" alt="Nike Dunk Low Lace Pack Regal Pink 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-pink', 'images/nike_dunk_regal_pink_2.jpg')">
+                        <img src="images/nike_dunk_regal_pink_3.jpg" alt="Nike Dunk Low Lace Pack Regal Pink 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-pink', 'images/nike_dunk_regal_pink_3.jpg')">
+                        <img src="images/nike_dunk_regal_pink_4.jpg" alt="Nike Dunk Low Lace Pack Regal Pink 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-pink', 'images/nike_dunk_regal_pink_4.jpg')">
+                        <img src="images/nike_dunk_regal_pink_5.jpg" alt="Nike Dunk Low Lace Pack Regal Pink 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-pink', 'images/nike_dunk_regal_pink_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1456 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">Nike Dunk Low Lace Pack Regal Pink</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Преміум натуральна шкіра, вишуканий мереживний текстиль з квітковим візерунком, атласні стрічкові шнурки + додаткові класичні шнурки в комплекті, підошва гумова з амортизацією • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 600 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Dunk Low Lace Pack Regal Pink (2600 грн)', '2 600 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 39 (NEW): New Balance 9060 Grey S1364 (4 Photos) -->
                 <div class="product-card" id="prod-nb-9060-grey" data-brand="nb">
                     <div class="product-img-wrapper">
@@ -1855,6 +1896,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Dunk Low Lace Pack Regal Pink (2600 грн)">🔥🌸 Nike Dunk Low Lace Pack Regal Pink (Арт: S1456) — 2 600 грн [НОВИНКА]</option>
                             <option value="New Balance 9060 Grey (2900 грн)">🔥👟 New Balance 9060 Grey (Арт: S1364) — 2 900 грн [НОВИНКА]</option>
                             <option value="New Balance 9060 Light Beige (2900 грн)">🔥👟 New Balance 9060 Light Beige (Арт: S1413) — 2 900 грн [НОВИНКА]</option>
                             <option value="Nike Zoom Winflo Termo Light Grey (2900 грн)">🔥❄️ Nike Zoom Winflo Termo Light Grey (Арт: NK1031-N) — 2 900 грн [НОВИНКА]</option>
