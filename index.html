@@ -155,9 +155,9 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (37)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (38)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (17)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (10)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (11)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -170,9 +170,50 @@
                     <div class="no-results-icon">🔍</div>
                     <h3>За вашим запитом пари не знайдено</h3>
                     <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 37 моделей</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 38 моделей</button>
                 </div>
                 
+                <!-- Product Card 38 (NEW): New Balance 9060 Light Beige S1413 (5 Photos) -->
+                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • BEIGE ✨</span>
+                        <img src="images/new_balance_9060_light_beige_1.jpg" alt="New Balance 9060 Light Beige" id="cardImg-nb-9060-light-beige">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/new_balance_9060_light_beige_1.jpg" alt="New Balance 9060 Light Beige 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-9060-light-beige', 'images/new_balance_9060_light_beige_1.jpg')">
+                        <img src="images/new_balance_9060_light_beige_2.jpg" alt="New Balance 9060 Light Beige 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-light-beige', 'images/new_balance_9060_light_beige_2.jpg')">
+                        <img src="images/new_balance_9060_light_beige_3.jpg" alt="New Balance 9060 Light Beige 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-light-beige', 'images/new_balance_9060_light_beige_3.jpg')">
+                        <img src="images/new_balance_9060_light_beige_4.jpg" alt="New Balance 9060 Light Beige 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-light-beige', 'images/new_balance_9060_light_beige_4.jpg')">
+                        <img src="images/new_balance_9060_light_beige_5.jpg" alt="New Balance 9060 Light Beige 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-light-beige', 'images/new_balance_9060_light_beige_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1413 (ЖІНОЧІ)</div>
+                        <h3 class="product-title">New Balance 9060 Light Beige</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Преміальний натуральний замш, дихаюча текстильна сітка, підошва з технологією ABZORB та SBS для максимального комфорту • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 500 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 9060 Light Beige (2500 грн)', '2 500 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 37 (NEW): Nike Zoom Winflo Termo Light Grey NK1031-N (5 Photos) -->
                 <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike">
                     <div class="product-img-wrapper">
@@ -1774,6 +1815,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 9060 Light Beige (2500 грн)">🔥👟 New Balance 9060 Light Beige (Арт: S1413) — 2 500 грн [НОВИНКА]</option>
                             <option value="Nike Zoom Winflo Termo Light Grey (2900 грн)">🔥❄️ Nike Zoom Winflo Termo Light Grey (Арт: NK1031-N) — 2 900 грн [НОВИНКА]</option>
                             <option value="New Balance 1906R Termo Beige Black (3000 грн)">🔥❄️ New Balance 1906R Termo Beige Black (Арт: NB219) — 3 000 грн [НОВИНКА]</option>
                             <option value="Nike Jordan Low Little Paris (2550 грн)">🔥👟 Nike Jordan Low Little Paris (Арт: S1485) — 2 550 грн [НОВИНКА]</option>
