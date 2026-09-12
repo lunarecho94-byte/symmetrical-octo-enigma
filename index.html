@@ -155,8 +155,8 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (41)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (19)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (42)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (20)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (12)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
@@ -170,9 +170,53 @@
                     <div class="no-results-icon">🔍</div>
                     <h3>За вашим запитом пари не знайдено</h3>
                     <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 41 модель</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 42 моделі</button>
                 </div>
                 
+                <!-- Product Card 42 (NEW): Nike Lunar Force 1 x Acronym Black White NK1057 (5 Photos) -->
+                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • ACRONYM ⚡</span>
+                        <img src="images/nike_lunar_force_acronym_black_1.jpg" alt="Nike Lunar Force 1 x Acronym Black White" id="cardImg-nike-lunar-force-acronym-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_lunar_force_acronym_black_1.jpg" alt="Nike Lunar Force 1 x Acronym Black White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-lunar-force-acronym-black', 'images/nike_lunar_force_acronym_black_1.jpg')">
+                        <img src="images/nike_lunar_force_acronym_black_2.jpg" alt="Nike Lunar Force 1 x Acronym Black White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-lunar-force-acronym-black', 'images/nike_lunar_force_acronym_black_2.jpg')">
+                        <img src="images/nike_lunar_force_acronym_black_3.jpg" alt="Nike Lunar Force 1 x Acronym Black White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-lunar-force-acronym-black', 'images/nike_lunar_force_acronym_black_3.jpg')">
+                        <img src="images/nike_lunar_force_acronym_black_4.jpg" alt="Nike Lunar Force 1 x Acronym Black White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-lunar-force-acronym-black', 'images/nike_lunar_force_acronym_black_4.jpg')">
+                        <img src="images/nike_lunar_force_acronym_black_5.jpg" alt="Nike Lunar Force 1 x Acronym Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-lunar-force-acronym-black', 'images/nike_lunar_force_acronym_black_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE LUNAR FORCE 1 | АРТ: NK1057 (УНІСЕКС)</div>
+                        <h3 class="product-title">Nike Lunar Force 1 x Acronym Black White</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Преміум замша, лаковані вставки на заднику, фірмова функціональна бічна блискавка YKK • <b>Підошва:</b> М'яка амортизуюча піна Lunarlon, гумовий зносостійкий протектор • <b>Комплектація:</b> Фірмова коробка Nike, 2 пари додаткових шнурків • <b>Виробник:</b> В'єтнам.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (37-45):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">3 100 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Lunar Force 1 x Acronym Black White (3100 грн)', '3 100 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 41 (NEW): Nike Dunk Low Lace Pack Regal Beige S1457 (5 Photos) -->
                 <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike">
                     <div class="product-img-wrapper">
@@ -1936,6 +1980,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Lunar Force 1 x Acronym Black White (3100 грн)">🔥⚡ Nike Lunar Force 1 x Acronym Black White (Арт: NK1057) — 3 100 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Lace Pack Regal Beige (2800 грн)">🔥✨ Nike Dunk Low Lace Pack Regal Beige (Арт: S1457) — 2 800 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Lace Pack Regal Pink (2600 грн)">🔥🌸 Nike Dunk Low Lace Pack Regal Pink (Арт: S1456) — 2 600 грн [НОВИНКА]</option>
                             <option value="New Balance 9060 Grey (2900 грн)">🔥👟 New Balance 9060 Grey (Арт: S1364) — 2 900 грн [НОВИНКА]</option>
