@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="theme-color" content="#ffffff">
-    <title>URBANO — Каталог Кросівки Nike Court Legacy Lift Premium, Nike V5 RNR, Nike V2K, NB 740, Samba, Dunk | Дропшипінг Україна</title>
-    <meta name="description" content="Офіційний каталог трендових кросівок в Україні: Nike Court Legacy Lift Premium (2670 грн, Код: N00152), Nike V5 RNR Triple White (2600 грн), Nike V2K White Grey (2450 грн), NB 740 Navy (2500 грн), Adidas Samba Black (2350 грн). Натуральна шкіра, сітка та замша, В'єтнам. Оплата при отриманні Новою Поштою.">
+    <title>URBANO — Офіційний інтернет-магазин трендових кросівок Nike, New Balance, Adidas в Україні</title>
+    <meta name="description" content="Офіційний каталог трендових кросівок в Україні: Nike Court Legacy Lift Premium, Nike V5 RNR, Nike V2K, NB 740, Adidas Samba. Фабрична якість, натуральні матеріали, доставка 1-2 дні Новою Поштою та оплата при отриманні.">
     
     <!-- Open Graph / Meta & Telegram Ad Previews -->
     <meta property="og:type" content="website">
@@ -148,18 +148,66 @@
                 <!-- Live Results Counter & Reset Action -->
                 <div id="searchResultsInfo" class="search-results-info" style="display: none;">
                     <span id="searchResultsCount">Знайдено: 0 моделей</span>
-                    <button type="button" class="btn-reset-search" onclick="clearCatalogSearch()">Скинути пошук ✕</button>
+                    <button type="button" class="btn-reset-search" onclick="clearCatalogSearch()">Скинути всі фільтри ✕</button>
                 </div>
             </div>
 
-            <!-- Mobile & Desktop Fast Category Filter Chips -->
-            <div class="category-filter-wrapper">
-                <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (47)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (21)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
+            <!-- Interactive Catalog Filters Panel: Gender, Size EU, Brands -->
+            <div class="catalog-filters-panel" id="catalogFiltersPanel">
+                <!-- 1. Gender Filter -->
+                <div class="filter-group filter-group-gender">
+                    <div class="filter-group-header">
+                        <span class="filter-label">👥 Стать:</span>
+                    </div>
+                    <div class="filter-chips-scroll">
+                        <button type="button" class="filter-gender-chip active" data-gender="all" onclick="filterCatalogGender('all', this)">
+                            Всі моделі <span class="filter-count">47</span>
+                        </button>
+                        <button type="button" class="filter-gender-chip" data-gender="men" onclick="filterCatalogGender('men', this)">
+                            Чоловічі 👨 <span class="filter-count">10</span>
+                        </button>
+                        <button type="button" class="filter-gender-chip" data-gender="women" onclick="filterCatalogGender('women', this)">
+                            Жіночі 👩 <span class="filter-count">38</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Shoe Size Filter (EU) -->
+                <div class="filter-group filter-group-size">
+                    <div class="filter-group-header">
+                        <span class="filter-label">👟 Розмір взуття (EU):</span>
+                        <span class="filter-hint" id="activeSizeHint">Натисніть на свій розмір, щоб побачити моделі в наявності</span>
+                    </div>
+                    <div class="size-filter-chips-scroll">
+                        <button type="button" class="size-filter-btn active" data-size="all" onclick="filterCatalogSize('all', this)" title="Всі розміри">
+                            Всі
+                        </button>
+                        <button type="button" class="size-filter-btn" data-size="36" onclick="filterCatalogSize('36', this)">36</button>
+                        <button type="button" class="size-filter-btn" data-size="37" onclick="filterCatalogSize('37', this)">37</button>
+                        <button type="button" class="size-filter-btn" data-size="38" onclick="filterCatalogSize('38', this)">38</button>
+                        <button type="button" class="size-filter-btn" data-size="39" onclick="filterCatalogSize('39', this)">39</button>
+                        <button type="button" class="size-filter-btn" data-size="40" onclick="filterCatalogSize('40', this)">40</button>
+                        <button type="button" class="size-filter-btn" data-size="41" onclick="filterCatalogSize('41', this)">41</button>
+                        <button type="button" class="size-filter-btn" data-size="42" onclick="filterCatalogSize('42', this)">42</button>
+                        <button type="button" class="size-filter-btn" data-size="43" onclick="filterCatalogSize('43', this)">43</button>
+                        <button type="button" class="size-filter-btn" data-size="44" onclick="filterCatalogSize('44', this)">44</button>
+                        <button type="button" class="size-filter-btn" data-size="45" onclick="filterCatalogSize('45', this)">45</button>
+                        <button type="button" class="size-filter-btn" data-size="46" onclick="filterCatalogSize('46', this)">46</button>
+                    </div>
+                </div>
+
+                <!-- 3. Brand Filter Chips -->
+                <div class="filter-group filter-group-brand">
+                    <div class="filter-group-header">
+                        <span class="filter-label">🏷️ Бренд:</span>
+                    </div>
+                    <div class="category-filter-chips">
+                        <button type="button" class="filter-chip filter-brand-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі бренди (47)</button>
+                        <button type="button" class="filter-chip filter-brand-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (21)</button>
+                        <button type="button" class="filter-chip filter-brand-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
+                        <button type="button" class="filter-chip filter-brand-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
+                        <button type="button" class="filter-chip filter-brand-chip" data-brand="skate" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
+                    </div>
                 </div>
             </div>
 
@@ -167,14 +215,14 @@
                 
                 <!-- Empty Search Results Box -->
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
-                    <div class="no-results-icon">🔍</div>
-                    <h3>За вашим запитом пари не знайдено</h3>
-                    <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
+                    <div class="no-results-icon">👟</div>
+                    <h3>За вашими параметрами пар не знайдено</h3>
+                    <p id="noResultsDetail">Спробуйте обрати інший розмір, зняти фільтр статі або скинути фільтри, щоб переглянути всі моделі на складі.</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 47 моделей</button>
                 </div>
                 
                 <!-- Product Card 47 (NEW): Nike Air Jordan 4 Black Pink NJ21 (5 Photos) -->
-                <div class="product-card" id="prod-nike-air-jordan-4-black-pink" data-brand="nike">
+                <div class="product-card" id="prod-nike-air-jordan-4-black-pink" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • JORDAN 💖</span>
                         <img src="images/nike_air_jordan_4_black_pink_1.jpg" alt="Nike Air Jordan 4 Black Pink" id="cardImg-nike-air-jordan-4-black-pink">
@@ -214,7 +262,7 @@
                 </div>
 
                 <!-- Product Card 46 (NEW): New Balance 1906R Termo Black NB220 (5 Photos) -->
-                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb">
+                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_1906r_termo_black_1.jpg" alt="New Balance 1906R Termo Black" id="cardImg-nb-1906r-termo-black">
@@ -255,7 +303,7 @@
                 </div>
 
                 <!-- Product Card 45 (NEW): New Balance 990v3 Termo Black NB218 (5 Photos) -->
-                <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb">
+                <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_990v3_termo_black_1.jpg" alt="New Balance 990v3 Termo Black" id="cardImg-nb-990v3-termo-black">
@@ -296,7 +344,7 @@
                 </div>
 
                 <!-- Product Card 44 (NEW): New Balance 990v3 Termo Brown/Black NB221-N (5 Photos) -->
-                <div class="product-card" id="prod-nb-990v3-termo-brown" data-brand="nb">
+                <div class="product-card" id="prod-nb-990v3-termo-brown" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_990v3_termo_brown_1.jpg" alt="New Balance 990v3 Termo Brown/Black" id="cardImg-nb-990v3-termo-brown">
@@ -337,7 +385,7 @@
                 </div>
 
                 <!-- Product Card 43 (NEW): New Balance 574 Termo White NB222-N (5 Photos) -->
-                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb">
+                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_574_termo_white_1.jpg" alt="New Balance 574 Termo White" id="cardImg-nb-574-termo-white">
@@ -377,7 +425,7 @@
                 </div>
 
                 <!-- Product Card 42 (NEW): Nike Lunar Force 1 x Acronym Black White NK1057 (5 Photos) -->
-                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike">
+                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike" data-gender="unisex" data-sizes="37,38,39,40,41,42,43,44,45">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ACRONYM ⚡</span>
                         <img src="images/nike_lunar_force_acronym_black_1.jpg" alt="Nike Lunar Force 1 x Acronym Black White" id="cardImg-nike-lunar-force-acronym-black">
@@ -421,7 +469,7 @@
                 </div>
 
                 <!-- Product Card 41 (NEW): Nike Dunk Low Lace Pack Regal Beige S1457 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike">
+                <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • LACE PACK ✨</span>
                         <img src="images/nike_dunk_regal_beige_1.jpg" alt="Nike Dunk Low Lace Pack Regal Beige" id="cardImg-nike-dunk-lace-beige">
@@ -461,7 +509,7 @@
                 </div>
 
                 <!-- Product Card 40 (NEW): Nike Dunk Low Lace Pack Regal Pink S1456 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike">
+                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • LACE PACK 🌸</span>
                         <img src="images/nike_dunk_regal_pink_1.jpg" alt="Nike Dunk Low Lace Pack Regal Pink" id="cardImg-nike-dunk-lace-pink">
@@ -502,7 +550,7 @@
                 </div>
 
                 <!-- Product Card 39 (NEW): New Balance 9060 Grey S1364 (4 Photos) -->
-                <div class="product-card" id="prod-nb-9060-grey" data-brand="nb">
+                <div class="product-card" id="prod-nb-9060-grey" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • GREY 🩶</span>
                         <img src="images/new_balance_9060_grey_1.jpg" alt="New Balance 9060 Grey" id="cardImg-nb-9060-grey">
@@ -542,7 +590,7 @@
                 </div>
 
                 <!-- Product Card 38 (NEW): New Balance 9060 Light Beige S1413 (5 Photos) -->
-                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb">
+                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • BEIGE ✨</span>
                         <img src="images/new_balance_9060_light_beige_1.jpg" alt="New Balance 9060 Light Beige" id="cardImg-nb-9060-light-beige">
@@ -583,7 +631,7 @@
                 </div>
 
                 <!-- Product Card 37 (NEW): Nike Zoom Winflo Termo Light Grey NK1031-N (5 Photos) -->
-                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike">
+                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nike_winflo_grey_1.jpg" alt="Nike Zoom Winflo Termo Light Grey" id="cardImg-nike-zoom-winflo-termo-grey">
@@ -624,7 +672,7 @@
                 </div>
 
                 <!-- Product Card 36 (NEW): New Balance 1906R Termo Beige Black NB219 (4 Photos) -->
-                <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb">
+                <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/new_balance_1906r_termo_1.jpg" alt="New Balance 1906R Termo Beige Black" id="cardImg-nb-1906r-termo-beige-black">
@@ -664,7 +712,7 @@
                 </div>
 
                 <!-- Product Card 35 (NEW): Nike Jordan Low Little Paris S1485 (5 Photos) -->
-                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike">
+                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • PARIS 🕊️</span>
                         <img src="images/nike_jordan_little_paris_1.jpg" alt="Nike Jordan Low Little Paris" id="cardImg-nike-jordan-little-paris">
@@ -705,7 +753,7 @@
                 </div>
 
                 <!-- Product Card 34 (NEW): Nike Dunk Low Pink Paisley S1365 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike">
+                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 ХІТ • PAISLEY 🌸</span>
                         <img src="images/nike_dunk_pink_paisley_1.jpg" alt="Nike Dunk Low Pink Paisley" id="cardImg-nike-dunk-pink-paisley">
@@ -746,7 +794,7 @@
                 </div>
 
                 <!-- Product Card 33 (NEW): Nike Initiator Gore-Tex Black White 5182 (5 Photos) -->
-                <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike">
+                <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nike_initiator_black_1.jpg" alt="Nike Initiator Gore-Tex Black White" id="cardImg-nike-initiator-goretex-black">
@@ -786,7 +834,7 @@
                 </div>
 
                 <!-- Product Card 32 (NEW): New Balance 9060 Black Grey Cordura 3771 (5 Photos) -->
-                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb">
+                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • CORDURA</span>
                         <img src="images/new_balance_9060_black_1.jpg" alt="New Balance 9060 Black Grey Cordura" id="cardImg-nb-9060-black-grey">
@@ -826,7 +874,7 @@
                 </div>
 
                 <!-- Product Card 31 (NEW): Nike Initiator Gore-Tex Grey 5181 (5 Photos) -->
-                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike">
+                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nike_initiator_goretex_grey_1.jpg" alt="Nike Initiator Gore-Tex Grey" id="cardImg-nike-initiator-goretex-grey">
@@ -866,7 +914,7 @@
                 </div>
 
                 <!-- Product Card 24: Adidas Iniki Black White 4424 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas">
+                <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas" data-gender="women" data-sizes="36,37,39,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 ХІТ</span>
                         <img src="images/adidas_iniki_black_1.jpg" alt="Adidas Iniki Black White" id="cardImg-adidas-iniki-black">
@@ -905,7 +953,7 @@
                 </div>
 
                 <!-- Product Card 30 (NEW): Adidas Terrex Gore-Tex Black 3770 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas">
+                <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • GORE-TEX</span>
                         <img src="images/adidas_terrex_black_1.jpg" alt="Adidas Terrex Gore-Tex Black" id="cardImg-adidas-terrex-black">
@@ -946,7 +994,7 @@
                 </div>
 
                 <!-- Product Card 29 (NEW): New Balance 530 White Black 4354 (5 Photos) -->
-                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb">
+                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb" data-gender="women" data-sizes="38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nb_530_whiteblack_1.jpg" alt="New Balance 530 White Black" id="cardImg-nb-530-whiteblack">
@@ -985,7 +1033,7 @@
                 </div>
 
                 <!-- Product Card 28 (NEW): New Balance 574 Dark Grey White 4414 (5 Photos) -->
-                <div class="product-card" id="prod-nb-574-grey" data-brand="nb">
+                <div class="product-card" id="prod-nb-574-grey" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nb_574_darkgrey_1.jpg" alt="New Balance 574 Dark Grey White" id="cardImg-nb-574-grey">
@@ -1026,7 +1074,7 @@
                 </div>
 
                 <!-- Product Card 27 (NEW): Adidas Samba Platform Black White 4464 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas">
+                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 АКЦІЯ • НОВИНКА</span>
                         <img src="images/adidas_samba_platform_1.jpg" alt="Adidas Samba Platform Black White" id="cardImg-adidas-samba-platform">
@@ -1067,7 +1115,7 @@
                 </div>
 
                 <!-- Product Card 26 (NEW): Adidas Handball Spezial Grey Black 3763 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas">
+                <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas" data-gender="men" data-sizes="41,42,43,44,45,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/adidas_spezial_grey_1.jpg" alt="Adidas Handball Spezial Grey Black" id="cardImg-adidas-spezial-grey">
@@ -1108,7 +1156,7 @@
                 </div>
 
                 <!-- Product Card 25 (NEW): Adidas Slip-On Dark Grey Black 3760 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas">
+                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas" data-gender="men" data-sizes="41,42,43,44,46">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/adidas_slipon_grey_1.jpg" alt="Adidas Slip-On Dark Grey Black" id="cardImg-adidas-slipon-grey">
@@ -1148,7 +1196,7 @@
                 </div>
 
                 <!-- Product Card 23 (NEW): Puma Suede XL Grey White S1470 (5 Photos) -->
-                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate">
+                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate" data-gender="women" data-sizes="36,37,38,39,40">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/puma_suede_mint_1.jpg" alt="Puma Suede XL Grey White" id="cardImg-puma-suede-mint">
@@ -1188,7 +1236,7 @@
                 </div>
 
                 <!-- Product Card 22: New Balance 530 White/Silver S1325 (5 Photos) -->
-                <div class="product-card" id="prod-nb-530-silver" data-brand="nb">
+                <div class="product-card" id="prod-nb-530-silver" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nb_530_silver_1.jpg" alt="New Balance 530 White/Silver" id="cardImg-nb-530-silver">
@@ -1229,7 +1277,7 @@
                 </div>
 
                 <!-- Product Card 21: Nike Dunk Low Dusty Pink / Puma Suede XL S1405 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike">
+                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nike_dunk_pink_1.jpg" alt="Nike Dunk Low Dusty Pink / Puma Suede XL" id="cardImg-nike-dunk-pink">
@@ -1269,7 +1317,7 @@
                 </div>
 
                 <!-- Product Card 20 (NEW): Puma Suede XL Black Pink S1405 (5 Photos) -->
-                <div class="product-card" id="prod-puma-suede-black-pink" data-brand="skate">
+                <div class="product-card" id="prod-puma-suede-black-pink" data-brand="skate" data-gender="women" data-sizes="36,37,38,39,40">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/puma_suede_xl_1.jpg" alt="Puma Suede XL Black Pink" id="cardImg-puma-black-pink">
@@ -1309,7 +1357,7 @@
                 </div>
 
                 <!-- Product Card 1: Nike Court Legacy Lift Premium N00152 -->
-                <div class="product-card" id="prod-nike-court-lift" data-brand="nike">
+                <div class="product-card" id="prod-nike-court-lift" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_court_legacy_lift_1.jpg" alt="Nike Court Legacy Lift Premium" id="cardImg-court-lift">
                     </div>
@@ -1345,7 +1393,7 @@
                 </div>
 
                 <!-- Product Card 2: Nike V5 RNR White S1493 (4 Photos) -->
-                <div class="product-card" id="prod-v5-white" data-brand="nike">
+                <div class="product-card" id="prod-v5-white" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v5_white_1.jpg" alt="Nike V5 RNR White" id="cardImg-v5-white">
                     </div>
@@ -1384,7 +1432,7 @@
                 </div>
 
                 <!-- Product Card 3: Nike V2K Runtekk White Grey S1495 (3 Photos) -->
-                <div class="product-card" id="prod-v2k-white-grey" data-brand="nike">
+                <div class="product-card" id="prod-v2k-white-grey" data-brand="nike" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v2k_white_grey_1.jpg" alt="Nike V2K Runtekk White Grey" id="cardImg-v2k-white-grey">
                     </div>
@@ -1421,7 +1469,7 @@
                 </div>
 
                 <!-- Product Card 4: New Balance 740 White Navy Blue S1498 (3 Photos) -->
-                <div class="product-card" id="prod-nb740-navy" data-brand="nb">
+                <div class="product-card" id="prod-nb740-navy" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nb740_navy_1.jpg" alt="New Balance 740 White Navy Blue" id="cardImg-nb740-navy">
                     </div>
@@ -1459,7 +1507,7 @@
                 </div>
 
                 <!-- Product Card 5: Adidas Samba Black S1291 (2 Photos) -->
-                <div class="product-card" id="prod-samba-black" data-brand="adidas">
+                <div class="product-card" id="prod-samba-black" data-brand="adidas" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/adidas_samba_black_1.jpg" alt="Adidas Samba Black" id="cardImg-samba-black">
                     </div>
@@ -1496,7 +1544,7 @@
                 </div>
 
                 <!-- Product Card 6: Nike Dunk Brown Cacao S1423 (2 Photos) -->
-                <div class="product-card" id="prod-dunk-brown" data-brand="nike">
+                <div class="product-card" id="prod-dunk-brown" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_dunk_brown_1.jpg" alt="Nike Dunk Brown Cacao" id="cardImg-dunk-brown">
                     </div>
@@ -1533,7 +1581,7 @@
                 </div>
 
                 <!-- Product Card 7: NB 9060 Joe Freshgoods Dark Gray S1298 (3 Photos) -->
-                <div class="product-card" id="prod-nb-jfg" data-brand="nb">
+                <div class="product-card" id="prod-nb-jfg" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_jfg_darkgray_1.jpg" alt="New Balance 9060 Joe Freshgoods Dark Gray" id="cardImg-nb-jfg">
                     </div>
@@ -1570,7 +1618,7 @@
                 </div>
 
                 <!-- Product Card 8: New Balance 9060 Black Green S1499 (3 Photos) -->
-                <div class="product-card" id="prod-nb-black" data-brand="nb">
+                <div class="product-card" id="prod-nb-black" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_black_green_1.jpg" alt="New Balance 9060 Black Green" id="cardImg-nb-black">
                     </div>
@@ -1607,7 +1655,7 @@
                 </div>
 
                 <!-- Product Card 9: Nike V2K Runtekk Brown Beige S1512 (3 Photos) -->
-                <div class="product-card" id="prod-v2k-brown" data-brand="nike">
+                <div class="product-card" id="prod-v2k-brown" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v2k_brown_3.jpg" alt="Nike V2K Runtekk Brown Beige" id="cardImg-v2k-brown">
                     </div>
@@ -1645,7 +1693,7 @@
                 </div>
 
                 <!-- Product Card 10: Nike V5 RNR White Silver Gold S1510 (2 Photos) -->
-                <div class="product-card" id="prod-v5-gold" data-brand="nike">
+                <div class="product-card" id="prod-v5-gold" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v5_gold_1.jpg" alt="Nike V5 RNR White Silver Gold" id="cardImg-v5-gold">
                     </div>
@@ -1682,7 +1730,7 @@
                 </div>
 
                 <!-- Product Card 11: Nike V5 RNR White Metallic S1515 (4 Photos) -->
-                <div class="product-card" id="prod-v5" data-brand="nike">
+                <div class="product-card" id="prod-v5" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v5_3.jpg" alt="Nike V5 RNR White Metallic" id="cardImg-v5">
                     </div>
@@ -1721,7 +1769,7 @@
                 </div>
 
                 <!-- Product Card 12: Adidas Gazelle Beige S1500 (3 Photos) -->
-                <div class="product-card" id="prod-gazelle" data-brand="adidas">
+                <div class="product-card" id="prod-gazelle" data-brand="adidas" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/adidas_gazelle_1.jpg" alt="Adidas Gazelle Beige" id="cardImg-gazelle">
                     </div>
@@ -1759,7 +1807,7 @@
                 </div>
 
                 <!-- Product Card 13: Nike Dunk Grey White S1502 (2 Photos) -->
-                <div class="product-card" id="prod-grey-blue" data-brand="nike">
+                <div class="product-card" id="prod-grey-blue" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_grey_blue_1.jpg" alt="Nike Dunk Grey White" id="cardImg-grey-blue">
                     </div>
@@ -1796,7 +1844,7 @@
                 </div>
 
                 <!-- Product Card 14: Nike Dunk Burgundy Croc S1501 (2 Photos) -->
-                <div class="product-card" id="prod-croc" data-brand="nike">
+                <div class="product-card" id="prod-croc" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_croc_1.jpg" alt="Nike Dunk Burgundy Croc" id="cardImg-croc">
                     </div>
@@ -1833,7 +1881,7 @@
                 </div>
 
                 <!-- Product Card 15: New Balance 9060 Brown Mushroom S1507 -->
-                <div class="product-card" id="prod-nb-brown" data-brand="nb">
+                <div class="product-card" id="prod-nb-brown" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_brown_1.jpg" alt="New Balance 9060 Brown Mushroom" id="cardImg-nb-brown">
                     </div>
@@ -1868,7 +1916,7 @@
                 </div>
 
                 <!-- Product Card 16: Nike Dunk White Grey S1503 (5 Photos) -->
-                <div class="product-card" id="prod-grey" data-brand="nike">
+                <div class="product-card" id="prod-grey" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_grey_1.jpg" alt="Nike Dunk White Grey" id="cardImg-grey">
                     </div>
@@ -1908,7 +1956,7 @@
                 </div>
 
                 <!-- Product Card 17: Nike Dunk Low Bordo White S1467 (5 Photos) -->
-                <div class="product-card" id="prod-bordo" data-brand="nike">
+                <div class="product-card" id="prod-bordo" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/nike_bordo_1.jpg" alt="Nike Dunk Low Bordo White" id="cardImg-bordo">
                     </div>
@@ -1948,7 +1996,7 @@
                 </div>
 
                 <!-- Product Card 18: Vans Knu Skool S1314 (4 Photos) -->
-                <div class="product-card" id="prod-vans" data-brand="skate">
+                <div class="product-card" id="prod-vans" data-brand="skate" data-gender="women" data-sizes="36,37,38,39,40,41">
                     <div class="product-img-wrapper">
                         <img src="images/vans_knu_1.jpg" alt="Vans Knu Skool Black White" id="cardImg-vans">
                     </div>
@@ -1987,7 +2035,7 @@
                 </div>
 
                 <!-- Product Card 19: New Balance 9060 Quartz Grey S4059 (4 Photos) -->
-                <div class="product-card" id="prod-nb" data-brand="nb">
+                <div class="product-card" id="prod-nb" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_2.jpg" alt="New Balance 9060 Quartz Grey Cream" id="cardImg-nb">
                     </div>
@@ -2249,10 +2297,45 @@
                             <label for="phone">Номер телефону:</label>
                             <input type="tel" id="phone" name="Номер телефону" class="form-input" placeholder="+38 (067) 000-00-00" required>
                         </div>
-                        <div class="form-group">
-                            <label for="cityNP">Місто та № Нової Пошти:</label>
-                            <input type="text" id="cityNP" name="Місто та Відділення НП" class="form-input" placeholder="м. Львів, відділення №12" required>
+                        <div class="form-group np-autocomplete-group">
+                            <div class="np-field-label-row">
+                                <label for="npCityInput">Місто отримання:</label>
+                                <span class="np-api-badge"><span class="np-badge-dot">●</span> Нова Пошта API</span>
+                            </div>
+                            <div class="np-input-wrapper">
+                                <span class="np-input-icon">📍</span>
+                                <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
+                                <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
+                                <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
+                            </div>
+                            <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
+                            <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
+                            <input type="hidden" id="npCityName" name="Місто доставки" value="">
+                            <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
                         </div>
+                    </div>
+
+                    <div class="form-group np-autocomplete-group" id="npWarehouseGroup">
+                        <div class="np-warehouse-header">
+                            <label for="npWarehouseInput">Відділення або поштомат Нової Пошти:</label>
+                            <div class="np-type-filter" id="npWarehouseFilterTabs">
+                                <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
+                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">📦 Відділення</button>
+                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">📮 Поштомати</button>
+                            </div>
+                        </div>
+                        <div class="np-input-wrapper">
+                            <span class="np-input-icon">📦</span>
+                            <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Спочатку оберіть місто вище..." autocomplete="off" disabled required>
+                            <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
+                            <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
+                        </div>
+                        <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
+                        <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
+                        <!-- Combined string for email notification & PDF receipt -->
+                        <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
+                        <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
+                        <span class="np-helper-hint" id="npWarehouseHint">⚡ Почніть вводити номер (напр. 45) або вулицю для швидкого пошуку</span>
                     </div>
 
                     <!-- Payment Method Selector -->
@@ -2293,9 +2376,50 @@
                         <b id="finalOrderPrice">2 670 грн</b>
                     </div>
 
+                    <!-- No-call preference checkbox -->
+                    <div class="form-group no-call-pref-group">
+                        <label class="no-call-checkbox-label" for="noCallCheckbox">
+                            <input type="checkbox" id="noCallCheckbox" name="Підтвердження" value="💬 Без дзвінка: підтверджую у месенджері (Telegram / Viber)" checked>
+                            <span class="custom-chk-box"></span>
+                            <span class="chk-label-text">
+                                💬 <b>Не телефонувати мені:</b> підтверджую замовлення повідомленням у месенджері
+                            </span>
+                        </label>
+                    </div>
+
                     <button type="submit" id="submitOrderBtn" class="btn-primary btn-submit btn-glow">
                         ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)
                     </button>
+
+                    <!-- Messenger checkout buttons (Telegram & Viber) -->
+                    <div class="messenger-checkout-section">
+                        <div class="msg-checkout-divider">
+                            <span>або оформіть через месенджер без дзвінків</span>
+                        </div>
+                        <div class="msg-checkout-actions">
+                            <button type="button" class="btn-msg-checkout tg" onclick="checkoutViaMessenger('telegram')" title="Оформити замовлення через Telegram">
+                                <svg class="msg-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                                </svg>
+                                <span class="btn-msg-text-wrap">
+                                    <span class="btn-msg-title">Оформити через Telegram</span>
+                                    <span class="btn-msg-sub">Швидка відповідь текстом</span>
+                                </span>
+                            </button>
+                            <button type="button" class="btn-msg-checkout viber" onclick="checkoutViaMessenger('viber')" title="Оформити замовлення через Viber">
+                                <svg class="msg-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                    <path d="M19.5 3H4.5C3.67 3 3 3.67 3 4.5v13c0 .83.67 1.5 1.5 1.5h11l4.5 4.5V4.5c0-.83-.67-1.5-1.5-1.5zm-3.2 12.3c-.3 0-.5-.1-.7-.2l-1.9-1.2c-.3-.2-.4-.6-.2-.9.2-.3.6-.4.9-.2l1.3.8V7.5c0-.4.3-.7.7-.7s.7.3.7.7v7.1c0 .4-.4.7-.8.7zm-4-1.5c-2.3 0-4.2-1.9-4.2-4.2s1.9-4.2 4.2-4.2c.4 0 .7.3.7.7s-.3.7-.7.7c-1.6 0-2.8 1.3-2.8 2.8s1.3 2.8 2.8 2.8c.4 0 .7.3.7.7s-.3.7-.7.7z"/>
+                                </svg>
+                                <span class="btn-msg-text-wrap">
+                                    <span class="btn-msg-title">Оформити через Viber</span>
+                                    <span class="btn-msg-sub">Зручне узгодження ТТН</span>
+                                </span>
+                            </button>
+                        </div>
+                        <p class="msg-checkout-subnote">
+                            ⚡ Менеджер відповість у чаті протягом 5-10 хв, підтвердить замовлення та надішле номер ТТН. Без зайвих дзвінків.
+                        </p>
+                    </div>
 
                     <p id="formSecurityNote" class="form-security-note">
                         🔒 Накладений платіж без обов'язкової передплати. Огляд та примірка у відділенні Нової Пошти.
@@ -2467,6 +2591,17 @@
             <button type="button" class="btn-primary btn-checkout-cart" onclick="proceedToCheckoutFromCart()">
                 ОФОРМИТИ ЗАМОВЛЕННЯ ➔
             </button>
+            <div class="cart-msg-quick-row">
+                <span class="cart-msg-quick-title">або через месенджер без дзвінка:</span>
+                <div class="cart-msg-quick-btns">
+                    <button type="button" class="btn-cart-msg-pill tg" onclick="checkoutViaMessenger('telegram')" title="Оформити через Telegram">
+                        ✈️ Telegram
+                    </button>
+                    <button type="button" class="btn-cart-msg-pill viber" onclick="checkoutViaMessenger('viber')" title="Оформити через Viber">
+                        💬 Viber
+                    </button>
+                </div>
+            </div>
             <button type="button" class="btn-continue-shopping" onclick="closeCart()">
                 ← Продовжити покупки
             </button>
@@ -2487,6 +2622,21 @@
             
             <div id="successOrderDetailsBox" class="success-order-details-box"></div>
 
+            <!-- Fast Confirmation via Messenger -->
+            <div class="order-success-msg-box">
+                <p class="osm-title">💬 <b>Бажаєте підтвердити замовлення швидше без дзвінка?</b></p>
+                <div class="osm-buttons">
+                    <button type="button" class="btn-osm-action tg" onclick="confirmOrderInMessenger('telegram')">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                        <span>Написати менеджеру в Telegram</span>
+                    </button>
+                    <button type="button" class="btn-osm-action viber" onclick="confirmOrderInMessenger('viber')">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.5 3H4.5C3.67 3 3 3.67 3 4.5v13c0 .83.67 1.5 1.5 1.5h11l4.5 4.5V4.5c0-.83-.67-1.5-1.5-1.5zm-3.2 12.3c-.3 0-.5-.1-.7-.2l-1.9-1.2c-.3-.2-.4-.6-.2-.9.2-.3.6-.4.9-.2l1.3.8V7.5c0-.4.3-.7.7-.7s.7.3.7.7v7.1c0 .4-.4.7-.8.7zm-4-1.5c-2.3 0-4.2-1.9-4.2-4.2s1.9-4.2 4.2-4.2c.4 0 .7.3.7.7s-.3.7-.7.7c-1.6 0-2.8 1.3-2.8 2.8s1.3 2.8 2.8 2.8c.4 0 .7.3.7.7s-.3.7-.7.7z"/></svg>
+                        <span>Написати менеджеру у Viber</span>
+                    </button>
+                </div>
+            </div>
+
             <div class="order-success-actions">
                 <button type="button" id="btnDownloadSuccessPdf" class="btn-primary btn-download-pdf-receipt" onclick="downloadLastGeneratedPdf()">
                     📥 Завантажити електронний чек (PDF)
@@ -2497,7 +2647,7 @@
             </div>
 
             <div class="order-success-footer-note">
-                <p>📞 Менеджер зателефонує вам протягом 10 хвилин у робочий час (<b>Пн-Пт 10:00 - 18:00</b>) для узгодження розміру та відправки Новою Поштою.</p>
+                <p>📞 Менеджер опрацює ваше замовлення протягом 10 хвилин (<b>Пн-Нд 09:00 - 21:00</b>). Якщо ви обрали підтвердження без дзвінка — очікуйте ТТН у месенджері!</p>
             </div>
         </div>
     </div>

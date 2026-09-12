@@ -679,6 +679,7 @@ async function handleCheckoutFormSubmit(e) {
 
     // Sync cart with hidden form fields
     syncCartWithForm();
+    syncCityNPCombined();
 
     const submitBtn = document.getElementById('submitOrderBtn');
     if (submitBtn) {
@@ -910,9 +911,11 @@ async function downloadLastGeneratedPdf() {
 }
 
 // ==========================================
-// Catalog Search & Category Filtering
+// Catalog Search, Gender, Size & Brand Filtering
 // ==========================================
 let currentCatalogBrand = 'all';
+let currentCatalogGender = 'all';
+let currentCatalogSize = 'all';
 let currentCatalogSearchQuery = '';
 let cachedProductCards = [];
 
@@ -926,12 +929,73 @@ function initCatalogCardsCache() {
         const brand = card.dataset.brand || '';
         const id = card.id || '';
         const price = card.querySelector('.price-now')?.textContent || '';
-        const searchText = `${title} ${cat} ${desc} ${badge} ${brand} ${id} ${price}`.toLowerCase();
+        
+        // Extract sizes: from data-sizes or from size buttons
+        let sizes = [];
+        if (card.dataset.sizes) {
+            sizes = card.dataset.sizes.split(',').map(s => s.trim()).filter(Boolean);
+        } else {
+            const sizeBtns = card.querySelectorAll('.size-options .size-btn');
+            sizes = Array.from(sizeBtns).map(b => {
+                const raw = b.textContent.trim();
+                const m = raw.match(/^\d+/);
+                return m ? m[0] : raw;
+            }).filter(Boolean);
+        }
+
+        // Determine gender:
+        let gender = card.dataset.gender || '';
+        if (!gender) {
+            const catUp = cat.toUpperCase();
+            if (catUp.includes('ЖІНОЧІ')) gender = 'women';
+            else if (catUp.includes('ЧОЛОВІЧІ')) gender = 'men';
+            else if (catUp.includes('УНІСЕКС')) gender = 'unisex';
+            else {
+                const nums = sizes.map(Number).filter(n => !isNaN(n));
+                if (nums.length && Math.max(...nums) <= 41) gender = 'women';
+                else if (nums.length && Math.min(...nums) >= 41) gender = 'men';
+                else gender = 'unisex';
+            }
+        }
+
+        const searchText = `${title} ${cat} ${desc} ${badge} ${brand} ${id} ${price} ${sizes.join(' ')}`.toLowerCase();
         return {
             el: card,
             brand: brand,
+            gender: gender,
+            sizes: sizes,
             searchText: searchText
         };
+    });
+
+    // Initial check of size availability
+    updateSizePillsAvailability([]);
+}
+
+function updateSizePillsAvailability(queryTokens) {
+    const sizeBtns = document.querySelectorAll('.size-filter-btn');
+    if (!sizeBtns.length || !cachedProductCards.length) return;
+
+    sizeBtns.forEach(btn => {
+        const size = btn.dataset.size;
+        if (size === 'all') return;
+
+        // Check matching products for current brand + gender + search
+        const matchingItems = cachedProductCards.filter(item => {
+            const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand);
+            const matchesGender = (currentCatalogGender === 'all' || item.gender === currentCatalogGender || item.gender === 'unisex');
+            const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => item.searchText.includes(token));
+            return matchesBrand && matchesGender && matchesSearch && item.sizes.includes(size);
+        });
+
+        const count = matchingItems.length;
+        if (count === 0) {
+            btn.classList.add('disabled');
+            btn.setAttribute('title', `Розмір ${size}: немає в наявності для обраних параметрів`);
+        } else {
+            btn.classList.remove('disabled');
+            btn.setAttribute('title', `Розмір ${size}: доступно ${count} ${count === 1 ? 'модель' : 'моделей'}`);
+        }
     });
 }
 
@@ -946,6 +1010,7 @@ function applyCatalogFilters() {
     const resultsInfo = document.getElementById('searchResultsInfo');
     const resultsCountEl = document.getElementById('searchResultsCount');
     const noResultsBox = document.getElementById('noSearchResultsBox');
+    const noResultsDetail = document.getElementById('noResultsDetail');
 
     if (clearBtn) {
         clearBtn.style.display = query ? 'flex' : 'none';
@@ -955,33 +1020,71 @@ function applyCatalogFilters() {
 
     cachedProductCards.forEach(item => {
         const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand);
+        const matchesGender = (currentCatalogGender === 'all' || item.gender === currentCatalogGender || item.gender === 'unisex');
+        const matchesSize = (currentCatalogSize === 'all' || item.sizes.includes(currentCatalogSize));
         const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => item.searchText.includes(token));
 
-        if (matchesBrand && matchesSearch) {
+        if (matchesBrand && matchesGender && matchesSize && matchesSearch) {
             item.el.style.display = '';
             visibleCount++;
+
+            // If a specific size is chosen in filter, auto-select it in the product card
+            if (currentCatalogSize !== 'all') {
+                const cardSizeBtns = item.el.querySelectorAll('.size-options .size-btn');
+                cardSizeBtns.forEach(sb => {
+                    const sbText = sb.textContent.trim();
+                    if (sbText.startsWith(currentCatalogSize)) {
+                        sb.classList.add('active');
+                    } else {
+                        sb.classList.remove('active');
+                    }
+                });
+            }
         } else {
             item.el.style.display = 'none';
         }
     });
 
+    // Update size pills availability
+    updateSizePillsAvailability(queryTokens);
+
+    // Update active size hint text
+    const hintEl = document.getElementById('activeSizeHint');
+    if (hintEl) {
+        if (currentCatalogSize !== 'all') {
+            hintEl.textContent = `Обрано розмір: ${currentCatalogSize} EU (натисніть знову або «Всі», щоб скинути)`;
+        } else {
+            hintEl.textContent = 'Натисніть на свій розмір, щоб побачити моделі в наявності';
+        }
+    }
+
     // Update results counter info
+    const hasActiveFilters = (query !== '' || currentCatalogBrand !== 'all' || currentCatalogGender !== 'all' || currentCatalogSize !== 'all');
     if (resultsInfo && resultsCountEl) {
-        if (query || currentCatalogBrand !== 'all') {
+        if (hasActiveFilters) {
             resultsInfo.style.display = 'flex';
-            let brandLabel = '';
-            if (currentCatalogBrand === 'nike') brandLabel = ' у Nike';
-            else if (currentCatalogBrand === 'nb') brandLabel = ' у New Balance';
-            else if (currentCatalogBrand === 'adidas') brandLabel = ' в Adidas';
-            else if (currentCatalogBrand === 'skate') brandLabel = ' у Vans & Puma';
+            
+            const labels = [];
+            if (currentCatalogGender === 'men') labels.push('Чоловічі 👨');
+            else if (currentCatalogGender === 'women') labels.push('Жіночі 👩');
+
+            if (currentCatalogSize !== 'all') labels.push(`Розмір ${currentCatalogSize} EU`);
+
+            if (currentCatalogBrand === 'nike') labels.push('Nike');
+            else if (currentCatalogBrand === 'nb') labels.push('New Balance');
+            else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
+            else if (currentCatalogBrand === 'skate') labels.push('Vans & Puma');
 
             let countWord = 'моделей';
             if (visibleCount % 10 === 1 && visibleCount % 100 !== 11) countWord = 'модель';
             else if ([2, 3, 4].includes(visibleCount % 10) && ![12, 13, 14].includes(visibleCount % 100)) countWord = 'моделі';
 
-            resultsCountEl.textContent = query 
-                ? `Знайдено: ${visibleCount} ${countWord}${brandLabel} за запитом «${currentCatalogSearchQuery}»`
-                : `Обрано: ${visibleCount} ${countWord}${brandLabel}`;
+            const labelText = labels.length ? ` • ${labels.join(' • ')}` : '';
+            if (query) {
+                resultsCountEl.textContent = `Знайдено: ${visibleCount} ${countWord}${labelText} за запитом «${currentCatalogSearchQuery}»`;
+            } else {
+                resultsCountEl.textContent = `Обрано: ${visibleCount} ${countWord}${labelText}`;
+            }
         } else {
             resultsInfo.style.display = 'none';
         }
@@ -990,13 +1093,56 @@ function applyCatalogFilters() {
     // Show/hide empty state
     if (noResultsBox) {
         noResultsBox.style.display = (visibleCount === 0) ? 'block' : 'none';
+        if (visibleCount === 0 && noResultsDetail) {
+            const filterTerms = [];
+            if (currentCatalogGender !== 'all') filterTerms.push(currentCatalogGender === 'men' ? 'Чоловічі' : 'Жіночі');
+            if (currentCatalogSize !== 'all') filterTerms.push(`Розмір ${currentCatalogSize}`);
+            if (currentCatalogBrand !== 'all') filterTerms.push(currentCatalogBrand.toUpperCase());
+            if (query) filterTerms.push(`«${query}»`);
+            noResultsDetail.textContent = `За параметрами (${filterTerms.join(' • ')}) товарів на складі не знайдено. Спробуйте інший розмір або скиньте фільтри.`;
+        }
     }
 }
 
+function filterCatalogGender(gender, btn) {
+    if (currentCatalogGender === gender && gender !== 'all') {
+        currentCatalogGender = 'all';
+        document.querySelectorAll('.filter-gender-chip').forEach(c => c.classList.remove('active'));
+        const allBtn = document.querySelector('.filter-gender-chip[data-gender="all"]');
+        if (allBtn) allBtn.classList.add('active');
+    } else {
+        currentCatalogGender = gender;
+        document.querySelectorAll('.filter-gender-chip').forEach(c => c.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+    }
+    applyCatalogFilters();
+}
+
+function filterCatalogSize(size, btn) {
+    if (currentCatalogSize === size && size !== 'all') {
+        currentCatalogSize = 'all';
+        document.querySelectorAll('.size-filter-btn').forEach(c => c.classList.remove('active'));
+        const allBtn = document.querySelector('.size-filter-btn[data-size="all"]');
+        if (allBtn) allBtn.classList.add('active');
+    } else {
+        currentCatalogSize = size;
+        document.querySelectorAll('.size-filter-btn').forEach(c => c.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+    }
+    applyCatalogFilters();
+}
+
 function filterCatalog(brand, btn) {
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    currentCatalogBrand = brand;
+    if (currentCatalogBrand === brand && brand !== 'all') {
+        currentCatalogBrand = 'all';
+        document.querySelectorAll('.filter-brand-chip, .filter-chip').forEach(c => c.classList.remove('active'));
+        const allBtn = document.querySelector('.filter-brand-chip[data-brand="all"]') || document.querySelector('.filter-chip');
+        if (allBtn) allBtn.classList.add('active');
+    } else {
+        currentCatalogBrand = brand;
+        document.querySelectorAll('.filter-brand-chip, .filter-chip').forEach(c => c.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+    }
     applyCatalogFilters();
 }
 
@@ -1012,10 +1158,23 @@ function clearCatalogSearch() {
     }
     currentCatalogSearchQuery = '';
     currentCatalogBrand = 'all';
+    currentCatalogGender = 'all';
+    currentCatalogSize = 'all';
 
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    const allChip = document.querySelector('.filter-chip');
-    if (allChip) allChip.classList.add('active');
+    // Reset Brand
+    document.querySelectorAll('.filter-brand-chip, .filter-chip').forEach(c => c.classList.remove('active'));
+    const allBrand = document.querySelector('.filter-brand-chip[data-brand="all"]') || document.querySelector('.filter-chip');
+    if (allBrand) allBrand.classList.add('active');
+
+    // Reset Gender
+    document.querySelectorAll('.filter-gender-chip').forEach(c => c.classList.remove('active'));
+    const allGender = document.querySelector('.filter-gender-chip[data-gender="all"]');
+    if (allGender) allGender.classList.add('active');
+
+    // Reset Size
+    document.querySelectorAll('.size-filter-btn').forEach(c => c.classList.remove('active'));
+    const allSize = document.querySelector('.size-filter-btn[data-size="all"]');
+    if (allSize) allSize.classList.add('active');
 
     applyCatalogFilters();
 }
@@ -1027,12 +1186,6 @@ function quickSearch(term) {
         input.focus();
     }
     currentCatalogSearchQuery = term;
-    currentCatalogBrand = 'all';
-
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    const allChip = document.querySelector('.filter-chip');
-    if (allChip) allChip.classList.add('active');
-
     applyCatalogFilters();
 }
 
@@ -1192,6 +1345,650 @@ function initScrollTop() {
     }
 }
 
+// ==========================================
+// Nova Poshta API Delivery Autocomplete
+// ==========================================
+const NP_API_ENDPOINT = 'https://api.novaposhta.ua/v2.0/json/';
+
+// Preloaded top Ukrainian cities for instantaneous 0ms display on focus
+const NP_TOP_CITIES = [
+    { name: 'Київ', present: 'м. Київ, Київська обл.', ref: 'e718a680-4b33-11e4-ab6d-005056801329', deliveryCity: '8d5a980d-391c-11dd-90d9-001a92567626' },
+    { name: 'Львів', present: 'м. Львів, Львівська обл.', ref: 'e71abb60-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88f5-391c-11dd-90d9-001a92567626' },
+    { name: 'Одеса', present: 'м. Одеса, Одеська обл.', ref: 'e718bc80-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d0-391c-11dd-90d9-001a92567626' },
+    { name: 'Харків', present: 'м. Харків, Харківська обл.', ref: 'e718b520-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e0-391c-11dd-90d9-001a92567626' },
+    { name: 'Дніпро', present: 'м. Дніпро, Дніпропетровська обл.', ref: 'e718ae30-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88f0-391c-11dd-90d9-001a92567626' },
+    { name: 'Запоріжжя', present: 'м. Запоріжжя, Запорізька обл.', ref: 'e718b950-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c6-391c-11dd-90d9-001a92567626' },
+    { name: 'Вінниця', present: 'м. Вінниця, Вінницька обл.', ref: 'e718b050-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c0-391c-11dd-90d9-001a92567626' },
+    { name: 'Івано-Франківськ', present: 'м. Івано-Франківськ, Івано-Франківська обл.', ref: 'e71abb50-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c4-391c-11dd-90d9-001a92567626' },
+    { name: 'Полтава', present: 'м. Полтава, Полтавська обл.', ref: 'e718b320-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d2-391c-11dd-90d9-001a92567626' },
+    { name: 'Тернопіль', present: 'м. Тернопіль, Тернопільська обл.', ref: 'e71abb70-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d8-391c-11dd-90d9-001a92567626' },
+    { name: 'Черкаси', present: 'м. Черкаси, Черкаська обл.', ref: 'e718b760-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e2-391c-11dd-90d9-001a92567626' },
+    { name: 'Житомир', present: 'м. Житомир, Житомирська обл.', ref: 'e718b240-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c2-391c-11dd-90d9-001a92567626' },
+    { name: 'Чернівці', present: 'м. Чернівці, Чернівецька обл.', ref: 'e718b870-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e4-391c-11dd-90d9-001a92567626' },
+    { name: 'Хмельницький', present: 'м. Хмельницький, Хмельницька обл.', ref: 'e718b650-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88de-391c-11dd-90d9-001a92567626' },
+    { name: 'Рівне', present: 'м. Рівне, Рівненська обл.', ref: 'e71abb80-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d4-391c-11dd-90d9-001a92567626' },
+    { name: 'Луцьк', present: 'м. Луцьк, Волинська обл.', ref: 'e71abb90-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ca-391c-11dd-90d9-001a92567626' },
+    { name: 'Ужгород', present: 'м. Ужгород, Закарпатська обл.', ref: 'e71abba0-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88dc-391c-11dd-90d9-001a92567626' },
+    { name: 'Кривий Ріг', present: 'м. Кривий Ріг, Дніпропетровська обл.', ref: 'e718af20-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88cc-391c-11dd-90d9-001a92567626' },
+    { name: 'Миколаїв', present: 'м. Миколаїв, Миколаївська обл.', ref: 'e718b430-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ce-391c-11dd-90d9-001a92567626' },
+    { name: 'Кременчук', present: 'м. Кременчук, Полтавська обл.', ref: 'e718b330-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d3-391c-11dd-90d9-001a92567626' },
+    { name: 'Біла Церква', present: 'м. Біла Церква, Київська обл.', ref: 'e718a700-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ba-391c-11dd-90d9-001a92567626' }
+];
+
+let npSelectedCity = null;
+let npAllWarehouses = [];
+let npActiveWarehouseType = 'all'; // 'all' | 'Branch' | 'Postomat'
+let npCityDebounce = null;
+let npWarehouseDebounce = null;
+
+function initNovaPoshtaAutocomplete() {
+    const cityInput = document.getElementById('npCityInput');
+    const cityDropdown = document.getElementById('npCityDropdown');
+    const cityClearBtn = document.getElementById('npCityClearBtn');
+    const citySpinner = document.getElementById('npCitySpinner');
+    const warehouseInput = document.getElementById('npWarehouseInput');
+    const warehouseDropdown = document.getElementById('npWarehouseDropdown');
+    const warehouseClearBtn = document.getElementById('npWarehouseClearBtn');
+    const warehouseSpinner = document.getElementById('npWarehouseSpinner');
+
+    if (!cityInput || !warehouseInput) return;
+
+    // --- City Autocomplete Handlers ---
+    cityInput.addEventListener('focus', () => {
+        const q = cityInput.value.trim();
+        if (!q) {
+            renderNpCityDropdown(NP_TOP_CITIES);
+        } else if (q.length >= 2) {
+            triggerCitySearch(q);
+        }
+    });
+
+    cityInput.addEventListener('input', (e) => {
+        const q = e.target.value.trim();
+        if (cityClearBtn) cityClearBtn.style.display = q ? 'block' : 'none';
+        
+        clearTimeout(npCityDebounce);
+        if (!q) {
+            renderNpCityDropdown(NP_TOP_CITIES);
+            resetWarehouseSelection();
+            return;
+        }
+
+        if (q.length < 2) {
+            const matches = NP_TOP_CITIES.filter(c => c.name.toLowerCase().startsWith(q.toLowerCase()));
+            renderNpCityDropdown(matches.length ? matches : NP_TOP_CITIES);
+            return;
+        }
+
+        npCityDebounce = setTimeout(() => {
+            triggerCitySearch(q);
+        }, 220);
+    });
+
+    cityInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const firstItem = cityDropdown ? cityDropdown.querySelector('.np-dropdown-item') : null;
+            if (firstItem && cityDropdown.style.display !== 'none') {
+                e.preventDefault();
+                firstItem.click();
+            }
+        }
+    });
+
+    cityInput.addEventListener('blur', () => {
+        syncCityNPCombined();
+    });
+
+    if (cityClearBtn) {
+        cityClearBtn.addEventListener('click', () => {
+            cityInput.value = '';
+            cityClearBtn.style.display = 'none';
+            document.getElementById('npCityRef').value = '';
+            document.getElementById('npSettlementRef').value = '';
+            document.getElementById('npCityName').value = '';
+            document.getElementById('cityNP').value = '';
+            npSelectedCity = null;
+            resetWarehouseSelection();
+            cityInput.focus();
+            renderNpCityDropdown(NP_TOP_CITIES);
+        });
+    }
+
+    // --- Warehouse Autocomplete Handlers ---
+    warehouseInput.addEventListener('focus', () => {
+        if (!npSelectedCity) {
+            cityInput.focus();
+            return;
+        }
+        renderFilteredWarehouses(warehouseInput.value.trim());
+    });
+
+    warehouseInput.addEventListener('input', (e) => {
+        const q = e.target.value.trim();
+        if (warehouseClearBtn) warehouseClearBtn.style.display = q ? 'block' : 'none';
+        syncCityNPCombined();
+
+        clearTimeout(npWarehouseDebounce);
+        npWarehouseDebounce = setTimeout(() => {
+            renderFilteredWarehouses(q);
+        }, 120);
+    });
+
+    warehouseInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const firstItem = warehouseDropdown ? warehouseDropdown.querySelector('.np-dropdown-item') : null;
+            if (firstItem && warehouseDropdown.style.display !== 'none') {
+                e.preventDefault();
+                firstItem.click();
+            }
+        }
+    });
+
+    warehouseInput.addEventListener('blur', () => {
+        syncCityNPCombined();
+    });
+
+    if (warehouseClearBtn) {
+        warehouseClearBtn.addEventListener('click', () => {
+            warehouseInput.value = '';
+            warehouseClearBtn.style.display = 'none';
+            document.getElementById('npWarehouseRef').value = '';
+            document.getElementById('npWarehouseNum').value = '';
+            syncCityNPCombined();
+            warehouseInput.focus();
+            renderFilteredWarehouses('');
+        });
+    }
+
+    // Close dropdowns on outside click
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#npCityDropdown') && e.target !== cityInput && e.target !== cityClearBtn) {
+            if (cityDropdown) cityDropdown.style.display = 'none';
+        }
+        if (!e.target.closest('#npWarehouseDropdown') && e.target !== warehouseInput && e.target !== warehouseClearBtn && !e.target.closest('#npWarehouseFilterTabs')) {
+            if (warehouseDropdown) warehouseDropdown.style.display = 'none';
+        }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (cityDropdown) cityDropdown.style.display = 'none';
+            if (warehouseDropdown) warehouseDropdown.style.display = 'none';
+        }
+    });
+}
+
+async function triggerCitySearch(query) {
+    const cityDropdown = document.getElementById('npCityDropdown');
+    const citySpinner = document.getElementById('npCitySpinner');
+    if (citySpinner) citySpinner.style.display = 'block';
+
+    try {
+        const res = await fetch(NP_API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                apiKey: '',
+                modelName: 'Address',
+                calledMethod: 'searchSettlements',
+                methodProperties: {
+                    CityName: query,
+                    Limit: '12',
+                    Page: '1'
+                }
+            })
+        });
+        const json = await res.json();
+        if (json.success && json.data && json.data[0] && json.data[0].Addresses) {
+            const results = json.data[0].Addresses.map(a => ({
+                name: a.MainDescription,
+                present: a.Present,
+                ref: a.Ref,
+                deliveryCity: a.DeliveryCity
+            }));
+            renderNpCityDropdown(results);
+        } else {
+            const local = NP_TOP_CITIES.filter(c => c.present.toLowerCase().includes(query.toLowerCase()));
+            renderNpCityDropdown(local);
+        }
+    } catch (err) {
+        console.warn('NP Search Settlements fallback:', err);
+        const local = NP_TOP_CITIES.filter(c => c.present.toLowerCase().includes(query.toLowerCase()));
+        renderNpCityDropdown(local);
+    } finally {
+        if (citySpinner) citySpinner.style.display = 'none';
+    }
+}
+
+function renderNpCityDropdown(cities) {
+    const dropdown = document.getElementById('npCityDropdown');
+    if (!dropdown) return;
+
+    if (!cities || !cities.length) {
+        dropdown.innerHTML = '<div class="np-dropdown-empty">Місто не знайдено. Перевірте написання або введіть вручну.</div>';
+        dropdown.style.display = 'block';
+        return;
+    }
+
+    let html = '';
+    cities.forEach(city => {
+        const parts = city.present.split(',');
+        const title = parts[0];
+        const region = parts.slice(1).join(',').trim();
+        html += `
+            <div class="np-dropdown-item" onclick="selectNpCity('${encodeURIComponent(JSON.stringify(city))}')">
+                <div class="np-item-content">
+                    <span class="np-item-main">📍 ${title}</span>
+                    ${region ? `<span class="np-item-sub">${region}</span>` : ''}
+                </div>
+            </div>
+        `;
+    });
+
+    dropdown.innerHTML = html;
+    dropdown.style.display = 'block';
+}
+
+async function selectNpCity(encodedCity) {
+    const city = JSON.parse(decodeURIComponent(encodedCity));
+    npSelectedCity = city;
+
+    const cityInput = document.getElementById('npCityInput');
+    const cityDropdown = document.getElementById('npCityDropdown');
+    const cityClearBtn = document.getElementById('npCityClearBtn');
+    const warehouseInput = document.getElementById('npWarehouseInput');
+    const warehouseHint = document.getElementById('npWarehouseHint');
+
+    if (cityInput) cityInput.value = city.present;
+    if (cityDropdown) cityDropdown.style.display = 'none';
+    if (cityClearBtn) cityClearBtn.style.display = 'block';
+
+    document.getElementById('npCityRef').value = city.deliveryCity || '';
+    document.getElementById('npSettlementRef').value = city.ref || '';
+    document.getElementById('npCityName').value = city.name || city.present;
+
+    syncCityNPCombined();
+
+    // Enable Warehouse Input & Pre-fetch Warehouses
+    if (warehouseInput) {
+        warehouseInput.disabled = false;
+        warehouseInput.value = '';
+        warehouseInput.placeholder = 'Завантаження відділень...';
+    }
+    if (warehouseHint) {
+        warehouseHint.textContent = `⚡ Завантажуємо відділення Нової Пошти у ${city.present}...`;
+    }
+
+    await loadCityWarehouses(city);
+
+    if (warehouseInput) {
+        warehouseInput.placeholder = 'Введіть номер (напр. 25) або вулицю...';
+        warehouseInput.focus();
+    }
+    if (warehouseHint) {
+        warehouseHint.textContent = `⚡ Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
+    }
+    renderFilteredWarehouses('');
+}
+
+async function loadCityWarehouses(city) {
+    const spinner = document.getElementById('npWarehouseSpinner');
+    if (spinner) spinner.style.display = 'block';
+
+    npAllWarehouses = [];
+    try {
+        const payload = {
+            apiKey: '',
+            modelName: 'AddressGeneral',
+            calledMethod: 'getWarehouses',
+            methodProperties: {
+                SettlementRef: city.ref,
+                Limit: '500'
+            }
+        };
+
+        let res = await fetch(NP_API_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        let json = await res.json();
+
+        // Fallback by CityName if SettlementRef returns 0
+        if ((!json.success || !json.data || !json.data.length) && city.name) {
+            payload.methodProperties = { CityName: city.name, Limit: '500' };
+            res = await fetch(NP_API_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            json = await res.json();
+        }
+
+        if (json.success && Array.isArray(json.data)) {
+            npAllWarehouses = json.data.map(w => {
+                const isPostomat = (w.CategoryOfWarehouse === 'Postomat') || (w.Description && w.Description.includes('Поштомат'));
+                return {
+                    number: parseInt(w.Number, 10) || w.Number,
+                    numberStr: String(w.Number),
+                    desc: w.Description,
+                    shortAddress: w.ShortAddress || w.Description,
+                    ref: w.Ref,
+                    type: isPostomat ? 'Postomat' : 'Branch',
+                    maxWeight: w.TotalMaxWeightAllowed ? `до ${w.TotalMaxWeightAllowed} кг` : ''
+                };
+            });
+
+            // Sort logically: branches first sorted by number, then postomats sorted by number
+            npAllWarehouses.sort((a, b) => {
+                const numA = typeof a.number === 'number' ? a.number : 999999;
+                const numB = typeof b.number === 'number' ? b.number : 999999;
+                return numA - numB;
+            });
+        }
+    } catch (err) {
+        console.warn('NP Load Warehouses error:', err);
+    } finally {
+        if (spinner) spinner.style.display = 'none';
+    }
+}
+
+function filterWarehouseType(type, btn) {
+    npActiveWarehouseType = type;
+    document.querySelectorAll('#npWarehouseFilterTabs .np-tab').forEach(t => t.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const warehouseInput = document.getElementById('npWarehouseInput');
+    const query = warehouseInput ? warehouseInput.value.trim() : '';
+    renderFilteredWarehouses(query);
+}
+
+function renderFilteredWarehouses(query) {
+    const dropdown = document.getElementById('npWarehouseDropdown');
+    if (!dropdown || !npSelectedCity) return;
+
+    const q = query.toLowerCase();
+    let filtered = npAllWarehouses;
+
+    // Filter by tab type (all / Branch / Postomat)
+    if (npActiveWarehouseType !== 'all') {
+        filtered = filtered.filter(w => w.type === npActiveWarehouseType);
+    }
+
+    // Filter by query (number or street)
+    if (q) {
+        filtered = filtered.filter(w => {
+            return w.numberStr === q || 
+                   w.numberStr.startsWith(q) || 
+                   w.desc.toLowerCase().includes(q) || 
+                   w.shortAddress.toLowerCase().includes(q);
+        });
+    }
+
+    if (!filtered.length) {
+        dropdown.innerHTML = `
+            <div class="np-dropdown-empty">
+                Відділень або поштоматів за запитом «${query}» не знайдено.
+                <br><small style="color:#94a3b8;">Спробуйте ввести тільки цифри номеру (напр. 12) або скиньте фільтр типу.</small>
+            </div>
+        `;
+        dropdown.style.display = 'block';
+        return;
+    }
+
+    // Render up to 40 items for performance
+    const displayList = filtered.slice(0, 40);
+    let html = '';
+    displayList.forEach(w => {
+        const isPostomat = w.type === 'Postomat';
+        const icon = isPostomat ? '📮' : '📦';
+        const badgeClass = isPostomat ? 'np-badge-postomat' : 'np-badge-branch';
+        const badgeText = isPostomat ? 'Поштомат' : (w.maxWeight || 'Відділення');
+
+        html += `
+            <div class="np-dropdown-item" onclick="selectNpWarehouse('${encodeURIComponent(JSON.stringify(w))}')">
+                <div class="np-item-content">
+                    <span class="np-item-main">${icon} ${w.desc}</span>
+                    <span class="np-item-sub">№${w.numberStr} • ${w.shortAddress}</span>
+                </div>
+                <span class="np-item-badge ${badgeClass}">${badgeText}</span>
+            </div>
+        `;
+    });
+
+    dropdown.innerHTML = html;
+    dropdown.style.display = 'block';
+}
+
+function selectNpWarehouse(encodedWarehouse) {
+    const w = JSON.parse(decodeURIComponent(encodedWarehouse));
+    const warehouseInput = document.getElementById('npWarehouseInput');
+    const warehouseDropdown = document.getElementById('npWarehouseDropdown');
+    const warehouseClearBtn = document.getElementById('npWarehouseClearBtn');
+
+    if (warehouseInput) warehouseInput.value = w.desc;
+    if (warehouseDropdown) warehouseDropdown.style.display = 'none';
+    if (warehouseClearBtn) warehouseClearBtn.style.display = 'block';
+
+    document.getElementById('npWarehouseRef').value = w.ref || '';
+    document.getElementById('npWarehouseNum').value = w.numberStr || '';
+
+    syncCityNPCombined();
+}
+
+function resetWarehouseSelection() {
+    const warehouseInput = document.getElementById('npWarehouseInput');
+    const warehouseClearBtn = document.getElementById('npWarehouseClearBtn');
+    const warehouseDropdown = document.getElementById('npWarehouseDropdown');
+    const warehouseHint = document.getElementById('npWarehouseHint');
+
+    if (warehouseInput) {
+        warehouseInput.value = '';
+        warehouseInput.disabled = true;
+        warehouseInput.placeholder = 'Спочатку оберіть місто вище...';
+    }
+    if (warehouseClearBtn) warehouseClearBtn.style.display = 'none';
+    if (warehouseDropdown) warehouseDropdown.style.display = 'none';
+    if (warehouseHint) warehouseHint.textContent = '⚡ Почніть вводити номер (напр. 45) або вулицю для швидкого пошуку';
+
+    document.getElementById('npWarehouseRef').value = '';
+    document.getElementById('npWarehouseNum').value = '';
+    npAllWarehouses = [];
+    syncCityNPCombined();
+}
+
+function syncCityNPCombined() {
+    const cityInputEl = document.getElementById('npCityInput');
+    const warehouseInputEl = document.getElementById('npWarehouseInput');
+    const cityVal = npSelectedCity ? npSelectedCity.present : (cityInputEl?.value.trim() || '');
+    const warehouseVal = warehouseInputEl?.value.trim() || '';
+    const cityNPHidden = document.getElementById('cityNP');
+    const cityNameHidden = document.getElementById('npCityName');
+
+    if (cityNameHidden && (!cityNameHidden.value || cityNameHidden.value !== cityVal) && cityVal) {
+        cityNameHidden.value = cityVal;
+    }
+
+    if (cityNPHidden) {
+        if (cityVal && warehouseVal) {
+            cityNPHidden.value = `${cityVal}, ${warehouseVal}`;
+        } else if (cityVal) {
+            cityNPHidden.value = cityVal;
+        } else {
+            cityNPHidden.value = '';
+        }
+    }
+}
+
+// --- Messenger Checkout Logic (Telegram & Viber) ---
+const TG_MANAGER_USERNAME = 'lunarecho94';
+const VIBER_MANAGER_PHONE = '+380974524435';
+
+function getFormattedOrderForMessenger() {
+    const cart = getCart();
+    let itemsText = '';
+    let totalPrice = 0;
+
+    if (cart && cart.length > 0) {
+        cart.forEach(item => {
+            const lineSum = item.price * (item.qty || 1);
+            totalPrice += lineSum;
+            itemsText += `• ${item.title}\n  👟 Розмір: ${item.size} • К-сть: ${item.qty || 1} шт. • ${(lineSum).toLocaleString('uk-UA')} грн\n`;
+        });
+    } else {
+        const productSelect = document.getElementById('productSelect');
+        const sizeSelect = document.getElementById('shoeSizeSelect');
+        const selectedModel = productSelect ? productSelect.value : 'Кросівки (з каталогу)';
+        const selectedSize = sizeSelect ? sizeSelect.value : '38';
+        const finalPriceEl = document.getElementById('finalOrderPrice');
+        const priceText = finalPriceEl ? finalPriceEl.textContent.trim() : '2 670 грн';
+        totalPrice = parseInt(priceText.replace(/\D/g, ''), 10) || 2670;
+        itemsText = `• ${selectedModel}\n  👟 Розмір: ${selectedSize} • 1 шт. • ${priceText}\n`;
+    }
+
+    const customerName = (document.getElementById('fullName')?.value || document.getElementById('customerNameInput')?.value || '').trim();
+    const customerPhone = (document.getElementById('phone')?.value || document.getElementById('customerPhoneInput')?.value || '').trim();
+    const city = (document.getElementById('npCityInput')?.value || '').trim();
+    const warehouse = (document.getElementById('npWarehouseInput')?.value || '').trim();
+    const noCall = document.getElementById('noCallCheckbox')?.checked;
+
+    let paymentMethod = 'Накладений платіж (при отриманні на пошті)';
+    const checkedPay = document.querySelector('input[name="Спосіб оплати"]:checked');
+    if (checkedPay && checkedPay.value.includes('Передплата')) {
+        paymentMethod = 'Повна передплата на картку (без комісії)';
+    }
+
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    const orderId = `UG-${randomNum}`;
+
+    let msg = `🛍️ ЗАМОВЛЕННЯ З САЙТУ URBANO\n№ #${orderId}\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `👟 ТОВАРИ:\n${itemsText}`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `💰 РАЗОМ: ${totalPrice.toLocaleString('uk-UA')} грн\n`;
+    msg += `💳 Оплата: ${paymentMethod}\n`;
+    msg += `📍 Доставка: Нова Пошта\n`;
+    if (city && warehouse) {
+        msg += `  ${city}, ${warehouse}\n`;
+    } else if (city) {
+        msg += `  ${city} (відділення узгодимо в чаті)\n`;
+    } else {
+        msg += `  (місто та відділення узгодимо в чаті)\n`;
+    }
+    msg += `👤 Одержувач: ${customerName || '(узгодимо в чаті)'}\n`;
+    msg += `📞 Телефон: ${customerPhone || '(узгодимо в чаті)'}\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+    if (noCall) {
+        msg += `💬 Прошу підтвердити замовлення текстовим повідомленням без дзвінка. Дякую! 🙏`;
+    } else {
+        msg += `💬 Прошу надіслати підтвердження та номер ТТН сюди в чат. Дякую!`;
+    }
+
+    return {
+        orderId,
+        totalPrice,
+        text: msg,
+        customerName,
+        customerPhone,
+        city,
+        warehouse
+    };
+}
+
+async function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch (e) {}
+    }
+    try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        return successful;
+    } catch (err) {
+        return false;
+    }
+}
+
+async function checkoutViaMessenger(messenger) {
+    const order = getFormattedOrderForMessenger();
+    await copyTextToClipboard(order.text);
+
+    // Track lead asynchronously in background
+    try {
+        if (order.customerPhone) {
+            const formData = new FormData();
+            formData.append('Номер замовлення', `#${order.orderId}`);
+            formData.append('Джерело', `Месенджер: ${messenger.toUpperCase()}`);
+            formData.append('Ім\'я клієнта', order.customerName || 'Клієнт (месенджер)');
+            formData.append('Телефон', order.customerPhone);
+            formData.append('Адреса доставки', `${order.city} ${order.warehouse}`.trim() || 'Узгодити в месенджері');
+            formData.append('Сума замовлення', `${order.totalPrice} грн`);
+            formData.append('Статус', 'Клієнт перейшов у месенджер для підтвердження');
+
+            fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
+                method: 'POST',
+                body: formData
+            }).catch(() => {});
+        }
+    } catch (e) {}
+
+    showCartToast(
+        messenger === 'telegram' 
+            ? '✈️ Текст замовлення скопійовано! Відкриваємо чат у Telegram...' 
+            : '💬 Текст замовлення скопійовано! Відкриваємо чат у Viber...'
+    );
+
+    setTimeout(() => {
+        if (messenger === 'telegram') {
+            const tgUrl = `https://t.me/${TG_MANAGER_USERNAME}?text=${encodeURIComponent(order.text)}`;
+            window.open(tgUrl, '_blank');
+        } else if (messenger === 'viber') {
+            const cleanPhone = VIBER_MANAGER_PHONE.replace(/\D/g, '');
+            const viberUrl = `viber://chat?number=%2B${cleanPhone}`;
+            window.open(viberUrl, '_blank');
+        }
+    }, 350);
+}
+
+function confirmOrderInMessenger(messenger) {
+    let orderNum = '#UG-00000';
+    try {
+        const stored = sessionStorage.getItem('ug_last_order');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed.orderId) orderNum = `#${parsed.orderId}`;
+        }
+    } catch (e) {}
+
+    const text = `Вітаю! Я оформив(ла) замовлення ${orderNum} на сайті URBANO. Підтверджую відправку Новою Поштою. Прошу надіслати ТТН сюди в чат!`;
+    copyTextToClipboard(text);
+
+    if (messenger === 'telegram') {
+        window.open(`https://t.me/${TG_MANAGER_USERNAME}?text=${encodeURIComponent(text)}`, '_blank');
+    } else {
+        const cleanPhone = VIBER_MANAGER_PHONE.replace(/\D/g, '');
+        window.open(`viber://chat?number=%2B${cleanPhone}`, '_blank');
+    }
+}
+
+// Global window exposure for inline onclick handlers
+window.selectNpCity = selectNpCity;
+window.selectNpWarehouse = selectNpWarehouse;
+window.filterWarehouseType = filterWarehouseType;
+window.checkoutViaMessenger = checkoutViaMessenger;
+window.confirmOrderInMessenger = confirmOrderInMessenger;
+
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     checkOrderSuccess();
@@ -1199,6 +1996,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSwipeGalleries();
     initScrollTop();
     initCatalogCardsCache();
+    initNovaPoshtaAutocomplete();
 
     // Close Cart on Escape
     document.addEventListener('keydown', (e) => {
