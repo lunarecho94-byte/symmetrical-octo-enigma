@@ -911,11 +911,9 @@ async function downloadLastGeneratedPdf() {
 }
 
 // ==========================================
-// Catalog Search, Gender, Size & Brand Filtering
+// Catalog Search & Brand Filtering
 // ==========================================
 let currentCatalogBrand = 'all';
-let currentCatalogGender = 'all';
-let currentCatalogSize = 'all';
 let currentCatalogSearchQuery = '';
 let cachedProductCards = [];
 
@@ -929,73 +927,13 @@ function initCatalogCardsCache() {
         const brand = card.dataset.brand || '';
         const id = card.id || '';
         const price = card.querySelector('.price-now')?.textContent || '';
-        
-        // Extract sizes: from data-sizes or from size buttons
-        let sizes = [];
-        if (card.dataset.sizes) {
-            sizes = card.dataset.sizes.split(',').map(s => s.trim()).filter(Boolean);
-        } else {
-            const sizeBtns = card.querySelectorAll('.size-options .size-btn');
-            sizes = Array.from(sizeBtns).map(b => {
-                const raw = b.textContent.trim();
-                const m = raw.match(/^\d+/);
-                return m ? m[0] : raw;
-            }).filter(Boolean);
-        }
 
-        // Determine gender:
-        let gender = card.dataset.gender || '';
-        if (!gender) {
-            const catUp = cat.toUpperCase();
-            if (catUp.includes('ЖІНОЧІ')) gender = 'women';
-            else if (catUp.includes('ЧОЛОВІЧІ')) gender = 'men';
-            else if (catUp.includes('УНІСЕКС')) gender = 'unisex';
-            else {
-                const nums = sizes.map(Number).filter(n => !isNaN(n));
-                if (nums.length && Math.max(...nums) <= 41) gender = 'women';
-                else if (nums.length && Math.min(...nums) >= 41) gender = 'men';
-                else gender = 'unisex';
-            }
-        }
-
-        const searchText = `${title} ${cat} ${desc} ${badge} ${brand} ${id} ${price} ${sizes.join(' ')}`.toLowerCase();
+        const searchText = `${title} ${cat} ${desc} ${badge} ${brand} ${id} ${price}`.toLowerCase();
         return {
             el: card,
             brand: brand,
-            gender: gender,
-            sizes: sizes,
             searchText: searchText
         };
-    });
-
-    // Initial check of size availability
-    updateSizePillsAvailability([]);
-}
-
-function updateSizePillsAvailability(queryTokens) {
-    const sizeBtns = document.querySelectorAll('.size-filter-btn');
-    if (!sizeBtns.length || !cachedProductCards.length) return;
-
-    sizeBtns.forEach(btn => {
-        const size = btn.dataset.size;
-        if (size === 'all') return;
-
-        // Check matching products for current brand + gender + search
-        const matchingItems = cachedProductCards.filter(item => {
-            const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand);
-            const matchesGender = (currentCatalogGender === 'all' || item.gender === currentCatalogGender || item.gender === 'unisex');
-            const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => item.searchText.includes(token));
-            return matchesBrand && matchesGender && matchesSearch && item.sizes.includes(size);
-        });
-
-        const count = matchingItems.length;
-        if (count === 0) {
-            btn.classList.add('disabled');
-            btn.setAttribute('title', `Розмір ${size}: немає в наявності для обраних параметрів`);
-        } else {
-            btn.classList.remove('disabled');
-            btn.setAttribute('title', `Розмір ${size}: доступно ${count} ${count === 1 ? 'модель' : 'моделей'}`);
-        }
     });
 }
 
@@ -1020,56 +958,23 @@ function applyCatalogFilters() {
 
     cachedProductCards.forEach(item => {
         const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand);
-        const matchesGender = (currentCatalogGender === 'all' || item.gender === currentCatalogGender || item.gender === 'unisex');
-        const matchesSize = (currentCatalogSize === 'all' || item.sizes.includes(currentCatalogSize));
         const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => item.searchText.includes(token));
 
-        if (matchesBrand && matchesGender && matchesSize && matchesSearch) {
+        if (matchesBrand && matchesSearch) {
             item.el.style.display = '';
             visibleCount++;
-
-            // If a specific size is chosen in filter, auto-select it in the product card
-            if (currentCatalogSize !== 'all') {
-                const cardSizeBtns = item.el.querySelectorAll('.size-options .size-btn');
-                cardSizeBtns.forEach(sb => {
-                    const sbText = sb.textContent.trim();
-                    if (sbText.startsWith(currentCatalogSize)) {
-                        sb.classList.add('active');
-                    } else {
-                        sb.classList.remove('active');
-                    }
-                });
-            }
         } else {
             item.el.style.display = 'none';
         }
     });
 
-    // Update size pills availability
-    updateSizePillsAvailability(queryTokens);
-
-    // Update active size hint text
-    const hintEl = document.getElementById('activeSizeHint');
-    if (hintEl) {
-        if (currentCatalogSize !== 'all') {
-            hintEl.textContent = `Обрано розмір: ${currentCatalogSize} EU (натисніть знову або «Всі», щоб скинути)`;
-        } else {
-            hintEl.textContent = 'Натисніть на свій розмір, щоб побачити моделі в наявності';
-        }
-    }
-
     // Update results counter info
-    const hasActiveFilters = (query !== '' || currentCatalogBrand !== 'all' || currentCatalogGender !== 'all' || currentCatalogSize !== 'all');
+    const hasActiveFilters = (query !== '' || currentCatalogBrand !== 'all');
     if (resultsInfo && resultsCountEl) {
         if (hasActiveFilters) {
             resultsInfo.style.display = 'flex';
             
             const labels = [];
-            if (currentCatalogGender === 'men') labels.push('Чоловічі 👨');
-            else if (currentCatalogGender === 'women') labels.push('Жіночі 👩');
-
-            if (currentCatalogSize !== 'all') labels.push(`Розмір ${currentCatalogSize} EU`);
-
             if (currentCatalogBrand === 'nike') labels.push('Nike');
             else if (currentCatalogBrand === 'nb') labels.push('New Balance');
             else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
@@ -1095,56 +1000,31 @@ function applyCatalogFilters() {
         noResultsBox.style.display = (visibleCount === 0) ? 'block' : 'none';
         if (visibleCount === 0 && noResultsDetail) {
             const filterTerms = [];
-            if (currentCatalogGender !== 'all') filterTerms.push(currentCatalogGender === 'men' ? 'Чоловічі' : 'Жіночі');
-            if (currentCatalogSize !== 'all') filterTerms.push(`Розмір ${currentCatalogSize}`);
             if (currentCatalogBrand !== 'all') filterTerms.push(currentCatalogBrand.toUpperCase());
             if (query) filterTerms.push(`«${query}»`);
-            noResultsDetail.textContent = `За параметрами (${filterTerms.join(' • ')}) товарів на складі не знайдено. Спробуйте інший розмір або скиньте фільтри.`;
+            noResultsDetail.textContent = filterTerms.length 
+                ? `За запитом (${filterTerms.join(' • ')}) товарів на складі не знайдено. Спробуйте інше ключове слово або скиньте фільтр.`
+                : 'Товарів не знайдено. Спробуйте інший пошуковий запит.';
         }
     }
-}
-
-function filterCatalogGender(gender, btn) {
-    if (currentCatalogGender === gender && gender !== 'all') {
-        currentCatalogGender = 'all';
-        document.querySelectorAll('.filter-gender-chip').forEach(c => c.classList.remove('active'));
-        const allBtn = document.querySelector('.filter-gender-chip[data-gender="all"]');
-        if (allBtn) allBtn.classList.add('active');
-    } else {
-        currentCatalogGender = gender;
-        document.querySelectorAll('.filter-gender-chip').forEach(c => c.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-    }
-    applyCatalogFilters();
-}
-
-function filterCatalogSize(size, btn) {
-    if (currentCatalogSize === size && size !== 'all') {
-        currentCatalogSize = 'all';
-        document.querySelectorAll('.size-filter-btn').forEach(c => c.classList.remove('active'));
-        const allBtn = document.querySelector('.size-filter-btn[data-size="all"]');
-        if (allBtn) allBtn.classList.add('active');
-    } else {
-        currentCatalogSize = size;
-        document.querySelectorAll('.size-filter-btn').forEach(c => c.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-    }
-    applyCatalogFilters();
 }
 
 function filterCatalog(brand, btn) {
     if (currentCatalogBrand === brand && brand !== 'all') {
         currentCatalogBrand = 'all';
-        document.querySelectorAll('.filter-brand-chip, .filter-chip').forEach(c => c.classList.remove('active'));
-        const allBtn = document.querySelector('.filter-brand-chip[data-brand="all"]') || document.querySelector('.filter-chip');
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        const allBtn = document.querySelector('.filter-chip');
         if (allBtn) allBtn.classList.add('active');
     } else {
         currentCatalogBrand = brand;
-        document.querySelectorAll('.filter-brand-chip, .filter-chip').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
         if (btn) btn.classList.add('active');
     }
     applyCatalogFilters();
 }
+
+function filterCatalogGender() {}
+function filterCatalogSize() {}
 
 function handleCatalogSearch(query) {
     currentCatalogSearchQuery = query;
@@ -1158,23 +1038,11 @@ function clearCatalogSearch() {
     }
     currentCatalogSearchQuery = '';
     currentCatalogBrand = 'all';
-    currentCatalogGender = 'all';
-    currentCatalogSize = 'all';
 
     // Reset Brand
-    document.querySelectorAll('.filter-brand-chip, .filter-chip').forEach(c => c.classList.remove('active'));
-    const allBrand = document.querySelector('.filter-brand-chip[data-brand="all"]') || document.querySelector('.filter-chip');
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    const allBrand = document.querySelector('.filter-chip');
     if (allBrand) allBrand.classList.add('active');
-
-    // Reset Gender
-    document.querySelectorAll('.filter-gender-chip').forEach(c => c.classList.remove('active'));
-    const allGender = document.querySelector('.filter-gender-chip[data-gender="all"]');
-    if (allGender) allGender.classList.add('active');
-
-    // Reset Size
-    document.querySelectorAll('.size-filter-btn').forEach(c => c.classList.remove('active'));
-    const allSize = document.querySelector('.size-filter-btn[data-size="all"]');
-    if (allSize) allSize.classList.add('active');
 
     applyCatalogFilters();
 }

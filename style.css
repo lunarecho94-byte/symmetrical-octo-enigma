@@ -1364,15 +1364,22 @@ section, header, footer, .announcement-bar {
     text-decoration-color: rgba(148, 163, 184, 0.6);
 }
 
-/* Category Filter Chips inside Panel */
+/* Fast Category Filter Chips (Brands) */
+.category-filter-wrapper {
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: center;
+}
+
 .category-filter-chips {
     display: flex;
-    gap: 8px;
-    padding: 2px;
+    gap: 10px;
+    padding: 4px 2px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .category-filter-chips::-webkit-scrollbar {

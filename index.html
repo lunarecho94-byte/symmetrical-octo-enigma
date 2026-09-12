@@ -152,62 +152,14 @@
                 </div>
             </div>
 
-            <!-- Interactive Catalog Filters Panel: Gender, Size EU, Brands -->
-            <div class="catalog-filters-panel" id="catalogFiltersPanel">
-                <!-- 1. Gender Filter -->
-                <div class="filter-group filter-group-gender">
-                    <div class="filter-group-header">
-                        <span class="filter-label">👥 Стать:</span>
-                    </div>
-                    <div class="filter-chips-scroll">
-                        <button type="button" class="filter-gender-chip active" data-gender="all" onclick="filterCatalogGender('all', this)">
-                            Всі моделі <span class="filter-count">47</span>
-                        </button>
-                        <button type="button" class="filter-gender-chip" data-gender="men" onclick="filterCatalogGender('men', this)">
-                            Чоловічі 👨 <span class="filter-count">10</span>
-                        </button>
-                        <button type="button" class="filter-gender-chip" data-gender="women" onclick="filterCatalogGender('women', this)">
-                            Жіночі 👩 <span class="filter-count">38</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 2. Shoe Size Filter (EU) -->
-                <div class="filter-group filter-group-size">
-                    <div class="filter-group-header">
-                        <span class="filter-label">👟 Розмір взуття (EU):</span>
-                        <span class="filter-hint" id="activeSizeHint">Натисніть на свій розмір, щоб побачити моделі в наявності</span>
-                    </div>
-                    <div class="size-filter-chips-scroll">
-                        <button type="button" class="size-filter-btn active" data-size="all" onclick="filterCatalogSize('all', this)" title="Всі розміри">
-                            Всі
-                        </button>
-                        <button type="button" class="size-filter-btn" data-size="36" onclick="filterCatalogSize('36', this)">36</button>
-                        <button type="button" class="size-filter-btn" data-size="37" onclick="filterCatalogSize('37', this)">37</button>
-                        <button type="button" class="size-filter-btn" data-size="38" onclick="filterCatalogSize('38', this)">38</button>
-                        <button type="button" class="size-filter-btn" data-size="39" onclick="filterCatalogSize('39', this)">39</button>
-                        <button type="button" class="size-filter-btn" data-size="40" onclick="filterCatalogSize('40', this)">40</button>
-                        <button type="button" class="size-filter-btn" data-size="41" onclick="filterCatalogSize('41', this)">41</button>
-                        <button type="button" class="size-filter-btn" data-size="42" onclick="filterCatalogSize('42', this)">42</button>
-                        <button type="button" class="size-filter-btn" data-size="43" onclick="filterCatalogSize('43', this)">43</button>
-                        <button type="button" class="size-filter-btn" data-size="44" onclick="filterCatalogSize('44', this)">44</button>
-                        <button type="button" class="size-filter-btn" data-size="45" onclick="filterCatalogSize('45', this)">45</button>
-                        <button type="button" class="size-filter-btn" data-size="46" onclick="filterCatalogSize('46', this)">46</button>
-                    </div>
-                </div>
-
-                <!-- 3. Brand Filter Chips -->
-                <div class="filter-group filter-group-brand">
-                    <div class="filter-group-header">
-                        <span class="filter-label">🏷️ Бренд:</span>
-                    </div>
-                    <div class="category-filter-chips">
-                        <button type="button" class="filter-chip filter-brand-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі бренди (47)</button>
-                        <button type="button" class="filter-chip filter-brand-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (21)</button>
-                        <button type="button" class="filter-chip filter-brand-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
-                        <button type="button" class="filter-chip filter-brand-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
-                        <button type="button" class="filter-chip filter-brand-chip" data-brand="skate" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
-                    </div>
+            <!-- Fast Category Filter Chips (Brands) -->
+            <div class="category-filter-wrapper">
+                <div class="category-filter-chips">
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (47)</button>
+                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (21)</button>
+                    <button type="button" class="filter-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
+                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
+                    <button type="button" class="filter-chip" data-brand="skate" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
             </div>
 
@@ -216,13 +168,13 @@
                 <!-- Empty Search Results Box -->
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon">👟</div>
-                    <h3>За вашими параметрами пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте обрати інший розмір, зняти фільтр статі або скинути фільтри, щоб переглянути всі моделі на складі.</p>
+                    <h3>За вашим запитом пар не знайдено</h3>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 47 моделей</button>
                 </div>
                 
                 <!-- Product Card 47 (NEW): Nike Air Jordan 4 Black Pink NJ21 (5 Photos) -->
-                <div class="product-card" id="prod-nike-air-jordan-4-black-pink" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40">
+                <div class="product-card" id="prod-nike-air-jordan-4-black-pink" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • JORDAN 💖</span>
                         <img src="images/nike_air_jordan_4_black_pink_1.jpg" alt="Nike Air Jordan 4 Black Pink" id="cardImg-nike-air-jordan-4-black-pink">
@@ -235,7 +187,7 @@
                         <img src="images/nike_air_jordan_4_black_pink_5.jpg" alt="Nike Air Jordan 4 Black Pink 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-jordan-4-black-pink', 'images/nike_air_jordan_4_black_pink_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN 4 | АРТ: NJ21 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN 4 | АРТ: NJ21</div>
                         <h3 class="product-title">Nike Air Jordan 4 Black Pink</h3>
                         <p class="product-desc"><b>Матеріал:</b> Преміум нубук, фірмові полімерні вставки та вентиляційна сітка • <b>Підошва:</b> Зносостійка гума з видимою амортизаційною капсулою Air • <b>Комплектація:</b> Брендова коробка Jordan, брендовий папір • <b>Виробник:</b> В'єтнам.</p>
                         
@@ -262,7 +214,7 @@
                 </div>
 
                 <!-- Product Card 46 (NEW): New Balance 1906R Termo Black NB220 (5 Photos) -->
-                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_1906r_termo_black_1.jpg" alt="New Balance 1906R Termo Black" id="cardImg-nb-1906r-termo-black">
@@ -275,7 +227,7 @@
                         <img src="images/nb_1906r_termo_black_5.jpg" alt="New Balance 1906R Termo Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-black', 'images/nb_1906r_termo_black_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 1906R | АРТ: NB220 (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 1906R | АРТ: NB220 (ТЕРМО ❄️)</div>
                         <h3 class="product-title">New Balance 1906R Termo Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, міцний текстиль Cordura з мембраною Gore-Tex • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Підошва:</b> Технологічна амортизація N-ergy та гумова підметка • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -303,7 +255,7 @@
                 </div>
 
                 <!-- Product Card 45 (NEW): New Balance 990v3 Termo Black NB218 (5 Photos) -->
-                <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_990v3_termo_black_1.jpg" alt="New Balance 990v3 Termo Black" id="cardImg-nb-990v3-termo-black">
@@ -316,7 +268,7 @@
                         <img src="images/nb_990v3_termo_black_5.jpg" alt="New Balance 990v3 Termo Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-990v3-termo-black', 'images/nb_990v3_termo_black_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 990V3 | АРТ: NB218 (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 990V3 | АРТ: NB218 (ТЕРМО ❄️)</div>
                         <h3 class="product-title">New Balance 990v3 Termo Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна замша преміум якості, міцний зносостійкий текстиль Cordura • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Підошва:</b> Амортизуюча технологічна піна ENCAP та зносостійка гума • <b>Комплектація:</b> Фірмова коробка New Balance, додаткові шнурки в комплекті • <b>Виробник:</b> В'єтнам.</p>
                         
@@ -344,7 +296,7 @@
                 </div>
 
                 <!-- Product Card 44 (NEW): New Balance 990v3 Termo Brown/Black NB221-N (5 Photos) -->
-                <div class="product-card" id="prod-nb-990v3-termo-brown" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-nb-990v3-termo-brown" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_990v3_termo_brown_1.jpg" alt="New Balance 990v3 Termo Brown/Black" id="cardImg-nb-990v3-termo-brown">
@@ -357,7 +309,7 @@
                         <img src="images/nb_990v3_termo_brown_5.jpg" alt="New Balance 990v3 Termo Brown/Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-990v3-termo-brown', 'images/nb_990v3_termo_brown_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 990V3 | АРТ: NB221-N (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 990V3 | АРТ: NB221-N (ТЕРМО ❄️)</div>
                         <h3 class="product-title">New Balance 990v3 Termo Brown/Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна замша, дихаючий текстиль Cordura • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Підошва:</b> Амортизуюча піна ENCAP та зносостійка гума • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -385,7 +337,7 @@
                 </div>
 
                 <!-- Product Card 43 (NEW): New Balance 574 Termo White NB222-N (5 Photos) -->
-                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nb_574_termo_white_1.jpg" alt="New Balance 574 Termo White" id="cardImg-nb-574-termo-white">
@@ -425,7 +377,7 @@
                 </div>
 
                 <!-- Product Card 42 (NEW): Nike Lunar Force 1 x Acronym Black White NK1057 (5 Photos) -->
-                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike" data-gender="unisex" data-sizes="37,38,39,40,41,42,43,44,45">
+                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ACRONYM ⚡</span>
                         <img src="images/nike_lunar_force_acronym_black_1.jpg" alt="Nike Lunar Force 1 x Acronym Black White" id="cardImg-nike-lunar-force-acronym-black">
@@ -469,7 +421,7 @@
                 </div>
 
                 <!-- Product Card 41 (NEW): Nike Dunk Low Lace Pack Regal Beige S1457 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40">
+                <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • LACE PACK ✨</span>
                         <img src="images/nike_dunk_regal_beige_1.jpg" alt="Nike Dunk Low Lace Pack Regal Beige" id="cardImg-nike-dunk-lace-beige">
@@ -482,7 +434,7 @@
                         <img src="images/nike_dunk_regal_beige_5.jpg" alt="Nike Dunk Low Lace Pack Regal Beige 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-beige', 'images/nike_dunk_regal_beige_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1457 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1457</div>
                         <h3 class="product-title">Nike Dunk Low Lace Pack Regal Beige</h3>
                         <p class="product-desc"><b>Матеріал:</b> Преміум натуральна шкіра, вишуканий мереживний текстиль кольору слонової кістки, атласні стрічкові шнурки + додаткові класичні шнурки в комплекті, підошва гумова з амортизацією • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
                         
@@ -509,7 +461,7 @@
                 </div>
 
                 <!-- Product Card 40 (NEW): Nike Dunk Low Lace Pack Regal Pink S1456 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • LACE PACK 🌸</span>
                         <img src="images/nike_dunk_regal_pink_1.jpg" alt="Nike Dunk Low Lace Pack Regal Pink" id="cardImg-nike-dunk-lace-pink">
@@ -522,7 +474,7 @@
                         <img src="images/nike_dunk_regal_pink_5.jpg" alt="Nike Dunk Low Lace Pack Regal Pink 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-lace-pink', 'images/nike_dunk_regal_pink_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1456 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1456</div>
                         <h3 class="product-title">Nike Dunk Low Lace Pack Regal Pink</h3>
                         <p class="product-desc"><b>Матеріал:</b> Преміум натуральна шкіра, вишуканий мереживний текстиль з квітковим візерунком, атласні стрічкові шнурки + додаткові класичні шнурки в комплекті, підошва гумова з амортизацією • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
                         
@@ -550,7 +502,7 @@
                 </div>
 
                 <!-- Product Card 39 (NEW): New Balance 9060 Grey S1364 (4 Photos) -->
-                <div class="product-card" id="prod-nb-9060-grey" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nb-9060-grey" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • GREY 🩶</span>
                         <img src="images/new_balance_9060_grey_1.jpg" alt="New Balance 9060 Grey" id="cardImg-nb-9060-grey">
@@ -562,7 +514,7 @@
                         <img src="images/new_balance_9060_grey_4.jpg" alt="New Balance 9060 Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-grey', 'images/new_balance_9060_grey_4.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1364 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1364</div>
                         <h3 class="product-title">New Balance 9060 Grey</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральний преміум замш, зносостійкий дихаючий текстиль, підошва з фірмовою амортизацією ABZORB та SBS • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -590,7 +542,7 @@
                 </div>
 
                 <!-- Product Card 38 (NEW): New Balance 9060 Light Beige S1413 (5 Photos) -->
-                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • BEIGE ✨</span>
                         <img src="images/new_balance_9060_light_beige_1.jpg" alt="New Balance 9060 Light Beige" id="cardImg-nb-9060-light-beige">
@@ -603,7 +555,7 @@
                         <img src="images/new_balance_9060_light_beige_5.jpg" alt="New Balance 9060 Light Beige 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-light-beige', 'images/new_balance_9060_light_beige_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1413 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: S1413</div>
                         <h3 class="product-title">New Balance 9060 Light Beige</h3>
                         <p class="product-desc"><b>Матеріал:</b> Преміальний натуральний замш, дихаюча текстильна сітка, підошва з технологією ABZORB та SBS для максимального комфорту • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -631,7 +583,7 @@
                 </div>
 
                 <!-- Product Card 37 (NEW): Nike Zoom Winflo Termo Light Grey NK1031-N (5 Photos) -->
-                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nike_winflo_grey_1.jpg" alt="Nike Zoom Winflo Termo Light Grey" id="cardImg-nike-zoom-winflo-termo-grey">
@@ -644,7 +596,7 @@
                         <img src="images/nike_winflo_grey_5.jpg" alt="Nike Zoom Winflo Termo Light Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-zoom-winflo-termo-grey', 'images/nike_winflo_grey_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE ZOOM WINFLO | АРТ: NK1031-N (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE ZOOM WINFLO | АРТ: NK1031-N (ТЕРМО ❄️)</div>
                         <h3 class="product-title">Nike Zoom Winflo Termo Light Grey</h3>
                         <p class="product-desc"><b>Матеріал:</b> Преміум шкіра, зносостійкий текстиль Cordura, підошва піна та гума (Zoom Air) • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
                         
@@ -672,7 +624,7 @@
                 </div>
 
                 <!-- Product Card 36 (NEW): New Balance 1906R Termo Beige Black NB219 (4 Photos) -->
-                <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/new_balance_1906r_termo_1.jpg" alt="New Balance 1906R Termo Beige Black" id="cardImg-nb-1906r-termo-beige-black">
@@ -684,7 +636,7 @@
                         <img src="images/new_balance_1906r_termo_4.jpg" alt="New Balance 1906R Termo Beige Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-beige-black', 'images/new_balance_1906r_termo_4.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 1906R | АРТ: NB219 (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 1906R | АРТ: NB219 (ТЕРМО ❄️)</div>
                         <h3 class="product-title">New Balance 1906R Termo Beige Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, зносостійкий текстиль Cordura + мембрана Gore-Tex, підошва піна та гума (N-ergy) • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • Фірмова коробка New Balance.</p>
                         
@@ -712,7 +664,7 @@
                 </div>
 
                 <!-- Product Card 35 (NEW): Nike Jordan Low Little Paris S1485 (5 Photos) -->
-                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • PARIS 🕊️</span>
                         <img src="images/nike_jordan_little_paris_1.jpg" alt="Nike Jordan Low Little Paris" id="cardImg-nike-jordan-little-paris">
@@ -725,7 +677,7 @@
                         <img src="images/nike_jordan_little_paris_5.jpg" alt="Nike Jordan Low Little Paris 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-little-paris', 'images/nike_jordan_little_paris_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN | АРТ: S1485 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN | АРТ: S1485</div>
                         <h3 class="product-title">Nike Jordan Low Little Paris</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральний замш, преміум шкіра, підошва з амортизацією Air • Ексклюзивний колорвей у відтінках Парижа, золотистий Jumpman, додаткові шнурки в комплекті • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike Jordan.</p>
                         
@@ -753,7 +705,7 @@
                 </div>
 
                 <!-- Product Card 34 (NEW): Nike Dunk Low Pink Paisley S1365 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 ХІТ • PAISLEY 🌸</span>
                         <img src="images/nike_dunk_pink_paisley_1.jpg" alt="Nike Dunk Low Pink Paisley" id="cardImg-nike-dunk-pink-paisley">
@@ -766,7 +718,7 @@
                         <img src="images/nike_dunk_pink_paisley_5.jpg" alt="Nike Dunk Low Pink Paisley 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-dunk-pink-paisley', 'images/nike_dunk_pink_paisley_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1365 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE DUNK LOW | АРТ: S1365</div>
                         <h3 class="product-title">Nike Dunk Low Pink Paisley</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра преміум якості, текстильний логотип Paisley Swoosh, підошва гумова з амортизацією • Додаткові рожеві шнурки в комплекті • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
                         
@@ -794,7 +746,7 @@
                 </div>
 
                 <!-- Product Card 33 (NEW): Nike Initiator Gore-Tex Black White 5182 (5 Photos) -->
-                <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nike_initiator_black_1.jpg" alt="Nike Initiator Gore-Tex Black White" id="cardImg-nike-initiator-goretex-black">
@@ -807,7 +759,7 @@
                         <img src="images/nike_initiator_black_5.jpg" alt="Nike Initiator Gore-Tex Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-black', 'images/nike_initiator_black_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE INITIATOR | АРТ: 5182 (ЖІНОЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE INITIATOR | АРТ: 5182 (ТЕРМО ❄️)</div>
                         <h3 class="product-title">Nike Initiator Gore-Tex Black White (Термо)</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, водонепроникний нейлон + Gore-Tex, утеплена термо-підкладка, підошва пінка • <b>Сезон:</b> Демісезон / Єврозима • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
                         
@@ -834,7 +786,7 @@
                 </div>
 
                 <!-- Product Card 32 (NEW): New Balance 9060 Black Grey Cordura 3771 (5 Photos) -->
-                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb" data-gender="men" data-sizes="41,42,43,44,45">
+                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • CORDURA</span>
                         <img src="images/new_balance_9060_black_1.jpg" alt="New Balance 9060 Black Grey Cordura" id="cardImg-nb-9060-black-grey">
@@ -847,7 +799,7 @@
                         <img src="images/new_balance_9060_black_5.jpg" alt="New Balance 9060 Black Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-9060-black-grey', 'images/new_balance_9060_black_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: 3771 (ЧОЛОВІЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 9060 | АРТ: 3771</div>
                         <h3 class="product-title">New Balance 9060 Black Grey (Cordura)</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна замша, зносостійка нейлонова тканина Cordura, підошва пінка, документи додаються до пари • <b>Сезон:</b> Демісезон • ТОП якість (ЛІЦЕНЗІЯ) • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -874,7 +826,7 @@
                 </div>
 
                 <!-- Product Card 31 (NEW): Nike Initiator Gore-Tex Grey 5181 (5 Photos) -->
-                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
                         <img src="images/nike_initiator_goretex_grey_1.jpg" alt="Nike Initiator Gore-Tex Grey" id="cardImg-nike-initiator-goretex-grey">
@@ -887,7 +839,7 @@
                         <img src="images/nike_initiator_goretex_grey_5.jpg" alt="Nike Initiator Gore-Tex Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-initiator-goretex-grey', 'images/nike_initiator_goretex_grey_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NIKE INITIATOR | АРТ: 5181 (ЖІНОЧІ ТЕРМО ❄️)</div>
+                        <div class="product-cat">ВЗУТТЯ / NIKE INITIATOR | АРТ: 5181 (ТЕРМО ❄️)</div>
                         <h3 class="product-title">Nike Initiator Gore-Tex Grey (Термо)</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, водонепроникний нейлон + Gore-Tex, утеплена термо-підкладка, підошва пінка • <b>Сезон:</b> Демісезон / Єврозима • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Nike.</p>
                         
@@ -914,7 +866,7 @@
                 </div>
 
                 <!-- Product Card 24: Adidas Iniki Black White 4424 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas" data-gender="women" data-sizes="36,37,39,41">
+                <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 ХІТ</span>
                         <img src="images/adidas_iniki_black_1.jpg" alt="Adidas Iniki Black White" id="cardImg-adidas-iniki-black">
@@ -927,7 +879,7 @@
                         <img src="images/adidas_iniki_black_5.jpg" alt="Adidas Iniki Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-iniki-black', 'images/adidas_iniki_black_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / ADIDAS INIKI | АРТ: 4424 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS INIKI | АРТ: 4424</div>
                         <h3 class="product-title">Adidas Iniki Black White</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральний замш, підошва піна з гумовою накладкою • ТОП якість (ЛІЦЕНЗІЯ) • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
                         
@@ -953,7 +905,7 @@
                 </div>
 
                 <!-- Product Card 30 (NEW): Adidas Terrex Gore-Tex Black 3770 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА • GORE-TEX</span>
                         <img src="images/adidas_terrex_black_1.jpg" alt="Adidas Terrex Gore-Tex Black" id="cardImg-adidas-terrex-black">
@@ -966,7 +918,7 @@
                         <img src="images/adidas_terrex_black_5.jpg" alt="Adidas Terrex Gore-Tex Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-terrex-black', 'images/adidas_terrex_black_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / ADIDAS TERREX | АРТ: 3770 (ЧОЛОВІЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS TERREX | АРТ: 3770</div>
                         <h3 class="product-title">Adidas Terrex Gore-Tex Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Вологозахисний нейлон, мембрана GORE-TEX, нубук, підошва пінка з протектором • <b>Сезон:</b> Демісезон • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
                         
@@ -994,7 +946,7 @@
                 </div>
 
                 <!-- Product Card 29 (NEW): New Balance 530 White Black 4354 (5 Photos) -->
-                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb" data-gender="women" data-sizes="38,39,40,41">
+                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nb_530_whiteblack_1.jpg" alt="New Balance 530 White Black" id="cardImg-nb-530-whiteblack">
@@ -1007,7 +959,7 @@
                         <img src="images/nb_530_whiteblack_5.jpg" alt="New Balance 530 White Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-530-whiteblack', 'images/nb_530_whiteblack_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 530 | АРТ: 4354 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 530 | АРТ: 4354</div>
                         <h3 class="product-title">New Balance 530 White Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Шкіра, дихаюча сітка, підошва пінка (Abzorb) • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -1033,7 +985,7 @@
                 </div>
 
                 <!-- Product Card 28 (NEW): New Balance 574 Dark Grey White 4414 (5 Photos) -->
-                <div class="product-card" id="prod-nb-574-grey" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nb-574-grey" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nb_574_darkgrey_1.jpg" alt="New Balance 574 Dark Grey White" id="cardImg-nb-574-grey">
@@ -1046,7 +998,7 @@
                         <img src="images/nb_574_darkgrey_5.jpg" alt="New Balance 574 Dark Grey White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-grey', 'images/nb_574_darkgrey_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 574 | АРТ: 4414 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 574 | АРТ: 4414</div>
                         <h3 class="product-title">New Balance 574 Dark Grey White</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральний замш, текстиль, підошва пінка (ENCAP) • <b>Сезон:</b> Демісезон • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
                         
@@ -1074,7 +1026,7 @@
                 </div>
 
                 <!-- Product Card 27 (NEW): Adidas Samba Platform Black White 4464 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 АКЦІЯ • НОВИНКА</span>
                         <img src="images/adidas_samba_platform_1.jpg" alt="Adidas Samba Platform Black White" id="cardImg-adidas-samba-platform">
@@ -1087,7 +1039,7 @@
                         <img src="images/adidas_samba_platform_5.jpg" alt="Adidas Samba Platform Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-samba-platform', 'images/adidas_samba_platform_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / ADIDAS SAMBA | АРТ: 4464 (ЖІНОЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS SAMBA | АРТ: 4464</div>
                         <h3 class="product-title">Adidas Samba Platform Black White</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, стильна платформа з гумовою підошвою • ТОП якість (ЛІЦЕНЗІЯ) • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
                         
@@ -1115,7 +1067,7 @@
                 </div>
 
                 <!-- Product Card 26 (NEW): Adidas Handball Spezial Grey Black 3763 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas" data-gender="men" data-sizes="41,42,43,44,45,46">
+                <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/adidas_spezial_grey_1.jpg" alt="Adidas Handball Spezial Grey Black" id="cardImg-adidas-spezial-grey">
@@ -1128,7 +1080,7 @@
                         <img src="images/adidas_spezial_grey_5.jpg" alt="Adidas Handball Spezial Grey Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-spezial-grey', 'images/adidas_spezial_grey_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / ADIDAS SPEZIAL | АРТ: 3763 (ЧОЛОВІЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS SPEZIAL | АРТ: 3763</div>
                         <h3 class="product-title">Adidas Handball Spezial Grey Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Натуральна замша, підошва гума (gum sole) • <b>Сезон:</b> Демісезон • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
                         
@@ -1156,7 +1108,7 @@
                 </div>
 
                 <!-- Product Card 25 (NEW): Adidas Slip-On Dark Grey Black 3760 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas" data-gender="men" data-sizes="41,42,43,44,46">
+                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/adidas_slipon_grey_1.jpg" alt="Adidas Slip-On Dark Grey Black" id="cardImg-adidas-slipon-grey">
@@ -1169,7 +1121,7 @@
                         <img src="images/adidas_slipon_grey_5.jpg" alt="Adidas Slip-On Dark Grey Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-slipon-grey', 'images/adidas_slipon_grey_5.jpg')">
                     </div>
                     <div class="product-details">
-                        <div class="product-cat">ВЗУТТЯ / ADIDAS SLIP-ON | АРТ: 3760 (ЧОЛОВІЧІ)</div>
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS SLIP-ON | АРТ: 3760</div>
                         <h3 class="product-title">Adidas Slip-On Dark Grey Black</h3>
                         <p class="product-desc"><b>Матеріал:</b> Текстиль (наскрізна дихаюча сітка), підошва пінка • Відмінна якість • <b>Виробник:</b> В'єтнам • Фірмова коробка Adidas.</p>
                         
@@ -1196,7 +1148,7 @@
                 </div>
 
                 <!-- Product Card 23 (NEW): Puma Suede XL Grey White S1470 (5 Photos) -->
-                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate" data-gender="women" data-sizes="36,37,38,39,40">
+                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/puma_suede_mint_1.jpg" alt="Puma Suede XL Grey White" id="cardImg-puma-suede-mint">
@@ -1236,7 +1188,7 @@
                 </div>
 
                 <!-- Product Card 22: New Balance 530 White/Silver S1325 (5 Photos) -->
-                <div class="product-card" id="prod-nb-530-silver" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nb-530-silver" data-brand="nb">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nb_530_silver_1.jpg" alt="New Balance 530 White/Silver" id="cardImg-nb-530-silver">
@@ -1277,7 +1229,7 @@
                 </div>
 
                 <!-- Product Card 21: Nike Dunk Low Dusty Pink / Puma Suede XL S1405 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40">
+                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/nike_dunk_pink_1.jpg" alt="Nike Dunk Low Dusty Pink / Puma Suede XL" id="cardImg-nike-dunk-pink">
@@ -1317,7 +1269,7 @@
                 </div>
 
                 <!-- Product Card 20 (NEW): Puma Suede XL Black Pink S1405 (5 Photos) -->
-                <div class="product-card" id="prod-puma-suede-black-pink" data-brand="skate" data-gender="women" data-sizes="36,37,38,39,40">
+                <div class="product-card" id="prod-puma-suede-black-pink" data-brand="skate">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 НОВИНКА</span>
                         <img src="images/puma_suede_xl_1.jpg" alt="Puma Suede XL Black Pink" id="cardImg-puma-black-pink">
@@ -1357,7 +1309,7 @@
                 </div>
 
                 <!-- Product Card 1: Nike Court Legacy Lift Premium N00152 -->
-                <div class="product-card" id="prod-nike-court-lift" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nike-court-lift" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_court_legacy_lift_1.jpg" alt="Nike Court Legacy Lift Premium" id="cardImg-court-lift">
                     </div>
@@ -1393,7 +1345,7 @@
                 </div>
 
                 <!-- Product Card 2: Nike V5 RNR White S1493 (4 Photos) -->
-                <div class="product-card" id="prod-v5-white" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-v5-white" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v5_white_1.jpg" alt="Nike V5 RNR White" id="cardImg-v5-white">
                     </div>
@@ -1432,7 +1384,7 @@
                 </div>
 
                 <!-- Product Card 3: Nike V2K Runtekk White Grey S1495 (3 Photos) -->
-                <div class="product-card" id="prod-v2k-white-grey" data-brand="nike" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-v2k-white-grey" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v2k_white_grey_1.jpg" alt="Nike V2K Runtekk White Grey" id="cardImg-v2k-white-grey">
                     </div>
@@ -1469,7 +1421,7 @@
                 </div>
 
                 <!-- Product Card 4: New Balance 740 White Navy Blue S1498 (3 Photos) -->
-                <div class="product-card" id="prod-nb740-navy" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-nb740-navy" data-brand="nb">
                     <div class="product-img-wrapper">
                         <img src="images/nb740_navy_1.jpg" alt="New Balance 740 White Navy Blue" id="cardImg-nb740-navy">
                     </div>
@@ -1507,7 +1459,7 @@
                 </div>
 
                 <!-- Product Card 5: Adidas Samba Black S1291 (2 Photos) -->
-                <div class="product-card" id="prod-samba-black" data-brand="adidas" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-samba-black" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <img src="images/adidas_samba_black_1.jpg" alt="Adidas Samba Black" id="cardImg-samba-black">
                     </div>
@@ -1544,7 +1496,7 @@
                 </div>
 
                 <!-- Product Card 6: Nike Dunk Brown Cacao S1423 (2 Photos) -->
-                <div class="product-card" id="prod-dunk-brown" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-dunk-brown" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_dunk_brown_1.jpg" alt="Nike Dunk Brown Cacao" id="cardImg-dunk-brown">
                     </div>
@@ -1581,7 +1533,7 @@
                 </div>
 
                 <!-- Product Card 7: NB 9060 Joe Freshgoods Dark Gray S1298 (3 Photos) -->
-                <div class="product-card" id="prod-nb-jfg" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-nb-jfg" data-brand="nb">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_jfg_darkgray_1.jpg" alt="New Balance 9060 Joe Freshgoods Dark Gray" id="cardImg-nb-jfg">
                     </div>
@@ -1618,7 +1570,7 @@
                 </div>
 
                 <!-- Product Card 8: New Balance 9060 Black Green S1499 (3 Photos) -->
-                <div class="product-card" id="prod-nb-black" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-nb-black" data-brand="nb">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_black_green_1.jpg" alt="New Balance 9060 Black Green" id="cardImg-nb-black">
                     </div>
@@ -1655,7 +1607,7 @@
                 </div>
 
                 <!-- Product Card 9: Nike V2K Runtekk Brown Beige S1512 (3 Photos) -->
-                <div class="product-card" id="prod-v2k-brown" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-v2k-brown" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v2k_brown_3.jpg" alt="Nike V2K Runtekk Brown Beige" id="cardImg-v2k-brown">
                     </div>
@@ -1693,7 +1645,7 @@
                 </div>
 
                 <!-- Product Card 10: Nike V5 RNR White Silver Gold S1510 (2 Photos) -->
-                <div class="product-card" id="prod-v5-gold" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-v5-gold" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v5_gold_1.jpg" alt="Nike V5 RNR White Silver Gold" id="cardImg-v5-gold">
                     </div>
@@ -1730,7 +1682,7 @@
                 </div>
 
                 <!-- Product Card 11: Nike V5 RNR White Metallic S1515 (4 Photos) -->
-                <div class="product-card" id="prod-v5" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-v5" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_v5_3.jpg" alt="Nike V5 RNR White Metallic" id="cardImg-v5">
                     </div>
@@ -1769,7 +1721,7 @@
                 </div>
 
                 <!-- Product Card 12: Adidas Gazelle Beige S1500 (3 Photos) -->
-                <div class="product-card" id="prod-gazelle" data-brand="adidas" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-gazelle" data-brand="adidas">
                     <div class="product-img-wrapper">
                         <img src="images/adidas_gazelle_1.jpg" alt="Adidas Gazelle Beige" id="cardImg-gazelle">
                     </div>
@@ -1807,7 +1759,7 @@
                 </div>
 
                 <!-- Product Card 13: Nike Dunk Grey White S1502 (2 Photos) -->
-                <div class="product-card" id="prod-grey-blue" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-grey-blue" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_grey_blue_1.jpg" alt="Nike Dunk Grey White" id="cardImg-grey-blue">
                     </div>
@@ -1844,7 +1796,7 @@
                 </div>
 
                 <!-- Product Card 14: Nike Dunk Burgundy Croc S1501 (2 Photos) -->
-                <div class="product-card" id="prod-croc" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-croc" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_croc_1.jpg" alt="Nike Dunk Burgundy Croc" id="cardImg-croc">
                     </div>
@@ -1881,7 +1833,7 @@
                 </div>
 
                 <!-- Product Card 15: New Balance 9060 Brown Mushroom S1507 -->
-                <div class="product-card" id="prod-nb-brown" data-brand="nb" data-gender="women" data-sizes="37,38,39,40,41">
+                <div class="product-card" id="prod-nb-brown" data-brand="nb">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_brown_1.jpg" alt="New Balance 9060 Brown Mushroom" id="cardImg-nb-brown">
                     </div>
@@ -1916,7 +1868,7 @@
                 </div>
 
                 <!-- Product Card 16: Nike Dunk White Grey S1503 (5 Photos) -->
-                <div class="product-card" id="prod-grey" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-grey" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_grey_1.jpg" alt="Nike Dunk White Grey" id="cardImg-grey">
                     </div>
@@ -1956,7 +1908,7 @@
                 </div>
 
                 <!-- Product Card 17: Nike Dunk Low Bordo White S1467 (5 Photos) -->
-                <div class="product-card" id="prod-bordo" data-brand="nike" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-bordo" data-brand="nike">
                     <div class="product-img-wrapper">
                         <img src="images/nike_bordo_1.jpg" alt="Nike Dunk Low Bordo White" id="cardImg-bordo">
                     </div>
@@ -1996,7 +1948,7 @@
                 </div>
 
                 <!-- Product Card 18: Vans Knu Skool S1314 (4 Photos) -->
-                <div class="product-card" id="prod-vans" data-brand="skate" data-gender="women" data-sizes="36,37,38,39,40,41">
+                <div class="product-card" id="prod-vans" data-brand="skate">
                     <div class="product-img-wrapper">
                         <img src="images/vans_knu_1.jpg" alt="Vans Knu Skool Black White" id="cardImg-vans">
                     </div>
@@ -2035,7 +1987,7 @@
                 </div>
 
                 <!-- Product Card 19: New Balance 9060 Quartz Grey S4059 (4 Photos) -->
-                <div class="product-card" id="prod-nb" data-brand="nb" data-gender="women" data-sizes="36,37,38,39,40">
+                <div class="product-card" id="prod-nb" data-brand="nb">
                     <div class="product-img-wrapper">
                         <img src="images/nb9060_2.jpg" alt="New Balance 9060 Quartz Grey Cream" id="cardImg-nb">
                     </div>
