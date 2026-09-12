@@ -155,9 +155,9 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (42)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (43)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (20)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (12)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (13)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -170,9 +170,49 @@
                     <div class="no-results-icon">🔍</div>
                     <h3>За вашим запитом пари не знайдено</h3>
                     <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 42 моделі</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 43 моделі</button>
                 </div>
                 
+                <!-- Product Card 43 (NEW): New Balance 574 Termo White NB222-N (5 Photos) -->
+                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
+                        <img src="images/nb_574_termo_white_1.jpg" alt="New Balance 574 Termo White" id="cardImg-nb-574-termo-white">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb_574_termo_white_1.jpg" alt="New Balance 574 Termo White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-574-termo-white', 'images/nb_574_termo_white_1.jpg')">
+                        <img src="images/nb_574_termo_white_2.jpg" alt="New Balance 574 Termo White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-termo-white', 'images/nb_574_termo_white_2.jpg')">
+                        <img src="images/nb_574_termo_white_3.jpg" alt="New Balance 574 Termo White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-termo-white', 'images/nb_574_termo_white_3.jpg')">
+                        <img src="images/nb_574_termo_white_4.jpg" alt="New Balance 574 Termo White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-termo-white', 'images/nb_574_termo_white_4.jpg')">
+                        <img src="images/nb_574_termo_white_5.jpg" alt="New Balance 574 Termo White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-574-termo-white', 'images/nb_574_termo_white_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 574 | АРТ: NB222-N (ТЕРМО ❄️)</div>
+                        <h3 class="product-title">New Balance 574 Termo White</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна замша, дихаючий текстиль • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Підошва:</b> М'яка піна ENCAP та зносостійка гума • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (37-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 700 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 574 Termo White (2700 грн)', '2 700 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 42 (NEW): Nike Lunar Force 1 x Acronym Black White NK1057 (5 Photos) -->
                 <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike">
                     <div class="product-img-wrapper">
@@ -1980,6 +2020,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 574 Termo White (2700 грн)">🔥❄️ New Balance 574 Termo White (Арт: NB222-N) — 2 700 грн [НОВИНКА]</option>
                             <option value="Nike Lunar Force 1 x Acronym Black White (3100 грн)">🔥⚡ Nike Lunar Force 1 x Acronym Black White (Арт: NK1057) — 3 100 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Lace Pack Regal Beige (2800 грн)">🔥✨ Nike Dunk Low Lace Pack Regal Beige (Арт: S1457) — 2 800 грн [НОВИНКА]</option>
                             <option value="Nike Dunk Low Lace Pack Regal Pink (2600 грн)">🔥🌸 Nike Dunk Low Lace Pack Regal Pink (Арт: S1456) — 2 600 грн [НОВИНКА]</option>
