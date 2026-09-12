@@ -155,9 +155,9 @@
             <!-- Mobile & Desktop Fast Category Filter Chips -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (45)</button>
+                    <button type="button" class="filter-chip active" onclick="filterCatalog('all', this)">🔥 Всі моделі (46)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('nike', this)">⚡ Nike (20)</button>
-                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (15)</button>
+                    <button type="button" class="filter-chip" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -170,9 +170,50 @@
                     <div class="no-results-icon">🔍</div>
                     <h3>За вашим запитом пари не знайдено</h3>
                     <p>Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>, <b>Gore-Tex</b>) або натисніть кнопку нижче, щоб скинути фільтр.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 45 моделей</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 46 моделей</button>
                 </div>
                 
+                <!-- Product Card 46 (NEW): New Balance 1906R Termo Black NB220 (5 Photos) -->
+                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • ТЕРМО ❄️</span>
+                        <img src="images/nb_1906r_termo_black_1.jpg" alt="New Balance 1906R Termo Black" id="cardImg-nb-1906r-termo-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb_1906r_termo_black_1.jpg" alt="New Balance 1906R Termo Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-black', 'images/nb_1906r_termo_black_1.jpg')">
+                        <img src="images/nb_1906r_termo_black_2.jpg" alt="New Balance 1906R Termo Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-black', 'images/nb_1906r_termo_black_2.jpg')">
+                        <img src="images/nb_1906r_termo_black_3.jpg" alt="New Balance 1906R Termo Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-black', 'images/nb_1906r_termo_black_3.jpg')">
+                        <img src="images/nb_1906r_termo_black_4.jpg" alt="New Balance 1906R Termo Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-black', 'images/nb_1906r_termo_black_4.jpg')">
+                        <img src="images/nb_1906r_termo_black_5.jpg" alt="New Balance 1906R Termo Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-1906r-termo-black', 'images/nb_1906r_termo_black_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NEW BALANCE 1906R | АРТ: NB220 (ЧОЛОВІЧІ ТЕРМО ❄️)</div>
+                        <h3 class="product-title">New Balance 1906R Termo Black</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра, міцний текстиль Cordura з мембраною Gore-Tex • <b>Підкладка:</b> Тепла байка (комфорт до -10 °C) • <b>Підошва:</b> Технологічна амортизація N-ergy та гумова підметка • <b>Виробник:</b> В'єтнам • Фірмова коробка New Balance.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (41-46):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29 см)')">46</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 900 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('New Balance 1906R Termo Black (2900 грн)', '2 900 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Product Card 45 (NEW): New Balance 990v3 Termo Black NB218 (5 Photos) -->
                 <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb">
                     <div class="product-img-wrapper">
@@ -2102,6 +2143,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="New Balance 1906R Termo Black (2900 грн)">🔥❄️ New Balance 1906R Termo Black (Арт: NB220) — 2 900 грн [НОВИНКА]</option>
                             <option value="New Balance 990v3 Termo Black (3000 грн)">🔥❄️ New Balance 990v3 Termo Black (Арт: NB218) — 3 000 грн [НОВИНКА]</option>
                             <option value="New Balance 990v3 Termo Brown/Black (3000 грн)">🔥❄️ New Balance 990v3 Termo Brown/Black (Арт: NB221-N) — 3 000 грн [НОВИНКА]</option>
                             <option value="New Balance 574 Termo White (2700 грн)">🔥❄️ New Balance 574 Termo White (Арт: NB222-N) — 2 700 грн [НОВИНКА]</option>
