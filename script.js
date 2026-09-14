@@ -978,6 +978,7 @@ function applyCatalogFilters() {
             if (currentCatalogBrand === 'nike') labels.push('Nike');
             else if (currentCatalogBrand === 'nb') labels.push('New Balance');
             else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
+            else if (currentCatalogBrand === 'asics') labels.push('Asics');
             else if (currentCatalogBrand === 'skate') labels.push('Vans & Puma');
 
             let countWord = 'моделей';
