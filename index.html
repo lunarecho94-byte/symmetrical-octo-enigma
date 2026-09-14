@@ -155,8 +155,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (51)</button>
-                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (23)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (52)</button>
+                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (24)</button>
                     <button type="button" class="filter-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (8)</button>
                     <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">✨ Asics (1)</button>
@@ -171,7 +171,47 @@
                     <div class="no-results-icon">👟</div>
                     <h3>За вашим запитом пар не знайдено</h3>
                     <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>Jordan</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 51 модель</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 52 моделі</button>
+                </div>
+                
+                <!-- Product Card 52 (NEW): Nike Jordan 5 Retro Low Dongdan NJ31 (5 Photos) -->
+                <div class="product-card" id="prod-nike-jordan-5-retro-low-dongdan" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • JORDAN 💖</span>
+                        <img src="images/nike_jordan_5_retro_low_dongdan_1.jpg" alt="Nike Jordan 5 Retro Low Dongdan" id="cardImg-nike-jordan-5-retro-low-dongdan">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_jordan_5_retro_low_dongdan_1.jpg" alt="Nike Jordan 5 Retro Low Dongdan 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-jordan-5-retro-low-dongdan', 'images/nike_jordan_5_retro_low_dongdan_1.jpg')">
+                        <img src="images/nike_jordan_5_retro_low_dongdan_2.jpg" alt="Nike Jordan 5 Retro Low Dongdan 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-5-retro-low-dongdan', 'images/nike_jordan_5_retro_low_dongdan_2.jpg')">
+                        <img src="images/nike_jordan_5_retro_low_dongdan_3.jpg" alt="Nike Jordan 5 Retro Low Dongdan 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-5-retro-low-dongdan', 'images/nike_jordan_5_retro_low_dongdan_3.jpg')">
+                        <img src="images/nike_jordan_5_retro_low_dongdan_4.jpg" alt="Nike Jordan 5 Retro Low Dongdan 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-5-retro-low-dongdan', 'images/nike_jordan_5_retro_low_dongdan_4.jpg')">
+                        <img src="images/nike_jordan_5_retro_low_dongdan_5.jpg" alt="Nike Jordan 5 Retro Low Dongdan 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-5-retro-low-dongdan', 'images/nike_jordan_5_retro_low_dongdan_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN 5 | АРТ: NJ31</div>
+                        <h3 class="product-title">Nike Jordan 5 Retro Low Dongdan</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Преміальний нубук та натуральна шкіра, сітчасті вентиляційні вставки • <b>Підошва:</b> Зносостійка гума з амортизаційною капсулою Air та рожевим акцентним візерунком • <b>Комплектація:</b> Брендова коробка Jordan, брендовий папір, фірмовий фіксатор шнурків • <b>Виробник:</b> В'єтнам.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-40):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">3 000 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Jordan 5 Retro Low Dongdan (3000 грн)', '3 000 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Product Card 51 (NEW): Adidas Superstar Black White ASU04 (5 Photos) -->
@@ -2344,6 +2384,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Jordan 5 Retro Low Dongdan (3000 грн)">🔥🏀 Nike Jordan 5 Retro Low Dongdan (Арт: NJ31) — 3 000 грн [НОВИНКА]</option>
                             <option value="Adidas Superstar Black White (2450 грн)">🔥👟 Adidas Superstar Black White (Арт: ASU04) — 2 450 грн [НОВИНКА]</option>
                             <option value="Asics Gel Nyc Cream Pink (2700 грн)">🔥💖 Asics Gel Nyc Cream Pink (Арт: ASN08) — 2 700 грн [НОВИНКА]</option>
                             <option value="Nike Air Jordan 3 Black Cat (3100 грн)">🔥🖤 Nike Air Jordan 3 Black Cat (Арт: NJ30) — 3 100 грн [НОВИНКА]</option>
