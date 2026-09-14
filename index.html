@@ -155,8 +155,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (48)</button>
-                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (22)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (49)</button>
+                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (23)</button>
                     <button type="button" class="filter-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
                     <button type="button" class="filter-chip" data-brand="skate" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
@@ -169,8 +169,47 @@
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon">👟</div>
                     <h3>За вашим запитом пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 48 моделей</button>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>Jordan</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 49 моделей</button>
+                </div>
+                
+                <!-- Product Card 49 (NEW): Nike Air Jordan 3 Black Cat NJ30 (4 Photos) -->
+                <div class="product-card" id="prod-nike-air-jordan-3-black-cat" data-brand="nike">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • JORDAN 🖤</span>
+                        <img src="images/nike_air_jordan_3_black_cat_1.jpg" alt="Nike Air Jordan 3 Black Cat" id="cardImg-nike-air-jordan-3-black-cat">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_air_jordan_3_black_cat_1.jpg" alt="Nike Air Jordan 3 Black Cat 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-air-jordan-3-black-cat', 'images/nike_air_jordan_3_black_cat_1.jpg')">
+                        <img src="images/nike_air_jordan_3_black_cat_2.jpg" alt="Nike Air Jordan 3 Black Cat 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-jordan-3-black-cat', 'images/nike_air_jordan_3_black_cat_2.jpg')">
+                        <img src="images/nike_air_jordan_3_black_cat_3.jpg" alt="Nike Air Jordan 3 Black Cat 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-jordan-3-black-cat', 'images/nike_air_jordan_3_black_cat_3.jpg')">
+                        <img src="images/nike_air_jordan_3_black_cat_4.jpg" alt="Nike Air Jordan 3 Black Cat 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-jordan-3-black-cat', 'images/nike_air_jordan_3_black_cat_4.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN 3 | АРТ: NJ30</div>
+                        <h3 class="product-title">Nike Air Jordan 3 Black Cat</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Преміум нубук та натуральна шкіра, фірмові слонові вставки (Elephant Print) • <b>Підошва:</b> Зносостійка гума з видимою амортизаційною капсулою Air • <b>Комплектація:</b> Брендова коробка Jordan, брендовий папір • <b>Виробник:</b> В'єтнам.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-40):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">3 100 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Nike Air Jordan 3 Black Cat (3100 грн)', '3 100 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Product Card 48 (NEW): Nike Shox Cordura Termo Black NK1037-N (4 Photos) -->
@@ -2223,6 +2262,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Nike Air Jordan 3 Black Cat (3100 грн)">🔥🖤 Nike Air Jordan 3 Black Cat (Арт: NJ30) — 3 100 грн [НОВИНКА]</option>
                             <option value="Nike Shox Cordura Termo Black (2900 грн)">🔥❄️ Nike Shox Cordura Termo Black (Арт: NK1037-N) — 2 900 грн [НОВИНКА]</option>
                             <option value="Nike Air Jordan 4 Black Pink (2900 грн)">🔥💖 Nike Air Jordan 4 Black Pink (Арт: NJ21) — 2 900 грн [НОВИНКА]</option>
                             <option value="New Balance 1906R Termo Black (2900 грн)">🔥❄️ New Balance 1906R Termo Black (Арт: NB220) — 2 900 грн [НОВИНКА]</option>
