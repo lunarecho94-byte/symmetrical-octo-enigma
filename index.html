@@ -155,10 +155,10 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (56)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (57)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (24)</button>
                     <button type="button" class="filter-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
-                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (12)</button>
+                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (13)</button>
                     <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">✨ Asics (1)</button>
                     <button type="button" class="filter-chip" data-brand="skate" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -171,7 +171,48 @@
                     <div class="no-results-icon">👟</div>
                     <h3>За вашим запитом пар не знайдено</h3>
                     <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>Jordan</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 56 моделей</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 57 моделей</button>
+                </div>
+                
+                <!-- Product Card 57 (NEW): Adidas Duramo SL Triple Black 3761 (5 Photos) -->
+                <div class="product-card" id="prod-adidas-duramo-sl-black" data-brand="adidas">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • RUNNING 🖤</span>
+                        <img src="images/adidas_duramo_sl_black_1.jpg" alt="Adidas Duramo SL Triple Black" id="cardImg-adidas-duramo-sl-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_duramo_sl_black_1.jpg" alt="Adidas Duramo SL Triple Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-adidas-duramo-sl-black', 'images/adidas_duramo_sl_black_1.jpg')">
+                        <img src="images/adidas_duramo_sl_black_2.jpg" alt="Adidas Duramo SL Triple Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-duramo-sl-black', 'images/adidas_duramo_sl_black_2.jpg')">
+                        <img src="images/adidas_duramo_sl_black_3.jpg" alt="Adidas Duramo SL Triple Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-duramo-sl-black', 'images/adidas_duramo_sl_black_3.jpg')">
+                        <img src="images/adidas_duramo_sl_black_4.jpg" alt="Adidas Duramo SL Triple Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-duramo-sl-black', 'images/adidas_duramo_sl_black_4.jpg')">
+                        <img src="images/adidas_duramo_sl_black_5.jpg" alt="Adidas Duramo SL Triple Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-duramo-sl-black', 'images/adidas_duramo_sl_black_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS PERFORMANCE | АРТ: 3761 (ЧОЛОВІЧІ)</div>
+                        <h3 class="product-title">Adidas Duramo SL Triple Black</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Легкий дихаючий текстиль (наскрізна сітка), полімерні захисні вставки • <b>Підошва:</b> Полегшена амортизуюча пінка та зносостійка гума • <b>Комплектація:</b> Фірмова синя коробка Adidas, фірмовий папір • <b>Виробник:</b> В'єтнам.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (41-46):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29 см)')">46</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 190 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Adidas Duramo SL Triple Black (2190 грн)', '2 190 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Product Card 56 (NEW): Adidas Campus 00s Beige Black Gum 4390 (5 Photos) -->
@@ -2542,6 +2583,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Adidas Duramo SL Triple Black (2190 грн)">🔥👟 Adidas Duramo SL Triple Black (Арт: 3761) — 2 190 грн [НОВИНКА]</option>
                             <option value="Adidas Campus 00s Beige Black Gum (1880 грн)">🔥👟 Adidas Campus 00s Beige Black Gum (Арт: 4390) — 1 880 грн [АКЦІЯ]</option>
                             <option value="Adidas Forum Low Beige Grey (2250 грн)">🛡👟 Adidas Forum Low Beige Grey (Арт: 4413) — 2 250 грн [ОСТАННІ РОЗМІРИ]</option>
                             <option value="Adidas Gazelle Light Grey (2150 грн)">🔥👟 Adidas Gazelle Light Grey (Арт: 4300) — 2 150 грн [НОВИНКА]</option>
