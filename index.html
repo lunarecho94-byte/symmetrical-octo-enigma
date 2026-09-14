@@ -155,10 +155,10 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (50)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">🔥 Всі моделі (51)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">⚡ Nike (23)</button>
                     <button type="button" class="filter-chip" data-brand="nb" onclick="filterCatalog('nb', this)">👟 New Balance (16)</button>
-                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (7)</button>
+                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">⚽ Adidas (8)</button>
                     <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">✨ Asics (1)</button>
                     <button type="button" class="filter-chip" data-brand="skate" onclick="filterCatalog('skate', this)">🛹 Vans & Puma (3)</button>
                 </div>
@@ -171,7 +171,48 @@
                     <div class="no-results-icon">👟</div>
                     <h3>За вашим запитом пар не знайдено</h3>
                     <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>Jordan</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 50 моделей</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 51 модель</button>
+                </div>
+                
+                <!-- Product Card 51 (NEW): Adidas Superstar Black White ASU04 (5 Photos) -->
+                <div class="product-card" id="prod-adidas-superstar-black-white" data-brand="adidas">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 НОВИНКА • ADIDAS 🖤</span>
+                        <img src="images/adidas_superstar_black_white_1.jpg" alt="Adidas Superstar Black White" id="cardImg-adidas-superstar-black-white">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_superstar_black_white_1.jpg" alt="Adidas Superstar Black White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-adidas-superstar-black-white', 'images/adidas_superstar_black_white_1.jpg')">
+                        <img src="images/adidas_superstar_black_white_2.jpg" alt="Adidas Superstar Black White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-superstar-black-white', 'images/adidas_superstar_black_white_2.jpg')">
+                        <img src="images/adidas_superstar_black_white_3.jpg" alt="Adidas Superstar Black White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-superstar-black-white', 'images/adidas_superstar_black_white_3.jpg')">
+                        <img src="images/adidas_superstar_black_white_4.jpg" alt="Adidas Superstar Black White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-superstar-black-white', 'images/adidas_superstar_black_white_4.jpg')">
+                        <img src="images/adidas_superstar_black_white_5.jpg" alt="Adidas Superstar Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-superstar-black-white', 'images/adidas_superstar_black_white_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-cat">ВЗУТТЯ / ADIDAS SUPERSTAR | АРТ: ASU04</div>
+                        <h3 class="product-title">Adidas Superstar Black White</h3>
+                        <p class="product-desc"><b>Матеріал:</b> Натуральна шкіра преміум якості, класичний носок-мушля (Shell Toe) • <b>Підошва:</b> Зносостійка вулканізована гума з чіпким протектором • <b>Комплектація:</b> Брендова коробка Adidas, фірмовий папір • <b>Виробник:</b> В'єтнам.</p>
+                        
+                        <div class="size-selector">
+                            <label>Обери розмір (36-41):</label>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+
+                        <div class="product-price-action">
+                            <div class="prices">
+                                <span class="price-now">2 450 грн</span>
+                            </div>
+                            <a href="#order-form" class="btn-buy" onclick="selectModelInForm('Adidas Superstar Black White (2450 грн)', '2 450 грн', event)">
+                                🛒 В кошик
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Product Card 50 (NEW): Asics Gel Nyc Cream Pink ASN08 (5 Photos) -->
@@ -2303,6 +2344,7 @@
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
                         <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                            <option value="Adidas Superstar Black White (2450 грн)">🔥👟 Adidas Superstar Black White (Арт: ASU04) — 2 450 грн [НОВИНКА]</option>
                             <option value="Asics Gel Nyc Cream Pink (2700 грн)">🔥💖 Asics Gel Nyc Cream Pink (Арт: ASN08) — 2 700 грн [НОВИНКА]</option>
                             <option value="Nike Air Jordan 3 Black Cat (3100 грн)">🔥🖤 Nike Air Jordan 3 Black Cat (Арт: NJ30) — 3 100 грн [НОВИНКА]</option>
                             <option value="Nike Shox Cordura Termo Black (2900 грн)">🔥❄️ Nike Shox Cordura Termo Black (Арт: NK1037-N) — 2 900 грн [НОВИНКА]</option>
