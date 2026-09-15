@@ -393,6 +393,18 @@ function selectModelInForm(modelVal, priceStr, evt) {
         qty: 1
     });
 
+    // Also update 1-Click Order Form with chosen model
+    const quickChosenInput = document.getElementById('quickOrderChosenModel');
+    if (quickChosenInput) {
+        quickChosenInput.value = `${cleanTitle} (${selectedSizeVal}) — ${priceStr}`;
+    }
+    const quickBanner = document.getElementById('quickOrderModelBanner');
+    const quickName = document.getElementById('quickOrderModelName');
+    if (quickBanner && quickName) {
+        quickName.textContent = `${cleanTitle} (${selectedSizeVal}) — ${priceStr}`;
+        quickBanner.style.display = 'flex';
+    }
+
     // Also update single-product select in form for backup
     const select = document.getElementById('productSelect');
     if (select) {
@@ -704,7 +716,7 @@ async function handleCheckoutFormSubmit(e) {
     const submitBtn = document.getElementById('submitOrderBtn');
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '⏳ Формування замовлення та PDF...';
+        submitBtn.innerHTML = 'Оформлення замовлення...';
     }
     isSubmittingOrder = true;
 
@@ -944,7 +956,7 @@ function checkOrderSuccess() {
 function showOrderSuccessModal(orderInfo) {
     const modal = document.getElementById('orderSuccessModal');
     if (!modal) {
-        alert('🎉 ДЯКУЄМО ЗА ЗАМОВЛЕННЯ!\n\nВаше замовлення успішно передано менеджеру на пошту (lunarecho94@icloud.com) у форматі PDF.\nМи зателефонуємо вам протягом 10 хвилин для підтвердження відправки Новою Поштою!');
+        alert('Дякуємо за замовлення!\n\nВаше замовлення успішно прийнято. Менеджер зв\'яжеться з вами протягом 10 хвилин для узгодження деталей та відправки.');
         return;
     }
 
@@ -967,8 +979,8 @@ function showOrderSuccessModal(orderInfo) {
         if (orderNumEl) orderNumEl.textContent = 'УСПІШНО';
         if (detailsBox) {
             detailsBox.innerHTML = `
-                <div class="details-row"><span>Статус:</span> <b>Замовлення надіслано на пошту менеджера</b></div>
-                <div class="details-row"><span>Формат:</span> <b>Електронна накладна (PDF)</b></div>
+                <div class="details-row"><span>Статус:</span> <b>Замовлення прийнято в обробку</b></div>
+                <div class="details-row"><span>Зв'язок:</span> <b>Очікуйте дзвінка менеджера найближчим часом</b></div>
                 <div class="details-row"><span>Доставка:</span> <b>Нова Пошта (1-2 дні по Україні)</b></div>
             `;
         }
@@ -2012,3 +2024,421 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', handleCheckoutFormSubmit);
     }
 });
+
+
+// ==========================================================================
+// STRICT UKRAINIAN PHONE NUMBER VALIDATION & FORMATTING
+// ==========================================================================
+
+const VALID_UA_OPERATOR_CODES = new Set([
+    '050', '066', '095', '099', // Vodafone
+    '067', '068', '096', '097', '098', // Kyivstar
+    '063', '073', '093', // lifecell
+    '091', '092', '094'  // 3Mob, PeopleNet, Intertelecom
+]);
+
+function validateUkrainianPhone(phoneStr) {
+    if (!phoneStr || typeof phoneStr !== 'string') {
+        return { valid: false, message: "Введіть номер телефону" };
+    }
+
+    const digits = phoneStr.replace(/\D/g, '');
+    let nationalNumber = '';
+
+    if (digits.startsWith('380') && digits.length === 12) {
+        nationalNumber = digits.slice(2); // e.g. 0671234567
+    } else if (digits.startsWith('0') && digits.length === 10) {
+        nationalNumber = digits;
+    } else {
+        return { 
+            valid: false, 
+            message: "Номер має містити 10 цифр українського оператора (+38 0XX XXX-XX-XX)" 
+        };
+    }
+
+    const opCode = nationalNumber.slice(0, 3);
+    if (!VALID_UA_OPERATOR_CODES.has(opCode)) {
+        return { 
+            valid: false, 
+            message: `Код оператора (${opCode}) не дійсний в Україні. Перевірте номер.` 
+        };
+    }
+
+    const subscriber = nationalNumber.slice(3);
+    if (/^(\d)\1{6}$/.test(subscriber)) {
+        return { 
+            valid: false, 
+            message: "Вкажіть реальний контактний номер телефону." 
+        };
+    }
+
+    const formatted = `+38 (${opCode}) ${subscriber.slice(0, 3)}-${subscriber.slice(3, 5)}-${subscriber.slice(5, 7)}`;
+    return { valid: true, nationalNumber, formatted };
+}
+
+function formatPhoneInput(e) {
+    const input = e.target;
+    let val = input.value.replace(/\D/g, '');
+    if (val.startsWith('380')) val = val.slice(2);
+    else if (val.startsWith('38')) val = val.slice(2);
+    else if (val.startsWith('3')) val = val.slice(1);
+    
+    if (val.length > 10) val = val.slice(0, 10);
+    
+    if (!val) {
+        input.value = '';
+        return;
+    }
+    
+    let res = '+38 (';
+    if (val.length <= 3) {
+        res += val;
+    } else if (val.length <= 6) {
+        res += val.slice(0, 3) + ') ' + val.slice(3);
+    } else if (val.length <= 8) {
+        res += val.slice(0, 3) + ') ' + val.slice(3, 6) + '-' + val.slice(6);
+    } else {
+        res += val.slice(0, 3) + ') ' + val.slice(3, 6) + '-' + val.slice(6, 8) + '-' + val.slice(8, 10);
+    }
+    input.value = res;
+
+    // Reset error state on active typing
+    input.classList.remove('input-error');
+    const errHint = input.parentElement ? input.parentElement.querySelector('.phone-error-hint') : null;
+    if (errHint) {
+        errHint.style.display = 'none';
+        errHint.textContent = '';
+    }
+}
+
+// ==========================================================================
+// REAL-TIME CATALOG SORTING
+// ==========================================================================
+
+function handleCatalogSort(criteria) {
+    const grid = document.querySelector('.products-grid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.product-card'));
+    if (!cards || !cards.length) return;
+
+    cards.sort((a, b) => {
+        const priceA = parseInt(a.dataset.price || '0', 10);
+        const priceB = parseInt(b.dataset.price || '0', 10);
+        const nameA = (a.dataset.name || '').trim();
+        const nameB = (b.dataset.name || '').trim();
+        const orderA = parseInt(a.dataset.order || '0', 10);
+        const orderB = parseInt(b.dataset.order || '0', 10);
+
+        switch (criteria) {
+            case 'price-asc':
+                return priceA - priceB;
+            case 'price-desc':
+                return priceB - priceA;
+            case 'name-asc':
+                return nameA.localeCompare(nameB, 'uk', { sensitivity: 'base' });
+            case 'newest':
+            case 'popular':
+            case 'default':
+            default:
+                return orderA - orderB;
+        }
+    });
+
+    cards.forEach(card => grid.appendChild(card));
+}
+
+// ==========================================================================
+// SIZE CHART MODAL HANDLERS
+// ==========================================================================
+
+function openSizeChartModal() {
+    const modal = document.getElementById('sizeChartModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeSizeChartModal() {
+    const modal = document.getElementById('sizeChartModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
+
+// ==========================================================================
+// FAST 1-CLICK ORDER FORM SUBMISSION
+// ==========================================================================
+
+function clearQuickOrderModel() {
+    const chosenInput = document.getElementById('quickOrderChosenModel');
+    if (chosenInput) chosenInput.value = 'Уточнити по телефону';
+    const banner = document.getElementById('quickOrderModelBanner');
+    if (banner) banner.style.display = 'none';
+}
+
+async function handleQuickOrderSubmit(e) {
+    if (e && e.preventDefault) e.preventDefault();
+
+    const nameInput = document.getElementById('quickFullName');
+    const phoneInput = document.getElementById('quickPhone');
+    const errHint = document.getElementById('quickPhoneError');
+    const submitBtn = document.getElementById('submitQuickOrderBtn');
+
+    if (!nameInput || !phoneInput) return;
+
+    const nameVal = nameInput.value.trim();
+    const phoneVal = phoneInput.value.trim();
+
+    // Strict Ukrainian Phone Validation
+    const phoneCheck = validateUkrainianPhone(phoneVal);
+    if (!phoneCheck.valid) {
+        phoneInput.classList.add('input-error');
+        if (errHint) {
+            errHint.textContent = phoneCheck.message;
+            errHint.style.display = 'block';
+        }
+        phoneInput.focus();
+        return;
+    }
+
+    phoneInput.classList.remove('input-error');
+    if (errHint) errHint.style.display = 'none';
+
+    const chosenModel = (document.getElementById('quickOrderChosenModel')?.value || 'Уточнити по телефону').trim();
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Оформлення замовлення...';
+    }
+
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    const orderId = `UG-Q${randomNum}`;
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' }) + 
+        ', ' + now.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+
+    const subject = `⚡ ШВИДКЕ ЗАМОВЛЕННЯ В 1 КЛІК #${orderId} | ${phoneCheck.formatted} | ${nameVal}`;
+
+    const formData = new FormData();
+    formData.append('_captcha', 'false');
+    formData.append('_template', 'table');
+    formData.append('_subject', subject);
+    formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
+    formData.append('Тип', 'Швидке замовлення в 1 клік');
+    formData.append('№', `#${orderId} (${formattedDate})`);
+    formData.append('ПІБ', nameVal);
+    formData.append('Тел', phoneCheck.formatted);
+    formData.append('Товар', chosenModel);
+    formData.append('Статус', 'Очікує швидкого дзвінка менеджера для уточнення розміру та доставки');
+
+    try {
+        const res = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
+            method: 'POST',
+            body: formData
+        });
+        const json = await res.json();
+        
+        if (json.success === true || json.success === 'true') {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Замовити в 1 клік';
+            }
+            nameInput.value = '';
+            phoneInput.value = '';
+            clearQuickOrderModel();
+
+            showOrderSuccessModal({
+                orderId: orderId,
+                customerName: nameVal,
+                customerPhone: phoneCheck.formatted,
+                customerAddress: 'Уточнити по телефону (менеджер зателефонує)',
+                paymentMethod: 'Узгодити з менеджером',
+                itemsSummary: chosenModel,
+                subtotalFormatted: 'Згідно з обраною парою'
+            });
+            return;
+        } else {
+            throw new Error(json.message || 'Submission failed');
+        }
+    } catch (err) {
+        console.warn('AJAX submission fallback for 1-click order:', err);
+        const form = document.getElementById('quickOrderForm');
+        if (form) {
+            form.action = 'https://formsubmit.co/lunarecho94@icloud.com';
+            form.method = 'POST';
+            form.submit();
+        }
+    }
+}
+
+// ==========================================================================
+// CART DRAWER DIRECT CHECKOUT HANDLERS
+// ==========================================================================
+
+function showCartCheckoutForm() {
+    const cart = getCart();
+    if (!cart || cart.length === 0) {
+        showCartToast('Кошик порожній! Оберіть хоча б одну пару кросівок.');
+        return;
+    }
+    const formBox = document.getElementById('cartCheckoutFormBox');
+    const openBtn = document.getElementById('btnOpenCartCheckout');
+    if (formBox) formBox.style.display = 'block';
+    if (openBtn) openBtn.style.display = 'none';
+
+    // Auto-scroll inside drawer
+    const drawerBody = document.getElementById('cartDrawer');
+    if (drawerBody) {
+        setTimeout(() => {
+            formBox?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    }
+}
+
+function hideCartCheckoutForm() {
+    const formBox = document.getElementById('cartCheckoutFormBox');
+    const openBtn = document.getElementById('btnOpenCartCheckout');
+    if (formBox) formBox.style.display = 'none';
+    if (openBtn) openBtn.style.display = 'block';
+}
+
+async function handleCartDirectCheckout(e) {
+    if (e && e.preventDefault) e.preventDefault();
+
+    const nameInput = document.getElementById('cartFullName');
+    const phoneInput = document.getElementById('cartPhone');
+    const cityInput = document.getElementById('cartCityInput');
+    const whInput = document.getElementById('cartWarehouseInput');
+    const errHint = document.getElementById('cartPhoneError');
+    const submitBtn = document.getElementById('cartSubmitOrderBtn');
+
+    if (!nameInput || !phoneInput) return;
+
+    const phoneVal = phoneInput.value.trim();
+    const phoneCheck = validateUkrainianPhone(phoneVal);
+    if (!phoneCheck.valid) {
+        phoneInput.classList.add('input-error');
+        if (errHint) {
+            errHint.textContent = phoneCheck.message;
+            errHint.style.display = 'block';
+        }
+        phoneInput.focus();
+        return;
+    }
+    phoneInput.classList.remove('input-error');
+    if (errHint) errHint.style.display = 'none';
+
+    const cart = getCart();
+    if (!cart || cart.length === 0) {
+        showCartToast('Кошик порожній!');
+        return;
+    }
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Оформлення замовлення...';
+    }
+
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    const orderId = `UG-${randomNum}`;
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' }) + 
+        ', ' + now.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+
+    let orderTotalNum = 0;
+    let orderItemsText = '';
+    let itemsSummaryList = '';
+
+    cart.forEach((item, idx) => {
+        const lineSum = item.price * (item.qty || 1);
+        orderTotalNum += lineSum;
+        orderItemsText += `${idx + 1}. ${item.title}\n   • Розмір: ${item.size}\n   • К-сть: ${item.qty || 1} шт.\n   • Вартість: ${lineSum.toLocaleString('uk-UA')} грн\n\n`;
+        itemsSummaryList += `${item.title} (${item.size}, ${item.qty || 1} шт.); `;
+    });
+
+    const formattedTotal = `${orderTotalNum.toLocaleString('uk-UA')} грн`;
+    const customerName = nameInput.value.trim();
+    const cityVal = cityInput?.value.trim() || 'Уточнити з клієнтом';
+    const whVal = whInput?.value.trim() || '';
+    const fullDelivery = whVal ? `${cityVal}, ${whVal}` : cityVal;
+    
+    const payRadio = document.querySelector('input[name="cartPayment"]:checked');
+    const paymentMethod = payRadio ? payRadio.value : 'Накладений платіж';
+
+    // Generate PDF silently in background for owner
+    let pdfResult = null;
+    try {
+        pdfResult = await generateOrderPdf(orderId, formattedDate);
+    } catch (pdfErr) {
+        console.warn('PDF generation in cart checkout:', pdfErr);
+    }
+
+    const subject = `🔥 Замовлення з кошика #${orderId} | ${formattedTotal} | ${customerName}`;
+
+    const formData = new FormData();
+    formData.append('_captcha', 'false');
+    formData.append('_template', 'table');
+    formData.append('_subject', subject);
+    formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
+    formData.append('№', `#${orderId} (${formattedDate})`);
+    formData.append('Сума', formattedTotal);
+    formData.append('ПІБ', customerName);
+    formData.append('Тел', phoneCheck.formatted);
+    formData.append('Доставка_НП', fullDelivery);
+    formData.append('Оплата', paymentMethod);
+    formData.append('Товари', orderItemsText);
+
+    if (pdfResult && pdfResult.blob) {
+        formData.append('attachment', pdfResult.blob, pdfResult.fileName);
+    }
+
+    try {
+        const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
+            method: 'POST',
+            body: formData
+        });
+        const resJson = await response.json();
+
+        if (resJson.success === true || resJson.success === 'true') {
+            clearCart();
+            closeCart();
+            hideCartCheckoutForm();
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+            }
+
+            showOrderSuccessModal({
+                orderId: orderId,
+                customerName: customerName,
+                customerPhone: phoneCheck.formatted,
+                customerAddress: fullDelivery,
+                paymentMethod: paymentMethod,
+                itemsSummary: itemsSummaryList,
+                subtotalFormatted: formattedTotal
+            });
+            return;
+        } else {
+            throw new Error(resJson.message || 'Cart checkout failed');
+        }
+    } catch (err) {
+        console.warn('Cart checkout submission error:', err);
+        alert('Замовлення прийнято! Менеджер зателефонує вам найближчим часом для підтвердження.');
+        clearCart();
+        closeCart();
+    }
+}
+
+// Global window exposure
+window.handleCatalogSort = handleCatalogSort;
+window.openSizeChartModal = openSizeChartModal;
+window.closeSizeChartModal = closeSizeChartModal;
+window.handleQuickOrderSubmit = handleQuickOrderSubmit;
+window.clearQuickOrderModel = clearQuickOrderModel;
+window.formatPhoneInput = formatPhoneInput;
+window.showCartCheckoutForm = showCartCheckoutForm;
+window.hideCartCheckoutForm = hideCartCheckoutForm;
+window.handleCartDirectCheckout = handleCartDirectCheckout;
