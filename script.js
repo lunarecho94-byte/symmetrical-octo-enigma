@@ -416,7 +416,14 @@ function updateFormPrice() {
     if (!select || !priceDisplay) return;
 
     const val = select.value;
-    if (val.includes('3100')) {
+    const match = val.match(/\((\d+)\s*грн\)/);
+    if (match) {
+        priceDisplay.textContent = parseInt(match[1], 10).toLocaleString('uk-UA') + ' грн';
+        return;
+    }
+    if (val.includes('3300')) {
+        priceDisplay.textContent = '3 300 грн';
+    } else if (val.includes('3100')) {
         priceDisplay.textContent = '3 100 грн';
     } else if (val.includes('3000')) {
         priceDisplay.textContent = '3 000 грн';
