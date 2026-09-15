@@ -142,8 +142,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (59)</button>
-                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (25)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (60)</button>
+                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (26)</button>
                     <button type="button" class="filter-chip" data-brand="nb" onclick="filterCatalog('nb', this)">New Balance (17)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (13)</button>
                     <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (1)</button>
@@ -170,11 +170,55 @@
                     <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
                     <h3>За вашим запитом пар не знайдено</h3>
                     <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Термо</b>, <b>Jordan</b>, <b>1906</b>) або оберіть інший бренд, щоб переглянути всі моделі на складі.</p>
-                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 59 моделей</button>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати всі 60 моделей</button>
                 </div>
                 
-                                <!-- Product Card 59 (NEW): New Balance 740 Graphite Gray Termo NB237-N (4 Photos) -->
-                <div class="product-card" id="prod-nb-740-graphite-gray-termo" data-brand="nb" data-price="2900" data-name="New Balance 740 Graphite Gray Termo" data-order="0">
+                                                <!-- Product Card 60 (NEW): Nike SB Dunk Low Gore-Tex Black SB51 (4 Photos) -->
+                <div class="product-card" id="prod-nike-sb-dunk-goretex-black" data-brand="nike" data-price="3300" data-name="Nike SB Dunk Low Gore-Tex Black" data-order="0">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">✨ Новинка • Gore-Tex</span>
+                        <img src="images/nike_sb_dunk_goretex_black_1.jpg" alt="Nike SB Dunk Low Gore-Tex Black" id="cardImg-nike-sb-dunk-goretex-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_sb_dunk_goretex_black_1.jpg" alt="Nike SB Dunk Low Gore-Tex Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-sb-dunk-goretex-black', 'images/nike_sb_dunk_goretex_black_1.jpg')">
+                        <img src="images/nike_sb_dunk_goretex_black_2.jpg" alt="Nike SB Dunk Low Gore-Tex Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-sb-dunk-goretex-black', 'images/nike_sb_dunk_goretex_black_2.jpg')">
+                        <img src="images/nike_sb_dunk_goretex_black_3.jpg" alt="Nike SB Dunk Low Gore-Tex Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-sb-dunk-goretex-black', 'images/nike_sb_dunk_goretex_black_3.jpg')">
+                        <img src="images/nike_sb_dunk_goretex_black_4.jpg" alt="Nike SB Dunk Low Gore-Tex Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-sb-dunk-goretex-black', 'images/nike_sb_dunk_goretex_black_4.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / NIKE SB DUNK LOW | АРТ: SB51</span>
+                            <div class="product-price-top"><span class="price-now">3 300 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Nike SB Dunk Low Gore-Tex Black</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Натуральна шкіра / вологозахисна мембрана Gore-Tex</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Зносостійка гума з класичним протектором SB Dunk</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">Фірмова брендова коробка Nike SB, брендовий папір</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам (фабричний Китай)</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір:</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Nike SB Dunk Low Gore-Tex Black (3300 грн)', '3 300 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 59 (NEW): New Balance 740 Graphite Gray Termo NB237-N (4 Photos) -->
+                <div class="product-card" id="prod-nb-740-graphite-gray-termo" data-brand="nb" data-price="2900" data-name="New Balance 740 Graphite Gray Termo" data-order="1">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nb_740_graphite_gray_termo_1.jpg?v=2" alt="New Balance 740 Graphite Gray Termo" id="cardImg-nb-740-graphite-gray-termo">
@@ -219,7 +263,7 @@
                     </div>
                 </div>
                 <!-- Product Card 58 (NEW): Nike SB Dunk Low Gore-Tex Grey White SB52 (4 Photos) -->
-                <div class="product-card" id="prod-nike-sb-dunk-goretex-grey" data-brand="nike" data-price="3300" data-name="Nike SB Dunk Low Gore-Tex Grey White" data-order="1">
+                <div class="product-card" id="prod-nike-sb-dunk-goretex-grey" data-brand="nike" data-price="3300" data-name="Nike SB Dunk Low Gore-Tex Grey White" data-order="2">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Gore-Tex</span>
                         <img src="images/nike_sb_dunk_goretex_grey_1.jpg" alt="Nike SB Dunk Low Gore-Tex Grey White" id="cardImg-nike-sb-dunk-goretex-grey">
@@ -262,7 +306,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 57 (NEW): Adidas Duramo SL Triple Black 3761 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-duramo-sl-black" data-brand="adidas" data-price="2190" data-name="Adidas Duramo SL Triple Black" data-order="2">
+                <div class="product-card" id="prod-adidas-duramo-sl-black" data-brand="adidas" data-price="2190" data-name="Adidas Duramo SL Triple Black" data-order="3">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/adidas_duramo_sl_black_1.jpg" alt="Adidas Duramo SL Triple Black" id="cardImg-adidas-duramo-sl-black">
@@ -307,7 +351,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 56 (NEW): Adidas Campus 00s Beige Black Gum 4390 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-campus-00s-beige-black-gum" data-brand="adidas" data-price="1880" data-name="Adidas Campus 00s Beige Black Gum" data-order="3">
+                <div class="product-card" id="prod-adidas-campus-00s-beige-black-gum" data-brand="adidas" data-price="1880" data-name="Adidas Campus 00s Beige Black Gum" data-order="4">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">Акція</span>
                         <img src="images/adidas_campus_00s_beige_black_gum_1.jpg" alt="Adidas Campus 00s Beige Black Gum" id="cardImg-adidas-campus-00s-beige-black-gum">
@@ -351,7 +395,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 55 (NEW): Adidas Forum Low Beige Grey 4413 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-forum-low-beige-grey" data-brand="adidas" data-price="2250" data-name="Adidas Forum Low Beige Grey" data-order="4">
+                <div class="product-card" id="prod-adidas-forum-low-beige-grey" data-brand="adidas" data-price="2250" data-name="Adidas Forum Low Beige Grey" data-order="5">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">Останні розміри</span>
                         <img src="images/adidas_forum_low_beige_grey_1.jpg" alt="Adidas Forum Low Beige Grey" id="cardImg-adidas-forum-low-beige-grey">
@@ -394,7 +438,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 54 (NEW): Adidas Gazelle Light Grey 4300 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-gazelle-light-grey" data-brand="adidas" data-price="2150" data-name="Adidas Gazelle Light Grey" data-order="5">
+                <div class="product-card" id="prod-adidas-gazelle-light-grey" data-brand="adidas" data-price="2150" data-name="Adidas Gazelle Light Grey" data-order="6">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/adidas_gazelle_light_grey_1.jpg" alt="Adidas Gazelle Light Grey" id="cardImg-adidas-gazelle-light-grey">
@@ -438,7 +482,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 53 (NEW): Adidas Campus 00s Beige White 4490 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-campus-00s-beige" data-brand="adidas" data-price="2330" data-name="Adidas Campus 00s Beige White" data-order="6">
+                <div class="product-card" id="prod-adidas-campus-00s-beige" data-brand="adidas" data-price="2330" data-name="Adidas Campus 00s Beige White" data-order="7">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/adidas_campus_00s_beige_1.jpg" alt="Adidas Campus 00s Beige White" id="cardImg-adidas-campus-00s-beige">
@@ -484,7 +528,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 52 (NEW): Nike Jordan 5 Retro Low Dongdan NJ31 (5 Photos) -->
-                <div class="product-card" id="prod-nike-jordan-5-retro-low-dongdan" data-brand="nike" data-price="3000" data-name="Nike Jordan 5 Retro Low Dongdan" data-order="7">
+                <div class="product-card" id="prod-nike-jordan-5-retro-low-dongdan" data-brand="nike" data-price="3000" data-name="Nike Jordan 5 Retro Low Dongdan" data-order="8">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_jordan_5_retro_low_dongdan_1.jpg" alt="Nike Jordan 5 Retro Low Dongdan" id="cardImg-nike-jordan-5-retro-low-dongdan">
@@ -528,7 +572,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 51 (NEW): Adidas Superstar Black White ASU04 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-superstar-black-white" data-brand="adidas" data-price="2450" data-name="Adidas Superstar Black White" data-order="8">
+                <div class="product-card" id="prod-adidas-superstar-black-white" data-brand="adidas" data-price="2450" data-name="Adidas Superstar Black White" data-order="9">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/adidas_superstar_black_white_1.jpg" alt="Adidas Superstar Black White" id="cardImg-adidas-superstar-black-white">
@@ -573,7 +617,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 50 (NEW): Asics Gel Nyc Cream Pink ASN08 (5 Photos) -->
-                <div class="product-card" id="prod-asics-gel-nyc-cream-pink" data-brand="asics" data-price="2700" data-name="Asics Gel Nyc Cream Pink" data-order="9">
+                <div class="product-card" id="prod-asics-gel-nyc-cream-pink" data-brand="asics" data-price="2700" data-name="Asics Gel Nyc Cream Pink" data-order="10">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/asics_gel_nyc_cream_pink_1.jpg" alt="Asics Gel Nyc Cream Pink" id="cardImg-asics-gel-nyc-cream-pink">
@@ -617,7 +661,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 49 (NEW): Nike Air Jordan 3 Black Cat NJ30 (4 Photos) -->
-                <div class="product-card" id="prod-nike-air-jordan-3-black-cat" data-brand="nike" data-price="3100" data-name="Nike Air Jordan 3 Black Cat" data-order="10">
+                <div class="product-card" id="prod-nike-air-jordan-3-black-cat" data-brand="nike" data-price="3100" data-name="Nike Air Jordan 3 Black Cat" data-order="11">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_air_jordan_3_black_cat_1.jpg" alt="Nike Air Jordan 3 Black Cat" id="cardImg-nike-air-jordan-3-black-cat">
@@ -660,7 +704,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 48 (NEW): Nike Shox Cordura Termo Black NK1037-N (4 Photos) -->
-                <div class="product-card" id="prod-nike-shox-cordura-termo-black" data-brand="nike" data-price="2900" data-name="Nike Shox Cordura Termo Black" data-order="11">
+                <div class="product-card" id="prod-nike-shox-cordura-termo-black" data-brand="nike" data-price="2900" data-name="Nike Shox Cordura Termo Black" data-order="12">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nike_shox_cordura_termo_black_1.jpg" alt="Nike Shox Cordura Termo Black" id="cardImg-nike-shox-cordura-termo-black">
@@ -705,7 +749,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 47 (NEW): Nike Air Jordan 4 Black Pink NJ21 (5 Photos) -->
-                <div class="product-card" id="prod-nike-air-jordan-4-black-pink" data-brand="nike" data-price="2900" data-name="Nike Air Jordan 4 Black Pink" data-order="12">
+                <div class="product-card" id="prod-nike-air-jordan-4-black-pink" data-brand="nike" data-price="2900" data-name="Nike Air Jordan 4 Black Pink" data-order="13">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_air_jordan_4_black_pink_1.jpg" alt="Nike Air Jordan 4 Black Pink" id="cardImg-nike-air-jordan-4-black-pink">
@@ -749,7 +793,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 46 (NEW): New Balance 1906R Termo Black NB220 (5 Photos) -->
-                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb" data-price="2900" data-name="New Balance 1906R Termo Black" data-order="13">
+                <div class="product-card" id="prod-nb-1906r-termo-black" data-brand="nb" data-price="2900" data-name="New Balance 1906R Termo Black" data-order="14">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nb_1906r_termo_black_1.jpg" alt="New Balance 1906R Termo Black" id="cardImg-nb-1906r-termo-black">
@@ -795,7 +839,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 45 (NEW): New Balance 990v3 Termo Black NB218 (5 Photos) -->
-                <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb" data-price="3000" data-name="New Balance 990v3 Termo Black" data-order="14">
+                <div class="product-card" id="prod-nb-990v3-termo-black" data-brand="nb" data-price="3000" data-name="New Balance 990v3 Termo Black" data-order="15">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nb_990v3_termo_black_1.jpg" alt="New Balance 990v3 Termo Black" id="cardImg-nb-990v3-termo-black">
@@ -841,7 +885,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 44 (NEW): New Balance 990v3 Termo Brown/Black NB221-N (5 Photos) -->
-                <div class="product-card" id="prod-nb-990v3-termo-brown" data-brand="nb" data-price="3000" data-name="New Balance 990v3 Termo Brown/Black" data-order="15">
+                <div class="product-card" id="prod-nb-990v3-termo-brown" data-brand="nb" data-price="3000" data-name="New Balance 990v3 Termo Brown/Black" data-order="16">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nb_990v3_termo_brown_1.jpg" alt="New Balance 990v3 Termo Brown/Black" id="cardImg-nb-990v3-termo-brown">
@@ -887,7 +931,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 43 (NEW): New Balance 574 Termo White NB222-N (5 Photos) -->
-                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb" data-price="2700" data-name="New Balance 574 Termo White" data-order="16">
+                <div class="product-card" id="prod-nb-574-termo-white" data-brand="nb" data-price="2700" data-name="New Balance 574 Termo White" data-order="17">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nb_574_termo_white_1.jpg" alt="New Balance 574 Termo White" id="cardImg-nb-574-termo-white">
@@ -932,7 +976,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 42 (NEW): Nike Lunar Force 1 x Acronym Black White NK1057 (5 Photos) -->
-                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike" data-price="3100" data-name="Nike Lunar Force 1 x Acronym Black White" data-order="17">
+                <div class="product-card" id="prod-nike-lunar-force-acronym-black" data-brand="nike" data-price="3100" data-name="Nike Lunar Force 1 x Acronym Black White" data-order="18">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_lunar_force_acronym_black_1.jpg" alt="Nike Lunar Force 1 x Acronym Black White" id="cardImg-nike-lunar-force-acronym-black">
@@ -980,7 +1024,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 41 (NEW): Nike Dunk Low Lace Pack Regal Beige S1457 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike" data-price="2800" data-name="Nike Dunk Low Lace Pack Regal Beige" data-order="18">
+                <div class="product-card" id="prod-nike-dunk-lace-beige" data-brand="nike" data-price="2800" data-name="Nike Dunk Low Lace Pack Regal Beige" data-order="19">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_dunk_regal_beige_1.jpg" alt="Nike Dunk Low Lace Pack Regal Beige" id="cardImg-nike-dunk-lace-beige">
@@ -1023,7 +1067,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 40 (NEW): Nike Dunk Low Lace Pack Regal Pink S1456 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike" data-price="2600" data-name="Nike Dunk Low Lace Pack Regal Pink" data-order="19">
+                <div class="product-card" id="prod-nike-dunk-lace-pink" data-brand="nike" data-price="2600" data-name="Nike Dunk Low Lace Pack Regal Pink" data-order="20">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_dunk_regal_pink_1.jpg" alt="Nike Dunk Low Lace Pack Regal Pink" id="cardImg-nike-dunk-lace-pink">
@@ -1067,7 +1111,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 39 (NEW): New Balance 9060 Grey S1364 (4 Photos) -->
-                <div class="product-card" id="prod-nb-9060-grey" data-brand="nb" data-price="2900" data-name="New Balance 9060 Grey" data-order="20">
+                <div class="product-card" id="prod-nb-9060-grey" data-brand="nb" data-price="2900" data-name="New Balance 9060 Grey" data-order="21">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/new_balance_9060_grey_1.jpg" alt="New Balance 9060 Grey" id="cardImg-nb-9060-grey">
@@ -1110,7 +1154,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 38 (NEW): New Balance 9060 Light Beige S1413 (5 Photos) -->
-                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb" data-price="2900" data-name="New Balance 9060 Light Beige" data-order="21">
+                <div class="product-card" id="prod-nb-9060-light-beige" data-brand="nb" data-price="2900" data-name="New Balance 9060 Light Beige" data-order="22">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/new_balance_9060_light_beige_1.jpg" alt="New Balance 9060 Light Beige" id="cardImg-nb-9060-light-beige">
@@ -1154,7 +1198,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 37 (NEW): Nike Zoom Winflo Termo Light Grey NK1031-N (5 Photos) -->
-                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike" data-price="2900" data-name="Nike Zoom Winflo Termo Light Grey" data-order="22">
+                <div class="product-card" id="prod-nike-zoom-winflo-termo-grey" data-brand="nike" data-price="2900" data-name="Nike Zoom Winflo Termo Light Grey" data-order="23">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nike_winflo_grey_1.jpg" alt="Nike Zoom Winflo Termo Light Grey" id="cardImg-nike-zoom-winflo-termo-grey">
@@ -1199,7 +1243,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 36 (NEW): New Balance 1906R Termo Beige Black NB219 (4 Photos) -->
-                <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb" data-price="3000" data-name="New Balance 1906R Termo Beige Black" data-order="23">
+                <div class="product-card" id="prod-nb-1906r-termo-beige-black" data-brand="nb" data-price="3000" data-name="New Balance 1906R Termo Beige Black" data-order="24">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/new_balance_1906r_termo_1.jpg" alt="New Balance 1906R Termo Beige Black" id="cardImg-nb-1906r-termo-beige-black">
@@ -1242,7 +1286,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 35 (NEW): Nike Jordan Low Little Paris S1485 (5 Photos) -->
-                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike" data-price="2550" data-name="Nike Jordan Low Little Paris" data-order="24">
+                <div class="product-card" id="prod-nike-jordan-little-paris" data-brand="nike" data-price="2550" data-name="Nike Jordan Low Little Paris" data-order="25">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_jordan_little_paris_1.jpg" alt="Nike Jordan Low Little Paris" id="cardImg-nike-jordan-little-paris">
@@ -1287,7 +1331,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 34 (NEW): Nike Dunk Low Pink Paisley S1365 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike" data-price="2800" data-name="Nike Dunk Low Pink Paisley" data-order="25">
+                <div class="product-card" id="prod-nike-dunk-pink-paisley" data-brand="nike" data-price="2800" data-name="Nike Dunk Low Pink Paisley" data-order="26">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 Хіт продажів</span>
                         <img src="images/nike_dunk_pink_paisley_1.jpg" alt="Nike Dunk Low Pink Paisley" id="cardImg-nike-dunk-pink-paisley">
@@ -1332,7 +1376,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 33 (NEW): Nike Initiator Gore-Tex Black White 5182 (5 Photos) -->
-                <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike" data-price="2280" data-name="Nike Initiator Gore-Tex Black White (Термо)" data-order="26">
+                <div class="product-card" id="prod-nike-initiator-goretex-black" data-brand="nike" data-price="2280" data-name="Nike Initiator Gore-Tex Black White (Термо)" data-order="27">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nike_initiator_black_1.jpg" alt="Nike Initiator Gore-Tex Black White" id="cardImg-nike-initiator-goretex-black">
@@ -1377,7 +1421,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 32 (NEW): New Balance 9060 Black Grey Cordura 3771 (5 Photos) -->
-                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb" data-price="2590" data-name="New Balance 9060 Black Grey (Cordura)" data-order="27">
+                <div class="product-card" id="prod-nb-9060-black-grey" data-brand="nb" data-price="2590" data-name="New Balance 9060 Black Grey (Cordura)" data-order="28">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Cordura</span>
                         <img src="images/new_balance_9060_black_1.jpg" alt="New Balance 9060 Black Grey Cordura" id="cardImg-nb-9060-black-grey">
@@ -1422,7 +1466,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 31 (NEW): Nike Initiator Gore-Tex Grey 5181 (5 Photos) -->
-                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike" data-price="2380" data-name="Nike Initiator Gore-Tex Grey (Термо)" data-order="28">
+                <div class="product-card" id="prod-nike-initiator-goretex-grey" data-brand="nike" data-price="2380" data-name="Nike Initiator Gore-Tex Grey (Термо)" data-order="29">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Термо</span>
                         <img src="images/nike_initiator_goretex_grey_1.jpg" alt="Nike Initiator Gore-Tex Grey" id="cardImg-nike-initiator-goretex-grey">
@@ -1467,7 +1511,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 24: Adidas Iniki Black White 4424 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas" data-price="2200" data-name="Adidas Iniki Black White" data-order="29">
+                <div class="product-card" id="prod-adidas-iniki-black" data-brand="adidas" data-price="2200" data-name="Adidas Iniki Black White" data-order="30">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">🔥 Хіт продажів</span>
                         <img src="images/adidas_iniki_black_1.jpg" alt="Adidas Iniki Black White" id="cardImg-adidas-iniki-black">
@@ -1510,7 +1554,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 30 (NEW): Adidas Terrex Gore-Tex Black 3770 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas" data-price="2330" data-name="Adidas Terrex Gore-Tex Black" data-order="30">
+                <div class="product-card" id="prod-adidas-terrex-black" data-brand="adidas" data-price="2330" data-name="Adidas Terrex Gore-Tex Black" data-order="31">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка • Gore-Tex</span>
                         <img src="images/adidas_terrex_black_1.jpg" alt="Adidas Terrex Gore-Tex Black" id="cardImg-adidas-terrex-black">
@@ -1556,7 +1600,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 29 (NEW): New Balance 530 White Black 4354 (5 Photos) -->
-                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb" data-price="2260" data-name="New Balance 530 White Black" data-order="31">
+                <div class="product-card" id="prod-nb-530-whiteblack" data-brand="nb" data-price="2260" data-name="New Balance 530 White Black" data-order="32">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nb_530_whiteblack_1.jpg" alt="New Balance 530 White Black" id="cardImg-nb-530-whiteblack">
@@ -1599,7 +1643,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 28 (NEW): New Balance 574 Dark Grey White 4414 (5 Photos) -->
-                <div class="product-card" id="prod-nb-574-grey" data-brand="nb" data-price="2320" data-name="New Balance 574 Dark Grey White" data-order="32">
+                <div class="product-card" id="prod-nb-574-grey" data-brand="nb" data-price="2320" data-name="New Balance 574 Dark Grey White" data-order="33">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nb_574_darkgrey_1.jpg" alt="New Balance 574 Dark Grey White" id="cardImg-nb-574-grey">
@@ -1645,7 +1689,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 27 (NEW): Adidas Samba Platform Black White 4464 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas" data-price="1990" data-name="Adidas Samba Platform Black White" data-order="33">
+                <div class="product-card" id="prod-adidas-samba-platform" data-brand="adidas" data-price="1990" data-name="Adidas Samba Platform Black White" data-order="34">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">Акція</span>
                         <img src="images/adidas_samba_platform_1.jpg" alt="Adidas Samba Platform Black White" id="cardImg-adidas-samba-platform">
@@ -1690,7 +1734,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 26 (NEW): Adidas Handball Spezial Grey Black 3763 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas" data-price="2140" data-name="Adidas Handball Spezial Grey Black" data-order="34">
+                <div class="product-card" id="prod-adidas-spezial-grey" data-brand="adidas" data-price="2140" data-name="Adidas Handball Spezial Grey Black" data-order="35">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/adidas_spezial_grey_1.jpg" alt="Adidas Handball Spezial Grey Black" id="cardImg-adidas-spezial-grey">
@@ -1736,7 +1780,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 25 (NEW): Adidas Slip-On Dark Grey Black 3760 (5 Photos) -->
-                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas" data-price="1690" data-name="Adidas Slip-On Dark Grey Black" data-order="35">
+                <div class="product-card" id="prod-adidas-slipon-grey" data-brand="adidas" data-price="1690" data-name="Adidas Slip-On Dark Grey Black" data-order="36">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/adidas_slipon_grey_1.jpg" alt="Adidas Slip-On Dark Grey Black" id="cardImg-adidas-slipon-grey">
@@ -1780,7 +1824,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 23 (NEW): Puma Suede XL Grey White S1470 (5 Photos) -->
-                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate" data-price="2600" data-name="Puma Suede XL Grey White" data-order="36">
+                <div class="product-card" id="prod-puma-suede-mint" data-brand="skate" data-price="2600" data-name="Puma Suede XL Grey White" data-order="37">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/puma_suede_mint_1.jpg" alt="Puma Suede XL Grey White" id="cardImg-puma-suede-mint">
@@ -1823,7 +1867,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 22: New Balance 530 White/Silver S1325 (5 Photos) -->
-                <div class="product-card" id="prod-nb-530-silver" data-brand="nb" data-price="2350" data-name="New Balance 530 White/Silver" data-order="37">
+                <div class="product-card" id="prod-nb-530-silver" data-brand="nb" data-price="2350" data-name="New Balance 530 White/Silver" data-order="38">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nb_530_silver_1.jpg" alt="New Balance 530 White/Silver" id="cardImg-nb-530-silver">
@@ -1867,7 +1911,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 21: Nike Dunk Low Dusty Pink / Puma Suede XL S1405 (5 Photos) -->
-                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike" data-price="2600" data-name="Nike Dunk Low Dusty Pink" data-order="38">
+                <div class="product-card" id="prod-nike-dunk-pink" data-brand="nike" data-price="2600" data-name="Nike Dunk Low Dusty Pink" data-order="39">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/nike_dunk_pink_1.jpg" alt="Nike Dunk Low Dusty Pink / Puma Suede XL" id="cardImg-nike-dunk-pink">
@@ -1910,7 +1954,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 20 (NEW): Puma Suede XL Black Pink S1405 (5 Photos) -->
-                <div class="product-card" id="prod-puma-suede-black-pink" data-brand="skate" data-price="2600" data-name="Puma Suede XL Black Pink" data-order="39">
+                <div class="product-card" id="prod-puma-suede-black-pink" data-brand="skate" data-price="2600" data-name="Puma Suede XL Black Pink" data-order="40">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">✨ Новинка</span>
                         <img src="images/puma_suede_xl_1.jpg" alt="Puma Suede XL Black Pink" id="cardImg-puma-black-pink">
@@ -1954,7 +1998,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 1: Nike Court Legacy Lift Premium N00152 -->
-                <div class="product-card" id="prod-nike-court-lift" data-brand="nike" data-price="2670" data-name="Nike Court Legacy Lift Premium" data-order="40">
+                <div class="product-card" id="prod-nike-court-lift" data-brand="nike" data-price="2670" data-name="Nike Court Legacy Lift Premium" data-order="41">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_court_legacy_lift_1.jpg" alt="Nike Court Legacy Lift Premium" id="cardImg-court-lift">
@@ -1994,7 +2038,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 2: Nike V5 RNR White S1493 (4 Photos) -->
-                <div class="product-card" id="prod-v5-white" data-brand="nike" data-price="2600" data-name="Nike V5 RNR Triple White" data-order="41">
+                <div class="product-card" id="prod-v5-white" data-brand="nike" data-price="2600" data-name="Nike V5 RNR Triple White" data-order="42">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_v5_white_1.jpg" alt="Nike V5 RNR White" id="cardImg-v5-white">
@@ -2037,7 +2081,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 3: Nike V2K Runtekk White Grey S1495 (3 Photos) -->
-                <div class="product-card" id="prod-v2k-white-grey" data-brand="nike" data-price="2450" data-name="Nike V2K White Grey" data-order="42">
+                <div class="product-card" id="prod-v2k-white-grey" data-brand="nike" data-price="2450" data-name="Nike V2K White Grey" data-order="43">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_v2k_white_grey_1.jpg" alt="Nike V2K Runtekk White Grey" id="cardImg-v2k-white-grey">
@@ -2078,7 +2122,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 4: New Balance 740 White Navy Blue S1498 (3 Photos) -->
-                <div class="product-card" id="prod-nb740-navy" data-brand="nb" data-price="2500" data-name="NB 740 White Navy Blue" data-order="43">
+                <div class="product-card" id="prod-nb740-navy" data-brand="nb" data-price="2500" data-name="NB 740 White Navy Blue" data-order="44">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nb740_navy_1.jpg" alt="New Balance 740 White Navy Blue" id="cardImg-nb740-navy">
@@ -2120,7 +2164,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 5: Adidas Samba Black S1291 (2 Photos) -->
-                <div class="product-card" id="prod-samba-black" data-brand="adidas" data-price="2350" data-name="Adidas Samba Black" data-order="44">
+                <div class="product-card" id="prod-samba-black" data-brand="adidas" data-price="2350" data-name="Adidas Samba Black" data-order="45">
                     <div class="product-img-wrapper">
                         
                         <img src="images/adidas_samba_black_1.jpg" alt="Adidas Samba Black" id="cardImg-samba-black">
@@ -2161,7 +2205,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 6: Nike Dunk Brown Cacao S1423 (2 Photos) -->
-                <div class="product-card" id="prod-dunk-brown" data-brand="nike" data-price="2400" data-name="Nike Dunk Brown Cacao" data-order="45">
+                <div class="product-card" id="prod-dunk-brown" data-brand="nike" data-price="2400" data-name="Nike Dunk Brown Cacao" data-order="46">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_dunk_brown_1.jpg" alt="Nike Dunk Brown Cacao" id="cardImg-dunk-brown">
@@ -2202,7 +2246,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 7: NB 9060 Joe Freshgoods Dark Gray S1298 (3 Photos) -->
-                <div class="product-card" id="prod-nb-jfg" data-brand="nb" data-price="2750" data-name="NB 9060 JFG Dark Gray" data-order="46">
+                <div class="product-card" id="prod-nb-jfg" data-brand="nb" data-price="2750" data-name="NB 9060 JFG Dark Gray" data-order="47">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nb9060_jfg_darkgray_1.jpg" alt="New Balance 9060 Joe Freshgoods Dark Gray" id="cardImg-nb-jfg">
@@ -2243,7 +2287,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 8: New Balance 9060 Black Green S1499 (3 Photos) -->
-                <div class="product-card" id="prod-nb-black" data-brand="nb" data-price="2750" data-name="NB 9060 Black Green" data-order="47">
+                <div class="product-card" id="prod-nb-black" data-brand="nb" data-price="2750" data-name="NB 9060 Black Green" data-order="48">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nb9060_black_green_1.jpg" alt="New Balance 9060 Black Green" id="cardImg-nb-black">
@@ -2284,7 +2328,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 9: Nike V2K Runtekk Brown Beige S1512 (3 Photos) -->
-                <div class="product-card" id="prod-v2k-brown" data-brand="nike" data-price="2550" data-name="Nike V2K Brown Beige" data-order="48">
+                <div class="product-card" id="prod-v2k-brown" data-brand="nike" data-price="2550" data-name="Nike V2K Brown Beige" data-order="49">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_v2k_brown_3.jpg" alt="Nike V2K Runtekk Brown Beige" id="cardImg-v2k-brown">
@@ -2326,7 +2370,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 10: Nike V5 RNR White Silver Gold S1510 (2 Photos) -->
-                <div class="product-card" id="prod-v5-gold" data-brand="nike" data-price="2600" data-name="Nike V5 Silver Gold" data-order="49">
+                <div class="product-card" id="prod-v5-gold" data-brand="nike" data-price="2600" data-name="Nike V5 Silver Gold" data-order="50">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_v5_gold_1.jpg" alt="Nike V5 RNR White Silver Gold" id="cardImg-v5-gold">
@@ -2367,7 +2411,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 11: Nike V5 RNR White Metallic S1515 (4 Photos) -->
-                <div class="product-card" id="prod-v5" data-brand="nike" data-price="2600" data-name="Nike V5 White Metallic" data-order="50">
+                <div class="product-card" id="prod-v5" data-brand="nike" data-price="2600" data-name="Nike V5 White Metallic" data-order="51">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_v5_3.jpg" alt="Nike V5 RNR White Metallic" id="cardImg-v5">
@@ -2410,7 +2454,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 12: Adidas Gazelle Beige S1500 (3 Photos) -->
-                <div class="product-card" id="prod-gazelle" data-brand="adidas" data-price="2400" data-name="Adidas Gazelle Beige" data-order="51">
+                <div class="product-card" id="prod-gazelle" data-brand="adidas" data-price="2400" data-name="Adidas Gazelle Beige" data-order="52">
                     <div class="product-img-wrapper">
                         
                         <img src="images/adidas_gazelle_1.jpg" alt="Adidas Gazelle Beige" id="cardImg-gazelle">
@@ -2452,7 +2496,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 13: Nike Dunk Grey White S1502 (2 Photos) -->
-                <div class="product-card" id="prod-grey-blue" data-brand="nike" data-price="2500" data-name="Nike Dunk Grey White" data-order="52">
+                <div class="product-card" id="prod-grey-blue" data-brand="nike" data-price="2500" data-name="Nike Dunk Grey White" data-order="53">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_grey_blue_1.jpg" alt="Nike Dunk Grey White" id="cardImg-grey-blue">
@@ -2493,7 +2537,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 14: Nike Dunk Burgundy Croc S1501 (2 Photos) -->
-                <div class="product-card" id="prod-croc" data-brand="nike" data-price="2600" data-name="Nike Dunk Burgundy Croc" data-order="53">
+                <div class="product-card" id="prod-croc" data-brand="nike" data-price="2600" data-name="Nike Dunk Burgundy Croc" data-order="54">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_croc_1.jpg" alt="Nike Dunk Burgundy Croc" id="cardImg-croc">
@@ -2534,7 +2578,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 15: New Balance 9060 Brown Mushroom S1507 -->
-                <div class="product-card" id="prod-nb-brown" data-brand="nb" data-price="2750" data-name="NB 9060 Brown Mushroom" data-order="54">
+                <div class="product-card" id="prod-nb-brown" data-brand="nb" data-price="2750" data-name="NB 9060 Brown Mushroom" data-order="55">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nb9060_brown_1.jpg" alt="New Balance 9060 Brown Mushroom" id="cardImg-nb-brown">
@@ -2573,7 +2617,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 16: Nike Dunk White Grey S1503 (5 Photos) -->
-                <div class="product-card" id="prod-grey" data-brand="nike" data-price="2600" data-name="Nike Dunk White Grey" data-order="55">
+                <div class="product-card" id="prod-grey" data-brand="nike" data-price="2600" data-name="Nike Dunk White Grey" data-order="56">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_grey_1.jpg" alt="Nike Dunk White Grey" id="cardImg-grey">
@@ -2617,7 +2661,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 17: Nike Dunk Low Bordo White S1467 (5 Photos) -->
-                <div class="product-card" id="prod-bordo" data-brand="nike" data-price="2620" data-name="Nike Dunk Low Bordo White" data-order="56">
+                <div class="product-card" id="prod-bordo" data-brand="nike" data-price="2620" data-name="Nike Dunk Low Bordo White" data-order="57">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nike_bordo_1.jpg" alt="Nike Dunk Low Bordo White" id="cardImg-bordo">
@@ -2661,7 +2705,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 18: Vans Knu Skool S1314 (4 Photos) -->
-                <div class="product-card" id="prod-vans" data-brand="skate" data-price="2550" data-name="Vans Knu Skool Black White" data-order="57">
+                <div class="product-card" id="prod-vans" data-brand="skate" data-price="2550" data-name="Vans Knu Skool Black White" data-order="58">
                     <div class="product-img-wrapper">
                         
                         <img src="images/vans_knu_1.jpg" alt="Vans Knu Skool Black White" id="cardImg-vans">
@@ -2704,7 +2748,7 @@
                         </div>
                     </div>
                 </div><!-- Product Card 19: New Balance 9060 Quartz Grey S4059 (4 Photos) -->
-                <div class="product-card" id="prod-nb" data-brand="nb" data-price="2850" data-name="New Balance 9060 Quartz Grey" data-order="58">
+                <div class="product-card" id="prod-nb" data-brand="nb" data-price="2850" data-name="New Balance 9060 Quartz Grey" data-order="59">
                     <div class="product-img-wrapper">
                         
                         <img src="images/nb9060_2.jpg" alt="New Balance 9060 Quartz Grey Cream" id="cardImg-nb">
