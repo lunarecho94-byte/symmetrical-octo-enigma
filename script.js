@@ -754,7 +754,7 @@ async function handleCheckoutFormSubmit(e) {
         ? '💬 Не телефонувати: підтвердження та номер ТТН у месенджер (Telegram / Viber)' 
         : '📞 Зателефонувати: очікує дзвінка менеджера у робочий час (10:00-18:00)';
 
-    const wideDivider = '────────────────────────────────────────────────────────────────';
+    const wideDivider = '— — — — — — — — — — — — — — — — — — — — — —';
     let orderItemsText = '';
     let quickCopyItems = '';
     let orderTotalNum = 0;
