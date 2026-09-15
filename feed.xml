@@ -5,6 +5,24 @@
     <link>https://urbangrid.com.ua</link>
     <description>Каталог трендових кросівок Nike, Adidas, New Balance, Puma в Україні. Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
+      <g:id>prod-nb-740-graphite-gray-termo</g:id>
+      <title>New Balance 740 Graphite Gray Termo</title>
+      <description>Матеріал: Натуральний нубук, зносостійкий текстиль • Підкладка: тепла байка до -10 °C, утеплювач Thinsulate • Підошва: піна та гума (N-ergy) • Виробник: В'єтнам • Фірмова коробка New Balance • Арт: NB237-N.</description>
+      <link>https://urbangrid.com.ua/#prod-nb-740-graphite-gray-termo</link>
+      <g:image_link>https://urbangrid.com.ua/images/nb_740_graphite_gray_termo_1.jpg</g:image_link>
+      <g:brand>New Balance</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2900 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>prod-nike-initiator-goretex-grey</g:id>
       <title>Nike Initiator Gore-Tex Grey (Термо)</title>
       <description>Матеріал: Натуральна шкіра, водонепроникний нейлон + Gore-Tex, утеплена термо-підкладка, підошва пінка • Сезон: Демісезон / Єврозима • Відмінна якість • Виробник: В'єтнам • Фірмова коробка Nike.</description>
