@@ -63,7 +63,7 @@ function selectSize(btnElement, sizeValue) {
 }
 
 // ==========================================
-// URBANO SHOPPING CART SYSTEM
+// URBAN SHOPPING CART SYSTEM
 // ==========================================
 
 const CART_STORAGE_KEY = 'urbangrid_cart_v1';
@@ -559,7 +559,7 @@ function applyCalculatedSize() {
 // PDF INVOICE GENERATION & ORDER SUBMISSION
 // ==========================================================================
 let lastGeneratedPdfBlob = null;
-let lastGeneratedPdfName = 'Zamovlennya_URBANO.pdf';
+let lastGeneratedPdfName = 'Zamovlennya_URBAN.pdf';
 let isSubmittingOrder = false;
 
 function populatePdfTemplate(orderId, orderDate) {
@@ -618,7 +618,7 @@ function populatePdfTemplate(orderId, orderDate) {
             });
         } else {
             const productSelect = document.getElementById('productSelect');
-            const selectedModel = productSelect ? productSelect.value : 'Кросівки URBANO';
+            const selectedModel = productSelect ? productSelect.value : 'Кросівки URBAN';
             const sizeInput = document.getElementById('selectedSize');
             const chosenSize = sizeInput ? sizeInput.value : '38 (24 см)';
             const finalPriceEl = document.getElementById('finalOrderPrice');
@@ -1009,7 +1009,7 @@ async function downloadLastGeneratedPdf() {
             const url = URL.createObjectURL(lastGeneratedPdfBlob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = lastGeneratedPdfName || 'Zamovlennya_URBANO.pdf';
+            a.download = lastGeneratedPdfName || 'Zamovlennya_URBAN.pdf';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -1872,7 +1872,7 @@ function getFormattedOrderForMessenger() {
     const randomNum = Math.floor(10000 + Math.random() * 90000);
     const orderId = `UG-${randomNum}`;
 
-    let msg = `ЗАМОВЛЕННЯ З САЙТУ URBANO\n№ #${orderId}\n`;
+    let msg = `ЗАМОВЛЕННЯ З САЙТУ URBAN\n№ #${orderId}\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
     msg += `ТОВАРИ:\n${itemsText}`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
@@ -1988,7 +1988,7 @@ function confirmOrderInMessenger(messenger) {
         }
     } catch (e) {}
 
-    const text = `Вітаю! Я оформив(ла) замовлення ${orderNum} на сайті URBANO. Підтверджую відправку Новою Поштою. Прошу надіслати ТТН сюди в чат!`;
+    const text = `Вітаю! Я оформив(ла) замовлення ${orderNum} на сайті URBAN. Підтверджую відправку Новою Поштою. Прошу надіслати ТТН сюди в чат!`;
     copyTextToClipboard(text);
 
     if (messenger === 'telegram') {

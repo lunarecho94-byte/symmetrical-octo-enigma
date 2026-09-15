@@ -1,10 +1,10 @@
-# URBANO — Преміум інтернет-магазин взуття та одягу
+# URBAN — Преміум інтернет-магазин взуття та одягу
 
 Перед роботою прочитай ~/Projects/SuperBrain/CLAUDE.md.
 Також читай ~/Projects/SuperBrain/brain/knowledge/bp-urbano-ecommerce-architecture.md.
 
 ## Про проєкт
-- **Назва бренду:** URBANO (SNEAKERS FOR YOUR CITY)
+- **Назва бренду:** URBAN (SNEAKERS FOR YOUR CITY)
 - **Живий домен:** https://urbangrid.com.ua
 - **Формат:** High-speed Vanilla E-Commerce Landing (HTML5, CSS3, ES6+ JS)
 - **Email для замовлень:** lunarecho94@icloud.com
