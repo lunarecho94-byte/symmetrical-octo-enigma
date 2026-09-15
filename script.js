@@ -548,7 +548,7 @@ function populatePdfTemplate(orderId, orderDate) {
     const customerPhone = (document.getElementById('phone')?.value || '').trim() || '—';
     const customerAddress = (document.getElementById('cityNP')?.value || '').trim() || '—';
     
-    const payRadio = document.querySelector('input[name="Спосіб оплати"]:checked');
+    const payRadio = document.querySelector('input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
     const paymentMethod = payRadio ? payRadio.value : 'Накладений платіж (при отриманні)';
 
     // Update Header Meta
@@ -742,7 +742,7 @@ async function handleCheckoutFormSubmit(e) {
     const combinedAddress = (document.getElementById('cityNP')?.value || '').trim() || 
         (cityVal && whVal ? `${cityVal}, ${whVal}` : (cityVal || whVal || 'Узгодити з клієнтом'));
 
-    const payRadio = document.querySelector('input[name="Спосіб оплати"]:checked');
+    const payRadio = document.querySelector('input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
     const paymentRaw = payRadio ? payRadio.value : 'Накладений платіж';
     const isPrepayment = paymentRaw.includes('Передплата') || paymentRaw.includes('передплата');
     const paymentFormatted = isPrepayment 
@@ -754,6 +754,7 @@ async function handleCheckoutFormSubmit(e) {
         ? '💬 Не телефонувати: підтвердження та номер ТТН у месенджер (Telegram / Viber)' 
         : '📞 Зателефонувати: очікує дзвінка менеджера у робочий час (10:00-18:00)';
 
+    const wideDivider = '────────────────────────────────────────────────────────────────';
     let orderItemsText = '';
     let quickCopyItems = '';
     let orderTotalNum = 0;
@@ -768,7 +769,7 @@ async function handleCheckoutFormSubmit(e) {
             orderItemsText += `${idx + 1}. ${item.title}\n   • Розмір: ${item.size}\n   • Кількість: ${item.qty || 1} шт.\n   • Вартість: ${lineSum.toLocaleString('uk-UA')} грн\n\n`;
             quickCopyItems += `${item.title} (${item.size}, ${item.qty || 1} шт.); `;
         });
-        orderItemsText += `─────────────────────────\nВсього товарів у замовленні: ${totalQty} шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
+        orderItemsText += `${wideDivider}\nВсього товарів у замовленні: ${totalQty} шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
         const firstTitle = cart[0].title.split(' (')[0].replace(/^[🔥👟🛡🏀⚡✨🌸🖤💖❄️⚪🍫💙🏃‍♀️🐊🍷🛹\s]+/u, '').trim();
         shortModelSummary = `${totalQty} тов. (${firstTitle}${totalQty > 1 ? ' та ін.' : ''})`;
     } else {
@@ -780,7 +781,7 @@ async function handleCheckoutFormSubmit(e) {
         const priceText = finalPriceEl ? finalPriceEl.textContent : '2 670 грн';
         orderTotalNum = parseInt(priceText.replace(/\D/g, ''), 10) || 2670;
 
-        orderItemsText = `1. ${selectedModel}\n   • Розмір: ${chosenSize}\n   • Кількість: 1 шт.\n   • Вартість: ${orderTotalNum.toLocaleString('uk-UA')} грн`;
+        orderItemsText = `1. ${selectedModel}\n   • Розмір: ${chosenSize}\n   • Кількість: 1 шт.\n   • Вартість: ${orderTotalNum.toLocaleString('uk-UA')} грн\n${wideDivider}`;
         quickCopyItems = `${selectedModel} — ${chosenSize} — 1 шт.`;
 
         const cleanName = selectedModel.split(' (')[0].replace(/^[🔥👟🛡🏀⚡✨🌸🖤💖❄️⚪🍫💙🏃‍♀️🐊🍷🛹\s]+/u, '').trim();
@@ -802,7 +803,8 @@ async function handleCheckoutFormSubmit(e) {
 Тел: ${cleanPhone || customerPhone}
 Доставка: ${combinedAddress}
 Товар: ${quickCopyItems}
-Оплата: ${isPrepayment ? 'Оплачено (Передплата)' : 'Накладений платіж'} — ${formattedTotal}`;
+Оплата: ${isPrepayment ? 'Оплачено (Передплата)' : 'Накладений платіж'} — ${formattedTotal}
+${wideDivider}`;
 
     // Update hidden form inputs for native fallback
     const subjectInput = document.getElementById('formSubmitSubject');
@@ -841,23 +843,22 @@ async function handleCheckoutFormSubmit(e) {
     }
 
     // Build the cleanest, most professional FormData for FormSubmit.co
+    // Ultra-compact keys (Name column) maximize the Value column width in email
     const formData = new FormData();
     formData.append('_captcha', 'false');
     formData.append('_template', 'table');
     formData.append('_subject', emailSubject);
     formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
 
-    // Structured fields in perfect logical order
-    formData.append('📌 Номер замовлення', `#${orderId}`);
-    formData.append('🕒 Дата та час', formattedDate);
-    formData.append('💰 Сума до сплати', formattedTotal);
-    formData.append('💳 Спосіб оплати', paymentFormatted);
-    formData.append('💬 Зв\'язок з клієнтом', contactPreference);
-    formData.append('👤 ПІБ покупця', customerName);
-    formData.append('📞 Номер телефону', customerPhone);
-    formData.append('🚚 Доставка (Нова Пошта)', combinedAddress);
-    formData.append('👟 ЗАМОВЛЕНІ ТОВАРИ', orderItemsText);
-    formData.append('📋 ДЛЯ ТТН ТА ПОСТАЧАЛЬНИКА (скопіювати)', quickTtnBlock);
+    formData.append('№', `#${orderId} (${formattedDate})`);
+    formData.append('Сума', formattedTotal);
+    formData.append('Оплата', paymentFormatted);
+    formData.append('Зв\'язок', contactPreference);
+    formData.append('ПІБ', customerName);
+    formData.append('Тел', customerPhone);
+    formData.append('НП', combinedAddress);
+    formData.append('Товари', orderItemsText);
+    formData.append('ТТН', quickTtnBlock);
 
     if (pdfResult && pdfResult.blob) {
         formData.append('attachment', pdfResult.blob, pdfResult.fileName);
@@ -1839,7 +1840,7 @@ function getFormattedOrderForMessenger() {
     const noCall = document.getElementById('noCallCheckbox')?.checked;
 
     let paymentMethod = 'Накладений платіж (при отриманні на пошті)';
-    const checkedPay = document.querySelector('input[name="Спосіб оплати"]:checked');
+    const checkedPay = document.querySelector('input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
     if (checkedPay && checkedPay.value.includes('Передплата')) {
         paymentMethod = 'Повна передплата на картку (без комісії)';
     }
@@ -1919,14 +1920,14 @@ async function checkoutViaMessenger(messenger) {
             formData.append('_subject', `⚡ Запит у ${messengerName} #${order.orderId} | ${order.totalPrice.toLocaleString('uk-UA')} грн | ${order.customerName || 'Клієнт'}`);
             formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
 
-            formData.append('📌 Номер звернення', `#${order.orderId}`);
-            formData.append('💬 Канал зв\'язку', `Месенджер ${messengerName}`);
-            formData.append('💰 Сума замовлення', `${order.totalPrice.toLocaleString('uk-UA')} грн`);
-            formData.append('👤 Ім\'я клієнта', order.customerName || 'Клієнт (месенджер)');
-            formData.append('📞 Телефон клієнта', order.customerPhone);
-            formData.append('🚚 Адреса доставки', `${order.city} ${order.warehouse}`.trim() || 'Узгодити в месенджері');
-            formData.append('👟 ЗАМОВЛЕНІ ТОВАРИ', order.text);
-            formData.append('ℹ️ Статус', `Клієнт натиснув кнопку переходу у ${messengerName} для оформлення`);
+            formData.append('№', `#${order.orderId}`);
+            formData.append('Канал', `Месенджер ${messengerName}`);
+            formData.append('Сума', `${order.totalPrice.toLocaleString('uk-UA')} грн`);
+            formData.append('ПІБ', order.customerName || 'Клієнт (месенджер)');
+            formData.append('Тел', order.customerPhone);
+            formData.append('НП', `${order.city} ${order.warehouse}`.trim() || 'Узгодити в месенджері');
+            formData.append('Товари', order.text);
+            formData.append('Статус', `Перехід у ${messengerName}`);
 
             fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
                 method: 'POST',

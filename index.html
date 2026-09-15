@@ -2564,15 +2564,15 @@
                     <input type="hidden" name="_next" value="https://urbangrid.com.ua/?ordered=1">
 
                     <!-- PDF Attachment & Order Details -->
-                    <input type="hidden" id="orderNumberInput" name="Номер замовлення" value="">
-                    <input type="hidden" id="orderDateInput" name="Дата замовлення" value="">
+                    <input type="hidden" id="orderNumberInput" name="№" value="">
+                    <input type="hidden" id="orderDateInput" name="Дата" value="">
                     <input type="file" id="orderPdfAttachment" name="attachment" style="display:none;" accept="application/pdf">
 
                     <!-- Shopping Cart Order Integration -->
-                    <input type="hidden" id="cartOrderDetails" name="Деталі замовлення (Кошик)" value="">
-                    <input type="hidden" id="cartTotalSum" name="Загальна вартість (Кошик)" value="">
-                    <input type="hidden" id="orderSummaryText" name="Склад замовлення" value="">
-                    <input type="hidden" id="quickTtnCopy" name="Швидке копіювання для ТТН" value="">
+                    <input type="hidden" id="cartOrderDetails" name="Кошик" value="">
+                    <input type="hidden" id="cartTotalSum" name="Разом" value="">
+                    <input type="hidden" id="orderSummaryText" name="Товари" value="">
+                    <input type="hidden" id="quickTtnCopy" name="ТТН" value="">
 
                     <div id="cartOrderSummaryBox" class="cart-order-summary-box" style="display: none;">
                         <div class="cart-summary-box-header">
@@ -2584,7 +2584,7 @@
 
                     <div class="form-group" id="formSingleProductGroup">
                         <label for="productSelect">Обрана модель взуття:</label>
-                        <select id="productSelect" name="Модель взуття" class="form-input" required onchange="updateFormPrice()">
+                        <select id="productSelect" name="Товар" class="form-input" required onchange="updateFormPrice()">
                             <option value="Adidas Duramo SL Triple Black (2190 грн)">🔥👟 Adidas Duramo SL Triple Black (Арт: 3761) — 2 190 грн [НОВИНКА]</option>
                             <option value="Adidas Campus 00s Beige Black Gum (1880 грн)">🔥👟 Adidas Campus 00s Beige Black Gum (Арт: 4390) — 1 880 грн [АКЦІЯ]</option>
                             <option value="Adidas Forum Low Beige Grey (2250 грн)">🛡👟 Adidas Forum Low Beige Grey (Арт: 4413) — 2 250 грн [ОСТАННІ РОЗМІРИ]</option>
@@ -2648,18 +2648,18 @@
                     <div class="form-row">
                         <div class="form-group" id="formSingleSizeGroup">
                             <label for="selectedSize">Твій розмір (36-41):</label>
-                            <input type="text" id="selectedSize" name="Обраний розмір" class="form-input" placeholder="Наприклад: 38 (24 см)" value="38 (24 см)" required>
+                            <input type="text" id="selectedSize" name="Розмір" class="form-input" placeholder="Наприклад: 38 (24 см)" value="38 (24 см)" required>
                         </div>
                         <div class="form-group">
                             <label for="fullName">Прізвище та Ім'я:</label>
-                            <input type="text" id="fullName" name="ПІБ Покупця" class="form-input" placeholder="Олена Петренко" required>
+                            <input type="text" id="fullName" name="ПІБ" class="form-input" placeholder="Олена Петренко" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phone">Номер телефону:</label>
-                            <input type="tel" id="phone" name="Номер телефону" class="form-input" placeholder="+38 (067) 000-00-00" required>
+                            <input type="tel" id="phone" name="Тел" class="form-input" placeholder="+38 (067) 000-00-00" required>
                         </div>
                         <div class="form-group np-autocomplete-group">
                             <div class="np-field-label-row">
@@ -2697,7 +2697,7 @@
                         <input type="hidden" id="npWarehouseRef" value="">
                         <input type="hidden" id="npWarehouseNum" value="">
                         <!-- Combined string for email notification & PDF receipt -->
-                        <input type="hidden" id="cityNP" name="Доставка (Нова Пошта)" value="">
+                        <input type="hidden" id="cityNP" name="НП" value="">
                         <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
                         <span class="np-helper-hint" id="npWarehouseHint">⚡ Почніть вводити номер (напр. 45) або вулицю для швидкого пошуку</span>
                     </div>
@@ -2707,7 +2707,7 @@
                         <label>Оберіть спосіб оплати:</label>
                         <div class="payment-options-grid">
                             <label class="payment-card active" id="payCardNalozhka">
-                                <input type="radio" name="Спосіб оплати" value="Накладений платіж (при отриманні на пошті)" checked onchange="handlePaymentChange(this)">
+                                <input type="radio" name="Оплата" value="Накладений платіж (при отриманні на пошті)" checked onchange="handlePaymentChange(this)">
                                 <div class="payment-card-content">
                                     <div class="payment-card-header">
                                         <span class="payment-icon">📦</span>
@@ -2719,7 +2719,7 @@
                             </label>
 
                             <label class="payment-card" id="payCardPredoplata">
-                                <input type="radio" name="Спосіб оплати" value="Повна передплата (на картку / IBAN)" onchange="handlePaymentChange(this)">
+                                <input type="radio" name="Оплата" value="Повна передплата (на картку / IBAN)" onchange="handlePaymentChange(this)">
                                 <div class="payment-card-content">
                                     <div class="payment-card-header">
                                         <span class="payment-icon">💳</span>
@@ -2743,7 +2743,7 @@
                     <!-- No-call preference checkbox -->
                     <div class="form-group no-call-pref-group">
                         <label class="no-call-checkbox-label" for="noCallCheckbox">
-                            <input type="checkbox" id="noCallCheckbox" name="Підтвердження" value="💬 Без дзвінка: підтверджую у месенджері (Telegram / Viber)" checked>
+                            <input type="checkbox" id="noCallCheckbox" name="Зв'язок" value="💬 Без дзвінка: підтверджую у месенджері (Telegram / Viber)" checked>
                             <span class="custom-chk-box"></span>
                             <span class="chk-label-text">
                                 💬 <b>Не телефонувати мені:</b> підтверджую замовлення повідомленням у месенджері
