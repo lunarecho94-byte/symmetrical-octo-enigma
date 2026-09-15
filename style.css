@@ -4997,3 +4997,395 @@ header.header {
         width: 100%;
     }
 }
+
+
+/* ==========================================================================
+   V2 REFINEMENTS: PRICE ACCENT, SYMMETRIC CARDS, SIZES VS CTA, FIXED HEADER
+   ========================================================================== */
+
+/* 1. Header Truly Fixed At Top (Never Unsticks) */
+header.header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 64px !important;
+    z-index: 1000 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid #e4e4e7 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
+body {
+    padding-top: 64px !important;
+}
+
+@media (max-width: 768px) {
+    header.header {
+        height: 56px !important;
+    }
+    body {
+        padding-top: 56px !important;
+        padding-bottom: 64px !important;
+    }
+}
+
+/* 2. Symmetric Product Card Header & Highlighted Price */
+.product-meta-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-height: 28px !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 6px !important;
+    border-bottom: 1px solid #f4f4f5 !important;
+}
+
+.product-meta-header .product-cat {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #71717a !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    max-width: 60% !important;
+}
+
+.product-price-top {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    flex-shrink: 0 !important;
+}
+
+.product-price-top .price-now {
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    color: #059669 !important; /* DISTINCT VIBRANT EMERALD PRICE */
+    letter-spacing: -0.5px !important;
+    white-space: nowrap !important;
+}
+
+.product-title {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #09090b !important;
+    line-height: 1.35 !important;
+    min-height: 44px !important;
+    margin-bottom: 8px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+/* 3. Size Buttons: Compact, Neutral Light Pill Style */
+.size-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 6px !important;
+}
+
+.size-btn {
+    min-width: 36px !important;
+    height: 32px !important;
+    padding: 0 8px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    border: 1px solid #e4e4e7 !important;
+    background: #f4f4f5 !important;
+    color: #3f3f46 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.size-btn:hover {
+    border-color: #a1a1aa !important;
+    background: #e4e4e7 !important;
+}
+
+.size-btn.active {
+    background: #18181b !important;
+    color: #ffffff !important;
+    border-color: #18181b !important;
+}
+
+/* 4. Add to Cart Button: Clearly Larger, Brand Accent (#10b981), Centered Everywhere */
+.product-card-footer {
+    margin-top: 14px !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.product-card-footer .btn-buy {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    height: 48px !important; /* Clearly bigger than 32px size button */
+    background: #10b981 !important; /* Brand Accent Color */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.28) !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.product-card-footer .btn-buy:hover {
+    background: #059669 !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.38) !important;
+    transform: translateY(-1px) !important;
+}
+
+.product-card-footer .btn-buy:active {
+    transform: scale(0.98) !important;
+}
+
+/* 5. Scroll to Top Floating Button (Replaces Floating Cart) */
+.scroll-top-btn {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 50% !important;
+    background: #09090b !important;
+    color: #ffffff !important;
+    border: 1px solid #27272a !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 990 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(10px) !important;
+    transition: all 0.25s ease !important;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+.scroll-top-btn:hover {
+    background: #27272a !important;
+    transform: translateY(-2px) !important;
+}
+
+@media (max-width: 768px) {
+    .scroll-top-btn {
+        bottom: 74px !important; /* Above mobile bottom nav */
+        right: 14px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+/* 6. Mobile Bottom Navigation (Нижній хедер) */
+.mobile-bottom-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 58px !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(14px) !important;
+        border-top: 1px solid #e4e4e7 !important;
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        align-items: center !important;
+        z-index: 999 !important;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05) !important;
+        padding: 0 4px !important;
+    }
+    .bottom-nav-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        color: #71717a !important;
+        text-decoration: none !important;
+        background: none !important;
+        border: none !important;
+        cursor: pointer !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        padding: 4px 0 !important;
+    }
+    .bottom-nav-item.telegram { color: #229ED9 !important; }
+    .bottom-nav-item.viber { color: #7952c4 !important; }
+    .bottom-nav-item.order-quick { color: #09090b !important; }
+    .bottom-nav-item.cart-quick { color: #10b981 !important; }
+    .bottom-cart-icon-wrapper {
+        position: relative !important;
+        display: inline-flex !important;
+    }
+    .bottom-cart-badge {
+        position: absolute !important;
+        top: -4px !important;
+        right: -8px !important;
+        min-width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        background: #10b981 !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        text-align: center !important;
+        padding: 0 4px !important;
+    }
+}
+
+/* 7. Competitive Advantages in About Section */
+.advantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.advantage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #3f3f46;
+}
+
+.advantage-item .adv-bullet {
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.advantage-item .adv-info b {
+    color: #09090b;
+}
+
+/* 8. Footer Styling */
+.footer {
+    background: #09090b !important;
+    color: #a1a1aa !important;
+    padding: 48px 0 36px !important;
+    border-top: 1px solid #27272a !important;
+    margin-top: 48px !important;
+}
+
+.footer-content {
+    display: grid !important;
+    grid-template-columns: 2fr 1.5fr 1.5fr !important;
+    gap: 32px !important;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    .footer {
+        padding-bottom: 84px !important;
+    }
+}
+
+.footer-logo {
+    font-size: 20px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin-bottom: 8px !important;
+    letter-spacing: 0.5px !important;
+}
+
+.footer-tagline {
+    font-size: 13px !important;
+    color: #a1a1aa !important;
+    margin-bottom: 12px !important;
+    line-height: 1.5 !important;
+}
+
+.footer-copy {
+    font-size: 12px !important;
+    color: #71717a !important;
+}
+
+.footer h4 {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.footer p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 6px !important;
+}
+
+.footer-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 12px !important;
+}
+
+.footer-messengers-row {
+    display: flex !important;
+    gap: 8px !important;
+}
+
+.footer-msg-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    background: #27272a !important;
+    transition: background 0.15s !important;
+}
+
+.footer-msg-btn:hover {
+    background: #3f3f46 !important;
+}
+
+.footer-msg-btn.telegram { background: #229ED9 !important; }
+.footer-msg-btn.viber { background: #7952c4 !important; }
