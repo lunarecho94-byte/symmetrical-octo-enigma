@@ -108,7 +108,7 @@ function addToCart(item) {
         cart.push(item);
     }
     saveCart(cart);
-    showCartToast(`✅ "${item.title}" (${item.size}) додано в кошик!`);
+    showCartToast(`"${item.title}" (${item.size}) додано в кошик!`);
     openCart();
 
     // Ad Conversion Tracking (Meta Pixel & GA4)
@@ -141,7 +141,7 @@ function updateCartQty(id, delta) {
     item.qty += delta;
     if (item.qty <= 0) {
         cart = cart.filter(i => i.id !== id);
-        showCartToast(`🗑️ Товар видалено з кошика`);
+        showCartToast(`Товар видалено з кошика`);
     }
     saveCart(cart);
 }
@@ -151,7 +151,7 @@ function removeFromCart(id) {
     let cart = getCart();
     cart = cart.filter(i => i.id !== id);
     saveCart(cart);
-    showCartToast(`🗑️ Товар видалено з кошика`);
+    showCartToast(`Товар видалено з кошика`);
 }
 
 // Clear Entire Cart
@@ -223,7 +223,7 @@ function renderCart() {
         if (cart.length === 0) {
             drawerBody.innerHTML = `
                 <div class="cart-empty-state">
-                    <div class="cart-empty-icon">🛒</div>
+                    <div class="cart-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
                     <h4>Ваш кошик порожній</h4>
                     <p>Перегляньте наш каталог трендових кросівок та оберіть свою пару!</p>
                     <a href="#catalog" class="btn-primary-sm btn-go-catalog" onclick="closeCart()">
@@ -505,12 +505,12 @@ function handlePaymentChange(input) {
         if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (ОПЛАТА НА КАРТКУ)';
         if (summaryLabel) summaryLabel.textContent = 'Разом до сплати (передплата):';
         if (paymentSubtext) paymentSubtext.textContent = 'Економія на комісії Нової Пошти (без переплат за переказ)';
-        if (securityNote) securityNote.innerHTML = '💳 <b>Передплата:</b> реквізити для оплати надішле менеджер після підтвердження замовлення.';
+        if (securityNote) securityNote.innerHTML = '<b>Передплата:</b> реквізити для оплати надішле менеджер після підтвердження замовлення.';
     } else {
         if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
         if (summaryLabel) summaryLabel.textContent = 'Разом до сплати при отриманні:';
         if (paymentSubtext) paymentSubtext.textContent = 'Огляд та примірка перед оплатою на Новій Пошті';
-        if (securityNote) securityNote.innerHTML = '🔒 <b>Накладений платіж:</b> без обов\'язкової передплати, оплата після огляду та примірки.';
+        if (securityNote) securityNote.innerHTML = '<b>Накладений платіж:</b> без обов\'язкової передплати, оплата після огляду та примірки.';
     }
 }
 
@@ -765,13 +765,13 @@ async function handleCheckoutFormSubmit(e) {
     const paymentRaw = payRadio ? payRadio.value : 'Накладений платіж';
     const isPrepayment = paymentRaw.includes('Передплата') || paymentRaw.includes('передплата');
     const paymentFormatted = isPrepayment 
-        ? '💳 Повна передплата на картку / IBAN (без комісії за переказ)' 
-        : '📦 Накладений платіж (оплата при отриманні у відділенні Нової Пошти)';
+        ? 'Повна передплата на картку / IBAN (без комісії за переказ)' 
+        : 'Накладений платіж (оплата при отриманні у відділенні Нової Пошти)';
 
     const noCallChecked = document.getElementById('noCallCheckbox')?.checked;
     const contactPreference = noCallChecked 
-        ? '💬 Не телефонувати: підтвердження та номер ТТН у месенджер (Telegram / Viber)' 
-        : '📞 Зателефонувати: очікує дзвінка менеджера у робочий час (10:00-18:00)';
+        ? 'Не телефонувати: підтвердження та номер ТТН у месенджер (Telegram / Viber)' 
+        : 'Зателефонувати: очікує дзвінка менеджера у робочий час (10:00-18:00)';
 
     const wideDivider = '— — — — — — — — — — — — — — — — — — — — — —';
     let orderItemsText = '';
@@ -811,7 +811,7 @@ async function handleCheckoutFormSubmit(e) {
     const formattedTotal = `${orderTotalNum.toLocaleString('uk-UA')} грн`;
 
     // Informative Dynamic Subject Line
-    const emailSubject = `🔥 Замовлення #${orderId} | ${formattedTotal} | ${customerName} | ${shortModelSummary}`;
+    const emailSubject = `Замовлення #${orderId} | ${formattedTotal} | ${customerName} | ${shortModelSummary}`;
 
     // Clean phone number for quick actions
     const cleanPhone = customerPhone.replace(/[^\d+]/g, '');
@@ -976,7 +976,8 @@ function showOrderSuccessModal(orderInfo) {
             `;
         }
     } else {
-        if (orderNumEl) orderNumEl.textContent = 'УСПІШНО';
+        const randomNum = Math.floor(10000 + Math.random() * 90000);
+        if (orderNumEl) orderNumEl.textContent = `№ UG-${randomNum}`;
         if (detailsBox) {
             detailsBox.innerHTML = `
                 <div class="details-row"><span>Статус:</span> <b>Замовлення прийнято в обробку</b></div>
@@ -999,7 +1000,7 @@ function closeOrderSuccessModal() {
 async function downloadLastGeneratedPdf() {
     const btn = document.getElementById('btnDownloadSuccessPdf');
     if (btn) {
-        btn.innerHTML = '⏳ Підготовка PDF...';
+        btn.innerHTML = 'Підготовка розрахунку...';
         btn.disabled = true;
     }
 
@@ -1040,7 +1041,7 @@ async function downloadLastGeneratedPdf() {
         console.error('Download PDF error:', err);
     } finally {
         if (btn) {
-            btn.innerHTML = '📥 Завантажити електронний чек (PDF)';
+            btn.innerHTML = 'Завантажити чек';
             btn.disabled = false;
         }
     }
@@ -1252,6 +1253,11 @@ function initSwipeGalleries() {
 }
 
 // High-Speed Smooth Scroll to Top (Ease-Out-Quint)
+function scrollToTop(duration = 360) {
+    scrollToTopAnimated(duration);
+}
+window.scrollToTop = scrollToTop;
+
 function scrollToTopAnimated(duration = 360) {
     const startY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (startY <= 0) return;
@@ -1584,7 +1590,7 @@ function renderNpCityDropdown(cities) {
         html += `
             <div class="np-dropdown-item" onclick="selectNpCity('${encodeURIComponent(JSON.stringify(city))}')">
                 <div class="np-item-content">
-                    <span class="np-item-main">📍 ${title}</span>
+                    <span class="np-item-main">${title}</span>
                     ${region ? `<span class="np-item-sub">${region}</span>` : ''}
                 </div>
             </div>
@@ -1622,7 +1628,7 @@ async function selectNpCity(encodedCity) {
         warehouseInput.placeholder = 'Завантаження відділень...';
     }
     if (warehouseHint) {
-        warehouseHint.textContent = `⚡ Завантажуємо відділення Нової Пошти у ${city.present}...`;
+        warehouseHint.textContent = `Завантажуємо відділення Нової Пошти у ${city.present}...`;
     }
 
     await loadCityWarehouses(city);
@@ -1632,7 +1638,7 @@ async function selectNpCity(encodedCity) {
         warehouseInput.focus();
     }
     if (warehouseHint) {
-        warehouseHint.textContent = `⚡ Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
+        warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
     }
     renderFilteredWarehouses('');
 }
@@ -1747,14 +1753,13 @@ function renderFilteredWarehouses(query) {
     let html = '';
     displayList.forEach(w => {
         const isPostomat = w.type === 'Postomat';
-        const icon = isPostomat ? '📮' : '📦';
         const badgeClass = isPostomat ? 'np-badge-postomat' : 'np-badge-branch';
         const badgeText = isPostomat ? 'Поштомат' : (w.maxWeight || 'Відділення');
 
         html += `
             <div class="np-dropdown-item" onclick="selectNpWarehouse('${encodeURIComponent(JSON.stringify(w))}')">
                 <div class="np-item-content">
-                    <span class="np-item-main">${icon} ${w.desc}</span>
+                    <span class="np-item-main">${w.desc}</span>
                     <span class="np-item-sub">№${w.numberStr} • ${w.shortAddress}</span>
                 </div>
                 <span class="np-item-badge ${badgeClass}">${badgeText}</span>
@@ -1795,7 +1800,7 @@ function resetWarehouseSelection() {
     }
     if (warehouseClearBtn) warehouseClearBtn.style.display = 'none';
     if (warehouseDropdown) warehouseDropdown.style.display = 'none';
-    if (warehouseHint) warehouseHint.textContent = '⚡ Почніть вводити номер (напр. 45) або вулицю для швидкого пошуку';
+    if (warehouseHint) warehouseHint.textContent = 'Почніть вводити номер (напр. 45) або вулицю для швидкого пошуку';
 
     document.getElementById('npWarehouseRef').value = '';
     document.getElementById('npWarehouseNum').value = '';
@@ -1839,7 +1844,7 @@ function getFormattedOrderForMessenger() {
         cart.forEach(item => {
             const lineSum = item.price * (item.qty || 1);
             totalPrice += lineSum;
-            itemsText += `• ${item.title}\n  👟 Розмір: ${item.size} • К-сть: ${item.qty || 1} шт. • ${(lineSum).toLocaleString('uk-UA')} грн\n`;
+            itemsText += `• ${item.title}\n  Розмір: ${item.size} • К-сть: ${item.qty || 1} шт. • ${(lineSum).toLocaleString('uk-UA')} грн\n`;
         });
     } else {
         const productSelect = document.getElementById('productSelect');
@@ -1849,7 +1854,7 @@ function getFormattedOrderForMessenger() {
         const finalPriceEl = document.getElementById('finalOrderPrice');
         const priceText = finalPriceEl ? finalPriceEl.textContent.trim() : '2 670 грн';
         totalPrice = parseInt(priceText.replace(/\D/g, ''), 10) || 2670;
-        itemsText = `• ${selectedModel}\n  👟 Розмір: ${selectedSize} • 1 шт. • ${priceText}\n`;
+        itemsText = `• ${selectedModel}\n  Розмір: ${selectedSize} • 1 шт. • ${priceText}\n`;
     }
 
     const customerName = (document.getElementById('fullName')?.value || document.getElementById('customerNameInput')?.value || '').trim();
@@ -1867,13 +1872,13 @@ function getFormattedOrderForMessenger() {
     const randomNum = Math.floor(10000 + Math.random() * 90000);
     const orderId = `UG-${randomNum}`;
 
-    let msg = `🛍️ ЗАМОВЛЕННЯ З САЙТУ URBANO\n№ #${orderId}\n`;
+    let msg = `ЗАМОВЛЕННЯ З САЙТУ URBANO\n№ #${orderId}\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-    msg += `👟 ТОВАРИ:\n${itemsText}`;
+    msg += `ТОВАРИ:\n${itemsText}`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-    msg += `💰 РАЗОМ: ${totalPrice.toLocaleString('uk-UA')} грн\n`;
-    msg += `💳 Оплата: ${paymentMethod}\n`;
-    msg += `📍 Доставка: Нова Пошта\n`;
+    msg += `РАЗОМ: ${totalPrice.toLocaleString('uk-UA')} грн\n`;
+    msg += `Оплата: ${paymentMethod}\n`;
+    msg += `Доставка: Нова Пошта\n`;
     if (city && warehouse) {
         msg += `  ${city}, ${warehouse}\n`;
     } else if (city) {
@@ -1881,13 +1886,13 @@ function getFormattedOrderForMessenger() {
     } else {
         msg += `  (місто та відділення узгодимо в чаті)\n`;
     }
-    msg += `👤 Одержувач: ${customerName || '(узгодимо в чаті)'}\n`;
-    msg += `📞 Телефон: ${customerPhone || '(узгодимо в чаті)'}\n`;
+    msg += `Одержувач: ${customerName || '(узгодимо в чаті)'}\n`;
+    msg += `Телефон: ${customerPhone || '(узгодимо в чаті)'}\n`;
     msg += `━━━━━━━━━━━━━━━━━━━━\n`;
     if (noCall) {
-        msg += `💬 Прошу підтвердити замовлення текстовим повідомленням без дзвінка. Дякую! 🙏`;
+        msg += `Прошу підтвердити замовлення текстовим повідомленням без дзвінка. Дякую!`;
     } else {
-        msg += `💬 Прошу надіслати підтвердження та номер ТТН сюди в чат. Дякую!`;
+        msg += `Прошу надіслати підтвердження та номер ТТН сюди в чат. Дякую!`;
     }
 
     return {
@@ -1936,7 +1941,7 @@ async function checkoutViaMessenger(messenger) {
             const formData = new FormData();
             formData.append('_captcha', 'false');
             formData.append('_template', 'table');
-            formData.append('_subject', `⚡ Запит у ${messengerName} #${order.orderId} | ${order.totalPrice.toLocaleString('uk-UA')} грн | ${order.customerName || 'Клієнт'}`);
+            formData.append('_subject', `Запит у ${messengerName} #${order.orderId} | ${order.totalPrice.toLocaleString('uk-UA')} грн | ${order.customerName || 'Клієнт'}`);
             formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
 
             formData.append('№', `#${order.orderId}`);
@@ -1957,8 +1962,8 @@ async function checkoutViaMessenger(messenger) {
 
     showCartToast(
         messenger === 'telegram' 
-            ? '✈️ Текст замовлення скопійовано! Відкриваємо чат у Telegram...' 
-            : '💬 Текст замовлення скопійовано! Відкриваємо чат у Viber...'
+            ? 'Текст замовлення скопійовано! Відкриваємо чат у Telegram...' 
+            : 'Текст замовлення скопійовано! Відкриваємо чат у Viber...'
     );
 
     setTimeout(() => {
@@ -2220,7 +2225,7 @@ async function handleQuickOrderSubmit(e) {
     const formattedDate = now.toLocaleDateString('uk-UA', { day: '2-digit', month: '2-digit', year: 'numeric' }) + 
         ', ' + now.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
 
-    const subject = `⚡ ШВИДКЕ ЗАМОВЛЕННЯ В 1 КЛІК #${orderId} | ${phoneCheck.formatted} | ${nameVal}`;
+    const subject = `ШВИДКЕ ЗАМОВЛЕННЯ В 1 КЛІК #${orderId} | ${phoneCheck.formatted} | ${nameVal}`;
 
     const formData = new FormData();
     formData.append('_captcha', 'false');
@@ -2376,7 +2381,7 @@ async function handleCartDirectCheckout(e) {
         console.warn('PDF generation in cart checkout:', pdfErr);
     }
 
-    const subject = `🔥 Замовлення з кошика #${orderId} | ${formattedTotal} | ${customerName}`;
+    const subject = `Замовлення з кошика #${orderId} | ${formattedTotal} | ${customerName}`;
 
     const formData = new FormData();
     formData.append('_captcha', 'false');

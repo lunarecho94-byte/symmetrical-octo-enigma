@@ -5389,3 +5389,249 @@ body {
 
 .footer-msg-btn.telegram { background: #229ED9 !important; }
 .footer-msg-btn.viber { background: #7952c4 !important; }
+
+
+/* ==========================================================================
+   V3 DEFINITIVE REFINEMENTS: SOLID HEADER ROW, CENTERED CTA, SQUARE SIZES, ACCENT PRICE
+   ========================================================================== */
+
+/* 1. SOLID HEADER - NO DROPPING ICONS, PERFECT ONE-ROW ALIGNMENT */
+header.header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    max-height: 64px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 1000 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid #e4e4e7 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: visible !important;
+}
+
+body {
+    padding-top: 64px !important;
+}
+
+.header-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 0 16px !important;
+    flex-wrap: nowrap !important;
+    box-sizing: border-box !important;
+}
+
+.logo.urbano-animated-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-decoration: none !important;
+    flex-shrink: 0 !important;
+}
+
+.header-status {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #059669 !important;
+    background: rgba(16, 185, 129, 0.08) !important;
+    padding: 4px 10px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(16, 185, 129, 0.2) !important;
+    flex-shrink: 0 !important;
+}
+
+.header-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+    height: 100% !important;
+    flex-shrink: 0 !important;
+}
+
+.header-msg-link,
+.header-phone-btn,
+.header-search-btn,
+.header-cart-btn {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f4f4f5 !important;
+    color: #18181b !important;
+    border: 1px solid #e4e4e7 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    transition: all 0.18s ease !important;
+}
+
+.header-msg-link:hover,
+.header-phone-btn:hover,
+.header-search-btn:hover,
+.header-cart-btn:hover {
+    background: #e4e4e7 !important;
+    transform: translateY(-1px) !important;
+}
+
+.header-msg-link.telegram { color: #229ED9 !important; }
+.header-msg-link.viber { color: #7952c4 !important; }
+
+.header-cart-btn {
+    position: relative !important;
+}
+
+.header-cart-badge {
+    position: absolute !important;
+    top: -4px !important;
+    right: -4px !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    line-height: 17px !important;
+    padding: 0 4px !important;
+    border-radius: 999px !important;
+    background: #09090b !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+@media (max-width: 768px) {
+    header.header {
+        height: 56px !important;
+        min-height: 56px !important;
+        max-height: 56px !important;
+    }
+    body {
+        padding-top: 56px !important;
+        padding-bottom: 64px !important;
+    }
+    .header-container {
+        padding: 0 12px !important;
+    }
+    .header-status {
+        display: none !important;
+    }
+    .logo-text-sub {
+        display: none !important;
+    }
+    .header-actions {
+        gap: 6px !important;
+    }
+    .header-msg-link.viber {
+        display: none !important; /* Keep Telegram, Search, Phone, Cart in mobile header for neatness */
+    }
+}
+
+/* 2. CENTERED BUTTON IN 1-CLICK ORDER */
+.btn-quick-submit,
+#submitQuickOrderBtn,
+.btn-primary.btn-quick-submit {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    height: 50px !important;
+    padding: 0 16px !important;
+    margin: 0 auto !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-shadow: none !important;
+    background: #09090b !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: background 0.2s ease, transform 0.1s ease !important;
+}
+
+.btn-quick-submit:hover,
+#submitQuickOrderBtn:hover,
+.btn-primary.btn-quick-submit:hover {
+    background: #27272a !important;
+    transform: translateY(-1px) !important;
+}
+
+/* 3. SQUARE SIZE BUTTONS WITH LOGICAL ROUNDING */
+.size-options {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
+}
+
+.size-btn {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    padding: 0 !important;
+    border-radius: 8px !important; /* Логічне плавне заокруглення */
+    border: 1px solid #e4e4e7 !important;
+    background: #f4f4f5 !important;
+    color: #18181b !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+}
+
+.size-btn:hover {
+    border-color: #a1a1aa !important;
+    background: #e4e4e7 !important;
+    transform: translateY(-1px) !important;
+}
+
+.size-btn.active {
+    background: #18181b !important;
+    color: #ffffff !important;
+    border-color: #18181b !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* 4. INCREASED PRICE SIZE & ACCENT COLOR */
+.product-price-top .price-now {
+    font-size: 23px !important;
+    font-weight: 900 !important;
+    color: #059669 !important; /* Яскравий акцентний смарагдовий */
+    letter-spacing: -0.6px !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+}
