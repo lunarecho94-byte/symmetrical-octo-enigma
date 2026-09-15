@@ -2559,7 +2559,7 @@
                     <!-- FormSubmit Configuration -->
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_subject" value="🛍️ НОВЕ ЗАМОВЛЕННЯ ВЗУТТЯ URBANO (з вкладенням PDF)">
+                    <input type="hidden" id="formSubmitSubject" name="_subject" value="🛍️ НОВЕ ЗАМОВЛЕННЯ ВЗУТТЯ URBANO">
                     <input type="hidden" name="_url" id="formSubmitUrl" value="https://urbangrid.com.ua">
                     <input type="hidden" name="_next" value="https://urbangrid.com.ua/?ordered=1">
 
@@ -2571,6 +2571,8 @@
                     <!-- Shopping Cart Order Integration -->
                     <input type="hidden" id="cartOrderDetails" name="Деталі замовлення (Кошик)" value="">
                     <input type="hidden" id="cartTotalSum" name="Загальна вартість (Кошик)" value="">
+                    <input type="hidden" id="orderSummaryText" name="Склад замовлення" value="">
+                    <input type="hidden" id="quickTtnCopy" name="Швидке копіювання для ТТН" value="">
 
                     <div id="cartOrderSummaryBox" class="cart-order-summary-box" style="display: none;">
                         <div class="cart-summary-box-header">
@@ -2644,7 +2646,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group" id="formSingleSizeGroup">
                             <label for="selectedSize">Твій розмір (36-41):</label>
                             <input type="text" id="selectedSize" name="Обраний розмір" class="form-input" placeholder="Наприклад: 38 (24 см)" value="38 (24 см)" required>
                         </div>
@@ -2670,9 +2672,9 @@
                                 <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
                                 <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
                             </div>
-                            <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
-                            <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
-                            <input type="hidden" id="npCityName" name="Місто доставки" value="">
+                            <input type="hidden" id="npCityRef" value="">
+                            <input type="hidden" id="npSettlementRef" value="">
+                            <input type="hidden" id="npCityName" value="">
                             <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
                         </div>
                     </div>
@@ -2692,10 +2694,10 @@
                             <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
                             <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
                         </div>
-                        <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
-                        <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
+                        <input type="hidden" id="npWarehouseRef" value="">
+                        <input type="hidden" id="npWarehouseNum" value="">
                         <!-- Combined string for email notification & PDF receipt -->
-                        <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
+                        <input type="hidden" id="cityNP" name="Доставка (Нова Пошта)" value="">
                         <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
                         <span class="np-helper-hint" id="npWarehouseHint">⚡ Почніть вводити номер (напр. 45) або вулицю для швидкого пошуку</span>
                     </div>
@@ -3068,7 +3070,7 @@
                             <td><b>Нова Пошта (Україна)</b></td>
                         </tr>
                         <tr>
-                            <td class="pdf-lbl">Одержувач:</td>
+                            <td class="pdf-lbl">Відділення НП:</td>
                             <td><b id="pdfCustomerAddress">—</b></td>
                         </tr>
                         <tr>
