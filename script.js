@@ -1934,6 +1934,17 @@ async function checkoutViaMessenger(messenger) {
     const order = getFormattedOrderForMessenger();
     await copyTextToClipboard(order.text);
 
+    // Meta Pixel Contact Tracking
+    if (window.fbq) {
+        try {
+            fbq('track', 'Contact', {
+                content_name: messenger === 'telegram' ? 'Telegram' : 'Viber',
+                value: order.totalPrice || 0,
+                currency: 'UAH'
+            });
+        } catch (e) {}
+    }
+
     // Track lead asynchronously in background
     try {
         if (order.customerPhone) {
@@ -2247,6 +2258,14 @@ async function handleQuickOrderSubmit(e) {
         const json = await res.json();
         
         if (json.success === true || json.success === 'true') {
+            if (window.fbq) {
+                try {
+                    fbq('track', 'Lead', {
+                        content_name: chosenModel || 'Замовлення в 1 клік',
+                        currency: 'UAH'
+                    });
+                } catch (e) {}
+            }
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Замовити в 1 клік';
@@ -2293,6 +2312,19 @@ function showCartCheckoutForm() {
     const openBtn = document.getElementById('btnOpenCartCheckout');
     if (formBox) formBox.style.display = 'block';
     if (openBtn) openBtn.style.display = 'none';
+
+    // Meta Pixel & GA4 Checkout Tracking
+    if (window.fbq) {
+        try {
+            const checkoutTotal = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
+            fbq('track', 'InitiateCheckout', {
+                num_items: cart.length,
+                value: checkoutTotal,
+                currency: 'UAH',
+                content_type: 'product'
+            });
+        } catch (e) {}
+    }
 
     // Auto-scroll inside drawer
     const drawerBody = document.getElementById('cartDrawer');
@@ -2408,6 +2440,16 @@ async function handleCartDirectCheckout(e) {
         const resJson = await response.json();
 
         if (resJson.success === true || resJson.success === 'true') {
+            if (window.fbq) {
+                try {
+                    const cartTotalNum = parseInt(formattedTotal.replace(/\D/g, ''), 10) || 0;
+                    fbq('track', 'Purchase', {
+                        value: cartTotalNum,
+                        currency: 'UAH',
+                        content_type: 'product'
+                    });
+                } catch (e) {}
+            }
             clearCart();
             closeCart();
             hideCartCheckoutForm();
