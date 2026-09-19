@@ -292,5 +292,23 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
+    <item>
+      <g:id>prod-nike-air-max-plus-white-black-men</g:id>
+      <title>Nike Air Max Plus TN White Black (Чоловічі)</title>
+      <description>Чоловічі кросівки Nike Air Max Plus TN White Black. Матеріал: шкіра, щільний текстиль • Підошва: амортизаційний балон Air Max • Сезон: демісезон (весна-осінь) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Nike • Розміри: 44, 45 • Арт: 3568.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-air-max-plus-white-black-men</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_air_max_plus_white_black_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
   </channel>
 </rss>
