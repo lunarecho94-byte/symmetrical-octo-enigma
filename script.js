@@ -239,7 +239,7 @@ function renderCart() {
                 const itemTotal = (item.price * item.qty).toLocaleString('uk-UA');
                 html += `
                     <div class="cart-item" data-id="${item.id}">
-                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" onerror="this.src='images/nike_court_legacy_lift_1.jpg'">
+                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" onerror="this.src='images/nike_shox_ride2_white_black_1.jpg'">
                         <div class="cart-item-info">
                             <h4 class="cart-item-title">${item.title}</h4>
                             <div class="cart-item-meta">
@@ -359,8 +359,8 @@ function selectModelInForm(modelVal, priceStr, evt) {
     const clickedEl = event ? event.target : null;
     const card = clickedEl ? clickedEl.closest('.product-card') : null;
 
-    let selectedSizeVal = '38 (24 см)';
-    let imgUrl = 'images/nike_court_legacy_lift_1.jpg';
+    let selectedSizeVal = '42 (26.5 см)';
+    let imgUrl = 'images/nike_shox_ride2_white_black_1.jpg';
     let cleanTitle = modelVal.replace(/\s*\(\d+\s*грн\)$/i, '').trim();
 
     if (card) {
@@ -1060,12 +1060,13 @@ function initCatalogCardsCache() {
         const title = card.querySelector('.product-title')?.textContent || '';
         const cat = card.querySelector('.product-cat')?.textContent || '';
         const desc = card.querySelector('.product-desc')?.textContent || '';
+        const specs = card.querySelector('.product-specs')?.textContent || '';
         const badge = card.querySelector('.badge-new-arrival')?.textContent || '';
         const brand = card.dataset.brand || '';
         const id = card.id || '';
         const price = card.querySelector('.price-now')?.textContent || '';
 
-        const searchText = `${title} ${cat} ${desc} ${badge} ${brand} ${id} ${price}`.toLowerCase();
+        const searchText = `${title} ${cat} ${desc} ${specs} ${badge} ${brand} ${id} ${price}`.toLowerCase();
         return {
             el: card,
             brand: brand,
