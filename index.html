@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="theme-color" content="#ffffff">
     <title>URBAN — Взуття Asics, Nike, Adidas, Salomon, New Balance, Hoka: Кросівки та черевики | Купити в Україні</title>
-    <meta name="description" content="Зимове та спортивне взуття: Asics Gel-Kahana 8 (Арт: 5166), Jordan 4 White Purple (Арт: 5140), Adidas Yeezy 700 на овчині (Арт: 5136), Nike P-6000 (Арт: 5177). Доставка 1-2 дні Новою Поштою.">
+    <meta name="description" content="Зимове та спортивне взуття: Черевики на платформі (Арт: 5093), Черевики Navigator (Арт: 6206), Asics Gel-Kahana 8 (Арт: 5166), Jordan 4 White Purple (Арт: 5140), Adidas Yeezy 700 на овчині (Арт: 5136). Доставка 1-2 дні Новою Поштою.">
     
     <!-- Open Graph / Meta & Telegram Ad Previews -->
     <meta property="og:type" content="website">
@@ -128,10 +128,9 @@
                         type="search" 
                         id="catalogSearchInput" 
                         class="catalog-search-input" 
-                        placeholder="Пошук взуття: назва, бренд, термо, черевики, артикул (напр. 6206, Nike, 3568)..." 
-                        aria-label="Пошук взуття"
-                        autocomplete="off" 
-                        spellcheck="false"
+                        placeholder="Пошук кросівок, черевиків та одягу (наприклад: 5093, 6206, Nike, 3568, хутро...)" 
+                        aria-label="Пошук по каталогу"
+                        autocomplete="off"
                         oninput="handleCatalogSearch(this.value)"
                     >
                     <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
@@ -143,6 +142,7 @@
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Термо')">❄️ Термо</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Хутро')">🐑 Хутро</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Черевики')">Черевики</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('5093')">5093 (Черевики)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('6206')">6206 (Черевики)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">Nike</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('3568')">3568 (Nike)</button>
@@ -167,9 +167,9 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (18)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (19)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (10)</button>
-                    <button type="button" class="filter-chip" data-brand="navigator" onclick="filterCatalog('navigator', this)">Navigator (1)</button>
+                    <button type="button" class="filter-chip" data-brand="boots" onclick="filterCatalog('boots', this)">Черевики (2)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (2)</button>
                     <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (2)</button>
                     <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (1)</button>
@@ -196,7 +196,7 @@
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
                     <h3>За вашим запитом пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Asics</b>, <b>5166</b>, <b>Jordan</b>, <b>5140</b>, <b>5136</b>, <b>Термо</b>).</p>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>5093</b>, <b>Черевики</b>, <b>6206</b>, <b>Asics</b>, <b>Jordan</b>, <b>Термо</b>).</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати каталог</button>
                 </div>
 
@@ -1048,7 +1048,7 @@
                 </div>
 
                 <!-- Product Card 18: Черевики Navigator Sport Black (Art: 6206) (5 Photos) -->
-                <div class="product-card" id="prod-navigator-winter-boots-black" data-brand="navigator" data-price="1875" data-name="Черевики Navigator Sport Black" data-order="17">
+                <div class="product-card" id="prod-navigator-winter-boots-black" data-brand="boots navigator" data-price="1875" data-name="Черевики Navigator Sport Black" data-order="17">
                     <div class="product-img-wrapper">
                         <span class="badge-new-arrival">❄️ Зимові • На хутрі • Чоловічі</span>
                         <img src="images/navigator_winter_boots_black_1.jpg" alt="Черевики Navigator Sport Black" id="cardImg-navigator-winter-boots-black">
@@ -1090,6 +1090,53 @@
                         </div>
                         <div class="product-card-footer">
                             <button type="button" class="btn-buy" onclick="selectModelInForm('Черевики Navigator Sport Black (1875 грн)', '1 875 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 19: Черевики Winter Platform Black (Art: 5093) (4 Photos) -->
+                <div class="product-card" id="prod-winter-platform-boots-black" data-brand="boots" data-price="1680" data-name="Черевики Winter Platform Black" data-order="18">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">❄️ Зимові • На хутрі • Жіночі</span>
+                        <img src="images/winter_platform_boots_black_1.jpg" alt="Черевики Winter Platform Black" id="cardImg-winter-platform-boots-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/winter_platform_boots_black_1.jpg" alt="Черевики Winter Platform Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-winter-platform-boots-black', 'images/winter_platform_boots_black_1.jpg')">
+                        <img src="images/winter_platform_boots_black_2.jpg" alt="Черевики Winter Platform Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-winter-platform-boots-black', 'images/winter_platform_boots_black_2.jpg')">
+                        <img src="images/winter_platform_boots_black_3.jpg" alt="Черевики Winter Platform Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-winter-platform-boots-black', 'images/winter_platform_boots_black_3.jpg')">
+                        <img src="images/winter_platform_boots_black_4.jpg" alt="Черевики Winter Platform Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-winter-platform-boots-black', 'images/winter_platform_boots_black_4.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / ЧЕРЕВИКИ НА ПЛАТФОРМІ | АРТ: 5093</span>
+                            <div class="product-price-top"><span class="price-now">1 680 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Черевики Winter Platform Black (Жіночі зимові)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>5093</b></span></div>
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Чорні</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Натуральна замша + нубук</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Тепле густе хутро 🐑❄️</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Зносостійка гума (висока платформа) 🥾</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима (Хутро ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Жіночі):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '36 (23 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Черевики Winter Platform Black (1680 грн)', '1 680 грн', event)">
                                 В кошик
                             </button>
                         </div>

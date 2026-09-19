@@ -1095,7 +1095,7 @@ function applyCatalogFilters() {
     let visibleCount = 0;
 
     cachedProductCards.forEach(item => {
-        const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand);
+        const matchesBrand = (currentCatalogBrand === 'all' || item.brand === currentCatalogBrand || item.brand.split(' ').includes(currentCatalogBrand));
         const matchesSearch = queryTokens.length === 0 || queryTokens.every(token => item.searchText.includes(token));
 
         if (matchesBrand && matchesSearch) {
@@ -1119,6 +1119,7 @@ function applyCatalogFilters() {
             else if (currentCatalogBrand === 'hoka') labels.push('Hoka');
             else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
             else if (currentCatalogBrand === 'asics') labels.push('Asics');
+            else if (currentCatalogBrand === 'boots') labels.push('Черевики');
             else if (currentCatalogBrand === 'navigator') labels.push('Navigator');
             else if (currentCatalogBrand === 'skate') labels.push('Vans & Puma');
 

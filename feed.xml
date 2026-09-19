@@ -328,5 +328,24 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
+    <item>
+      <g:id>prod-winter-platform-boots-black</g:id>
+      <title>Черевики Winter Platform Black (Жіночі зимові)</title>
+      <description>Жіночі зимові черевики Winter Platform Black. Матеріал: натуральна замша + зносостійкий нубук, всередині густе тепле хутро • Підошва: зносостійка гума (висока платформа) • Сезон: зима ❄️ • Виробник: В'єтнам (відмінна якість) • У фірмових коробках • Розміри: 36, 37 • Арт: 5093.</description>
+      <link>https://urbangrid.com.ua/#prod-winter-platform-boots-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/winter_platform_boots_black_1.jpg</g:image_link>
+      <g:brand>Черевики</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1680 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Черевики</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
   </channel>
 </rss>
+
