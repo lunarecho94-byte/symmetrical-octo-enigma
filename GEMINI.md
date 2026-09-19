@@ -18,3 +18,4 @@
 5. **Пуш у ВСІ 5 репозиторіїв:**
    git push origin main && git push as_repo main && git push urbangrid main && git push urbangrid_ua main && git push urbangridv main
 6. **Завжди перевіряти живий сайт** на HTTP 200 перед фінальним звітом власнику.
+7. **Артикул у кожному описі товару:** обов'язково додавати артикул у блок характеристик/опису (.product-specs) кожного товару: `<div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>{АРТ}</b></span></div>`, а також у XML-фід (<description>).
