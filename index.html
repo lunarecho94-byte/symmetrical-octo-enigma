@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="theme-color" content="#ffffff">
-    <title>URBAN — Взуття Salomon, Nike, Adidas, Hoka: Черевики та кросівки | Купити в Україні</title>
-    <meta name="description" content="Зимове та спортивне взуття: Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL, Nike Air Max. Доставка 1-2 дні Новою Поштою.">
+    <title>URBAN — Взуття New Balance, Salomon, Nike, Adidas, Hoka: Кросівки та черевики | Купити в Україні</title>
+    <meta name="description" content="Зимове та спортивне взуття: New Balance 725 Thermo (Арт: 6363), Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL. Доставка 1-2 дні Новою Поштою.">
     
     <!-- Open Graph / Meta & Telegram Ad Previews -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://urbangrid.com.ua/">
-    <meta property="og:title" content="URBAN — Каталог взуття Salomon, Nike, Adidas та Hoka">
-    <meta property="og:description" content="Чоловіче та жіноче взуття: зимові термочеревики Salomon до -21°C, кросівки Nike, Hoka, Adidas. Оплата при отриманні та примірка у відділенні Нової Пошти!">
+    <meta property="og:title" content="URBAN — Каталог взуття New Balance, Salomon, Nike, Adidas та Hoka">
+    <meta property="og:description" content="Чоловіче та жіноче взуття: термокросівки New Balance 725, зимові черевики Salomon до -21°C, кросівки Nike, Hoka, Adidas. Оплата при отриманні та примірка у відділенні Нової Пошти!">
     <meta property="og:image" content="https://urbangrid.com.ua/images/nike_shox_ride2_white_black_1.jpg">
     <meta property="og:locale" content="uk_UA">
     <meta property="og:site_name" content="URBAN">
@@ -128,7 +128,7 @@
                         type="search" 
                         id="catalogSearchInput" 
                         class="catalog-search-input" 
-                        placeholder="Пошук взуття: назва, бренд, термо, артикул (напр. Salomon, 6330, P-6000)..." 
+                        placeholder="Пошук взуття: назва, бренд, термо, артикул (напр. New Balance, 6363, Salomon, P-6000)..." 
                         aria-label="Пошук взуття"
                         autocomplete="off" 
                         spellcheck="false"
@@ -141,8 +141,10 @@
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Термо')">❄️ Термо</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('New Balance')">New Balance</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6363')">6363 (NB)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Salomon')">Salomon</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6330')">6330 (Salomon)</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6330')">6330</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('P-6000')">P-6000</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Hoka')">Hoka</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">Nike</button>
@@ -159,7 +161,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (9)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (10)</button>
+                    <button type="button" class="filter-chip" data-brand="newbalance" onclick="filterCatalog('newbalance', this)">New Balance (1)</button>
                     <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (1)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (6)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (1)</button>
@@ -185,7 +188,7 @@
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
                     <h3>За вашим запитом пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Salomon</b>, <b>Термо</b>, <b>6330</b>, <b>P-6000</b>, <b>Nike</b>).</p>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>New Balance</b>, <b>Термо</b>, <b>6363</b>, <b>Salomon</b>, <b>Nike</b>).</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати каталог</button>
                 </div>
 
@@ -625,6 +628,56 @@
                         </div>
                         <div class="product-card-footer">
                             <button type="button" class="btn-buy" onclick="selectModelInForm('Salomon Winter Thermo Black Grey (2360 грн)', '2 360 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 10: New Balance 725 Winter Thermo Black White (Art: 6363) (4 Photos) -->
+                <div class="product-card" id="prod-nb-725-termo-black-white" data-brand="newbalance" data-price="2420" data-name="New Balance 725 Winter Thermo Black White" data-order="9">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">❄️ Новинка • Термо • Замша</span>
+                        <img src="images/nb_725_termo_black_white_1.jpg" alt="New Balance 725 Winter Thermo Black White" id="cardImg-nb-725-termo-black-white">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nb_725_termo_black_white_1.jpg" alt="New Balance 725 Winter Thermo Black White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nb-725-termo-black-white', 'images/nb_725_termo_black_white_1.jpg')">
+                        <img src="images/nb_725_termo_black_white_2.jpg" alt="New Balance 725 Winter Thermo Black White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-725-termo-black-white', 'images/nb_725_termo_black_white_2.jpg')">
+                        <img src="images/nb_725_termo_black_white_3.jpg" alt="New Balance 725 Winter Thermo Black White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-725-termo-black-white', 'images/nb_725_termo_black_white_3.jpg')">
+                        <img src="images/nb_725_termo_black_white_4.jpg" alt="New Balance 725 Winter Thermo Black White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nb-725-termo-black-white', 'images/nb_725_termo_black_white_4.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / NEW BALANCE THERMO | АРТ: 6363</span>
+                            <div class="product-price-top"><span class="price-now">2 420 грн</span></div>
+                        </div>
+                        <h3 class="product-title">New Balance 725 Winter Thermo Black White (Чоловічі)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Чорні з білим</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Натуральна замша, водонепроникний нейлон</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Термопідкладка (всередині термо)</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Зносостійка чіпка гума</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима / демісезон (Термо ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках New Balance</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Чоловічі):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '41 (26 см)')">41</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29 см)')">46</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('New Balance 725 Thermo Black White (2420 грн)', '2 420 грн', event)">
                                 В кошик
                             </button>
                         </div>

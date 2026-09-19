@@ -1114,7 +1114,9 @@ function applyCatalogFilters() {
             
             const labels = [];
             if (currentCatalogBrand === 'nike') labels.push('Nike');
-            else if (currentCatalogBrand === 'nb') labels.push('New Balance');
+            else if (currentCatalogBrand === 'nb' || currentCatalogBrand === 'newbalance') labels.push('New Balance');
+            else if (currentCatalogBrand === 'salomon') labels.push('Salomon');
+            else if (currentCatalogBrand === 'hoka') labels.push('Hoka');
             else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
             else if (currentCatalogBrand === 'asics') labels.push('Asics');
             else if (currentCatalogBrand === 'skate') labels.push('Vans & Puma');

@@ -3,7 +3,7 @@
   <channel>
     <title>URBAN — Каталог трендового взуття</title>
     <link>https://urbangrid.com.ua</link>
-    <description>Взуття Salomon, Nike, Hoka та Adidas: Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL (Арт: 3761), Air Max Plus (Арт: 4441). Доставка Новою Поштою, оплата при отриманні.</description>
+    <description>Взуття New Balance, Salomon, Nike, Hoka та Adidas: New Balance 725 Thermo (Арт: 6363), Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL (Арт: 3761). Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
       <g:id>prod-nike-shox-ride2-white-black</g:id>
       <title>Nike Shox Ride 2 White Black</title>
@@ -160,6 +160,24 @@
       <g:price>2360 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Черевики</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-nb-725-termo-black-white</g:id>
+      <title>New Balance 725 Winter Thermo Black White (Чоловічі)</title>
+      <description>Чоловічі зимові термокросівки New Balance 725 Winter Thermo Black White. Матеріал: натуральна замша, водонепроникний нейлон, всередині термо • Підошва: зносостійка чіпка гума • Сезон: зима (Термо ❄️) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках New Balance • Розміри: 41-46 • Арт: 6363.</description>
+      <link>https://urbangrid.com.ua/#prod-nb-725-termo-black-white</link>
+      <g:image_link>https://urbangrid.com.ua/images/nb_725_termo_black_white_1.jpg</g:image_link>
+      <g:brand>New Balance</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2420 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
         <g:country>UA</g:country>
         <g:service>Нова Пошта</g:service>
