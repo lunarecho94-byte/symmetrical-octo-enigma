@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="theme-color" content="#ffffff">
-    <title>URBAN — Кросівки Nike: Air Max 97, Shox Ride 2, Journey Run | Купити в Україні</title>
-    <meta name="description" content="Кросівки Nike: Air Max 97 (Арт: 3714), Shox Ride 2 (Арт: 3706, 3704), Journey Run Pink (Арт: 4475). Фабрична якість В'єтнам, у фірмових коробках. Доставка 1-2 дні Новою Поштою, оплата при отриманні.">
+    <title>URBAN — Кросівки Nike: Air Max Plus, Air Max 97, Shox Ride 2, Journey Run | Купити в Україні</title>
+    <meta name="description" content="Кросівки Nike: Air Max Plus TN (Арт: 4441), Air Max 97 (Арт: 3714), Shox Ride 2 (Арт: 3706, 3704), Journey Run Pink (Арт: 4475). Фабрична якість В'єтнам, у фірмових коробках. Доставка 1-2 дні Новою Поштою, оплата при отриманні.">
     
     <!-- Open Graph / Meta & Telegram Ad Previews -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://urbangrid.com.ua/">
     <meta property="og:title" content="URBAN — Каталог взуття Nike | Оплата при отриманні">
-    <meta property="og:description" content="Кросівки Nike Air Max 97, Shox Ride 2, Journey Run (Арт: 3714, 3706, 3704, 4475). Топ якість В'єтнам, доставка 1-2 дні Новою Поштою. Огляд та примірка перед оплатою!">
+    <meta property="og:description" content="Кросівки Nike Air Max Plus TN, Air Max 97, Shox Ride 2, Journey Run (Арт: 4441, 3714, 3706, 3704, 4475). Топ якість В'єтнам, доставка 1-2 дні Новою Поштою. Огляд та примірка перед оплатою!">
     <meta property="og:image" content="https://urbangrid.com.ua/images/nike_shox_ride2_white_black_1.jpg">
     <meta property="og:locale" content="uk_UA">
     <meta property="og:site_name" content="URBAN">
@@ -128,7 +128,7 @@
                         type="search" 
                         id="catalogSearchInput" 
                         class="catalog-search-input" 
-                        placeholder="Пошук кросівок: назва, бренд, артикул (напр. Shox, Journey, 4475)..." 
+                        placeholder="Пошук кросівок: назва, бренд, артикул (напр. Air Max, TN, 4441, Shox)..." 
                         aria-label="Пошук кросівок"
                         autocomplete="off" 
                         spellcheck="false"
@@ -141,11 +141,11 @@
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">Nike</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Air Max Plus')">Air Max Plus</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Air Max 97')">Air Max 97</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Shox')">Shox</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Journey')">Journey</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('4441')">4441 (TN)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('3714')">3714 (AM 97)</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('4475')">4475 (Рожеві)</button>
                 </div>
 
                 <!-- Live Results Counter & Reset Action -->
@@ -158,8 +158,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (4)</button>
-                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (4)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (5)</button>
+                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (5)</button>
                 </div>
                 <div class="catalog-sort-bar">
                     <label for="catalogSortSelect" class="sort-label">Сортування:</label>
@@ -181,7 +181,7 @@
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
                     <h3>За вашим запитом пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Air Max</b>, <b>3714</b>, <b>Shox</b>).</p>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>Air Max</b>, <b>4441</b>, <b>3714</b>, <b>Shox</b>).</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати каталог</button>
                 </div>
 
@@ -371,6 +371,55 @@
                         </div>
                         <div class="product-card-footer">
                             <button type="button" class="btn-buy" onclick="selectModelInForm('Nike Air Max 97 White Black (2070 грн)', '2 070 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 5: Nike Air Max Plus Black White (Art: 4441) (5 Photos) -->
+                <div class="product-card" id="prod-nike-air-max-plus-black-white" data-brand="nike" data-price="2230" data-name="Nike Air Max Plus Black White" data-order="4">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">✨ Новинка • Жіночі</span>
+                        <img src="images/nike_air_max_plus_black_white_1.jpg" alt="Nike Air Max Plus Black White" id="cardImg-nike-air-max-plus-black-white">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_air_max_plus_black_white_1.jpg" alt="Nike Air Max Plus Black White 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-air-max-plus-black-white', 'images/nike_air_max_plus_black_white_1.jpg')">
+                        <img src="images/nike_air_max_plus_black_white_2.jpg" alt="Nike Air Max Plus Black White 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-max-plus-black-white', 'images/nike_air_max_plus_black_white_2.jpg')">
+                        <img src="images/nike_air_max_plus_black_white_3.jpg" alt="Nike Air Max Plus Black White 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-max-plus-black-white', 'images/nike_air_max_plus_black_white_3.jpg')">
+                        <img src="images/nike_air_max_plus_black_white_4.jpg" alt="Nike Air Max Plus Black White 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-max-plus-black-white', 'images/nike_air_max_plus_black_white_4.jpg')">
+                        <img src="images/nike_air_max_plus_black_white_5.jpg" alt="Nike Air Max Plus Black White 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-air-max-plus-black-white', 'images/nike_air_max_plus_black_white_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / NIKE AIR MAX PLUS TN | АРТ: 4441</span>
+                            <div class="product-price-top"><span class="price-now">2 230 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Nike Air Max Plus Black White (Жіночі)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Чорні з білим</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Шкіра + щільний текстиль</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Амортизаційна пінка + балон Air Max (Tuned Air)</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Осінь-весна (демісезон)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках Nike</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Жіночі):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (24.5 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Nike Air Max Plus Black White (2230 грн)', '2 230 грн', event)">
                                 В кошик
                             </button>
                         </div>
