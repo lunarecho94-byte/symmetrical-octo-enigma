@@ -5,6 +5,24 @@
     <link>https://urbangrid.com.ua</link>
     <description>Каталог трендових кросівок Nike, Adidas, New Balance, Puma в Україні. Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
+      <g:id>prod-nike-air-max-720-red-black</g:id>
+      <title>Nike Air Max 720 Red Black (Жіночі)</title>
+      <description>Матеріал: Дихаючий текстиль, полімерні хвильові вставки • Підошва: повнорозмірна висока повітряна камера Air Max 720 • Виробник: В'єтнам • Фірмова коробка Nike Air Max • Арт: 4006.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-air-max-720-red-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_air_max_720_red_black_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1770 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>prod-nike-sb-dunk-goretex-black</g:id>
       <title>Nike SB Dunk Low Gore-Tex Black</title>
       <description>Матеріал: Натуральна шкіра / вологозахисна мембрана Gore-Tex • Підошва: зносостійка гума SB Dunk • Виробник: В'єтнам (фабричний Китай) • Фірмова коробка Nike SB, брендовий папір • Арт: SB51.</description>
