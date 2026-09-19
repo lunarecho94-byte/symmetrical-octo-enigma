@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="theme-color" content="#ffffff">
-    <title>URBAN — Взуття Nike, Salomon, New Balance, Adidas, Hoka: Кросівки та черевики | Купити в Україні</title>
-    <meta name="description" content="Зимове та спортивне взуття: Nike P-6000 White Grey (Арт: 5177), Salomon Thermo на флісі (Арт: 6292), Nike P-6000 Black (Арт: 6369), New Balance 725 (Арт: 6363), Salomon Thermo до -21°C. Доставка 1-2 дні Новою Поштою.">
+    <title>URBAN — Взуття Asics, Nike, Adidas, Salomon, New Balance, Hoka: Кросівки та черевики | Купити в Україні</title>
+    <meta name="description" content="Зимове та спортивне взуття: Asics Gel-Kahana 8 (Арт: 5166), Jordan 4 White Purple (Арт: 5140), Adidas Yeezy 700 на овчині (Арт: 5136), Nike P-6000 (Арт: 5177). Доставка 1-2 дні Новою Поштою.">
     
     <!-- Open Graph / Meta & Telegram Ad Previews -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://urbangrid.com.ua/">
-    <meta property="og:title" content="URBAN — Каталог взуття Nike, Salomon, New Balance, Adidas та Hoka">
-    <meta property="og:description" content="Чоловіче та жіноче взуття: жіночі термокросівки Nike P-6000 White Grey, чоловічі Salomon Gore-Tex на флісі, New Balance 725, черевики Salomon до -21°C. Оплата при отриманні та примірка у відділенні Нової Пошти!">
+    <meta property="og:title" content="URBAN — Каталог взуття Asics, Nike, Adidas, Salomon, New Balance та Hoka">
+    <meta property="og:description" content="Жіноче та чоловіче зимове взуття: Asics Gel-Kahana 8 Brown, Jordan 4 Purple на флісі, Adidas Yeezy 700 Winter на хутрі овчина, Nike P-6000. Оплата при отриманні та примірка у відділенні Нової Пошти!">
     <meta property="og:image" content="https://urbangrid.com.ua/images/nike_shox_ride2_white_black_1.jpg">
     <meta property="og:locale" content="uk_UA">
     <meta property="og:site_name" content="URBAN">
@@ -128,7 +128,7 @@
                         type="search" 
                         id="catalogSearchInput" 
                         class="catalog-search-input" 
-                        placeholder="Пошук взуття: назва, бренд, термо, артикул (напр. Nike, 5177, Salomon, 6292)..." 
+                        placeholder="Пошук взуття: назва, бренд, термо, хутро, артикул (напр. Asics, 5166, Jordan, 5140, 5136)..." 
                         aria-label="Пошук взуття"
                         autocomplete="off" 
                         spellcheck="false"
@@ -141,14 +141,18 @@
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Термо')">❄️ Термо</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Овчина')">🐑 Хутро</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Asics')">Asics</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('5166')">5166 (Asics)</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Jordan')">Jordan 4</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('5140')">5140 (Jordan)</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('5136')">5136 (Adidas)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">Nike</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('5177')">5177 (Nike)</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6369')">6369 (Nike)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Salomon')">Salomon</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('6292')">6292 (Salomon)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('New Balance')">New Balance</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('6363')">6363 (NB)</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('P-6000')">P-6000</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Hoka')">Hoka</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Adidas')">Adidas</button>
                 </div>
@@ -163,11 +167,12 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (13)</button>
-                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (8)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (16)</button>
+                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (9)</button>
+                    <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (1)</button>
+                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (2)</button>
                     <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (2)</button>
                     <button type="button" class="filter-chip" data-brand="newbalance" onclick="filterCatalog('newbalance', this)">New Balance (1)</button>
-                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (1)</button>
                     <button type="button" class="filter-chip" data-brand="hoka" onclick="filterCatalog('hoka', this)">Hoka (1)</button>
                 </div>
                 <div class="catalog-sort-bar">
@@ -190,7 +195,7 @@
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
                     <h3>За вашим запитом пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Nike</b>, <b>5177</b>, <b>Salomon</b>, <b>6292</b>, <b>Термо</b>).</p>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Asics</b>, <b>5166</b>, <b>Jordan</b>, <b>5140</b>, <b>5136</b>, <b>Термо</b>).</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати каталог</button>
                 </div>
 
@@ -827,6 +832,152 @@
                         </div>
                         <div class="product-card-footer">
                             <button type="button" class="btn-buy" onclick="selectModelInForm('Nike P-6000 White Grey (2380 грн)', '2 380 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 14: Asics Gel-Kahana 8 Brown (Art: 5166) (5 Photos) -->
+                <div class="product-card" id="prod-asics-gel-kahana-8-termo-brown" data-brand="asics" data-price="2360" data-name="Asics Gel-Kahana 8 Brown" data-order="13">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">❄️ Жіночі • Термо • Новинка</span>
+                        <img src="images/asics_gel_kahana_8_termo_brown_1.jpg" alt="Asics Gel-Kahana 8 Brown" id="cardImg-asics-gel-kahana-8-termo-brown">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/asics_gel_kahana_8_termo_brown_1.jpg" alt="Asics Gel-Kahana 8 Brown 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-asics-gel-kahana-8-termo-brown', 'images/asics_gel_kahana_8_termo_brown_1.jpg')">
+                        <img src="images/asics_gel_kahana_8_termo_brown_2.jpg" alt="Asics Gel-Kahana 8 Brown 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-asics-gel-kahana-8-termo-brown', 'images/asics_gel_kahana_8_termo_brown_2.jpg')">
+                        <img src="images/asics_gel_kahana_8_termo_brown_3.jpg" alt="Asics Gel-Kahana 8 Brown 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-asics-gel-kahana-8-termo-brown', 'images/asics_gel_kahana_8_termo_brown_3.jpg')">
+                        <img src="images/asics_gel_kahana_8_termo_brown_4.jpg" alt="Asics Gel-Kahana 8 Brown 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-asics-gel-kahana-8-termo-brown', 'images/asics_gel_kahana_8_termo_brown_4.jpg')">
+                        <img src="images/asics_gel_kahana_8_termo_brown_5.jpg" alt="Asics Gel-Kahana 8 Brown 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-asics-gel-kahana-8-termo-brown', 'images/asics_gel_kahana_8_termo_brown_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / ASICS GEL-KAHANA 8 | АРТ: 5166</span>
+                            <div class="product-price-top"><span class="price-now">2 360 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Asics Gel-Kahana 8 Brown (Жіночі термо)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Коричневі (Brown / Khaki)</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Шкіра + водонепроникний нейлон</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Термопідкладка (всередині термо)</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Зносостійка чіпка гума з протектором</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима / демісезон (Термо ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках Asics</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Жіночі):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '38 (24 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Asics Gel-Kahana 8 Brown (2360 грн)', '2 360 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 15: Nike Air Jordan 4 White Purple (Art: 5140) (5 Photos) -->
+                <div class="product-card" id="prod-nike-jordan-4-termo-white-purple" data-brand="nike" data-price="2150" data-name="Nike Air Jordan 4 White Purple" data-order="14">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">❄️ Жіночі • Термо до -21°C • Новинка</span>
+                        <img src="images/nike_jordan4_termo_white_purple_1.jpg" alt="Nike Air Jordan 4 White Purple" id="cardImg-nike-jordan-4-termo-white-purple">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/nike_jordan4_termo_white_purple_1.jpg" alt="Nike Air Jordan 4 White Purple 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-nike-jordan-4-termo-white-purple', 'images/nike_jordan4_termo_white_purple_1.jpg')">
+                        <img src="images/nike_jordan4_termo_white_purple_2.jpg" alt="Nike Air Jordan 4 White Purple 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-4-termo-white-purple', 'images/nike_jordan4_termo_white_purple_2.jpg')">
+                        <img src="images/nike_jordan4_termo_white_purple_3.jpg" alt="Nike Air Jordan 4 White Purple 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-4-termo-white-purple', 'images/nike_jordan4_termo_white_purple_3.jpg')">
+                        <img src="images/nike_jordan4_termo_white_purple_4.jpg" alt="Nike Air Jordan 4 White Purple 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-4-termo-white-purple', 'images/nike_jordan4_termo_white_purple_4.jpg')">
+                        <img src="images/nike_jordan4_termo_white_purple_5.jpg" alt="Nike Air Jordan 4 White Purple 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-nike-jordan-4-termo-white-purple', 'images/nike_jordan4_termo_white_purple_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / NIKE AIR JORDAN 4 | АРТ: 5140</span>
+                            <div class="product-price-top"><span class="price-now">2 150 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Nike Air Jordan 4 White Purple (Жіночі термо)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Білі з фіолетовим</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Натуральна шкіра</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Термо на флісі (до -21°C ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Зносостійка гума + амортизація Air</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима (Термо ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках Nike Jordan</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Жіночі):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '36 (23 см)')">36</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Nike Air Jordan 4 White Purple (2150 грн)', '2 150 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 16: Adidas Yeezy Boost 700 V2 Winter Grey (Art: 5136) (4 Photos) -->
+                <div class="product-card" id="prod-adidas-yeezy-700-v2-winter-grey" data-brand="adidas" data-price="1880" data-name="Adidas Yeezy Boost 700 V2 Winter Grey" data-order="15">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">🔥 Акція • Овчина • Рефлектив</span>
+                        <img src="images/adidas_yeezy_700_v2_winter_grey_1.jpg" alt="Adidas Yeezy Boost 700 V2 Winter Grey" id="cardImg-adidas-yeezy-700-v2-winter-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/adidas_yeezy_700_v2_winter_grey_1.jpg" alt="Adidas Yeezy Boost 700 V2 Winter Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-adidas-yeezy-700-v2-winter-grey', 'images/adidas_yeezy_700_v2_winter_grey_1.jpg')">
+                        <img src="images/adidas_yeezy_700_v2_winter_grey_2.jpg" alt="Adidas Yeezy Boost 700 V2 Winter Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-yeezy-700-v2-winter-grey', 'images/adidas_yeezy_700_v2_winter_grey_2.jpg')">
+                        <img src="images/adidas_yeezy_700_v2_winter_grey_3.jpg" alt="Adidas Yeezy Boost 700 V2 Winter Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-yeezy-700-v2-winter-grey', 'images/adidas_yeezy_700_v2_winter_grey_3.jpg')">
+                        <img src="images/adidas_yeezy_700_v2_winter_grey_4.jpg" alt="Adidas Yeezy Boost 700 V2 Winter Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-adidas-yeezy-700-v2-winter-grey', 'images/adidas_yeezy_700_v2_winter_grey_4.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / ADIDAS YEEZY 700 | АРТ: 5136</span>
+                            <div class="product-price-top"><span class="price-now">1 880 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Adidas Yeezy 700 V2 Winter Grey (Жіночі на хутрі)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Сірі з бежевим</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Шкіра + водонепроникний нейлон, рефлектив</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Тепле хутро овчина 🐑</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Амортизаційна пінка (м'яка та легка)</span></div>
+                            <div class="spec-row"><span class="spec-label">Особливість:</span> <span class="spec-val">Маломірять (рекомендуємо по довжині стопи)</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима (Хутро ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках Adidas Originals</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Маломірять):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '36 (22.5 см)')">36</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '37 (23 см)')">37</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '38 (23.5 см)')">38</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (24 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25 см)')">40</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Adidas Yeezy 700 V2 Winter Grey (1880 грн)', '1 880 грн', event)">
                                 В кошик
                             </button>
                         </div>

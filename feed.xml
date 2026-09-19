@@ -3,7 +3,7 @@
   <channel>
     <title>URBAN — Каталог трендового взуття</title>
     <link>https://urbangrid.com.ua</link>
-    <description>Взуття Nike, Salomon, New Balance, Hoka та Adidas: Nike P-6000 White Grey (Арт: 5177), Salomon Thermo на флісі (Арт: 6292), Nike P-6000 Black (Арт: 6369), New Balance 725 (Арт: 6363), Salomon Thermo до -21°C. Доставка Новою Поштою, оплата при отриманні.</description>
+    <description>Взуття Asics, Nike, Adidas, Salomon, New Balance та Hoka: Asics Gel-Kahana 8 (Арт: 5166), Nike Jordan 4 Purple (Арт: 5140), Adidas Yeezy 700 на овчині (Арт: 5136), Nike P-6000 White Grey. Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
       <g:id>prod-nike-shox-ride2-white-black</g:id>
       <title>Nike Shox Ride 2 White Black</title>
@@ -230,6 +230,60 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2380 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-asics-gel-kahana-8-termo-brown</g:id>
+      <title>Asics Gel-Kahana 8 Brown (Жіночі термо)</title>
+      <description>Жіночі зимові термокросівки Asics Gel-Kahana 8 Brown. Матеріал: натуральна шкіра + водонепроникний нейлон, всередині термо • Підошва: зносостійка чіпка гума з протектором • Сезон: зима (Термо ❄️) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Asics • Розміри: 37, 38, 39, 40, 41 • Арт: 5166.</description>
+      <link>https://urbangrid.com.ua/#prod-asics-gel-kahana-8-termo-brown</link>
+      <g:image_link>https://urbangrid.com.ua/images/asics_gel_kahana_8_termo_brown_1.jpg</g:image_link>
+      <g:brand>Asics</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2360 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-nike-jordan-4-termo-white-purple</g:id>
+      <title>Nike Air Jordan 4 White Purple (Жіночі термо)</title>
+      <description>Жіночі зимові термокросівки Nike Air Jordan 4 White Purple. Матеріал: натуральна шкіра, всередині термо на флісі до -21°C • Підошва: зносостійка гума з амортизацією Air • Сезон: зима (Термо ❄️) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Nike Jordan • Розміри: 36 • Арт: 5140.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-jordan-4-termo-white-purple</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_jordan4_termo_white_purple_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2150 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-adidas-yeezy-700-v2-winter-grey</g:id>
+      <title>Adidas Yeezy 700 V2 Winter Grey (Жіночі на хутрі)</title>
+      <description>Жіночі зимові кросівки на хутрі Adidas Yeezy Boost 700 V2 Winter Grey. Матеріал: шкіра + водонепроникний нейлон, рефлективні вставки, всередині тепле хутро овчина 🐑 • Підошва: комфортна амортизаційна пінка • Маломірять • Сезон: зима ❄️ • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Adidas Originals • Розміри: 36-40 • Арт: 5136.</description>
+      <link>https://urbangrid.com.ua/#prod-adidas-yeezy-700-v2-winter-grey</link>
+      <g:image_link>https://urbangrid.com.ua/images/adidas_yeezy_700_v2_winter_grey_1.jpg</g:image_link>
+      <g:brand>Adidas</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1880 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
