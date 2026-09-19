@@ -3,13 +3,31 @@
   <channel>
     <title>URBAN — Каталог трендового взуття</title>
     <link>https://urbangrid.com.ua</link>
-    <description>Чоловічі кросівки Nike Shox Ride 2 White Black (Арт: 3706). Доставка Новою Поштою, оплата при отриманні.</description>
+    <description>Чоловічі кросівки Nike Shox Ride 2: White Black (Арт: 3706) та Grey Black (Арт: 3704). Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
       <g:id>prod-nike-shox-ride2-white-black</g:id>
       <title>Nike Shox Ride 2 White Black</title>
       <description>Чоловічі кросівки Nike Shox Ride 2 White Black. Матеріал: шкіра + щільний текстиль • Підошва: балон Air Max + система Shox • Сезон: осінь-весна • Виробник: В'єтнам • У фірмових коробках • Розміри: 41-46 • Арт: 3706.</description>
       <link>https://urbangrid.com.ua/#prod-nike-shox-ride2-white-black</link>
       <g:image_link>https://urbangrid.com.ua/images/nike_shox_ride2_white_black_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2360 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-nike-shox-ride2-grey-black</g:id>
+      <title>Nike Shox Ride 2 Grey Black</title>
+      <description>Чоловічі кросівки Nike Shox Ride 2 Grey Black. Матеріал: шкіра + щільний текстиль • Підошва: балон Air Max + система Shox • Сезон: осінь-весна • Виробник: В'єтнам • У фірмових коробках • Розміри: 41-46 • Арт: 3704.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-shox-ride2-grey-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_shox_ride2_grey_black_1.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
