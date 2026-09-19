@@ -1120,6 +1120,7 @@ function applyCatalogFilters() {
             else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
             else if (currentCatalogBrand === 'asics') labels.push('Asics');
             else if (currentCatalogBrand === 'boots') labels.push('Черевики');
+            else if (currentCatalogBrand === 'vans') labels.push('Vans');
             else if (currentCatalogBrand === 'navigator') labels.push('Navigator');
             else if (currentCatalogBrand === 'skate') labels.push('Vans & Puma');
 

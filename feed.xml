@@ -346,6 +346,24 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
+    <item>
+      <g:id>prod-vans-old-skool-black-white</g:id>
+      <title>Кеди Vans Old Skool Black White (Чоловічі)</title>
+      <description>Чоловічі кеди Vans Old Skool Black White. Матеріал: щільний текстиль (канвас), натуральна замша • Підошва: вулканізована гума з фірмовим вафельним протектором • Сезон: демісезон • ТОП якість, ЛІЦЕНЗІЯ • Виробник: В'єтнам • У фірмових коробках Vans • Розміри: 41, 42, 43, 44, 45 • Арт: 3640.</description>
+      <link>https://urbangrid.com.ua/#prod-vans-old-skool-black-white</link>
+      <g:image_link>https://urbangrid.com.ua/images/vans_old_skool_black_white_1.jpg</g:image_link>
+      <g:brand>Vans</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1890 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кеди</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
   </channel>
 </rss>
 
