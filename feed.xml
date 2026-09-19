@@ -3,7 +3,7 @@
   <channel>
     <title>URBAN — Каталог трендового взуття</title>
     <link>https://urbangrid.com.ua</link>
-    <description>Взуття Nike, New Balance, Salomon, Hoka та Adidas: Nike P-6000 Black (Арт: 6369), New Balance 725 Thermo (Арт: 6363), Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 Grey (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362). Доставка Новою Поштою, оплата при отриманні.</description>
+    <description>Взуття Salomon, Nike, New Balance, Hoka та Adidas: Salomon Thermo на флісі (Арт: 6292), Nike P-6000 Black (Арт: 6369), New Balance 725 Thermo (Арт: 6363), Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 Grey (Арт: 6341). Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
       <g:id>prod-nike-shox-ride2-white-black</g:id>
       <title>Nike Shox Ride 2 White Black</title>
@@ -194,6 +194,24 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2420 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-salomon-termo-grey-black</g:id>
+      <title>Salomon Winter Thermo Grey Black (Чоловічі)</title>
+      <description>Чоловічі зимові термокросівки Salomon Winter Thermo Grey Black. Матеріал: водовідштовхувальний нейлон Gore-Tex, всередині термо на флісі • Підошва: легка амортизаційна пінка з трейловим протектором • Сезон: зима (Термо ❄️) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Salomon • Розміри: 41-46 (без 43) • Арт: 6292.</description>
+      <link>https://urbangrid.com.ua/#prod-salomon-termo-grey-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/salomon_termo_grey_black_1.jpg</g:image_link>
+      <g:brand>Salomon</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2190 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
