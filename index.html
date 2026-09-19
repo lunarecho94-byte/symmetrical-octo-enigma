@@ -128,7 +128,7 @@
                         type="search" 
                         id="catalogSearchInput" 
                         class="catalog-search-input" 
-                        placeholder="Пошук взуття: назва, бренд, термо, артикул (напр. Nike, 3568, Asics, 5166)..." 
+                        placeholder="Пошук взуття: назва, бренд, термо, черевики, артикул (напр. 6206, Nike, 3568)..." 
                         aria-label="Пошук взуття"
                         autocomplete="off" 
                         spellcheck="false"
@@ -141,6 +141,9 @@
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Термо')">❄️ Термо</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Хутро')">🐑 Хутро</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Черевики')">Черевики</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6206')">6206 (Черевики)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">Nike</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('3568')">3568 (Nike)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Asics')">Asics</button>
@@ -148,12 +151,10 @@
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Jordan')">Jordan 4</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('5140')">5140 (Jordan)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('5136')">5136 (Adidas)</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('5177')">5177 (Nike)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Salomon')">Salomon</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('6292')">6292 (Salomon)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('New Balance')">New Balance</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Hoka')">Hoka</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Adidas')">Adidas</button>
                 </div>
 
                 <!-- Live Results Counter & Reset Action -->
@@ -166,11 +167,12 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (17)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (18)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (10)</button>
-                    <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (1)</button>
+                    <button type="button" class="filter-chip" data-brand="navigator" onclick="filterCatalog('navigator', this)">Navigator (1)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (2)</button>
                     <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (2)</button>
+                    <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (1)</button>
                     <button type="button" class="filter-chip" data-brand="newbalance" onclick="filterCatalog('newbalance', this)">New Balance (1)</button>
                     <button type="button" class="filter-chip" data-brand="hoka" onclick="filterCatalog('hoka', this)">Hoka (1)</button>
                 </div>
@@ -1039,6 +1041,55 @@
                         </div>
                         <div class="product-card-footer">
                             <button type="button" class="btn-buy" onclick="selectModelInForm('Nike Air Max Plus TN White Black (1980 грн)', '1 980 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 18: Черевики Navigator Sport Black (Art: 6206) (5 Photos) -->
+                <div class="product-card" id="prod-navigator-winter-boots-black" data-brand="navigator" data-price="1875" data-name="Черевики Navigator Sport Black" data-order="17">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">❄️ Зимові • На хутрі • Чоловічі</span>
+                        <img src="images/navigator_winter_boots_black_1.jpg" alt="Черевики Navigator Sport Black" id="cardImg-navigator-winter-boots-black">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/navigator_winter_boots_black_1.jpg" alt="Черевики Navigator Sport Black 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-navigator-winter-boots-black', 'images/navigator_winter_boots_black_1.jpg')">
+                        <img src="images/navigator_winter_boots_black_2.jpg" alt="Черевики Navigator Sport Black 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-navigator-winter-boots-black', 'images/navigator_winter_boots_black_2.jpg')">
+                        <img src="images/navigator_winter_boots_black_3.jpg" alt="Черевики Navigator Sport Black 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-navigator-winter-boots-black', 'images/navigator_winter_boots_black_3.jpg')">
+                        <img src="images/navigator_winter_boots_black_4.jpg" alt="Черевики Navigator Sport Black 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-navigator-winter-boots-black', 'images/navigator_winter_boots_black_4.jpg')">
+                        <img src="images/navigator_winter_boots_black_5.jpg" alt="Черевики Navigator Sport Black 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-navigator-winter-boots-black', 'images/navigator_winter_boots_black_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / NAVIGATOR SPORT | АРТ: 6206</span>
+                            <div class="product-price-top"><span class="price-now">1 875 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Черевики Navigator Sport Black (Чоловічі зимові)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>6206</b></span></div>
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Чорні</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Вологозахисна плащівка + нубук</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Тепле густе хутро 🐑❄️</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Чіпка протиковзна гума з протектором</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима (Хутро ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Чоловічі):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.5 см)')">42</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29 см)')">46</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Черевики Navigator Sport Black (1875 грн)', '1 875 грн', event)">
                                 В кошик
                             </button>
                         </div>

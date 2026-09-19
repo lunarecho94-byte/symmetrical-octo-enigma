@@ -1119,6 +1119,7 @@ function applyCatalogFilters() {
             else if (currentCatalogBrand === 'hoka') labels.push('Hoka');
             else if (currentCatalogBrand === 'adidas') labels.push('Adidas');
             else if (currentCatalogBrand === 'asics') labels.push('Asics');
+            else if (currentCatalogBrand === 'navigator') labels.push('Navigator');
             else if (currentCatalogBrand === 'skate') labels.push('Vans & Puma');
 
             let countWord = 'моделей';

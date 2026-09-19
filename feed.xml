@@ -310,5 +310,23 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
+    <item>
+      <g:id>prod-navigator-winter-boots-black</g:id>
+      <title>Черевики Navigator Sport Black (Чоловічі зимові)</title>
+      <description>Чоловічі зимові черевики Navigator Sport Black. Матеріал: вологозахисна плащівка + зносостійкий нубук, всередині тепле густе хутро • Підошва: чіпка протиковзна гума з глибоким протектором • Сезон: зима ❄️ • Виробник: В'єтнам (відмінна якість) • У фірмових коробках • Розміри: 42, 45, 46 • Арт: 6206.</description>
+      <link>https://urbangrid.com.ua/#prod-navigator-winter-boots-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/navigator_winter_boots_black_1.jpg</g:image_link>
+      <g:brand>Navigator</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1875 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Черевики</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
   </channel>
 </rss>
