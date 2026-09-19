@@ -3,7 +3,7 @@
   <channel>
     <title>URBAN — Каталог трендового взуття</title>
     <link>https://urbangrid.com.ua</link>
-    <description>Взуття New Balance, Salomon, Nike, Hoka та Adidas: New Balance 725 Thermo (Арт: 6363), Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL (Арт: 3761). Доставка Новою Поштою, оплата при отриманні.</description>
+    <description>Взуття Nike, New Balance, Salomon, Hoka та Adidas: Nike P-6000 Black (Арт: 6369), New Balance 725 Thermo (Арт: 6363), Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 Grey (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362). Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
       <g:id>prod-nike-shox-ride2-white-black</g:id>
       <title>Nike Shox Ride 2 White Black</title>
@@ -173,6 +173,24 @@
       <link>https://urbangrid.com.ua/#prod-nb-725-termo-black-white</link>
       <g:image_link>https://urbangrid.com.ua/images/nb_725_termo_black_white_1.jpg</g:image_link>
       <g:brand>New Balance</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2420 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-nike-p6000-termo-black</g:id>
+      <title>Nike P-6000 Black (Чоловічі термо)</title>
+      <description>Чоловічі зимові термокросівки Nike P-6000 Black. Матеріал: шкіра, замш, водонепроникний нейлон Waterproof, всередині термо • Підошва: легка амортизаційна пінка • Сезон: зима (Термо ❄️) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Nike • Розміри: 41-46 • Арт: 6369.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-p6000-termo-black</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_p6000_termo_black_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2420 UAH</g:price>
