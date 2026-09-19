@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="theme-color" content="#ffffff">
-    <title>URBAN — Кросівки Nike, Adidas, Hoka: P-6000, Mafate Speed 2, Duramo SL, Air Max | Купити в Україні</title>
-    <meta name="description" content="Кросівки Nike, Hoka та Adidas: Nike P-6000 Термо (Арт: 6341), Hoka Mafate Speed 2 Gore-Tex (Арт: 6362), Adidas Duramo SL (Арт: 3761), Nike Air Max Plus (Арт: 4441), Air Max 97 (Арт: 3714). Доставка 1-2 дні Новою Поштою.">
+    <title>URBAN — Взуття Salomon, Nike, Adidas, Hoka: Черевики та кросівки | Купити в Україні</title>
+    <meta name="description" content="Зимове та спортивне взуття: Salomon Thermo до -21°C (Арт: 6330), Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL, Nike Air Max. Доставка 1-2 дні Новою Поштою.">
     
     <!-- Open Graph / Meta & Telegram Ad Previews -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://urbangrid.com.ua/">
-    <meta property="og:title" content="URBAN — Каталог взуття Nike, Adidas та Hoka | Оплата при отриманні">
-    <meta property="og:description" content="Чоловічі та жіночі кросівки Nike, Hoka, Adidas (Арт: 6341, 6362, 3761, 4441, 3714, 3706, 3704, 4475). Топ якість В'єтнам, термомоделі, доставка 1-2 дні Новою Поштою. Огляд перед оплатою!">
+    <meta property="og:title" content="URBAN — Каталог взуття Salomon, Nike, Adidas та Hoka">
+    <meta property="og:description" content="Чоловіче та жіноче взуття: зимові термочеревики Salomon до -21°C, кросівки Nike, Hoka, Adidas. Оплата при отриманні та примірка у відділенні Нової Пошти!">
     <meta property="og:image" content="https://urbangrid.com.ua/images/nike_shox_ride2_white_black_1.jpg">
     <meta property="og:locale" content="uk_UA">
     <meta property="og:site_name" content="URBAN">
@@ -128,8 +128,8 @@
                         type="search" 
                         id="catalogSearchInput" 
                         class="catalog-search-input" 
-                        placeholder="Пошук кросівок: назва, бренд, термо, артикул (напр. P-6000, Hoka, 6341, Nike)..." 
-                        aria-label="Пошук кросівок"
+                        placeholder="Пошук взуття: назва, бренд, термо, артикул (напр. Salomon, 6330, P-6000)..." 
+                        aria-label="Пошук взуття"
                         autocomplete="off" 
                         spellcheck="false"
                         oninput="handleCatalogSearch(this.value)"
@@ -141,12 +141,12 @@
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Термо')">❄️ Термо</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Salomon')">Salomon</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6330')">6330 (Salomon)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('P-6000')">P-6000</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Hoka')">Hoka</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">Nike</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Adidas')">Adidas</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6341')">6341 (P-6000)</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('6362')">6362 (Hoka)</button>
                 </div>
 
                 <!-- Live Results Counter & Reset Action -->
@@ -159,7 +159,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (8)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (9)</button>
+                    <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (1)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (6)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (1)</button>
                     <button type="button" class="filter-chip" data-brand="hoka" onclick="filterCatalog('hoka', this)">Hoka (1)</button>
@@ -184,7 +185,7 @@
                 <div id="noSearchResultsBox" class="no-results-box" style="display: none;">
                     <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
                     <h3>За вашим запитом пар не знайдено</h3>
-                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>P-6000</b>, <b>Термо</b>, <b>6341</b>, <b>Hoka</b>, <b>Nike</b>).</p>
+                    <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>Salomon</b>, <b>Термо</b>, <b>6330</b>, <b>P-6000</b>, <b>Nike</b>).</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати каталог</button>
                 </div>
 
@@ -575,6 +576,55 @@
                         </div>
                         <div class="product-card-footer">
                             <button type="button" class="btn-buy" onclick="selectModelInForm('Nike P-6000 Dark Grey (2480 грн)', '2 480 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 9: Salomon Winter Thermo Black Grey (Art: 6330) (5 Photos) -->
+                <div class="product-card" id="prod-salomon-termo-black-grey" data-brand="salomon" data-price="2360" data-name="Salomon Winter Thermo Black Grey" data-order="8">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">❄️ Знижена ціна • Термо до -21°C</span>
+                        <img src="images/salomon_termo_black_grey_1.jpg" alt="Salomon Winter Thermo Black Grey" id="cardImg-salomon-termo-black-grey">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/salomon_termo_black_grey_1.jpg" alt="Salomon Winter Thermo Black Grey 1" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-salomon-termo-black-grey', 'images/salomon_termo_black_grey_1.jpg')">
+                        <img src="images/salomon_termo_black_grey_2.jpg" alt="Salomon Winter Thermo Black Grey 2" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-salomon-termo-black-grey', 'images/salomon_termo_black_grey_2.jpg')">
+                        <img src="images/salomon_termo_black_grey_3.jpg" alt="Salomon Winter Thermo Black Grey 3" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-salomon-termo-black-grey', 'images/salomon_termo_black_grey_3.jpg')">
+                        <img src="images/salomon_termo_black_grey_4.jpg" alt="Salomon Winter Thermo Black Grey 4" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-salomon-termo-black-grey', 'images/salomon_termo_black_grey_4.jpg')">
+                        <img src="images/salomon_termo_black_grey_5.jpg" alt="Salomon Winter Thermo Black Grey 5" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-salomon-termo-black-grey', 'images/salomon_termo_black_grey_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">ВЗУТТЯ / SALOMON THERMO | АРТ: 6330</span>
+                            <div class="product-price-top"><span class="price-now">2 360 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Salomon Winter Thermo Black Grey (Чоловічі)</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Чорні з сірим</span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Водонепроникний нейлон</span></div>
+                            <div class="spec-row"><span class="spec-label">Підкладка:</span> <span class="spec-val">Термопідкладка (до -21°C)</span></div>
+                            <div class="spec-row"><span class="spec-label">Підошва:</span> <span class="spec-val">Чіпка нековзна гума Non-Slip</span></div>
+                            <div class="spec-row"><span class="spec-label">Сезон:</span> <span class="spec-val">Зима / демісезон (Термо ❄️)</span></div>
+                            <div class="spec-row"><span class="spec-label">Якість:</span> <span class="spec-val">Відмінна якість</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">В'єтнам</span></div>
+                            <div class="spec-row"><span class="spec-label">Комплектація:</span> <span class="spec-val">У фірмових коробках Salomon</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Обери розмір (Чоловічі, повномірні):</label>
+                                <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '43 (28 см)')">43</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28.5 см)')">44</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (29 см)')">45</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29.5 см)')">46</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Salomon Winter Thermo Black Grey (2360 грн)', '2 360 грн', event)">
                                 В кошик
                             </button>
                         </div>
