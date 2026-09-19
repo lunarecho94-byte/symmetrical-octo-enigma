@@ -364,6 +364,24 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
+    <item>
+      <g:id>prod-wsport-chunky-grey-beige</g:id>
+      <title>Кросівки W Sport Chunky Grey Beige (Демісезон)</title>
+      <description>Чоловічі демісезонні кросівки W Sport Chunky Grey Beige. Матеріал: якісна еко-шкіра, повітропроникний текстиль • Підошва: масивна зносостійка гума (Chunky sole) • Особливість: маломірять • Сезон: демісезон ☀️ • Виробник: В'єтнам • У фірмових коробках • Розміри: 40-45 • Арт: 5741.</description>
+      <link>https://urbangrid.com.ua/#prod-wsport-chunky-grey-beige</link>
+      <g:image_link>https://urbangrid.com.ua/images/wsport_chunky_grey_beige_1.jpg</g:image_link>
+      <g:brand>W Sport</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1750 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
   </channel>
 </rss>
 
