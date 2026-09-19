@@ -580,23 +580,5 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
-    <item>
-      <g:id>prod-nb</g:id>
-      <title>New Balance 9060 Quartz Grey</title>
-      <description>Матеріал: Замш, сітка • Виробник: В'єтнам • Фірмова коробка NB.</description>
-      <link>https://urbangrid.com.ua/#prod-nb</link>
-      <g:image_link>https://urbangrid.com.ua/images/nb9060_2.jpg</g:image_link>
-      <g:brand>New Balance</g:brand>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2850 UAH</g:price>
-      <g:google_product_category>187</g:google_product_category>
-      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
   </channel>
 </rss>
