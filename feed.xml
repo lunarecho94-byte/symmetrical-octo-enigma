@@ -3,7 +3,7 @@
   <channel>
     <title>URBAN — Каталог трендового взуття</title>
     <link>https://urbangrid.com.ua</link>
-    <description>Кросівки Hoka, Nike та Adidas: Hoka Mafate Speed 2 Gore-Tex (Арт: 6362), Adidas Duramo SL (Арт: 3761), Air Max Plus (Арт: 4441), Air Max 97 (Арт: 3714), Shox Ride 2 (Арт: 3706, 3704) та Journey Run (Арт: 4475). Доставка Новою Поштою, оплата при отриманні.</description>
+    <description>Кросівки Nike, Hoka та Adidas: Nike P-6000 (Арт: 6341), Hoka Mafate Speed 2 (Арт: 6362), Adidas Duramo SL (Арт: 3761), Air Max Plus (Арт: 4441), Air Max 97 (Арт: 3714). Доставка Новою Поштою, оплата при отриманні.</description>
     <item>
       <g:id>prod-nike-shox-ride2-white-black</g:id>
       <title>Nike Shox Ride 2 White Black</title>
@@ -122,6 +122,24 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2150 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-nike-p6000-termo-darkgrey</g:id>
+      <title>Nike P-6000 Dark Grey (Чоловічі термо)</title>
+      <description>Чоловічі кросівки Nike P-6000 Dark Grey. Матеріал: шкіра, замш + водонепроникний нейлон, термопідкладка • Підошва: пінка Cushlon • Сезон: осінь-зима (Термо) • Виробник: В'єтнам (відмінна якість) • У фірмових коробках Nike • Розміри: 41-46 • Арт: 6341.</description>
+      <link>https://urbangrid.com.ua/#prod-nike-p6000-termo-darkgrey</link>
+      <g:image_link>https://urbangrid.com.ua/images/nike_p6000_termo_darkgrey_1.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2480 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
