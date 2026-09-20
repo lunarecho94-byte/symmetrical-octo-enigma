@@ -1260,9 +1260,43 @@ function selectCatalogCategory(catSlug, btn) {
     applyCatalogFilters();
 }
 
+let currentBrandsList = [];
+
+function updateBrandButtonState() {
+    const btn = document.getElementById('brandSelectBtn');
+    const label = document.getElementById('brandBtnLabel');
+    const countEl = document.getElementById('brandBtnCount');
+    const clearBtn = document.getElementById('brandQuickClearBtn');
+    if (!btn || !label) return;
+
+    if (currentCatalogBrand !== 'all') {
+        const brandItem = currentBrandsList.find(b => b.slug === currentCatalogBrand) ||
+            (catalogMeta && catalogMeta.brands && catalogMeta.brands.find(b => b.slug === currentCatalogBrand));
+        const name = brandItem ? brandItem.name : currentCatalogBrand;
+        const count = brandItem ? brandItem.count : 0;
+
+        btn.classList.add('active');
+        label.textContent = name;
+        if (countEl) {
+            countEl.textContent = `(${count.toLocaleString('uk-UA')})`;
+            countEl.style.display = 'inline';
+        }
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+    } else {
+        btn.classList.remove('active');
+        label.textContent = 'Всі бренди';
+        if (countEl) {
+            const allItem = currentBrandsList.find(b => b.slug === 'all');
+            const totalCount = allItem ? allItem.count : ((catalogMeta && catalogMeta.brands && catalogMeta.brands[0]) ? catalogMeta.brands[0].count : (catalogAllProducts.length || 7804));
+            countEl.textContent = `(${totalCount.toLocaleString('uk-UA')})`;
+            countEl.style.display = 'inline';
+        }
+        if (clearBtn) clearBtn.style.display = 'none';
+    }
+}
+
 function renderBrandFilterChips(meta) {
-    const container = document.getElementById('brandFilterChips');
-    if (!container || !meta || !meta.brands) return;
+    if (!meta || !meta.brands) return;
 
     let brandsList = meta.brands;
     const filterByGender = currentCatalogGender !== 'all';
@@ -1293,11 +1327,122 @@ function renderBrandFilterChips(meta) {
         ];
     }
 
-    container.innerHTML = brandsList.map(b => `
-        <button type="button" class="filter-chip ${currentCatalogBrand === b.slug ? 'active' : ''}" data-brand="${b.slug}" onclick="filterCatalog('${b.slug}', this)">
-            ${escapeHtml(b.name)} (${b.count.toLocaleString('uk-UA')})
-        </button>
-    `).join('');
+    currentBrandsList = brandsList;
+    updateBrandButtonState();
+    renderBrandModalItems(brandsList);
+}
+
+function renderBrandModalItems(list) {
+    const modalList = document.getElementById('brandModalList');
+    if (!modalList) return;
+
+    const subtitle = document.getElementById('brandModalTotalSubtitle');
+    if (subtitle && list) {
+        const brandsCount = list.filter(b => b.slug !== 'all').length;
+        subtitle.textContent = `Доступно брендів: ${brandsCount}`;
+    }
+
+    if (!list || list.length === 0) {
+        modalList.innerHTML = `
+            <div class="brand-modal-empty">
+                <p>Брендів за вашим запитом не знайдено</p>
+            </div>
+        `;
+        return;
+    }
+
+    modalList.innerHTML = list.map(b => {
+        const isActive = currentCatalogBrand === b.slug;
+        const icon = b.slug === 'all' ? '🔥 ' : '';
+        return `
+            <button type="button" class="brand-list-item ${isActive ? 'active' : ''}" data-brand="${b.slug}" onclick="selectBrandFromModal('${b.slug}')">
+                <span class="brand-item-name">${icon}${escapeHtml(b.name)}</span>
+                <span class="brand-item-count">${b.count.toLocaleString('uk-UA')}</span>
+                <span class="brand-item-check">${isActive ? '✓' : ''}</span>
+            </button>
+        `;
+    }).join('');
+}
+
+function openBrandModal() {
+    const modal = document.getElementById('brandModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+
+    const searchInput = document.getElementById('brandModalSearchInput');
+    if (searchInput) {
+        searchInput.value = '';
+        if (window.innerWidth > 768) {
+            setTimeout(() => searchInput.focus(), 100);
+        }
+    }
+    const clearBtn = document.getElementById('brandModalSearchClear');
+    if (clearBtn) clearBtn.style.display = 'none';
+
+    renderBrandModalItems(currentBrandsList);
+}
+
+function closeBrandModal() {
+    const modal = document.getElementById('brandModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+}
+
+function handleBrandOverlayClick(e) {
+    if (e.target.id === 'brandModal') {
+        closeBrandModal();
+    }
+}
+
+function selectBrandFromModal(brandSlug) {
+    closeBrandModal();
+    filterCatalog(brandSlug);
+    const grid = document.querySelector('.products-grid');
+    if (grid) {
+        const topPos = grid.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: topPos, behavior: 'smooth' });
+    }
+}
+
+function clearBrandSelection(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    filterCatalog('all');
+}
+
+function handleBrandModalSearch(val) {
+    const clearBtn = document.getElementById('brandModalSearchClear');
+    if (clearBtn) clearBtn.style.display = val ? 'flex' : 'none';
+
+    const q = val.trim().toLowerCase();
+    if (!q) {
+        renderBrandModalItems(currentBrandsList);
+        return;
+    }
+
+    const filtered = (currentBrandsList || []).filter(b => {
+        if (b.slug === 'all') return true;
+        return b.name.toLowerCase().includes(q) || b.slug.toLowerCase().includes(q);
+    });
+
+    renderBrandModalItems(filtered);
+}
+
+function clearBrandModalSearch() {
+    const input = document.getElementById('brandModalSearchInput');
+    if (input) {
+        input.value = '';
+        input.focus();
+    }
+    const clearBtn = document.getElementById('brandModalSearchClear');
+    if (clearBtn) clearBtn.style.display = 'none';
+    renderBrandModalItems(currentBrandsList);
 }
 
 function renderSizeFilterChips(meta) {
@@ -1347,14 +1492,8 @@ function filterCatalog(brand, btn) {
         currentCatalogBrand = brand;
     }
 
-    const container = document.getElementById('brandFilterChips');
-    if (container) {
-        container.querySelectorAll('.filter-chip').forEach(c => {
-            if (c.dataset.brand === currentCatalogBrand) c.classList.add('active');
-            else c.classList.remove('active');
-        });
-    }
-
+    updateBrandButtonState();
+    renderBrandModalItems(currentBrandsList);
     applyCatalogFilters();
 }
 
@@ -3101,3 +3240,20 @@ window.formatPhoneInput = formatPhoneInput;
 window.showCartCheckoutForm = showCartCheckoutForm;
 window.hideCartCheckoutForm = hideCartCheckoutForm;
 window.handleCartDirectCheckout = handleCartDirectCheckout;
+window.openBrandModal = openBrandModal;
+window.closeBrandModal = closeBrandModal;
+window.handleBrandOverlayClick = handleBrandOverlayClick;
+window.selectBrandFromModal = selectBrandFromModal;
+window.clearBrandSelection = clearBrandSelection;
+window.handleBrandModalSearch = handleBrandModalSearch;
+window.clearBrandModalSearch = clearBrandModalSearch;
+
+// Keyboard accessibility for Brand Modal
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('brandModal');
+        if (modal && modal.classList.contains('active')) {
+            closeBrandModal();
+        }
+    }
+});

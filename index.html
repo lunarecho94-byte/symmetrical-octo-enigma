@@ -204,37 +204,32 @@
                 </div>
             </div>
 
-            <!-- Fast Category Filter Chips (Brands) -->
+            <!-- Unified Brand Filter & Sort Bar -->
             <div class="category-filter-wrapper">
-                <div class="category-filter-chips" id="brandFilterChips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі бренди (7 869)</button>
-                    <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (2 042)</button>
-                    <button type="button" class="filter-chip" data-brand="newbalance" onclick="filterCatalog('newbalance', this)">New Balance (1 340)</button>
-                    <button type="button" class="filter-chip" data-brand="ugg" onclick="filterCatalog('ugg', this)">UGG (617)</button>
-                    <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (500)</button>
-                    <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (407)</button>
-                    <button type="button" class="filter-chip" data-brand="louisvuitton" onclick="filterCatalog('louisvuitton', this)">Louis Vuitton (196)</button>
-                    <button type="button" class="filter-chip" data-brand="chanel" onclick="filterCatalog('chanel', this)">Chanel (162)</button>
-                    <button type="button" class="filter-chip" data-brand="jordan" onclick="filterCatalog('jordan', this)">Air Jordan (145)</button>
-                    <button type="button" class="filter-chip" data-brand="dior" onclick="filterCatalog('dior', this)">Dior (142)</button>
-                    <button type="button" class="filter-chip" data-brand="balenciaga" onclick="filterCatalog('balenciaga', this)">Balenciaga (122)</button>
-                    <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (106)</button>
-                    <button type="button" class="filter-chip" data-brand="oncloud" onclick="filterCatalog('oncloud', this)">On Cloud (87)</button>
-                    <button type="button" class="filter-chip" data-brand="coach" onclick="filterCatalog('coach', this)">Coach (86)</button>
-                    <button type="button" class="filter-chip" data-brand="hermes" onclick="filterCatalog('hermes', this)">Hermes (85)</button>
-                    <button type="button" class="filter-chip" data-brand="premiata" onclick="filterCatalog('premiata', this)">Premiata (66)</button>
-                </div>
-                <div class="catalog-sort-bar">
-                    <label for="catalogSortSelect" class="sort-label">Сортування:</label>
-                    <div class="sort-select-wrapper">
-                        <select id="catalogSortSelect" class="sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
-                            <option value="popular">За популярністю</option>
-                            <option value="discount">Найбільша знижка 🔥</option>
-                            <option value="price-asc">Від дешевих до дорогих</option>
-                            <option value="price-desc">Від дорогих до дешевих</option>
-                            <option value="newest">Новинки спочатку</option>
-                            <option value="name-asc">За назвою (А-Я)</option>
-                        </select>
+                <div class="brand-filter-bar">
+                    <div class="brand-select-wrapper">
+                        <button type="button" class="brand-select-btn" id="brandSelectBtn" onclick="openBrandModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть бренд">
+                            <span class="brand-btn-left">
+                                <span class="brand-btn-icon">🏷️</span>
+                                <span class="brand-btn-label" id="brandBtnLabel">Всі бренди</span>
+                                <span class="brand-btn-count" id="brandBtnCount">(7 804)</span>
+                            </span>
+                            <span class="brand-btn-arrow">▾</span>
+                        </button>
+                        <button type="button" class="brand-quick-clear-btn" id="brandQuickClearBtn" onclick="clearBrandSelection(event)" title="Скинути фільтр бренду" style="display: none;" aria-label="Скинути фільтр бренду">✕</button>
+                    </div>
+                    <div class="catalog-sort-bar">
+                        <label for="catalogSortSelect" class="sort-label">Сортування:</label>
+                        <div class="sort-select-wrapper">
+                            <select id="catalogSortSelect" class="sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
+                                <option value="popular">За популярністю</option>
+                                <option value="discount">Найбільша знижка 🔥</option>
+                                <option value="price-asc">Від дешевих до дорогих</option>
+                                <option value="price-desc">Від дорогих до дешевих</option>
+                                <option value="newest">Новинки спочатку</option>
+                                <option value="name-asc">За назвою (А-Я)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -889,6 +884,34 @@
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
     <script src="script.js"></script>
+
+    <!-- Brand Selector Modal / Bottom Sheet -->
+    <div id="brandModal" class="brand-modal-overlay" onclick="handleBrandOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="brandModalTitle">
+        <div class="brand-modal-sheet" onclick="event.stopPropagation()">
+            <div class="brand-modal-header">
+                <div class="brand-modal-title-box">
+                    <h3 class="brand-modal-title" id="brandModalTitle">🏷️ Оберіть бренд</h3>
+                    <span class="brand-modal-subtitle" id="brandModalTotalSubtitle">Всього брендів: 56</span>
+                </div>
+                <button type="button" class="brand-modal-close" onclick="closeBrandModal()" aria-label="Закрити модальне вікно">✕</button>
+            </div>
+
+            <div class="brand-modal-search-box">
+                <span class="brand-search-icon">🔍</span>
+                <input type="text" id="brandModalSearchInput" class="brand-modal-search-input" placeholder="Швидкий пошук бренду (напр. Nike, Jordan)..." oninput="handleBrandModalSearch(this.value)" autocomplete="off">
+                <button type="button" id="brandModalSearchClear" class="brand-search-clear" onclick="clearBrandModalSearch()" style="display: none;" aria-label="Очистити пошук бренду">✕</button>
+            </div>
+
+            <div class="brand-modal-list" id="brandModalList">
+                <!-- Dynamically populated by renderBrandFilterChips -->
+            </div>
+
+            <div class="brand-modal-footer">
+                <button type="button" class="brand-modal-reset-btn" onclick="selectBrandFromModal('all')">Показати всі бренди</button>
+                <button type="button" class="brand-modal-apply-btn" onclick="closeBrandModal()">Готово</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Size Guide Modal -->
     <div id="sizeChartModal" class="size-chart-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="sizeChartTitle">
