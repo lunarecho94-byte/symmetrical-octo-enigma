@@ -5,14 +5,58 @@ Parses easydrop_export.xml and creates optimized data/products.json and data/met
 """
 
 import os
+import sys
 import re
 import json
+import urllib.request
+import tempfile
+import shutil
 import xml.etree.ElementTree as ET
 from collections import defaultdict, Counter
 
 EXPORT_FILE = 'easydrop_export.xml'
+EXPORT_URL = (
+    "https://easydrop.one/prom-export?key=96092464432393,30816448450308,25162466829867,"
+    "12333849528094,80233932855850,30580088002009,70419283037987,63422357219127,"
+    "96825986992025,40170268472376,11341144510008,47558675150578,30048652742791,"
+    "20168635902038,64017479183198,61619894907221,89534434099545,26277378991043,"
+    "50967565248169,94320236562495&pid=86764974149158"
+)
 OUTPUT_PRODUCTS = 'data/products.json'
 OUTPUT_META = 'data/meta.json'
+
+def download_export_feed():
+    print("Downloading latest XML feed from EasyDrop...")
+    req = urllib.request.Request(
+        EXPORT_URL,
+        headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'}
+    )
+    temp_path = EXPORT_FILE + '.tmp'
+    try:
+        with urllib.request.urlopen(req, timeout=90) as response, open(temp_path, 'wb') as out_file:
+            shutil.copyfileobj(response, out_file)
+        
+        file_size = os.path.getsize(temp_path)
+        if file_size < 100000:
+            raise ValueError(f"Downloaded file too small: {file_size} bytes")
+        with open(temp_path, 'rb') as f:
+            header = f.read(500).decode('utf-8', errors='ignore')
+            if '<?xml' not in header and '<yml_catalog' not in header:
+                raise ValueError("Downloaded file is not valid XML")
+                
+        os.replace(temp_path, EXPORT_FILE)
+        print(f"Successfully downloaded and updated {EXPORT_FILE} ({file_size} bytes)")
+        return True
+    except Exception as e:
+        print(f"Warning: Failed to download feed ({e}). Falling back to existing {EXPORT_FILE} if available.")
+        if os.path.exists(temp_path):
+            try:
+                os.remove(temp_path)
+            except OSError:
+                pass
+        if not os.path.exists(EXPORT_FILE):
+            raise
+        return False
 
 def clean_text(s):
     if not s:
@@ -101,6 +145,9 @@ def determine_brand(name, cat_name):
     return 'other', 'Інші бренди'
 
 def main():
+    if '--download' in sys.argv or not os.path.exists(EXPORT_FILE):
+        download_export_feed()
+
     print(f"Reading {EXPORT_FILE}...")
     tree = ET.parse(EXPORT_FILE)
     root = tree.getroot()
@@ -187,6 +234,11 @@ def main():
         
         cat_slug, cat_title, cat_icon = determine_category(name, cname, desc)
         brand_slug, brand_title = determine_brand(name, cname)
+
+        # Rule: if sneakers has less than 3 sizes in stock, do not add to site
+        is_sneaker = (cat_slug == 'shoes') or any(k in name.lower() for k in ['кросівки', 'кеди', 'sneakers'])
+        if is_sneaker and len(sorted_sizes) < 3:
+            continue
         
         category_counts[cat_slug] += 1
         brand_counts[brand_slug] += 1

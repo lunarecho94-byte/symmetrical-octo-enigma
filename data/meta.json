@@ -1,23 +1,23 @@
 {
-  "total": 11816,
+  "total": 7486,
   "categories": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 11816
+      "count": 7486
     },
     {
       "slug": "shoes",
       "name": "Кросівки & Кеди",
       "icon": "👟",
-      "count": 9463
+      "count": 5135
     },
     {
       "slug": "winter",
       "name": "Зимове взуття",
       "icon": "❄️",
-      "count": 1011
+      "count": 1009
     },
     {
       "slug": "clothing",
@@ -36,77 +36,77 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 11816
+      "count": 7486
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 3140
+      "count": 1894
     },
     {
       "slug": "jordan",
       "name": "Air Jordan",
-      "count": 458
+      "count": 272
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 2028
+      "count": 1313
     },
     {
       "slug": "adidas",
       "name": "Adidas & Yeezy",
-      "count": 1064
+      "count": 501
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 716
+      "count": 418
     },
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 161
+      "count": 106
     },
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 641
+      "count": 639
     },
     {
       "slug": "puma",
       "name": "Puma",
-      "count": 91
+      "count": 47
     },
     {
       "slug": "vans",
       "name": "Vans",
-      "count": 70
+      "count": 27
     },
     {
       "slug": "balenciaga",
       "name": "Balenciaga",
-      "count": 224
+      "count": 118
     },
     {
       "slug": "louisvuitton",
       "name": "Louis Vuitton",
-      "count": 207
+      "count": 79
     },
     {
       "slug": "dior",
       "name": "Dior",
-      "count": 177
+      "count": 90
     },
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 173
+      "count": 116
     },
     {
       "slug": "other",
       "name": "Інші",
-      "count": 2666
+      "count": 1866
     }
   ]
 }
