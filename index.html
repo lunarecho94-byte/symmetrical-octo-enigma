@@ -639,13 +639,45 @@
                         <input type="tel" id="cartPhone" class="form-input" placeholder="+38 (067) 123-45-67" required autocomplete="tel" oninput="formatPhoneInput(event)">
                         <div id="cartPhoneError" class="phone-error-hint" style="display: none;"></div>
                     </div>
-                    <div class="cart-form-group">
-                        <label for="cartCityInput">Місто отримання:</label>
-                        <input type="text" id="cartCityInput" class="form-input" placeholder="Київ, Львів, Одеса..." required autocomplete="off">
+                    <!-- Nova Poshta City Autocomplete -->
+                    <div class="cart-form-group np-autocomplete-group">
+                        <div class="np-field-label-row">
+                            <label for="npCityInput">Місто отримання:</label>
+                            <span class="np-api-badge"><span class="np-badge-dot">●</span> Нова Пошта API</span>
+                        </div>
+                        <div class="np-input-wrapper">
+                            <span class="np-input-icon">📍</span>
+                            <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
+                            <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
+                            <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
+                        </div>
+                        <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
+                        <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
+                        <input type="hidden" id="npCityName" name="Місто доставки" value="">
+                        <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
                     </div>
-                    <div class="cart-form-group">
-                        <label for="cartWarehouseInput">Відділення або поштомат:</label>
-                        <input type="text" id="cartWarehouseInput" class="form-input" placeholder="Відділення №1 або поштомат..." required autocomplete="off">
+
+                    <!-- Nova Poshta Warehouse / Postomat Autocomplete -->
+                    <div class="cart-form-group np-autocomplete-group" id="npWarehouseGroup">
+                        <div class="np-warehouse-header">
+                            <label for="npWarehouseInput">Відділення або поштомат:</label>
+                            <div class="np-type-filter" id="npWarehouseFilterTabs">
+                                <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
+                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">📦 Відділення</button>
+                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">📮 Поштомати</button>
+                            </div>
+                        </div>
+                        <div class="np-input-wrapper">
+                            <span class="np-input-icon">📦</span>
+                            <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Спочатку оберіть місто вище..." autocomplete="off" disabled required>
+                            <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
+                            <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
+                        </div>
+                        <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
+                        <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
+                        <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
+                        <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
+                        <span class="np-helper-hint" id="npWarehouseHint">⚡ Почніть вводити номер або вулицю для пошуку</span>
                     </div>
                     <div class="cart-form-group">
                         <label>Спосіб оплати:</label>

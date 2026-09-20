@@ -2910,8 +2910,8 @@ async function handleCartDirectCheckout(e) {
 
     const nameInput = document.getElementById('cartFullName');
     const phoneInput = document.getElementById('cartPhone');
-    const cityInput = document.getElementById('cartCityInput');
-    const whInput = document.getElementById('cartWarehouseInput');
+    const cityInput = document.getElementById('npCityInput') || document.getElementById('cartCityInput');
+    const whInput = document.getElementById('npWarehouseInput') || document.getElementById('cartWarehouseInput');
     const errHint = document.getElementById('cartPhoneError');
     const submitBtn = document.getElementById('cartSubmitOrderBtn');
 
@@ -2930,6 +2930,26 @@ async function handleCartDirectCheckout(e) {
     }
     phoneInput.classList.remove('input-error');
     if (errHint) errHint.style.display = 'none';
+
+    // Validate Nova Poshta City Selection
+    const cityVal = (document.getElementById('npCityName')?.value || cityInput?.value || '').trim();
+    if (!cityVal || cityVal.length < 2) {
+        cityInput?.classList.add('input-error');
+        cityInput?.focus();
+        showCartToast('Будь ласка, оберіть місто доставки зі списку Нової Пошти');
+        return;
+    }
+    cityInput?.classList.remove('input-error');
+
+    // Validate Nova Poshta Warehouse / Postomat Selection
+    const whVal = (whInput?.value || '').trim();
+    if (!whVal) {
+        whInput?.classList.add('input-error');
+        whInput?.focus();
+        showCartToast('Будь ласка, оберіть відділення або поштомат зі списку');
+        return;
+    }
+    whInput?.classList.remove('input-error');
 
     const cart = getCart();
     if (!cart || cart.length === 0) {
@@ -2961,9 +2981,7 @@ async function handleCartDirectCheckout(e) {
 
     const formattedTotal = `${orderTotalNum.toLocaleString('uk-UA')} грн`;
     const customerName = nameInput.value.trim();
-    const cityVal = cityInput?.value.trim() || 'Уточнити з клієнтом';
-    const whVal = whInput?.value.trim() || '';
-    const fullDelivery = whVal ? `${cityVal}, ${whVal}` : cityVal;
+    const fullDelivery = (document.getElementById('cityNP')?.value || '').trim() || (whVal ? `${cityVal}, ${whVal}` : cityVal);
     
     const payRadio = document.querySelector('input[name="cartPayment"]:checked');
     const paymentMethod = payRadio ? payRadio.value : 'Накладений платіж';
