@@ -1096,10 +1096,7 @@ async function initDynamicCatalog() {
         catalogAllProducts = await prodResp.json();
         catalogMeta = await metaResp.json();
 
-        // Render Top Gender Switcher
-        renderGenderSwitch(catalogMeta);
-
-        // Render Dynamic Category Tabs
+        // Render Dynamic Category Tabs (Unified single row: All / Men / Women / Categories)
         renderCategoryTabs(catalogMeta);
 
         // Render Dynamic Brand Chips
@@ -1181,28 +1178,15 @@ function updateCategoryBadgesForGender() {
 
 function selectCatalogGender(gender, btn) {
     currentCatalogGender = gender;
+    currentCatalogCategory = 'all';
     currentCatalogBrand = 'all';
 
-    // If current category is 'men' or 'women', set it to 'all' so category doesn't conflict
-    if (currentCatalogCategory === 'men' || currentCatalogCategory === 'women') {
-        currentCatalogCategory = 'all';
-    }
-
-    // Update gender switcher active state
-    document.querySelectorAll('.gender-btn').forEach(b => {
-        if (b.dataset.gender === gender) b.classList.add('active');
-        else b.classList.remove('active');
-    });
-
-    // Sync active category buttons
+    // Sync active category button in the unified mainCategoryTabs row
     document.querySelectorAll('.main-cat-btn').forEach(b => {
         const cat = b.dataset.cat;
-        if (cat === 'men' || cat === 'women') {
-            if (currentCatalogGender === cat && currentCatalogCategory === 'all') b.classList.add('active');
-            else b.classList.remove('active');
-        } else if (cat === currentCatalogCategory && currentCatalogGender === 'all') {
+        if (cat === gender) {
             b.classList.add('active');
-        } else if (cat === currentCatalogCategory) {
+        } else if (gender === 'all' && cat === 'all') {
             b.classList.add('active');
         } else {
             b.classList.remove('active');
@@ -1220,6 +1204,10 @@ function selectCatalogGender(gender, btn) {
 }
 
 function selectCatalogCategory(catSlug, btn) {
+    if (catSlug === 'all') {
+        selectCatalogGender('all');
+        return;
+    }
     if (catSlug === 'men') {
         selectCatalogGender('men');
         return;
@@ -1230,12 +1218,15 @@ function selectCatalogCategory(catSlug, btn) {
     }
 
     currentCatalogCategory = catSlug;
+    currentCatalogGender = 'all';
     currentCatalogBrand = 'all';
 
     document.querySelectorAll('.main-cat-btn').forEach(b => {
         if (b.dataset.cat === catSlug) b.classList.add('active');
         else b.classList.remove('active');
     });
+
+    updateCategoryBadgesForGender();
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
