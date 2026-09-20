@@ -1052,8 +1052,10 @@ async function downloadLastGeneratedPdf() {
 // ==========================================
 let catalogAllProducts = [];
 let catalogMeta = null;
-let currentCatalogCategory = 'all'; // 'all', 'shoes', 'winter', 'clothing', 'bags'
+let currentCatalogCategory = 'all'; // 'all', 'shoes', 'winter', 'outerwear', 'clothing', 'bags', 'accessories', 'sale'
 let currentCatalogBrand = 'all';
+let currentCatalogSize = 'all';
+let currentCatalogPriceRange = 'all';
 let currentCatalogSearchQuery = '';
 let currentCatalogSort = 'popular';
 let catalogFilteredProducts = [];
@@ -1093,11 +1095,14 @@ async function initDynamicCatalog() {
         catalogAllProducts = await prodResp.json();
         catalogMeta = await metaResp.json();
 
-        // Update Category Badges
-        updateCategoryBadges(catalogMeta);
+        // Render Dynamic Category Tabs
+        renderCategoryTabs(catalogMeta);
 
-        // Update Brand Chips
+        // Render Dynamic Brand Chips
         renderBrandFilterChips(catalogMeta);
+
+        // Render Dynamic Size Filter Chips
+        renderSizeFilterChips(catalogMeta);
 
         // Initial Filter & Render
         applyCatalogFilters();
@@ -1112,15 +1117,17 @@ async function initDynamicCatalog() {
     }
 }
 
-function updateCategoryBadges(meta) {
-    if (!meta || !meta.categories) return;
-    meta.categories.forEach(cat => {
-        const btn = document.querySelector(`.main-cat-btn[data-cat="${cat.slug}"]`);
-        if (btn) {
-            const badge = btn.querySelector('.cat-badge');
-            if (badge) badge.textContent = cat.count.toLocaleString('uk-UA');
-        }
-    });
+function renderCategoryTabs(meta) {
+    const container = document.getElementById('mainCategoryTabs');
+    if (!container || !meta || !meta.categories) return;
+
+    container.innerHTML = meta.categories.map(cat => `
+        <button type="button" class="main-cat-btn ${currentCatalogCategory === cat.slug ? 'active' : ''}" data-cat="${cat.slug}" onclick="selectCatalogCategory('${cat.slug}', this)">
+            <span class="cat-icon">${cat.icon}</span>
+            <span class="cat-title">${escapeHtml(cat.name)}</span>
+            <span class="cat-badge">${cat.count.toLocaleString('uk-UA')}</span>
+        </button>
+    `).join('');
 }
 
 function renderBrandFilterChips(meta) {
@@ -1131,7 +1138,8 @@ function renderBrandFilterChips(meta) {
     if (currentCatalogCategory !== 'all' && catalogAllProducts.length) {
         const counts = {};
         catalogAllProducts.forEach(p => {
-            if (p.cat === currentCatalogCategory) {
+            const matchesCat = (currentCatalogCategory === 'sale') ? p.is_sale : (p.cat === currentCatalogCategory);
+            if (matchesCat) {
                 counts[p.brand] = (counts[p.brand] || 0) + 1;
             }
         });
@@ -1154,12 +1162,38 @@ function renderBrandFilterChips(meta) {
     `).join('');
 }
 
+function renderSizeFilterChips(meta) {
+    const container = document.getElementById('catalogSizeFilterChips');
+    if (!container) return;
+
+    // Use top sizes from catalog
+    const defaultSizes = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', 'S', 'M', 'L', 'XL', 'XXL'];
+    
+    let html = `
+        <button type="button" class="size-filter-btn ${currentCatalogSize === 'all' ? 'active' : ''}" data-size="all" onclick="filterCatalogBySize('all', this)">
+            Всі
+        </button>
+    `;
+
+    defaultSizes.forEach(sz => {
+        html += `
+            <button type="button" class="size-filter-btn ${currentCatalogSize === sz ? 'active' : ''}" data-size="${sz}" onclick="filterCatalogBySize('${sz}', this)">
+                ${sz}
+            </button>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
 function selectCatalogCategory(catSlug, btn) {
     currentCatalogCategory = catSlug;
     currentCatalogBrand = 'all';
 
-    document.querySelectorAll('.main-cat-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
+    document.querySelectorAll('.main-cat-btn').forEach(b => {
+        if (b.dataset.cat === catSlug) b.classList.add('active');
+        else b.classList.remove('active');
+    });
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -1186,6 +1220,59 @@ function filterCatalog(brand, btn) {
     applyCatalogFilters();
 }
 
+function filterCatalogBySize(size, btn) {
+    if (currentCatalogSize === size && size !== 'all') {
+        currentCatalogSize = 'all';
+    } else {
+        currentCatalogSize = size;
+    }
+
+    const container = document.getElementById('catalogSizeFilterChips');
+    if (container) {
+        container.querySelectorAll('.size-filter-btn').forEach(b => {
+            if (b.dataset.size === currentCatalogSize) b.classList.add('active');
+            else b.classList.remove('active');
+        });
+    }
+
+    const indicator = document.getElementById('activeSizeLabel');
+    if (indicator) {
+        indicator.textContent = (currentCatalogSize === 'all') ? 'Всі розміри' : `Розмір: ${size}`;
+    }
+
+    applyCatalogFilters();
+}
+
+function filterCatalogByPrice(range, btn) {
+    if (currentCatalogPriceRange === range && range !== 'all') {
+        currentCatalogPriceRange = 'all';
+    } else {
+        currentCatalogPriceRange = range;
+    }
+
+    const container = document.querySelector('.price-filter-chips');
+    if (container) {
+        container.querySelectorAll('.price-filter-chip').forEach(b => {
+            if (b.dataset.price === currentCatalogPriceRange) b.classList.add('active');
+            else b.classList.remove('active');
+        });
+    }
+
+    const indicator = document.getElementById('activePriceLabel');
+    if (indicator) {
+        const labels = {
+            'all': 'Всі',
+            'under-1500': 'До 1 500 грн',
+            '1500-2500': '1 500 – 2 500 грн',
+            '2500-3500': '2 500 – 3 500 грн',
+            'above-3500': 'Від 3 500 грн'
+        };
+        indicator.textContent = labels[currentCatalogPriceRange] || 'Всі';
+    }
+
+    applyCatalogFilters();
+}
+
 function handleCatalogSearch(query) {
     clearTimeout(catalogSearchDebounceTimer);
     catalogSearchDebounceTimer = setTimeout(() => {
@@ -1200,11 +1287,35 @@ function clearCatalogSearch() {
     currentCatalogSearchQuery = '';
     currentCatalogBrand = 'all';
     currentCatalogCategory = 'all';
+    currentCatalogSize = 'all';
+    currentCatalogPriceRange = 'all';
 
     document.querySelectorAll('.main-cat-btn').forEach((b, idx) => {
         if (idx === 0) b.classList.add('active');
         else b.classList.remove('active');
     });
+
+    const sizeContainer = document.getElementById('catalogSizeFilterChips');
+    if (sizeContainer) {
+        sizeContainer.querySelectorAll('.size-filter-btn').forEach((b, idx) => {
+            if (idx === 0) b.classList.add('active');
+            else b.classList.remove('active');
+        });
+    }
+
+    const priceContainer = document.querySelector('.price-filter-chips');
+    if (priceContainer) {
+        priceContainer.querySelectorAll('.price-filter-chip').forEach((b, idx) => {
+            if (idx === 0) b.classList.add('active');
+            else b.classList.remove('active');
+        });
+    }
+
+    const activeSizeLabel = document.getElementById('activeSizeLabel');
+    if (activeSizeLabel) activeSizeLabel.textContent = 'Всі розміри';
+
+    const activePriceLabel = document.getElementById('activePriceLabel');
+    if (activePriceLabel) activePriceLabel.textContent = 'Всі';
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -1241,14 +1352,38 @@ function applyCatalogFilters() {
 
     // Filter array
     catalogFilteredProducts = catalogAllProducts.filter(item => {
-        if (currentCatalogCategory !== 'all' && item.cat !== currentCatalogCategory) {
-            return false;
+        // 1. Category
+        if (currentCatalogCategory !== 'all') {
+            if (currentCatalogCategory === 'sale') {
+                if (!item.is_sale) return false;
+            } else if (item.cat !== currentCatalogCategory) {
+                return false;
+            }
         }
+        
+        // 2. Brand
         if (currentCatalogBrand !== 'all' && item.brand !== currentCatalogBrand) {
             return false;
         }
+
+        // 3. Size Filter
+        if (currentCatalogSize !== 'all') {
+            if (!item.sizes || !item.sizes.includes(currentCatalogSize)) {
+                return false;
+            }
+        }
+
+        // 4. Price Range Filter
+        if (currentCatalogPriceRange !== 'all') {
+            if (currentCatalogPriceRange === 'under-1500' && item.price >= 1500) return false;
+            if (currentCatalogPriceRange === '1500-2500' && (item.price < 1500 || item.price > 2500)) return false;
+            if (currentCatalogPriceRange === '2500-3500' && (item.price < 2500 || item.price > 3500)) return false;
+            if (currentCatalogPriceRange === 'above-3500' && item.price <= 3500) return false;
+        }
+
+        // 5. Query Search
         if (queryTokens.length > 0) {
-            const haystack = `${item.name} ${item.brand_name} ${item.art} ${item.mat} ${item.origin}`.toLowerCase();
+            const haystack = `${item.name} ${item.brand_name} ${item.art} ${item.mat} ${item.origin} ${item.cat}`.toLowerCase();
             const matchesAll = queryTokens.every(tok => haystack.includes(tok));
             if (!matchesAll) return false;
         }
@@ -1273,14 +1408,25 @@ function sortFilteredProducts(criteria) {
                 return a.price - b.price;
             case 'price-desc':
                 return b.price - a.price;
+            case 'discount': {
+                const discountA = (a.old_price || a.price) - a.price;
+                const discountB = (b.old_price || b.price) - b.price;
+                return discountB - discountA;
+            }
             case 'name-asc':
                 return a.name.localeCompare(b.name, 'uk', { sensitivity: 'base' });
             case 'newest':
                 return parseInt(b.id, 10) - parseInt(a.id, 10);
             case 'popular':
-            default:
-                const badgeWeight = (item) => (item.badge && item.badge.includes('Хіт') ? 2 : (item.badge ? 1 : 0));
+            default: {
+                const badgeWeight = (item) => {
+                    if (item.badge && item.badge.includes('Хіт')) return 3;
+                    if (item.badge && item.badge.includes('Знижка')) return 2;
+                    if (item.badge) return 1;
+                    return 0;
+                };
                 return badgeWeight(b) - badgeWeight(a);
+            }
         }
     });
 }
@@ -1299,8 +1445,11 @@ function getCategoryTitle(cat) {
     switch (cat) {
         case 'shoes': return 'Кросівки & Кеди';
         case 'winter': return 'Зимове взуття';
-        case 'clothing': return 'Одяг & Куртки';
-        case 'bags': return 'Сумки & Аксесуари';
+        case 'outerwear': return 'Куртки & Пуховики';
+        case 'clothing': return 'Одяг & Костюми';
+        case 'bags': return 'Сумки & Рюкзаки';
+        case 'accessories': return 'Аксесуари';
+        case 'sale': return 'Знижки & SALE';
         default: return 'Товари';
     }
 }
@@ -2760,6 +2909,8 @@ async function handleCartDirectCheckout(e) {
 
 // Global window exposure
 window.selectCatalogCategory = selectCatalogCategory;
+window.filterCatalogBySize = filterCatalogBySize;
+window.filterCatalogByPrice = filterCatalogByPrice;
 window.loadMoreProducts = loadMoreProducts;
 window.handleCatalogSort = handleCatalogSort;
 window.openSizeChartModal = openSizeChartModal;

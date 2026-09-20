@@ -125,27 +125,42 @@
                 <button type="button" class="main-cat-btn active" data-cat="all" onclick="selectCatalogCategory('all', this)">
                     <span class="cat-icon">🔥</span>
                     <span class="cat-title">Всі товари</span>
-                    <span class="cat-badge">7 605</span>
+                    <span class="cat-badge">11 508</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="shoes" onclick="selectCatalogCategory('shoes', this)">
                     <span class="cat-icon">👟</span>
                     <span class="cat-title">Кросівки & Кеди</span>
-                    <span class="cat-badge">5 193</span>
+                    <span class="cat-badge">8 902</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="winter" onclick="selectCatalogCategory('winter', this)">
                     <span class="cat-icon">❄️</span>
                     <span class="cat-title">Зимове взуття</span>
-                    <span class="cat-badge">867</span>
+                    <span class="cat-badge">838</span>
+                </button>
+                <button type="button" class="main-cat-btn" data-cat="outerwear" onclick="selectCatalogCategory('outerwear', this)">
+                    <span class="cat-icon">🧥</span>
+                    <span class="cat-title">Куртки & Пуховики</span>
+                    <span class="cat-badge">193</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="clothing" onclick="selectCatalogCategory('clothing', this)">
-                    <span class="cat-icon">🧥</span>
-                    <span class="cat-title">Одяг & Куртки</span>
-                    <span class="cat-badge">906</span>
+                    <span class="cat-icon">👕</span>
+                    <span class="cat-title">Одяг & Костюми</span>
+                    <span class="cat-badge">483</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="bags" onclick="selectCatalogCategory('bags', this)">
                     <span class="cat-icon">🎒</span>
-                    <span class="cat-title">Сумки & Аксесуари</span>
-                    <span class="cat-badge">639</span>
+                    <span class="cat-title">Сумки & Рюкзаки</span>
+                    <span class="cat-badge">851</span>
+                </button>
+                <button type="button" class="main-cat-btn" data-cat="accessories" onclick="selectCatalogCategory('accessories', this)">
+                    <span class="cat-icon">🧢</span>
+                    <span class="cat-title">Аксесуари</span>
+                    <span class="cat-badge">241</span>
+                </button>
+                <button type="button" class="main-cat-btn" data-cat="sale" onclick="selectCatalogCategory('sale', this)">
+                    <span class="cat-icon">🏷</span>
+                    <span class="cat-title">Знижки & SALE</span>
+                    <span class="cat-badge">1 671</span>
                 </button>
             </div>
 
@@ -168,9 +183,12 @@
                 <!-- Quick Search Tags -->
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('SALE')">🏷 Розпродаж / SALE</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">👟 Nike</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('9060')">🔥 NB 9060</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Зима')">❄️ Зима / Термо</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Куртка')">🧥 Куртки</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Сумка')">🎒 Сумки</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Air Force')">Air Force</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Adidas')">Adidas</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Samba')">Samba</button>
@@ -179,9 +197,8 @@
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Salomon')">Salomon</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('On Cloud')">On Cloud</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Jordan')">Air Jordan</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Куртка')">🧥 Куртки</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Костюм')">Спорт костюми</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Сумка')">🎒 Сумки</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Кепка')">🧢 Кепки / Аксесуари</button>
                 </div>
 
                 <!-- Live Results Counter & Reset Action -->
@@ -194,21 +211,21 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips" id="brandFilterChips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі бренди (7 605)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі бренди (7 869)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (2 042)</button>
-                    <button type="button" class="filter-chip" data-brand="newbalance" onclick="filterCatalog('newbalance', this)">New Balance (1 339)</button>
-                    <button type="button" class="filter-chip" data-brand="ugg" onclick="filterCatalog('ugg', this)">UGG (638)</button>
+                    <button type="button" class="filter-chip" data-brand="newbalance" onclick="filterCatalog('newbalance', this)">New Balance (1 340)</button>
+                    <button type="button" class="filter-chip" data-brand="ugg" onclick="filterCatalog('ugg', this)">UGG (617)</button>
                     <button type="button" class="filter-chip" data-brand="adidas" onclick="filterCatalog('adidas', this)">Adidas (500)</button>
-                    <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (408)</button>
+                    <button type="button" class="filter-chip" data-brand="asics" onclick="filterCatalog('asics', this)">Asics (407)</button>
+                    <button type="button" class="filter-chip" data-brand="louisvuitton" onclick="filterCatalog('louisvuitton', this)">Louis Vuitton (196)</button>
+                    <button type="button" class="filter-chip" data-brand="chanel" onclick="filterCatalog('chanel', this)">Chanel (162)</button>
                     <button type="button" class="filter-chip" data-brand="jordan" onclick="filterCatalog('jordan', this)">Air Jordan (145)</button>
-                    <button type="button" class="filter-chip" data-brand="dior" onclick="filterCatalog('dior', this)">Dior (125)</button>
-                    <button type="button" class="filter-chip" data-brand="balenciaga" onclick="filterCatalog('balenciaga', this)">Balenciaga (118)</button>
-                    <button type="button" class="filter-chip" data-brand="chanel" onclick="filterCatalog('chanel', this)">Chanel (118)</button>
-                    <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (99)</button>
+                    <button type="button" class="filter-chip" data-brand="dior" onclick="filterCatalog('dior', this)">Dior (142)</button>
+                    <button type="button" class="filter-chip" data-brand="balenciaga" onclick="filterCatalog('balenciaga', this)">Balenciaga (122)</button>
+                    <button type="button" class="filter-chip" data-brand="salomon" onclick="filterCatalog('salomon', this)">Salomon (106)</button>
                     <button type="button" class="filter-chip" data-brand="oncloud" onclick="filterCatalog('oncloud', this)">On Cloud (87)</button>
-                    <button type="button" class="filter-chip" data-brand="hermes" onclick="filterCatalog('hermes', this)">Hermes (71)</button>
-                    <button type="button" class="filter-chip" data-brand="louisvuitton" onclick="filterCatalog('louisvuitton', this)">Louis Vuitton (70)</button>
-                    <button type="button" class="filter-chip" data-brand="coach" onclick="filterCatalog('coach', this)">Coach (69)</button>
+                    <button type="button" class="filter-chip" data-brand="coach" onclick="filterCatalog('coach', this)">Coach (86)</button>
+                    <button type="button" class="filter-chip" data-brand="hermes" onclick="filterCatalog('hermes', this)">Hermes (85)</button>
                     <button type="button" class="filter-chip" data-brand="premiata" onclick="filterCatalog('premiata', this)">Premiata (66)</button>
                 </div>
                 <div class="catalog-sort-bar">
@@ -216,11 +233,55 @@
                     <div class="sort-select-wrapper">
                         <select id="catalogSortSelect" class="sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
                             <option value="popular">За популярністю</option>
+                            <option value="discount">Найбільша знижка 🔥</option>
                             <option value="price-asc">Від дешевих до дорогих</option>
                             <option value="price-desc">Від дорогих до дешевих</option>
                             <option value="newest">Новинки спочатку</option>
                             <option value="name-asc">За назвою (А-Я)</option>
                         </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Secondary Filters: Sizes & Price Ranges -->
+            <div class="catalog-filters-secondary">
+                <div class="filter-row-block">
+                    <div class="filter-row-header">
+                        <span class="filter-row-title">👟 Розмір в наявності:</span>
+                        <span id="activeSizeLabel" class="active-filter-indicator">Всі розміри</span>
+                    </div>
+                    <div class="size-filter-chips-scroll" id="catalogSizeFilterChips">
+                        <button type="button" class="size-filter-btn active" data-size="all" onclick="filterCatalogBySize('all', this)">Всі</button>
+                        <button type="button" class="size-filter-btn" data-size="36" onclick="filterCatalogBySize('36', this)">36</button>
+                        <button type="button" class="size-filter-btn" data-size="37" onclick="filterCatalogBySize('37', this)">37</button>
+                        <button type="button" class="size-filter-btn" data-size="38" onclick="filterCatalogBySize('38', this)">38</button>
+                        <button type="button" class="size-filter-btn" data-size="39" onclick="filterCatalogBySize('39', this)">39</button>
+                        <button type="button" class="size-filter-btn" data-size="40" onclick="filterCatalogBySize('40', this)">40</button>
+                        <button type="button" class="size-filter-btn" data-size="41" onclick="filterCatalogBySize('41', this)">41</button>
+                        <button type="button" class="size-filter-btn" data-size="42" onclick="filterCatalogBySize('42', this)">42</button>
+                        <button type="button" class="size-filter-btn" data-size="43" onclick="filterCatalogBySize('43', this)">43</button>
+                        <button type="button" class="size-filter-btn" data-size="44" onclick="filterCatalogBySize('44', this)">44</button>
+                        <button type="button" class="size-filter-btn" data-size="45" onclick="filterCatalogBySize('45', this)">45</button>
+                        <button type="button" class="size-filter-btn" data-size="46" onclick="filterCatalogBySize('46', this)">46</button>
+                        <button type="button" class="size-filter-btn" data-size="S" onclick="filterCatalogBySize('S', this)">S</button>
+                        <button type="button" class="size-filter-btn" data-size="M" onclick="filterCatalogBySize('M', this)">M</button>
+                        <button type="button" class="size-filter-btn" data-size="L" onclick="filterCatalogBySize('L', this)">L</button>
+                        <button type="button" class="size-filter-btn" data-size="XL" onclick="filterCatalogBySize('XL', this)">XL</button>
+                        <button type="button" class="size-filter-btn" data-size="XXL" onclick="filterCatalogBySize('XXL', this)">XXL</button>
+                    </div>
+                </div>
+
+                <div class="filter-row-block">
+                    <div class="filter-row-header">
+                        <span class="filter-row-title">💰 Діапазон цін:</span>
+                        <span id="activePriceLabel" class="active-filter-indicator">Всі</span>
+                    </div>
+                    <div class="price-filter-chips">
+                        <button type="button" class="price-filter-chip active" data-price="all" onclick="filterCatalogByPrice('all', this)">Всі ціни</button>
+                        <button type="button" class="price-filter-chip" data-price="under-1500" onclick="filterCatalogByPrice('under-1500', this)">До 1 500 грн</button>
+                        <button type="button" class="price-filter-chip" data-price="1500-2500" onclick="filterCatalogByPrice('1500-2500', this)">1 500 – 2 500 грн</button>
+                        <button type="button" class="price-filter-chip" data-price="2500-3500" onclick="filterCatalogByPrice('2500-3500', this)">2 500 – 3 500 грн</button>
+                        <button type="button" class="price-filter-chip" data-price="above-3500" onclick="filterCatalogByPrice('above-3500', this)">Від 3 500 грн</button>
                     </div>
                 </div>
             </div>

@@ -12,6 +12,7 @@ import urllib.request
 import tempfile
 import shutil
 import xml.etree.ElementTree as ET
+from xml.sax.saxutils import escape
 from collections import defaultdict, Counter
 
 EXPORT_FILE = 'easydrop_export.xml'
@@ -44,39 +45,37 @@ def download_export_feed():
             if '<?xml' not in header and '<yml_catalog' not in header:
                 raise ValueError("Downloaded file is not valid XML")
                 
-        os.replace(temp_path, EXPORT_FILE)
-        print(f"Successfully downloaded and updated {EXPORT_FILE} ({file_size} bytes)")
-        return True
+        if os.path.exists(EXPORT_FILE):
+            os.replace(temp_path, EXPORT_FILE)
+        else:
+            os.rename(temp_path, EXPORT_FILE)
+        print(f"Successfully downloaded {file_size} bytes to {EXPORT_FILE}")
     except Exception as e:
-        print(f"Warning: Failed to download feed ({e}). Falling back to existing {EXPORT_FILE} if available.")
         if os.path.exists(temp_path):
-            try:
-                os.remove(temp_path)
-            except OSError:
-                pass
+            os.remove(temp_path)
+        print(f"Download failed: {e}")
         if not os.path.exists(EXPORT_FILE):
-            raise
-        return False
+            sys.exit(1)
 
 def clean_text(s):
     if not s:
-        return ''
-    s = re.sub(r'\s+', ' ', s)
-    return s.strip()
+        return ""
+    clean = re.sub(r'<[^>]+>', ' ', s)
+    clean = re.sub(r'\s+', ' ', clean).strip()
+    return clean
 
 def sort_sizes(sizes):
-    # Try numeric sorting if all are numbers
+    if not sizes:
+        return []
+    size_order = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', '4XL', '5XL']
     num_sizes = []
     text_sizes = []
-    size_order = ['XXS', 'XS', 'S', 'M', 'L', 'XL', '2XL', 'XXL', '3XL', 'XXXL', '4XL', '5XL']
-    
     for s in sizes:
-        s_clean = s.strip().upper()
-        # Check if float/int
-        try:
-            val = float(s_clean.replace(',', '.'))
+        m = re.match(r'^(\d+(?:[.,]\d+)?)$', s)
+        if m:
+            val = float(m.group(1).replace(',', '.'))
             num_sizes.append((val, s))
-        except ValueError:
+        else:
             text_sizes.append(s)
             
     if num_sizes and not text_sizes:
@@ -94,11 +93,12 @@ def sort_sizes(sizes):
         
     return sizes
 
-# Precise categorization regexes
+# Precise 4-category classification regexes
 BAG_KEYWORDS = re.compile(
     r'сумк|рюкзак|бананка|месенджер|портмоне|гаманець|кошелек|клатч|шопер|шоппер|валіза|чемодан|холдер|баул|'
     r'\bbag\b|\bbags\b|\bbackpack\b|\bwallet\b|\btote\b|\bhandbag\b|\bcrossbody\b|\bкейс\b|'
-    r'\bочки\b|окуляр|пасок|\bремінь\b|\bремень\b|браслет|годинник|кардхолдер',
+    r'\bочки\b|окуляр|пасок|\bремінь\b|\bремень\b|браслет|годинник|кардхолдер|jw pei|chiquito|bambino|book tote|'
+    r'⭐️\s*PREMIUM',
     re.I
 )
 
@@ -117,10 +117,10 @@ WINTER_KEYWORDS = re.compile(
 KNOWN_BRANDS = [
     ('nike', 'Nike', [r'nike', r'dunk', r'air max', r'p-6000', r'force 1', r'shox', r'initiator', r'nocta', r'vomero', r'v2k']),
     ('jordan', 'Air Jordan', [r'jordan']),
-    ('newbalance', 'New Balance', [r'new balance', r'\bnb\b', r'9060', r'1906', r'530', r'2002', r'725', r'550', r'574', r'990']),
-    ('adidas', 'Adidas', [r'adidas', r'yeezy', r'niteball', r'samba', r'spezial', r'campus', r'gazelle', r'forum', r'adi 2000']),
+    ('newbalance', 'New Balance', [r'new balance', r'\bnb\b', r'9060', r'1906', r'530', r'2002', r'725', r'550', r'574', r'990', r'992']),
+    ('adidas', 'Adidas', [r'adidas', r'yeezy', r'niteball', r'samba', r'spezial', r'campus', r'gazelle', r'forum', r'adi 2000', r'astir', r'retropy']),
     ('asics', 'Asics', [r'asics', r'onitsuka']),
-    ('salomon', 'Salomon', [r'salomon']),
+    ('salomon', 'Salomon', [r'salomon', r'solomon', r'xt-6', r'xt-4', r'acs pro']),
     ('ugg', 'UGG', [r'\bugg\b', r'угг']),
     ('puma', 'Puma', [r'puma']),
     ('vans', 'Vans', [r'\bvans\b']),
@@ -139,7 +139,7 @@ KNOWN_BRANDS = [
     ('diesel', 'Diesel', [r'diesel']),
     ('saintlaurent', 'Yves Saint Laurent', [r'saint laurent', r'ysl']),
     ('michaelkors', 'Michael Kors', [r'michael kors']),
-    ('lacoste', 'Lacoste', [r'lacoste']),
+    ('lacoste', 'Lacoste', [r'lacoste', r'lactose']),
     ('carhartt', 'Carhartt', [r'carhartt']),
     ('stussy', 'Stussy', [r'stussy']),
     ('underarmour', 'Under Armour', [r'under armour']),
@@ -148,8 +148,8 @@ KNOWN_BRANDS = [
     ('miumiu', 'Miu Miu', [r'miu miu']),
     ('mcqueen', 'Alexander McQueen', [r'mcqueen']),
     ('hugo', 'Hugo Boss', [r'hugo', r'boss']),
-    ('premiata', 'Premiata', [r'premiata']),
-    ('oncloud', 'On Cloud', [r'\bon\b.*cloud', r'cloudmonster', r'cloudtilt', r'cloudsurfer', r'on running']),
+    ('premiata', 'Premiata', [r'premiata', r'moerun']),
+    ('oncloud', 'On Cloud', [r'\bon\b.*cloud', r'cloudmonster', r'cloudtilt', r'cloudsurfer', r'cloudhorizon', r'on running']),
     ('hermes', 'Hermes', [r'hermes', r'hermès']),
     ('offwhite', 'Off-White', [r'off-white', r'off white']),
     ('goldengoose', 'Golden Goose', [r'golden goose']),
@@ -169,9 +169,16 @@ KNOWN_BRANDS = [
     ('palace', 'Palace', [r'palace']),
     ('birkenstock', 'Birkenstock', [r'birkenstock']),
     ('ralphlauren', 'Ralph Lauren', [r'ralph lauren', r'polo ralph']),
+    ('columbia', 'Columbia', [r'columbia', r'montrail']),
+    ('merrell', 'Merrell', [r'merrell']),
+    ('guess', 'Guess', [r'guess']),
+    ('fila', 'Fila', [r'fila']),
+    ('cartier', 'Cartier', [r'cartier']),
+    ('chloe', 'Chloé', [r'chloe', r'chloé']),
+    ('armani', 'Armani', [r'armani', r'ea7']),
 ]
 
-def determine_category(name, cat_name, desc):
+def determine_category(name, cat_name, desc, params_str=""):
     title_cat = f"{name} {cat_name}"
     
     # Exception: New Balance 2002R Pouch is a sneaker
@@ -182,10 +189,15 @@ def determine_category(name, cat_name, desc):
     m = re.search(r'Опис\s*:\s*([^<\n\r]+)', desc)
     if m:
         desc_start = m.group(1).strip()[:150]
-        
-    # 1. Bags & Accessories
-    if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч)', desc_start, re.I)):
+
+    # Handbag/Belt dimensions check: e.g. "34 x 26 x 13", "25x17x9", "100 х 2,5"
+    if params_str and re.search(r'\d+\s*[xх]\s*\d+', params_str) and not any(k in title_cat.lower() for k in ['кросівки', 'кеди', 'взуття', 'костюм']):
         return 'bags', 'Сумки & Аксесуари', '🎒'
+        
+    # 1. Bags & Accessories (unless UGG)
+    if 'ugg' not in title_cat.lower():
+        if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч)', desc_start, re.I)):
+            return 'bags', 'Сумки & Аксесуари', '🎒'
         
     # 2. Clothing & Outerwear
     if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
@@ -205,59 +217,338 @@ def determine_brand(name, cat_name):
             return slug, title
     return 'other', 'Інші бренди'
 
-def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name):
-    title = name.strip()
-    # Strip leading emojis / stars / symbols
-    title = re.sub(r'^[⭐️★❄️❗️⚡️🔥✨✔️✦•\s!\(\)\-]+', '', title).strip()
+KNOWN_NUMERIC_MODELS = {
+    '1906', '2002', '9060', '550', '574', '530', '990', '991', '992', '993', 
+    '725', '610', '860', '350', '500', '700', '1460', '327', '452', '410'
+}
+
+COLOR_WORDS = {
+    'white', 'black', 'grey', 'gray', 'beige', 'brown', 'green', 'blue', 'pink', 
+    'red', 'orange', 'yellow', 'purple', 'olive', 'khaki', 'silver', 'gold', 
+    'classic', 'oreo', 'zebra', 'blush', 'salt', 'cinder', 'bone', 'flax', 'clay', 'ash', 'mono'
+}
+
+MODEL_MAP = {
+    '9060': 'New Balance 9060',
+    '1906': 'New Balance 1906R',
+    '1906r': 'New Balance 1906R',
+    '2002': 'New Balance 2002R',
+    '2002r': 'New Balance 2002R',
+    '530': 'New Balance 530',
+    '550': 'New Balance 550',
+    '574': 'New Balance 574',
+    '725': 'New Balance 725',
+    '990': 'New Balance 990',
+    '991': 'New Balance 991',
+    '992': 'New Balance 992',
+    '993': 'New Balance 993',
+    '610': 'New Balance 610',
+    '860': 'New Balance 860 v2',
+    '860 v2': 'New Balance 860 v2',
+    '350': 'Adidas Yeezy Boost 350',
+    '500': 'Adidas Yeezy 500',
+    '700': 'Adidas Yeezy Boost 700',
+    'v2k': 'Nike V2K Run',
+    'p-6000': 'Nike P-6000',
+    'm2k': 'Nike M2K Tekno',
+    'sb': 'Nike SB Dunk',
+    'initiator': 'Nike Initiator',
+    'zoom': 'Nike Air Zoom',
+    'zoomx': 'Nike ZoomX',
+    'superstar': 'Adidas Superstar',
+    'samba': 'Adidas Samba',
+    'spezial': 'Adidas Handball Spezial',
+    'gazelle': 'Adidas Gazelle',
+    'niteball': 'Adidas Niteball',
+    'campus': 'Adidas Campus',
+    'astir': 'Adidas Astir',
+    'retropy': 'Adidas Retropy',
+    'xt-6': 'Salomon XT-6',
+    'xt-4': 'Salomon XT-4',
+    'gel-sonoma': 'Asics Gel-Sonoma',
+    'gel-kahana': 'Asics Gel-Kahana',
+    'gel-kayano': 'Asics Gel-Kayano',
+    'gel-nyc': 'Asics Gel-NYC',
+    'crocs': 'Сабо Crocs',
+    'shield': 'Nike Pegasus Shield',
+    'fast x': 'Nike Fast X',
+    'synth': 'Adidas Yeezy Boost 350 V2 Synth',
+    'asriel': 'Adidas Yeezy Boost 350 V2 Asriel',
+    'moerun': 'Premiata Moerun',
+    'cloudhorizon': 'On Cloud Cloudhorizon',
+    'track': 'Balenciaga Track',
+}
+
+RU_TRANSLATIONS = [
+    (r'\bзимний с начесом\b', 'зимовий на флісі'),
+    (r'\bзимний\b', 'зимовий'),
+    (r'\bзимняя\b', 'зимова'),
+    (r'\bзимние\b', 'зимові'),
+    (r'\bфлисовый\b', 'флісовий'),
+    (r'\bфлисовые\b', 'флісові'),
+    (r'\bспортивный\b', 'спортивний'),
+    (r'\bспортивные\b', 'спортивні'),
+    (r'\bчерный\b', 'чорний'),
+    (r'\bчерные\b', 'чорні'),
+    (r'\bчерная\b', 'чорна'),
+    (r'\bсерый\b', 'сірий'),
+    (r'\bсерые\b', 'сірі'),
+    (r'\bсерая\b', 'сіра'),
+    (r'\bкрасный\b', 'червоний'),
+    (r'\bкрасные\b', 'червоні'),
+    (r'\bкрасная\b', 'червона'),
+    (r'\bжелтый\b', 'жовтий'),
+    (r'\bжелтые\b', 'жовті'),
+    (r'\bжелтая\b', 'жовта'),
+    (r'\bголубой\b', 'блакитний'),
+    (r'\bголубые\b', 'блакитні'),
+    (r'\bбежевый\b', 'бежевий'),
+    (r'\bбежевые\b', 'бежеві'),
+    (r'\bбелый\b', 'білий'),
+    (r'\bбелые\b', 'білі'),
+    (r'\bбелая\b', 'біла'),
+    (r'\bзеленый\b', 'зелений'),
+    (r'\bзеленые\b', 'зелені'),
+    (r'\bфиолетовый\b', 'фіолетовий'),
+    (r'\bкофейный\b', 'кавовий'),
+    (r'\bпесочный\b', 'пісочний'),
+    (r'\bкоричневый\b', 'коричневий'),
+    (r'\bкоричневые\b', 'коричневі'),
+    (r'\bкожанный\b', 'шкіряний'),
+    (r'\bкожаный\b', 'шкіряний'),
+    (r'\bчиносы\b', 'штани чинос'),
+    (r'\bшорты\b', 'шорти'),
+    (r'\bэко\b', 'еко'),
+    (r'разноцветная/лошадь', 'Різнокольорова (Кінь)'),
+    (r'красный/волк', 'Червоний (Вовк)'),
+    (r'красный/гризли', 'Червоний (Грізлі)'),
+    (r'желтый/волк', 'Жовтий (Вовк)'),
+    (r'желтый/питбуль', 'Жовтий (Пітбуль)'),
+    (r'красный/питбуль', 'Червоний (Пітбуль)'),
+]
+
+EMOJI_PATTERN = re.compile(
+    r'[\U00010000-\U0010ffff\u2600-\u27bf\u2b50\u2b55\u23cf\u23e9-\u23f3\u25aa-\u25fe\ufe00-\ufe0f]+',
+    re.UNICODE
+)
+
+def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc="", params_str=""):
+    t = name.strip()
     
-    # Clean SALE markers
-    title = re.sub(r'^(?:!*SALE!*|\(SALE\))\s*', '', title, flags=re.I).strip()
-    title = re.sub(r'\s+(?:!*SALE!*|\(SALE\))$', '', title, flags=re.I).strip()
-    
-    # Clean double quotes
-    title = title.replace('\"\"', '\"').replace("''", "'")
-    
-    # Translate / clean Russian supplier prefixes
-    title = re.sub(r'^МУЖСКОЕ БЕЛЬЕ\s*', 'Чоловіча білизна ', title, flags=re.I)
-    title = re.sub(r'^ЖЕНСКОЕ БЕЛЬЕ\s*', 'Жіноча білизна ', title, flags=re.I)
-    title = re.sub(r'^МУЖСКИЕ\s*', 'Чоловічі ', title, flags=re.I)
-    title = re.sub(r'^ЖЕНСКИЕ\s*', 'Жіночі ', title, flags=re.I)
-    title = re.sub(r'^СВИТШОТ\s*', 'Світшот ', title, flags=re.I)
-    title = re.sub(r'^ФУТБОЛКА\s*', 'Футболка ', title, flags=re.I)
-    title = re.sub(r'^ШТАНЫ\s*', 'Штани ', title, flags=re.I)
-    title = re.sub(r'^КУРТКА\s*', 'Куртка ', title, flags=re.I)
-    title = re.sub(r'^ПУХОВИК\s*', 'Пуховик ', title, flags=re.I)
-    title = re.sub(r'^ХУДИ\s*', 'Худі ', title, flags=re.I)
-    title = re.sub(r'^ТОЛСТОВКА\s*', 'Толстовка ', title, flags=re.I)
-    title = re.sub(r'^КОСТЮМ\s*', 'Костюм ', title, flags=re.I)
-    
-    # Strip category suffixes in brackets like (взуття), (одяг)
-    title = re.sub(r'\s*\((?:взуття|одяг|аксесуари|взуття.*?)\)', '', title, flags=re.I).strip()
-    
-    # Special fix for single word "Track" under Balenciaga
-    if title.lower() == 'track' and brand_slug == 'balenciaga':
-        title = 'Balenciaga Track'
+    # 1. Junk rejection: omit completely from site
+    if t in ['-', '.', 'Test', 'test', 'Не бренд', 'не бренд']:
+        return None
+    if re.match(r'^(?:LOT:\s*\d+|Cod:\s*\d+)', t, re.I):
+        return None
+    if any(w in t.lower() or w in desc.lower() for w in ['(з дефектом)', 'дефект', 'брак', 'розпаровка', 'уцінка брак']):
+        return None
         
-    # Enrich cryptic names
-    if title.lower() in [brand_slug, brand_title.lower()]:
-        if cat_slug == 'clothing':
-            title = f'Спортивний костюм {brand_title}'
-        elif cat_slug == 'bags':
-            title = f'Сумка {brand_title}'
-        elif cat_slug == 'winter':
-            title = f'Черевики {brand_title}'
+    # 2. Strip emojis across all unicode blocks and variation selectors
+    t = EMOJI_PATTERN.sub('', t).strip()
+    t = re.sub(r'^[⭐️★❄️❗️⚡️🔥✨✔️✦•!\(\)\-\s]+', '', t).strip()
+    t = re.sub(r'[⭐️★❄️❗️⚡️🔥✨✔️✦•!\(\)\-\s]+$', '', t).strip()
+    
+    # 3. Strip supplier SALE / discount tags
+    t = re.sub(r'\s*\((?:распродажа|розпродаж|скидка|уценка|уцінка|sale)\)?', '', t, flags=re.I).strip()
+    t = re.sub(r'^(?:!*SALE!*|\(SALE\))\s*', '', t, flags=re.I).strip()
+    t = re.sub(r'\s+(?:!*SALE!*|\(SALE\))$', '', t, flags=re.I).strip()
+    
+    # Clean quotes
+    t = t.replace('\"\"', '\"').replace("''", "'")
+    
+    # 4. Translate / clean Russian supplier prefixes
+    t = re.sub(r'^МУЖСКОЕ БЕЛЬЕ\s*', 'Чоловіча білизна ', t, flags=re.I)
+    t = re.sub(r'^ЖЕНСКОЕ БЕЛЬЕ\s*', 'Жіноча білизна ', t, flags=re.I)
+    t = re.sub(r'^МУЖСКИЕ\s*', 'Чоловічі ', t, flags=re.I)
+    t = re.sub(r'^ЖЕНСКИЕ\s*', 'Жіночі ', t, flags=re.I)
+    t = re.sub(r'^СВИТШОТ\s*', 'Світшот ', t, flags=re.I)
+    t = re.sub(r'^ФУТБОЛКА\s*', 'Футболка ', t, flags=re.I)
+    t = re.sub(r'^ШТАНЫ\s*', 'Штани ', t, flags=re.I)
+    t = re.sub(r'^КУРТКА\s*', 'Куртка ', t, flags=re.I)
+    t = re.sub(r'^ПУХОВИК\s*', 'Пуховик ', t, flags=re.I)
+    t = re.sub(r'^ХУДИ\s*', 'Худі ', t, flags=re.I)
+    t = re.sub(r'^ТОЛСТОВКА\s*', 'Толстовка ', t, flags=re.I)
+    t = re.sub(r'^КОСТЮМ\s*', 'Костюм ', t, flags=re.I)
+    t = re.sub(r'^ДЖИНСЫ\s*', 'Джинси ', t, flags=re.I)
+    t = re.sub(r'^ДЖИНСИ\s*', 'Джинси ', t, flags=re.I)
+    t = re.sub(r'^КЕПКА\s*', 'Кепка ', t, flags=re.I)
+    
+    # Apply Russian words translations
+    for pat, rep in RU_TRANSLATIONS:
+        t = re.sub(pat, rep, t, flags=re.I)
+
+    t = re.sub(r'\(?\s*\bмех\b\s*\)?', ' (хутро)', t, flags=re.I)
+    t = re.sub(r'\(?\s*\b(?:утепленные|утеплені|термо)\b\s*\)?', ' (термо)', t, flags=re.I)
+
+    # Special Dr Martens 'без меха' fix
+    if brand_slug == 'drmartens' and 'без меха' in name.lower():
+        if 'лак' in name.lower():
+            t = 'Dr. Martens 1460 (лакові)'
+        elif 'змейк' in name.lower() or 'змійк' in name.lower():
+            t = 'Dr. Martens 1460 із змійкою'
         else:
-            title = f'Кросівки {brand_title}'
-    elif re.match(r'^\d{3,4}[a-zA-Z]?$', title) and brand_slug in ['newbalance', 'adidas', 'nike', 'asics']:
-        title = f'{brand_title} {title}'
-    elif len(title) <= 6 and not any(k in title.lower() for k in ['ugg', 'dunk', 'max', 'air']):
-        if brand_slug != 'other':
-            title = f'{brand_title} {title}'
-        elif 'білизн' in cat_name.lower():
-            title = f'Комплект білизни {title}'
+            t = 'Dr. Martens 1460 (демісезонні)'
             
-    title = re.sub(r'\s+', ' ', title).strip()
-    return title
+    # 5. Strip category suffixes in brackets
+    t = re.sub(r'\s*\((?:взуття|одяг|аксесуари|взуття.*?)\)', '', t, flags=re.I).strip()
+    
+    # 6. Strip leading warehouse codes:
+    # 6a. Leading zero articles like 0547, 0001, 0097, 0366
+    m_zero = re.match(r'^0\d{3,4}\s+(.+)$', t)
+    if m_zero:
+        t = m_zero.group(1).strip()
+    # 6b. Warehouse codes like K0044, F0003
+    m_kf = re.match(r'^[KF]\d{4}\s+(.+)$', t)
+    if m_kf:
+        t = m_kf.group(1).strip()
+    # 6c. 4-digit supplier articles when followed by a brand or model name
+    m_art = re.match(r'^(\d{4})\s+(.+)$', t)
+    if m_art:
+        code, rest = m_art.groups()
+        if code not in KNOWN_NUMERIC_MODELS:
+            if re.match(r'^[A-Z][a-z]+', rest):
+                t = rest.strip()
+                
+    # 7. Check direct model map
+    low = t.lower()
+    if low in MODEL_MAP:
+        t = MODEL_MAP[low]
+    elif low.startswith(('9060 ', '1906 ', '2002 ', '530 ', '550 ', '574 ', '725 ', '990 ', '991 ', '992 ', '993 ', '610 ')):
+        if 'new balance' not in low:
+            t = f'New Balance {t}'
+    elif low.startswith(('350 ', '500 ', '700 ')):
+        if 'yeezy' not in low and 'adidas' not in low:
+            t = f'Adidas Yeezy {t}'
+    elif low.startswith('1460 '):
+        if 'martens' not in low:
+            t = f'Dr. Martens {t}'
+            
+    # 8. Handle code-only names (V82, WJ153, SS28, F34, H042, SL60, NTR495, NB299, VN02)
+    if re.match(r'^V\d{2,3}$', t, re.I):
+        t = f'Вітровка {t.upper()}'
+    elif re.match(r'^WJ\d{2,4}$', t, re.I):
+        t = f'Куртка зимова {t.upper()}'
+    elif re.match(r'^SS\d{2,4}$', t, re.I):
+        t = f'Спортивний костюм {t.upper()}'
+    elif re.match(r'^F\d{2,4}$', t, re.I):
+        t = f'Худі {t.upper()}'
+    elif re.match(r'^H\d{3,4}$', t, re.I):
+        t = f'Сланці {t.upper()}'
+    elif re.match(r'^SL\d{2,4}$', t, re.I):
+        t = f'Зимові черевики {t.upper()}'
+    elif re.match(r'^(?:NTR|NB|VN|CR|YE)\d{2,4}$', t, re.I):
+        if brand_slug != 'other':
+            if cat_slug == 'winter':
+                t = f'Черевики {brand_title} {t.upper()}'
+            elif cat_slug == 'clothing':
+                t = f'Одяг {brand_title} {t.upper()}'
+            elif cat_slug == 'bags':
+                t = f'Сумка {brand_title} {t.upper()}'
+            else:
+                t = f'Кросівки {brand_title} {t.upper()}'
+        else:
+            t = f'Кросівки {t.upper()}'
+    elif re.match(r'^[A-Z]{2}\d{4}-\d{3}$', t):
+        t = f'Спортивний одяг Nike {t}'
+    elif re.match(r'^[A-Z]{1,2}\d{4}$', t) and cat_slug == 'clothing':
+        t = f'Спортивний одяг {brand_title if brand_slug != "other" else ""} {t}'.strip()
+
+    # 9. Color-only or truncated words (e.g. 'White', 'Black', 'Grey', 'Classic')
+    if t.lower() in COLOR_WORDS:
+        clean_cname = EMOJI_PATTERN.sub('', cat_name)
+        clean_cname = re.sub(r'\s*\((?:взуття|одяг|аксесуари)\)', '', clean_cname, flags=re.I)
+        parts = [p.strip(' .\t\n\r\xa0') for p in clean_cname.split('|')]
+        parts = [p for p in parts if p]
+        if parts:
+            extracted_model = ' '.join(parts)
+            if t.lower() not in extracted_model.lower():
+                t = f'{extracted_model} {t.capitalize()}'
+            else:
+                t = extracted_model
+
+    # 10. Single brand name titles (e.g. 'Nike', 'Puma', 'Lacoste', 'Balenciaga')
+    if t.lower() in [brand_slug, brand_title.lower()] or t.lower() in ['nike', 'adidas', 'puma', 'lacoste', 'lactose', 'gucci', 'prada', 'dior', 'chanel', 'balenciaga', 'reebok', 'under armour', 'guess', 'fila', 'cartier', 'columbia', 'merrell', 'chloe']:
+        actual_brand = brand_title if brand_slug != 'other' else t.title()
+        if cat_slug == 'clothing':
+            if any(k in cat_name.lower() for k in ['костюм', 'спорт']):
+                t = f'Спортивний костюм {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['куртк', 'пуховик', 'жилет']):
+                t = f'Куртка {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['штани', 'штаны', 'джинс']):
+                t = f'Спортивні штани {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['футболк']):
+                t = f'Футболка {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['білизн', 'труси']):
+                t = f'Чоловіча білизна {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['худі', 'худи', 'світшот']):
+                t = f'Худі {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['кепк', 'панам', 'шапк']):
+                t = f'Головний убір {actual_brand}'
+            else:
+                t = f'Одяг {actual_brand}'
+        elif cat_slug == 'bags':
+            if 'окуляр' in cat_name.lower():
+                t = f'Окуляри {actual_brand}'
+            else:
+                t = f'Сумка {actual_brand}'
+        elif cat_slug == 'winter':
+            t = f'Зимове взуття {actual_brand}'
+        else:
+            t = f'Кросівки {actual_brand}'
+
+    # 11. Special underwear brand enrichments (e.g. CK 048, ASORTI, FL 059, MS 058)
+    if 'білизн' in cat_name.lower():
+        if not t.lower().startswith(('комплект', 'чоловіча', 'жіноча', 'труси')):
+            if brand_slug != 'other':
+                t = f'Комплект білизни {brand_title} {t}'
+            else:
+                t = f'Комплект білизни {t}'
+
+    # 12. Single generic words expansion
+    if t.lower() == 'кепка':
+        t = 'Кепка бейсболка'
+    elif t.lower() == 'лофери':
+        t = 'Чоловічі лофери'
+    elif t.lower() == 'джинси':
+        t = 'Джинси класичні'
+    elif t.lower() == 'polo':
+        t = 'Футболка поло'
+    elif t.lower() == 'homme':
+        t = 'Футболка Homme'
+
+    # 13. Bags naming cleanup: prepend "Сумка" if it's a bag without product type
+    if cat_slug == 'bags':
+        if not any(t.lower().startswith(p) for p in ['сумка', 'рюкзак', 'бананка', 'гаманець', 'ремінь', 'окуляри', 'браслет', 'годинник', 'клатч', 'шопер']):
+            t = f'Сумка {t}'
+
+    # 14. Prepend brand if known and missing from title
+    if brand_slug != 'other' and brand_title.lower() not in t.lower() and brand_slug not in t.lower():
+        if brand_slug == 'jordan' and 'jordan' in t.lower():
+            pass
+        elif brand_slug == 'adidas' and 'yeezy' in t.lower():
+            pass
+        elif brand_slug == 'drmartens' and 'martens' in t.lower():
+            pass
+        elif any(t.lower().startswith(p) for p in ['сумка', 'спортивний костюм', 'куртка', 'зимове взуття', 'кросівки', 'худі', 'кепка', 'шапка', 'чоловіча білизна', 'жіноча білизна', 'окуляри', 'ремінь']):
+            pass
+        else:
+            t = f'{brand_title} {t}'
+            
+    # 15. If title is very short (<= 3 chars) or bare numbers
+    if re.match(r'^\d{3,4}[a-zA-Z]?$', t):
+        t = f'{brand_title} {t}'
+    elif len(t) <= 4 and brand_slug != 'other' and brand_title.lower() not in t.lower():
+        t = f'{brand_title} {t}'
+        
+    # 16. Strip unclosed parentheses and clean double brand words
+    if t.count('(') > t.count(')'):
+        t = re.sub(r'\s*\([^\)]*$', '', t).strip()
+    t = re.sub(r'\bBottega Veneta Veneta\b', 'Bottega Veneta', t, flags=re.I)
+    t = re.sub(r'\bNew Balance New Balane\b', 'New Balance', t, flags=re.I)
+    t = re.sub(r'\bNew Balance New Balance\b', 'New Balance', t, flags=re.I)
+
+    t = re.sub(r'\s+', ' ', t).strip(' -.,')
+    return t
 
 def main():
     if '--download' in sys.argv or not os.path.exists(EXPORT_FILE):
@@ -299,10 +590,6 @@ def main():
         cname = cat_names.get(cid, '')
         desc = first.findtext('description') or ''
         
-        # Exclude defective / broken supplier items
-        if any(w in name.lower() or w in desc.lower() for w in ['(з дефектом)', 'дефект', 'брак', 'розпаровка', 'уцінка брак']):
-            continue
-        
         # Regex specs
         art_m = re.search(r'Артикул\s*:\s*([^<]+)', desc)
         mat_m = re.search(r'Матеріал\s*:\s*([^<]+)', desc)
@@ -327,7 +614,6 @@ def main():
         # Available sizes
         sizes = []
         for it in items:
-            # Check availability
             avail = it.attrib.get('available') == 'true' or it.findtext('available') == 'true'
             if not avail:
                 continue
@@ -350,12 +636,17 @@ def main():
             continue
 
         sorted_sizes = sort_sizes(sizes)
+        params_str = ' '.join(clean_text(p.text) for it in items for p in it.findall('param') if p.text)
         
-        cat_slug, cat_title, cat_icon = determine_category(name, cname, desc)
+        cat_slug, cat_title, cat_icon = determine_category(name, cname, desc, params_str)
         brand_slug, brand_title = determine_brand(name, cname)
 
+        clean_name = clean_product_title(name, cat_slug, brand_slug, brand_title, cname, desc, params_str)
+        if not clean_name:
+            continue
+
         # Rule: if sneakers has less than 3 sizes in stock, do not add to site
-        is_sneaker = (cat_slug == 'shoes') or any(k in name.lower() for k in ['кросівки', 'кеди', 'sneakers'])
+        is_sneaker = (cat_slug == 'shoes') or any(k in clean_name.lower() for k in ['кросівки', 'кеди', 'sneakers'])
         if is_sneaker and len(sorted_sizes) < 3:
             continue
         
@@ -374,7 +665,6 @@ def main():
         elif brand_slug in ['nike', 'jordan', 'newbalance', 'adidas']:
             badge = "🔥 Хіт продажів"
             
-        clean_name = clean_product_title(name, cat_slug, brand_slug, brand_title, cname)
         products.append({
             'id': str(gid),
             'name': clean_name,
@@ -420,13 +710,15 @@ def main():
                 'count': b_count
             }
             for b_slug, b_count in brand_counts.most_common()
-            if b_slug != 'other' and b_count > 0
-        ] + ([{'slug': 'other', 'name': 'Інші бренди', 'count': brand_counts['other']}] if brand_counts['other'] > 0 else []))()
+            if b_count > 0 and b_slug != 'other'
+        ] + (
+            [{'slug': 'other', 'name': 'Інші бренди', 'count': brand_counts['other']}]
+            if brand_counts['other'] > 0 else []
+        ))()
     }
-
     with open(OUTPUT_META, 'w', encoding='utf-8') as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
-    print(f"Saved {OUTPUT_META}")
+    print(f"Saved {OUTPUT_META} with {len(meta['brands'])} brands")
 
     # Generate feed.xml with top 500 models for Google / Meta Catalog
     feed_items = products[:500]
@@ -451,11 +743,11 @@ def main():
         feed_xml_lines.extend([
             '    <item>',
             f'      <g:id>prod-{p["id"]}</g:id>',
-            f'      <title>{p["name"]}</title>',
-            f'      <description>{desc_str}</description>',
+            f'      <title>{escape(p["name"])}</title>',
+            f'      <description>{escape(desc_str)}</description>',
             f'      <link>https://urbangrid.com.ua/#prod-{p["id"]}</link>',
             f'      <g:image_link>{main_img}</g:image_link>',
-            f'      <g:brand>{p["brand_name"]}</g:brand>',
+            f'      <g:brand>{escape(p["brand_name"])}</g:brand>',
             '      <g:condition>new</g:condition>',
             '      <g:availability>in_stock</g:availability>',
             f'      <g:price>{p["price"]} UAH</g:price>',

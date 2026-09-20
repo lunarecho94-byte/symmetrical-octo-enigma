@@ -1364,6 +1364,108 @@ section, header, footer, .announcement-bar {
     text-decoration-color: rgba(148, 163, 184, 0.6);
 }
 
+/* Secondary Filters: Size & Price Ranges */
+.catalog-filters-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+}
+
+.filter-row-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-row-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.2px;
+}
+
+.active-filter-indicator {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #059669;
+    background: #ecfdf5;
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+.price-filter-chips {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: wrap;
+}
+
+.price-filter-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.price-filter-chip {
+    padding: 8px 14px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    color: #334155;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    user-select: none;
+}
+
+.price-filter-chip:hover {
+    border-color: #059669;
+    color: #059669;
+    background: #ecfdf5;
+    transform: translateY(-1px);
+}
+
+.price-filter-chip.active {
+    background: #09090b;
+    border-color: #09090b;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+@media (max-width: 768px) {
+    .catalog-filters-secondary {
+        padding: 12px 14px;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+    .size-filter-chips-scroll,
+    .price-filter-chips {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+    }
+    .price-filter-chip {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+}
+
 /* Fast Category Filter Chips (Brands) */
 .category-filter-wrapper {
     margin-bottom: 28px;
