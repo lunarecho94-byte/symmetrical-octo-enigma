@@ -1,11 +1,43 @@
 {
   "total": 7869,
+  "genders": [
+    {
+      "slug": "all",
+      "name": "Всі товари",
+      "icon": "🔥",
+      "count": 7869
+    },
+    {
+      "slug": "men",
+      "name": "Чоловічі",
+      "icon": "👨",
+      "count": 5318
+    },
+    {
+      "slug": "women",
+      "name": "Жіночі",
+      "icon": "👩",
+      "count": 6484
+    }
+  ],
   "categories": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
       "count": 7869
+    },
+    {
+      "slug": "men",
+      "name": "Чоловічі",
+      "icon": "👨",
+      "count": 5318
+    },
+    {
+      "slug": "women",
+      "name": "Жіночі",
+      "icon": "👩",
+      "count": 6484
     },
     {
       "slug": "shoes",
