@@ -1285,26 +1285,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-195390</g:id>
-      <title>UGG Lowmel Rocky Oak</title>
-      <description>UGG Lowmel Rocky Oak • Матеріал: Замш • Виробник: В'єтнам • Розміри: 36 • Арт: UG008</description>
-      <link>https://urbangrid.com.ua/#prod-195390</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/26a40f6b-a5b0-465a-b134-e43193e0f0f4.jpeg</g:image_link>
-      <g:brand>UGG</g:brand>
-      <g:gender>female</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>4200 UAH</g:price>
-      <g:google_product_category>187</g:google_product_category>
-      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-122675</g:id>
       <title>Moncler X Adidas Campus</title>
       <description>Moncler X Adidas Campus • Матеріал: Шкіра • Виробник: В'єтнам • Розміри: 36, 37, 38, 39, 41 • Арт: OS0077</description>
@@ -5985,26 +5965,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-117305</g:id>
-      <title>Adidas Campus Winter Grey\White</title>
-      <description>Adidas Campus Winter Grey\White • Матеріал: Замша , Кожа , Мех • Виробник: вьетнам • Розміри: 40, 44 • Арт: 1590</description>
-      <link>https://urbangrid.com.ua/#prod-117305</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/2d4e8f65-dbcc-4ec6-b320-decb819861f7.jpeg</g:image_link>
-      <g:brand>Adidas</g:brand>
-      <g:gender>unisex</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1400 UAH</g:price>
-      <g:google_product_category>187</g:google_product_category>
-      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-117302</g:id>
       <title>Nike P-6000 Black</title>
       <description>Nike P-6000 Black • Матеріал: Кожа ,Замша , сетка • Виробник: Вьетнам • Розміри: 36, 37, 38, 39, 40, 41 • Арт: 1839</description>
@@ -9992,6 +9952,46 @@
       <g:image_link>https://easydrop.one/media/uploads/images/base/47a2f2eb-daad-48be-ac02-70cdbab9d88e.jpeg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>male</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2700 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-171266</g:id>
+      <title>Nike Runtekk Black grey</title>
+      <description>Nike Runtekk Black grey • Матеріал: Кожа , Замша , Сетка • Виробник: Вьетнам • Розміри: 41, 42, 43, 44, 45 • Арт: 2261</description>
+      <link>https://urbangrid.com.ua/#prod-171266</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/a5008c7d-f629-4073-be5e-4f432810e986.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>male</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2350 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-219841</g:id>
+      <title>Nike P-6000 White Pink</title>
+      <description>Nike P-6000 White Pink • Матеріал: Кожа ,Замша , сетка • Виробник: Вьетнам • Розміри: 36, 37, 38, 39, 40 • Арт: 2612</description>
+      <link>https://urbangrid.com.ua/#prod-219841</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/12a9e362-d27e-45f1-9ec7-f5200351daeb.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>female</g:gender>
       <g:age_group>adult</g:age_group>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>

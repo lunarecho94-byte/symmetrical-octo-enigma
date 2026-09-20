@@ -1,23 +1,23 @@
 {
-  "total": 7869,
+  "total": 7804,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7869
+      "count": 7804
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5318
+      "count": 5282
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 6484
+      "count": 6444
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7869
+      "count": 7804
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5318
+      "count": 5282
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 6484
+      "count": 6444
     },
     {
       "slug": "shoes",
@@ -49,13 +49,13 @@
       "slug": "winter",
       "name": "Зимове взуття",
       "icon": "❄️",
-      "count": 838
+      "count": 779
     },
     {
       "slug": "clothing",
       "name": "Одяг & Куртки",
       "icon": "🧥",
-      "count": 906
+      "count": 900
     },
     {
       "slug": "bags",
@@ -68,27 +68,27 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7869
+      "count": 7804
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2042
+      "count": 2021
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1340
+      "count": 1331
     },
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 617
+      "count": 597
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 500
+      "count": 498
     },
     {
       "slug": "asics",
@@ -106,14 +106,14 @@
       "count": 162
     },
     {
-      "slug": "jordan",
-      "name": "Air Jordan",
-      "count": 145
-    },
-    {
       "slug": "dior",
       "name": "Dior",
       "count": 142
+    },
+    {
+      "slug": "jordan",
+      "name": "Air Jordan",
+      "count": 141
     },
     {
       "slug": "balenciaga",
@@ -123,7 +123,7 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 106
+      "count": 103
     },
     {
       "slug": "oncloud",
@@ -343,7 +343,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 912
+      "count": 906
     }
   ]
 }

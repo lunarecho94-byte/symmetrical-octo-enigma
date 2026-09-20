@@ -259,6 +259,41 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
 
     return 'unisex'
 
+def is_sneaker_product(name, clean_name, cat_slug, cname="", desc="", sizes=None):
+    if cat_slug == 'shoes':
+        return True
+
+    text_all = f"{name} {clean_name} {cname} {desc}".lower()
+    
+    # Exclude bags & accessories
+    if cat_slug == 'bags' or any(b in clean_name.lower() for b in ['сумка', 'рюкзак', 'бананка', 'гаманець', 'ремінь', 'клатч', 'duffel', 'tote', 'backpack']):
+        return False
+
+    # Exclude apparel unless it contains numeric shoe sizes and a known sneaker model
+    if cat_slug == 'clothing' and any(w in clean_name.lower() for w in ['костюм', 'світшот', 'худі', 'футболка', 'штани', 'шорти', 'куртка', 'пуховик', 'кепка']):
+        has_shoe_sizes = sizes and any(re.match(r'^(3[5-9]|4[0-8])(\.5)?$', str(s).strip()) for s in sizes)
+        if not (has_shoe_sizes and any(m in text_all for m in ['new balance 530', 'air jordan 1', 'dunk'])):
+            return False
+
+    # Generic sneaker keywords (Ukrainian, Russian, English)
+    if any(k in text_all for k in ['кросів', 'кроссов', 'кед', 'sneaker', 'сникер', 'хайтоп']):
+        return True
+
+    # Sneaker model patterns
+    SNEAKER_MODELS = [
+        'air force', 'air jordan', 'jordan 1', 'jordan 4', 'dunk', 'yeezy',
+        'samba', 'gazelle', 'campus', 'spezial', 'special', 'lowmel', 'highmel',
+        '1906', '2002', '9060', '530', '550', '574', 'v2k', 'zoom pulse',
+        'vomero', 'initiator', 'terrex', 'hoka', 'speedcross', 'xt-6',
+        'cortez', 'air max', 'knu skool', 'old skool', 'm2k', 'blazer'
+    ]
+    if any(m in text_all for m in SNEAKER_MODELS):
+        has_shoe_sizes = sizes and any(re.match(r'^(3[5-9]|4[0-8])(\.5)?$', str(s).strip()) for s in sizes)
+        if cat_slug in ('shoes', 'winter') or has_shoe_sizes:
+            return True
+
+    return False
+
 
 KNOWN_NUMERIC_MODELS = {
     '1906', '2002', '9060', '550', '574', '530', '990', '991', '992', '993', 
@@ -689,9 +724,9 @@ def main():
             continue
 
         # Rule: if sneakers has less than 3 sizes in stock, do not add to site
-        is_sneaker = (cat_slug == 'shoes') or any(k in clean_name.lower() for k in ['кросівки', 'кеди', 'sneakers'])
-        if is_sneaker and len(sorted_sizes) < 3:
-            continue
+        if is_sneaker_product(name, clean_name, cat_slug, cname, desc, sorted_sizes):
+            if len(sorted_sizes) < 3:
+                continue
         
         gender = determine_gender(clean_name, cat_slug, brand_slug, sorted_sizes, cname, desc)
         category_counts[cat_slug] += 1

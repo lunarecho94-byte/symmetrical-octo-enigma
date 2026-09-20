@@ -1077,6 +1077,26 @@ function renderCatalogSkeletons(grid, count = 8) {
     grid.innerHTML = skeletonHtml;
 }
 
+function isSneakerProductItem(item) {
+    if (!item) return false;
+    if (item.cat === 'shoes') return true;
+    const name = (item.name || '').toLowerCase();
+    if (/кросів|кроссов|кед|sneaker|сникер|хайтоп/i.test(name)) return true;
+    const models = [
+        'air force', 'air jordan', 'jordan 1', 'jordan 4', 'dunk', 'yeezy',
+        'samba', 'gazelle', 'campus', 'spezial', 'lowmel', 'highmel',
+        '1906', '2002', '9060', '530', '550', '574', 'v2k', 'zoom pulse',
+        'vomero', 'initiator', 'terrex', 'hoka', 'speedcross', 'xt-6',
+        'cortez', 'air max', 'knu skool', 'old skool', 'm2k', 'blazer'
+    ];
+    if (models.some(m => name.includes(m))) {
+        if (item.cat === 'winter' || (item.sizes && item.sizes.some(s => /^(3[5-9]|4[0-8])/.test(s)))) {
+            return true;
+        }
+    }
+    return false;
+}
+
 async function initDynamicCatalog() {
     const grid = document.querySelector('.products-grid');
     if (!grid) return;
@@ -1093,7 +1113,12 @@ async function initDynamicCatalog() {
             throw new Error(`HTTP error: ${prodResp.status} / ${metaResp.status}`);
         }
 
-        catalogAllProducts = await prodResp.json();
+        catalogAllProducts = (await prodResp.json()).filter(item => {
+            if (isSneakerProductItem(item) && (!item.sizes || item.sizes.length < 3)) {
+                return false;
+            }
+            return true;
+        });
         catalogMeta = await metaResp.json();
 
         // Render Dynamic Category Tabs (Unified single row: All / Men / Women / Categories)

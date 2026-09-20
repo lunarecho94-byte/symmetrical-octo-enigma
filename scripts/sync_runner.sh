@@ -31,12 +31,15 @@ if [ -n "$CHANGED_FILES" ]; then
     git add data/products.json data/meta.json feed.xml
     git commit -m "Автоматична синхронізація наявності EasyDrop [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
 
+    # Pull rebase before push to avoid lock / non-fast-forward conflicts
+    git pull origin main --rebase >> "$LOG_FILE" 2>&1 || true
+
     # Push to all 5 remotes
-    git push origin main >> "$LOG_FILE" 2>&1
-    git push as_repo main >> "$LOG_FILE" 2>&1
-    git push urbangrid main >> "$LOG_FILE" 2>&1
-    git push urbangrid_ua main >> "$LOG_FILE" 2>&1
-    git push urbangridv main >> "$LOG_FILE" 2>&1
+    git push origin main >> "$LOG_FILE" 2>&1 || true
+    git push as_repo main >> "$LOG_FILE" 2>&1 || true
+    git push urbangrid main >> "$LOG_FILE" 2>&1 || true
+    git push urbangrid_ua main >> "$LOG_FILE" 2>&1 || true
+    git push urbangridv main >> "$LOG_FILE" 2>&1 || true
 
     echo "[$TIMESTAMP] Successfully pushed to all 5 remotes. Vercel deployment triggered." >> "$LOG_FILE"
 else
