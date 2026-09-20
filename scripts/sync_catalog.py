@@ -94,54 +94,94 @@ def sort_sizes(sizes):
         
     return sizes
 
+# Precise categorization regexes
+BAG_KEYWORDS = re.compile(
+    r'сумк|рюкзак|бананка|месенджер|портмоне|гаманець|кошелек|клатч|шопер|шоппер|валіза|чемодан|холдер|баул|'
+    r'\bbag\b|\bbags\b|\bbackpack\b|\bwallet\b|\btote\b|\bhandbag\b|\bcrossbody\b|\bкейс\b|'
+    r'\bочки\b|окуляр|пасок|\bремінь\b|\bремень\b|браслет|годинник|кардхолдер',
+    re.I
+)
+
+CLOTHING_KEYWORDS = re.compile(
+    r'костюм|худі|худи|світшот|толстовка|вітровк|ветровк|куртк|пуховик|штани|штаны|джинс|футболк|шорти|шорты|'
+    r'жилет|анорак|парка|бомбер|спідниц|сукня|плать|лонгслів|светр|кофта|кардиган|сорочк|рубашк|поло\b|майк|'
+    r'топ\b|термобілизн|білизн|шкарпетк|носк|шапк|кепк|панам|баф\b|tracksuit|hoodie|jacket|pants|shorts|t-shirt|tee\b',
+    re.I
+)
+
+WINTER_KEYWORDS = re.compile(
+    r'\bugg\b|угг|черевик|ботинки|ботильон|\bboots\b|\bboot\b|хутро|\bмех\b|зимов|winter|сноубутс|дутики|мунбут|moon boot',
+    re.I
+)
+
+KNOWN_BRANDS = [
+    ('nike', 'Nike', [r'nike', r'dunk', r'air max', r'p-6000', r'force 1', r'shox', r'initiator', r'nocta', r'vomero', r'v2k']),
+    ('jordan', 'Air Jordan', [r'jordan']),
+    ('newbalance', 'New Balance', [r'new balance', r'\bnb\b', r'9060', r'1906', r'530', r'2002', r'725', r'550', r'574', r'990']),
+    ('adidas', 'Adidas', [r'adidas', r'yeezy', r'niteball', r'samba', r'spezial', r'campus', r'gazelle', r'forum', r'adi 2000']),
+    ('asics', 'Asics', [r'asics', r'onitsuka']),
+    ('salomon', 'Salomon', [r'salomon']),
+    ('ugg', 'UGG', [r'\bugg\b', r'угг']),
+    ('puma', 'Puma', [r'puma']),
+    ('vans', 'Vans', [r'\bvans\b']),
+    ('drmartens', 'Dr. Martens', [r'martens', r'мартенс']),
+    ('stoneisland', 'Stone Island', [r'stone island', r'\bsi\b']),
+    ('tnf', 'The North Face', [r'north face', r'\btnf\b']),
+    ('trapstar', 'Trapstar', [r'trapstar']),
+    ('prada', 'Prada', [r'prada']),
+    ('gucci', 'Gucci', [r'gucci']),
+    ('dior', 'Dior', [r'dior']),
+    ('chanel', 'Chanel', [r'chanel']),
+    ('louisvuitton', 'Louis Vuitton', [r'louis vuitton', r'\blv\b']),
+    ('balenciaga', 'Balenciaga', [r'balenciaga']),
+    ('coach', 'Coach', [r'coach']),
+    ('pinko', 'Pinko', [r'pinko']),
+    ('diesel', 'Diesel', [r'diesel']),
+    ('saintlaurent', 'Yves Saint Laurent', [r'saint laurent', r'ysl']),
+    ('michaelkors', 'Michael Kors', [r'michael kors']),
+    ('lacoste', 'Lacoste', [r'lacoste']),
+    ('carhartt', 'Carhartt', [r'carhartt']),
+    ('stussy', 'Stussy', [r'stussy']),
+    ('underarmour', 'Under Armour', [r'under armour']),
+    ('bottega', 'Bottega Veneta', [r'bottega']),
+    ('loropiana', 'Loro Piana', [r'loro piana']),
+    ('miumiu', 'Miu Miu', [r'miu miu']),
+    ('mcqueen', 'Alexander McQueen', [r'mcqueen']),
+    ('hugo', 'Hugo Boss', [r'hugo', r'boss']),
+]
+
 def determine_category(name, cat_name, desc):
-    combined = f"{name} {cat_name} {desc}".lower()
+    title_cat = f"{name} {cat_name}"
     
-    # Bags / Accessories
-    if any(w in combined for w in ['сумк', 'рюкзак', 'бананка', 'портмоне', 'гаманець', 'bags', 'bag', 'месенджер']):
+    # Exception: New Balance 2002R Pouch is a sneaker
+    if '2002r' in title_cat.lower() and 'pouch' in title_cat.lower():
+        return 'shoes', 'Кросівки & Кеди', '👟'
+        
+    desc_start = ''
+    m = re.search(r'Опис\s*:\s*([^<\n\r]+)', desc)
+    if m:
+        desc_start = m.group(1).strip()[:150]
+        
+    # 1. Bags & Accessories
+    if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч)', desc_start, re.I)):
         return 'bags', 'Сумки & Аксесуари', '🎒'
         
-    # Winter / Boots / UGG
-    if any(w in combined for w in ['ugg', 'угг', 'черевик', 'ботинки', 'зимов', 'winter', 'boots', 'термо']):
-        return 'winter', 'Зимове взуття', '❄️'
-        
-    # Clothing
-    if any(w in combined for w in ['костюм', 'худі', 'худи', 'світшот', 'толстовка', 'вітровк', 'ветровк', 'куртк', 'пуховик', 'штани', 'штаны', 'джинс', 'футболк', 'шорти', 'жилетк', 'одяг']):
+    # 2. Clothing & Outerwear
+    if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
         return 'clothing', 'Одяг & Куртки', '🧥'
         
-    # Default is sneakers/shoes
+    # 3. Winter Footwear
+    if WINTER_KEYWORDS.search(title_cat):
+        return 'winter', 'Зимове взуття', '❄️'
+        
+    # 4. Sneakers & Casual Shoes
     return 'shoes', 'Кросівки & Кеди', '👟'
 
 def determine_brand(name, cat_name):
     combined = f"{name} {cat_name}".lower()
-    
-    if 'jordan' in combined:
-        return 'jordan', 'Air Jordan'
-    if 'nike' in combined or 'dunk' in combined or 'air max' in combined or 'p-6000' in combined or 'force 1' in combined:
-        return 'nike', 'Nike'
-    if 'new balance' in combined or ' 9060' in combined or ' 1906' in combined or ' 530' in combined or ' 2002' in combined or ' 725' in combined:
-        return 'newbalance', 'New Balance'
-    if 'adidas' in combined or 'yeezy' in combined or 'niteball' in combined or 'samba' in combined or 'spezial' in combined or 'campus' in combined:
-        return 'adidas', 'Adidas'
-    if 'asics' in combined:
-        return 'asics', 'Asics'
-    if 'salomon' in combined:
-        return 'salomon', 'Salomon'
-    if 'ugg' in combined or 'угг' in combined:
-        return 'ugg', 'UGG'
-    if 'puma' in combined:
-        return 'puma', 'Puma'
-    if 'vans' in combined:
-        return 'vans', 'Vans'
-    if 'louis vuitton' in combined or ' lv ' in combined:
-        return 'louisvuitton', 'Louis Vuitton'
-    if 'balenciaga' in combined:
-        return 'balenciaga', 'Balenciaga'
-    if 'dior' in combined:
-        return 'dior', 'Dior'
-    if 'chanel' in combined:
-        return 'chanel', 'Chanel'
-        
+    for slug, title, pats in KNOWN_BRANDS:
+        if any(re.search(p, combined) for p in pats):
+            return slug, title
     return 'other', 'Інші бренди'
 
 def main():
@@ -291,23 +331,17 @@ def main():
             {'slug': 'clothing', 'name': 'Одяг & Куртки', 'icon': '🧥', 'count': category_counts['clothing']},
             {'slug': 'bags', 'name': 'Сумки & Аксесуари', 'icon': '🎒', 'count': category_counts['bags']},
         ],
-        'brands': [
-            {'slug': 'all', 'name': 'Всі бренди', 'count': len(products)},
-            {'slug': 'nike', 'name': 'Nike', 'count': brand_counts['nike']},
-            {'slug': 'jordan', 'name': 'Air Jordan', 'count': brand_counts['jordan']},
-            {'slug': 'newbalance', 'name': 'New Balance', 'count': brand_counts['newbalance']},
-            {'slug': 'adidas', 'name': 'Adidas & Yeezy', 'count': brand_counts['adidas']},
-            {'slug': 'asics', 'name': 'Asics', 'count': brand_counts['asics']},
-            {'slug': 'salomon', 'name': 'Salomon', 'count': brand_counts['salomon']},
-            {'slug': 'ugg', 'name': 'UGG', 'count': brand_counts['ugg']},
-            {'slug': 'puma', 'name': 'Puma', 'count': brand_counts['puma']},
-            {'slug': 'vans', 'name': 'Vans', 'count': brand_counts['vans']},
-            {'slug': 'balenciaga', 'name': 'Balenciaga', 'count': brand_counts['balenciaga']},
-            {'slug': 'louisvuitton', 'name': 'Louis Vuitton', 'count': brand_counts['louisvuitton']},
-            {'slug': 'dior', 'name': 'Dior', 'count': brand_counts['dior']},
-            {'slug': 'chanel', 'name': 'Chanel', 'count': brand_counts['chanel']},
-            {'slug': 'other', 'name': 'Інші', 'count': brand_counts['other']},
-        ]
+        'brands': (lambda: [
+            {'slug': 'all', 'name': 'Всі бренди', 'count': len(products)}
+        ] + [
+            {
+                'slug': b_slug,
+                'name': {s: t for s, t, _ in KNOWN_BRANDS}.get(b_slug, b_slug.title()),
+                'count': b_count
+            }
+            for b_slug, b_count in brand_counts.most_common()
+            if b_slug != 'other' and b_count > 0
+        ] + ([{'slug': 'other', 'name': 'Інші бренди', 'count': brand_counts['other']}] if brand_counts['other'] > 0 else []))()
     }
 
     with open(OUTPUT_META, 'w', encoding='utf-8') as f:

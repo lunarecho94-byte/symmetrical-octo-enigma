@@ -1,4 +1,7 @@
 easydrop_export.xml
+*.xml
+*.log
+scripts/*.log
 *.pyc
 __pycache__/
 .DS_Store

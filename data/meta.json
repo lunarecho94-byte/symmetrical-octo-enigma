@@ -1,77 +1,122 @@
 {
-  "total": 7486,
+  "total": 7624,
   "categories": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7486
+      "count": 7624
     },
     {
       "slug": "shoes",
       "name": "Кросівки & Кеди",
       "icon": "👟",
-      "count": 5135
+      "count": 5193
     },
     {
       "slug": "winter",
       "name": "Зимове взуття",
       "icon": "❄️",
-      "count": 1009
+      "count": 869
     },
     {
       "slug": "clothing",
       "name": "Одяг & Куртки",
       "icon": "🧥",
-      "count": 747
+      "count": 906
     },
     {
       "slug": "bags",
       "name": "Сумки & Аксесуари",
       "icon": "🎒",
-      "count": 595
+      "count": 656
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7486
+      "count": 7624
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 1894
-    },
-    {
-      "slug": "jordan",
-      "name": "Air Jordan",
-      "count": 272
+      "count": 2042
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1313
-    },
-    {
-      "slug": "adidas",
-      "name": "Adidas & Yeezy",
-      "count": 501
-    },
-    {
-      "slug": "asics",
-      "name": "Asics",
-      "count": 418
-    },
-    {
-      "slug": "salomon",
-      "name": "Salomon",
-      "count": 106
+      "count": 1339
     },
     {
       "slug": "ugg",
       "name": "UGG",
       "count": 639
+    },
+    {
+      "slug": "adidas",
+      "name": "Adidas",
+      "count": 500
+    },
+    {
+      "slug": "asics",
+      "name": "Asics",
+      "count": 408
+    },
+    {
+      "slug": "jordan",
+      "name": "Air Jordan",
+      "count": 145
+    },
+    {
+      "slug": "dior",
+      "name": "Dior",
+      "count": 125
+    },
+    {
+      "slug": "chanel",
+      "name": "Chanel",
+      "count": 120
+    },
+    {
+      "slug": "balenciaga",
+      "name": "Balenciaga",
+      "count": 118
+    },
+    {
+      "slug": "salomon",
+      "name": "Salomon",
+      "count": 99
+    },
+    {
+      "slug": "coach",
+      "name": "Coach",
+      "count": 73
+    },
+    {
+      "slug": "louisvuitton",
+      "name": "Louis Vuitton",
+      "count": 70
+    },
+    {
+      "slug": "miumiu",
+      "name": "Miu Miu",
+      "count": 69
+    },
+    {
+      "slug": "tnf",
+      "name": "The North Face",
+      "count": 60
+    },
+    {
+      "slug": "saintlaurent",
+      "name": "Yves Saint Laurent",
+      "count": 57
+    },
+    {
+      "slug": "gucci",
+      "name": "Gucci",
+      "count": 50
     },
     {
       "slug": "puma",
@@ -84,29 +129,79 @@
       "count": 27
     },
     {
-      "slug": "balenciaga",
-      "name": "Balenciaga",
-      "count": 118
+      "slug": "drmartens",
+      "name": "Dr. Martens",
+      "count": 26
     },
     {
-      "slug": "louisvuitton",
-      "name": "Louis Vuitton",
-      "count": 79
+      "slug": "stoneisland",
+      "name": "Stone Island",
+      "count": 26
     },
     {
-      "slug": "dior",
-      "name": "Dior",
-      "count": 90
+      "slug": "prada",
+      "name": "Prada",
+      "count": 22
     },
     {
-      "slug": "chanel",
-      "name": "Chanel",
-      "count": 116
+      "slug": "mcqueen",
+      "name": "Alexander McQueen",
+      "count": 20
+    },
+    {
+      "slug": "loropiana",
+      "name": "Loro Piana",
+      "count": 19
+    },
+    {
+      "slug": "hugo",
+      "name": "Hugo Boss",
+      "count": 16
+    },
+    {
+      "slug": "lacoste",
+      "name": "Lacoste",
+      "count": 15
+    },
+    {
+      "slug": "underarmour",
+      "name": "Under Armour",
+      "count": 11
+    },
+    {
+      "slug": "bottega",
+      "name": "Bottega Veneta",
+      "count": 10
+    },
+    {
+      "slug": "stussy",
+      "name": "Stussy",
+      "count": 10
+    },
+    {
+      "slug": "carhartt",
+      "name": "Carhartt",
+      "count": 9
+    },
+    {
+      "slug": "pinko",
+      "name": "Pinko",
+      "count": 7
+    },
+    {
+      "slug": "michaelkors",
+      "name": "Michael Kors",
+      "count": 2
+    },
+    {
+      "slug": "diesel",
+      "name": "Diesel",
+      "count": 1
     },
     {
       "slug": "other",
-      "name": "Інші",
-      "count": 1866
+      "name": "Інші бренди",
+      "count": 1442
     }
   ]
 }
