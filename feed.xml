@@ -604,7 +604,7 @@
       <description>McQeen Grey • Матеріал: Кожа • Виробник: Италия • Розміри: 36, 37, 38, 39, 40 • Арт: MQ008</description>
       <link>https://urbangrid.com.ua/#prod-1356</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/d4780fb3-35c8-4ec3-9649-c0bbfdbd9a96.jpeg</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Alexander McQueen</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1450 UAH</g:price>
@@ -622,7 +622,7 @@
       <description>Chelsea Boots • Матеріал: Кожа • Виробник: Италия • Розміри: 39 • Арт: MQ001</description>
       <link>https://urbangrid.com.ua/#prod-54</link>
       <g:image_link>https://easydrop.one/media/uploads/images/item_19/24989cfc-f9b2-40b7-89f4-81de9f14f7da.webp</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Alexander McQueen</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1650 UAH</g:price>
@@ -1252,7 +1252,7 @@
       <description>Miu Miu White Sneakers • Матеріал: Шкіра • Виробник: В'єтнам • Розміри: 38, 40, 41 • Арт: Os0082</description>
       <link>https://urbangrid.com.ua/#prod-163873</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/3d38d210-731d-45f0-a92b-b9181b8d0f5d.jpeg</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Miu Miu</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4700 UAH</g:price>
@@ -1306,7 +1306,7 @@
       <description>Miu Miu Premium • Матеріал: Текстиль • Виробник: В'єтнам • Розміри: 36, 38, 39 • Арт: Os0087</description>
       <link>https://urbangrid.com.ua/#prod-178272</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/82788596-7f51-4521-8100-27bdc6149c41.jpeg</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Miu Miu</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4100 UAH</g:price>
@@ -1414,7 +1414,7 @@
       <description>Classic Black (замш) • Матеріал: Замш • Виробник: Вьетнам • Розміри: 36, 37, 38, 39, 40 • Арт: Os0034</description>
       <link>https://urbangrid.com.ua/#prod-1385</link>
       <g:image_link>https://easydrop.one/media/uploads/images/item_19/39853324-ceab-4876-81bf-708c1b54bffd.webp</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Dr. Martens</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2400 UAH</g:price>
@@ -2156,6 +2156,42 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2600 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-2414</g:id>
+      <title>Jadon Patent Black Мех❄️ (Розпродаж)</title>
+      <description>Jadon Patent Black Мех❄️ (Розпродаж) • Матеріал: Лак.кожа/Иcк.мех • Виробник: Фабричный Китай • Розміри: 38 • Арт: DR076</description>
+      <link>https://urbangrid.com.ua/#prod-2414</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/item_876/7fa7cffe-3662-450c-8916-c394ce5c8da0.webp</g:image_link>
+      <g:brand>Dr. Martens</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2050 UAH</g:price>
+      <g:google_product_category>187</g:google_product_category>
+      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-2397</g:id>
+      <title>1460 Black Gloss Мех❄️(Распродажа)</title>
+      <description>1460 Black Gloss Мех❄️(Распродажа) • Матеріал: Лак.кожа/Иcк.мех • Виробник: Фабричный Китай • Розміри: 36 • Арт: DR063</description>
+      <link>https://urbangrid.com.ua/#prod-2397</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/item_876/4eec94e4-a78f-4dd0-bc96-e9cf67da41c3.webp</g:image_link>
+      <g:brand>Dr. Martens</g:brand>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1000 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
@@ -3016,7 +3052,7 @@
       <description>AIR JORDAN RETRO 4 • Матеріал: Шкіра, замша, текстиль, сітка, піна, гума • Виробник: В'єтнам • Розміри: 41, 42, 43, 44, 45 • Арт: NTR801</description>
       <link>https://urbangrid.com.ua/#prod-251452</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/822134ba-a757-4395-9811-d9ccf6664c09.jpg</g:image_link>
-      <g:brand>Air Jordan</g:brand>
+      <g:brand>Nike</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2900 UAH</g:price>
@@ -3034,7 +3070,7 @@
       <description>AIR JORDAN RETRO 4 • Матеріал: Шкіра, замша, текстиль, сітка, піна, гума • Виробник: В'єтнам • Розміри: 41, 42, 43, 44, 45 • Арт: NTR800</description>
       <link>https://urbangrid.com.ua/#prod-251451</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/52ae7ec7-f913-444d-a67d-ca01c53d987e.jpg</g:image_link>
-      <g:brand>Air Jordan</g:brand>
+      <g:brand>Nike</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2900 UAH</g:price>
@@ -3052,7 +3088,7 @@
       <description>AIR JORDAN RETRO 4 • Матеріал: Замша, текстиль, сітка, піна, гума • Виробник: В'єтнам • Розміри: 41, 42, 43, 44, 45 • Арт: NTR799</description>
       <link>https://urbangrid.com.ua/#prod-251450</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/e5a513c7-0f46-4c7f-bff8-f8e96b5317d4.jpg</g:image_link>
-      <g:brand>Air Jordan</g:brand>
+      <g:brand>Nike</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2900 UAH</g:price>
@@ -3898,7 +3934,7 @@
       <description>Bottega Veneta Beige/Green No logo РОЗПРОДАЖ • Матеріал: Шкіра/фліс • Виробник: Китай • Розміри: 36, 37, 38, 39, 40 • Арт: VB011</description>
       <link>https://urbangrid.com.ua/#prod-25494</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/ee28766b-a381-46de-896a-2a863ace8b15.jpeg</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Bottega Veneta</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>900 UAH</g:price>
@@ -3916,7 +3952,7 @@
       <description>Lug Boots (Розпродаж) • Матеріал: Кожа • Виробник: Италия • Розміри: 38, 39, 40, 41 • Арт: VB001</description>
       <link>https://urbangrid.com.ua/#prod-2262</link>
       <g:image_link>https://easydrop.one/media/uploads/images/item_876/ec3c41a4-d36b-4af2-9bdc-47d5e056cebe.webp</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Bottega Veneta</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2400 UAH</g:price>
@@ -3934,7 +3970,7 @@
       <description>Bottega Veneta Yellow No logo РОЗПРОДАЖ • Матеріал: Шкіра/фліс • Виробник: Китай • Розміри: 36, 37, 38, 39 • Арт: VB007</description>
       <link>https://urbangrid.com.ua/#prod-25484</link>
       <g:image_link>https://easydrop.one/media/uploads/images/item_876/40c3e070-3ff7-4f74-a368-d2410575418d.webp</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Bottega Veneta</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>900 UAH</g:price>
@@ -3952,7 +3988,7 @@
       <description>Bottega Veneta Mini Pink No logo РОЗПРОДАЖ • Матеріал: Шкіра/фліс • Виробник: Китай • Розміри: 36, 37, 38 • Арт: VB008</description>
       <link>https://urbangrid.com.ua/#prod-25497</link>
       <g:image_link>https://easydrop.one/media/uploads/images/item_876/07d60a26-3eea-477b-8c42-dabb3a500975.webp</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Bottega Veneta</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>900 UAH</g:price>
@@ -3970,7 +4006,7 @@
       <description>Veneta Lug Boots Мех • Матеріал: Кожа / иск.мех • Виробник: Италия • Розміри: 37, 38, 39 • Арт: VB002</description>
       <link>https://urbangrid.com.ua/#prod-2263</link>
       <g:image_link>https://easydrop.one/media/uploads/images/item_876/c956aa98-d2c6-483a-921b-fd646a0a6dc8.webp</g:image_link>
-      <g:brand>Інші бренди</g:brand>
+      <g:brand>Bottega Veneta</g:brand>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2900 UAH</g:price>
@@ -8960,42 +8996,6 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>2800 UAH</g:price>
-      <g:google_product_category>187</g:google_product_category>
-      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-155434</g:id>
-      <title>Nike Air Zoom Pegasus</title>
-      <description>Nike Air Zoom Pegasus • Матеріал: Сетка , Текстиль • Виробник: Вьеьтнам • Розміри: 41, 42, 43, 44, 45 • Арт: 2108</description>
-      <link>https://urbangrid.com.ua/#prod-155434</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/ecc2c934-71a7-4523-b63e-edffbf1d891b.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1899 UAH</g:price>
-      <g:google_product_category>187</g:google_product_category>
-      <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-155432</g:id>
-      <title>Nike Air Zoom Pegasus</title>
-      <description>Nike Air Zoom Pegasus • Матеріал: Сетка , Текстиль • Виробник: Вьеьтнам • Розміри: 40, 41, 42, 43, 45 • Арт: 2107</description>
-      <link>https://urbangrid.com.ua/#prod-155432</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/af984980-d127-4878-8a3c-71b10aa872e8.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1899 UAH</g:price>
       <g:google_product_category>187</g:google_product_category>
       <g:product_type>Одяг та взуття &gt; Взуття &gt; Кросівки</g:product_type>
       <g:shipping>
