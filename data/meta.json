@@ -1,23 +1,23 @@
 {
-  "total": 15307,
+  "total": 15313,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 15307
+      "count": 15313
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11800
+      "count": 11803
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13916
+      "count": 13921
     }
   ],
   "categories": [
@@ -25,25 +25,25 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 15307
+      "count": 15313
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11800
+      "count": 11803
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13916
+      "count": 13921
     },
     {
       "slug": "shoes",
       "name": "Кросівки & Кеди",
       "icon": "👟",
-      "count": 11050
+      "count": 11056
     },
     {
       "slug": "winter",
@@ -68,12 +68,12 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 15307
+      "count": 15313
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 4149
+      "count": 4153
     },
     {
       "slug": "newbalance",
@@ -83,12 +83,12 @@
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 1536
+      "count": 1535
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 820
+      "count": 822
     },
     {
       "slug": "ugg",
@@ -168,7 +168,7 @@
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 100
+      "count": 101
     },
     {
       "slug": "puma",
@@ -201,13 +201,13 @@
       "count": 67
     },
     {
-      "slug": "goldengoose",
-      "name": "Golden Goose",
+      "slug": "offwhite",
+      "name": "Off-White",
       "count": 63
     },
     {
-      "slug": "offwhite",
-      "name": "Off-White",
+      "slug": "goldengoose",
+      "name": "Golden Goose",
       "count": 63
     },
     {
