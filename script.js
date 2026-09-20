@@ -31,6 +31,7 @@ function startTimer(durationSeconds) {
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
+    if (!hoursEl && !minutesEl && !secondsEl) return;
 
     setInterval(() => {
         const hours = Math.floor(timer / 3600);
@@ -178,6 +179,7 @@ function closeCart() {
     if (drawer) drawer.classList.remove('active');
     if (overlay) overlay.classList.remove('active');
     document.body.classList.remove('cart-open');
+    hideCartCheckoutForm();
 }
 
 // Toggle Cart Drawer
@@ -239,7 +241,7 @@ function renderCart() {
                 const itemTotal = (item.price * item.qty).toLocaleString('uk-UA');
                 html += `
                     <div class="cart-item" data-id="${item.id}">
-                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" onerror="this.src='images/nike_shox_ride2_white_black_1.jpg'">
+                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" onerror="this.onerror=null; this.src='images/sneakers.webp';">
                         <div class="cart-item-info">
                             <h4 class="cart-item-title">${item.title}</h4>
                             <div class="cart-item-meta">
@@ -296,7 +298,7 @@ function syncCartWithForm() {
             cart.forEach((item, idx) => {
                 listHtml += `
                     <div class="cart-summary-line-item">
-                        <img src="${item.img}" alt="${item.title}" class="cart-summary-item-img">
+                        <img src="${item.img}" alt="${item.title}" class="cart-summary-item-img" onerror="this.onerror=null; this.src='images/sneakers.webp';">
                         <div class="cart-summary-item-text">
                             <b>${idx + 1}. ${item.title}</b>
                             <span>Розмір: <b>${item.size}</b> | К-сть: <b>${item.qty} шт.</b> — ${(item.price * item.qty).toLocaleString('uk-UA')} грн</span>
@@ -526,7 +528,8 @@ function closeSizeGuideModal() {
 }
 
 function calculateRecommendedSize() {
-    const foot = parseFloat(document.getElementById('userFoot').value) || 24;
+    const footInput = document.getElementById('userFoot');
+    const foot = footInput ? (parseFloat(footInput.value) || 24) : 24;
 
     let shoe = '38 (24 см)';
     if (foot >= 26) shoe = '41 (26.5 см)';
@@ -536,12 +539,15 @@ function calculateRecommendedSize() {
     else if (foot >= 23.2) shoe = '37 (23.5 см)';
     else shoe = '36 (23 см)';
 
-    document.getElementById('recShoeSize').textContent = shoe;
-    document.getElementById('calcResult').classList.remove('hidden');
+    const recEl = document.getElementById('recShoeSize');
+    if (recEl) recEl.textContent = shoe;
+    const resEl = document.getElementById('calcResult');
+    if (resEl) resEl.classList.remove('hidden');
 }
 
 function applyCalculatedSize() {
-    const shoe = document.getElementById('recShoeSize').textContent;
+    const recEl = document.getElementById('recShoeSize');
+    const shoe = recEl ? recEl.textContent : '38 (24 см)';
 
     const sizeInput = document.getElementById('selectedSize');
     if (sizeInput) {
@@ -563,11 +569,11 @@ let lastGeneratedPdfName = 'Zamovlennya_URBAN.pdf';
 let isSubmittingOrder = false;
 
 function populatePdfTemplate(orderId, orderDate) {
-    const customerName = (document.getElementById('fullName')?.value || '').trim() || 'Покупець';
-    const customerPhone = (document.getElementById('phone')?.value || '').trim() || '—';
-    const customerAddress = (document.getElementById('cityNP')?.value || '').trim() || '—';
+    const customerName = (document.getElementById('cartFullName')?.value || document.getElementById('quickFullName')?.value || document.getElementById('fullName')?.value || '').trim() || 'Покупець';
+    const customerPhone = (document.getElementById('cartPhone')?.value || document.getElementById('quickPhone')?.value || document.getElementById('phone')?.value || '').trim() || '—';
+    const customerAddress = (document.getElementById('cityNP')?.value || document.getElementById('npCityName')?.value || '').trim() || '—';
     
-    const payRadio = document.querySelector('input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
+    const payRadio = document.querySelector('input[name="cartPayment"]:checked, input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
     const paymentMethod = payRadio ? payRadio.value : 'Накладений платіж (при отриманні)';
 
     // Update Header Meta
@@ -1079,9 +1085,9 @@ function renderCatalogSkeletons(grid, count = 8) {
 
 function isSneakerProductItem(item) {
     if (!item) return false;
-    if (item.cat === 'shoes') return true;
+    if (item.cat === 'shoes' || item.cat === 'winter') return true;
     const name = (item.name || '').toLowerCase();
-    if (/кросів|кроссов|кед|sneaker|сникер|хайтоп/i.test(name)) return true;
+    if (/кросів|кроссов|кед|черевик|ботинк|ботиль|чобот|sneaker|сникер|хайтоп|boot/i.test(name)) return true;
     const models = [
         'air force', 'air jordan', 'jordan 1', 'jordan 4', 'dunk', 'yeezy',
         'samba', 'gazelle', 'campus', 'spezial', 'lowmel', 'highmel',
@@ -1095,6 +1101,24 @@ function isSneakerProductItem(item) {
         }
     }
     return false;
+}
+
+function formatProductDisplayName(item) {
+    let name = (item.name || '').trim();
+    if (!name || name.length <= 2 || /^\d+$/.test(name) || /^[A-Z]\d{1,3}$/i.test(name)) {
+        const catName = getCategoryTitle(item.cat);
+        const brandName = (item.brand_name && item.brand_name !== 'Інші бренди') ? item.brand_name : '';
+        if (catName.includes('Одяг') || item.cat === 'clothing') {
+            name = brandName ? `Куртка / Одяг ${brandName} ${name}` : `Куртка / Одяг ${name}`;
+        } else if (catName.includes('Кросівки') || item.cat === 'shoes' || item.cat === 'winter') {
+            name = brandName ? `Кросівки ${brandName} ${name}` : `Взуття ${name}`;
+        } else if (catName.includes('Сумки') || item.cat === 'bags') {
+            name = brandName ? `Сумка ${brandName} ${name}` : `Сумка ${name}`;
+        } else {
+            name = brandName ? `${brandName} ${name}` : `Товар ${name}`;
+        }
+    }
+    return name;
 }
 
 async function initDynamicCatalog() {
@@ -1864,6 +1888,7 @@ function createProductCardElement(item) {
     card.dataset.price = item.price;
     card.dataset.name = item.name;
 
+    const displayName = formatProductDisplayName(item);
     const mainImg = (item.imgs && item.imgs[0]) ? item.imgs[0] : 'images/sneakers.webp';
     const hasMultipleImgs = item.imgs && item.imgs.length > 1;
 
@@ -1872,7 +1897,7 @@ function createProductCardElement(item) {
         thumbsHtml = `
             <div class="card-thumbnails">
                 ${item.imgs.map((img, idx) => `
-                    <img src="${img}" alt="${escapeHtml(item.name)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}')">
+                    <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}')" onerror="this.onerror=null; this.src='images/sneakers.webp';">
                 `).join('')}
             </div>
         `;
@@ -1892,7 +1917,7 @@ function createProductCardElement(item) {
     card.innerHTML = `
         <div class="product-img-wrapper">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
-            <img src="${mainImg}" alt="${escapeHtml(item.name)}" id="cardImg-${item.id}" loading="lazy">
+            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" loading="lazy" onerror="this.onerror=null; this.src='images/sneakers.webp';">
         </div>
         ${thumbsHtml}
         <div class="product-details">
@@ -1903,7 +1928,7 @@ function createProductCardElement(item) {
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <h3 class="product-title">${escapeHtml(item.name)}</h3>
+            <h3 class="product-title">${escapeHtml(displayName)}</h3>
             <div class="product-specs">
                 <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>${escapeHtml(item.art)}</b></span></div>
                 ${item.mat ? `<div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">${escapeHtml(item.mat)}</span></div>` : ''}
@@ -1920,7 +1945,7 @@ function createProductCardElement(item) {
                 </div>
             </div>
             <div class="product-card-footer">
-                <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(item.name)} (${item.price} грн)', '${formattedPrice}', event)">
+                <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(displayName)} (${item.price} грн)', '${formattedPrice}', event)">
                     В кошик
                 </button>
             </div>
@@ -2366,13 +2391,6 @@ function initNovaPoshtaAutocomplete() {
         }
     });
 
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (cityDropdown) cityDropdown.style.display = 'none';
-            if (warehouseDropdown) warehouseDropdown.style.display = 'none';
-        }
-    });
 }
 
 async function triggerCitySearch(query) {
@@ -2702,16 +2720,16 @@ function getFormattedOrderForMessenger() {
         itemsText = `• ${selectedModel}\n  Розмір: ${selectedSize} • 1 шт. • ${priceText}\n`;
     }
 
-    const customerName = (document.getElementById('fullName')?.value || document.getElementById('customerNameInput')?.value || '').trim();
-    const customerPhone = (document.getElementById('phone')?.value || document.getElementById('customerPhoneInput')?.value || '').trim();
-    const city = (document.getElementById('npCityInput')?.value || '').trim();
+    const customerName = (document.getElementById('cartFullName')?.value || document.getElementById('quickFullName')?.value || document.getElementById('fullName')?.value || document.getElementById('customerNameInput')?.value || '').trim();
+    const customerPhone = (document.getElementById('cartPhone')?.value || document.getElementById('quickPhone')?.value || document.getElementById('phone')?.value || document.getElementById('customerPhoneInput')?.value || '').trim();
+    const city = (document.getElementById('npCityName')?.value || document.getElementById('npCityInput')?.value || '').trim();
     const warehouse = (document.getElementById('npWarehouseInput')?.value || '').trim();
     const noCall = document.getElementById('noCallCheckbox')?.checked;
 
     let paymentMethod = 'Накладений платіж (при отриманні на пошті)';
-    const checkedPay = document.querySelector('input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
-    if (checkedPay && checkedPay.value.includes('Передплата')) {
-        paymentMethod = 'Повна передплата на картку (без комісії)';
+    const checkedPay = document.querySelector('input[name="cartPayment"]:checked, input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
+    if (checkedPay && (checkedPay.value.includes('Передплата') || checkedPay.value.includes('IBAN'))) {
+        paymentMethod = 'Передплата на IBAN/картку (без комісії)';
     }
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
@@ -2776,6 +2794,11 @@ async function copyTextToClipboard(text) {
 }
 
 async function checkoutViaMessenger(messenger) {
+    const cart = getCart();
+    if (!cart || cart.length === 0) {
+        showCartToast('Кошик порожній! Оберіть товар у каталозі.');
+        return;
+    }
     const order = getFormattedOrderForMessenger();
     await copyTextToClipboard(order.text);
 
@@ -2871,13 +2894,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initDynamicCatalog();
     initNovaPoshtaAutocomplete();
 
-    // Close Cart on Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeCart();
-            closeSizeGuideModal();
-        }
-    });
 
     // Handle Form Submit with PDF Generation
     const form = document.getElementById('checkoutForm');
@@ -3326,6 +3342,11 @@ async function handleCartDirectCheckout(e) {
         alert('Замовлення прийнято! Менеджер зателефонує вам найближчим часом для підтвердження.');
         clearCart();
         closeCart();
+        hideCartCheckoutForm();
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+        }
     }
 }
 
@@ -3358,9 +3379,17 @@ window.handleQuickChoiceOverlayClick = handleQuickChoiceOverlayClick;
 window.selectQuickChoice = selectQuickChoice;
 window.clearQuickChoiceSelection = clearQuickChoiceSelection;
 
-// Keyboard accessibility for Modals (Brand, Quick Choice, Size Chart)
+// Keyboard accessibility for all Modals, Drawers & Dropdowns
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+        const cityDropdown = document.getElementById('npCityDropdown');
+        if (cityDropdown && cityDropdown.style.display !== 'none') {
+            cityDropdown.style.display = 'none';
+        }
+        const warehouseDropdown = document.getElementById('npWarehouseDropdown');
+        if (warehouseDropdown && warehouseDropdown.style.display !== 'none') {
+            warehouseDropdown.style.display = 'none';
+        }
         const brandModal = document.getElementById('brandModal');
         if (brandModal && brandModal.classList.contains('active')) {
             closeBrandModal();
@@ -3372,6 +3401,18 @@ document.addEventListener('keydown', (e) => {
         const sizeModal = document.getElementById('sizeChartModal');
         if (sizeModal && sizeModal.style.display !== 'none') {
             closeSizeChartModal();
+        }
+        const sizeGuideModal = document.getElementById('sizeModal');
+        if (sizeGuideModal && sizeGuideModal.classList.contains('active')) {
+            closeSizeGuideModal();
+        }
+        const orderSuccessModal = document.getElementById('orderSuccessModal');
+        if (orderSuccessModal && orderSuccessModal.style.display !== 'none') {
+            closeOrderSuccessModal();
+        }
+        const cartDrawer = document.getElementById('cartDrawer');
+        if (cartDrawer && cartDrawer.classList.contains('active')) {
+            closeCart();
         }
     }
 });

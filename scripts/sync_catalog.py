@@ -260,7 +260,7 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     return 'unisex'
 
 def is_sneaker_product(name, clean_name, cat_slug, cname="", desc="", sizes=None):
-    if cat_slug == 'shoes':
+    if cat_slug in ('shoes', 'winter'):
         return True
 
     text_all = f"{name} {clean_name} {cname} {desc}".lower()
@@ -275,8 +275,8 @@ def is_sneaker_product(name, clean_name, cat_slug, cname="", desc="", sizes=None
         if not (has_shoe_sizes and any(m in text_all for m in ['new balance 530', 'air jordan 1', 'dunk'])):
             return False
 
-    # Generic sneaker keywords (Ukrainian, Russian, English)
-    if any(k in text_all for k in ['кросів', 'кроссов', 'кед', 'sneaker', 'сникер', 'хайтоп']):
+    # Generic footwear keywords (Ukrainian, Russian, English)
+    if any(k in text_all for k in ['кросів', 'кроссов', 'кед', 'черевик', 'ботинк', 'ботиль', 'чобот', 'sneaker', 'сникер', 'хайтоп', 'boot', 'угг', 'ugg']):
         return True
 
     # Sneaker model patterns
@@ -514,6 +514,29 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
         t = f'Сланці {t.upper()}'
     elif re.match(r'^SL\d{2,4}$', t, re.I):
         t = f'Зимові черевики {t.upper()}'
+    elif re.match(r'^J\d{1,4}$', t, re.I):
+        t = f'Куртка демісезонна {t.upper()}'
+    elif re.match(r'^SJ\d{1,4}$', t, re.I):
+        t = f'Куртка {t.upper()}'
+    elif re.match(r'^SP(?:б/н)?\d{1,4}$', t, re.I):
+        t = f'Спортивні штани {t.upper()}'
+    elif re.match(r'^SH\d{1,4}$', t, re.I):
+        t = f'Шорти {t.upper()}'
+    elif re.match(r'^TS\d{1,4}$', t, re.I):
+        t = f'Футболка {t.upper()}'
+    elif re.match(r'^JS\d{1,4}$', t, re.I):
+        t = f'Спортивний костюм {t.upper()}'
+    elif re.match(r'^M\d{4,5}$', t, re.I):
+        t = f'Кросівки {t.upper()}'
+    elif re.match(r'^\d{2}$', t):
+        if cat_slug == 'clothing':
+            t = f'Куртка / Вітровка {t}'
+        elif cat_slug in ('shoes', 'winter'):
+            t = f'Кросівки / Взуття {t}'
+        elif cat_slug == 'bags':
+            t = f'Сумка {t}'
+        else:
+            t = f'Товар {t}'
     elif re.match(r'^(?:NTR|NB|VN|CR|YE)\d{2,4}$', t, re.I):
         if brand_slug != 'other':
             if cat_slug == 'winter':
