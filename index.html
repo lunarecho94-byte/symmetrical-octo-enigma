@@ -174,29 +174,6 @@
                     <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
                 </div>
 
-                <!-- Quick Search Tags -->
-                <div class="search-quick-tags">
-                    <span class="quick-tags-label">Швидкий вибір:</span>
-                    <button type="button" class="quick-tag-chip" onclick="selectCatalogGender('men', this)">👨 Чоловіче</button>
-                    <button type="button" class="quick-tag-chip" onclick="selectCatalogGender('women', this)">👩 Жіноче</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('SALE')">🏷 Розпродаж / SALE</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">👟 Nike</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('9060')">🔥 NB 9060</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Зима')">❄️ Зима / Термо</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Куртка')">🧥 Куртки</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Сумка')">🎒 Сумки</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Air Force')">Air Force</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Adidas')">Adidas</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Samba')">Samba</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Asics')">Asics</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('UGG')">UGG</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Salomon')">Salomon</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('On Cloud')">On Cloud</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Jordan')">Air Jordan</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Костюм')">Спорт костюми</button>
-                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Кепка')">🧢 Кепки / Аксесуари</button>
-                </div>
-
                 <!-- Live Results Counter & Reset Action -->
                 <div id="searchResultsInfo" class="search-results-info" style="display: none;">
                     <span id="searchResultsCount">Знайдено: 0 моделей</span>
@@ -204,9 +181,22 @@
                 </div>
             </div>
 
-            <!-- Unified Brand Filter & Sort Bar -->
+            <!-- Unified Quick Choice, Brand Filter & Sort Bar -->
             <div class="category-filter-wrapper">
                 <div class="brand-filter-bar">
+                    <!-- Quick Choice Button -->
+                    <div class="quick-choice-wrapper">
+                        <button type="button" class="quick-choice-btn" id="quickChoiceBtn" onclick="openQuickChoiceModal()" aria-haspopup="dialog" aria-expanded="false" title="Швидкий вибір">
+                            <span class="quick-choice-btn-left">
+                                <span class="quick-choice-btn-icon">⚡</span>
+                                <span class="quick-choice-btn-label" id="quickChoiceBtnLabel">Швидкий вибір</span>
+                            </span>
+                            <span class="quick-choice-btn-arrow">▾</span>
+                        </button>
+                        <button type="button" class="quick-choice-clear-btn" id="quickChoiceClearBtn" onclick="clearQuickChoiceSelection(event)" title="Скинути швидкий вибір" style="display: none;" aria-label="Скинути швидкий вибір">✕</button>
+                    </div>
+
+                    <!-- Brand Select Button -->
                     <div class="brand-select-wrapper">
                         <button type="button" class="brand-select-btn" id="brandSelectBtn" onclick="openBrandModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть бренд">
                             <span class="brand-btn-left">
@@ -218,6 +208,8 @@
                         </button>
                         <button type="button" class="brand-quick-clear-btn" id="brandQuickClearBtn" onclick="clearBrandSelection(event)" title="Скинути фільтр бренду" style="display: none;" aria-label="Скинути фільтр бренду">✕</button>
                     </div>
+
+                    <!-- Catalog Sort -->
                     <div class="catalog-sort-bar">
                         <label for="catalogSortSelect" class="sort-label">Сортування:</label>
                         <div class="sort-select-wrapper">
@@ -884,6 +876,138 @@
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
     <script src="script.js"></script>
+
+    <!-- Quick Choice Modal / Bottom Sheet -->
+    <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">
+        <div class="brand-modal-sheet" onclick="event.stopPropagation()">
+            <div class="brand-modal-header">
+                <div class="brand-modal-title-box">
+                    <h3 class="brand-modal-title" id="quickChoiceModalTitle">⚡ Швидкий вибір</h3>
+                    <span class="brand-modal-subtitle">Популярні запити, моделі та сезон</span>
+                </div>
+                <button type="button" class="brand-modal-close" onclick="closeQuickChoiceModal()" aria-label="Закрити модальне вікно">✕</button>
+            </div>
+
+            <div class="quick-choice-modal-body">
+                <!-- Group 1: Для кого -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">👥 Для кого</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="all" data-label="Всі товари" onclick="selectQuickChoice('gender', 'all', 'Всі товари')">
+                            <span class="quick-modal-chip-icon">🔥</span>
+                            <span class="quick-modal-chip-text">Всі товари</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="men" data-label="👨 Чоловіче" onclick="selectQuickChoice('gender', 'men', '👨 Чоловіче')">
+                            <span class="quick-modal-chip-icon">👨</span>
+                            <span class="quick-modal-chip-text">Чоловіче</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="women" data-label="👩 Жіноче" onclick="selectQuickChoice('gender', 'women', '👩 Жіноче')">
+                            <span class="quick-modal-chip-icon">👩</span>
+                            <span class="quick-modal-chip-text">Жіноче</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 2: Акції та Сезон -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">🔥 Акції та Сезон</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="SALE" data-label="🏷️ SALE" onclick="selectQuickChoice('search', 'SALE', '🏷️ SALE')">
+                            <span class="quick-modal-chip-icon">🏷️</span>
+                            <span class="quick-modal-chip-text">Розпродаж / SALE</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Зима" data-label="❄️ Зима / Термо" onclick="selectQuickChoice('search', 'Зима', '❄️ Зима / Термо')">
+                            <span class="quick-modal-chip-icon">❄️</span>
+                            <span class="quick-modal-chip-text">Зима / Термо</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="sort" data-val="discount" data-label="🔥 Знижки" onclick="selectQuickChoice('sort', 'discount', '🔥 Знижки')">
+                            <span class="quick-modal-chip-icon">💥</span>
+                            <span class="quick-modal-chip-text">Топ знижки</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="sort" data-val="newest" data-label="🌟 Новинки" onclick="selectQuickChoice('sort', 'newest', '🌟 Новинки')">
+                            <span class="quick-modal-chip-icon">🌟</span>
+                            <span class="quick-modal-chip-text">Новинки спочатку</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 3: Топові моделі та хіти -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">👟 Топові хіти та моделі</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Nike" data-label="👟 Nike" onclick="selectQuickChoice('search', 'Nike', '👟 Nike')">
+                            <span class="quick-modal-chip-icon">👟</span>
+                            <span class="quick-modal-chip-text">Nike</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="9060" data-label="🔥 NB 9060" onclick="selectQuickChoice('search', '9060', '🔥 NB 9060')">
+                            <span class="quick-modal-chip-icon">🔥</span>
+                            <span class="quick-modal-chip-text">NB 9060</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Air Force" data-label="Air Force" onclick="selectQuickChoice('search', 'Air Force', 'Air Force')">
+                            <span class="quick-modal-chip-icon">⚪</span>
+                            <span class="quick-modal-chip-text">Air Force</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Samba" data-label="Adidas Samba" onclick="selectQuickChoice('search', 'Samba', 'Adidas Samba')">
+                            <span class="quick-modal-chip-icon">⚽</span>
+                            <span class="quick-modal-chip-text">Adidas Samba</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Asics" data-label="Asics Gel" onclick="selectQuickChoice('search', 'Asics', 'Asics Gel')">
+                            <span class="quick-modal-chip-icon">⚡</span>
+                            <span class="quick-modal-chip-text">Asics Gel</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="UGG" data-label="UGG" onclick="selectQuickChoice('search', 'UGG', 'UGG')">
+                            <span class="quick-modal-chip-icon">🥾</span>
+                            <span class="quick-modal-chip-text">UGG</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Salomon" data-label="Salomon" onclick="selectQuickChoice('search', 'Salomon', 'Salomon')">
+                            <span class="quick-modal-chip-icon">🏔️</span>
+                            <span class="quick-modal-chip-text">Salomon</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="On Cloud" data-label="On Cloud" onclick="selectQuickChoice('search', 'On Cloud', 'On Cloud')">
+                            <span class="quick-modal-chip-icon">☁️</span>
+                            <span class="quick-modal-chip-text">On Cloud</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Jordan" data-label="Air Jordan" onclick="selectQuickChoice('search', 'Jordan', 'Air Jordan')">
+                            <span class="quick-modal-chip-icon">🏀</span>
+                            <span class="quick-modal-chip-text">Air Jordan</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Adidas" data-label="Adidas" onclick="selectQuickChoice('search', 'Adidas', 'Adidas')">
+                            <span class="quick-modal-chip-icon">👟</span>
+                            <span class="quick-modal-chip-text">Adidas</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 4: Одяг та аксесуари -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">🧥 Одяг та аксесуари</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Куртка" data-label="🧥 Куртки" onclick="selectQuickChoice('search', 'Куртка', '🧥 Куртки')">
+                            <span class="quick-modal-chip-icon">🧥</span>
+                            <span class="quick-modal-chip-text">Куртки & Пуховики</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Костюм" data-label="🏃 Костюми" onclick="selectQuickChoice('search', 'Костюм', '🏃 Костюми')">
+                            <span class="quick-modal-chip-icon">🏃</span>
+                            <span class="quick-modal-chip-text">Спортивні костюми</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Сумка" data-label="🎒 Сумки" onclick="selectQuickChoice('search', 'Сумка', '🎒 Сумки')">
+                            <span class="quick-modal-chip-icon">🎒</span>
+                            <span class="quick-modal-chip-text">Сумки & Месенджери</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Кепка" data-label="🧢 Кепки" onclick="selectQuickChoice('search', 'Кепка', '🧢 Кепки')">
+                            <span class="quick-modal-chip-icon">🧢</span>
+                            <span class="quick-modal-chip-text">Кепки & Шапки</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-modal-footer">
+                <button type="button" class="brand-modal-reset-btn" onclick="clearQuickChoiceSelection(event); closeQuickChoiceModal();">Скинути вибір</button>
+                <button type="button" class="brand-modal-apply-btn" onclick="closeQuickChoiceModal()">Готово</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Brand Selector Modal / Bottom Sheet -->
     <div id="brandModal" class="brand-modal-overlay" onclick="handleBrandOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="brandModalTitle">

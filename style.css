@@ -4563,6 +4563,7 @@ header.header {
     padding: 2px 0;
 }
 
+.quick-choice-wrapper,
 .brand-select-wrapper {
     display: inline-flex;
     align-items: center;
@@ -4570,6 +4571,7 @@ header.header {
     position: relative;
 }
 
+.quick-choice-btn,
 .brand-select-btn {
     display: inline-flex;
     align-items: center;
@@ -4589,11 +4591,13 @@ header.header {
     -webkit-tap-highlight-color: transparent;
 }
 
+.quick-choice-btn:hover,
 .brand-select-btn:hover {
     border-color: #09090b;
     background: #f8fafc;
 }
 
+.quick-choice-btn.active,
 .brand-select-btn.active {
     background: #09090b;
     color: #ffffff;
@@ -4601,16 +4605,19 @@ header.header {
     box-shadow: 0 4px 12px rgba(9, 9, 11, 0.18);
 }
 
+.quick-choice-btn-left,
 .brand-btn-left {
     display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 
+.quick-choice-btn-icon,
 .brand-btn-icon {
     font-size: 14px;
 }
 
+.quick-choice-btn-label,
 .brand-btn-label {
     font-weight: 600;
 }
@@ -4630,16 +4637,19 @@ header.header {
     color: #ffffff;
 }
 
+.quick-choice-btn-arrow,
 .brand-btn-arrow {
     font-size: 11px;
     color: #71717a;
     transition: transform 0.2s ease;
 }
 
+.quick-choice-btn.active .quick-choice-btn-arrow,
 .brand-select-btn.active .brand-btn-arrow {
     color: #ffffff;
 }
 
+.quick-choice-clear-btn,
 .brand-quick-clear-btn {
     width: 28px;
     height: 28px;
@@ -4656,6 +4666,7 @@ header.header {
     touch-action: manipulation;
 }
 
+.quick-choice-clear-btn:hover,
 .brand-quick-clear-btn:hover {
     background: #ef4444;
     border-color: #ef4444;
@@ -4933,40 +4944,119 @@ header.header {
     opacity: 0.9;
 }
 
+/* Quick Choice Modal Body & Chips */
+.quick-choice-modal-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+    padding: 6px 4px 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 58vh;
+}
+
+.quick-modal-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.quick-modal-group-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #71717a;
+}
+
+.quick-modal-chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-modal-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: #f4f4f5;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #18181b;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.quick-modal-chip:hover {
+    background: #e4e4e7;
+    border-color: #d4d4d8;
+}
+
+.quick-modal-chip.active {
+    background: #09090b;
+    color: #ffffff;
+    border-color: #09090b;
+}
+
+.quick-modal-chip-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.quick-modal-chip-text {
+    line-height: 1.2;
+}
+
 @media (max-width: 768px) {
     .brand-filter-bar {
+        display: flex;
+        flex-wrap: wrap;
         gap: 8px;
     }
+    .quick-choice-wrapper,
     .brand-select-wrapper {
-        flex: 1;
+        flex: 1 1 calc(50% - 4px);
         min-width: 0;
     }
+    .quick-choice-btn,
     .brand-select-btn {
         width: 100%;
-        padding: 8px 12px;
+        padding: 8px 10px;
         font-size: 13px;
     }
+    .quick-choice-btn-label,
     .brand-btn-label {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 115px;
+        max-width: 95px;
     }
     .brand-btn-count {
         font-size: 11px;
-        padding: 2px 6px;
+        padding: 2px 5px;
     }
     .catalog-sort-bar {
-        margin-top: 0;
+        margin-top: 2px;
+        width: 100%;
         flex-shrink: 0;
     }
     .catalog-sort-bar .sort-label {
         display: none;
     }
+    .catalog-sort-bar .sort-select-wrapper {
+        width: 100%;
+    }
     .sort-select-wrapper select {
-        padding: 8px 10px;
+        padding: 8px 12px;
         font-size: 13px;
         height: 38px;
+        width: 100%;
     }
 }
 

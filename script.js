@@ -1445,6 +1445,107 @@ function clearBrandModalSearch() {
     renderBrandModalItems(currentBrandsList);
 }
 
+// --- Quick Choice State & Handlers ---
+let currentQuickChoice = { type: null, val: null, label: null };
+
+function openQuickChoiceModal() {
+    const modal = document.getElementById('quickChoiceModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+
+    document.querySelectorAll('.quick-modal-chip').forEach(chip => {
+        const matches = currentQuickChoice.type === chip.dataset.type && currentQuickChoice.val === chip.dataset.val;
+        chip.classList.toggle('active', !!matches);
+    });
+}
+
+function closeQuickChoiceModal() {
+    const modal = document.getElementById('quickChoiceModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+}
+
+function handleQuickChoiceOverlayClick(e) {
+    if (e.target.id === 'quickChoiceModal') {
+        closeQuickChoiceModal();
+    }
+}
+
+function selectQuickChoice(type, val, label) {
+    closeQuickChoiceModal();
+    currentQuickChoice = { type, val, label };
+    updateQuickChoiceButtonState();
+
+    if (type === 'gender') {
+        selectCatalogGender(val);
+    } else if (type === 'search') {
+        const input = document.getElementById('catalogSearchInput');
+        if (input) input.value = val;
+        currentCatalogSearchQuery = val;
+        applyCatalogFilters();
+    } else if (type === 'sort') {
+        currentCatalogSort = val;
+        const sortSel = document.getElementById('catalogSortSelect');
+        if (sortSel) sortSel.value = val;
+        applyCatalogFilters();
+    }
+
+    const grid = document.querySelector('.products-grid');
+    if (grid) {
+        const topPos = grid.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: topPos, behavior: 'smooth' });
+    }
+}
+
+function clearQuickChoiceSelection(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    const prevType = currentQuickChoice.type;
+    currentQuickChoice = { type: null, val: null, label: null };
+    updateQuickChoiceButtonState();
+
+    if (prevType === 'gender') {
+        selectCatalogGender('all');
+    } else if (prevType === 'search') {
+        const input = document.getElementById('catalogSearchInput');
+        if (input) input.value = '';
+        currentCatalogSearchQuery = '';
+        applyCatalogFilters();
+    } else if (prevType === 'sort') {
+        const sortSel = document.getElementById('catalogSortSelect');
+        if (sortSel) sortSel.value = 'popular';
+        handleCatalogSort('popular');
+    }
+}
+
+function updateQuickChoiceButtonState() {
+    const btn = document.getElementById('quickChoiceBtn');
+    const label = document.getElementById('quickChoiceBtnLabel');
+    const clearBtn = document.getElementById('quickChoiceClearBtn');
+    if (!btn || !label) return;
+
+    if (currentQuickChoice.val && currentQuickChoice.val !== 'all') {
+        btn.classList.add('active');
+        label.textContent = currentQuickChoice.label || currentQuickChoice.val;
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+    } else {
+        btn.classList.remove('active');
+        label.textContent = 'Швидкий вибір';
+        if (clearBtn) clearBtn.style.display = 'none';
+    }
+
+    document.querySelectorAll('.quick-modal-chip').forEach(chip => {
+        const matches = currentQuickChoice.type === chip.dataset.type && currentQuickChoice.val === chip.dataset.val;
+        chip.classList.toggle('active', !!matches);
+    });
+}
+
 function renderSizeFilterChips(meta) {
     const container = document.getElementById('catalogSizeFilterChips');
     if (!container) return;
@@ -1567,6 +1668,8 @@ function clearCatalogSearch() {
     currentCatalogCategory = 'all';
     currentCatalogSize = 'all';
     currentCatalogPriceRange = 'all';
+    currentQuickChoice = { type: null, val: null, label: null };
+    updateQuickChoiceButtonState();
 
     document.querySelectorAll('.gender-btn').forEach((b, idx) => {
         if (idx === 0) b.classList.add('active');
@@ -1616,6 +1719,8 @@ function quickSearch(term) {
         input.focus();
     }
     currentCatalogSearchQuery = term;
+    currentQuickChoice = { type: 'search', val: term, label: term };
+    updateQuickChoiceButtonState();
     applyCatalogFilters();
 }
 
@@ -3247,13 +3352,26 @@ window.selectBrandFromModal = selectBrandFromModal;
 window.clearBrandSelection = clearBrandSelection;
 window.handleBrandModalSearch = handleBrandModalSearch;
 window.clearBrandModalSearch = clearBrandModalSearch;
+window.openQuickChoiceModal = openQuickChoiceModal;
+window.closeQuickChoiceModal = closeQuickChoiceModal;
+window.handleQuickChoiceOverlayClick = handleQuickChoiceOverlayClick;
+window.selectQuickChoice = selectQuickChoice;
+window.clearQuickChoiceSelection = clearQuickChoiceSelection;
 
-// Keyboard accessibility for Brand Modal
+// Keyboard accessibility for Modals (Brand, Quick Choice, Size Chart)
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        const modal = document.getElementById('brandModal');
-        if (modal && modal.classList.contains('active')) {
+        const brandModal = document.getElementById('brandModal');
+        if (brandModal && brandModal.classList.contains('active')) {
             closeBrandModal();
+        }
+        const quickModal = document.getElementById('quickChoiceModal');
+        if (quickModal && quickModal.classList.contains('active')) {
+            closeQuickChoiceModal();
+        }
+        const sizeModal = document.getElementById('sizeChartModal');
+        if (sizeModal && sizeModal.style.display !== 'none') {
+            closeSizeChartModal();
         }
     }
 });
