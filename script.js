@@ -1363,7 +1363,7 @@ function createProductCardElement(item) {
             <div class="size-selector">
                 <div class="size-selector-header">
                     <label>Обери розмір:</label>
-                    <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
+                    <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal('${item.cat || 'shoes'}')">Таблиця розмірів</button>
                 </div>
                 <div class="size-options">
                     ${sizesHtml}
@@ -2424,11 +2424,34 @@ function formatPhoneInput(e) {
 // SIZE CHART MODAL HANDLERS
 // ==========================================================================
 
-function openSizeChartModal() {
+function openSizeChartModal(category = 'shoes') {
     const modal = document.getElementById('sizeChartModal');
     if (modal) {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
+        switchSizeChartTab(category === 'clothing' ? 'clothing' : 'shoes');
+    }
+}
+
+function switchSizeChartTab(tab) {
+    const tabShoes = document.getElementById('sizeTabShoes');
+    const tabClothing = document.getElementById('sizeTabClothing');
+    const paneShoes = document.getElementById('sizePaneShoes');
+    const paneClothing = document.getElementById('sizePaneClothing');
+    const modalTitle = document.getElementById('sizeChartTitle');
+
+    if (tab === 'clothing') {
+        if (tabShoes) tabShoes.classList.remove('active');
+        if (tabClothing) tabClothing.classList.add('active');
+        if (paneShoes) paneShoes.style.display = 'none';
+        if (paneClothing) paneClothing.style.display = 'block';
+        if (modalTitle) modalTitle.textContent = 'Таблиця розмірів одягу';
+    } else {
+        if (tabShoes) tabShoes.classList.add('active');
+        if (tabClothing) tabClothing.classList.remove('active');
+        if (paneShoes) paneShoes.style.display = 'block';
+        if (paneClothing) paneClothing.style.display = 'none';
+        if (modalTitle) modalTitle.textContent = 'Таблиця розмірів взуття';
     }
 }
 
@@ -2740,6 +2763,7 @@ window.selectCatalogCategory = selectCatalogCategory;
 window.loadMoreProducts = loadMoreProducts;
 window.handleCatalogSort = handleCatalogSort;
 window.openSizeChartModal = openSizeChartModal;
+window.switchSizeChartTab = switchSizeChartTab;
 window.closeSizeChartModal = closeSizeChartModal;
 window.handleQuickOrderSubmit = handleQuickOrderSubmit;
 window.clearQuickOrderModel = clearQuickOrderModel;

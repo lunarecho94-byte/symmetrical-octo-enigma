@@ -803,43 +803,90 @@
         <div class="size-chart-overlay" onclick="closeSizeChartModal()"></div>
         <div class="size-chart-card">
             <div class="size-chart-head">
-                <h3 id="sizeChartTitle" class="size-chart-title">Таблиця розмірів взуття</h3>
+                <h3 id="sizeChartTitle" class="size-chart-title">Таблиця розмірів</h3>
                 <button type="button" class="btn-close-modal" onclick="closeSizeChartModal()" aria-label="Закрити">✕</button>
             </div>
+            <div class="size-chart-tabs">
+                <button type="button" class="size-tab-btn active" id="sizeTabShoes" onclick="switchSizeChartTab('shoes')">
+                    👟 Взуття
+                </button>
+                <button type="button" class="size-tab-btn" id="sizeTabClothing" onclick="switchSizeChartTab('clothing')">
+                    🧥 Одяг
+                </button>
+            </div>
             <div class="size-chart-body">
-                <p class="size-chart-desc">Довжина устілки вказана в сантиметрах (см). Для правильного вибору розміру заміряйте довжину устілки вашого зручного взуття або довжину стопи.</p>
-                <div class="size-table-container">
-                    <table class="size-table">
-                        <thead>
-                            <tr>
-                                <th>Розмір (EUR)</th>
-                                <th>Устілка (см)</th>
-                                <th>Категорія</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><b>36</b></td><td>23.0 см</td><td>Жіночі</td></tr>
-                            <tr><td><b>37</b></td><td>23.5 см</td><td>Жіночі</td></tr>
-                            <tr><td><b>38</b></td><td>24.0 см</td><td>Жіночі</td></tr>
-                            <tr><td><b>39</b></td><td>24.5 - 25.0 см</td><td>Жіночі / Унісекс</td></tr>
-                            <tr><td><b>40</b></td><td>25.5 см</td><td>Унісекс</td></tr>
-                            <tr><td><b>41</b></td><td>26.0 см</td><td>Унісекс / Чоловічі</td></tr>
-                            <tr><td><b>42</b></td><td>26.5 см</td><td>Чоловічі</td></tr>
-                            <tr><td><b>43</b></td><td>27.5 см</td><td>Чоловічі</td></tr>
-                            <tr><td><b>44</b></td><td>28.0 см</td><td>Чоловічі</td></tr>
-                            <tr><td><b>45</b></td><td>28.5 см</td><td>Чоловічі</td></tr>
-                            <tr><td><b>46</b></td><td>29.0 см</td><td>Чоловічі</td></tr>
-                        </tbody>
-                    </table>
+                <!-- Shoe Size Pane -->
+                <div id="sizePaneShoes" class="size-pane">
+                    <p class="size-chart-desc">Довжина устілки вказана в сантиметрах (см). Для правильного вибору розміру заміряйте довжину устілки вашого зручного взуття або довжину стопи.</p>
+                    <div class="size-table-container">
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th>Розмір (EUR)</th>
+                                    <th>Устілка (см)</th>
+                                    <th>Категорія</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>36</b></td><td>23.0 см</td><td>Жіночі</td></tr>
+                                <tr><td><b>37</b></td><td>23.5 см</td><td>Жіночі</td></tr>
+                                <tr><td><b>38</b></td><td>24.0 см</td><td>Жіночі</td></tr>
+                                <tr><td><b>39</b></td><td>24.5 - 25.0 см</td><td>Жіночі / Унісекс</td></tr>
+                                <tr><td><b>40</b></td><td>25.5 см</td><td>Унісекс</td></tr>
+                                <tr><td><b>41</b></td><td>26.0 см</td><td>Унісекс / Чоловічі</td></tr>
+                                <tr><td><b>42</b></td><td>26.5 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>43</b></td><td>27.5 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>44</b></td><td>28.0 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>45</b></td><td>28.5 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>46</b></td><td>29.0 см</td><td>Чоловічі</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="size-measuring-guide">
+                        <h4>Як заміряти стопу:</h4>
+                        <ol>
+                            <li>Покладіть аркуш паперу біля стіни на рівну підлогу.</li>
+                            <li>Станьте на аркуш так, щоб п'ята впиралася у стіну.</li>
+                            <li>Зробіть відмітку біля найдовшого пальця та виміряйте відстань лінійкою.</li>
+                        </ol>
+                        <p class="size-mgr-note">При замовленні наш менеджер обов'язково допоможе уточнити точний розмір під обрану модель!</p>
+                    </div>
                 </div>
-                <div class="size-measuring-guide">
-                    <h4>Як заміряти стопу:</h4>
-                    <ol>
-                        <li>Покладіть аркуш паперу біля стіни на рівну підлогу.</li>
-                        <li>Станьте на аркуш так, щоб п'ята впиралася у стіну.</li>
-                        <li>Зробіть відмітку біля найдовшого пальця та виміряйте відстань лінійкою.</li>
-                    </ol>
-                    <p class="size-mgr-note">При замовленні наш менеджер обов'язково допоможе уточнити точний розмір під обрану модель!</p>
+
+                <!-- Clothing Size Pane -->
+                <div id="sizePaneClothing" class="size-pane" style="display: none;">
+                    <p class="size-chart-desc">Таблиця стандартних розмірів для худі, спортивних костюмів, курток, штанів та футболок. Найпростіший орієнтир — зріст та вага.</p>
+                    <div class="size-table-container">
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th>Розмір</th>
+                                    <th>Зріст (см)</th>
+                                    <th>Вага (кг)</th>
+                                    <th>Груди (см)</th>
+                                    <th>Талія (см)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>XS</b></td><td>155 – 165 см</td><td>45 – 55 кг</td><td>82 – 88 см</td><td>66 – 72 см</td></tr>
+                                <tr><td><b>S</b></td><td>165 – 172 см</td><td>55 – 65 кг</td><td>88 – 94 см</td><td>72 – 78 см</td></tr>
+                                <tr><td><b>M</b></td><td>170 – 178 см</td><td>65 – 75 кг</td><td>94 – 100 см</td><td>78 – 85 см</td></tr>
+                                <tr><td><b>L</b></td><td>175 – 184 см</td><td>75 – 85 кг</td><td>100 – 108 см</td><td>85 – 92 см</td></tr>
+                                <tr><td><b>XL</b></td><td>180 – 190 см</td><td>85 – 95 кг</td><td>108 – 116 см</td><td>92 – 100 см</td></tr>
+                                <tr><td><b>2XL</b></td><td>185 – 195 см</td><td>95 – 105 кг</td><td>116 – 124 см</td><td>100 – 110 см</td></tr>
+                                <tr><td><b>3XL</b></td><td>185 – 200 см</td><td>105 – 115+ кг</td><td>124 – 132 см</td><td>110 – 120 см</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="size-measuring-guide">
+                        <h4>Як підібрати розмір одягу:</h4>
+                        <ol>
+                            <li><b>Зріст та вага:</b> найнадійніший орієнтир для вибору спортивного та streetwear одягу.</li>
+                            <li><b>Для вільної (оверсайз) посадки:</b> якщо ваші параметри на межі двох розмірів, сміливо обирайте більший.</li>
+                            <li><b>Індивідуальний підбір:</b> при дзвінку менеджер особисто уточнить ваші параметри та допоможе підібрати ідеальну посадку.</li>
+                        </ol>
+                        <p class="size-mgr-note">При оформленні замовлення можна вказати ваш зріст і вагу в коментарі для 100% точності!</p>
+                    </div>
                 </div>
             </div>
             <div class="size-chart-foot">
