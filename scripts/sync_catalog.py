@@ -217,6 +217,49 @@ def determine_brand(name, cat_name):
             return slug, title
     return 'other', 'Інші бренди'
 
+GENDER_WOMEN_KW = re.compile(r'жіноч|женск|women|woman|дівчат|для неї', re.I)
+GENDER_MEN_KW = re.compile(r'чоловіч|мужск|men\b|man\b|хлопц|для нього', re.I)
+GENDER_UNISEX_KW = re.compile(r'унісекс|унисекс|unisex', re.I)
+WOMEN_BAGS_BRANDS = {'chanel', 'pinko', 'jacquemus', 'chloe', 'miumiu', 'hermes'}
+WOMEN_BAGS_KW = re.compile(r'жіноч|женск|клатч|лоро піана|loro piana|lady dior|book tote', re.I)
+
+def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
+    full_text = f"{name} {cname} {desc}"
+    if GENDER_UNISEX_KW.search(full_text):
+        return 'unisex'
+    is_w = bool(GENDER_WOMEN_KW.search(full_text))
+    is_m = bool(GENDER_MEN_KW.search(full_text))
+    if is_w and not is_m:
+        return 'women'
+    if is_m and not is_w:
+        return 'men'
+
+    if cat_slug == 'bags':
+        if brand_slug in WOMEN_BAGS_BRANDS or WOMEN_BAGS_KW.search(full_text):
+            return 'women'
+        if any(k in name.lower() for k in ['сумка жіноча', 'сумка', 'клатч', 'tote', 'handbag']) and not any(k in name.lower() for k in ['рюкзак', 'бананка', 'месенджер', 'баул']):
+            return 'women'
+        return 'unisex'
+
+    if cat_slug in ('shoes', 'winter'):
+        num_sizes = []
+        for s in sizes:
+            m = re.match(r'^(\d+(?:[.,]\d+)?)$', str(s).strip())
+            if m:
+                num_sizes.append(float(m.group(1).replace(',', '.')))
+        if num_sizes:
+            min_s = min(num_sizes)
+            max_s = max(num_sizes)
+            if max_s <= 40:
+                return 'women'
+            elif min_s >= 41:
+                return 'men'
+            else:
+                return 'unisex'
+
+    return 'unisex'
+
+
 KNOWN_NUMERIC_MODELS = {
     '1906', '2002', '9060', '550', '574', '530', '990', '991', '992', '993', 
     '725', '610', '860', '350', '500', '700', '1460', '327', '452', '410'
@@ -650,6 +693,7 @@ def main():
         if is_sneaker and len(sorted_sizes) < 3:
             continue
         
+        gender = determine_gender(clean_name, cat_slug, brand_slug, sorted_sizes, cname, desc)
         category_counts[cat_slug] += 1
         brand_counts[brand_slug] += 1
         
@@ -673,6 +717,7 @@ def main():
             'cat': cat_slug,
             'brand': brand_slug,
             'brand_name': brand_title,
+            'gender': gender,
             'art': art or str(gid),
             'mat': mat,
             'origin': origin if origin != '-' else "В'єтнам",
@@ -691,11 +736,21 @@ def main():
         json.dump(products, f, ensure_ascii=False, separators=(',', ':'))
     print(f"Saved {OUTPUT_PRODUCTS} ({os.path.getsize(OUTPUT_PRODUCTS)} bytes)")
 
+    men_count = sum(1 for p in products if p['gender'] in ('men', 'unisex'))
+    women_count = sum(1 for p in products if p['gender'] in ('women', 'unisex'))
+
     # Save data/meta.json
     meta = {
         'total': len(products),
+        'genders': [
+            {'slug': 'all', 'name': 'Всі товари', 'icon': '🔥', 'count': len(products)},
+            {'slug': 'men', 'name': 'Чоловічі', 'icon': '👨', 'count': men_count},
+            {'slug': 'women', 'name': 'Жіночі', 'icon': '👩', 'count': women_count}
+        ],
         'categories': [
             {'slug': 'all', 'name': 'Всі товари', 'icon': '🔥', 'count': len(products)},
+            {'slug': 'men', 'name': 'Чоловічі', 'icon': '👨', 'count': men_count},
+            {'slug': 'women', 'name': 'Жіночі', 'icon': '👩', 'count': women_count},
             {'slug': 'shoes', 'name': 'Кросівки & Кеди', 'icon': '👟', 'count': category_counts['shoes']},
             {'slug': 'winter', 'name': 'Зимове взуття', 'icon': '❄️', 'count': category_counts['winter']},
             {'slug': 'clothing', 'name': 'Одяг & Куртки', 'icon': '🧥', 'count': category_counts['clothing']},
@@ -740,6 +795,7 @@ def main():
         desc_str = ' • '.join(desc_parts)
 
         main_img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/sneakers.webp'
+        g_gender = 'male' if p.get('gender') == 'men' else ('female' if p.get('gender') == 'women' else 'unisex')
         feed_xml_lines.extend([
             '    <item>',
             f'      <g:id>prod-{p["id"]}</g:id>',
@@ -748,6 +804,8 @@ def main():
             f'      <link>https://urbangrid.com.ua/#prod-{p["id"]}</link>',
             f'      <g:image_link>{main_img}</g:image_link>',
             f'      <g:brand>{escape(p["brand_name"])}</g:brand>',
+            f'      <g:gender>{g_gender}</g:gender>',
+            '      <g:age_group>adult</g:age_group>',
             '      <g:condition>new</g:condition>',
             '      <g:availability>in_stock</g:availability>',
             f'      <g:price>{p["price"]} UAH</g:price>',

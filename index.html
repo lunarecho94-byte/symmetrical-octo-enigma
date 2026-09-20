@@ -120,47 +120,61 @@
                 <p>Гортайте фото свайпом на телефоні або натискайте мініатюри під кожною парою!</p>
             </div>
 
+            <!-- Top Gender Switcher: All / Men / Women -->
+            <div class="gender-cat-switch" id="genderCatSwitch">
+                <button type="button" class="gender-btn active" data-gender="all" onclick="selectCatalogGender('all', this)">
+                    <span class="gender-icon">🔥</span>
+                    <span class="gender-name">Всі товари</span>
+                    <span class="gender-badge" id="genderBadgeAll">7 869</span>
+                </button>
+                <button type="button" class="gender-btn" data-gender="men" onclick="selectCatalogGender('men', this)">
+                    <span class="gender-icon">👨</span>
+                    <span class="gender-name">Чоловічі</span>
+                    <span class="gender-badge" id="genderBadgeMen">5 318</span>
+                </button>
+                <button type="button" class="gender-btn" data-gender="women" onclick="selectCatalogGender('women', this)">
+                    <span class="gender-icon">👩</span>
+                    <span class="gender-name">Жіночі</span>
+                    <span class="gender-badge" id="genderBadgeWomen">6 484</span>
+                </button>
+            </div>
+
             <!-- Primary Category Tabs -->
             <div class="main-cat-tabs" id="mainCategoryTabs">
                 <button type="button" class="main-cat-btn active" data-cat="all" onclick="selectCatalogCategory('all', this)">
                     <span class="cat-icon">🔥</span>
                     <span class="cat-title">Всі товари</span>
-                    <span class="cat-badge">11 508</span>
+                    <span class="cat-badge">7 869</span>
+                </button>
+                <button type="button" class="main-cat-btn" data-cat="men" onclick="selectCatalogCategory('men', this)">
+                    <span class="cat-icon">👨</span>
+                    <span class="cat-title">Чоловічі</span>
+                    <span class="cat-badge">5 318</span>
+                </button>
+                <button type="button" class="main-cat-btn" data-cat="women" onclick="selectCatalogCategory('women', this)">
+                    <span class="cat-icon">👩</span>
+                    <span class="cat-title">Жіночі</span>
+                    <span class="cat-badge">6 484</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="shoes" onclick="selectCatalogCategory('shoes', this)">
                     <span class="cat-icon">👟</span>
                     <span class="cat-title">Кросівки & Кеди</span>
-                    <span class="cat-badge">8 902</span>
+                    <span class="cat-badge">5 189</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="winter" onclick="selectCatalogCategory('winter', this)">
                     <span class="cat-icon">❄️</span>
                     <span class="cat-title">Зимове взуття</span>
                     <span class="cat-badge">838</span>
                 </button>
-                <button type="button" class="main-cat-btn" data-cat="outerwear" onclick="selectCatalogCategory('outerwear', this)">
-                    <span class="cat-icon">🧥</span>
-                    <span class="cat-title">Куртки & Пуховики</span>
-                    <span class="cat-badge">193</span>
-                </button>
                 <button type="button" class="main-cat-btn" data-cat="clothing" onclick="selectCatalogCategory('clothing', this)">
-                    <span class="cat-icon">👕</span>
-                    <span class="cat-title">Одяг & Костюми</span>
-                    <span class="cat-badge">483</span>
+                    <span class="cat-icon">🧥</span>
+                    <span class="cat-title">Одяг & Куртки</span>
+                    <span class="cat-badge">906</span>
                 </button>
                 <button type="button" class="main-cat-btn" data-cat="bags" onclick="selectCatalogCategory('bags', this)">
                     <span class="cat-icon">🎒</span>
-                    <span class="cat-title">Сумки & Рюкзаки</span>
-                    <span class="cat-badge">851</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="accessories" onclick="selectCatalogCategory('accessories', this)">
-                    <span class="cat-icon">🧢</span>
-                    <span class="cat-title">Аксесуари</span>
-                    <span class="cat-badge">241</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="sale" onclick="selectCatalogCategory('sale', this)">
-                    <span class="cat-icon">🏷</span>
-                    <span class="cat-title">Знижки & SALE</span>
-                    <span class="cat-badge">1 671</span>
+                    <span class="cat-title">Сумки & Аксесуари</span>
+                    <span class="cat-badge">936</span>
                 </button>
             </div>
 
@@ -183,6 +197,8 @@
                 <!-- Quick Search Tags -->
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
+                    <button type="button" class="quick-tag-chip" onclick="selectCatalogGender('men', this)">👨 Чоловіче</button>
+                    <button type="button" class="quick-tag-chip" onclick="selectCatalogGender('women', this)">👩 Жіноче</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('SALE')">🏷 Розпродаж / SALE</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Nike')">👟 Nike</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('9060')">🔥 NB 9060</button>
@@ -919,37 +935,37 @@
 
                 <!-- Clothing Size Pane -->
                 <div id="sizePaneClothing" class="size-pane" style="display: none;">
-                    <p class="size-chart-desc">Таблиця стандартних розмірів для худі, спортивних костюмів, курток, штанів та футболок. Найпростіший орієнтир — зріст та вага.</p>
+                    <p class="size-chart-desc">Таблиця стандартних розмірів для худі, спортивних костюмів, курток, штанів та футболок. Орієнтуйтеся на зріст, обхват грудей, талії та стегон.</p>
                     <div class="size-table-container">
                         <table class="size-table">
                             <thead>
                                 <tr>
                                     <th>Розмір</th>
                                     <th>Зріст (см)</th>
-                                    <th>Вага (кг)</th>
                                     <th>Груди (см)</th>
                                     <th>Талія (см)</th>
+                                    <th>Стегна (см)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td><b>XS</b></td><td>155 – 165 см</td><td>45 – 55 кг</td><td>82 – 88 см</td><td>66 – 72 см</td></tr>
-                                <tr><td><b>S</b></td><td>165 – 172 см</td><td>55 – 65 кг</td><td>88 – 94 см</td><td>72 – 78 см</td></tr>
-                                <tr><td><b>M</b></td><td>170 – 178 см</td><td>65 – 75 кг</td><td>94 – 100 см</td><td>78 – 85 см</td></tr>
-                                <tr><td><b>L</b></td><td>175 – 184 см</td><td>75 – 85 кг</td><td>100 – 108 см</td><td>85 – 92 см</td></tr>
-                                <tr><td><b>XL</b></td><td>180 – 190 см</td><td>85 – 95 кг</td><td>108 – 116 см</td><td>92 – 100 см</td></tr>
-                                <tr><td><b>2XL</b></td><td>185 – 195 см</td><td>95 – 105 кг</td><td>116 – 124 см</td><td>100 – 110 см</td></tr>
-                                <tr><td><b>3XL</b></td><td>185 – 200 см</td><td>105 – 115+ кг</td><td>124 – 132 см</td><td>110 – 120 см</td></tr>
+                                <tr><td><b>XS</b></td><td>155 – 165 см</td><td>82 – 88 см</td><td>66 – 72 см</td><td>88 – 94 см</td></tr>
+                                <tr><td><b>S</b></td><td>165 – 172 см</td><td>88 – 94 см</td><td>72 – 78 см</td><td>94 – 98 см</td></tr>
+                                <tr><td><b>M</b></td><td>170 – 178 см</td><td>94 – 100 см</td><td>78 – 85 см</td><td>98 – 104 см</td></tr>
+                                <tr><td><b>L</b></td><td>175 – 184 см</td><td>100 – 108 см</td><td>85 – 92 см</td><td>104 – 110 см</td></tr>
+                                <tr><td><b>XL</b></td><td>180 – 190 см</td><td>108 – 116 см</td><td>92 – 100 см</td><td>110 – 116 см</td></tr>
+                                <tr><td><b>2XL</b></td><td>185 – 195 см</td><td>116 – 124 см</td><td>100 – 110 см</td><td>116 – 122 см</td></tr>
+                                <tr><td><b>3XL</b></td><td>185 – 200 см</td><td>124 – 132 см</td><td>110 – 120 см</td><td>122 – 128 см</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="size-measuring-guide">
                         <h4>Як підібрати розмір одягу:</h4>
                         <ol>
-                            <li><b>Зріст та вага:</b> найнадійніший орієнтир для вибору спортивного та streetwear одягу.</li>
+                            <li><b>Основні параметри:</b> зріст, обхват грудей, талії та стегон — найнадійніший орієнтир для вибору спортивного та streetwear одягу.</li>
                             <li><b>Для вільної (оверсайз) посадки:</b> якщо ваші параметри на межі двох розмірів, сміливо обирайте більший.</li>
                             <li><b>Індивідуальний підбір:</b> при дзвінку менеджер особисто уточнить ваші параметри та допоможе підібрати ідеальну посадку.</li>
                         </ol>
-                        <p class="size-mgr-note">При оформленні замовлення можна вказати ваш зріст і вагу в коментарі для 100% точності!</p>
+                        <p class="size-mgr-note">При оформленні замовлення можна вказати ваші параметри в коментарі для 100% точності!</p>
                     </div>
                 </div>
             </div>
