@@ -1,0 +1,112 @@
+{
+  "total": 11816,
+  "categories": [
+    {
+      "slug": "all",
+      "name": "Всі товари",
+      "icon": "🔥",
+      "count": 11816
+    },
+    {
+      "slug": "shoes",
+      "name": "Кросівки & Кеди",
+      "icon": "👟",
+      "count": 9463
+    },
+    {
+      "slug": "winter",
+      "name": "Зимове взуття",
+      "icon": "❄️",
+      "count": 1011
+    },
+    {
+      "slug": "clothing",
+      "name": "Одяг & Куртки",
+      "icon": "🧥",
+      "count": 747
+    },
+    {
+      "slug": "bags",
+      "name": "Сумки & Аксесуари",
+      "icon": "🎒",
+      "count": 595
+    }
+  ],
+  "brands": [
+    {
+      "slug": "all",
+      "name": "Всі бренди",
+      "count": 11816
+    },
+    {
+      "slug": "nike",
+      "name": "Nike",
+      "count": 3140
+    },
+    {
+      "slug": "jordan",
+      "name": "Air Jordan",
+      "count": 458
+    },
+    {
+      "slug": "newbalance",
+      "name": "New Balance",
+      "count": 2028
+    },
+    {
+      "slug": "adidas",
+      "name": "Adidas & Yeezy",
+      "count": 1064
+    },
+    {
+      "slug": "asics",
+      "name": "Asics",
+      "count": 716
+    },
+    {
+      "slug": "salomon",
+      "name": "Salomon",
+      "count": 161
+    },
+    {
+      "slug": "ugg",
+      "name": "UGG",
+      "count": 641
+    },
+    {
+      "slug": "puma",
+      "name": "Puma",
+      "count": 91
+    },
+    {
+      "slug": "vans",
+      "name": "Vans",
+      "count": 70
+    },
+    {
+      "slug": "balenciaga",
+      "name": "Balenciaga",
+      "count": 224
+    },
+    {
+      "slug": "louisvuitton",
+      "name": "Louis Vuitton",
+      "count": 207
+    },
+    {
+      "slug": "dior",
+      "name": "Dior",
+      "count": 177
+    },
+    {
+      "slug": "chanel",
+      "name": "Chanel",
+      "count": 173
+    },
+    {
+      "slug": "other",
+      "name": "Інші",
+      "count": 2666
+    }
+  ]
+}
