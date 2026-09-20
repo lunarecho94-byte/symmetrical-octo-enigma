@@ -50,6 +50,7 @@
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
+        <link rel="preload" as="image" href="images/lacoste_bag_black_1.jpg">
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 
@@ -139,6 +140,9 @@
                 <!-- Quick Search Tags -->
                 <div class="search-quick-tags">
                     <span class="quick-tags-label">Швидкий вибір:</span>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Lacoste')">Lacoste</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('209')">209 (Lacoste)</button>
+                    <button type="button" class="quick-tag-chip" onclick="quickSearch('Сумка')">Сумка</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('5741')">5741 (W Sport)</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('W Sport')">👟 W Sport</button>
                     <button type="button" class="quick-tag-chip" onclick="quickSearch('Vans')">🛹 Vans</button>
@@ -172,7 +176,8 @@
             <!-- Fast Category Filter Chips (Brands) -->
             <div class="category-filter-wrapper">
                 <div class="category-filter-chips">
-                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (21)</button>
+                    <button type="button" class="filter-chip active" data-brand="all" onclick="filterCatalog('all', this)">Всі моделі (22)</button>
+                    <button type="button" class="filter-chip" data-brand="lacoste" onclick="filterCatalog('lacoste', this)">Lacoste (1)</button>
                     <button type="button" class="filter-chip" data-brand="nike" onclick="filterCatalog('nike', this)">Nike (10)</button>
                     <button type="button" class="filter-chip" data-brand="wsport" onclick="filterCatalog('wsport', this)">W Sport (1)</button>
                     <button type="button" class="filter-chip" data-brand="vans" onclick="filterCatalog('vans', this)">Vans (1)</button>
@@ -205,6 +210,51 @@
                     <h3>За вашим запитом пар не знайдено</h3>
                     <p id="noResultsDetail">Спробуйте інше ключове слово (наприклад: <b>5741</b>, <b>W Sport</b>, <b>3640</b>, <b>Vans</b>, <b>5093</b>, <b>Черевики</b>).</p>
                     <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати каталог</button>
+                </div>
+
+                <!-- Product Card: Чоловіча сумка Lacoste Black 209 (5 Photos) -->
+                <div class="product-card" id="prod-lacoste-bag-black-209" data-brand="lacoste" data-price="1750" data-name="Чоловіча сумка Lacoste Black" data-order="-1">
+                    <div class="product-img-wrapper">
+                        <span class="badge-new-arrival">✨ Новинка</span>
+                        <img src="images/lacoste_bag_black_1.jpg" alt="Чоловіча сумка Lacoste Black" id="cardImg-lacoste-bag-black-209">
+                    </div>
+                    <div class="card-thumbnails">
+                        <img src="images/lacoste_bag_black_1.jpg" alt="Чоловіча сумка Lacoste 1 (Спереду)" class="card-thumb-img active" onclick="switchCardImg(this, 'cardImg-lacoste-bag-black-209', 'images/lacoste_bag_black_1.jpg')">
+                        <img src="images/lacoste_bag_black_2.jpg" alt="Чоловіча сумка Lacoste 2 (На моделі)" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-lacoste-bag-black-209', 'images/lacoste_bag_black_2.jpg')">
+                        <img src="images/lacoste_bag_black_3.jpg" alt="Чоловіча сумка Lacoste 3 (На коробці)" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-lacoste-bag-black-209', 'images/lacoste_bag_black_3.jpg')">
+                        <img src="images/lacoste_bag_black_4.jpg" alt="Чоловіча сумка Lacoste 4 (З коробкою)" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-lacoste-bag-black-209', 'images/lacoste_bag_black_4.jpg')">
+                        <img src="images/lacoste_bag_black_5.jpg" alt="Чоловіча сумка Lacoste 5 (Позаду)" class="card-thumb-img" onclick="switchCardImg(this, 'cardImg-lacoste-bag-black-209', 'images/lacoste_bag_black_5.jpg')">
+                    </div>
+                    <div class="product-details">
+                        <div class="product-meta-header">
+                            <span class="product-cat">АКСЕСУАРИ / СУМКА LACOSTE | АРТ: 209</span>
+                            <div class="product-price-top"><span class="price-now">1 750 грн</span></div>
+                        </div>
+                        <h3 class="product-title">Чоловіча сумка Lacoste Black</h3>
+                        <div class="product-specs">
+                            <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>209</b></span></div>
+                            <div class="spec-row"><span class="spec-label">Розмір:</span> <span class="spec-val"><b>20 × 17 × 5 см</b></span></div>
+                            <div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">Нейлон, еко-шкіра</span></div>
+                            <div class="spec-row"><span class="spec-label">Колір:</span> <span class="spec-val">Чорний</span></div>
+                            <div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">Туреччина</span></div>
+                            <div class="spec-row"><span class="spec-label">Відділення:</span> <span class="spec-val">1 на блискавці + кишеня всередині, позаду кишеня на блискавці</span></div>
+                            <div class="spec-row"><span class="spec-label">Деталі:</span> <span class="spec-val">Брендована фурнітура, фірмове гравіювання, ремінець 120 см</span></div>
+                            <div class="spec-row"><span class="spec-label">Пакування:</span> <span class="spec-val">Брендована коробка та папір (безкоштовно)</span></div>
+                        </div>
+                        <div class="size-selector">
+                            <div class="size-selector-header">
+                                <label>Розмір:</label>
+                            </div>
+                            <div class="size-options">
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '20×17×5 см')">20×17×5 см</button>
+                            </div>
+                        </div>
+                        <div class="product-card-footer">
+                            <button type="button" class="btn-buy" onclick="selectModelInForm('Чоловіча сумка Lacoste Black (Код: 209) (1750 грн)', '1 750 грн', event)">
+                                В кошик
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Product Card 1: Nike Shox Ride 2 White Black (Art: 3706) (5 Photos) -->
@@ -286,16 +336,13 @@
                         </div>
                         <div class="size-selector">
                             <div class="size-selector-header">
-                                <label>Обери розмір (Чоловічі):</label>
+                                <label>Обери розмір:</label>
                                 <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal()">Таблиця розмірів</button>
                             </div>
                             <div class="size-options">
-                                <button type="button" class="size-btn" onclick="selectSize(this, '41 (26 см)')">41</button>
-                                <button type="button" class="size-btn active" onclick="selectSize(this, '42 (26.5 см)')">42</button>
-                                <button type="button" class="size-btn" onclick="selectSize(this, '43 (27.5 см)')">43</button>
-                                <button type="button" class="size-btn" onclick="selectSize(this, '44 (28 см)')">44</button>
-                                <button type="button" class="size-btn" onclick="selectSize(this, '45 (28.5 см)')">45</button>
-                                <button type="button" class="size-btn" onclick="selectSize(this, '46 (29 см)')">46</button>
+                                <button type="button" class="size-btn active" onclick="selectSize(this, '37 (23.5 см)')">37</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '39 (25 см)')">39</button>
+                                <button type="button" class="size-btn" onclick="selectSize(this, '40 (25.5 см)')">40</button>
                             </div>
                         </div>
                         <div class="product-card-footer">
