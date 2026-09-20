@@ -1113,8 +1113,7 @@ function applyCatalogFilters() {
             resultsInfo.style.display = 'flex';
             
             const labels = [];
-            if (currentCatalogBrand === 'lacoste') labels.push('Lacoste');
-            else if (currentCatalogBrand === 'nike') labels.push('Nike');
+            if (currentCatalogBrand === 'nike') labels.push('Nike');
             else if (currentCatalogBrand === 'nb' || currentCatalogBrand === 'newbalance') labels.push('New Balance');
             else if (currentCatalogBrand === 'salomon') labels.push('Salomon');
             else if (currentCatalogBrand === 'hoka') labels.push('Hoka');
