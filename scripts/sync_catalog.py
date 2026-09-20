@@ -148,6 +148,27 @@ KNOWN_BRANDS = [
     ('miumiu', 'Miu Miu', [r'miu miu']),
     ('mcqueen', 'Alexander McQueen', [r'mcqueen']),
     ('hugo', 'Hugo Boss', [r'hugo', r'boss']),
+    ('premiata', 'Premiata', [r'premiata']),
+    ('oncloud', 'On Cloud', [r'\bon\b.*cloud', r'cloudmonster', r'cloudtilt', r'cloudsurfer', r'on running']),
+    ('hermes', 'Hermes', [r'hermes', r'hermès']),
+    ('offwhite', 'Off-White', [r'off-white', r'off white']),
+    ('goldengoose', 'Golden Goose', [r'golden goose']),
+    ('celine', 'Celine', [r'celine', r'céline']),
+    ('converse', 'Converse', [r'converse', r'chuck taylor', r'all star']),
+    ('calvinklein', 'Calvin Klein', [r'calvin klein', r'\bck\b']),
+    ('dolcegabbana', 'Dolce & Gabbana', [r'dolce', r'gabbana', r'd&g']),
+    ('jacquemus', 'Jacquemus', [r'jacquemus']),
+    ('arcteryx', "Arc'teryx", [r'arc\'?teryx']),
+    ('champion', 'Champion', [r'champion']),
+    ('marcjacobs', 'Marc Jacobs', [r'marc jacobs']),
+    ('bape', 'Bape', [r'\bbape\b', r'bathing ape']),
+    ('timberland', 'Timberland', [r'timberland']),
+    ('essentials', 'Essentials / FOG', [r'essentials', r'fear of god']),
+    ('loewe', 'Loewe', [r'loewe']),
+    ('crocs', 'Crocs', [r'crocs']),
+    ('palace', 'Palace', [r'palace']),
+    ('birkenstock', 'Birkenstock', [r'birkenstock']),
+    ('ralphlauren', 'Ralph Lauren', [r'ralph lauren', r'polo ralph']),
 ]
 
 def determine_category(name, cat_name, desc):
@@ -183,6 +204,60 @@ def determine_brand(name, cat_name):
         if any(re.search(p, combined) for p in pats):
             return slug, title
     return 'other', 'Інші бренди'
+
+def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name):
+    title = name.strip()
+    # Strip leading emojis / stars / symbols
+    title = re.sub(r'^[⭐️★❄️❗️⚡️🔥✨✔️✦•\s!\(\)\-]+', '', title).strip()
+    
+    # Clean SALE markers
+    title = re.sub(r'^(?:!*SALE!*|\(SALE\))\s*', '', title, flags=re.I).strip()
+    title = re.sub(r'\s+(?:!*SALE!*|\(SALE\))$', '', title, flags=re.I).strip()
+    
+    # Clean double quotes
+    title = title.replace('\"\"', '\"').replace("''", "'")
+    
+    # Translate / clean Russian supplier prefixes
+    title = re.sub(r'^МУЖСКОЕ БЕЛЬЕ\s*', 'Чоловіча білизна ', title, flags=re.I)
+    title = re.sub(r'^ЖЕНСКОЕ БЕЛЬЕ\s*', 'Жіноча білизна ', title, flags=re.I)
+    title = re.sub(r'^МУЖСКИЕ\s*', 'Чоловічі ', title, flags=re.I)
+    title = re.sub(r'^ЖЕНСКИЕ\s*', 'Жіночі ', title, flags=re.I)
+    title = re.sub(r'^СВИТШОТ\s*', 'Світшот ', title, flags=re.I)
+    title = re.sub(r'^ФУТБОЛКА\s*', 'Футболка ', title, flags=re.I)
+    title = re.sub(r'^ШТАНЫ\s*', 'Штани ', title, flags=re.I)
+    title = re.sub(r'^КУРТКА\s*', 'Куртка ', title, flags=re.I)
+    title = re.sub(r'^ПУХОВИК\s*', 'Пуховик ', title, flags=re.I)
+    title = re.sub(r'^ХУДИ\s*', 'Худі ', title, flags=re.I)
+    title = re.sub(r'^ТОЛСТОВКА\s*', 'Толстовка ', title, flags=re.I)
+    title = re.sub(r'^КОСТЮМ\s*', 'Костюм ', title, flags=re.I)
+    
+    # Strip category suffixes in brackets like (взуття), (одяг)
+    title = re.sub(r'\s*\((?:взуття|одяг|аксесуари|взуття.*?)\)', '', title, flags=re.I).strip()
+    
+    # Special fix for single word "Track" under Balenciaga
+    if title.lower() == 'track' and brand_slug == 'balenciaga':
+        title = 'Balenciaga Track'
+        
+    # Enrich cryptic names
+    if title.lower() in [brand_slug, brand_title.lower()]:
+        if cat_slug == 'clothing':
+            title = f'Спортивний костюм {brand_title}'
+        elif cat_slug == 'bags':
+            title = f'Сумка {brand_title}'
+        elif cat_slug == 'winter':
+            title = f'Черевики {brand_title}'
+        else:
+            title = f'Кросівки {brand_title}'
+    elif re.match(r'^\d{3,4}[a-zA-Z]?$', title) and brand_slug in ['newbalance', 'adidas', 'nike', 'asics']:
+        title = f'{brand_title} {title}'
+    elif len(title) <= 6 and not any(k in title.lower() for k in ['ugg', 'dunk', 'max', 'air']):
+        if brand_slug != 'other':
+            title = f'{brand_title} {title}'
+        elif 'білизн' in cat_name.lower():
+            title = f'Комплект білизни {title}'
+            
+    title = re.sub(r'\s+', ' ', title).strip()
+    return title
 
 def main():
     if '--download' in sys.argv or not os.path.exists(EXPORT_FILE):
@@ -223,6 +298,10 @@ def main():
         cid = first.findtext('categoryId')
         cname = cat_names.get(cid, '')
         desc = first.findtext('description') or ''
+        
+        # Exclude defective / broken supplier items
+        if any(w in name.lower() or w in desc.lower() for w in ['(з дефектом)', 'дефект', 'брак', 'розпаровка', 'уцінка брак']):
+            continue
         
         # Regex specs
         art_m = re.search(r'Артикул\s*:\s*([^<]+)', desc)
@@ -295,9 +374,10 @@ def main():
         elif brand_slug in ['nike', 'jordan', 'newbalance', 'adidas']:
             badge = "🔥 Хіт продажів"
             
+        clean_name = clean_product_title(name, cat_slug, brand_slug, brand_title, cname)
         products.append({
             'id': str(gid),
-            'name': name,
+            'name': clean_name,
             'price': price,
             'old_price': old_price,
             'cat': cat_slug,

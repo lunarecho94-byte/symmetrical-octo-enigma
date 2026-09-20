@@ -1,11 +1,11 @@
 {
-  "total": 7624,
+  "total": 7605,
   "categories": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7624
+      "count": 7605
     },
     {
       "slug": "shoes",
@@ -17,7 +17,7 @@
       "slug": "winter",
       "name": "Зимове взуття",
       "icon": "❄️",
-      "count": 869
+      "count": 867
     },
     {
       "slug": "clothing",
@@ -29,14 +29,14 @@
       "slug": "bags",
       "name": "Сумки & Аксесуари",
       "icon": "🎒",
-      "count": 656
+      "count": 639
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7624
+      "count": 7605
     },
     {
       "slug": "nike",
@@ -51,7 +51,7 @@
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 639
+      "count": 638
     },
     {
       "slug": "adidas",
@@ -74,13 +74,13 @@
       "count": 125
     },
     {
-      "slug": "chanel",
-      "name": "Chanel",
-      "count": 120
-    },
-    {
       "slug": "balenciaga",
       "name": "Balenciaga",
+      "count": 118
+    },
+    {
+      "slug": "chanel",
+      "name": "Chanel",
       "count": 118
     },
     {
@@ -89,9 +89,14 @@
       "count": 99
     },
     {
-      "slug": "coach",
-      "name": "Coach",
-      "count": 73
+      "slug": "oncloud",
+      "name": "On Cloud",
+      "count": 87
+    },
+    {
+      "slug": "hermes",
+      "name": "Hermes",
+      "count": 71
     },
     {
       "slug": "louisvuitton",
@@ -99,9 +104,19 @@
       "count": 70
     },
     {
+      "slug": "coach",
+      "name": "Coach",
+      "count": 69
+    },
+    {
       "slug": "miumiu",
       "name": "Miu Miu",
-      "count": 69
+      "count": 67
+    },
+    {
+      "slug": "premiata",
+      "name": "Premiata",
+      "count": 66
     },
     {
       "slug": "tnf",
@@ -114,9 +129,19 @@
       "count": 57
     },
     {
+      "slug": "offwhite",
+      "name": "Off-White",
+      "count": 52
+    },
+    {
+      "slug": "goldengoose",
+      "name": "Golden Goose",
+      "count": 51
+    },
+    {
       "slug": "gucci",
       "name": "Gucci",
-      "count": 50
+      "count": 49
     },
     {
       "slug": "puma",
@@ -124,14 +149,19 @@
       "count": 47
     },
     {
+      "slug": "calvinklein",
+      "name": "Calvin Klein",
+      "count": 37
+    },
+    {
+      "slug": "celine",
+      "name": "Celine",
+      "count": 33
+    },
+    {
       "slug": "vans",
       "name": "Vans",
       "count": 27
-    },
-    {
-      "slug": "drmartens",
-      "name": "Dr. Martens",
-      "count": 26
     },
     {
       "slug": "stoneisland",
@@ -139,13 +169,23 @@
       "count": 26
     },
     {
-      "slug": "prada",
-      "name": "Prada",
-      "count": 22
+      "slug": "drmartens",
+      "name": "Dr. Martens",
+      "count": 25
+    },
+    {
+      "slug": "dolcegabbana",
+      "name": "Dolce & Gabbana",
+      "count": 23
     },
     {
       "slug": "mcqueen",
       "name": "Alexander McQueen",
+      "count": 20
+    },
+    {
+      "slug": "prada",
+      "name": "Prada",
       "count": 20
     },
     {
@@ -164,6 +204,21 @@
       "count": 15
     },
     {
+      "slug": "jacquemus",
+      "name": "Jacquemus",
+      "count": 15
+    },
+    {
+      "slug": "converse",
+      "name": "Converse",
+      "count": 13
+    },
+    {
+      "slug": "champion",
+      "name": "Champion",
+      "count": 11
+    },
+    {
       "slug": "underarmour",
       "name": "Under Armour",
       "count": 11
@@ -179,6 +234,11 @@
       "count": 10
     },
     {
+      "slug": "arcteryx",
+      "name": "Arc'teryx",
+      "count": 10
+    },
+    {
       "slug": "carhartt",
       "name": "Carhartt",
       "count": 9
@@ -189,19 +249,39 @@
       "count": 7
     },
     {
+      "slug": "marcjacobs",
+      "name": "Marc Jacobs",
+      "count": 7
+    },
+    {
+      "slug": "loewe",
+      "name": "Loewe",
+      "count": 5
+    },
+    {
+      "slug": "palace",
+      "name": "Palace",
+      "count": 3
+    },
+    {
+      "slug": "bape",
+      "name": "Bape",
+      "count": 2
+    },
+    {
       "slug": "michaelkors",
       "name": "Michael Kors",
       "count": 2
     },
     {
-      "slug": "diesel",
-      "name": "Diesel",
+      "slug": "essentials",
+      "name": "Essentials / FOG",
       "count": 1
     },
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 1442
+      "count": 950
     }
   ]
 }
