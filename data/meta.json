@@ -1,23 +1,23 @@
 {
-  "total": 7328,
+  "total": 7324,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7328
+      "count": 7324
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5155
+      "count": 5149
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 6041
+      "count": 6037
     }
   ],
   "categories": [
@@ -25,31 +25,31 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7328
+      "count": 7324
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5155
+      "count": 5149
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 6041
+      "count": 6037
     },
     {
       "slug": "shoes",
       "name": "Кросівки & Кеди",
       "icon": "👟",
-      "count": 5165
+      "count": 5160
     },
     {
       "slug": "winter",
       "name": "Зимове взуття",
       "icon": "❄️",
-      "count": 502
+      "count": 503
     },
     {
       "slug": "clothing",
@@ -68,32 +68,32 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7328
+      "count": 7324
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2008
+      "count": 2010
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1329
+      "count": 1328
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 493
+      "count": 488
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 399
+      "count": 398
     },
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 374
+      "count": 375
     },
     {
       "slug": "chanel",
@@ -123,7 +123,7 @@
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 86
+      "count": 87
     },
     {
       "slug": "coach",
@@ -148,7 +148,7 @@
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 64
+      "count": 63
     },
     {
       "slug": "tnf",
@@ -173,7 +173,7 @@
     {
       "slug": "puma",
       "name": "Puma",
-      "count": 46
+      "count": 47
     },
     {
       "slug": "calvinklein",
@@ -196,14 +196,14 @@
       "count": 26
     },
     {
-      "slug": "louisvuitton",
-      "name": "Louis Vuitton",
-      "count": 25
-    },
-    {
       "slug": "dolcegabbana",
       "name": "Dolce & Gabbana",
       "count": 25
+    },
+    {
+      "slug": "louisvuitton",
+      "name": "Louis Vuitton",
+      "count": 24
     },
     {
       "slug": "loropiana",
