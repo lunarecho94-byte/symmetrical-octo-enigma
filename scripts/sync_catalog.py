@@ -680,11 +680,11 @@ def main():
             continue
             
         try:
-            price = int(first.findtext('priceuah') or 0)
+            raw_price = int(first.findtext('priceuah') or 0)
         except ValueError:
-            price = 0
+            raw_price = 0
             
-        if price <= 0:
+        if raw_price <= 0:
             continue
             
         cid = first.findtext('categoryId')
@@ -755,8 +755,11 @@ def main():
         category_counts[cat_slug] += 1
         brand_counts[brand_slug] += 1
         
-        # Old price for visual discount (15-20% markup, rounded to 10 грн)
-        old_price = round(price * 1.18 / 10) * 10
+        # Selling price with +30% markup, rounded to 10 грн
+        price = round((raw_price * 1.30) / 10) * 10
+
+        # Old price for visual discount (15-20% above selling price, rounded to 10 грн)
+        old_price = round((price * 1.18) / 10) * 10
         
         # Badge
         badge = "✨ Топ якість"
@@ -772,6 +775,7 @@ def main():
             'name': clean_name,
             'price': price,
             'old_price': old_price,
+            'cost_price': raw_price,
             'cat': cat_slug,
             'brand': brand_slug,
             'brand_name': brand_title,
