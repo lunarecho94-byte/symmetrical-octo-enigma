@@ -402,6 +402,12 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
             else:
                 return 'unisex'
 
+    if cat_slug == 'clothing':
+        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|топ\b|боді|легінси|лосіни', full_text, re.I))
+        if is_w:
+            return 'women'
+        return 'men'
+
     if GENDER_UNISEX_KW.search(full_text):
         return 'unisex'
     is_w = bool(GENDER_WOMEN_KW.search(full_text))
