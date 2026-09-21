@@ -115,47 +115,97 @@
     <section class="catalog" id="catalog">
         <div class="container">
             <div class="section-header">
-                <h1>КАТАЛОГ ВЗУТТЯ</h1>
-                <p>Гортайте фото свайпом на телефоні або натискайте мініатюри під кожною парою!</p>
+                <h1>КАТАЛОГ ТОВАРІВ</h1>
+                <p>Обирайте за статтю, категорією та сезоном — усе в наявності зі швидкою доставкою!</p>
             </div>
 
-            <!-- Primary Category Tabs (Single Unified Row) -->
-            <div class="main-cat-tabs" id="mainCategoryTabs">
-                <button type="button" class="main-cat-btn active" data-cat="all" onclick="selectCatalogCategory('all', this)">
-                    <span class="cat-icon">🔥</span>
-                    <span class="cat-title">Всі товари</span>
-                    <span class="cat-badge">7 869</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="men" onclick="selectCatalogCategory('men', this)">
-                    <span class="cat-icon">👨</span>
-                    <span class="cat-title">Чоловічі</span>
-                    <span class="cat-badge">5 318</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="women" onclick="selectCatalogCategory('women', this)">
-                    <span class="cat-icon">👩</span>
-                    <span class="cat-title">Жіночі</span>
-                    <span class="cat-badge">6 484</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="shoes" onclick="selectCatalogCategory('shoes', this)">
-                    <span class="cat-icon">👟</span>
-                    <span class="cat-title">Кросівки & Кеди</span>
-                    <span class="cat-badge">5 189</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="winter" onclick="selectCatalogCategory('winter', this)">
-                    <span class="cat-icon">❄️</span>
-                    <span class="cat-title">Зимове взуття</span>
-                    <span class="cat-badge">838</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="clothing" onclick="selectCatalogCategory('clothing', this)">
-                    <span class="cat-icon">🧥</span>
-                    <span class="cat-title">Одяг & Куртки</span>
-                    <span class="cat-badge">906</span>
-                </button>
-                <button type="button" class="main-cat-btn" data-cat="bags" onclick="selectCatalogCategory('bags', this)">
-                    <span class="cat-icon">🎒</span>
-                    <span class="cat-title">Сумки & Аксесуари</span>
-                    <span class="cat-badge">936</span>
-                </button>
+            <!-- Multi-Tier Filter Navigation: Gender, Categories, Seasons -->
+            <div class="catalog-filters-container">
+                <!-- Tier 1: Для кого (Стать) -->
+                <div class="filter-row gender-filter-row">
+                    <span class="filter-row-label">Для кого:</span>
+                    <div class="gender-pills-scroll" id="catalogGenderTabs">
+                        <button type="button" class="gender-pill-btn active" data-gender="all" onclick="selectCatalogGender('all', this)">
+                            <span class="pill-icon">🔥</span>
+                            <span class="pill-title">Всі</span>
+                            <span class="pill-badge" id="badgeGender_all">7 309</span>
+                        </button>
+                        <button type="button" class="gender-pill-btn" data-gender="men" onclick="selectCatalogGender('men', this)">
+                            <span class="pill-icon">👨</span>
+                            <span class="pill-title">Чоловічі</span>
+                            <span class="pill-badge" id="badgeGender_men">5 516</span>
+                        </button>
+                        <button type="button" class="gender-pill-btn" data-gender="women" onclick="selectCatalogGender('women', this)">
+                            <span class="pill-icon">👩</span>
+                            <span class="pill-title">Жіночі</span>
+                            <span class="pill-badge" id="badgeGender_women">5 995</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tier 2: Категорії -->
+                <div class="filter-row category-filter-row">
+                    <span class="filter-row-label">Категорія:</span>
+                    <div class="main-cat-tabs" id="mainCategoryTabs">
+                        <button type="button" class="main-cat-btn active" data-cat="all" onclick="selectCatalogCategory('all', this)">
+                            <span class="cat-icon">🔥</span>
+                            <span class="cat-title">Всі товари</span>
+                            <span class="cat-badge" id="badgeCat_all">7 309</span>
+                        </button>
+                        <button type="button" class="main-cat-btn" data-cat="shoes" onclick="selectCatalogCategory('shoes', this)">
+                            <span class="cat-icon">👟</span>
+                            <span class="cat-title">Взуття</span>
+                            <span class="cat-badge" id="badgeCat_shoes">5 650</span>
+                        </button>
+                        <button type="button" class="main-cat-btn" data-cat="clothing" onclick="selectCatalogCategory('clothing', this)">
+                            <span class="cat-icon">🧥</span>
+                            <span class="cat-title">Одяг</span>
+                            <span class="cat-badge" id="badgeCat_clothing">675</span>
+                        </button>
+                        <button type="button" class="main-cat-btn" data-cat="socks" onclick="selectCatalogCategory('socks', this)">
+                            <span class="cat-icon">🧦</span>
+                            <span class="cat-title">Шкарпетки</span>
+                            <span class="cat-badge" id="badgeCat_socks">91</span>
+                        </button>
+                        <button type="button" class="main-cat-btn" data-cat="underwear" onclick="selectCatalogCategory('underwear', this)">
+                            <span class="cat-icon">🩲</span>
+                            <span class="cat-title">Труси & Білизна</span>
+                            <span class="cat-badge" id="badgeCat_underwear">71</span>
+                        </button>
+                        <button type="button" class="main-cat-btn" data-cat="accessories" onclick="selectCatalogCategory('accessories', this)">
+                            <span class="cat-icon">🎒</span>
+                            <span class="cat-title">Аксесуари & Сумки</span>
+                            <span class="cat-badge" id="badgeCat_accessories">822</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tier 3: Сезон -->
+                <div class="filter-row season-filter-row">
+                    <span class="filter-row-label">Сезон:</span>
+                    <div class="season-pills-scroll" id="catalogSeasonTabs">
+                        <button type="button" class="season-pill-btn active" data-season="all" onclick="selectCatalogSeason('all', this)">
+                            <span class="pill-icon">🌍</span>
+                            <span class="pill-title">Всі сезони</span>
+                            <span class="pill-badge" id="badgeSeason_all">7 309</span>
+                        </button>
+                        <button type="button" class="season-pill-btn" data-season="demi" onclick="selectCatalogSeason('demi', this)">
+                            <span class="pill-icon">🍂</span>
+                            <span class="pill-title">Демісезон</span>
+                            <span class="pill-badge" id="badgeSeason_demi">5 447</span>
+                        </button>
+                        <button type="button" class="season-pill-btn" data-season="winter" onclick="selectCatalogSeason('winter', this)">
+                            <span class="pill-icon">❄️</span>
+                            <span class="pill-title">Зима</span>
+                            <span class="pill-badge" id="badgeSeason_winter">731</span>
+                        </button>
+                        <button type="button" class="season-pill-btn" data-season="summer" onclick="selectCatalogSeason('summer', this)">
+                            <span class="pill-icon">☀️</span>
+                            <span class="pill-title">Літо</span>
+                            <span class="pill-badge" id="badgeSeason_summer">1 131</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Interactive Catalog Search Bar -->
@@ -867,17 +917,59 @@
                     </div>
                 </div>
 
-                <!-- Group 2: Акції та Сезон -->
+                <!-- Group 2: Категорії товарів -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">🔥 Акції та Сезон</div>
+                    <div class="quick-modal-group-title">🗂️ Категорія товару</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="shoes" data-label="👟 Взуття" onclick="selectQuickChoice('category', 'shoes', '👟 Взуття')">
+                            <span class="quick-modal-chip-icon">👟</span>
+                            <span class="quick-modal-chip-text">Взуття</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="clothing" data-label="🧥 Одяг" onclick="selectQuickChoice('category', 'clothing', '🧥 Одяг')">
+                            <span class="quick-modal-chip-icon">🧥</span>
+                            <span class="quick-modal-chip-text">Одяг</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="socks" data-label="🧦 Шкарпетки" onclick="selectQuickChoice('category', 'socks', '🧦 Шкарпетки')">
+                            <span class="quick-modal-chip-icon">🧦</span>
+                            <span class="quick-modal-chip-text">Шкарпетки</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="underwear" data-label="🩲 Труси" onclick="selectQuickChoice('category', 'underwear', '🩲 Труси')">
+                            <span class="quick-modal-chip-icon">🩲</span>
+                            <span class="quick-modal-chip-text">Труси & Білизна</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="accessories" data-label="🎒 Аксесуари" onclick="selectQuickChoice('category', 'accessories', '🎒 Аксесуари')">
+                            <span class="quick-modal-chip-icon">🎒</span>
+                            <span class="quick-modal-chip-text">Аксесуари & Сумки</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 3: Сезон -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">🌤️ Сезон</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="season" data-val="demi" data-label="🍂 Демісезон" onclick="selectQuickChoice('season', 'demi', '🍂 Демісезон')">
+                            <span class="quick-modal-chip-icon">🍂</span>
+                            <span class="quick-modal-chip-text">Демісезон</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="season" data-val="winter" data-label="❄️ Зима" onclick="selectQuickChoice('season', 'winter', '❄️ Зима')">
+                            <span class="quick-modal-chip-icon">❄️</span>
+                            <span class="quick-modal-chip-text">Зима / Термо</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="season" data-val="summer" data-label="☀️ Літо" onclick="selectQuickChoice('season', 'summer', '☀️ Літо')">
+                            <span class="quick-modal-chip-icon">☀️</span>
+                            <span class="quick-modal-chip-text">Літо</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 4: Акції та Сортування -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">🔥 Акції та Сортування</div>
                     <div class="quick-modal-chips-grid">
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="SALE" data-label="🏷️ SALE" onclick="selectQuickChoice('search', 'SALE', '🏷️ SALE')">
                             <span class="quick-modal-chip-icon">🏷️</span>
                             <span class="quick-modal-chip-text">Розпродаж / SALE</span>
-                        </button>
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Зима" data-label="❄️ Зима / Термо" onclick="selectQuickChoice('search', 'Зима', '❄️ Зима / Термо')">
-                            <span class="quick-modal-chip-icon">❄️</span>
-                            <span class="quick-modal-chip-text">Зима / Термо</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="sort" data-val="discount" data-label="🔥 Знижки" onclick="selectQuickChoice('sort', 'discount', '🔥 Знижки')">
                             <span class="quick-modal-chip-icon">💥</span>

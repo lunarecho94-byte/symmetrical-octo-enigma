@@ -1125,12 +1125,31 @@ async function downloadLastGeneratedPdf() {
 let catalogAllProducts = [];
 let catalogMeta = null;
 let currentCatalogGender = 'all'; // 'all', 'men', 'women'
-let currentCatalogCategory = 'all'; // 'all', 'men', 'women', 'shoes', 'winter', 'clothing', 'bags'
+let currentCatalogCategory = 'all'; // 'all', 'shoes', 'clothing', 'socks', 'underwear', 'accessories'
+let currentCatalogSeason = 'all'; // 'all', 'demi', 'winter', 'summer'
 let currentCatalogBrand = 'all';
 let currentCatalogSize = 'all';
 let currentCatalogPriceRange = 'all';
 let currentCatalogSearchQuery = '';
 let currentCatalogSort = 'popular';
+
+function productMatchesGender(p, gender) {
+    if (!gender || gender === 'all') return true;
+    if (gender === 'men') return p.gender === 'men' || p.gender === 'unisex';
+    if (gender === 'women') return p.gender === 'women' || p.gender === 'unisex';
+    return true;
+}
+
+function productMatchesCategory(p, cat) {
+    if (!cat || cat === 'all') return true;
+    if (cat === 'sale') return !!p.is_sale;
+    return p.cat === cat;
+}
+
+function productMatchesSeason(p, season) {
+    if (!season || season === 'all') return true;
+    return p.season === season;
+}
 let catalogFilteredProducts = [];
 let catalogRenderedCount = 0;
 const CATALOG_PAGE_SIZE = 24;
@@ -1225,8 +1244,10 @@ async function initDynamicCatalog() {
         });
         catalogMeta = await metaResp.json();
 
-        // Render Dynamic Category Tabs (Unified single row: All / Men / Women / Categories)
+        // Render Dynamic 3-tier Tabs
+        renderGenderTabs(catalogMeta);
         renderCategoryTabs(catalogMeta);
+        renderSeasonTabs(catalogMeta);
 
         // Render Dynamic Brand Chips
         renderBrandFilterChips(catalogMeta);
@@ -1234,7 +1255,8 @@ async function initDynamicCatalog() {
         // Render Dynamic Size Filter Chips
         renderSizeFilterChips(catalogMeta);
 
-        // Initial Filter & Render
+        // Initial Badges calculation & Catalog Render
+        updateFilterBadges();
         applyCatalogFilters();
     } catch (err) {
         console.error('Failed to load dynamic catalog:', err);
@@ -1247,15 +1269,15 @@ async function initDynamicCatalog() {
     }
 }
 
-function renderGenderSwitch(meta) {
-    const container = document.getElementById('genderCatSwitch');
+function renderGenderTabs(meta) {
+    const container = document.getElementById('catalogGenderTabs');
     if (!container || !meta || !meta.genders) return;
 
     container.innerHTML = meta.genders.map(g => `
-        <button type="button" class="gender-btn ${currentCatalogGender === g.slug ? 'active' : ''}" data-gender="${g.slug}" onclick="selectCatalogGender('${g.slug}', this)">
-            <span class="gender-icon">${g.icon}</span>
-            <span class="gender-name">${escapeHtml(g.name)}</span>
-            <span class="gender-badge" id="genderBadge_${g.slug}">${g.count.toLocaleString('uk-UA')}</span>
+        <button type="button" class="gender-pill-btn ${currentCatalogGender === g.slug ? 'active' : ''}" data-gender="${g.slug}" onclick="selectCatalogGender('${g.slug}', this)">
+            <span class="pill-icon">${g.icon}</span>
+            <span class="pill-title">${escapeHtml(g.name)}</span>
+            <span class="pill-badge" id="badgeGender_${g.slug}">${g.count.toLocaleString('uk-UA')}</span>
         </button>
     `).join('');
 }
@@ -1268,62 +1290,81 @@ function renderCategoryTabs(meta) {
         <button type="button" class="main-cat-btn ${currentCatalogCategory === cat.slug ? 'active' : ''}" data-cat="${cat.slug}" onclick="selectCatalogCategory('${cat.slug}', this)">
             <span class="cat-icon">${cat.icon}</span>
             <span class="cat-title">${escapeHtml(cat.name)}</span>
-            <span class="cat-badge">${cat.count.toLocaleString('uk-UA')}</span>
+            <span class="cat-badge" id="badgeCat_${cat.slug}">${cat.count.toLocaleString('uk-UA')}</span>
         </button>
     `).join('');
 }
 
-function updateCategoryBadgesForGender() {
+function renderSeasonTabs(meta) {
+    const container = document.getElementById('catalogSeasonTabs');
+    if (!container || !meta || !meta.seasons) return;
+
+    container.innerHTML = meta.seasons.map(s => `
+        <button type="button" class="season-pill-btn ${currentCatalogSeason === s.slug ? 'active' : ''}" data-season="${s.slug}" onclick="selectCatalogSeason('${s.slug}', this)">
+            <span class="pill-icon">${s.icon}</span>
+            <span class="pill-title">${escapeHtml(s.name)}</span>
+            <span class="pill-badge" id="badgeSeason_${s.slug}">${s.count.toLocaleString('uk-UA')}</span>
+        </button>
+    `).join('');
+}
+
+function updateFilterBadges() {
     if (!catalogAllProducts.length) return;
 
-    const isMen = currentCatalogGender === 'men';
-    const isWomen = currentCatalogGender === 'women';
-
-    const counts = { all: 0, men: 0, women: 0, shoes: 0, winter: 0, clothing: 0, bags: 0 };
+    const genderCounts = { all: 0, men: 0, women: 0 };
+    const categoryCounts = { all: 0, shoes: 0, clothing: 0, socks: 0, underwear: 0, accessories: 0 };
+    const seasonCounts = { all: 0, demi: 0, winter: 0, summer: 0 };
 
     catalogAllProducts.forEach(p => {
-        const matchesGender = (currentCatalogGender === 'all') ||
-            (isMen && (p.gender === 'men' || p.gender === 'unisex')) ||
-            (isWomen && (p.gender === 'women' || p.gender === 'unisex'));
+        // Gender counts given current Category & Season
+        if (productMatchesCategory(p, currentCatalogCategory) && productMatchesSeason(p, currentCatalogSeason)) {
+            genderCounts.all++;
+            if (p.gender === 'men' || p.gender === 'unisex') genderCounts.men++;
+            if (p.gender === 'women' || p.gender === 'unisex') genderCounts.women++;
+        }
 
-        if (matchesGender) {
-            counts.all++;
-            if (p.cat && counts[p.cat] !== undefined) {
-                counts[p.cat]++;
+        // Category counts given current Gender & Season
+        if (productMatchesGender(p, currentCatalogGender) && productMatchesSeason(p, currentCatalogSeason)) {
+            categoryCounts.all++;
+            if (p.cat && categoryCounts[p.cat] !== undefined) {
+                categoryCounts[p.cat]++;
             }
         }
-        if (p.gender === 'men' || p.gender === 'unisex') counts.men++;
-        if (p.gender === 'women' || p.gender === 'unisex') counts.women++;
+
+        // Season counts given current Gender & Category
+        if (productMatchesGender(p, currentCatalogGender) && productMatchesCategory(p, currentCatalogCategory)) {
+            seasonCounts.all++;
+            if (p.season && seasonCounts[p.season] !== undefined) {
+                seasonCounts[p.season]++;
+            }
+        }
     });
 
-    document.querySelectorAll('.main-cat-btn').forEach(btn => {
-        const cat = btn.dataset.cat;
-        const badge = btn.querySelector('.cat-badge');
-        if (badge && counts[cat] !== undefined) {
-            badge.textContent = counts[cat].toLocaleString('uk-UA');
-        }
+    Object.keys(genderCounts).forEach(g => {
+        const el = document.getElementById(`badgeGender_${g}`);
+        if (el) el.textContent = genderCounts[g].toLocaleString('uk-UA');
+    });
+
+    Object.keys(categoryCounts).forEach(c => {
+        const el = document.getElementById(`badgeCat_${c}`);
+        if (el) el.textContent = categoryCounts[c].toLocaleString('uk-UA');
+    });
+
+    Object.keys(seasonCounts).forEach(s => {
+        const el = document.getElementById(`badgeSeason_${s}`);
+        if (el) el.textContent = seasonCounts[s].toLocaleString('uk-UA');
     });
 }
 
 function selectCatalogGender(gender, btn) {
-    currentCatalogGender = gender;
-    currentCatalogCategory = 'all';
+    currentCatalogGender = gender || 'all';
     currentCatalogBrand = 'all';
 
-    // Sync active category button in the unified mainCategoryTabs row
-    document.querySelectorAll('.main-cat-btn').forEach(b => {
-        const cat = b.dataset.cat;
-        if (cat === gender) {
-            b.classList.add('active');
-        } else if (gender === 'all' && cat === 'all') {
-            b.classList.add('active');
-        } else {
-            b.classList.remove('active');
-        }
+    document.querySelectorAll('.gender-pill-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.gender === currentCatalogGender);
     });
 
-    // Update dynamic category badge counts for the selected gender
-    updateCategoryBadgesForGender();
+    updateFilterBadges();
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -1333,29 +1374,31 @@ function selectCatalogGender(gender, btn) {
 }
 
 function selectCatalogCategory(catSlug, btn) {
-    if (catSlug === 'all') {
-        selectCatalogGender('all');
-        return;
-    }
-    if (catSlug === 'men') {
-        selectCatalogGender('men');
-        return;
-    }
-    if (catSlug === 'women') {
-        selectCatalogGender('women');
-        return;
-    }
-
-    currentCatalogCategory = catSlug;
-    currentCatalogGender = 'all';
+    currentCatalogCategory = catSlug || 'all';
     currentCatalogBrand = 'all';
 
     document.querySelectorAll('.main-cat-btn').forEach(b => {
-        if (b.dataset.cat === catSlug) b.classList.add('active');
-        else b.classList.remove('active');
+        b.classList.toggle('active', b.dataset.cat === currentCatalogCategory);
     });
 
-    updateCategoryBadgesForGender();
+    updateFilterBadges();
+
+    if (catalogMeta) {
+        renderBrandFilterChips(catalogMeta);
+    }
+
+    applyCatalogFilters();
+}
+
+function selectCatalogSeason(seasonSlug, btn) {
+    currentCatalogSeason = seasonSlug || 'all';
+    currentCatalogBrand = 'all';
+
+    document.querySelectorAll('.season-pill-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.season === currentCatalogSeason);
+    });
+
+    updateFilterBadges();
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -1404,18 +1447,15 @@ function renderBrandFilterChips(meta) {
 
     let brandsList = meta.brands;
     const filterByGender = currentCatalogGender !== 'all';
-    const filterByCat = currentCatalogCategory !== 'all' && currentCatalogCategory !== 'men' && currentCatalogCategory !== 'women';
+    const filterByCat = currentCatalogCategory !== 'all';
+    const filterBySeason = currentCatalogSeason !== 'all';
 
-    if ((filterByGender || filterByCat) && catalogAllProducts.length) {
+    if ((filterByGender || filterByCat || filterBySeason) && catalogAllProducts.length) {
         const counts = {};
         catalogAllProducts.forEach(p => {
-            if (currentCatalogGender === 'men' && p.gender !== 'men' && p.gender !== 'unisex') return;
-            if (currentCatalogGender === 'women' && p.gender !== 'women' && p.gender !== 'unisex') return;
-
-            if (filterByCat) {
-                const matchesCat = (currentCatalogCategory === 'sale') ? p.is_sale : (p.cat === currentCatalogCategory);
-                if (!matchesCat) return;
-            }
+            if (!productMatchesGender(p, currentCatalogGender)) return;
+            if (!productMatchesCategory(p, currentCatalogCategory)) return;
+            if (!productMatchesSeason(p, currentCatalogSeason)) return;
 
             counts[p.brand] = (counts[p.brand] || 0) + 1;
         });
@@ -1586,6 +1626,10 @@ function selectQuickChoice(type, val, label) {
 
     if (type === 'gender') {
         selectCatalogGender(val);
+    } else if (type === 'category') {
+        selectCatalogCategory(val);
+    } else if (type === 'season') {
+        selectCatalogSeason(val);
     } else if (type === 'search') {
         const input = document.getElementById('catalogSearchInput');
         if (input) input.value = val;
@@ -1616,6 +1660,10 @@ function clearQuickChoiceSelection(e) {
 
     if (prevType === 'gender') {
         selectCatalogGender('all');
+    } else if (prevType === 'category') {
+        selectCatalogCategory('all');
+    } else if (prevType === 'season') {
+        selectCatalogSeason('all');
     } else if (prevType === 'search') {
         const input = document.getElementById('catalogSearchInput');
         if (input) input.value = '';
@@ -1672,22 +1720,6 @@ function renderSizeFilterChips(meta) {
     });
 
     container.innerHTML = html;
-}
-
-function selectCatalogCategory(catSlug, btn) {
-    currentCatalogCategory = catSlug;
-    currentCatalogBrand = 'all';
-
-    document.querySelectorAll('.main-cat-btn').forEach(b => {
-        if (b.dataset.cat === catSlug) b.classList.add('active');
-        else b.classList.remove('active');
-    });
-
-    if (catalogMeta) {
-        renderBrandFilterChips(catalogMeta);
-    }
-
-    applyCatalogFilters();
 }
 
 function filterCatalog(brand, btn) {
@@ -1770,17 +1802,23 @@ function clearCatalogSearch() {
     currentCatalogGender = 'all';
     currentCatalogBrand = 'all';
     currentCatalogCategory = 'all';
+    currentCatalogSeason = 'all';
     currentCatalogSize = 'all';
     currentCatalogPriceRange = 'all';
     currentQuickChoice = { type: null, val: null, label: null };
     updateQuickChoiceButtonState();
 
-    document.querySelectorAll('.gender-btn').forEach((b, idx) => {
+    document.querySelectorAll('.gender-pill-btn').forEach((b, idx) => {
         if (idx === 0) b.classList.add('active');
         else b.classList.remove('active');
     });
 
     document.querySelectorAll('.main-cat-btn').forEach((b, idx) => {
+        if (idx === 0) b.classList.add('active');
+        else b.classList.remove('active');
+    });
+
+    document.querySelectorAll('.season-pill-btn').forEach((b, idx) => {
         if (idx === 0) b.classList.add('active');
         else b.classList.remove('active');
     });
@@ -1807,7 +1845,7 @@ function clearCatalogSearch() {
     const activePriceLabel = document.getElementById('activePriceLabel');
     if (activePriceLabel) activePriceLabel.textContent = 'Всі';
 
-    updateCategoryBadgesForGender();
+    updateFilterBadges();
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -1847,38 +1885,27 @@ function applyCatalogFilters() {
     // Filter array
     catalogFilteredProducts = catalogAllProducts.filter(item => {
         // 0. Gender Filter
-        if (currentCatalogGender === 'men') {
-            if (item.gender !== 'men' && item.gender !== 'unisex') return false;
-        } else if (currentCatalogGender === 'women') {
-            if (item.gender !== 'women' && item.gender !== 'unisex') return false;
-        }
+        if (!productMatchesGender(item, currentCatalogGender)) return false;
 
-        // 1. Category
-        if (currentCatalogCategory !== 'all') {
-            if (currentCatalogCategory === 'men') {
-                if (item.gender !== 'men' && item.gender !== 'unisex') return false;
-            } else if (currentCatalogCategory === 'women') {
-                if (item.gender !== 'women' && item.gender !== 'unisex') return false;
-            } else if (currentCatalogCategory === 'sale') {
-                if (!item.is_sale) return false;
-            } else if (item.cat !== currentCatalogCategory) {
-                return false;
-            }
-        }
-        
-        // 2. Brand
+        // 1. Category Filter
+        if (!productMatchesCategory(item, currentCatalogCategory)) return false;
+
+        // 2. Season Filter
+        if (!productMatchesSeason(item, currentCatalogSeason)) return false;
+
+        // 3. Brand
         if (currentCatalogBrand !== 'all' && item.brand !== currentCatalogBrand) {
             return false;
         }
 
-        // 3. Size Filter
+        // 4. Size Filter
         if (currentCatalogSize !== 'all') {
             if (!item.sizes || !item.sizes.includes(currentCatalogSize)) {
                 return false;
             }
         }
 
-        // 4. Price Range Filter
+        // 5. Price Range Filter
         if (currentCatalogPriceRange !== 'all') {
             if (currentCatalogPriceRange === 'under-1500' && item.price >= 1500) return false;
             if (currentCatalogPriceRange === '1500-2500' && (item.price < 1500 || item.price > 2500)) return false;
@@ -1886,9 +1913,9 @@ function applyCatalogFilters() {
             if (currentCatalogPriceRange === 'above-3500' && item.price <= 3500) return false;
         }
 
-        // 5. Query Search
+        // 6. Query Search
         if (queryTokens.length > 0) {
-            const haystack = `${item.name} ${item.brand_name} ${item.art} ${item.mat} ${item.origin} ${item.cat}`.toLowerCase();
+            const haystack = `${item.name} ${item.brand_name} ${item.art} ${item.mat} ${item.origin} ${item.cat} ${item.season} ${item.cat_name || ''} ${item.season_name || ''}`.toLowerCase();
             const matchesAll = queryTokens.every(tok => haystack.includes(tok));
             if (!matchesAll) return false;
         }
@@ -1950,12 +1977,24 @@ function getCategoryTitle(cat) {
     switch (cat) {
         case 'men': return 'Чоловічі';
         case 'women': return 'Жіночі';
-        case 'shoes': return 'Кросівки & Кеди';
+        case 'shoes': return 'Взуття';
+        case 'clothing': return 'Одяг';
+        case 'socks': return 'Шкарпетки';
+        case 'underwear': return 'Труси & Білизна';
+        case 'accessories': return 'Аксесуари & Сумки';
+        case 'bags': return 'Аксесуари & Сумки';
         case 'winter': return 'Зимове взуття';
-        case 'clothing': return 'Одяг & Куртки';
-        case 'bags': return 'Сумки & Аксесуари';
         case 'sale': return 'Знижки & SALE';
         default: return 'Товари';
+    }
+}
+
+function getSeasonTitle(season) {
+    switch (season) {
+        case 'demi': return 'Демісезон';
+        case 'winter': return 'Зима';
+        case 'summer': return 'Літо';
+        default: return 'Всі сезони';
     }
 }
 
@@ -2115,21 +2154,35 @@ function updateCatalogFilterUI(query) {
     const resultsInfo = document.getElementById('searchResultsInfo');
     const resultsCountEl = document.getElementById('searchResultsCount');
 
-    const hasActiveFilters = (query !== '' || currentCatalogGender !== 'all' || currentCatalogBrand !== 'all' || (currentCatalogCategory !== 'all' && currentCatalogCategory !== 'men' && currentCatalogCategory !== 'women'));
+    const hasActiveFilters = (
+        query !== '' || 
+        currentCatalogGender !== 'all' || 
+        currentCatalogCategory !== 'all' || 
+        currentCatalogSeason !== 'all' || 
+        currentCatalogBrand !== 'all' ||
+        currentCatalogSize !== 'all' ||
+        currentCatalogPriceRange !== 'all'
+    );
     if (resultsInfo && resultsCountEl) {
         if (hasActiveFilters) {
             resultsInfo.style.display = 'flex';
 
             const labels = [];
             if (currentCatalogGender !== 'all') {
-                labels.push(currentCatalogGender === 'men' ? 'Чоловіче' : 'Жіноче');
+                labels.push(currentCatalogGender === 'men' ? '👨 Чоловіче' : '👩 Жіноче');
             }
-            if (currentCatalogCategory !== 'all' && currentCatalogCategory !== 'men' && currentCatalogCategory !== 'women') {
+            if (currentCatalogCategory !== 'all') {
                 labels.push(getCategoryTitle(currentCatalogCategory));
+            }
+            if (currentCatalogSeason !== 'all') {
+                labels.push(getSeasonTitle(currentCatalogSeason));
             }
             if (currentCatalogBrand !== 'all') {
                 const brandItem = catalogMeta && catalogMeta.brands.find(b => b.slug === currentCatalogBrand);
                 labels.push(brandItem ? brandItem.name : currentCatalogBrand);
+            }
+            if (currentCatalogSize !== 'all') {
+                labels.push(`Розмір: ${currentCatalogSize}`);
             }
 
             const total = catalogFilteredProducts.length;
@@ -3495,6 +3548,7 @@ async function handleCartDirectCheckout(e) {
 // Global window exposure
 window.selectCatalogGender = selectCatalogGender;
 window.selectCatalogCategory = selectCatalogCategory;
+window.selectCatalogSeason = selectCatalogSeason;
 window.filterCatalogBySize = filterCatalogBySize;
 window.filterCatalogByPrice = filterCatalogByPrice;
 window.loadMoreProducts = loadMoreProducts;

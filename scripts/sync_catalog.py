@@ -93,11 +93,12 @@ def sort_sizes(sizes):
         
     return sizes
 
-# Precise 4-category classification regexes
+# Precise 5-category classification regexes
 BAG_KEYWORDS = re.compile(
     r'сумк|рюкзак|бананка|месенджер|портмоне|гаманець|кошелек|клатч|шопер|шоппер|валіза|чемодан|холдер|баул|'
     r'\bbag\b|\bbags\b|\bbackpack\b|\bwallet\b|\btote\b|\bhandbag\b|\bcrossbody\b|\bкейс\b|'
     r'\bочки\b|окуляр|пасок|\bремінь\b|\bремень\b|браслет|годинник|кардхолдер|jw pei|chiquito|bambino|book tote|'
+    r'шапк|кепк|панам|баф\b|шарф|рукавиц|перчатк|\bbelt\b|\bhat\b|\bcap\b|'
     r'⭐️\s*PREMIUM',
     re.I
 )
@@ -181,9 +182,17 @@ KNOWN_BRANDS = [
 def determine_category(name, cat_name, desc, params_str=""):
     title_cat = f"{name} {cat_name}"
     
+    # 1. Socks (Шкарпетки)
+    if re.search(r'шкарпетк|носк|\bsocks?\b', title_cat, re.I):
+        return 'socks', 'Шкарпетки', '🧦'
+
+    # 2. Underwear (Труси / Нижня білизна)
+    if re.search(r'трус|боксер|білизн|плавки|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat, re.I):
+        return 'underwear', 'Труси & Білизна', '🩲'
+
     # Exception: New Balance 2002R Pouch is a sneaker
     if '2002r' in title_cat.lower() and 'pouch' in title_cat.lower():
-        return 'shoes', 'Кросівки & Кеди', '👟'
+        return 'shoes', 'Взуття & Кросівки', '👟'
         
     desc_start = ''
     m = re.search(r'Опис\s*:\s*([^<\n\r]+)', desc)
@@ -192,23 +201,33 @@ def determine_category(name, cat_name, desc, params_str=""):
 
     # Handbag/Belt dimensions check: e.g. "34 x 26 x 13", "25x17x9", "100 х 2,5"
     if params_str and re.search(r'\d+\s*[xх]\s*\d+', params_str) and not any(k in title_cat.lower() for k in ['кросівки', 'кеди', 'взуття', 'костюм']):
-        return 'bags', 'Сумки & Аксесуари', '🎒'
+        return 'accessories', 'Аксесуари & Сумки', '🎒'
         
-    # 1. Bags & Accessories (unless UGG)
+    # 3. Bags & Accessories (unless UGG)
     if 'ugg' not in title_cat.lower():
-        if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч)', desc_start, re.I)):
-            return 'bags', 'Сумки & Аксесуари', '🎒'
+        if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч|шапка|кепка|панама)', desc_start, re.I)):
+            return 'accessories', 'Аксесуари & Сумки', '🎒'
         
-    # 2. Clothing & Outerwear
+    # 4. Clothing & Outerwear
     if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
         return 'clothing', 'Одяг & Куртки', '🧥'
         
-    # 3. Winter Footwear
-    if WINTER_KEYWORDS.search(title_cat):
-        return 'winter', 'Зимове взуття', '❄️'
+    # 5. Shoes & Footwear (all sneakers, boots, ugg, slides, sandals, etc.)
+    return 'shoes', 'Взуття & Кросівки', '👟'
+
+def determine_season(name, cat_slug, mat="", desc=""):
+    txt = f"{name} {mat} {desc}".lower()
+    
+    # 1. Winter (Зима / Термо / Хутро / Пуховики)
+    if re.search(r'зимов|термо|хутр|мех|winter|пуховик|сноубутс|дутики|мунбут|\bugg\b|угг|термобілизн|термокостюм|фліс|шерсть|тепл', txt):
+        return 'winter', 'Зима', '❄️'
         
-    # 4. Sneakers & Casual Shoes
-    return 'shoes', 'Кросівки & Кеди', '👟'
+    # 2. Summer (Літо / Сітка / Шорти / Футболки / Сланці / Сандалі)
+    if re.search(r'літн|лето|літо|summer|шорти|шорты|майк|футболк|сланц|шльоп|шлеп|сандал|\bcrocs\b|крокс|mesh|сітка|сетка|топ\b', txt):
+        return 'summer', 'Літо', '☀️'
+        
+    # 3. Demi-season (Демісезон / Весна-Осінь / Базове щоденне)
+    return 'demi', 'Демісезон', '🍂'
 
 def determine_brand(name, cat_name):
     combined = f"{name} {cat_name}".lower()
@@ -224,7 +243,7 @@ WOMEN_BAGS_BRANDS = {'chanel', 'pinko', 'jacquemus', 'chloe', 'miumiu', 'hermes'
 WOMEN_BAGS_KW = re.compile(r'жіноч|женск|клатч|лоро піана|loro piana|lady dior|book tote', re.I)
 
 def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
-    full_text = f"{name} {cname} {desc}"
+    full_text = f"{name} {cname} {desc}".lower()
     if GENDER_UNISEX_KW.search(full_text):
         return 'unisex'
     is_w = bool(GENDER_WOMEN_KW.search(full_text))
@@ -234,14 +253,24 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     if is_m and not is_w:
         return 'men'
 
-    if cat_slug == 'bags':
+    if cat_slug in ('accessories', 'bags'):
         if brand_slug in WOMEN_BAGS_BRANDS or WOMEN_BAGS_KW.search(full_text):
             return 'women'
         if any(k in name.lower() for k in ['сумка жіноча', 'сумка', 'клатч', 'tote', 'handbag']) and not any(k in name.lower() for k in ['рюкзак', 'бананка', 'месенджер', 'баул']):
             return 'women'
         return 'unisex'
 
-    if cat_slug in ('shoes', 'winter'):
+    if cat_slug == 'underwear':
+        if re.search(r'чоловіч|мужск|боксер|boxer', full_text, re.I):
+            return 'men'
+        if re.search(r'жіноч|женск|бюст|топ|бра\b', full_text, re.I):
+            return 'women'
+        return 'men'
+
+    if cat_slug == 'socks':
+        return 'unisex'
+
+    if cat_slug == 'shoes':
         num_sizes = []
         for s in sizes:
             m = re.match(r'^(\d+(?:[.,]\d+)?)$', str(s).strip())
@@ -260,8 +289,9 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     return 'unisex'
 
 def is_sneaker_product(name, clean_name, cat_slug, cname="", desc="", sizes=None):
-    if cat_slug in ('shoes', 'winter'):
+    if cat_slug == 'shoes':
         return True
+
 
     text_all = f"{name} {clean_name} {cname} {desc}".lower()
     
@@ -671,6 +701,7 @@ def main():
 
     products = []
     category_counts = Counter()
+    season_counts = Counter()
     brand_counts = Counter()
 
     for gid, items in groups.items():
@@ -700,7 +731,7 @@ def main():
         if not art:
             vc = first.findtext('vendorCode') or first.findtext('barcode') or ''
             art = clean_text(vc.split('-')[0]) if '-' in vc else clean_text(vc)
-        if not art:
+        if not art or art.lower() in ('none', 'null', '-'):
             art = str(gid)
 
         mat = clean_text(mat_m.group(1)) if mat_m else ''
@@ -749,13 +780,16 @@ def main():
                 continue
         
         # Rule: Exclude LV bags ("Сумка LV" / Louis Vuitton bags)
-        if cat_slug == 'bags' and (brand_slug == 'louisvuitton' or re.search(r'\b(lv|лв|louis\s*vuitton)\b', f"{name} {clean_name}", re.I)):
+        if cat_slug in ('bags', 'accessories') and (brand_slug == 'louisvuitton' or re.search(r'\b(lv|лв|louis\s*vuitton)\b', f"{name} {clean_name}", re.I)):
             continue
         if 'сумка' in clean_name.lower() and re.search(r'\b(lv|лв|louis\s*vuitton)\b', clean_name, re.I):
             continue
         
         gender = determine_gender(clean_name, cat_slug, brand_slug, sorted_sizes, cname, desc)
+        season_slug, season_title, season_icon = determine_season(clean_name, cat_slug, mat, desc)
+
         category_counts[cat_slug] += 1
+        season_counts[season_slug] += 1
         brand_counts[brand_slug] += 1
         
         # Selling price with +30% markup, rounded to 10 грн
@@ -766,8 +800,10 @@ def main():
         
         # Badge
         badge = "✨ Топ якість"
-        if cat_slug == 'winter':
+        if season_slug == 'winter':
             badge = "❄️ Зима • Термо"
+        elif season_slug == 'summer':
+            badge = "☀️ Літо • Легкість"
         elif 'sale' in cname.lower() or 'уцінка' in cname.lower():
             badge = "🏷 Знижка"
         elif brand_slug in ['nike', 'jordan', 'newbalance', 'adidas']:
@@ -780,6 +816,9 @@ def main():
             'old_price': old_price,
             'cost_price': raw_price,
             'cat': cat_slug,
+            'cat_name': cat_title,
+            'season': season_slug,
+            'season_name': season_title,
             'brand': brand_slug,
             'brand_name': brand_title,
             'gender': gender,
@@ -793,11 +832,12 @@ def main():
 
     print(f"Processed valid products: {len(products)}")
     print("Categories distribution:", dict(category_counts))
+    print("Seasons distribution:", dict(season_counts))
     print("Brands distribution:", dict(brand_counts.most_common(15)))
 
     # Keep original article matching EasyDrop database exactly
     for p in products:
-        if not p.get('art'):
+        if not p.get('art') or str(p.get('art')).lower() in ('none', 'null', '-'):
             p['art'] = str(p.get('id'))
 
     # Save data/products.json
@@ -819,13 +859,19 @@ def main():
         ],
         'categories': [
             {'slug': 'all', 'name': 'Всі товари', 'icon': '🔥', 'count': len(products)},
-            {'slug': 'men', 'name': 'Чоловічі', 'icon': '👨', 'count': men_count},
-            {'slug': 'women', 'name': 'Жіночі', 'icon': '👩', 'count': women_count},
-            {'slug': 'shoes', 'name': 'Кросівки & Кеди', 'icon': '👟', 'count': category_counts['shoes']},
-            {'slug': 'winter', 'name': 'Зимове взуття', 'icon': '❄️', 'count': category_counts['winter']},
-            {'slug': 'clothing', 'name': 'Одяг & Куртки', 'icon': '🧥', 'count': category_counts['clothing']},
-            {'slug': 'bags', 'name': 'Сумки & Аксесуари', 'icon': '🎒', 'count': category_counts['bags']},
+            {'slug': 'shoes', 'name': 'Взуття', 'icon': '👟', 'count': category_counts['shoes']},
+            {'slug': 'clothing', 'name': 'Одяг', 'icon': '🧥', 'count': category_counts['clothing']},
+            {'slug': 'socks', 'name': 'Шкарпетки', 'icon': '🧦', 'count': category_counts['socks']},
+            {'slug': 'underwear', 'name': 'Труси & Білизна', 'icon': '🩲', 'count': category_counts['underwear']},
+            {'slug': 'accessories', 'name': 'Аксесуари & Сумки', 'icon': '🎒', 'count': category_counts['accessories']},
         ],
+        'seasons': [
+            {'slug': 'all', 'name': 'Всі сезони', 'icon': '🌍', 'count': len(products)},
+            {'slug': 'demi', 'name': 'Демісезон', 'icon': '🍂', 'count': season_counts['demi']},
+            {'slug': 'winter', 'name': 'Зима', 'icon': '❄️', 'count': season_counts['winter']},
+            {'slug': 'summer', 'name': 'Літо', 'icon': '☀️', 'count': season_counts['summer']},
+        ],
+
         'brands': (lambda: [
             {'slug': 'all', 'name': 'Всі бренди', 'count': len(products)}
         ] + [
