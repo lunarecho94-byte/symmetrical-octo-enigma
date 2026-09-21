@@ -1169,6 +1169,17 @@ function isSneakerProductItem(item) {
     return false;
 }
 
+function isLvBagItem(item) {
+    if (!item) return false;
+    const name = (item.name || '').toLowerCase();
+    const cat = item.cat || '';
+    const brand = item.brand || '';
+    const isLv = brand === 'louisvuitton' || /\b(lv|лв|louis\s*vuitton)\b/i.test(name);
+    if (cat === 'bags' && isLv) return true;
+    if (name.includes('сумка') && isLv) return true;
+    return false;
+}
+
 function formatProductDisplayName(item) {
     let name = (item.name || '').trim();
     if (!name || name.length <= 2 || /^\d+$/.test(name) || /^[A-Z]\d{1,3}$/i.test(name)) {
@@ -1205,6 +1216,9 @@ async function initDynamicCatalog() {
 
         catalogAllProducts = (await prodResp.json()).filter(item => {
             if (isSneakerProductItem(item) && (!item.sizes || item.sizes.length < 3)) {
+                return false;
+            }
+            if (isLvBagItem(item)) {
                 return false;
             }
             return true;

@@ -1,23 +1,23 @@
 {
-  "total": 15285,
+  "total": 14946,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 15285
+      "count": 14946
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11774
+      "count": 11761
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13894
+      "count": 13568
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 15285
+      "count": 14946
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11774
+      "count": 11761
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13894
+      "count": 13568
     },
     {
       "slug": "shoes",
@@ -61,14 +61,14 @@
       "slug": "bags",
       "name": "Сумки & Аксесуари",
       "icon": "🎒",
-      "count": 2077
+      "count": 1738
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 15285
+      "count": 14946
     },
     {
       "slug": "nike",
@@ -94,11 +94,6 @@
       "slug": "ugg",
       "name": "UGG",
       "count": 667
-    },
-    {
-      "slug": "louisvuitton",
-      "name": "Louis Vuitton",
-      "count": 390
     },
     {
       "slug": "chanel",
@@ -239,6 +234,11 @@
       "slug": "guess",
       "name": "Guess",
       "count": 54
+    },
+    {
+      "slug": "louisvuitton",
+      "name": "Louis Vuitton",
+      "count": 51
     },
     {
       "slug": "stoneisland",

@@ -751,6 +751,12 @@ def main():
             if len(sorted_sizes) < 3:
                 continue
         
+        # Rule: Exclude LV bags ("Сумка LV" / Louis Vuitton bags)
+        if cat_slug == 'bags' and (brand_slug == 'louisvuitton' or re.search(r'\b(lv|лв|louis\s*vuitton)\b', f"{name} {clean_name}", re.I)):
+            continue
+        if 'сумка' in clean_name.lower() and re.search(r'\b(lv|лв|louis\s*vuitton)\b', clean_name, re.I):
+            continue
+        
         gender = determine_gender(clean_name, cat_slug, brand_slug, sorted_sizes, cname, desc)
         category_counts[cat_slug] += 1
         brand_counts[brand_slug] += 1
