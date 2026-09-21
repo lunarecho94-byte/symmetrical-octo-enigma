@@ -1,23 +1,23 @@
 {
-  "total": 7324,
+  "total": 7309,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7324
+      "count": 7309
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5149
+      "count": 5516
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 6037
+      "count": 5995
     }
   ],
   "categories": [
@@ -25,50 +25,70 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7324
-    },
-    {
-      "slug": "men",
-      "name": "Чоловічі",
-      "icon": "👨",
-      "count": 5149
-    },
-    {
-      "slug": "women",
-      "name": "Жіночі",
-      "icon": "👩",
-      "count": 6037
+      "count": 7309
     },
     {
       "slug": "shoes",
-      "name": "Кросівки & Кеди",
+      "name": "Взуття",
       "icon": "👟",
-      "count": 5160
-    },
-    {
-      "slug": "winter",
-      "name": "Зимове взуття",
-      "icon": "❄️",
-      "count": 503
+      "count": 5650
     },
     {
       "slug": "clothing",
-      "name": "Одяг & Куртки",
+      "name": "Одяг",
       "icon": "🧥",
-      "count": 899
+      "count": 675
     },
     {
-      "slug": "bags",
-      "name": "Сумки & Аксесуари",
+      "slug": "socks",
+      "name": "Шкарпетки",
+      "icon": "🧦",
+      "count": 91
+    },
+    {
+      "slug": "underwear",
+      "name": "Труси & Білизна",
+      "icon": "🩲",
+      "count": 71
+    },
+    {
+      "slug": "accessories",
+      "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 762
+      "count": 822
+    }
+  ],
+  "seasons": [
+    {
+      "slug": "all",
+      "name": "Всі сезони",
+      "icon": "🌍",
+      "count": 7309
+    },
+    {
+      "slug": "demi",
+      "name": "Демісезон",
+      "icon": "🍂",
+      "count": 5447
+    },
+    {
+      "slug": "winter",
+      "name": "Зима",
+      "icon": "❄️",
+      "count": 731
+    },
+    {
+      "slug": "summer",
+      "name": "Літо",
+      "icon": "☀️",
+      "count": 1131
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7324
+      "count": 7309
     },
     {
       "slug": "nike",
@@ -98,7 +118,7 @@
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 160
+      "count": 159
     },
     {
       "slug": "dior",
@@ -128,12 +148,12 @@
     {
       "slug": "coach",
       "name": "Coach",
-      "count": 85
+      "count": 84
     },
     {
       "slug": "hermes",
       "name": "Hermes",
-      "count": 84
+      "count": 83
     },
     {
       "slug": "saintlaurent",
@@ -143,7 +163,7 @@
     {
       "slug": "miumiu",
       "name": "Miu Miu",
-      "count": 69
+      "count": 66
     },
     {
       "slug": "premiata",
@@ -158,7 +178,7 @@
     {
       "slug": "gucci",
       "name": "Gucci",
-      "count": 54
+      "count": 53
     },
     {
       "slug": "offwhite",
@@ -178,12 +198,12 @@
     {
       "slug": "calvinklein",
       "name": "Calvin Klein",
-      "count": 37
+      "count": 36
     },
     {
       "slug": "celine",
       "name": "Celine",
-      "count": 35
+      "count": 34
     },
     {
       "slug": "vans",
@@ -211,11 +231,6 @@
       "count": 24
     },
     {
-      "slug": "prada",
-      "name": "Prada",
-      "count": 23
-    },
-    {
       "slug": "pinko",
       "name": "Pinko",
       "count": 20
@@ -226,9 +241,9 @@
       "count": 19
     },
     {
-      "slug": "jacquemus",
-      "name": "Jacquemus",
-      "count": 17
+      "slug": "prada",
+      "name": "Prada",
+      "count": 18
     },
     {
       "slug": "hugo",
@@ -236,8 +251,18 @@
       "count": 16
     },
     {
+      "slug": "merrell",
+      "name": "Merrell",
+      "count": 16
+    },
+    {
       "slug": "lacoste",
       "name": "Lacoste",
+      "count": 15
+    },
+    {
+      "slug": "jacquemus",
+      "name": "Jacquemus",
       "count": 15
     },
     {
@@ -271,18 +296,8 @@
       "count": 10
     },
     {
-      "slug": "merrell",
-      "name": "Merrell",
-      "count": 10
-    },
-    {
       "slug": "bottega",
       "name": "Bottega Veneta",
-      "count": 9
-    },
-    {
-      "slug": "carhartt",
-      "name": "Carhartt",
       "count": 9
     },
     {
@@ -301,18 +316,23 @@
       "count": 7
     },
     {
-      "slug": "guess",
-      "name": "Guess",
-      "count": 5
-    },
-    {
       "slug": "loewe",
       "name": "Loewe",
       "count": 5
     },
     {
+      "slug": "carhartt",
+      "name": "Carhartt",
+      "count": 4
+    },
+    {
       "slug": "cartier",
       "name": "Cartier",
+      "count": 4
+    },
+    {
+      "slug": "guess",
+      "name": "Guess",
       "count": 4
     },
     {
@@ -331,19 +351,19 @@
       "count": 2
     },
     {
-      "slug": "chloe",
-      "name": "Chloé",
-      "count": 2
-    },
-    {
       "slug": "essentials",
       "name": "Essentials / FOG",
       "count": 1
     },
     {
+      "slug": "chloe",
+      "name": "Chloé",
+      "count": 1
+    },
+    {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 886
+      "count": 888
     }
   ]
 }
