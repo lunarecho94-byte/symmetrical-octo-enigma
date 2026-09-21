@@ -357,9 +357,13 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
         return 'unisex'
 
     if cat_slug == 'underwear':
-        if re.search(r'чоловіч|мужск|боксер|boxer', full_text, re.I):
+        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'бюст|топ\b|бра\b|стринги|стрінги|трусики', full_text, re.I))
+        is_m = bool(GENDER_MEN_KW.search(full_text)) or bool(re.search(r'боксер|boxer', full_text, re.I))
+        if is_w and not is_m:
+            return 'women'
+        if is_m and not is_w:
             return 'men'
-        if re.search(r'жіноч|женск|бюст|топ|бра\b', full_text, re.I):
+        if is_w:
             return 'women'
         return 'men'
 
@@ -588,6 +592,9 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     # 4. Translate / clean Russian supplier prefixes
     t = re.sub(r'^МУЖСКОЕ БЕЛЬЕ\s*', 'Чоловіча білизна ', t, flags=re.I)
     t = re.sub(r'^ЖЕНСКОЕ БЕЛЬЕ\s*', 'Жіноча білизна ', t, flags=re.I)
+    t = re.sub(r'^КОМПЛЕКТ\s+Calvin\s+Klein\b', 'Жіночий комплект білизни Calvin Klein', t, flags=re.I)
+    t = re.sub(r'^Термо\s*костюм\s+Columbia\s+Women\b', 'Жіноча термобілизна Columbia', t, flags=re.I)
+    t = re.sub(r'^Термо\s*костюм\s+Columbia\s+Black\s+Men\b', 'Чоловіча термобілизна Columbia Black', t, flags=re.I)
     t = re.sub(r'^МУЖСКИЕ\s*', 'Чоловічі ', t, flags=re.I)
     t = re.sub(r'^ЖЕНСКИЕ\s*', 'Жіночі ', t, flags=re.I)
     t = re.sub(r'^СВИТШОТ\s*', 'Світшот ', t, flags=re.I)
@@ -761,7 +768,7 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
 
     # 11. Special underwear brand enrichments (e.g. CK 048, ASORTI, FL 059, MS 058)
     if 'білизн' in cat_name.lower() or cat_slug == 'underwear':
-        if not t.lower().startswith(('комплект', 'чоловіча', 'жіноча', 'труси')):
+        if not t.lower().startswith(('комплект', 'чоловіч', 'жіноч', 'трус', 'термо')):
             if brand_slug != 'other':
                 t = f'Комплект білизни {brand_title} {t}'
             else:
