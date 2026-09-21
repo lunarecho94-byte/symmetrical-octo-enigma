@@ -98,15 +98,14 @@ BAG_KEYWORDS = re.compile(
     r'сумк|рюкзак|бананка|месенджер|портмоне|гаманець|кошелек|клатч|шопер|шоппер|валіза|чемодан|холдер|баул|'
     r'\bbag\b|\bbags\b|\bbackpack\b|\bwallet\b|\btote\b|\bhandbag\b|\bcrossbody\b|\bкейс\b|'
     r'\bочки\b|окуляр|пасок|\bремінь\b|\bремень\b|браслет|годинник|кардхолдер|jw pei|chiquito|bambino|book tote|'
-    r'шапк|кепк|панам|баф\b|шарф|рукавиц|перчатк|\bbelt\b|\bhat\b|\bcap\b|'
-    r'⭐️\s*PREMIUM',
+    r'шапк|кепк|панам|баф\b|шарф|рукавиц|перчатк|\bbelt\b|\bhat\b|\bbeanie\b|бейсболк',
     re.I
 )
 
 CLOTHING_KEYWORDS = re.compile(
     r'костюм|худі|худи|світшот|толстовка|вітровк|ветровк|куртк|пуховик|штани|штаны|джинс|футболк|шорти|шорты|'
     r'жилет|анорак|парка|бомбер|спідниц|сукня|плать|лонгслів|светр|кофта|кардиган|сорочк|рубашк|поло\b|майк|'
-    r'топ\b|термобілизн|білизн|шкарпетк|носк|шапк|кепк|панам|баф\b|tracksuit|hoodie|jacket|pants|shorts|t-shirt|tee\b',
+    r'кроп-топ|кроптоп|\bтопік\b|жіночий топ|топ бра|tracksuit|hoodie|jacket|pants|shorts|t-shirt|tee\b',
     re.I
 )
 
@@ -179,41 +178,74 @@ KNOWN_BRANDS = [
     ('armani', 'Armani', [r'armani', r'ea7']),
 ]
 
-def determine_category(name, cat_name, desc, params_str=""):
-    title_cat = f"{name} {cat_name}"
-    
-    # 1. Socks (Шкарпетки)
-    if re.search(r'шкарпетк|носк|\bsocks?\b', title_cat, re.I):
-        return 'socks', 'Шкарпетки', '🧦'
+def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", brand_slug=""):
+    title_cat = f"{name} {cat_name}".strip()
+    title_cat_lower = title_cat.lower()
+    sizes = sizes or []
+    shoe_sizes = [s for s in sizes if re.match(r'^(3[5-9]|4[0-8])$', str(s).strip())]
+
+    # Special Kids Homme t-shirt
+    if 'k0025 homme' in title_cat_lower or title_cat_lower == 'homme':
+        return 'clothing', 'Одяг', '🧥'
+
+    # 1. Definitive Footwear Brand & Model overrides:
+    # UGG, Merrell, Crocs, Birkenstock in EasyDrop are ALWAYS footwear (shoes)
+    if brand_slug in ('ugg', 'merrell', 'birkenstock') or re.search(r'\b(ugg|угг|merrell|birkenstock)\b', title_cat_lower):
+        return 'shoes', 'Взуття', '👟'
+
+    # Models with 'sock', 'cap', 'pouch' that are actually footwear
+    if re.search(r'tazz sock|sock dart|speed sock|ice cap|drainmaker|2002r.*pouch|knu skool|old skool', title_cat_lower):
+        return 'shoes', 'Взуття', '👟'
+
+    # Feed category name explicitly marks footwear:
+    if '(взуття)' in cat_name.lower() or re.search(r'кросівки|кеди|сланці|шльопанці|тапочки|\bboots\b|\bsneakers\b|зим.*взуття', cat_name, re.I):
+        return 'shoes', 'Взуття', '👟'
+
+    # Footwear models & numeric shoe sizes (e.g. 36-47):
+    # If it has 2+ numeric shoe sizes and comes from a sneaker brand or has sneaker keywords
+    if len(shoe_sizes) >= 2 and any(k in title_cat_lower for k in [
+        'new balance', 'nike', 'adidas', 'puma', 'asics', 'jordan', 'vans', 'converse', 'salomon', 'saucony', 'reebok', 'hoka', 'on cloud', 'premiata', 'dr.martens', 'martens',
+        'кросів', 'кроссов', 'кеди', 'кеды', 'ботинк', 'черевик', 'хайтоп', 'sneaker', 'сникер', 'лофер', 'туфл', 'чобот', 'сабо', 'сандал', 'шльоп', 'сланц', 'slide'
+    ]):
+        if not any(k in title_cat_lower for k in ['футболк', 'худі', 'світшот', 'штани', 'шорти', 'куртка', 'костюм', 'шапка', 'кепка', 'панама', 'сумка', 'рюкзак']):
+            return 'shoes', 'Взуття', '👟'
 
     # 2. Underwear (Труси / Нижня білизна)
-    if re.search(r'трус|боксер|білизн|плавки|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat, re.I):
+    # Feed category marks underwear:
+    if re.search(r'труси\s*\(одяг\)|чоловіча білизна|комплекти білизни', cat_name, re.I):
+        return 'underwear', 'Труси & Білизна', '🩲'
+    # Text marks underwear (including sets of underwear + socks):
+    if re.search(r'трус|боксер|білизн|плавки|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat_lower):
         return 'underwear', 'Труси & Білизна', '🩲'
 
-    # Exception: New Balance 2002R Pouch is a sneaker
-    if '2002r' in title_cat.lower() and 'pouch' in title_cat.lower():
-        return 'shoes', 'Взуття & Кросівки', '👟'
-        
+    # 3. Socks (Шкарпетки)
+    # Feed category marks pure socks:
+    if re.search(r'комплекти шкарпеток|\bноски\b|шкарпетки', cat_name, re.I) and 'білизн' not in cat_name.lower():
+        return 'socks', 'Шкарпетки', '🧦'
+    # Name marks socks (only if not a shoe with shoe sizes):
+    if re.search(r'шкарпетк|носк|\bsocks?\b', title_cat_lower):
+        if not (len(shoe_sizes) >= 2 and any(k in title_cat_lower for k in ['ugg', 'nike', 'adidas', 'runner', 'trainer', 'boot', 'tazz'])):
+            return 'socks', 'Шкарпетки', '🧦'
+
+    # 4. Bags & Accessories
     desc_start = ''
     m = re.search(r'Опис\s*:\s*([^<\n\r]+)', desc)
     if m:
         desc_start = m.group(1).strip()[:150]
 
     # Handbag/Belt dimensions check: e.g. "34 x 26 x 13", "25x17x9", "100 х 2,5"
-    if params_str and re.search(r'\d+\s*[xх]\s*\d+', params_str) and not any(k in title_cat.lower() for k in ['кросівки', 'кеди', 'взуття', 'костюм']):
+    if params_str and re.search(r'\d+\s*[xх]\s*\d+', params_str) and not any(k in title_cat_lower for k in ['кросівки', 'кеди', 'взуття', 'костюм']):
         return 'accessories', 'Аксесуари & Сумки', '🎒'
-        
-    # 3. Bags & Accessories (unless UGG)
-    if 'ugg' not in title_cat.lower():
-        if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч|шапка|кепка|панама)', desc_start, re.I)):
-            return 'accessories', 'Аксесуари & Сумки', '🎒'
-        
-    # 4. Clothing & Outerwear
-    if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
+
+    if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч|шапка|кепка|панама)', desc_start, re.I)):
+        return 'accessories', 'Аксесуари & Сумки', '🎒'
+
+    # 5. Clothing & Outerwear
+    if '(одяг)' in cat_name.lower() or CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
         return 'clothing', 'Одяг & Куртки', '🧥'
-        
-    # 5. Shoes & Footwear (all sneakers, boots, ugg, slides, sandals, etc.)
-    return 'shoes', 'Взуття & Кросівки', '👟'
+
+    # 6. Fallback is Shoes
+    return 'shoes', 'Взуття', '👟'
 
 def determine_season(name, cat_slug, mat="", desc=""):
     txt = f"{name} {mat} {desc}".lower()
@@ -561,20 +593,22 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     elif re.match(r'^\d{2}$', t):
         if cat_slug == 'clothing':
             t = f'Куртка / Вітровка {t}'
-        elif cat_slug in ('shoes', 'winter'):
-            t = f'Кросівки / Взуття {t}'
-        elif cat_slug == 'bags':
+        elif cat_slug in ('accessories', 'bags'):
             t = f'Сумка {t}'
+        elif cat_slug == 'shoes':
+            t = f'Кросівки / Взуття {t}'
         else:
             t = f'Товар {t}'
     elif re.match(r'^(?:NTR|NB|VN|CR|YE)\d{2,4}$', t, re.I):
         if brand_slug != 'other':
-            if cat_slug == 'winter':
-                t = f'Черевики {brand_title} {t.upper()}'
+            if cat_slug in ('accessories', 'bags'):
+                t = f'Сумка {brand_title} {t.upper()}'
             elif cat_slug == 'clothing':
                 t = f'Одяг {brand_title} {t.upper()}'
-            elif cat_slug == 'bags':
-                t = f'Сумка {brand_title} {t.upper()}'
+            elif cat_slug == 'underwear':
+                t = f'Комплект білизни {brand_title} {t.upper()}'
+            elif cat_slug == 'socks':
+                t = f'Шкарпетки {brand_title} {t.upper()}'
             else:
                 t = f'Кросівки {brand_title} {t.upper()}'
         else:
@@ -598,7 +632,7 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
                 t = extracted_model
 
     # 10. Single brand name titles (e.g. 'Nike', 'Puma', 'Lacoste', 'Balenciaga')
-    if t.lower() in [brand_slug, brand_title.lower()] or t.lower() in ['nike', 'adidas', 'puma', 'lacoste', 'lactose', 'gucci', 'prada', 'dior', 'chanel', 'balenciaga', 'reebok', 'under armour', 'guess', 'fila', 'cartier', 'columbia', 'merrell', 'chloe']:
+    if t.lower() in [brand_slug, brand_title.lower()] or t.lower() in ['nike', 'adidas', 'puma', 'lacoste', 'lactose', 'gucci', 'prada', 'dior', 'chanel', 'balenciaga', 'reebok', 'under armour', 'guess', 'fila', 'cartier', 'columbia', 'merrell', 'chloe', 'calvin klein', 'hugo boss']:
         actual_brand = brand_title if brand_slug != 'other' else t.title()
         if cat_slug == 'clothing':
             if any(k in cat_name.lower() for k in ['костюм', 'спорт']):
@@ -617,23 +651,31 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
                 t = f'Головний убір {actual_brand}'
             else:
                 t = f'Одяг {actual_brand}'
-        elif cat_slug == 'bags':
+        elif cat_slug in ('accessories', 'bags'):
             if 'окуляр' in cat_name.lower():
                 t = f'Окуляри {actual_brand}'
+            elif any(k in cat_name.lower() for k in ['шапк', 'кепк', 'панам']):
+                t = f'Головний убір {actual_brand}'
+            elif 'ремін' in cat_name.lower():
+                t = f'Ремінь {actual_brand}'
             else:
                 t = f'Сумка {actual_brand}'
-        elif cat_slug == 'winter':
-            t = f'Зимове взуття {actual_brand}'
+        elif cat_slug == 'underwear':
+            t = f'Комплект білизни {actual_brand}'
+        elif cat_slug == 'socks':
+            t = f'Шкарпетки {actual_brand}'
         else:
             t = f'Кросівки {actual_brand}'
 
     # 11. Special underwear brand enrichments (e.g. CK 048, ASORTI, FL 059, MS 058)
-    if 'білизн' in cat_name.lower():
+    if 'білизн' in cat_name.lower() or cat_slug == 'underwear':
         if not t.lower().startswith(('комплект', 'чоловіча', 'жіноча', 'труси')):
             if brand_slug != 'other':
                 t = f'Комплект білизни {brand_title} {t}'
             else:
                 t = f'Комплект білизни {t}'
+        t = re.sub(r'Комплект білизни\s+Кросівки\s*', 'Комплект білизни ', t, flags=re.I)
+        t = re.sub(r'(Комплект білизни\s*)+', 'Комплект білизни ', t, flags=re.I)
 
     # 12. Single generic words expansion
     if t.lower() == 'кепка':
@@ -767,8 +809,8 @@ def main():
         sorted_sizes = sort_sizes(sizes)
         params_str = ' '.join(clean_text(p.text) for it in items for p in it.findall('param') if p.text)
         
-        cat_slug, cat_title, cat_icon = determine_category(name, cname, desc, params_str)
         brand_slug, brand_title = determine_brand(name, cname)
+        cat_slug, cat_title, cat_icon = determine_category(name, cname, desc, params_str, sorted_sizes, mat, brand_slug)
 
         clean_name = clean_product_title(name, cat_slug, brand_slug, brand_title, cname, desc, params_str)
         if not clean_name:
