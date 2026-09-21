@@ -843,25 +843,23 @@ async function handleCheckoutFormSubmit(e) {
             const lineSum = item.price * (item.qty || 1);
             orderTotalNum += lineSum;
             totalQty += (item.qty || 1);
-            const artLine = item.art ? `   • Артикул (SKU): ${item.art}\n` : '';
-            const matLine = item.mat ? `   • Матеріал: ${item.mat}\n` : '';
-            const originLine = item.origin ? `   • Виробник: ${item.origin}\n` : '';
-            const linkLine = item.prodId ? `   • Посилання на сайті: https://urbangrid.com.ua/#prod-${item.prodId}\n` : '';
+            const artText = item.art ? ` (Арт: ${item.art})` : '';
+            const qtyText = (item.qty || 1) > 1 ? ` | ${item.qty || 1} шт. × ${item.price.toLocaleString('uk-UA')} грн` : '';
+            const detailsArr = [];
+            if (item.mat) detailsArr.push(`Матеріал: ${item.mat}`);
+            if (item.origin) detailsArr.push(`Виробник: ${item.origin}`);
+            const detailsLine = detailsArr.length > 0 ? `• ${detailsArr.join(' | ')}\n` : '';
+            const linkLine = item.prodId ? `• https://urbangrid.com.ua/#prod-${item.prodId}\n` : '';
 
-            orderItemsText += `ПОЗИЦІЯ #${idx + 1}:\n` +
-                              `   • Товар: ${item.title}\n` +
-                              `${artLine}` +
-                              `   • Розмір: ${item.size}\n` +
-                              `   • Кількість: ${item.qty || 1} шт.\n` +
-                              `   • Ціна за одиницю: ${item.price.toLocaleString('uk-UA')} грн\n` +
-                              `   • Вартість: ${lineSum.toLocaleString('uk-UA')} грн\n` +
-                              `${matLine}` +
-                              `${originLine}` +
-                              `${linkLine}\n`;
+            orderItemsText += `№${idx + 1}. ${item.title}${artText}\n` +
+                              `• Розмір: ${item.size} | Сума: ${lineSum.toLocaleString('uk-UA')} грн${qtyText}\n` +
+                              detailsLine +
+                              linkLine +
+                              `\n`;
 
-            quickCopyItems += `${item.title}${item.art ? ` (Арт: ${item.art})` : ''} [${item.size}, ${item.qty || 1} шт. — ${lineSum.toLocaleString('uk-UA')} грн]; `;
+            quickCopyItems += `${item.title}${artText} [${item.size}, ${item.qty || 1} шт. — ${lineSum.toLocaleString('uk-UA')} грн]; `;
         });
-        orderItemsText += `${wideDivider}\nВсього товарів у замовленні: ${totalQty} шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
+        orderItemsText += `─────────────────────────────\nВсього: ${totalQty} шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
         const firstTitle = cart[0].title.split(' (')[0].replace(/^[🔥👟🛡🏀⚡✨🌸🖤💖❄️⚪🍫💙🏃‍♀️🐊🍷🛹\s]+/u, '').trim();
         const firstArt = cart[0].art ? ` (Арт: ${cart[0].art})` : '';
         shortModelSummary = `${totalQty} тов. (${firstTitle}${firstArt}${totalQty > 1 ? ' та ін.' : ''})`;
@@ -874,7 +872,9 @@ async function handleCheckoutFormSubmit(e) {
         const priceText = finalPriceEl ? finalPriceEl.textContent : '2 670 грн';
         orderTotalNum = parseInt(priceText.replace(/\D/g, ''), 10) || 2670;
 
-        orderItemsText = `1. ${selectedModel}\n   • Розмір: ${chosenSize}\n   • Кількість: 1 шт.\n   • Вартість: ${orderTotalNum.toLocaleString('uk-UA')} грн\n${wideDivider}`;
+        orderItemsText = `№1. ${selectedModel}\n` +
+                          `• Розмір: ${chosenSize} | К-сть: 1 шт. | Сума: ${orderTotalNum.toLocaleString('uk-UA')} грн\n` +
+                          `─────────────────────────────\nВсього: 1 шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
         quickCopyItems = `${selectedModel} — ${chosenSize} — 1 шт.`;
 
         const cleanName = selectedModel.split(' (')[0].replace(/^[🔥👟🛡🏀⚡✨🌸🖤💖❄️⚪🍫💙🏃‍♀️🐊🍷🛹\s]+/u, '').trim();
@@ -896,8 +896,7 @@ async function handleCheckoutFormSubmit(e) {
 Тел: ${cleanPhone || customerPhone}
 Доставка: ${combinedAddress}
 Товари: ${quickCopyItems}
-Оплата: ${isPrepayment ? 'Оплачено (Передплата на картку/IBAN)' : 'Накладений платіж'} — ${formattedTotal}
-${wideDivider}`;
+Оплата: ${isPrepayment ? 'Оплачено (Передплата на картку/IBAN)' : 'Накладений платіж'} — ${formattedTotal}`;
 
     // Update hidden form inputs for native fallback
     const subjectInput = document.getElementById('formSubmitSubject');
@@ -935,22 +934,22 @@ ${wideDivider}`;
         }
     }
 
-    // Build the cleanest, most professional FormData for FormSubmit.co
+    // Build the cleanest, most professional FormData for FormSubmit.co (compact keys to widen the Value column)
     const formData = new FormData();
     formData.append('_captcha', 'false');
     formData.append('_template', 'table');
     formData.append('_subject', emailSubject);
     formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
 
-    formData.append('№_Замовлення', `#${orderId} (${formattedDate})`);
-    formData.append('Сума_до_сплати', formattedTotal);
-    formData.append('Спосіб_оплати', paymentFormatted);
-    formData.append('Дзвінок_менеджера', contactPreference);
-    formData.append('Одержувач_ПІБ', customerName);
-    formData.append('Телефон', customerPhone);
-    formData.append('Доставка_Нова_Пошта', combinedAddress);
-    formData.append('Детальний_перелік_товарів', orderItemsText);
-    formData.append('Швидке_копіювання_для_ТТН', quickTtnBlock);
+    formData.append('№', `#${orderId} (${formattedDate})`);
+    formData.append('Сума', formattedTotal);
+    formData.append('Оплата', paymentFormatted);
+    formData.append('Дзвінок', contactPreference);
+    formData.append('Клієнт', customerName);
+    formData.append('Тел', customerPhone);
+    formData.append('Доставка', combinedAddress);
+    formData.append('Товари', orderItemsText);
+    formData.append('Для ТТН', quickTtnBlock);
 
     if (pdfResult && pdfResult.blob) {
         formData.append('attachment', pdfResult.blob, pdfResult.fileName);
@@ -2910,13 +2909,13 @@ async function checkoutViaMessenger(messenger) {
             formData.append('_subject', `Запит у ${messengerName} #${order.orderId} | ${order.totalPrice.toLocaleString('uk-UA')} грн | ${order.customerName || 'Клієнт'}`);
             formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
 
-            formData.append('№_Замовлення', `#${order.orderId}`);
-            formData.append('Канал_зв\'язку', `Месенджер ${messengerName}`);
-            formData.append('Сума_до_сплати', `${order.totalPrice.toLocaleString('uk-UA')} грн`);
-            formData.append('Одержувач_ПІБ', order.customerName || 'Клієнт (месенджер)');
-            formData.append('Телефон', order.customerPhone || 'Вказати в чаті');
-            formData.append('Доставка_Нова_Пошта', `${order.city} ${order.warehouse}`.trim() || 'Узгодити в месенджері');
-            formData.append('Детальний_перелік_товарів', order.text);
+            formData.append('№', `#${order.orderId}`);
+            formData.append('Канал', `Месенджер ${messengerName}`);
+            formData.append('Сума', `${order.totalPrice.toLocaleString('uk-UA')} грн`);
+            formData.append('Клієнт', order.customerName || 'Клієнт (месенджер)');
+            formData.append('Тел', order.customerPhone || 'Вказати в чаті');
+            formData.append('Доставка', `${order.city} ${order.warehouse}`.trim() || 'Узгодити в месенджері');
+            formData.append('Товари', order.text);
             formData.append('Статус', `Перехід клієнта у ${messengerName}`);
 
             fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
@@ -3189,13 +3188,13 @@ async function handleQuickOrderSubmit(e) {
     formData.append('_template', 'table');
     formData.append('_subject', subject);
     formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
-    formData.append('Тип_замовлення', 'Швидке замовлення в 1 клік');
-    formData.append('№_Замовлення', `#${orderId} (${formattedDate})`);
-    formData.append('Одержувач_ПІБ', nameVal);
-    formData.append('Телефон', phoneCheck.formatted);
-    formData.append('Товар_і_Артикул', orderItemsDesc);
-    formData.append('Статус', 'Очікує швидкого дзвінка менеджера для уточнення розміру та доставки');
-    formData.append('Швидкий_дзвінок', `tel:${phoneVal}`);
+    formData.append('Тип', 'Швидке замовлення в 1 клік');
+    formData.append('№', `#${orderId} (${formattedDate})`);
+    formData.append('Клієнт', nameVal);
+    formData.append('Тел', phoneCheck.formatted);
+    formData.append('Товар', orderItemsDesc);
+    formData.append('Статус', 'Очікує швидкого дзвінка менеджера');
+    formData.append('Дзвінок', `tel:${phoneVal}`);
 
     try {
         const res = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
@@ -3362,26 +3361,24 @@ async function handleCartDirectCheckout(e) {
         const lineSum = item.price * (item.qty || 1);
         orderTotalNum += lineSum;
         totalQty += (item.qty || 1);
-        const artText = item.art ? `   • Артикул (SKU): ${item.art}\n` : '';
-        const matText = item.mat ? `   • Матеріал: ${item.mat}\n` : '';
-        const originText = item.origin ? `   • Виробник: ${item.origin}\n` : '';
-        const linkText = item.prodId ? `   • Посилання на сайті: https://urbangrid.com.ua/#prod-${item.prodId}\n` : '';
+        const artText = item.art ? ` (Арт: ${item.art})` : '';
+        const qtyText = (item.qty || 1) > 1 ? ` | ${item.qty || 1} шт. × ${item.price.toLocaleString('uk-UA')} грн` : '';
+        const detailsArr = [];
+        if (item.mat) detailsArr.push(`Матеріал: ${item.mat}`);
+        if (item.origin) detailsArr.push(`Виробник: ${item.origin}`);
+        const detailsLine = detailsArr.length > 0 ? `• ${detailsArr.join(' | ')}\n` : '';
+        const linkLine = item.prodId ? `• https://urbangrid.com.ua/#prod-${item.prodId}\n` : '';
 
-        orderItemsText += `ПОЗИЦІЯ #${idx + 1}:\n` +
-                          `   • Товар: ${item.title}\n` +
-                          `${artText}` +
-                          `   • Розмір: ${item.size}\n` +
-                          `   • Кількість: ${item.qty || 1} шт.\n` +
-                          `   • Ціна за од.: ${item.price.toLocaleString('uk-UA')} грн\n` +
-                          `   • Вартість: ${lineSum.toLocaleString('uk-UA')} грн\n` +
-                          `${matText}` +
-                          `${originText}` +
-                          `${linkText}\n`;
+        orderItemsText += `№${idx + 1}. ${item.title}${artText}\n` +
+                          `• Розмір: ${item.size} | Сума: ${lineSum.toLocaleString('uk-UA')} грн${qtyText}\n` +
+                          detailsLine +
+                          linkLine +
+                          `\n`;
 
-        itemsSummaryList += `${item.title}${item.art ? ` (Арт: ${item.art})` : ''} [${item.size}, ${item.qty || 1} шт. — ${lineSum.toLocaleString('uk-UA')} грн]; `;
+        itemsSummaryList += `${item.title}${artText} [${item.size}, ${item.qty || 1} шт. — ${lineSum.toLocaleString('uk-UA')} грн]; `;
     });
 
-    orderItemsText += `${wideDivider}\nВсього товарів у замовленні: ${totalQty} шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
+    orderItemsText += `─────────────────────────────\nВсього: ${totalQty} шт. на суму ${orderTotalNum.toLocaleString('uk-UA')} грн`;
 
     const formattedTotal = `${orderTotalNum.toLocaleString('uk-UA')} грн`;
     const customerName = nameInput.value.trim();
@@ -3399,8 +3396,7 @@ async function handleCartDirectCheckout(e) {
 Тел: ${phoneCheck.formatted}
 Доставка: ${fullDelivery}
 Товари: ${itemsSummaryList}
-Оплата: ${paymentMethod} — ${formattedTotal}
-${wideDivider}`;
+Оплата: ${paymentMethod} — ${formattedTotal}`;
 
     // Generate PDF silently in background for owner
     let pdfResult = null;
@@ -3410,19 +3406,21 @@ ${wideDivider}`;
         console.warn('PDF generation in cart checkout:', pdfErr);
     }
 
+    // Build the cleanest, most professional FormData for FormSubmit.co (compact keys to widen the Value column)
     const formData = new FormData();
     formData.append('_captcha', 'false');
     formData.append('_template', 'table');
     formData.append('_subject', subject);
     formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
-    formData.append('№_Замовлення', `#${orderId} (${formattedDate})`);
-    formData.append('Сума_до_сплати', formattedTotal);
-    formData.append('Одержувач_ПІБ', customerName);
-    formData.append('Телефон', phoneCheck.formatted);
-    formData.append('Доставка_Нова_Пошта', fullDelivery);
-    formData.append('Спосіб_оплати', paymentMethod);
-    formData.append('Детальний_перелік_товарів', orderItemsText);
-    formData.append('Швидке_копіювання_для_ТТН', quickTtnBlock);
+
+    formData.append('№', `#${orderId} (${formattedDate})`);
+    formData.append('Сума', formattedTotal);
+    formData.append('Клієнт', customerName);
+    formData.append('Тел', phoneCheck.formatted);
+    formData.append('Доставка', fullDelivery);
+    formData.append('Оплата', paymentMethod);
+    formData.append('Товари', orderItemsText);
+    formData.append('Для ТТН', quickTtnBlock);
 
     if (pdfResult && pdfResult.blob) {
         formData.append('attachment', pdfResult.blob, pdfResult.fileName);
