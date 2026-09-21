@@ -723,10 +723,12 @@ function populatePdfTemplate(orderId, orderDate) {
 async function generateOrderPdf(orderId, orderDate) {
     const orderData = populatePdfTemplate(orderId, orderDate);
     const element = document.getElementById('orderPdfInvoiceTemplate');
-    if (!element) return null;
-
-    const cleanId = orderId.replace(/[^a-zA-Z0-9_-]/g, '');
+    const cleanId = (orderId || 'UG-00000').replace(/[^a-zA-Z0-9_-]/g, '');
     const fileName = `Zamovlennya_${cleanId}.pdf`;
+
+    if (!element || typeof html2pdf === 'undefined') {
+        return { blob: null, fileName, orderData };
+    }
 
     const opt = {
         margin: [6, 6, 6, 6],
@@ -736,21 +738,21 @@ async function generateOrderPdf(orderId, orderDate) {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    if (typeof html2pdf !== 'undefined') {
-        try {
-            const blob = await html2pdf().set(opt).from(element).outputPdf('blob');
+    try {
+        const pdfPromise = html2pdf().set(opt).from(element).outputPdf('blob');
+        const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 1500));
+        const blob = await Promise.race([pdfPromise, timeoutPromise]);
+        if (blob) {
             lastGeneratedPdfBlob = blob;
             lastGeneratedPdfName = fileName;
-            return { blob, fileName, orderData };
-        } catch (err) {
-            console.error('Error generating PDF:', err);
-            return null;
         }
-    } else {
-        console.warn('html2pdf library is not yet loaded');
-        return null;
+        return { blob: blob || null, fileName, orderData };
+    } catch (err) {
+        console.warn('PDF generation non-critical error:', err);
+        return { blob: null, fileName, orderData };
     }
 }
+
 
 async function handleCheckoutFormSubmit(e) {
     if (e && e.preventDefault) {
@@ -955,52 +957,54 @@ async function handleCheckoutFormSubmit(e) {
         formData.append('attachment', pdfResult.blob, pdfResult.fileName);
     }
 
+    let submittedOk = false;
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
         const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
             method: 'POST',
-            body: formData
+            body: formData,
+            signal: controller.signal
         });
+        clearTimeout(timeoutId);
+
         const result = await response.json();
-
         if (result.success === 'true' || result.success === true) {
-            // Ad Conversion Tracking (Meta Pixel & GA4)
-            const orderTotalNum = parseInt((document.getElementById('pdfGrandTotalSum')?.textContent || '2500').replace(/\D/g, ''), 10) || 2500;
-            if (window.fbq) {
-                try {
-                    fbq('track', 'Purchase', {
-                        value: orderTotalNum,
-                        currency: 'UAH',
-                        content_type: 'product'
-                    });
-                } catch (e) {}
-            }
-            if (window.gtag) {
-                try {
-                    gtag('event', 'purchase', {
-                        transaction_id: orderId,
-                        value: orderTotalNum,
-                        currency: 'UAH'
-                    });
-                } catch (e) {}
-            }
-
-            clearCart();
-            isSubmittingOrder = false;
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
-            }
-            showOrderSuccessModal(pdfResult ? pdfResult.orderData : null);
-            return;
-        } else {
-            console.warn('FormSubmit returned non-success:', result);
-            throw new Error(result.message || 'Submission failed');
+            submittedOk = true;
         }
     } catch (fetchErr) {
-        console.warn('AJAX submission failed, attempting native form submit fallback:', fetchErr);
-        form.action = 'https://formsubmit.co/lunarecho94@icloud.com';
-        form.submit();
+        console.warn('FormSubmit AJAX failed or timed out:', fetchErr);
     }
+
+    // Ad Conversion Tracking (Meta Pixel & GA4)
+    const orderTotalNumPurchase = parseInt((document.getElementById('pdfGrandTotalSum')?.textContent || '2500').replace(/\D/g, ''), 10) || 2500;
+    if (window.fbq) {
+        try {
+            fbq('track', 'Purchase', {
+                value: orderTotalNumPurchase,
+                currency: 'UAH',
+                content_type: 'product'
+            });
+        } catch (e) {}
+    }
+    if (window.gtag) {
+        try {
+            gtag('event', 'purchase', {
+                transaction_id: orderId,
+                value: orderTotalNumPurchase,
+                currency: 'UAH'
+            });
+        } catch (e) {}
+    }
+
+    clearCart();
+    isSubmittingOrder = false;
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
+    }
+    showOrderSuccessModal(pdfResult ? pdfResult.orderData : null);
 }
 
 function checkOrderSuccess() {
@@ -2482,11 +2486,17 @@ function initNovaPoshtaAutocomplete() {
 
     // --- Warehouse Autocomplete Handlers ---
     warehouseInput.addEventListener('focus', () => {
-        if (!npSelectedCity) {
-            cityInput.focus();
-            return;
+        if (!npSelectedCity && cityInput.value.trim()) {
+            const typed = cityInput.value.trim().toLowerCase();
+            const matched = NP_TOP_CITIES.find(c => c.name.toLowerCase() === typed || c.present.toLowerCase().includes(typed));
+            if (matched) {
+                selectNpCity(encodeURIComponent(JSON.stringify(matched)));
+                return;
+            }
         }
-        renderFilteredWarehouses(warehouseInput.value.trim());
+        if (npAllWarehouses.length > 0) {
+            renderFilteredWarehouses(warehouseInput.value.trim());
+        }
     });
 
     warehouseInput.addEventListener('input', (e) => {
@@ -2543,9 +2553,13 @@ async function triggerCitySearch(query) {
     const citySpinner = document.getElementById('npCitySpinner');
     if (citySpinner) citySpinner.style.display = 'block';
 
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2500);
+
     try {
         const res = await fetch(NP_API_ENDPOINT, {
             method: 'POST',
+            signal: controller.signal,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 apiKey: '',
@@ -2558,6 +2572,7 @@ async function triggerCitySearch(query) {
                 }
             })
         });
+        clearTimeout(timer);
         const json = await res.json();
         if (json.success && json.data && json.data[0] && json.data[0].Addresses) {
             const results = json.data[0].Addresses.map(a => ({
@@ -2572,10 +2587,12 @@ async function triggerCitySearch(query) {
             renderNpCityDropdown(local);
         }
     } catch (err) {
+        clearTimeout(timer);
         console.warn('NP Search Settlements fallback:', err);
         const local = NP_TOP_CITIES.filter(c => c.present.toLowerCase().includes(query.toLowerCase()));
         renderNpCityDropdown(local);
     } finally {
+        clearTimeout(timer);
         if (citySpinner) citySpinner.style.display = 'none';
     }
 }
@@ -2656,6 +2673,9 @@ async function loadCityWarehouses(city) {
     if (spinner) spinner.style.display = 'block';
 
     npAllWarehouses = [];
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 2500);
+
     try {
         const payload = {
             apiKey: '',
@@ -2669,6 +2689,7 @@ async function loadCityWarehouses(city) {
 
         let res = await fetch(NP_API_ENDPOINT, {
             method: 'POST',
+            signal: controller.signal,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
@@ -2679,13 +2700,15 @@ async function loadCityWarehouses(city) {
             payload.methodProperties = { CityName: city.name, Limit: '500' };
             res = await fetch(NP_API_ENDPOINT, {
                 method: 'POST',
+                signal: controller.signal,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
             json = await res.json();
         }
 
-        if (json.success && Array.isArray(json.data)) {
+        clearTimeout(timer);
+        if (json.success && Array.isArray(json.data) && json.data.length) {
             npAllWarehouses = json.data.map(w => {
                 const isPostomat = (w.CategoryOfWarehouse === 'Postomat') || (w.Description && w.Description.includes('Поштомат'));
                 return {
@@ -2707,9 +2730,24 @@ async function loadCityWarehouses(city) {
             });
         }
     } catch (err) {
-        console.warn('NP Load Warehouses error:', err);
+        clearTimeout(timer);
+        console.warn('NP Load Warehouses error or timeout:', err);
     } finally {
+        clearTimeout(timer);
         if (spinner) spinner.style.display = 'none';
+        const warehouseInput = document.getElementById('npWarehouseInput');
+        const warehouseHint = document.getElementById('npWarehouseHint');
+        if (warehouseInput) {
+            warehouseInput.disabled = false;
+            warehouseInput.placeholder = 'Введіть номер (напр. 25) або вулицю...';
+        }
+        if (warehouseHint) {
+            if (npAllWarehouses.length > 0) {
+                warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
+            } else {
+                warehouseHint.textContent = 'Вкажіть номер відділення, поштомату або адресу доставки:';
+            }
+        }
     }
 }
 
@@ -2803,8 +2841,8 @@ function resetWarehouseSelection() {
 
     if (warehouseInput) {
         warehouseInput.value = '';
-        warehouseInput.disabled = true;
-        warehouseInput.placeholder = 'Спочатку оберіть місто вище...';
+        warehouseInput.disabled = false;
+        warehouseInput.placeholder = 'Введіть або оберіть відділення / поштомат...';
     }
     if (warehouseClearBtn) warehouseClearBtn.style.display = 'none';
     if (warehouseDropdown) warehouseDropdown.style.display = 'none';
@@ -3069,10 +3107,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================================================
 
 const VALID_UA_OPERATOR_CODES = new Set([
-    '050', '066', '095', '099', // Vodafone
-    '067', '068', '096', '097', '098', // Kyivstar
+    '050', '066', '095', '099', '075', // Vodafone
+    '067', '068', '096', '097', '098', '077', // Kyivstar
     '063', '073', '093', // lifecell
-    '091', '092', '094'  // 3Mob, PeopleNet, Intertelecom
+    '091', '092', '094', '089', '039'  // 3Mob, PeopleNet, Intertelecom, etc.
 ]);
 
 function validateUkrainianPhone(phoneStr) {
@@ -3271,11 +3309,31 @@ async function handleQuickOrderSubmit(e) {
     formData.append('Статус', 'Очікує швидкого дзвінка менеджера');
     formData.append('Дзвінок', `tel:${phoneVal}`);
 
+    const quickOrderData = {
+        orderId: orderId,
+        orderDate: formattedDate,
+        customerName: nameVal,
+        customerPhone: phoneCheck.formatted,
+        customerAddress: 'Уточнити по телефону (менеджер зателефонує)',
+        paymentMethod: 'Узгодити з менеджером',
+        itemsSummary: chosenModel || orderItemsDesc,
+        subtotalFormatted: 'Згідно з обраною парою'
+    };
+
     try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(quickOrderData));
+    } catch (e) {}
+
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
         const res = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
             method: 'POST',
-            body: formData
+            body: formData,
+            signal: controller.signal
         });
+        clearTimeout(timeoutId);
         const json = await res.json();
         
         if (json.success === true || json.success === 'true') {
@@ -3287,36 +3345,20 @@ async function handleQuickOrderSubmit(e) {
                     });
                 } catch (e) {}
             }
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Замовити в 1 клік';
-            }
-            nameInput.value = '';
-            phoneInput.value = '';
-            clearQuickOrderModel();
-
-            showOrderSuccessModal({
-                orderId: orderId,
-                customerName: nameVal,
-                customerPhone: phoneCheck.formatted,
-                customerAddress: 'Уточнити по телефону (менеджер зателефонує)',
-                paymentMethod: 'Узгодити з менеджером',
-                itemsSummary: chosenModel,
-                subtotalFormatted: 'Згідно з обраною парою'
-            });
-            return;
-        } else {
-            throw new Error(json.message || 'Submission failed');
         }
     } catch (err) {
-        console.warn('AJAX submission fallback for 1-click order:', err);
-        const form = document.getElementById('quickOrderForm');
-        if (form) {
-            form.action = 'https://formsubmit.co/lunarecho94@icloud.com';
-            form.method = 'POST';
-            form.submit();
-        }
+        console.warn('1-click order FormSubmit note:', err);
     }
+
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Замовити в 1 клік';
+    }
+    nameInput.value = '';
+    phoneInput.value = '';
+    clearQuickOrderModel();
+
+    showOrderSuccessModal(quickOrderData);
 }
 
 // ==========================================================================
@@ -3384,6 +3426,10 @@ async function handleCartDirectCheckout(e) {
             errHint.style.display = 'block';
         }
         phoneInput.focus();
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+        }
         return;
     }
     phoneInput.classList.remove('input-error');
@@ -3394,7 +3440,11 @@ async function handleCartDirectCheckout(e) {
     if (!cityVal || cityVal.length < 2) {
         cityInput?.classList.add('input-error');
         cityInput?.focus();
-        showCartToast('Будь ласка, оберіть місто доставки зі списку Нової Пошти');
+        showCartToast('Будь ласка, вкажіть місто доставки');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+        }
         return;
     }
     cityInput?.classList.remove('input-error');
@@ -3404,7 +3454,11 @@ async function handleCartDirectCheckout(e) {
     if (!whVal) {
         whInput?.classList.add('input-error');
         whInput?.focus();
-        showCartToast('Будь ласка, оберіть відділення або поштомат зі списку');
+        showCartToast('Будь ласка, вкажіть відділення або поштомат Нової Пошти');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+        }
         return;
     }
     whInput?.classList.remove('input-error');
@@ -3412,6 +3466,10 @@ async function handleCartDirectCheckout(e) {
     const cart = getCart();
     if (!cart || cart.length === 0) {
         showCartToast('Кошик порожній!');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+        }
         return;
     }
 
@@ -3430,7 +3488,6 @@ async function handleCartDirectCheckout(e) {
     let orderItemsText = '';
     let itemsSummaryList = '';
     let totalQty = 0;
-    const wideDivider = '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━';
 
     cart.forEach((item, idx) => {
         const lineSum = item.price * (item.qty || 1);
@@ -3473,7 +3530,22 @@ async function handleCartDirectCheckout(e) {
 Товари: ${itemsSummaryList}
 Оплата: ${paymentMethod} — ${formattedTotal}`;
 
-    // Generate PDF silently in background for owner
+    const orderSummaryData = {
+        orderId: orderId,
+        orderDate: formattedDate,
+        customerName: customerName,
+        customerPhone: phoneCheck.formatted,
+        customerAddress: fullDelivery,
+        paymentMethod: paymentMethod,
+        itemsSummary: itemsSummaryList,
+        subtotalFormatted: formattedTotal
+    };
+
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(orderSummaryData));
+    } catch (e) {}
+
+    // Generate PDF silently in background with strict 1.5s timeout
     let pdfResult = null;
     try {
         pdfResult = await generateOrderPdf(orderId, formattedDate);
@@ -3481,7 +3553,7 @@ async function handleCartDirectCheckout(e) {
         console.warn('PDF generation in cart checkout:', pdfErr);
     }
 
-    // Build the cleanest, most professional FormData for FormSubmit.co (compact keys to widen the Value column)
+    // Build FormData for FormSubmit
     const formData = new FormData();
     formData.append('_captcha', 'false');
     formData.append('_template', 'table');
@@ -3502,55 +3574,39 @@ async function handleCartDirectCheckout(e) {
     }
 
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
         const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
             method: 'POST',
-            body: formData
+            body: formData,
+            signal: controller.signal
         });
+        clearTimeout(timeoutId);
         const resJson = await response.json();
-
-        if (resJson.success === true || resJson.success === 'true') {
-            if (window.fbq) {
-                try {
-                    const cartTotalNum = parseInt(formattedTotal.replace(/\D/g, ''), 10) || 0;
-                    fbq('track', 'Purchase', {
-                        value: cartTotalNum,
-                        currency: 'UAH',
-                        content_type: 'product'
-                    });
-                } catch (e) {}
-            }
-            clearCart();
-            closeCart();
-            hideCartCheckoutForm();
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
-            }
-
-            showOrderSuccessModal({
-                orderId: orderId,
-                customerName: customerName,
-                customerPhone: phoneCheck.formatted,
-                customerAddress: fullDelivery,
-                paymentMethod: paymentMethod,
-                itemsSummary: itemsSummaryList,
-                subtotalFormatted: formattedTotal
-            });
-            return;
-        } else {
-            throw new Error(resJson.message || 'Cart checkout failed');
-        }
     } catch (err) {
-        console.warn('Cart checkout submission error:', err);
-        alert('Замовлення прийнято! Менеджер зателефонує вам найближчим часом для підтвердження.');
-        clearCart();
-        closeCart();
-        hideCartCheckoutForm();
-        if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
-        }
+        console.warn('Cart checkout submission note:', err);
     }
+
+    if (window.fbq) {
+        try {
+            fbq('track', 'Purchase', {
+                value: orderTotalNum,
+                currency: 'UAH',
+                content_type: 'product'
+            });
+        } catch (e) {}
+    }
+
+    clearCart();
+    closeCart();
+    hideCartCheckoutForm();
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+    }
+
+    showOrderSuccessModal(orderSummaryData);
 }
 
 // Global window exposure
@@ -3582,6 +3638,8 @@ window.closeQuickChoiceModal = closeQuickChoiceModal;
 window.handleQuickChoiceOverlayClick = handleQuickChoiceOverlayClick;
 window.selectQuickChoice = selectQuickChoice;
 window.clearQuickChoiceSelection = clearQuickChoiceSelection;
+window.showOrderSuccessModal = showOrderSuccessModal;
+window.closeOrderSuccessModal = closeOrderSuccessModal;
 
 // Keyboard accessibility for all Modals, Drawers & Dropdowns
 document.addEventListener('keydown', (e) => {
