@@ -1,23 +1,23 @@
 {
-  "total": 14964,
+  "total": 7328,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 14964
+      "count": 7328
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11781
+      "count": 5155
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13586
+      "count": 6041
     }
   ],
   "categories": [
@@ -25,289 +25,239 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 14964
+      "count": 7328
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11781
+      "count": 5155
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13586
+      "count": 6041
     },
     {
       "slug": "shoes",
       "name": "Кросівки & Кеди",
       "icon": "👟",
-      "count": 11046
+      "count": 5165
     },
     {
       "slug": "winter",
       "name": "Зимове взуття",
       "icon": "❄️",
-      "count": 1053
+      "count": 502
     },
     {
       "slug": "clothing",
       "name": "Одяг & Куртки",
       "icon": "🧥",
-      "count": 1127
+      "count": 899
     },
     {
       "slug": "bags",
       "name": "Сумки & Аксесуари",
       "icon": "🎒",
-      "count": 1738
+      "count": 762
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 14964
+      "count": 7328
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 4155
+      "count": 2008
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 2263
+      "count": 1329
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 1538
+      "count": 493
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 817
+      "count": 399
     },
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 666
+      "count": 374
     },
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 357
-    },
-    {
-      "slug": "balenciaga",
-      "name": "Balenciaga",
-      "count": 333
+      "count": 160
     },
     {
       "slug": "dior",
       "name": "Dior",
-      "count": 328
-    },
-    {
-      "slug": "salomon",
-      "name": "Salomon",
-      "count": 310
+      "count": 140
     },
     {
       "slug": "jordan",
       "name": "Air Jordan",
-      "count": 288
+      "count": 140
     },
     {
-      "slug": "coach",
-      "name": "Coach",
-      "count": 189
+      "slug": "balenciaga",
+      "name": "Balenciaga",
+      "count": 120
     },
     {
-      "slug": "saintlaurent",
-      "name": "Yves Saint Laurent",
-      "count": 155
-    },
-    {
-      "slug": "hermes",
-      "name": "Hermes",
-      "count": 139
-    },
-    {
-      "slug": "drmartens",
-      "name": "Dr. Martens",
-      "count": 134
-    },
-    {
-      "slug": "miumiu",
-      "name": "Miu Miu",
-      "count": 132
-    },
-    {
-      "slug": "converse",
-      "name": "Converse",
-      "count": 115
-    },
-    {
-      "slug": "dolcegabbana",
-      "name": "Dolce & Gabbana",
-      "count": 113
-    },
-    {
-      "slug": "gucci",
-      "name": "Gucci",
-      "count": 106
+      "slug": "salomon",
+      "name": "Salomon",
+      "count": 104
     },
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 100
+      "count": 86
     },
     {
-      "slug": "puma",
-      "name": "Puma",
-      "count": 99
+      "slug": "coach",
+      "name": "Coach",
+      "count": 85
+    },
+    {
+      "slug": "hermes",
+      "name": "Hermes",
+      "count": 84
+    },
+    {
+      "slug": "saintlaurent",
+      "name": "Yves Saint Laurent",
+      "count": 75
+    },
+    {
+      "slug": "miumiu",
+      "name": "Miu Miu",
+      "count": 69
     },
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 88
-    },
-    {
-      "slug": "prada",
-      "name": "Prada",
-      "count": 85
-    },
-    {
-      "slug": "jacquemus",
-      "name": "Jacquemus",
-      "count": 74
-    },
-    {
-      "slug": "vans",
-      "name": "Vans",
-      "count": 73
+      "count": 64
     },
     {
       "slug": "tnf",
       "name": "The North Face",
-      "count": 67
+      "count": 59
+    },
+    {
+      "slug": "gucci",
+      "name": "Gucci",
+      "count": 54
     },
     {
       "slug": "offwhite",
       "name": "Off-White",
-      "count": 62
+      "count": 50
     },
     {
       "slug": "goldengoose",
       "name": "Golden Goose",
-      "count": 62
+      "count": 50
     },
     {
-      "slug": "pinko",
-      "name": "Pinko",
-      "count": 60
-    },
-    {
-      "slug": "mcqueen",
-      "name": "Alexander McQueen",
-      "count": 58
+      "slug": "puma",
+      "name": "Puma",
+      "count": 46
     },
     {
       "slug": "calvinklein",
       "name": "Calvin Klein",
-      "count": 58
-    },
-    {
-      "slug": "loropiana",
-      "name": "Loro Piana",
-      "count": 55
+      "count": 37
     },
     {
       "slug": "celine",
       "name": "Celine",
-      "count": 54
+      "count": 35
     },
     {
-      "slug": "guess",
-      "name": "Guess",
-      "count": 54
-    },
-    {
-      "slug": "louisvuitton",
-      "name": "Louis Vuitton",
-      "count": 52
+      "slug": "vans",
+      "name": "Vans",
+      "count": 26
     },
     {
       "slug": "stoneisland",
       "name": "Stone Island",
-      "count": 40
+      "count": 26
     },
     {
-      "slug": "lacoste",
-      "name": "Lacoste",
-      "count": 28
+      "slug": "louisvuitton",
+      "name": "Louis Vuitton",
+      "count": 25
+    },
+    {
+      "slug": "dolcegabbana",
+      "name": "Dolce & Gabbana",
+      "count": 25
+    },
+    {
+      "slug": "loropiana",
+      "name": "Loro Piana",
+      "count": 24
+    },
+    {
+      "slug": "prada",
+      "name": "Prada",
+      "count": 23
+    },
+    {
+      "slug": "pinko",
+      "name": "Pinko",
+      "count": 20
+    },
+    {
+      "slug": "mcqueen",
+      "name": "Alexander McQueen",
+      "count": 19
+    },
+    {
+      "slug": "jacquemus",
+      "name": "Jacquemus",
+      "count": 17
     },
     {
       "slug": "hugo",
       "name": "Hugo Boss",
-      "count": 25
-    },
-    {
-      "slug": "marcjacobs",
-      "name": "Marc Jacobs",
-      "count": 23
-    },
-    {
-      "slug": "underarmour",
-      "name": "Under Armour",
-      "count": 20
-    },
-    {
-      "slug": "fila",
-      "name": "Fila",
-      "count": 18
-    },
-    {
-      "slug": "bottega",
-      "name": "Bottega Veneta",
-      "count": 18
-    },
-    {
-      "slug": "carhartt",
-      "name": "Carhartt",
       "count": 16
+    },
+    {
+      "slug": "lacoste",
+      "name": "Lacoste",
+      "count": 15
+    },
+    {
+      "slug": "drmartens",
+      "name": "Dr. Martens",
+      "count": 13
+    },
+    {
+      "slug": "converse",
+      "name": "Converse",
+      "count": 13
     },
     {
       "slug": "champion",
       "name": "Champion",
-      "count": 15
+      "count": 11
     },
     {
-      "slug": "columbia",
-      "name": "Columbia",
-      "count": 15
-    },
-    {
-      "slug": "cartier",
-      "name": "Cartier",
-      "count": 13
-    },
-    {
-      "slug": "merrell",
-      "name": "Merrell",
-      "count": 12
-    },
-    {
-      "slug": "chloe",
-      "name": "Chloé",
-      "count": 12
-    },
-    {
-      "slug": "arcteryx",
-      "name": "Arc'teryx",
+      "slug": "underarmour",
+      "name": "Under Armour",
       "count": 11
     },
     {
@@ -316,28 +266,53 @@
       "count": 10
     },
     {
-      "slug": "crocs",
-      "name": "Crocs",
-      "count": 6
+      "slug": "arcteryx",
+      "name": "Arc'teryx",
+      "count": 10
     },
     {
-      "slug": "michaelkors",
-      "name": "Michael Kors",
-      "count": 6
+      "slug": "merrell",
+      "name": "Merrell",
+      "count": 10
+    },
+    {
+      "slug": "bottega",
+      "name": "Bottega Veneta",
+      "count": 9
+    },
+    {
+      "slug": "carhartt",
+      "name": "Carhartt",
+      "count": 9
+    },
+    {
+      "slug": "fila",
+      "name": "Fila",
+      "count": 9
+    },
+    {
+      "slug": "marcjacobs",
+      "name": "Marc Jacobs",
+      "count": 9
+    },
+    {
+      "slug": "columbia",
+      "name": "Columbia",
+      "count": 7
+    },
+    {
+      "slug": "guess",
+      "name": "Guess",
+      "count": 5
     },
     {
       "slug": "loewe",
       "name": "Loewe",
-      "count": 6
+      "count": 5
     },
     {
-      "slug": "diesel",
-      "name": "Diesel",
-      "count": 4
-    },
-    {
-      "slug": "birkenstock",
-      "name": "Birkenstock",
+      "slug": "cartier",
+      "name": "Cartier",
       "count": 4
     },
     {
@@ -348,22 +323,27 @@
     {
       "slug": "bape",
       "name": "Bape",
-      "count": 3
+      "count": 2
+    },
+    {
+      "slug": "michaelkors",
+      "name": "Michael Kors",
+      "count": 2
+    },
+    {
+      "slug": "chloe",
+      "name": "Chloé",
+      "count": 2
     },
     {
       "slug": "essentials",
       "name": "Essentials / FOG",
-      "count": 2
-    },
-    {
-      "slug": "timberland",
-      "name": "Timberland",
-      "count": 2
+      "count": 1
     },
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 1413
+      "count": 886
     }
   ]
 }

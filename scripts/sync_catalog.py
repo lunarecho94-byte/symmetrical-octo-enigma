@@ -723,18 +723,9 @@ def main():
                 s = clean_text(param.text)
                 if s and s not in sizes:
                     sizes.append(s)
-                    
-        # If no variants flagged available, take all listed params
-        if not sizes:
-            for it in items:
-                param = it.find('param')
-                if param is not None and param.text:
-                    s = clean_text(param.text)
-                    if s and s not in sizes:
-                        sizes.append(s)
-                        
         if not sizes:
             continue
+
 
         sorted_sizes = sort_sizes(sizes)
         params_str = ' '.join(clean_text(p.text) for it in items for p in it.findall('param') if p.text)
