@@ -798,6 +798,16 @@ def main():
     print("Categories distribution:", dict(category_counts))
     print("Brands distribution:", dict(brand_counts.most_common(15)))
 
+    # Guarantee 100% unique articles across the entire catalog (disambiguate collisions with group ID)
+    art_counts = Counter(p.get('art') for p in products if p.get('art'))
+    for p in products:
+        art = p.get('art')
+        gid = p.get('id')
+        if not art:
+            p['art'] = str(gid)
+        elif art_counts[art] > 1:
+            p['art'] = f"{art}-{gid}"
+
     # Save data/products.json
     os.makedirs('data', exist_ok=True)
     with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
