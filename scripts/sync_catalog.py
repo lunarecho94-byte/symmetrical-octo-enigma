@@ -336,11 +336,12 @@ def determine_brand(name, cat_name):
             return slug, title
     return 'other', 'Інші бренди'
 
-GENDER_WOMEN_KW = re.compile(r'жіноч|женск|women|woman|дівчат|для неї', re.I)
-GENDER_MEN_KW = re.compile(r'чоловіч|мужск|men\b|man\b|хлопц|для нього', re.I)
+GENDER_WOMEN_KW = re.compile(r'жіноч|женск|\bwomen\b|\bwoman\b|\bdamen\b|дівчат|для неї', re.I)
+GENDER_MEN_KW = re.compile(r'чоловіч|мужск|\bmen\b|\bman\b|хлопц|для нього', re.I)
 GENDER_UNISEX_KW = re.compile(r'унісекс|унисекс|unisex', re.I)
 WOMEN_BAGS_BRANDS = {'chanel', 'pinko', 'jacquemus', 'chloe', 'miumiu', 'hermes'}
 WOMEN_BAGS_KW = re.compile(r'жіноч|женск|клатч|лоро піана|loro piana|lady dior|book tote', re.I)
+WOMEN_SHOE_MODELS = re.compile(r'platform|платформ|clog|slipper|dipper|funkette|tazzlita|disquette|tazz|tasman|mary jane|каблук|балетк|love pink', re.I)
 
 def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     full_text = f"{name} {cname} {desc}".lower()
@@ -379,6 +380,10 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
         if num_sizes:
             min_s = min(num_sizes)
             max_s = max(num_sizes)
+            if WOMEN_SHOE_MODELS.search(name) and max_s <= 41:
+                return 'women'
+            if brand_slug == 'ugg' and max_s <= 41:
+                return 'women'
             if max_s <= 40:
                 return 'women'
             elif min_s >= 41:
@@ -657,7 +662,10 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     elif re.match(r'^JS\d{1,4}$', t, re.I):
         t = f'Спортивний костюм {t.upper()}'
     elif re.match(r'^M\d{4,5}$', t, re.I):
-        t = f'Кросівки {t.upper()}'
+        if cat_slug == 'clothing':
+            t = f'Спортивний одяг {t.upper()}'
+        else:
+            t = f'Кросівки {t.upper()}'
     elif re.match(r'^\d{2}$', t):
         if cat_slug == 'clothing':
             t = f'Куртка / Вітровка {t}'

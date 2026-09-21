@@ -1,23 +1,23 @@
 {
-  "total": 7306,
+  "total": 7316,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7306
+      "count": 7316
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5532
+      "count": 5288
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5935
+      "count": 5983
     }
   ],
   "categories": [
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7306
+      "count": 7316
     },
     {
       "slug": "shoes",
@@ -37,7 +37,7 @@
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 766
+      "count": 776
     },
     {
       "slug": "socks",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7306
+      "count": 7316
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5438
+      "count": 5448
     },
     {
       "slug": "winter",
@@ -88,7 +88,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7306
+      "count": 7316
     },
     {
       "slug": "nike",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 926
+      "count": 936
     }
   ]
 }
