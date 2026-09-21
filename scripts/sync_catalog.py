@@ -341,18 +341,13 @@ GENDER_MEN_KW = re.compile(r'чоловіч|мужск|\bmen\b|\bman\b|хлоп�
 GENDER_UNISEX_KW = re.compile(r'унісекс|унисекс|unisex', re.I)
 WOMEN_BAGS_BRANDS = {'chanel', 'pinko', 'jacquemus', 'chloe', 'miumiu', 'hermes'}
 WOMEN_BAGS_KW = re.compile(r'жіноч|женск|клатч|лоро піана|loro piana|lady dior|book tote', re.I)
-WOMEN_SHOE_MODELS = re.compile(r'platform|платформ|clog|slipper|dipper|funkette|tazzlita|disquette|tazz|tasman|mary jane|каблук|балетк|love pink', re.I)
+WOMEN_SHOE_MODELS = re.compile(
+    r'platform|платформ|clog|slipper|dipper|funkette|tazzlita|disquette|tazz|tasman|mary jane|каблук|балетк|love pink|bailey|bow|coquette|fur slipper|босоніж|ботильйон|туфл|лодочк|шпильк|mule|мюли|мюлі',
+    re.I
+)
 
 def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     full_text = f"{name} {cname} {desc}".lower()
-    if GENDER_UNISEX_KW.search(full_text):
-        return 'unisex'
-    is_w = bool(GENDER_WOMEN_KW.search(full_text))
-    is_m = bool(GENDER_MEN_KW.search(full_text))
-    if is_w and not is_m:
-        return 'women'
-    if is_m and not is_w:
-        return 'men'
 
     if cat_slug in ('accessories', 'bags'):
         if brand_slug in WOMEN_BAGS_BRANDS or WOMEN_BAGS_KW.search(full_text):
@@ -372,6 +367,22 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
         return 'unisex'
 
     if cat_slug == 'shoes':
+        if brand_slug in WOMEN_BAGS_BRANDS or WOMEN_SHOE_MODELS.search(name):
+            return 'women'
+        if brand_slug == 'ugg':
+            is_men = bool(re.search(r'\b(neumel|lowmel|highmel)\b', name, re.I)) and not bool(re.search(r'platform|chelsea|pink|fur|mini|tazz|tasman', name, re.I))
+            if is_men:
+                num_sizes = []
+                for s in sizes:
+                    m = re.match(r'^(\d+(?:[.,]\d+)?)$', str(s).strip())
+                    if m:
+                        num_sizes.append(float(m.group(1).replace(',', '.')))
+                if num_sizes and min(num_sizes) >= 41:
+                    return 'men'
+                elif num_sizes and max(num_sizes) >= 42:
+                    return 'unisex'
+            return 'women'
+
         num_sizes = []
         for s in sizes:
             m = re.match(r'^(\d+(?:[.,]\d+)?)$', str(s).strip())
@@ -380,16 +391,21 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
         if num_sizes:
             min_s = min(num_sizes)
             max_s = max(num_sizes)
-            if WOMEN_SHOE_MODELS.search(name) and max_s <= 41:
-                return 'women'
-            if brand_slug == 'ugg' and max_s <= 41:
-                return 'women'
-            if max_s <= 40:
+            if max_s <= 41:
                 return 'women'
             elif min_s >= 41:
                 return 'men'
             else:
                 return 'unisex'
+
+    if GENDER_UNISEX_KW.search(full_text):
+        return 'unisex'
+    is_w = bool(GENDER_WOMEN_KW.search(full_text))
+    is_m = bool(GENDER_MEN_KW.search(full_text))
+    if is_w and not is_m:
+        return 'women'
+    if is_m and not is_w:
+        return 'men'
 
     return 'unisex'
 
