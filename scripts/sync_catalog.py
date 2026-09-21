@@ -697,6 +697,12 @@ def main():
         prod_m = re.search(r'Виробник\s*:\s*([^<]+)', desc)
         
         art = clean_text(art_m.group(1)) if art_m else ''
+        if not art:
+            vc = first.findtext('vendorCode') or first.findtext('barcode') or ''
+            art = clean_text(vc.split('-')[0]) if '-' in vc else clean_text(vc)
+        if not art:
+            art = str(gid)
+
         mat = clean_text(mat_m.group(1)) if mat_m else ''
         origin = clean_text(prod_m.group(1)) if prod_m else ''
         
@@ -789,15 +795,10 @@ def main():
     print("Categories distribution:", dict(category_counts))
     print("Brands distribution:", dict(brand_counts.most_common(15)))
 
-    # Guarantee 100% unique articles across the entire catalog (disambiguate collisions with group ID)
-    art_counts = Counter(p.get('art') for p in products if p.get('art'))
+    # Keep original article matching EasyDrop database exactly
     for p in products:
-        art = p.get('art')
-        gid = p.get('id')
-        if not art:
-            p['art'] = str(gid)
-        elif art_counts[art] > 1:
-            p['art'] = f"{art}-{gid}"
+        if not p.get('art'):
+            p['art'] = str(p.get('id'))
 
     # Save data/products.json
     os.makedirs('data', exist_ok=True)
