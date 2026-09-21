@@ -1,23 +1,23 @@
 {
-  "total": 15313,
+  "total": 15307,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 15313
+      "count": 15307
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11803
+      "count": 11800
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13921
+      "count": 13916
     }
   ],
   "categories": [
@@ -25,25 +25,25 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 15313
+      "count": 15307
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 11803
+      "count": 11800
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 13921
+      "count": 13916
     },
     {
       "slug": "shoes",
       "name": "Кросівки & Кеди",
       "icon": "👟",
-      "count": 11056
+      "count": 11050
     },
     {
       "slug": "winter",
@@ -68,12 +68,12 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 15313
+      "count": 15307
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 4153
+      "count": 4149
     },
     {
       "slug": "newbalance",
@@ -83,12 +83,12 @@
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 1535
+      "count": 1536
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 822
+      "count": 820
     },
     {
       "slug": "ugg",
@@ -168,7 +168,7 @@
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 101
+      "count": 100
     },
     {
       "slug": "puma",
@@ -201,13 +201,13 @@
       "count": 67
     },
     {
-      "slug": "offwhite",
-      "name": "Off-White",
+      "slug": "goldengoose",
+      "name": "Golden Goose",
       "count": 63
     },
     {
-      "slug": "goldengoose",
-      "name": "Golden Goose",
+      "slug": "offwhite",
+      "name": "Off-White",
       "count": 63
     },
     {
