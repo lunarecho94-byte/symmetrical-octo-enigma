@@ -1233,8 +1233,16 @@ async function initDynamicCatalog() {
             throw new Error(`HTTP error: ${prodResp.status} / ${metaResp.status}`);
         }
 
-        catalogAllProducts = (await prodResp.json()).filter(item => {
-            if (isSneakerProductItem(item) && (!item.sizes || item.sizes.length < 3)) {
+        const rawProducts = await prodResp.json();
+        const defectSizeRegex = /нюанс|дефект|брак|плям|уцінк|потертост|потёрт|скидк|-50%/i;
+        catalogAllProducts = rawProducts.filter(item => {
+            if (item.sizes && Array.isArray(item.sizes)) {
+                item.sizes = item.sizes.filter(s => !defectSizeRegex.test(s));
+            }
+            if (!item.sizes || item.sizes.length === 0) {
+                return false;
+            }
+            if (isSneakerProductItem(item) && item.sizes.length < 3) {
                 return false;
             }
             if (isLvBagItem(item)) {
@@ -1983,7 +1991,7 @@ function getCategoryTitle(cat) {
         case 'underwear': return 'Труси & Білизна';
         case 'accessories': return 'Аксесуари & Сумки';
         case 'bags': return 'Аксесуари & Сумки';
-        case 'winter': return 'Зимове взуття';
+        case 'winter': return 'Взуття';
         case 'sale': return 'Знижки & SALE';
         default: return 'Товари';
     }

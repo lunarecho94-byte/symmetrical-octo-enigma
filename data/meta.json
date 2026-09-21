@@ -1,23 +1,23 @@
 {
-  "total": 7267,
+  "total": 7306,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7267
+      "count": 7306
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 5493
+      "count": 5532
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5896
+      "count": 5935
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7267
+      "count": 7306
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5639
+      "count": 5590
     },
     {
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 678
+      "count": 766
     },
     {
       "slug": "socks",
@@ -63,19 +63,19 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7267
+      "count": 7306
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5405
+      "count": 5438
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 731
+      "count": 737
     },
     {
       "slug": "summer",
@@ -88,7 +88,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7267
+      "count": 7306
     },
     {
       "slug": "nike",
@@ -163,7 +163,7 @@
     {
       "slug": "miumiu",
       "name": "Miu Miu",
-      "count": 64
+      "count": 65
     },
     {
       "slug": "premiata",
@@ -271,6 +271,11 @@
       "count": 13
     },
     {
+      "slug": "arcteryx",
+      "name": "Arc'teryx",
+      "count": 11
+    },
+    {
       "slug": "champion",
       "name": "Champion",
       "count": 11
@@ -283,11 +288,6 @@
     {
       "slug": "stussy",
       "name": "Stussy",
-      "count": 10
-    },
-    {
-      "slug": "arcteryx",
-      "name": "Arc'teryx",
       "count": 10
     },
     {
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 889
+      "count": 926
     }
   ]
 }

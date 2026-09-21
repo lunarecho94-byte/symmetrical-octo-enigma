@@ -78,20 +78,77 @@ def sort_sizes(sizes):
         else:
             text_sizes.append(s)
             
+    num_sizes.sort(key=lambda x: x[0])
+
+    def get_order(txt):
+        t = txt.upper()
+        if t in size_order:
+            return size_order.index(t)
+        return 999
+    text_sizes.sort(key=get_order)
+
     if num_sizes and not text_sizes:
-        num_sizes.sort(key=lambda x: x[0])
         return [x[1] for x in num_sizes]
-    
     if text_sizes and not num_sizes:
-        def get_order(txt):
-            t = txt.upper()
-            if t in size_order:
-                return size_order.index(t)
-            return 999
-        text_sizes.sort(key=get_order)
         return text_sizes
+    return [x[1] for x in num_sizes] + text_sizes
+
+DEFECT_SIZE_KEYWORDS = re.compile(
+    r'нюанс|дефект|брак|плямк?а|уцінк|потертост|потёрт|вигорів|скидк|-50%|\bб/у\b|\bклей\b|без коробк|без ремен|зацеп|пошкодж|некомплект',
+    re.I
+)
+
+def clean_origin(origin):
+    if not origin:
+        return ""
+    orig = origin.strip()
+    orig = re.sub(r'\(.*?\)', '', orig).strip()
+    orig = re.sub(r'по бірці.*', '', orig, flags=re.I).strip()
+    orig = re.sub(r'по факту.*', '', orig, flags=re.I).strip()
+    orig = re.sub(r'Люкс.*', '', orig, flags=re.I).strip()
+    
+    orig_lower = orig.lower()
+    if any(k in orig_lower for k in ['маломір', 'розмір', 'топ якість', 'топ качеств', 'lux', 'сезон', 'наявност', 'увага на см', 'роз сітку', 'шнурки', 'замша', 'шкіра', 'black', 'текстиль']):
+        return ""
         
-    return sizes
+    if re.search(r'[вb][\'ʼ`]?.*[тt]нам|vietn|vuetn', orig_lower):
+        return "В'єтнам 🇻🇳"
+    elif re.search(r'кита|china', orig_lower):
+        return "Китай 🇨🇳"
+    elif re.search(r'туреч|турц|turkey', orig_lower):
+        return "Туреччина 🇹🇷"
+    elif re.search(r'італія|италия|italy', orig_lower):
+        return "Італія 🇮🇹"
+    elif re.search(r'франц|france|paris', orig_lower):
+        return "Франція 🇫🇷"
+    elif re.search(r'індонез|индонез|indonesia', orig_lower):
+        return "Індонезія 🇮🇩"
+    elif re.search(r'україна|украина|ukraine', orig_lower):
+        return "Україна 🇺🇦"
+    elif re.search(r'єгипет|египет|egypt', orig_lower):
+        return "Єгипет 🇪🇬"
+    elif re.search(r'австрал|australia', orig_lower):
+        return "Австралія 🇦🇺"
+    elif re.search(r'португал|portugal', orig_lower):
+        return "Португалія 🇵🇹"
+    elif re.search(r'німеч|герман|germany', orig_lower):
+        return "Німеччина 🇩🇪"
+    elif re.search(r'сша|usa', orig_lower):
+        return "США 🇺🇸"
+    elif re.search(r'камбодж|cambodia', orig_lower):
+        return "Камбоджа 🇰🇭"
+    elif re.search(r'бангладеш|bangladesh', orig_lower):
+        return "Бангладеш 🇧🇩"
+    elif re.search(r'іспан|испан|spain', orig_lower):
+        return "Іспанія 🇪🇸"
+    elif re.search(r'індія|индия|india', orig_lower):
+        return "Індія 🇮🇳"
+    elif re.search(r'швеція|швеция|sweden', orig_lower):
+        return "Швеція 🇸🇪"
+    elif re.search(r'румунія|румыния|romania', orig_lower):
+        return "Румунія 🇷🇴"
+        
+    return orig
 
 # Precise 5-category classification regexes
 BAG_KEYWORDS = re.compile(
@@ -183,6 +240,7 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
     title_cat_lower = title_cat.lower()
     sizes = sizes or []
     shoe_sizes = [s for s in sizes if re.match(r'^(3[5-9]|4[0-8])$', str(s).strip())]
+    clothing_sizes = [s for s in sizes if str(s).upper() in ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', '4XL', '5XL']]
 
     # Special Kids Homme t-shirt
     if 'k0025 homme' in title_cat_lower or title_cat_lower == 'homme':
@@ -201,18 +259,9 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
     if '(взуття)' in cat_name.lower() or re.search(r'кросівки|кеди|сланці|шльопанці|тапочки|\bboots\b|\bsneakers\b|зим.*взуття', cat_name, re.I):
         return 'shoes', 'Взуття', '👟'
 
-    # Footwear models & numeric shoe sizes (e.g. 36-47):
-    # If it has 2+ numeric shoe sizes and comes from a sneaker brand or has sneaker keywords
-    if len(shoe_sizes) >= 2 and any(k in title_cat_lower for k in [
-        'new balance', 'nike', 'adidas', 'puma', 'asics', 'jordan', 'vans', 'converse', 'salomon', 'saucony', 'reebok', 'hoka', 'on cloud', 'premiata', 'dr.martens', 'martens',
-        'кросів', 'кроссов', 'кеди', 'кеды', 'ботинк', 'черевик', 'хайтоп', 'sneaker', 'сникер', 'лофер', 'туфл', 'чобот', 'сабо', 'сандал', 'шльоп', 'сланц', 'slide'
-    ]):
-        if not any(k in title_cat_lower for k in ['футболк', 'худі', 'світшот', 'штани', 'шорти', 'куртка', 'костюм', 'шапка', 'кепка', 'панама', 'сумка', 'рюкзак']):
-            return 'shoes', 'Взуття', '👟'
-
     # 2. Underwear (Труси / Нижня білизна)
     # Feed category marks underwear:
-    if re.search(r'труси\s*\(одяг\)|чоловіча білизна|комплекти білизни', cat_name, re.I):
+    if re.search(r'труси\s*\(одяг\)|\bтруси\b|чоловіча білизна|комплекти білизни', cat_name, re.I):
         return 'underwear', 'Труси & Білизна', '🩲'
     # Text marks underwear (including sets of underwear + socks):
     if re.search(r'трус|боксер|білизн|плавки|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat_lower):
@@ -241,10 +290,29 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
         return 'accessories', 'Аксесуари & Сумки', '🎒'
 
     # 5. Clothing & Outerwear
-    if '(одяг)' in cat_name.lower() or CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
+    if re.search(r'\bодяг\b|\(одяг\)|попожам|піжам|костюм|куртк|пуховик|худі|світшот|толстовк|штани|шорти|футболк|сорочк|рубашк|джинс', cat_name, re.I):
         return 'clothing', 'Одяг & Куртки', '🧥'
 
-    # 6. Fallback is Shoes
+    if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
+        return 'clothing', 'Одяг & Куртки', '🧥'
+
+    # If product has clothing sizes (S, M, L, XL, XXL) and NO shoe sizes, it is Clothing!
+    if clothing_sizes and not shoe_sizes:
+        return 'clothing', 'Одяг & Куртки', '🧥'
+
+    # 6. Footwear models & numeric shoe sizes (e.g. 36-47):
+    # If it has 2+ numeric shoe sizes and comes from a sneaker brand or has sneaker keywords
+    if len(shoe_sizes) >= 2 and any(k in title_cat_lower for k in [
+        'new balance', 'nike', 'adidas', 'puma', 'asics', 'jordan', 'vans', 'converse', 'salomon', 'saucony', 'reebok', 'hoka', 'on cloud', 'premiata', 'dr.martens', 'martens',
+        'кросів', 'кроссов', 'кеди', 'кеды', 'ботинк', 'черевик', 'хайтоп', 'sneaker', 'сникер', 'лофер', 'туфл', 'чобот', 'сабо', 'сандал', 'шльоп', 'сланц', 'slide'
+    ]):
+        if not any(k in title_cat_lower for k in ['футболк', 'худі', 'світшот', 'штани', 'шорти', 'куртка', 'костюм', 'шапка', 'кепка', 'панама', 'сумка', 'рюкзак', 'попожам', 'піжам']):
+            return 'shoes', 'Взуття', '👟'
+
+    if shoe_sizes:
+        return 'shoes', 'Взуття', '👟'
+
+    # 7. Fallback is Shoes
     return 'shoes', 'Взуття', '👟'
 
 def determine_season(name, cat_slug, mat="", desc=""):
@@ -613,7 +681,7 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
                 t = f'Кросівки {brand_title} {t.upper()}'
         else:
             t = f'Кросівки {t.upper()}'
-    elif re.match(r'^[A-Z]{2}\d{4}-\d{3}$', t):
+    elif re.match(r'^(?:[A-Z]{2}\d{4}|\d{6,8})-\d{3}$', t):
         t = f'Спортивний одяг Nike {t}'
     elif re.match(r'^[A-Z]{1,2}\d{4}$', t) and cat_slug == 'clothing':
         t = f'Спортивний одяг {brand_title if brand_slug != "other" else ""} {t}'.strip()
@@ -777,7 +845,7 @@ def main():
             art = str(gid)
 
         mat = clean_text(mat_m.group(1)) if mat_m else ''
-        origin = clean_text(prod_m.group(1)) if prod_m else ''
+        origin = clean_origin(clean_text(prod_m.group(1))) if prod_m else ''
         
         # Images
         imgs = []
@@ -800,6 +868,29 @@ def main():
             param = it.find('param')
             if param is not None and param.text:
                 s = clean_text(param.text)
+                if not s:
+                    continue
+                
+                # Rule: Filter out defect / flawed / damaged sizes ("нюанс", "дефект", "брак", "плямка", "уцінка")
+                if DEFECT_SIZE_KEYWORDS.search(s):
+                    continue
+                    
+                # Clean up asterisk or punctuation (e.g. "36*" -> "36", "38*" -> "38")
+                s = s.rstrip('*').strip()
+                
+                # Clean up sock/accessory pack counts in size (e.g. "3. (41-45)" -> "41-45", "10.(41-45)" -> "41-45")
+                s = re.sub(r'^\d+\.\s*\(([^)]+)\)$', r'\1', s).strip()
+                
+                # Replace comma with dot in decimal sizes (e.g. "42,5" -> "42.5")
+                if re.match(r'^\d+,\d+$', s):
+                    s = s.replace(',', '.')
+                if s.lower() in ('over size', 'oversize'):
+                    s = 'one size'
+
+                # Clean up "-" to "one size" for single-size items
+                if s in ('-', 'null', 'none', 'undefined'):
+                    s = 'one size'
+                
                 if s and s not in sizes:
                     sizes.append(s)
         if not sizes:
