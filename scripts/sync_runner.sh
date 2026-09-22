@@ -29,7 +29,7 @@ CHANGED_FILES=$(git status --porcelain data/ feed.xml)
 if [ -n "$CHANGED_FILES" ]; then
     echo "[$TIMESTAMP] Changes detected in catalog data. Committing and pushing..." >> "$LOG_FILE"
     git add data/products.json data/meta.json feed.xml
-    git -c user.name="Mac" -c user.email="mac@MacBook-Pro-Mac.local" commit -m "Автоматична синхронізація наявності EasyDrop [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
+    git -c user.name="Vladimir" -c user.email="zb9m9yrccy@privaterelay.appleid.com" commit -m "Автоматична синхронізація наявності EasyDrop [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
 
     # Pull rebase before push to avoid lock / non-fast-forward conflicts
     git pull origin main --rebase >> "$LOG_FILE" 2>&1 || true
