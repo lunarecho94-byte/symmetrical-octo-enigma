@@ -1,23 +1,23 @@
 {
-  "total": 7315,
+  "total": 7327,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7315
+      "count": 7327
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4462
+      "count": 4473
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5232
+      "count": 5242
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7315
+      "count": 7327
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5588
+      "count": 5602
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 772
+      "count": 770
     }
   ],
   "seasons": [
@@ -63,52 +63,52 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7315
+      "count": 7327
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5451
+      "count": 5462
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 734
+      "count": 736
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1130
+      "count": 1129
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7315
+      "count": 7327
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2018
+      "count": 2022
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1320
+      "count": 1322
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 489
+      "count": 494
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 395
+      "count": 398
     },
     {
       "slug": "ugg",
@@ -118,7 +118,7 @@
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 144
+      "count": 143
     },
     {
       "slug": "jordan",
@@ -133,17 +133,17 @@
     {
       "slug": "balenciaga",
       "name": "Balenciaga",
-      "count": 120
+      "count": 119
     },
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 104
+      "count": 105
     },
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 86
+      "count": 85
     },
     {
       "slug": "hermes",
@@ -153,7 +153,7 @@
     {
       "slug": "coach",
       "name": "Coach",
-      "count": 74
+      "count": 75
     },
     {
       "slug": "saintlaurent",
@@ -163,7 +163,7 @@
     {
       "slug": "miumiu",
       "name": "Miu Miu",
-      "count": 65
+      "count": 64
     },
     {
       "slug": "premiata",
@@ -208,7 +208,7 @@
     {
       "slug": "vans",
       "name": "Vans",
-      "count": 26
+      "count": 27
     },
     {
       "slug": "stoneisland",
@@ -243,17 +243,17 @@
     {
       "slug": "pinko",
       "name": "Pinko",
-      "count": 19
+      "count": 18
+    },
+    {
+      "slug": "hugo",
+      "name": "Hugo Boss",
+      "count": 17
     },
     {
       "slug": "lacoste",
       "name": "Lacoste",
       "count": 17
-    },
-    {
-      "slug": "hugo",
-      "name": "Hugo Boss",
-      "count": 16
     },
     {
       "slug": "jacquemus",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 935
+      "count": 934
     }
   ]
 }
