@@ -1,17 +1,17 @@
 {
-  "total": 7316,
+  "total": 7315,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7316
+      "count": 7315
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4457
+      "count": 4458
     },
     {
       "slug": "women",
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7316
+      "count": 7315
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5590
+      "count": 5589
     },
     {
       "slug": "clothing",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7316
+      "count": 7315
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5448
+      "count": 5447
     },
     {
       "slug": "winter",
@@ -88,7 +88,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7316
+      "count": 7315
     },
     {
       "slug": "nike",
@@ -98,7 +98,7 @@
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1322
+      "count": 1321
     },
     {
       "slug": "adidas",
@@ -118,7 +118,7 @@
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 145
+      "count": 144
     },
     {
       "slug": "jordan",
@@ -138,7 +138,7 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 103
+      "count": 104
     },
     {
       "slug": "oncloud",
@@ -158,7 +158,7 @@
     {
       "slug": "saintlaurent",
       "name": "Yves Saint Laurent",
-      "count": 69
+      "count": 70
     },
     {
       "slug": "miumiu",
@@ -168,7 +168,7 @@
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 63
+      "count": 62
     },
     {
       "slug": "tnf",
