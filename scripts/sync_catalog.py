@@ -962,8 +962,8 @@ def main():
         season_counts[season_slug] += 1
         brand_counts[brand_slug] += 1
         
-        # Selling price with +30% markup, rounded to 10 грн
-        price = round((raw_price * 1.30) / 10) * 10
+        # Selling price with +25% markup, rounded to 10 грн
+        price = round((raw_price * 1.25) / 10) * 10
 
         # Old price for visual discount (15-20% above selling price, rounded to 10 грн)
         old_price = round((price * 1.18) / 10) * 10
