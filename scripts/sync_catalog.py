@@ -259,12 +259,12 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
     if '(взуття)' in cat_name.lower() or re.search(r'кросівки|кеди|сланці|шльопанці|тапочки|\bboots\b|\bsneakers\b|зим.*взуття', cat_name, re.I):
         return 'shoes', 'Взуття', '👟'
 
-    # 2. Underwear (Труси / Нижня білизна)
-    # Feed category marks underwear:
-    if re.search(r'труси\s*\(одяг\)|\bтруси\b|чоловіча білизна|комплекти білизни', cat_name, re.I):
+    # 2. Underwear (Труси / Нижня білизна / Домашній одяг / Піжами)
+    # Feed category marks underwear & pajamas:
+    if re.search(r'труси\s*\(одяг\)|\bтруси\b|чоловіча білизна|комплекти білизни|попожам|піжам', cat_name, re.I):
         return 'underwear', 'Труси & Білизна', '🩲'
-    # Text marks underwear (including sets of underwear + socks):
-    if re.search(r'трус|боксер|білизн|плавки|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat_lower):
+    # Text marks underwear (including sets of underwear + socks, pajamas):
+    if re.search(r'трус|боксер|білизн|плавки|попожам|піжам|пеньюар|кігурумі|нічна сорочк|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat_lower):
         return 'underwear', 'Труси & Білизна', '🩲'
 
     # 3. Socks (Шкарпетки)
@@ -290,7 +290,7 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
         return 'accessories', 'Аксесуари & Сумки', '🎒'
 
     # 5. Clothing & Outerwear
-    if re.search(r'\bодяг\b|\(одяг\)|попожам|піжам|костюм|куртк|пуховик|худі|світшот|толстовк|штани|шорти|футболк|сорочк|рубашк|джинс', cat_name, re.I):
+    if re.search(r'\bодяг\b|\(одяг\)|костюм|куртк|пуховик|худі|світшот|толстовк|штани|шорти|футболк|сорочк|рубашк|джинс', cat_name, re.I):
         return 'clothing', 'Одяг & Куртки', '🧥'
 
     if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
@@ -357,7 +357,7 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
         return 'unisex'
 
     if cat_slug == 'underwear':
-        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'бюст|топ\b|бра\b|стринги|стрінги|трусики', full_text, re.I))
+        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'бюст|топ\b|бра\b|стринги|стрінги|трусики|піжам|попожам|пеньюар|кігурумі|нічна сорочк', full_text, re.I))
         is_m = bool(GENDER_MEN_KW.search(full_text)) or bool(re.search(r'боксер|boxer', full_text, re.I))
         if is_w and not is_m:
             return 'women'
@@ -403,7 +403,7 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
                 return 'unisex'
 
     if cat_slug == 'clothing':
-        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|топ\b|боді|легінси|лосіни', full_text, re.I))
+        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|топ\b|боді|легінси|лосіни|попожам|піжам|пеньюар|кігурумі|miu\s*miu', full_text, re.I)) or brand_slug in ('miumiu', 'chanel', 'chloe', 'pinko', 'jacquemus')
         if is_w:
             return 'women'
         return 'men'
@@ -601,6 +601,7 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     t = re.sub(r'^КОМПЛЕКТ\s+Calvin\s+Klein\b', 'Жіночий комплект білизни Calvin Klein', t, flags=re.I)
     t = re.sub(r'^Термо\s*костюм\s+Columbia\s+Women\b', 'Жіноча термобілизна Columbia', t, flags=re.I)
     t = re.sub(r'^Термо\s*костюм\s+Columbia\s+Black\s+Men\b', 'Чоловіча термобілизна Columbia Black', t, flags=re.I)
+    t = re.sub(r'^(?:Піжама\s+комбінезон(?:\s*\(попожама\))?|Попожама)\b', 'Жіноча піжама-комбінезон', t, flags=re.I)
     t = re.sub(r'^МУЖСКИЕ\s*', 'Чоловічі ', t, flags=re.I)
     t = re.sub(r'^ЖЕНСКИЕ\s*', 'Жіночі ', t, flags=re.I)
     t = re.sub(r'^СВИТШОТ\s*', 'Світшот ', t, flags=re.I)
@@ -970,7 +971,9 @@ def main():
         
         # Badge
         badge = "✨ Топ якість"
-        if season_slug == 'winter':
+        if re.search(r'піжам|попожам|пеньюар', clean_name, re.I):
+            badge = "💖 Домашній затишок"
+        elif season_slug == 'winter':
             badge = "❄️ Зима • Термо"
         elif season_slug == 'summer':
             badge = "☀️ Літо • Легкість"

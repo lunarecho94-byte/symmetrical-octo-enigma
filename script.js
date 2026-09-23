@@ -1208,6 +1208,9 @@ function isLvBagItem(item) {
 
 function formatProductDisplayName(item) {
     let name = (item.name || '').trim();
+    if (/^(?:Піжама\s+комбінезон(?:\s*\(попожама\))?|Попожама)($|\s|[.,\(\)])/i.test(name)) {
+        return 'Жіноча піжама-комбінезон';
+    }
     if (!name || name.length <= 2 || /^\d+$/.test(name) || /^[A-Z]\d{1,3}$/i.test(name)) {
         const catName = getCategoryTitle(item.cat);
         const brandName = (item.brand_name && item.brand_name !== 'Інші бренди') ? item.brand_name : '';
@@ -1988,7 +1991,13 @@ function escapeHtml(str) {
         .replace(/>/g, '&gt;');
 }
 
-function getCategoryTitle(cat) {
+function getCategoryTitle(cat, item) {
+    if (cat === 'underwear') {
+        if (item && item.name && /піжам|попожам|пеньюар|халат|нічн/i.test(item.name)) {
+            return 'Білизна & Домашній одяг';
+        }
+        return 'Труси & Білизна';
+    }
     switch (cat) {
         case 'men': return 'Чоловічі';
         case 'women': return 'Жіночі';
@@ -2048,7 +2057,7 @@ function createProductCardElement(item) {
         `).join('');
     }
 
-    const categoryTitle = getCategoryTitle(item.cat).toUpperCase();
+    const categoryTitle = getCategoryTitle(item.cat, item).toUpperCase();
     const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
     const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
 

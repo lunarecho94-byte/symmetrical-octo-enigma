@@ -11,13 +11,13 @@
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4458
+      "count": 4445
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5235
+      "count": 5248
     }
   ],
   "categories": [
@@ -37,7 +37,7 @@
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 774
+      "count": 763
     },
     {
       "slug": "socks",
@@ -49,7 +49,7 @@
       "slug": "underwear",
       "name": "Труси & Білизна",
       "icon": "🩲",
-      "count": 129
+      "count": 140
     },
     {
       "slug": "accessories",
