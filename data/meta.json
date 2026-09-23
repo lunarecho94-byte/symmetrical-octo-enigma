@@ -1,23 +1,23 @@
 {
-  "total": 7328,
+  "total": 7322,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7328
+      "count": 7322
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4473
+      "count": 4463
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5243
+      "count": 5241
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7328
+      "count": 7322
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5605
+      "count": 5599
     },
     {
       "slug": "clothing",
@@ -63,37 +63,37 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7328
+      "count": 7322
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5466
+      "count": 5463
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 736
+      "count": 735
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1126
+      "count": 1124
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7328
+      "count": 7322
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2027
+      "count": 2024
     },
     {
       "slug": "newbalance",
@@ -103,12 +103,12 @@
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 493
+      "count": 491
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 400
+      "count": 399
     },
     {
       "slug": "ugg",
@@ -181,14 +181,14 @@
       "count": 52
     },
     {
-      "slug": "goldengoose",
-      "name": "Golden Goose",
+      "slug": "offwhite",
+      "name": "Off-White",
       "count": 50
     },
     {
-      "slug": "offwhite",
-      "name": "Off-White",
-      "count": 49
+      "slug": "goldengoose",
+      "name": "Golden Goose",
+      "count": 50
     },
     {
       "slug": "puma",
@@ -261,14 +261,14 @@
       "count": 15
     },
     {
-      "slug": "drmartens",
-      "name": "Dr. Martens",
-      "count": 13
-    },
-    {
       "slug": "converse",
       "name": "Converse",
       "count": 13
+    },
+    {
+      "slug": "drmartens",
+      "name": "Dr. Martens",
+      "count": 12
     },
     {
       "slug": "arcteryx",
