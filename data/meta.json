@@ -11,13 +11,13 @@
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4472
+      "count": 4463
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5236
+      "count": 5241
     }
   ],
   "categories": [
@@ -69,19 +69,19 @@
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5459
+      "count": 5463
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 736
+      "count": 735
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1127
+      "count": 1124
     }
   ],
   "brands": [
@@ -93,17 +93,17 @@
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2022
+      "count": 2024
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1323
+      "count": 1324
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 494
+      "count": 491
     },
     {
       "slug": "asics",
@@ -181,14 +181,14 @@
       "count": 52
     },
     {
-      "slug": "goldengoose",
-      "name": "Golden Goose",
+      "slug": "offwhite",
+      "name": "Off-White",
       "count": 50
     },
     {
-      "slug": "offwhite",
-      "name": "Off-White",
-      "count": 49
+      "slug": "goldengoose",
+      "name": "Golden Goose",
+      "count": 50
     },
     {
       "slug": "puma",
@@ -261,14 +261,14 @@
       "count": 15
     },
     {
-      "slug": "drmartens",
-      "name": "Dr. Martens",
-      "count": 13
-    },
-    {
       "slug": "converse",
       "name": "Converse",
       "count": 13
+    },
+    {
+      "slug": "drmartens",
+      "name": "Dr. Martens",
+      "count": 12
     },
     {
       "slug": "arcteryx",
