@@ -1,23 +1,23 @@
 {
-  "total": 7313,
+  "total": 7314,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7313
+      "count": 7314
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4455
+      "count": 4458
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5233
+      "count": 5235
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7313
+      "count": 7314
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5589
+      "count": 5591
     },
     {
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 775
+      "count": 774
     },
     {
       "slug": "socks",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7313
+      "count": 7314
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5455
+      "count": 5456
     },
     {
       "slug": "winter",
@@ -88,17 +88,17 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7313
+      "count": 7314
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2015
+      "count": 2023
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1323
+      "count": 1322
     },
     {
       "slug": "adidas",
@@ -108,7 +108,7 @@
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 400
+      "count": 399
     },
     {
       "slug": "ugg",
@@ -123,12 +123,12 @@
     {
       "slug": "jordan",
       "name": "Air Jordan",
-      "count": 139
+      "count": 138
     },
     {
       "slug": "dior",
       "name": "Dior",
-      "count": 134
+      "count": 133
     },
     {
       "slug": "balenciaga",
@@ -138,7 +138,7 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 105
+      "count": 104
     },
     {
       "slug": "oncloud",
@@ -168,7 +168,7 @@
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 62
+      "count": 61
     },
     {
       "slug": "tnf",
@@ -208,7 +208,7 @@
     {
       "slug": "vans",
       "name": "Vans",
-      "count": 27
+      "count": 26
     },
     {
       "slug": "stoneisland",
