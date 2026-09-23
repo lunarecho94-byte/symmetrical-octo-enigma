@@ -13,10 +13,13 @@ function switchGalleryImg(thumbElement, imgSrc) {
 }
 
 // Universal Card Image Switcher (Catalog Products)
-function switchCardImg(thumbElement, targetImgId, imgSrc) {
+function switchCardImg(thumbElement, targetImgId, imgSrc, idx) {
     const targetImg = document.getElementById(targetImgId);
     if (targetImg) {
         targetImg.src = imgSrc;
+        if (typeof idx !== 'undefined') {
+            targetImg.dataset.currentIndex = idx;
+        }
     }
     const container = thumbElement.closest('.card-thumbnails') || thumbElement.parentElement;
     if (container) {
@@ -2030,9 +2033,9 @@ function createProductCardElement(item) {
     let thumbsHtml = '';
     if (hasMultipleImgs) {
         thumbsHtml = `
-            <div class="card-thumbnails">
+            <div class="card-thumbnails" onclick="event.stopPropagation()">
                 ${item.imgs.map((img, idx) => `
-                    <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}')" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+                    <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}', ${idx})" onerror="this.onerror=null; this.src='images/sneakers.webp';">
                 `).join('')}
             </div>
         `;
@@ -2050,9 +2053,18 @@ function createProductCardElement(item) {
     const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
 
     card.innerHTML = `
-        <div class="product-img-wrapper">
+        <div class="product-img-wrapper" onclick="openPhotoModal('${item.id}')" title="Натисніть для детального перегляду фото в HD якості">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
-            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" loading="lazy" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+            <button type="button" class="btn-zoom-overlay" aria-label="Детальний огляд фото">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+                <span>Детальніше</span>
+            </button>
+            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='images/sneakers.webp';">
         </div>
         ${thumbsHtml}
         <div class="product-details">
@@ -3092,6 +3104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollTop();
     initDynamicCatalog();
     initNovaPoshtaAutocomplete();
+    initPhotoViewerInteractions();
 
 
     // Handle Form Submit with PDF Generation
@@ -3641,8 +3654,458 @@ window.clearQuickChoiceSelection = clearQuickChoiceSelection;
 window.showOrderSuccessModal = showOrderSuccessModal;
 window.closeOrderSuccessModal = closeOrderSuccessModal;
 
+// ==============================================================================
+// FULL-SCREEN HIGH-DEFINITION PHOTO DETAIL VIEWER CONTROLLER
+// ==============================================================================
+let currentPhotoItem = null;
+let currentPhotoIndex = 0;
+let photoZoomScale = 1.0;
+let photoPanX = 0;
+let photoPanY = 0;
+let isPhotoDragging = false;
+let photoDragStartX = 0;
+let photoDragStartY = 0;
+let photoPinchStartDistance = 0;
+let photoPinchStartScale = 1.0;
+let lastPhotoTapTime = 0;
+
+function openPhotoModal(productId, photoIdx) {
+    if (!catalogAllProducts || !catalogAllProducts.length) return;
+    const item = catalogAllProducts.find(p => String(p.id) === String(productId));
+    if (!item) return;
+
+    currentPhotoItem = item;
+    
+    if (typeof photoIdx === 'number') {
+        currentPhotoIndex = photoIdx;
+    } else {
+        const cardImg = document.getElementById(`cardImg-${item.id}`);
+        const parsedIdx = cardImg ? parseInt(cardImg.dataset.currentIndex, 10) : 0;
+        currentPhotoIndex = isNaN(parsedIdx) ? 0 : parsedIdx;
+    }
+
+    const totalImgs = (item.imgs && item.imgs.length > 0) ? item.imgs.length : 1;
+    if (currentPhotoIndex < 0 || currentPhotoIndex >= totalImgs) {
+        currentPhotoIndex = 0;
+    }
+
+    resetPhotoZoomAndPan();
+    renderPhotoModalContent();
+
+    const modal = document.getElementById('photoDetailModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        void modal.offsetWidth;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closePhotoModal() {
+    const modal = document.getElementById('photoDetailModal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            if (!modal.classList.contains('active')) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+                resetPhotoZoomAndPan();
+                currentPhotoItem = null;
+            }
+        }, 250);
+    }
+}
+
+function resetPhotoZoomAndPan() {
+    photoZoomScale = 1.0;
+    photoPanX = 0;
+    photoPanY = 0;
+    applyPhotoTransform(false);
+    updatePhotoZoomControls();
+}
+
+function applyPhotoTransform(animate = true) {
+    const mainImg = document.getElementById('photoModalMainImg');
+    const canvas = document.getElementById('photoImgCanvas');
+    if (!mainImg) return;
+
+    if (animate) {
+        mainImg.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    } else {
+        mainImg.style.transition = 'none';
+    }
+
+    mainImg.style.transform = `translate3d(${photoPanX}px, ${photoPanY}px, 0) scale(${photoZoomScale})`;
+
+    if (canvas) {
+        if (photoZoomScale > 1.05) {
+            canvas.classList.add('zoomed');
+        } else {
+            canvas.classList.remove('zoomed');
+            canvas.classList.remove('panning');
+        }
+    }
+}
+
+function updatePhotoZoomControls() {
+    const zoomLevelEl = document.getElementById('photoZoomLevel');
+    if (zoomLevelEl) {
+        zoomLevelEl.textContent = `${Math.round(photoZoomScale * 100)}%`;
+    }
+}
+
+function renderPhotoModalContent() {
+    if (!currentPhotoItem) return;
+
+    const item = currentPhotoItem;
+    const imgs = (item.imgs && item.imgs.length > 0) ? item.imgs : ['images/sneakers.webp'];
+    const totalImgs = imgs.length;
+    const currentImgUrl = imgs[currentPhotoIndex] || imgs[0];
+    const displayName = formatProductDisplayName(item);
+
+    // Update Header
+    const artEl = document.getElementById('photoModalArt');
+    if (artEl) artEl.textContent = `АРТ: ${item.art || '---'}`;
+
+    const titleEl = document.getElementById('photoModalTitle');
+    if (titleEl) titleEl.textContent = displayName;
+
+    const priceEl = document.getElementById('photoModalPrice');
+    if (priceEl) priceEl.textContent = `${item.price.toLocaleString('uk-UA')} грн`;
+
+    const counterEl = document.getElementById('photoModalCounter');
+    if (counterEl) counterEl.textContent = `${currentPhotoIndex + 1} / ${totalImgs}`;
+
+    // Update Main Image
+    const mainImg = document.getElementById('photoModalMainImg');
+    if (mainImg) {
+        mainImg.src = currentImgUrl;
+        mainImg.alt = `${displayName} — фото ${currentPhotoIndex + 1}`;
+    }
+
+    // Prev / Next buttons
+    const prevBtn = document.getElementById('btnPhotoPrev');
+    const nextBtn = document.getElementById('btnPhotoNext');
+    if (prevBtn && nextBtn) {
+        if (totalImgs <= 1) {
+            prevBtn.style.display = 'none';
+            nextBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'flex';
+            nextBtn.style.display = 'flex';
+        }
+    }
+
+    // Render Thumbnails
+    const thumbsContainer = document.getElementById('photoModalThumbs');
+    if (thumbsContainer) {
+        if (totalImgs > 1) {
+            thumbsContainer.style.display = 'flex';
+            thumbsContainer.innerHTML = imgs.map((img, idx) => `
+                <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="photo-modal-thumb-img ${idx === currentPhotoIndex ? 'active' : ''}" onclick="switchPhotoModalImage(${idx})" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+            `).join('');
+
+            const activeThumb = thumbsContainer.querySelector('.photo-modal-thumb-img.active');
+            if (activeThumb) {
+                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        } else {
+            thumbsContainer.style.display = 'none';
+            thumbsContainer.innerHTML = '';
+        }
+    }
+
+    updatePhotoZoomControls();
+}
+
+function switchPhotoModalImage(idx) {
+    if (!currentPhotoItem) return;
+    const imgs = currentPhotoItem.imgs || [];
+    if (idx < 0 || idx >= imgs.length) return;
+
+    currentPhotoIndex = idx;
+    resetPhotoZoomAndPan();
+    renderPhotoModalContent();
+
+    // Sync card image in catalog
+    const cardImg = document.getElementById(`cardImg-${currentPhotoItem.id}`);
+    if (cardImg && imgs[idx]) {
+        cardImg.src = imgs[idx];
+        cardImg.dataset.currentIndex = idx;
+    }
+    const card = document.getElementById(`prod-${currentPhotoItem.id}`);
+    if (card) {
+        const thumbs = card.querySelectorAll('.card-thumb-img');
+        if (thumbs[idx]) {
+            thumbs.forEach(t => t.classList.remove('active'));
+            thumbs[idx].classList.add('active');
+        }
+    }
+}
+
+function photoViewerNext() {
+    if (!currentPhotoItem) return;
+    const imgs = currentPhotoItem.imgs || [];
+    if (imgs.length <= 1) return;
+    const nextIdx = (currentPhotoIndex + 1) % imgs.length;
+    switchPhotoModalImage(nextIdx);
+}
+
+function photoViewerPrev() {
+    if (!currentPhotoItem) return;
+    const imgs = currentPhotoItem.imgs || [];
+    if (imgs.length <= 1) return;
+    const prevIdx = (currentPhotoIndex - 1 + imgs.length) % imgs.length;
+    switchPhotoModalImage(prevIdx);
+}
+
+function photoViewerZoomIn() {
+    photoZoomScale = Math.min(3.5, Math.round((photoZoomScale + 0.5) * 10) / 10);
+    applyPhotoTransform(true);
+    updatePhotoZoomControls();
+}
+
+function photoViewerZoomOut() {
+    photoZoomScale = Math.max(1.0, Math.round((photoZoomScale - 0.5) * 10) / 10);
+    if (photoZoomScale <= 1.05) {
+        photoZoomScale = 1.0;
+        photoPanX = 0;
+        photoPanY = 0;
+    }
+    applyPhotoTransform(true);
+    updatePhotoZoomControls();
+}
+
+function photoViewerResetZoom() {
+    if (photoZoomScale > 1.05) {
+        resetPhotoZoomAndPan();
+    } else {
+        photoZoomScale = 2.0;
+        photoPanX = 0;
+        photoPanY = 0;
+        applyPhotoTransform(true);
+        updatePhotoZoomControls();
+    }
+}
+
+function photoModalBuyAction() {
+    if (!currentPhotoItem) return;
+    const item = currentPhotoItem;
+    const displayName = formatProductDisplayName(item);
+    const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
+
+    closePhotoModal();
+
+    setTimeout(() => {
+        const card = document.getElementById(`prod-${item.id}`);
+        if (card) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.style.transition = 'box-shadow 0.4s ease, transform 0.4s ease';
+            card.style.transform = 'scale(1.02)';
+            card.style.boxShadow = '0 0 0 3px #7c3aed, 0 16px 36px rgba(124, 58, 237, 0.3)';
+            setTimeout(() => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            }, 1800);
+        }
+        selectModelInForm(`${displayName} (${item.price} грн)`, formattedPrice, null, String(item.id));
+    }, 280);
+}
+
+function initPhotoViewerInteractions() {
+    const viewport = document.getElementById('photoViewport');
+    const mainImg = document.getElementById('photoModalMainImg');
+    const canvas = document.getElementById('photoImgCanvas');
+    if (!viewport || !mainImg || !canvas) return;
+
+    // Double Click on image toggles zoom
+    mainImg.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        if (photoZoomScale > 1.05) {
+            resetPhotoZoomAndPan();
+        } else {
+            const rect = mainImg.getBoundingClientRect();
+            const clickX = e.clientX - rect.left - rect.width / 2;
+            const clickY = e.clientY - rect.top - rect.height / 2;
+            photoZoomScale = 2.2;
+            photoPanX = -clickX * 1.2;
+            photoPanY = -clickY * 1.2;
+            applyPhotoTransform(true);
+            updatePhotoZoomControls();
+        }
+    });
+
+    // Mouse Wheel Zoom
+    viewport.addEventListener('wheel', (e) => {
+        const modal = document.getElementById('photoDetailModal');
+        if (!modal || !modal.classList.contains('active')) return;
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            photoZoomScale = Math.min(3.5, Math.round((photoZoomScale + 0.25) * 100) / 100);
+        } else {
+            photoZoomScale = Math.max(1.0, Math.round((photoZoomScale - 0.25) * 100) / 100);
+            if (photoZoomScale <= 1.05) {
+                photoZoomScale = 1.0;
+                photoPanX = 0;
+                photoPanY = 0;
+            }
+        }
+        applyPhotoTransform(false);
+        updatePhotoZoomControls();
+    }, { passive: false });
+
+    // Desktop Mouse Drag / Pan
+    canvas.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        if (photoZoomScale > 1.05) {
+            isPhotoDragging = true;
+            photoDragStartX = e.clientX - photoPanX;
+            photoDragStartY = e.clientY - photoPanY;
+            canvas.classList.add('panning');
+            e.preventDefault();
+        }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isPhotoDragging) return;
+        photoPanX = e.clientX - photoDragStartX;
+        photoPanY = e.clientY - photoDragStartY;
+        applyPhotoTransform(false);
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isPhotoDragging) {
+            isPhotoDragging = false;
+            if (canvas) canvas.classList.remove('panning');
+        }
+    });
+
+    // Mobile Touch: Pinch to zoom, double tap, pan and swipe
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    viewport.addEventListener('touchstart', (e) => {
+        const modal = document.getElementById('photoDetailModal');
+        if (!modal || !modal.classList.contains('active')) return;
+
+        if (e.touches.length === 2) {
+            isPhotoDragging = false;
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            photoPinchStartDistance = Math.hypot(dx, dy);
+            photoPinchStartScale = photoZoomScale;
+        } else if (e.touches.length === 1) {
+            const now = Date.now();
+            if (now - lastPhotoTapTime < 300) {
+                e.preventDefault();
+                photoViewerResetZoom();
+                lastPhotoTapTime = 0;
+                return;
+            }
+            lastPhotoTapTime = now;
+
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = now;
+
+            if (photoZoomScale > 1.05) {
+                isPhotoDragging = true;
+                photoDragStartX = e.touches[0].clientX - photoPanX;
+                photoDragStartY = e.touches[0].clientY - photoPanY;
+            }
+        }
+    }, { passive: false });
+
+    viewport.addEventListener('touchmove', (e) => {
+        const modal = document.getElementById('photoDetailModal');
+        if (!modal || !modal.classList.contains('active')) return;
+
+        if (e.touches.length === 2 && photoPinchStartDistance > 0) {
+            e.preventDefault();
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const currentDistance = Math.hypot(dx, dy);
+            const scaleFactor = currentDistance / photoPinchStartDistance;
+            photoZoomScale = Math.min(3.5, Math.max(1.0, photoPinchStartScale * scaleFactor));
+            if (photoZoomScale <= 1.05) {
+                photoPanX = 0;
+                photoPanY = 0;
+            }
+            applyPhotoTransform(false);
+            updatePhotoZoomControls();
+        } else if (e.touches.length === 1 && isPhotoDragging && photoZoomScale > 1.05) {
+            e.preventDefault();
+            photoPanX = e.touches[0].clientX - photoDragStartX;
+            photoPanY = e.touches[0].clientY - photoDragStartY;
+            applyPhotoTransform(false);
+        }
+    }, { passive: false });
+
+    viewport.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2) {
+            photoPinchStartDistance = 0;
+        }
+        if (isPhotoDragging && e.touches.length === 0) {
+            isPhotoDragging = false;
+        }
+
+        if (photoZoomScale <= 1.05 && e.changedTouches.length === 1) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            const duration = Date.now() - touchStartTime;
+
+            if (duration < 450 && Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.8) {
+                if (diffX < 0) {
+                    photoViewerNext();
+                } else {
+                    photoViewerPrev();
+                }
+            }
+        }
+    }, { passive: true });
+}
+
+window.openPhotoModal = openPhotoModal;
+window.closePhotoModal = closePhotoModal;
+window.photoViewerNext = photoViewerNext;
+window.photoViewerPrev = photoViewerPrev;
+window.photoViewerZoomIn = photoViewerZoomIn;
+window.photoViewerZoomOut = photoViewerZoomOut;
+window.photoViewerResetZoom = photoViewerResetZoom;
+window.switchPhotoModalImage = switchPhotoModalImage;
+window.photoModalBuyAction = photoModalBuyAction;
+
 // Keyboard accessibility for all Modals, Drawers & Dropdowns
 document.addEventListener('keydown', (e) => {
+    const photoModal = document.getElementById('photoDetailModal');
+    const isPhotoModalOpen = photoModal && photoModal.classList.contains('active');
+
+    if (isPhotoModalOpen) {
+        if (e.key === 'Escape') {
+            closePhotoModal();
+            return;
+        }
+        if (e.key === 'ArrowLeft') {
+            photoViewerPrev();
+            return;
+        }
+        if (e.key === 'ArrowRight') {
+            photoViewerNext();
+            return;
+        }
+        if (e.key === '+' || e.key === '=') {
+            photoViewerZoomIn();
+            return;
+        }
+        if (e.key === '-' || e.key === '_') {
+            photoViewerZoomOut();
+            return;
+        }
+    }
+
     if (e.key === 'Escape') {
         const cityDropdown = document.getElementById('npCityDropdown');
         if (cityDropdown && cityDropdown.style.display !== 'none') {

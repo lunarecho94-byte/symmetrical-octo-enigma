@@ -1185,5 +1185,64 @@
         </div>
     </div>
 
+    <!-- Full-Screen High-Definition Photo Detail Viewer Modal -->
+    <div id="photoDetailModal" class="photo-detail-modal" style="display: none;" role="dialog" aria-modal="true" aria-label="Детальний перегляд фотографій">
+        <div class="photo-detail-backdrop" onclick="closePhotoModal()"></div>
+        <div class="photo-detail-container">
+            <!-- Header Bar -->
+            <div class="photo-detail-header">
+                <div class="photo-detail-title-group">
+                    <span class="photo-detail-art" id="photoModalArt">АРТ: ---</span>
+                    <h3 class="photo-detail-title" id="photoModalTitle">Назва товару</h3>
+                    <div class="photo-detail-price-wrap">
+                        <span class="photo-detail-price" id="photoModalPrice">--- грн</span>
+                        <span class="photo-detail-stock">✓ В наявності</span>
+                    </div>
+                </div>
+                
+                <div class="photo-detail-controls">
+                    <div class="photo-zoom-controls">
+                        <button type="button" class="btn-photo-action" id="btnPhotoZoomOut" onclick="photoViewerZoomOut()" title="Зменшити">−</button>
+                        <button type="button" class="btn-photo-action zoom-level" id="photoZoomLevel" onclick="photoViewerResetZoom()" title="Скинути масштаб">100%</button>
+                        <button type="button" class="btn-photo-action" id="btnPhotoZoomIn" onclick="photoViewerZoomIn()" title="Збільшити">+</button>
+                    </div>
+                    <div class="photo-counter" id="photoModalCounter">1 / 1</div>
+                    <button type="button" class="btn-photo-close" onclick="closePhotoModal()" aria-label="Закрити перегляд">✕</button>
+                </div>
+            </div>
+
+            <!-- Main Interactive Viewport -->
+            <div class="photo-detail-viewport" id="photoViewport">
+                <button type="button" class="photo-nav-btn prev" id="btnPhotoPrev" onclick="photoViewerPrev()" aria-label="Попереднє фото">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+
+                <div class="photo-img-canvas" id="photoImgCanvas">
+                    <img id="photoModalMainImg" src="" alt="Детальний огляд товару" draggable="false">
+                    <div class="photo-zoom-hint" id="photoZoomHint">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        Двічі натисніть або крутіть коліщатко для масштабування
+                    </div>
+                </div>
+
+                <button type="button" class="photo-nav-btn next" id="btnPhotoNext" onclick="photoViewerNext()" aria-label="Наступне фото">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+
+            <!-- Footer: Thumbnails and Order CTA -->
+            <div class="photo-detail-footer">
+                <div class="photo-modal-thumbs" id="photoModalThumbs">
+                    <!-- Dynamic thumbs -->
+                </div>
+                <div class="photo-modal-cta">
+                    <button type="button" class="btn-photo-buy" id="btnPhotoBuyNow" onclick="photoModalBuyAction()">
+                        <span>🛍️ Замовити цю модель</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
