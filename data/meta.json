@@ -1,23 +1,23 @@
 {
-  "total": 7309,
+  "total": 7332,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7309
+      "count": 7332
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4444
+      "count": 4462
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5244
+      "count": 5265
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7309
+      "count": 7332
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5586
+      "count": 5609
     },
     {
       "slug": "clothing",
@@ -63,47 +63,47 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7309
+      "count": 7332
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5454
+      "count": 5477
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 734
+      "count": 732
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1121
+      "count": 1123
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7309
+      "count": 7332
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2020
+      "count": 2043
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1322
+      "count": 1320
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 489
+      "count": 492
     },
     {
       "slug": "asics",
@@ -203,7 +203,7 @@
     {
       "slug": "celine",
       "name": "Celine",
-      "count": 33
+      "count": 32
     },
     {
       "slug": "vans",
