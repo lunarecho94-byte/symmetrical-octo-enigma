@@ -1,23 +1,23 @@
 {
-  "total": 7363,
+  "total": 7380,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7363
+      "count": 7380
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4498
+      "count": 4506
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5278
+      "count": 5292
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7363
+      "count": 7380
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5638
+      "count": 5655
     },
     {
       "slug": "clothing",
@@ -63,47 +63,47 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7363
+      "count": 7380
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5506
+      "count": 5514
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 734
+      "count": 740
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1123
+      "count": 1126
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7363
+      "count": 7380
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2054
+      "count": 2062
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1311
+      "count": 1310
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 507
+      "count": 508
     },
     {
       "slug": "asics",
@@ -113,7 +113,7 @@
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 371
+      "count": 377
     },
     {
       "slug": "chanel",
@@ -133,7 +133,7 @@
     {
       "slug": "balenciaga",
       "name": "Balenciaga",
-      "count": 117
+      "count": 116
     },
     {
       "slug": "salomon",
@@ -168,7 +168,7 @@
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 62
+      "count": 61
     },
     {
       "slug": "tnf",
@@ -193,7 +193,7 @@
     {
       "slug": "puma",
       "name": "Puma",
-      "count": 46
+      "count": 47
     },
     {
       "slug": "calvinklein",
@@ -208,7 +208,7 @@
     {
       "slug": "vans",
       "name": "Vans",
-      "count": 26
+      "count": 27
     },
     {
       "slug": "stoneisland",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 930
+      "count": 933
     }
   ]
 }
