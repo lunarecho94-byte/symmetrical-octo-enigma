@@ -1,23 +1,23 @@
 {
-  "total": 7380,
+  "total": 7376,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7380
+      "count": 7376
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4506
+      "count": 4505
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5292
+      "count": 5289
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7380
+      "count": 7376
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5655
+      "count": 5652
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 772
+      "count": 771
     }
   ],
   "seasons": [
@@ -63,37 +63,37 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7380
+      "count": 7376
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5514
+      "count": 5512
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 740
+      "count": 739
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1126
+      "count": 1125
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7380
+      "count": 7376
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2062
+      "count": 2060
     },
     {
       "slug": "newbalance",
@@ -103,12 +103,12 @@
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 508
+      "count": 509
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 408
+      "count": 405
     },
     {
       "slug": "ugg",
@@ -163,7 +163,7 @@
     {
       "slug": "miumiu",
       "name": "Miu Miu",
-      "count": 63
+      "count": 62
     },
     {
       "slug": "premiata",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 933
+      "count": 934
     }
   ]
 }
