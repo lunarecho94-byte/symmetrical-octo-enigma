@@ -2022,6 +2022,16 @@ function getSeasonTitle(season) {
     }
 }
 
+function formatSizeLabel(sz) {
+    if (!sz) return '';
+    let str = String(sz).trim();
+    // Normalize spaces around dashes in ranges: "36 - 42" -> "36–42"
+    str = str.replace(/(\d+)\s*[-–]\s*(\d+)/g, '$1–$2');
+    // Normalize one size capitalization
+    if (/^one\s*size$/i.test(str)) return 'One Size';
+    return str;
+}
+
 function createProductCardElement(item) {
     const card = document.createElement('div');
     card.className = 'product-card';
@@ -2052,9 +2062,13 @@ function createProductCardElement(item) {
 
     let sizesHtml = '';
     if (item.sizes && item.sizes.length > 0) {
-        sizesHtml = item.sizes.map((sz, idx) => `
-            <button type="button" class="size-btn ${idx === 0 ? 'active' : ''}" onclick="selectSize(this, '${escapeHtml(sz)}')">${escapeHtml(sz)}</button>
-        `).join('');
+        sizesHtml = item.sizes.map((sz, idx) => {
+            const rawSz = String(sz || '').trim();
+            const displaySz = formatSizeLabel(rawSz);
+            return `
+                <button type="button" class="size-btn ${idx === 0 ? 'active' : ''}" onclick="selectSize(this, '${escapeHtml(rawSz)}')" title="Розмір ${escapeHtml(displaySz)}">${escapeHtml(displaySz)}</button>
+            `;
+        }).join('');
     }
 
     const categoryTitle = getCategoryTitle(item.cat, item).toUpperCase();

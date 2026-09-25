@@ -3052,10 +3052,14 @@ section, header, footer, .announcement-bar {
     }
 
     .size-btn {
-        padding: 8px 12px;
-        font-size: 0.88rem;
-        flex: 1 1 calc(33.333% - 6px);
-        min-height: 44px;
+        flex: 0 0 auto;
+        min-width: 38px;
+        width: auto;
+        max-width: none;
+        height: 36px;
+        padding: 0 10px;
+        font-size: 0.82rem;
+        white-space: nowrap;
         text-align: center;
         display: inline-flex;
         align-items: center;
@@ -3313,7 +3317,7 @@ section, header, footer, .announcement-bar {
     }
 
     .size-btn {
-        flex: 1 1 calc(50% - 6px);
+        flex: 0 0 auto;
     }
 
     .hero-text h1 {
@@ -6345,20 +6349,21 @@ body {
     transform: translateY(-1px) !important;
 }
 
-/* 3. SQUARE SIZE BUTTONS WITH LOGICAL ROUNDING */
+/* 3. ELEGANT ALIGNED SIZE BUTTONS (NEVER WRAP, PERFECT CENTERING) */
 .size-options {
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 6px !important;
     margin-top: 8px !important;
+    align-items: center !important;
 }
 
 .size-btn {
-    width: 36px !important;
+    min-width: 38px !important;
+    width: auto !important;
+    max-width: none !important;
     height: 36px !important;
-    min-width: 36px !important;
-    max-width: 36px !important;
-    padding: 0 !important;
+    padding: 0 10px !important;
     border-radius: 8px !important; /* Логічне плавне заокруглення */
     border: 1px solid #e4e4e7 !important;
     background: #f4f4f5 !important;
@@ -6372,7 +6377,11 @@ body {
     justify-content: center !important;
     text-align: center !important;
     box-sizing: border-box !important;
+    flex: 0 0 auto !important;
     flex-shrink: 0 !important;
+    white-space: nowrap !important; /* Запобігає переносу тексту розміру на 2 рядки */
+    line-height: 1 !important;
+    letter-spacing: -0.2px !important;
 }
 
 .size-btn:hover {

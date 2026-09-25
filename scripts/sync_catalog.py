@@ -71,6 +71,7 @@ def sort_sizes(sizes):
     num_sizes = []
     text_sizes = []
     for s in sizes:
+        s = re.sub(r'(\d+)\s*[-–]\s*(\d+)', r'\1–\2', str(s).strip())
         m = re.match(r'^(\d+(?:[.,]\d+)?)$', s)
         if m:
             val = float(m.group(1).replace(',', '.'))
@@ -928,6 +929,8 @@ def main():
                 # Clean up "-" to "one size" for single-size items
                 if s in ('-', 'null', 'none', 'undefined'):
                     s = 'one size'
+                
+                s = re.sub(r'(\d+)\s*[-–]\s*(\d+)', r'\1–\2', s.strip())
                 
                 if s and s not in sizes:
                     sizes.append(s)
