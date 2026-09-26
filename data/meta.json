@@ -1,23 +1,23 @@
 {
-  "total": 7382,
+  "total": 7385,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7382
+      "count": 7385
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4500
+      "count": 4505
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5298
+      "count": 5300
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7382
+      "count": 7385
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5659
+      "count": 5662
     },
     {
       "slug": "clothing",
@@ -63,32 +63,32 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7382
+      "count": 7385
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5512
+      "count": 5509
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 749
+      "count": 751
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1121
+      "count": 1125
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7382
+      "count": 7385
     },
     {
       "slug": "nike",
@@ -98,17 +98,17 @@
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1307
+      "count": 1308
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 511
+      "count": 512
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 404
+      "count": 408
     },
     {
       "slug": "ugg",
@@ -118,7 +118,7 @@
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 148
+      "count": 147
     },
     {
       "slug": "jordan",
@@ -208,7 +208,7 @@
     {
       "slug": "vans",
       "name": "Vans",
-      "count": 27
+      "count": 26
     },
     {
       "slug": "stoneisland",
@@ -233,7 +233,7 @@
     {
       "slug": "prada",
       "name": "Prada",
-      "count": 22
+      "count": 23
     },
     {
       "slug": "mcqueen",
@@ -248,7 +248,7 @@
     {
       "slug": "hugo",
       "name": "Hugo Boss",
-      "count": 17
+      "count": 16
     },
     {
       "slug": "lacoste",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 933
+      "count": 932
     }
   ]
 }
