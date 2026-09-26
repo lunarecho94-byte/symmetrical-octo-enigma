@@ -1,23 +1,23 @@
 {
-  "total": 7412,
+  "total": 7385,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7412
+      "count": 7385
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4527
+      "count": 4505
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5311
+      "count": 5300
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7412
+      "count": 7385
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5687
+      "count": 5662
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 773
+      "count": 771
     }
   ],
   "seasons": [
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7412
+      "count": 7385
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5536
+      "count": 5509
     },
     {
       "slug": "winter",
@@ -88,27 +88,27 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7412
+      "count": 7385
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2067
+      "count": 2059
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1316
+      "count": 1308
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 511
+      "count": 512
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 417
+      "count": 408
     },
     {
       "slug": "ugg",
@@ -128,7 +128,7 @@
     {
       "slug": "dior",
       "name": "Dior",
-      "count": 131
+      "count": 130
     },
     {
       "slug": "balenciaga",
@@ -153,7 +153,7 @@
     {
       "slug": "coach",
       "name": "Coach",
-      "count": 76
+      "count": 75
     },
     {
       "slug": "saintlaurent",
@@ -178,7 +178,7 @@
     {
       "slug": "offwhite",
       "name": "Off-White",
-      "count": 53
+      "count": 52
     },
     {
       "slug": "gucci",
