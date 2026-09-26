@@ -12,11 +12,83 @@ function switchGalleryImg(thumbElement, imgSrc) {
     }
 }
 
+// Image Fallbacks & Auto-Retry Engine
+const FALLBACK_PRODUCT_SVG = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  <circle cx="250" cy="220" r="85" fill="#e2e8f0"/>
+  <path d="M210 230l30-30 40 40 20-20 30 30H170z" fill="#94a3b8"/>
+  <circle cx="215" cy="185" r="14" fill="#94a3b8"/>
+  <text x="250" y="355" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="800" fill="#0f172a" text-anchor="middle" letter-spacing="1.5">URBAN</text>
+  <text x="250" y="385" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#64748b" text-anchor="middle">Фото оновлюється на складі</text>
+</svg>
+`)}`;
+
+function getCategoryFallbackImg(cat) {
+    if (cat === 'clothing') return 'images/tshirt.webp';
+    if (cat === 'pants') return 'images/pants.webp';
+    if (cat === 'accessories' || cat === 'bags') return 'images/urbano_logo_full.webp';
+    return 'images/sneakers.webp';
+}
+
+function handleCardImgError(img, cat) {
+    if (!img) return;
+    const retryCount = parseInt(img.dataset.retried || '0', 10);
+    const originalSrc = img.dataset.srcOrig || img.getAttribute('src') || '';
+
+    // Step 1: Retry original image once after 400ms (handles transient mobile connection hiccups)
+    if (retryCount < 1 && originalSrc && originalSrc.startsWith('http')) {
+        img.dataset.retried = '1';
+        setTimeout(() => {
+            const sep = originalSrc.includes('?') ? '&' : '?';
+            img.src = `${originalSrc}${sep}_r=${Date.now()}`;
+        }, 400);
+        return;
+    }
+
+    // Step 2: Try category-specific local asset
+    if (retryCount < 2) {
+        img.dataset.retried = '2';
+        img.src = getCategoryFallbackImg(cat);
+        return;
+    }
+
+    // Step 3: Guaranteed indestructible SVG fallback
+    img.onerror = null;
+    img.src = FALLBACK_PRODUCT_SVG;
+}
+
+function handleCardThumbError(thumb, cat) {
+    if (!thumb) return;
+    thumb.onerror = null;
+    thumb.src = getCategoryFallbackImg(cat);
+}
+
+function handlePhotoModalImgError(img, cat) {
+    if (!img) return;
+    const retryCount = parseInt(img.dataset.retried || '0', 10);
+    const originalSrc = img.dataset.srcOrig || img.getAttribute('src') || '';
+
+    if (retryCount < 1 && originalSrc && originalSrc.startsWith('http')) {
+        img.dataset.retried = '1';
+        setTimeout(() => {
+            const sep = originalSrc.includes('?') ? '&' : '?';
+            img.src = `${originalSrc}${sep}_r=${Date.now()}`;
+        }, 400);
+        return;
+    }
+
+    img.onerror = null;
+    img.src = getCategoryFallbackImg(cat);
+}
+
 // Universal Card Image Switcher (Catalog Products)
 function switchCardImg(thumbElement, targetImgId, imgSrc, idx) {
     const targetImg = document.getElementById(targetImgId);
     if (targetImg) {
         targetImg.src = imgSrc;
+        targetImg.dataset.srcOrig = imgSrc;
+        targetImg.dataset.retried = '0';
         if (typeof idx !== 'undefined') {
             targetImg.dataset.currentIndex = idx;
         }
@@ -268,7 +340,7 @@ function renderCart() {
                 const itemTotal = (item.price * item.qty).toLocaleString('uk-UA');
                 html += `
                     <div class="cart-item" data-id="${item.id}">
-                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')">
                         <div class="cart-item-info">
                             <h4 class="cart-item-title">${item.title}</h4>
                             <div class="cart-item-meta">
@@ -326,7 +398,7 @@ function syncCartWithForm() {
             cart.forEach((item, idx) => {
                 listHtml += `
                     <div class="cart-summary-line-item">
-                        <img src="${item.img}" alt="${item.title}" class="cart-summary-item-img" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+                        <img src="${item.img}" alt="${item.title}" class="cart-summary-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')">
                         <div class="cart-summary-item-text">
                             <b>${idx + 1}. ${item.title}</b>
                             <span>${item.art ? `Арт: <b>${item.art}</b> | ` : ''}Розмір: <b>${item.size}</b> | К-сть: <b>${item.qty} шт.</b> — ${(item.price * item.qty).toLocaleString('uk-UA')} грн</span>
@@ -2064,7 +2136,7 @@ function createProductCardElement(item) {
         thumbsHtml = `
             <div class="card-thumbnails" onclick="event.stopPropagation()">
                 ${item.imgs.map((img, idx) => `
-                    <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}', ${idx})" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+                    <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}', ${idx})" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat}')">
                 `).join('')}
             </div>
         `;
@@ -2086,9 +2158,9 @@ function createProductCardElement(item) {
     const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
 
     card.innerHTML = `
-        <div class="product-img-wrapper" onclick="openPhotoModal('${item.id}')" title="Натисніть для детального перегляду фото в HD якості">
+        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openPhotoModal('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' ')openPhotoModal('${item.id}')" title="Натисніть для детального перегляду фото в HD якості">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
-            <button type="button" class="btn-zoom-overlay" aria-label="Детальний огляд фото">
+            <button type="button" class="btn-zoom-overlay" aria-label="Детальний огляд фото" onclick="event.stopPropagation(); openPhotoModal('${item.id}')">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -2097,7 +2169,7 @@ function createProductCardElement(item) {
                 </svg>
                 <span>Детальніше</span>
             </button>
-            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onclick="openPhotoModal('${item.id}')" onerror="handleCardImgError(this, '${item.cat}')">
         </div>
         ${thumbsHtml}
         <div class="product-details">
@@ -2108,7 +2180,7 @@ function createProductCardElement(item) {
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <h3 class="product-title">${escapeHtml(displayName)}</h3>
+            <h3 class="product-title" onclick="openPhotoModal('${item.id}')" title="Детальний огляд товару">${escapeHtml(displayName)}</h3>
             <div class="product-specs">
                 <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>${escapeHtml(item.art)}</b></span></div>
                 ${item.mat ? `<div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">${escapeHtml(item.mat)}</span></div>` : ''}
@@ -3703,8 +3775,30 @@ let photoPinchStartScale = 1.0;
 let lastPhotoTapTime = 0;
 
 function openPhotoModal(productId, photoIdx) {
-    if (!catalogAllProducts || !catalogAllProducts.length) return;
-    const item = catalogAllProducts.find(p => String(p.id) === String(productId));
+    if (!productId) return;
+    let item = null;
+    if (catalogAllProducts && catalogAllProducts.length) {
+        item = catalogAllProducts.find(p => String(p.id) === String(productId));
+    }
+    if (!item && catalogFilteredProducts && catalogFilteredProducts.length) {
+        item = catalogFilteredProducts.find(p => String(p.id) === String(productId));
+    }
+    if (!item) {
+        const card = document.getElementById(`prod-${productId}`);
+        if (card) {
+            const cardImg = card.querySelector('.product-img-wrapper img');
+            item = {
+                id: productId,
+                name: card.dataset.name || 'Товар',
+                brand_name: card.dataset.brand || '',
+                art: card.dataset.art || '',
+                cat: card.dataset.category || 'shoes',
+                price: parseInt(card.dataset.price || '0', 10),
+                imgs: cardImg && cardImg.src ? [cardImg.dataset.srcOrig || cardImg.src] : ['images/sneakers.webp'],
+                sizes: []
+            };
+        }
+    }
     if (!item) return;
 
     currentPhotoItem = item;
@@ -3811,7 +3905,19 @@ function renderPhotoModalContent() {
 
     // Update Main Image
     const mainImg = document.getElementById('photoModalMainImg');
+    const canvas = document.getElementById('photoImgCanvas');
     if (mainImg) {
+        mainImg.setAttribute('referrerpolicy', 'no-referrer');
+        mainImg.dataset.srcOrig = currentImgUrl;
+        mainImg.dataset.retried = '0';
+        mainImg.onload = function() {
+            if (canvas) canvas.classList.remove('loading');
+        };
+        mainImg.onerror = function() {
+            if (canvas) canvas.classList.remove('loading');
+            handlePhotoModalImgError(this, item.cat);
+        };
+        if (canvas) canvas.classList.add('loading');
         mainImg.src = currentImgUrl;
         mainImg.alt = `${displayName} — фото ${currentPhotoIndex + 1}`;
     }
@@ -3835,7 +3941,7 @@ function renderPhotoModalContent() {
         if (totalImgs > 1) {
             thumbsContainer.style.display = 'flex';
             thumbsContainer.innerHTML = imgs.map((img, idx) => `
-                <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="photo-modal-thumb-img ${idx === currentPhotoIndex ? 'active' : ''}" onclick="switchPhotoModalImage(${idx})" onerror="this.onerror=null; this.src='images/sneakers.webp';">
+                <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="photo-modal-thumb-img ${idx === currentPhotoIndex ? 'active' : ''}" onclick="switchPhotoModalImage(${idx})" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat}')">
             `).join('');
 
             const activeThumb = thumbsContainer.querySelector('.photo-modal-thumb-img.active');

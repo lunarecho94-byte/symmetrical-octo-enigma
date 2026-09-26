@@ -1606,12 +1606,14 @@ section, header, footer, .announcement-bar {
     overflow: hidden;
     background: #ffffff;
     position: relative;
-    touch-action: pan-y;
-    cursor: zoom-in;
+    touch-action: manipulation;
+    cursor: pointer !important;
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid var(--border-color);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .product-img-wrapper img {
@@ -1622,6 +1624,7 @@ section, header, footer, .announcement-bar {
     display: block;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     background: #ffffff;
+    cursor: pointer !important;
 }
 
 .product-card:hover .product-img-wrapper img {
@@ -1633,32 +1636,40 @@ section, header, footer, .announcement-bar {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: rgba(15, 23, 42, 0.82);
+    background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 20px;
-    padding: 5px 12px;
-    font-size: 0.74rem;
+    padding: 6px 13px;
+    font-size: 0.75rem;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    cursor: pointer;
+    cursor: pointer !important;
     z-index: 4;
-    opacity: 0.9;
+    opacity: 0.95;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-zoom-overlay * {
     pointer-events: none;
 }
 
-.product-card:hover .btn-zoom-overlay {
+.product-card:hover .btn-zoom-overlay,
+.btn-zoom-overlay:hover,
+.btn-zoom-overlay:active {
     opacity: 1;
     background: var(--accent-blue, #2563eb);
-    border-color: rgba(255, 255, 255, 0.45);
+    border-color: rgba(255, 255, 255, 0.55);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
 }
 
 .card-thumbnails {
