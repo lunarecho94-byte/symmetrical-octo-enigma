@@ -1,23 +1,23 @@
 {
-  "total": 7407,
+  "total": 7394,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7407
+      "count": 7394
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4518
+      "count": 4511
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5311
+      "count": 5298
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7407
+      "count": 7394
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5673
+      "count": 5661
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 782
+      "count": 781
     }
   ],
   "seasons": [
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7407
+      "count": 7394
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5536
+      "count": 5523
     },
     {
       "slug": "winter",
@@ -88,17 +88,17 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7407
+      "count": 7394
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2066
+      "count": 2062
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1314
+      "count": 1311
     },
     {
       "slug": "adidas",
@@ -138,12 +138,12 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 110
+      "count": 109
     },
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 84
+      "count": 83
     },
     {
       "slug": "hermes",
@@ -168,7 +168,7 @@
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 61
+      "count": 59
     },
     {
       "slug": "tnf",
@@ -178,7 +178,7 @@
     {
       "slug": "offwhite",
       "name": "Off-White",
-      "count": 53
+      "count": 52
     },
     {
       "slug": "gucci",
@@ -233,7 +233,7 @@
     {
       "slug": "prada",
       "name": "Prada",
-      "count": 23
+      "count": 22
     },
     {
       "slug": "mcqueen",
