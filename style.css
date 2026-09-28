@@ -2563,6 +2563,14 @@ section, header, footer, .announcement-bar {
     background: #6639b7;
     transform: translateY(-1px);
 }
+.btn-osm-action.insta {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    text-decoration: none;
+}
+.btn-osm-action.insta:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
 
 @media (max-width: 640px) {
     .msg-checkout-actions {
@@ -5998,11 +6006,11 @@ body {
         -webkit-backdrop-filter: blur(14px) !important;
         border-top: 1px solid #e4e4e7 !important;
         display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
+        grid-template-columns: repeat(5, 1fr) !important;
         align-items: center !important;
         z-index: 999 !important;
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05) !important;
-        padding: 4px 4px calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+        padding: 4px 2px calc(4px + env(safe-area-inset-bottom, 0px)) !important;
     }
     .bottom-nav-item {
         display: flex !important;
@@ -6015,12 +6023,14 @@ body {
         background: none !important;
         border: none !important;
         cursor: pointer !important;
-        font-size: 11px !important;
+        font-size: 10.5px !important;
         font-weight: 600 !important;
         padding: 4px 0 !important;
+        white-space: nowrap !important;
     }
     .bottom-nav-item.telegram { color: #229ED9 !important; }
     .bottom-nav-item.viber { color: #7952c4 !important; }
+    .bottom-nav-item.instagram { color: #E1306C !important; }
     .bottom-nav-item.order-quick { color: #09090b !important; }
     .bottom-nav-item.cart-quick { color: #10b981 !important; }
     .bottom-cart-icon-wrapper {
@@ -6166,6 +6176,7 @@ body {
 
 .footer-msg-btn.telegram { background: #229ED9 !important; }
 .footer-msg-btn.viber { background: #7952c4 !important; }
+.footer-msg-btn.instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; color: #ffffff !important; }
 
 
 /* ==========================================================================
@@ -6279,6 +6290,7 @@ body {
 
 .header-msg-link.telegram { color: #229ED9 !important; }
 .header-msg-link.viber { color: #7952c4 !important; }
+.header-msg-link.instagram { color: #E1306C !important; }
 
 .header-cart-btn {
     position: relative !important;
@@ -6323,8 +6335,9 @@ body {
     .header-actions {
         gap: 6px !important;
     }
-    .header-msg-link.viber {
-        display: none !important; /* Keep Telegram, Search, Phone, Cart in mobile header for neatness */
+    .header-msg-link.viber,
+    .header-msg-link.instagram {
+        display: none !important; /* Keep Telegram, Search, Phone, Cart in mobile header for neatness; Viber and Instagram are accessible via sticky bottom nav and footer */
     }
 }
 
