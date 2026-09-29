@@ -1,23 +1,23 @@
 {
-  "total": 7392,
+  "total": 7387,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7392
+      "count": 7387
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4504
+      "count": 4497
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5298
+      "count": 5299
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7392
+      "count": 7387
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5649
+      "count": 5646
     },
     {
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 762
+      "count": 761
     },
     {
       "slug": "socks",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 791
+      "count": 790
     }
   ],
   "seasons": [
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7392
+      "count": 7387
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5521
+      "count": 5518
     },
     {
       "slug": "winter",
@@ -81,24 +81,24 @@
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1117
+      "count": 1115
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7392
+      "count": 7387
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2057
+      "count": 2055
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1316
+      "count": 1317
     },
     {
       "slug": "adidas",
@@ -108,7 +108,7 @@
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 408
+      "count": 407
     },
     {
       "slug": "ugg",
@@ -118,7 +118,7 @@
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 155
+      "count": 154
     },
     {
       "slug": "jordan",
@@ -268,7 +268,7 @@
     {
       "slug": "drmartens",
       "name": "Dr. Martens",
-      "count": 12
+      "count": 11
     },
     {
       "slug": "arcteryx",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 935
+      "count": 934
     }
   ]
 }
