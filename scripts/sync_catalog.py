@@ -8,6 +8,7 @@ import os
 import sys
 import re
 import json
+import math
 import urllib.request
 import tempfile
 import shutil
@@ -977,8 +978,11 @@ def main():
         season_counts[season_slug] += 1
         brand_counts[brand_slug] += 1
         
-        # Selling price with +25% markup, rounded to 10 грн
-        price = round((raw_price * 1.25) / 10) * 10
+        # Selling price with +25% markup (strictly not less than 500 UAH), rounded to 10 грн
+        markup = max(raw_price * 0.25, 500)
+        price = round((raw_price + markup) / 10) * 10
+        if price - raw_price < 500:
+            price = math.ceil((raw_price + 500) / 10) * 10
 
         # Old price for visual discount (15-20% above selling price, rounded to 10 грн)
         old_price = round((price * 1.18) / 10) * 10
