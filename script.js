@@ -906,15 +906,43 @@ async function sendOrderDispatch({
 
     let submitted = false;
 
-    // Спроба 1: Slapform (основний наднадійний шлюз для миттєвої доставки на lunarecho94@icloud.com)
+    // Спроба 1: ShipMyForm (прямий шлюз на lunarecho94@icloud.com без ліміту 2/день)
+    try {
+        const controllerShip = new AbortController();
+        const timeoutShip = setTimeout(() => controllerShip.abort(), 7000);
+        const shipRes = await fetch('https://shipmyform.com/to/lunarecho94@icloud.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                subject: emailSubject,
+                'Замовлення': formattedOrderId,
+                'Дата': orderRecord.date,
+                'Клієнт': customerName,
+                'Телефон': cleanPhone || customerPhone,
+                'Доставка': delivery,
+                'Оплата': payment,
+                'Сума': total,
+                'Товари': itemsText,
+                'Дані для ТТН': quickTtn
+            }),
+            signal: controllerShip.signal
+        });
+        clearTimeout(timeoutShip);
+        if (shipRes.ok) {
+            submitted = true;
+        }
+    } catch (shipErr) {
+        console.warn('ShipMyForm dispatch note:', shipErr);
+    }
+
+    // Спроба 2: Slapform (хмарне збереження в панелі Slapform та резервна доставка)
     const SLAPFORM_FORM_ID = window.SLAPFORM_FORM_ID || '6Z5d923ip';
     if (SLAPFORM_FORM_ID) {
         try {
             const controller0 = new AbortController();
-            const timeoutId0 = setTimeout(() => controller0.abort(), 8000);
+            const timeoutId0 = setTimeout(() => controller0.abort(), 6000);
             const slapPayload = {
                 slap_subject: emailSubject,
-                slap_replyto: 'lunarecho94@icloud.com',
                 'Замовлення': formattedOrderId,
                 'Дата': orderRecord.date,
                 'Клієнт': customerName,
@@ -942,6 +970,31 @@ async function sendOrderDispatch({
         } catch (slapErr) {
             console.warn('Slapform dispatch note:', slapErr);
         }
+    }
+
+    // Додатковий канал: Telegram Bot (миттєве push-сповіщення менеджеру зі звуком на смартфон)
+    const TG_TOKEN = window.TG_ORDER_BOT_TOKEN || '';
+    const TG_CHAT = window.TG_ORDER_CHAT_ID || '';
+    if (TG_TOKEN && TG_CHAT) {
+        try {
+            const tgText = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ ${formattedOrderId}</b>\n\n` +
+                `👤 <b>Клієнт:</b> ${customerName}\n` +
+                `📞 <b>Телефон:</b> ${cleanPhone || customerPhone}\n` +
+                `📍 <b>Доставка:</b> ${delivery}\n` +
+                `💳 <b>Оплата:</b> ${payment}\n` +
+                `💰 <b>Сума:</b> <b>${total}</b>\n\n` +
+                `📦 <b>Товари:</b>\n${itemsText}\n\n` +
+                `📋 <b>Дані для ТТН:</b>\n${quickTtn}`;
+            fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TG_CHAT,
+                    text: tgText,
+                    parse_mode: 'HTML'
+                })
+            }).catch(() => {});
+        } catch (tgErr) {}
     }
 
     // Спроба 2: FormSubmit (резервний шлюз, якщо основний не відповів)
