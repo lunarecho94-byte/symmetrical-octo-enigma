@@ -1351,6 +1351,10 @@ function closeOrderSuccessModal() {
     const modal = document.getElementById('orderSuccessModal');
     if (modal) modal.style.display = 'none';
     document.body.style.overflow = '';
+    const catalogSection = document.getElementById('catalog');
+    if (catalogSection) {
+        catalogSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 async function downloadLastGeneratedPdf() {
