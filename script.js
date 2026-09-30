@@ -906,28 +906,33 @@ async function sendOrderDispatch({
 
     let submitted = false;
 
-    // Спроба 1: Slapform (якщо налаштовано Form ID)
-    const SLAPFORM_FORM_ID = window.SLAPFORM_FORM_ID || '';
+    // Спроба 1: Slapform (основний наднадійний шлюз для миттєвої доставки на lunarecho94@icloud.com)
+    const SLAPFORM_FORM_ID = window.SLAPFORM_FORM_ID || '6Z5d923ip';
     if (SLAPFORM_FORM_ID) {
         try {
             const controller0 = new AbortController();
             const timeoutId0 = setTimeout(() => controller0.abort(), 8000);
+            const slapPayload = {
+                slap_subject: emailSubject,
+                slap_replyto: 'lunarecho94@icloud.com',
+                'Замовлення': formattedOrderId,
+                'Дата': orderRecord.date,
+                'Клієнт': customerName,
+                'Телефон': cleanPhone || customerPhone,
+                'Доставка': delivery,
+                'Оплата': payment,
+                'Сума': total,
+                'Товари': itemsText,
+                'Дані для ТТН': quickTtn
+            };
+            if (contactPreference) {
+                slapPayload['Дзвінок'] = contactPreference;
+            }
+
             const slapRes = await fetch(`https://api.slapform.com/${SLAPFORM_FORM_ID}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    slap_subject: emailSubject,
-                    slap_replyto: cleanPhone ? `${cleanPhone}@phone.local` : 'order@urbangrid.com.ua',
-                    'Замовлення': formattedOrderId,
-                    'Дата': orderRecord.date,
-                    'Клієнт': customerName,
-                    'Телефон': cleanPhone || customerPhone,
-                    'Доставка': delivery,
-                    'Оплата': payment,
-                    'Сума': total,
-                    'Товари': itemsText,
-                    'Дані для ТТН': quickTtn
-                }),
+                body: JSON.stringify(slapPayload),
                 signal: controller0.signal
             });
             clearTimeout(timeoutId0);
@@ -939,26 +944,28 @@ async function sendOrderDispatch({
         }
     }
 
-    // Спроба 2: FormSubmit (повне замовлення)
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 9000);
+    // Спроба 2: FormSubmit (резервний шлюз, якщо основний не відповів)
+    if (!submitted) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 9000);
 
-        const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
-            method: 'POST',
-            body: buildFormData(true),
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
+            const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
+                method: 'POST',
+                body: buildFormData(true),
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
 
-        if (response.ok) {
-            const json = await response.json().catch(() => ({}));
-            if (json.success === true || json.success === 'true') {
-                submitted = true;
+            if (response.ok) {
+                const json = await response.json().catch(() => ({}));
+                if (json.success === true || json.success === 'true') {
+                    submitted = true;
+                }
             }
+        } catch (err1) {
+            console.warn('Order submit attempt 1 note:', err1);
         }
-    } catch (err1) {
-        console.warn('Order submit attempt 1 note:', err1);
     }
 
     // Спроба 2: Якщо спроба 1 не вдалася і було вкладення PDF — надсилаємо легкий текстовий пакет без PDF
