@@ -906,7 +906,40 @@ async function sendOrderDispatch({
 
     let submitted = false;
 
-    // Спроба 1: Повне замовлення
+    // Спроба 1: Slapform (якщо налаштовано Form ID)
+    const SLAPFORM_FORM_ID = window.SLAPFORM_FORM_ID || '';
+    if (SLAPFORM_FORM_ID) {
+        try {
+            const controller0 = new AbortController();
+            const timeoutId0 = setTimeout(() => controller0.abort(), 8000);
+            const slapRes = await fetch(`https://api.slapform.com/${SLAPFORM_FORM_ID}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    slap_subject: emailSubject,
+                    slap_replyto: cleanPhone ? `${cleanPhone}@phone.local` : 'order@urbangrid.com.ua',
+                    'Замовлення': formattedOrderId,
+                    'Дата': orderRecord.date,
+                    'Клієнт': customerName,
+                    'Телефон': cleanPhone || customerPhone,
+                    'Доставка': delivery,
+                    'Оплата': payment,
+                    'Сума': total,
+                    'Товари': itemsText,
+                    'Дані для ТТН': quickTtn
+                }),
+                signal: controller0.signal
+            });
+            clearTimeout(timeoutId0);
+            if (slapRes.ok) {
+                submitted = true;
+            }
+        } catch (slapErr) {
+            console.warn('Slapform dispatch note:', slapErr);
+        }
+    }
+
+    // Спроба 2: FormSubmit (повне замовлення)
     try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 9000);
