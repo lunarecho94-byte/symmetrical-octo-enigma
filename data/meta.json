@@ -1,23 +1,23 @@
 {
-  "total": 7419,
+  "total": 7423,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7419
+      "count": 7423
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4513
+      "count": 4522
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5323
+      "count": 5315
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7419
+      "count": 7423
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5681
+      "count": 5686
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 787
+      "count": 786
     }
   ],
   "seasons": [
@@ -63,47 +63,47 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7419
+      "count": 7423
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5545
+      "count": 5551
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 760
+      "count": 759
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1114
+      "count": 1113
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7419
+      "count": 7423
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2054
+      "count": 2063
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1334
+      "count": 1333
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 511
+      "count": 510
     },
     {
       "slug": "asics",
@@ -113,7 +113,7 @@
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 391
+      "count": 390
     },
     {
       "slug": "chanel",
@@ -153,7 +153,7 @@
     {
       "slug": "coach",
       "name": "Coach",
-      "count": 76
+      "count": 75
     },
     {
       "slug": "saintlaurent",
@@ -173,7 +173,7 @@
     {
       "slug": "premiata",
       "name": "Premiata",
-      "count": 58
+      "count": 57
     },
     {
       "slug": "offwhite",
