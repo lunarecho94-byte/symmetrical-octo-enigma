@@ -377,6 +377,19 @@ function toggleFavorite(productId, event) {
             favs.push(compactItem);
             saveFavorites(favs);
             showCartToast(`❤️ "${compactItem.name}" додано в Обране!`);
+
+            // Meta Pixel Wishlist Tracking
+            if (window.fbq) {
+                try {
+                    fbq('track', 'AddToWishlist', {
+                        content_name: compactItem.name,
+                        content_category: compactItem.cat || 'shoes',
+                        content_ids: [String(compactItem.id)],
+                        value: compactItem.price || 0,
+                        currency: 'UAH'
+                    });
+                } catch (e) {}
+            }
         }
     }
 
