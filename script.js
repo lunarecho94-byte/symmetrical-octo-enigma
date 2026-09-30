@@ -1009,44 +1009,30 @@ async function sendOrderDispatch({
 
     // Додатковий найнадійніший канал: Telegram Bot (миттєве push-сповіщення менеджеру зі звуком)
     const TG_TOKEN = window.TG_ORDER_BOT_TOKEN || '8679193496:AAGi5T0ZijUX1ksKkY0T2KB8Hh0UK_W2MyE';
-    let TG_CHAT = window.TG_ORDER_CHAT_ID || localStorage.getItem('ug_tg_chat_id') || '';
+    const TG_CHAT = window.TG_ORDER_CHAT_ID || '7907920864';
 
     async function dispatchTelegramNotification() {
-        if (!TG_TOKEN) return;
+        if (!TG_TOKEN || !TG_CHAT) return;
         try {
-            if (!TG_CHAT) {
-                const updRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/getUpdates?limit=5`).then(r => r.json()).catch(() => null);
-                if (updRes && updRes.result && updRes.result.length > 0) {
-                    const lastMsg = updRes.result[updRes.result.length - 1];
-                    const foundChat = lastMsg?.message?.chat?.id || lastMsg?.my_chat_member?.chat?.id;
-                    if (foundChat) {
-                        TG_CHAT = String(foundChat);
-                        localStorage.setItem('ug_tg_chat_id', TG_CHAT);
-                    }
-                }
-            }
+            const tgText = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ ${formattedOrderId}</b>\n\n` +
+                `👤 <b>Клієнт:</b> ${customerName}\n` +
+                `📞 <b>Телефон:</b> ${cleanPhone || customerPhone}\n` +
+                `📍 <b>Доставка:</b> ${delivery}\n` +
+                `💳 <b>Оплата:</b> ${payment}\n` +
+                `💰 <b>Сума:</b> <b>${total}</b>\n\n` +
+                `📦 <b>Товари:</b>\n${itemsText}\n\n` +
+                `📋 <b>Дані для ТТН:</b>\n<code>${quickTtn}</code>`;
 
-            if (TG_CHAT) {
-                const tgText = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ ${formattedOrderId}</b>\n\n` +
-                    `👤 <b>Клієнт:</b> ${customerName}\n` +
-                    `📞 <b>Телефон:</b> ${cleanPhone || customerPhone}\n` +
-                    `📍 <b>Доставка:</b> ${delivery}\n` +
-                    `💳 <b>Оплата:</b> ${payment}\n` +
-                    `💰 <b>Сума:</b> <b>${total}</b>\n\n` +
-                    `📦 <b>Товари:</b>\n${itemsText}\n\n` +
-                    `📋 <b>Дані для ТТН:</b>\n<code>${quickTtn}</code>`;
-
-                const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: TG_CHAT,
-                        text: tgText,
-                        parse_mode: 'HTML'
-                    })
-                });
-                if (tgRes.ok) submitted = true;
-            }
+            const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TG_CHAT,
+                    text: tgText,
+                    parse_mode: 'HTML'
+                })
+            });
+            if (tgRes.ok) submitted = true;
         } catch (tgErr) {
             console.warn('Telegram dispatch note:', tgErr);
         }
