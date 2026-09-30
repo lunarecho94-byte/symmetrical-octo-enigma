@@ -1,23 +1,23 @@
 {
-  "total": 7423,
+  "total": 7428,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7423
+      "count": 7428
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4522
+      "count": 4527
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5315
+      "count": 5320
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7423
+      "count": 7428
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5686
+      "count": 5691
     },
     {
       "slug": "clothing",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7423
+      "count": 7428
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5551
+      "count": 5556
     },
     {
       "slug": "winter",
@@ -88,7 +88,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7423
+      "count": 7428
     },
     {
       "slug": "nike",
@@ -108,7 +108,7 @@
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 409
+      "count": 413
     },
     {
       "slug": "ugg",
@@ -138,7 +138,7 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 108
+      "count": 110
     },
     {
       "slug": "oncloud",
@@ -193,7 +193,7 @@
     {
       "slug": "puma",
       "name": "Puma",
-      "count": 43
+      "count": 42
     },
     {
       "slug": "calvinklein",
