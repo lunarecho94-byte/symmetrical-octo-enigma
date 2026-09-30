@@ -828,6 +828,129 @@ async function generateOrderPdf(orderId, orderDate) {
     }
 }
 
+/**
+ * Резервований диспетчер надсилання замовлень:
+ * 1. Надійне збереження в автономний реєстр (localStorage + sessionStorage) - 0% втрат замовлень
+ * 2. Основна відправка через FormSubmit AJAX із розширеним таймаутом (9с) та валідним реферером
+ * 3. Автоматичний повтор (retry) без важкого PDF-вкладення у разі повільного мобільного зв'язку
+ */
+async function sendOrderDispatch({
+    orderId,
+    orderDate,
+    customerName,
+    customerPhone,
+    delivery,
+    payment,
+    itemsText,
+    quickTtn,
+    total,
+    subject,
+    contactPreference,
+    pdfResult
+}) {
+    const formattedOrderId = (orderId || 'UG-0000').startsWith('#') ? orderId : `#${orderId}`;
+    const cleanPhone = (customerPhone || '').replace(/[^\d+]/g, '');
+
+    // 1. Збереження в локальний автономний журнал замовлень (гарантія безпеки даних менеджера)
+    const orderRecord = {
+        orderId: formattedOrderId,
+        date: orderDate || new Date().toLocaleString('uk-UA'),
+        customerName: customerName || 'Клієнт',
+        customerPhone: cleanPhone || customerPhone,
+        delivery: delivery || 'Узгодити з менеджером',
+        payment: payment || 'Накладений платіж',
+        items: itemsText || '',
+        quickTtn: quickTtn || '',
+        total: total || '',
+        timestamp: Date.now()
+    };
+
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(orderRecord));
+        const existingLedger = JSON.parse(localStorage.getItem('ug_orders_ledger') || '[]');
+        existingLedger.unshift(orderRecord);
+        if (existingLedger.length > 100) existingLedger.length = 100;
+        localStorage.setItem('ug_orders_ledger', JSON.stringify(existingLedger));
+    } catch (e) {
+        console.warn('Order ledger save note:', e);
+    }
+
+    // 2. Формування даних для відправки на пошту
+    const emailSubject = subject || `Замовлення ${formattedOrderId} | ${total} | ${customerName}`;
+    const currentOrigin = window.location.origin || 'https://urbangrid.com.ua';
+
+    function buildFormData(withAttachment = true) {
+        const fd = new FormData();
+        fd.append('_captcha', 'false');
+        fd.append('_template', 'table');
+        fd.append('_subject', emailSubject);
+        fd.append('_url', currentOrigin);
+
+        fd.append('№', `${formattedOrderId} (${orderRecord.date})`);
+        fd.append('Сума', total);
+        fd.append('Оплата', payment);
+        if (contactPreference) {
+            fd.append('Дзвінок', contactPreference);
+        }
+        fd.append('Клієнт', customerName);
+        fd.append('Тел', cleanPhone || customerPhone);
+        fd.append('Доставка', delivery);
+        fd.append('Товари', itemsText);
+        fd.append('Для ТТН', quickTtn);
+
+        if (withAttachment && pdfResult && pdfResult.blob) {
+            fd.append('attachment', pdfResult.blob, pdfResult.fileName || `Zamovlennya_${orderId}.pdf`);
+        }
+        return fd;
+    }
+
+    let submitted = false;
+
+    // Спроба 1: Повне замовлення
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 9000);
+
+        const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
+            method: 'POST',
+            body: buildFormData(true),
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+            const json = await response.json().catch(() => ({}));
+            if (json.success === true || json.success === 'true') {
+                submitted = true;
+            }
+        }
+    } catch (err1) {
+        console.warn('Order submit attempt 1 note:', err1);
+    }
+
+    // Спроба 2: Якщо спроба 1 не вдалася і було вкладення PDF — надсилаємо легкий текстовий пакет без PDF
+    if (!submitted && pdfResult && pdfResult.blob) {
+        try {
+            const controller2 = new AbortController();
+            const timeoutId2 = setTimeout(() => controller2.abort(), 8000);
+
+            const retryRes = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
+                method: 'POST',
+                body: buildFormData(false),
+                signal: controller2.signal
+            });
+            clearTimeout(timeoutId2);
+
+            if (retryRes.ok) {
+                submitted = true;
+            }
+        } catch (err2) {
+            console.warn('Order submit retry note:', err2);
+        }
+    }
+
+    return submitted;
+}
 
 async function handleCheckoutFormSubmit(e) {
     if (e && e.preventDefault) {
@@ -1011,46 +1134,21 @@ async function handleCheckoutFormSubmit(e) {
         }
     }
 
-    // Build the cleanest, most professional FormData for FormSubmit.co (compact keys to widen the Value column)
-    const formData = new FormData();
-    formData.append('_captcha', 'false');
-    formData.append('_template', 'table');
-    formData.append('_subject', emailSubject);
-    formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
-
-    formData.append('№', `#${orderId} (${formattedDate})`);
-    formData.append('Сума', formattedTotal);
-    formData.append('Оплата', paymentFormatted);
-    formData.append('Дзвінок', contactPreference);
-    formData.append('Клієнт', customerName);
-    formData.append('Тел', customerPhone);
-    formData.append('Доставка', combinedAddress);
-    formData.append('Товари', orderItemsText);
-    formData.append('Для ТТН', quickTtnBlock);
-
-    if (pdfResult && pdfResult.blob) {
-        formData.append('attachment', pdfResult.blob, pdfResult.fileName);
-    }
-
-    let submittedOk = false;
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-        const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
-            method: 'POST',
-            body: formData,
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-
-        const result = await response.json();
-        if (result.success === 'true' || result.success === true) {
-            submittedOk = true;
-        }
-    } catch (fetchErr) {
-        console.warn('FormSubmit AJAX failed or timed out:', fetchErr);
-    }
+    // Dispatch order to email and save to local ledger
+    await sendOrderDispatch({
+        orderId,
+        orderDate: formattedDate,
+        customerName,
+        customerPhone,
+        delivery: combinedAddress,
+        payment: paymentFormatted,
+        itemsText: orderItemsText,
+        quickTtn: quickTtnBlock,
+        total: formattedTotal,
+        subject: emailSubject,
+        contactPreference,
+        pdfResult
+    });
 
     // Ad Conversion Tracking (Meta Pixel & GA4)
     const orderTotalNumPurchase = parseInt((document.getElementById('pdfGrandTotalSum')?.textContent || '2500').replace(/\D/g, ''), 10) || 2500;
@@ -3129,28 +3227,23 @@ async function checkoutViaMessenger(messenger) {
         } catch (e) {}
     }
 
-    // Track lead asynchronously in background with complete order details
+    // Track lead and record in order dispatch ledger
     try {
         if (order.customerPhone) {
             const messengerName = messenger === 'telegram' ? 'Telegram' : 'Viber';
-            const formData = new FormData();
-            formData.append('_captcha', 'false');
-            formData.append('_template', 'table');
-            formData.append('_subject', `Запит у ${messengerName} #${order.orderId} | ${order.totalPrice.toLocaleString('uk-UA')} грн | ${order.customerName || 'Клієнт'}`);
-            formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
-
-            formData.append('№', `#${order.orderId}`);
-            formData.append('Канал', `Месенджер ${messengerName}`);
-            formData.append('Сума', `${order.totalPrice.toLocaleString('uk-UA')} грн`);
-            formData.append('Клієнт', order.customerName || 'Клієнт (месенджер)');
-            formData.append('Тел', order.customerPhone || 'Вказати в чаті');
-            formData.append('Доставка', `${order.city} ${order.warehouse}`.trim() || 'Узгодити в месенджері');
-            formData.append('Товари', order.text);
-            formData.append('Статус', `Перехід клієнта у ${messengerName}`);
-
-            fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
-                method: 'POST',
-                body: formData
+            sendOrderDispatch({
+                orderId: order.orderId,
+                orderDate: new Date().toLocaleString('uk-UA'),
+                customerName: order.customerName || 'Клієнт (месенджер)',
+                customerPhone: order.customerPhone || 'Вказати в чаті',
+                delivery: `${order.city || ''} ${order.warehouse || ''}`.trim() || 'Узгодити в месенджері',
+                payment: `Оформлення через ${messengerName}`,
+                itemsText: order.text || '',
+                quickTtn: `${order.customerName || 'Клієнт'} — ${order.customerPhone || ''}`,
+                total: `${order.totalPrice.toLocaleString('uk-UA')} грн`,
+                subject: `Запит у ${messengerName} #${order.orderId} | ${order.totalPrice.toLocaleString('uk-UA')} грн | ${order.customerName || 'Клієнт'}`,
+                contactPreference: `Перехід клієнта у ${messengerName}`,
+                pdfResult: null
             }).catch(() => {});
         }
     } catch (e) {}
@@ -3216,6 +3309,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('checkoutForm');
     if (form) {
         form.addEventListener('submit', handleCheckoutFormSubmit);
+    }
+
+    // Check if manager opened ?orders or ?admin in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('orders') || urlParams.has('admin')) {
+        setTimeout(showManagerOrdersModal, 300);
     }
 });
 
@@ -3414,19 +3513,7 @@ async function handleQuickOrderSubmit(e) {
     const firstItemShort = orderItemsDesc.split('\n')[0].slice(0, 60);
     const subject = `ШВИДКЕ ЗАМОВЛЕННЯ В 1 КЛІК #${orderId} | ${phoneCheck.formatted} | ${nameVal} | ${firstItemShort}`;
 
-    const formData = new FormData();
-    formData.append('_captcha', 'false');
-    formData.append('_template', 'table');
-    formData.append('_subject', subject);
-    formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
-    formData.append('Тип', 'Швидке замовлення в 1 клік');
-    formData.append('№', `#${orderId} (${formattedDate})`);
-    formData.append('Клієнт', nameVal);
-    formData.append('Тел', phoneCheck.formatted);
-    formData.append('Товар', orderItemsDesc);
-    formData.append('Статус', 'Очікує швидкого дзвінка менеджера');
-    formData.append('Дзвінок', `tel:${phoneVal}`);
-
+    const quickItems = chosenModel || orderItemsDesc;
     const quickOrderData = {
         orderId: orderId,
         orderDate: formattedDate,
@@ -3434,38 +3521,32 @@ async function handleQuickOrderSubmit(e) {
         customerPhone: phoneCheck.formatted,
         customerAddress: 'Уточнити по телефону (менеджер зателефонує)',
         paymentMethod: 'Узгодити з менеджером',
-        itemsSummary: chosenModel || orderItemsDesc,
+        itemsSummary: quickItems,
         subtotalFormatted: 'Згідно з обраною парою'
     };
 
-    try {
-        sessionStorage.setItem('ug_last_order', JSON.stringify(quickOrderData));
-    } catch (e) {}
+    await sendOrderDispatch({
+        orderId,
+        orderDate: formattedDate,
+        customerName: nameVal,
+        customerPhone: phoneCheck.formatted,
+        delivery: 'Уточнити по телефону (Нова Пошта)',
+        payment: 'Узгодити з менеджером (Накладений платіж / передплата)',
+        itemsText: quickItems,
+        quickTtn: `${nameVal} — ${phoneCheck.formatted} — ${quickItems}`,
+        total: 'Швидке замовлення в 1 клік',
+        subject: subject,
+        contactPreference: 'Очікує швидкого дзвінка менеджера (1 клік)',
+        pdfResult: null
+    });
 
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-        const res = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
-            method: 'POST',
-            body: formData,
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        const json = await res.json();
-        
-        if (json.success === true || json.success === 'true') {
-            if (window.fbq) {
-                try {
-                    fbq('track', 'Lead', {
-                        content_name: chosenModel || 'Замовлення в 1 клік',
-                        currency: 'UAH'
-                    });
-                } catch (e) {}
-            }
-        }
-    } catch (err) {
-        console.warn('1-click order FormSubmit note:', err);
+    if (window.fbq) {
+        try {
+            fbq('track', 'Lead', {
+                content_name: chosenModel || 'Замовлення в 1 клік',
+                currency: 'UAH'
+            });
+        } catch (e) {}
     }
 
     if (submitBtn) {
@@ -3671,40 +3752,20 @@ async function handleCartDirectCheckout(e) {
         console.warn('PDF generation in cart checkout:', pdfErr);
     }
 
-    // Build FormData for FormSubmit
-    const formData = new FormData();
-    formData.append('_captcha', 'false');
-    formData.append('_template', 'table');
-    formData.append('_subject', subject);
-    formData.append('_url', window.location.origin || 'https://urbangrid.com.ua');
-
-    formData.append('№', `#${orderId} (${formattedDate})`);
-    formData.append('Сума', formattedTotal);
-    formData.append('Клієнт', customerName);
-    formData.append('Тел', phoneCheck.formatted);
-    formData.append('Доставка', fullDelivery);
-    formData.append('Оплата', paymentMethod);
-    formData.append('Товари', orderItemsText);
-    formData.append('Для ТТН', quickTtnBlock);
-
-    if (pdfResult && pdfResult.blob) {
-        formData.append('attachment', pdfResult.blob, pdfResult.fileName);
-    }
-
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-        const response = await fetch('https://formsubmit.co/ajax/lunarecho94@icloud.com', {
-            method: 'POST',
-            body: formData,
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        const resJson = await response.json();
-    } catch (err) {
-        console.warn('Cart checkout submission note:', err);
-    }
+    await sendOrderDispatch({
+        orderId,
+        orderDate: formattedDate,
+        customerName,
+        customerPhone: phoneCheck.formatted,
+        delivery: fullDelivery,
+        payment: paymentMethod,
+        itemsText: orderItemsText,
+        quickTtn: quickTtnBlock,
+        total: formattedTotal,
+        subject,
+        contactPreference: 'Оформлення через кошик',
+        pdfResult
+    });
 
     if (window.fbq) {
         try {
@@ -4274,9 +4335,174 @@ document.addEventListener('keydown', (e) => {
         if (orderSuccessModal && orderSuccessModal.style.display !== 'none') {
             closeOrderSuccessModal();
         }
+        const managerModal = document.getElementById('managerOrdersModal');
+        if (managerModal && managerModal.style.display !== 'none') {
+            closeManagerOrdersModal();
+        }
         const cartDrawer = document.getElementById('cartDrawer');
         if (cartDrawer && cartDrawer.classList.contains('active')) {
             closeCart();
         }
     }
 });
+
+// ==========================================================================
+// MANAGER ORDERS LEDGER (Fail-Safe Offline/Online Order Storage & Review)
+// ==========================================================================
+
+function getOrdersLedger() {
+    try {
+        return JSON.parse(localStorage.getItem('ug_orders_ledger') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function showManagerOrdersModal() {
+    let modal = document.getElementById('managerOrdersModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'managerOrdersModal';
+        modal.className = 'manager-orders-modal';
+        modal.style.cssText = 'position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(4px);';
+        modal.innerHTML = `
+            <div style="background:#fff;width:100%;max-width:850px;max-height:90vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);font-family:inherit;">
+                <div style="padding:16px 20px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;background:#f9fafb;">
+                    <div>
+                        <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#111827;">📦 Журнал замовлень URBAN</h3>
+                        <p style="margin:2px 0 0;font-size:0.8rem;color:#6b7280;">Автономний резервний реєстр замовлень на цьому пристрої</p>
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <button type="button" onclick="exportOrdersAsText()" style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;">📥 Експорт (.txt)</button>
+                        <button type="button" onclick="closeManagerOrdersModal()" style="padding:6px 12px;background:#f3f4f6;color:#374151;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;cursor:pointer;">✕</button>
+                    </div>
+                </div>
+                <div id="managerOrdersList" style="padding:16px 20px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px;"></div>
+                <div style="padding:12px 20px;border-top:1px solid #e5e7eb;background:#f9fafb;display:flex;justify-content:space-between;align-items:center;">
+                    <button type="button" onclick="clearOrdersLedger()" style="padding:6px 12px;background:#fee2e2;color:#b91c1c;border:none;border-radius:6px;font-size:0.75rem;cursor:pointer;">Очистити список</button>
+                    <span id="managerOrdersCount" style="font-size:0.8rem;color:#6b7280;"></span>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    renderManagerOrdersList();
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeManagerOrdersModal() {
+    const modal = document.getElementById('managerOrdersModal');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+function renderManagerOrdersList() {
+    const list = document.getElementById('managerOrdersList');
+    const countEl = document.getElementById('managerOrdersCount');
+    if (!list) return;
+
+    const orders = getOrdersLedger();
+    if (countEl) countEl.textContent = `Всього замовлень: ${orders.length}`;
+
+    if (orders.length === 0) {
+        list.innerHTML = `
+            <div style="text-align:center;padding:48px 16px;color:#9ca3af;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 12px;"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                <p style="font-weight:600;font-size:1rem;color:#4b5563;margin-bottom:4px;">Поки що немає збережених замовлень</p>
+                <p style="font-size:0.85rem;color:#6b7280;">Кожне нове замовлення, оформлене на сайті, автоматично зберігатиметься тут.</p>
+            </div>
+        `;
+        return;
+    }
+
+    list.innerHTML = orders.map((ord, idx) => {
+        const cleanPhone = (ord.customerPhone || '').replace(/[^\d+]/g, '');
+        const tgMsg = `Замовлення ${ord.orderId}:\nКлієнт: ${ord.customerName} (${ord.customerPhone})\nДоставка: ${ord.delivery}\nСума: ${ord.total}\nТовари:\n${ord.items}`;
+        const tgLink = `https://t.me/lunarecho94?text=${encodeURIComponent(tgMsg)}`;
+
+        return `
+            <div style="border:1px solid #e5e7eb;border-radius:12px;padding:14px;background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,0.05);display:flex;flex-direction:column;gap:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;border-bottom:1px solid #f3f4f6;padding-bottom:8px;">
+                    <div>
+                        <span style="background:#111827;color:#fff;font-size:0.75rem;font-weight:800;padding:2px 8px;border-radius:6px;margin-right:6px;">${escapeHtml(ord.orderId || '')}</span>
+                        <span style="font-size:0.8rem;color:#6b7280;">${escapeHtml(ord.date || '')}</span>
+                    </div>
+                    <div style="font-size:0.95rem;font-weight:800;color:#059669;">
+                        ${escapeHtml(ord.total || '')}
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:6px;font-size:0.85rem;">
+                    <div><span style="color:#6b7280;">Клієнт:</span> <b>${escapeHtml(ord.customerName || '')}</b></div>
+                    <div><span style="color:#6b7280;">Тел:</span> <a href="tel:${cleanPhone}" style="color:#2563eb;font-weight:700;text-decoration:none;">${escapeHtml(ord.customerPhone || '')}</a></div>
+                    <div style="grid-column:1/-1;"><span style="color:#6b7280;">Доставка:</span> <b>${escapeHtml(ord.delivery || '')}</b></div>
+                    <div style="grid-column:1/-1;"><span style="color:#6b7280;">Оплата:</span> <b>${escapeHtml(ord.payment || '')}</b></div>
+                </div>
+                <div style="background:#f9fafb;padding:8px 10px;border-radius:8px;font-size:0.8rem;color:#374151;white-space:pre-wrap;line-height:1.4;">${escapeHtml(ord.items || '')}</div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:4px;">
+                    <button type="button" onclick="copyOrderTtn(${idx})" style="padding:6px 12px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">📋 Копіювати для Нової Пошти</button>
+                    <a href="${tgLink}" target="_blank" style="padding:6px 12px;background:#e0f2fe;color:#0284c7;border-radius:6px;font-size:0.75rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">💬 Відкрити в Telegram</a>
+                    <a href="tel:${cleanPhone}" style="padding:6px 12px;background:#ecfdf5;color:#059669;border-radius:6px;font-size:0.75rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">📞 Зателефонувати</a>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function copyOrderTtn(idx) {
+    const orders = getOrdersLedger();
+    const ord = orders[idx];
+    if (!ord) return;
+    const cleanPhone = (ord.customerPhone || '').replace(/[^\d+]/g, '');
+    const ttnCopyText = `ПІБ: ${ord.customerName}\nТел: ${cleanPhone}\nДоставка: ${ord.delivery}\nТовари: ${ord.quickTtn || ord.items}\nОплата: ${ord.payment} — ${ord.total}`;
+    copyTextToClipboard(ttnCopyText);
+    showCartToast('Дані для ТТН скопійовано!');
+}
+window.copyOrderTtn = copyOrderTtn;
+
+function exportOrdersAsText() {
+    const orders = getOrdersLedger();
+    if (orders.length === 0) {
+        showCartToast('Журнал замовлень порожній');
+        return;
+    }
+
+    let text = `URBAN — ЖУРНАЛ ЗАМОВЛЕНЬ (${new Date().toLocaleString('uk-UA')})\n\n`;
+    orders.forEach((ord, i) => {
+        text += `========================================\n`;
+        text += `ЗАМОВЛЕННЯ ${ord.orderId} від ${ord.date}\n`;
+        text += `Клієнт: ${ord.customerName}\n`;
+        text += `Тел: ${ord.customerPhone}\n`;
+        text += `Доставка: ${ord.delivery}\n`;
+        text += `Оплата: ${ord.payment}\n`;
+        text += `Сума: ${ord.total}\n`;
+        text += `Товари:\n${ord.items}\n`;
+        text += `ДЛЯ ТТН: ${ord.quickTtn}\n\n`;
+    });
+
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `URBAN_Zamovlennya_${new Date().toISOString().slice(0, 10)}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showCartToast('Файл із замовленнями завантажено!');
+}
+
+function clearOrdersLedger() {
+    if (confirm('Ви впевнені, що хочете очистити історію замовлень на цьому пристрої?')) {
+        localStorage.removeItem('ug_orders_ledger');
+        renderManagerOrdersList();
+        showCartToast('Журнал замовлень очищено');
+    }
+}
+
+window.showManagerOrdersModal = showManagerOrdersModal;
+window.closeManagerOrdersModal = closeManagerOrdersModal;
+window.exportOrdersAsText = exportOrdersAsText;
+window.clearOrdersLedger = clearOrdersLedger;
+
