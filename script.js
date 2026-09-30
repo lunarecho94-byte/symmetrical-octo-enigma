@@ -291,6 +291,345 @@ function toggleCart() {
     }
 }
 
+// ==========================================
+// FAVORITES (ОБРАНЕ) STORAGE & ENGINE
+// ==========================================
+const FAVORITES_STORAGE_KEY = 'ug_favorites';
+
+function getFavorites() {
+    try {
+        const stored = localStorage.getItem(FAVORITES_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveFavorites(favs) {
+    try {
+        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favs));
+    } catch (e) {}
+    updateFavoritesUI();
+}
+
+function isFavorite(productId) {
+    if (!productId) return false;
+    const favs = getFavorites();
+    return favs.some(f => String(f.id) === String(productId));
+}
+
+function toggleFavorite(productId, event) {
+    if (event && event.stopPropagation) {
+        event.stopPropagation();
+    }
+    if (event && event.preventDefault) {
+        event.preventDefault();
+    }
+    if (!productId) return;
+
+    let favs = getFavorites();
+    const existingIndex = favs.findIndex(f => String(f.id) === String(productId));
+
+    if (existingIndex > -1) {
+        const removedItem = favs[existingIndex];
+        favs.splice(existingIndex, 1);
+        saveFavorites(favs);
+        showCartToast(`"${removedItem.name || 'Товар'}" видалено з Обраного`);
+    } else {
+        let item = null;
+        if (catalogAllProducts && catalogAllProducts.length) {
+            item = catalogAllProducts.find(p => String(p.id) === String(productId));
+        }
+        if (!item && catalogFilteredProducts && catalogFilteredProducts.length) {
+            item = catalogFilteredProducts.find(p => String(p.id) === String(productId));
+        }
+        if (!item) {
+            const card = document.getElementById(`prod-${productId}`);
+            if (card) {
+                const cardImg = card.querySelector('.product-img-wrapper img');
+                item = {
+                    id: productId,
+                    name: card.dataset.name || 'Товар',
+                    brand: card.dataset.brand || '',
+                    brand_name: card.dataset.brand || '',
+                    art: card.dataset.art || '',
+                    cat: card.dataset.category || 'shoes',
+                    price: parseInt(card.dataset.price || '0', 10),
+                    imgs: cardImg && cardImg.src ? [cardImg.dataset.srcOrig || cardImg.src] : ['images/sneakers.webp'],
+                    sizes: []
+                };
+            }
+        }
+
+        if (item) {
+            const compactItem = {
+                id: String(item.id),
+                name: item.name,
+                brand: item.brand || item.brand_name || '',
+                brand_name: item.brand_name || item.brand || '',
+                art: item.art || '',
+                cat: item.cat || 'shoes',
+                price: item.price,
+                old_price: item.old_price || null,
+                img: (item.imgs && item.imgs[0]) ? item.imgs[0] : (item.img || 'images/sneakers.webp'),
+                sizes: (item.sizes && item.sizes.length) ? item.sizes : []
+            };
+            favs.push(compactItem);
+            saveFavorites(favs);
+            showCartToast(`❤️ "${compactItem.name}" додано в Обране!`);
+        }
+    }
+
+    updateFavoritesUI();
+
+    // If currently filtered by favorites in catalog, re-apply filter to refresh grid
+    if (currentCatalogGender === 'favorites') {
+        applyCatalogFilters();
+    }
+}
+
+function updateFavoritesUI() {
+    const favs = getFavorites();
+    const count = favs.length;
+
+    // Badges
+    const headerBadge = document.getElementById('headerFavBadge');
+    if (headerBadge) {
+        headerBadge.textContent = count;
+        headerBadge.style.display = count > 0 ? 'inline-flex' : 'none';
+    }
+
+    const bottomBadge = document.getElementById('bottomFavBadge');
+    if (bottomBadge) {
+        bottomBadge.textContent = count;
+        bottomBadge.style.display = count > 0 ? 'inline-flex' : 'none';
+    }
+
+    const filterBadge = document.getElementById('badgeGender_fav');
+    if (filterBadge) {
+        filterBadge.textContent = count;
+    }
+
+    const drawerCount = document.getElementById('favoritesDrawerTotalCount');
+    if (drawerCount) {
+        drawerCount.textContent = count;
+    }
+
+    // Card buttons
+    const favSet = new Set(favs.map(f => String(f.id)));
+    document.querySelectorAll('.btn-card-fav').forEach(btn => {
+        const prodId = btn.dataset.id;
+        if (prodId) {
+            const isFav = favSet.has(String(prodId));
+            btn.classList.toggle('active', isFav);
+            btn.setAttribute('aria-label', isFav ? 'Видалити з обраного' : 'Додати в обране');
+            btn.setAttribute('title', isFav ? 'Видалити з обраного' : 'Додати в обране');
+            const svg = btn.querySelector('svg');
+            if (svg) {
+                svg.setAttribute('fill', isFav ? '#ef4444' : 'none');
+                svg.setAttribute('stroke', isFav ? '#ef4444' : 'currentColor');
+            }
+        }
+    });
+
+    // Photo modal favorite button
+    const photoFavBtn = document.getElementById('btnPhotoFav');
+    if (photoFavBtn && currentPhotoItem) {
+        const isFav = favSet.has(String(currentPhotoItem.id));
+        photoFavBtn.classList.toggle('active', isFav);
+        photoFavBtn.setAttribute('title', isFav ? 'Видалити з обраного' : 'Додати в обране');
+        const svg = photoFavBtn.querySelector('svg');
+        if (svg) {
+            svg.setAttribute('fill', isFav ? '#ef4444' : 'none');
+            svg.setAttribute('stroke', isFav ? '#ef4444' : 'currentColor');
+        }
+    }
+
+    // Drawer content if active
+    const drawer = document.getElementById('favoritesDrawer');
+    if (drawer && drawer.classList.contains('active')) {
+        renderFavoritesDrawer();
+    }
+}
+
+function renderFavoritesDrawer() {
+    const body = document.getElementById('favoritesDrawerBody');
+    const footer = document.getElementById('favoritesDrawerFooter');
+    if (!body) return;
+
+    const favs = getFavorites();
+
+    if (favs.length === 0) {
+        body.innerHTML = `
+            <div class="fav-empty-state">
+                <div class="fav-empty-icon">🤍</div>
+                <h4>Список обраного порожній</h4>
+                <p>Зберігайте вподобані моделі кросівок та одягу, натиснувши сердечко ❤️ на картці товару.</p>
+                <button type="button" class="btn-primary" onclick="closeFavoritesDrawer(); document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });">
+                    Перейти до каталогу
+                </button>
+            </div>
+        `;
+        if (footer) footer.style.display = 'none';
+        return;
+    }
+
+    if (footer) footer.style.display = 'flex';
+
+    body.innerHTML = favs.map(item => {
+        const displayName = formatProductDisplayName(item);
+        const imgUrl = item.img || (item.imgs && item.imgs[0]) || 'images/sneakers.webp';
+        const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
+        const sizes = item.sizes || [];
+        const hasSizes = sizes.length > 0;
+
+        let sizeSelectHtml = '';
+        if (hasSizes) {
+            sizeSelectHtml = `
+                <div class="fav-item-size-wrap">
+                    <label for="favSize_${item.id}">Розмір:</label>
+                    <select id="favSize_${item.id}" class="fav-size-select" onclick="event.stopPropagation()">
+                        ${sizes.map(sz => `<option value="${escapeHtml(String(sz).trim())}">${escapeHtml(formatSizeLabel(String(sz).trim()))}</option>`).join('')}
+                    </select>
+                </div>
+            `;
+        }
+
+        return `
+            <div class="fav-item-card" id="favItem_${item.id}">
+                <div class="fav-item-img-box" onclick="closeFavoritesDrawer(); openPhotoModal('${item.id}')" title="Детальніше">
+                    <img src="${imgUrl}" alt="${escapeHtml(displayName)}" loading="lazy" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat || 'shoes'}')">
+                </div>
+                <div class="fav-item-info">
+                    <div class="fav-item-top">
+                        <span class="fav-item-art">АРТ: ${escapeHtml(item.art || '---')}</span>
+                        <button type="button" class="btn-fav-remove" onclick="toggleFavorite('${item.id}', event)" aria-label="Видалити з обраного" title="Видалити">✕</button>
+                    </div>
+                    <h4 class="fav-item-title" onclick="closeFavoritesDrawer(); openPhotoModal('${item.id}')" title="Детальніше">${escapeHtml(displayName)}</h4>
+                    <div class="fav-item-price">${formattedPrice}</div>
+                    ${sizeSelectHtml}
+                    <div class="fav-item-actions">
+                        <button type="button" class="btn-fav-to-cart" onclick="addFavoriteItemToCart('${item.id}')">
+                            <span>В кошик</span> 🛍️
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function addFavoriteItemToCart(productId) {
+    const favs = getFavorites();
+    const item = favs.find(f => String(f.id) === String(productId));
+    if (!item) return;
+
+    let selectedSize = 'One Size';
+    const sizeSelect = document.getElementById(`favSize_${item.id}`);
+    if (sizeSelect && sizeSelect.value) {
+        selectedSize = sizeSelect.value;
+    } else if (item.sizes && item.sizes.length > 0) {
+        selectedSize = String(item.sizes[0]).trim();
+    }
+
+    addToCart({
+        id: `${item.id}_${selectedSize}`,
+        prodId: item.id,
+        title: item.name,
+        art: item.art,
+        price: item.price,
+        size: selectedSize,
+        img: item.img || (item.imgs && item.imgs[0]) || 'images/sneakers.webp',
+        qty: 1
+    });
+
+    closeFavoritesDrawer();
+}
+
+function addAllFavoritesToCart() {
+    const favs = getFavorites();
+    if (!favs.length) return;
+
+    favs.forEach(item => {
+        const sizeSelect = document.getElementById(`favSize_${item.id}`);
+        const selectedSize = (sizeSelect && sizeSelect.value) ? sizeSelect.value : ((item.sizes && item.sizes.length) ? String(item.sizes[0]).trim() : 'One Size');
+        addToCart({
+            id: `${item.id}_${selectedSize}`,
+            prodId: item.id,
+            title: item.name,
+            art: item.art,
+            price: item.price,
+            size: selectedSize,
+            img: item.img || (item.imgs && item.imgs[0]) || 'images/sneakers.webp',
+            qty: 1
+        });
+    });
+
+    closeFavoritesDrawer();
+    openCart();
+    showCartToast(`Всі товари з Обраного (${favs.length}) додано в кошик!`);
+}
+
+function clearFavorites() {
+    if (!confirm('Ви дійсно бажаєте очистити весь список обраного?')) return;
+    try {
+        localStorage.removeItem(FAVORITES_STORAGE_KEY);
+    } catch (e) {}
+    updateFavoritesUI();
+    showCartToast('Список обраного очищено');
+}
+
+function openFavoritesDrawer() {
+    const drawer = document.getElementById('favoritesDrawer');
+    const overlay = document.getElementById('favoritesDrawerOverlay');
+    if (drawer) drawer.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+    document.body.classList.add('fav-open');
+    renderFavoritesDrawer();
+}
+
+function closeFavoritesDrawer() {
+    const drawer = document.getElementById('favoritesDrawer');
+    const overlay = document.getElementById('favoritesDrawerOverlay');
+    if (drawer) drawer.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+    document.body.classList.remove('fav-open');
+}
+
+function toggleFavoritesDrawer() {
+    const drawer = document.getElementById('favoritesDrawer');
+    if (drawer && drawer.classList.contains('active')) {
+        closeFavoritesDrawer();
+    } else {
+        openFavoritesDrawer();
+    }
+}
+
+function toggleCurrentPhotoFavorite() {
+    if (!currentPhotoItem) return;
+    toggleFavorite(currentPhotoItem.id);
+}
+
+function toggleFavoritesFilter(btnEl) {
+    if (currentCatalogGender === 'favorites') {
+        selectCatalogGender('all', document.querySelector('.gender-pill-btn[data-gender="all"]'));
+    } else {
+        selectCatalogGender('favorites', btnEl);
+    }
+}
+
+function viewFavoritesInCatalog() {
+    closeFavoritesDrawer();
+    const favTab = document.getElementById('btnFilterFav');
+    if (favTab) {
+        toggleFavoritesFilter(favTab);
+    }
+    const catalog = document.getElementById('catalog');
+    if (catalog) {
+        catalog.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
 // Render Cart UI (Drawer, Badges, Checkout Summary)
 function renderCart() {
     const cart = getCart();
@@ -1423,6 +1762,7 @@ let currentCatalogSort = 'popular';
 
 function productMatchesGender(p, gender) {
     if (!gender || gender === 'all') return true;
+    if (gender === 'favorites') return isFavorite(p.id);
     if (gender === 'men') return p.gender === 'men' || p.gender === 'unisex';
     if (gender === 'women') return p.gender === 'women' || p.gender === 'unisex';
     return true;
@@ -2366,9 +2706,19 @@ function createProductCardElement(item) {
     const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
     const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
 
+    const isFav = isFavorite(item.id);
+    const favBtnHtml = `
+        <button type="button" class="btn-card-fav ${isFav ? 'active' : ''}" data-id="${item.id}" onclick="toggleFavorite('${item.id}', event)" aria-label="${isFav ? 'Видалити з обраного' : 'Додати в обране'}" title="${isFav ? 'Видалити з обраного' : 'Додати в обране'}">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="${isFav ? '#ef4444' : 'none'}" stroke="${isFav ? '#ef4444' : 'currentColor'}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+        </button>
+    `;
+
     card.innerHTML = `
         <div class="product-img-wrapper" role="button" tabindex="0" onclick="openPhotoModal('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' ')openPhotoModal('${item.id}')" title="Натисніть для детального перегляду фото в HD якості">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
+            ${favBtnHtml}
             <button type="button" class="btn-zoom-overlay" aria-label="Детальний огляд фото" onclick="event.stopPropagation(); openPhotoModal('${item.id}')">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -2439,9 +2789,13 @@ function renderCatalogGrid(append) {
             noResultsBox.style.display = 'block';
             grid.appendChild(noResultsBox);
             if (noResultsDetail) {
-                noResultsDetail.textContent = currentCatalogSearchQuery 
-                    ? `За запитом «${currentCatalogSearchQuery}» товарів на складі не знайдено. Спробуйте інше слово або скиньте фільтри.`
-                    : 'У вибраній категорії наразі немає доступних моделей.';
+                if (currentCatalogGender === 'favorites') {
+                    noResultsDetail.textContent = 'У вас поки немає збережених товарів. Натискайте ❤️ на картці будь-якої моделі, щоб зберегти її в Обране!';
+                } else {
+                    noResultsDetail.textContent = currentCatalogSearchQuery 
+                        ? `За запитом «${currentCatalogSearchQuery}» товарів на складі не знайдено. Спробуйте інше слово або скиньте фільтри.`
+                        : 'У вибраній категорії наразі немає доступних моделей.';
+                }
             }
         }
         return;
@@ -2507,7 +2861,11 @@ function updateCatalogFilterUI(query) {
 
             const labels = [];
             if (currentCatalogGender !== 'all') {
-                labels.push(currentCatalogGender === 'men' ? '👨 Чоловіче' : '👩 Жіноче');
+                if (currentCatalogGender === 'favorites') {
+                    labels.push('❤️ Обране');
+                } else {
+                    labels.push(currentCatalogGender === 'men' ? '👨 Чоловіче' : '👩 Жіноче');
+                }
             }
             if (currentCatalogCategory !== 'all') {
                 labels.push(getCategoryTitle(currentCatalogCategory));
@@ -3404,11 +3762,22 @@ window.selectNpWarehouse = selectNpWarehouse;
 window.filterWarehouseType = filterWarehouseType;
 window.checkoutViaMessenger = checkoutViaMessenger;
 window.confirmOrderInMessenger = confirmOrderInMessenger;
+window.openFavoritesDrawer = openFavoritesDrawer;
+window.closeFavoritesDrawer = closeFavoritesDrawer;
+window.toggleFavoritesDrawer = toggleFavoritesDrawer;
+window.toggleFavorite = toggleFavorite;
+window.toggleCurrentPhotoFavorite = toggleCurrentPhotoFavorite;
+window.addFavoriteItemToCart = addFavoriteItemToCart;
+window.addAllFavoritesToCart = addAllFavoritesToCart;
+window.clearFavorites = clearFavorites;
+window.toggleFavoritesFilter = toggleFavoritesFilter;
+window.viewFavoritesInCatalog = viewFavoritesInCatalog;
 
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     checkOrderSuccess();
     renderCart();
+    updateFavoritesUI();
     initSwipeGalleries();
     initScrollTop();
     initDynamicCatalog();
@@ -4075,6 +4444,18 @@ function renderPhotoModalContent() {
     const counterEl = document.getElementById('photoModalCounter');
     if (counterEl) counterEl.textContent = `${currentPhotoIndex + 1} / ${totalImgs}`;
 
+    const photoFavBtn = document.getElementById('btnPhotoFav');
+    if (photoFavBtn) {
+        const isFav = isFavorite(item.id);
+        photoFavBtn.classList.toggle('active', isFav);
+        photoFavBtn.setAttribute('title', isFav ? 'Видалити з обраного' : 'Додати в обране');
+        const svg = photoFavBtn.querySelector('svg');
+        if (svg) {
+            svg.setAttribute('fill', isFav ? '#ef4444' : 'none');
+            svg.setAttribute('stroke', isFav ? '#ef4444' : 'currentColor');
+        }
+    }
+
     // Update Main Image
     const mainImg = document.getElementById('photoModalMainImg');
     const canvas = document.getElementById('photoImgCanvas');
@@ -4453,6 +4834,10 @@ document.addEventListener('keydown', (e) => {
         const cartDrawer = document.getElementById('cartDrawer');
         if (cartDrawer && cartDrawer.classList.contains('active')) {
             closeCart();
+        }
+        const favoritesDrawer = document.getElementById('favoritesDrawer');
+        if (favoritesDrawer && favoritesDrawer.classList.contains('active')) {
+            closeFavoritesDrawer();
         }
     }
 });

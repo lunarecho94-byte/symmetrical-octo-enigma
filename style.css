@@ -6130,10 +6130,29 @@ body {
     .bottom-nav-item.viber { color: #7952c4 !important; }
     .bottom-nav-item.instagram { color: #E1306C !important; }
     .bottom-nav-item.order-quick { color: #09090b !important; }
+    .bottom-nav-item.fav-quick { color: #64748b !important; }
+    .bottom-nav-item.fav-quick:hover,
+    .bottom-nav-item.fav-quick:active { color: #ef4444 !important; }
     .bottom-nav-item.cart-quick { color: #10b981 !important; }
+    .bottom-fav-icon-wrapper,
     .bottom-cart-icon-wrapper {
         position: relative !important;
         display: inline-flex !important;
+    }
+    .bottom-fav-badge {
+        position: absolute !important;
+        top: -4px !important;
+        right: -8px !important;
+        min-width: 16px !important;
+        height: 16px !important;
+        line-height: 16px !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        background: #ef4444 !important;
+        color: #fff !important;
+        border-radius: 999px !important;
+        text-align: center !important;
+        padding: 0 4px !important;
     }
     .bottom-cart-badge {
         position: absolute !important;
@@ -6357,6 +6376,7 @@ body {
 .header-msg-link,
 .header-phone-btn,
 .header-search-btn,
+.header-fav-btn,
 .header-cart-btn {
     width: 38px !important;
     height: 38px !important;
@@ -6381,17 +6401,43 @@ body {
 .header-msg-link:hover,
 .header-phone-btn:hover,
 .header-search-btn:hover,
+.header-fav-btn:hover,
 .header-cart-btn:hover {
     background: #e4e4e7 !important;
     transform: translateY(-1px) !important;
+}
+
+.header-fav-btn:hover {
+    color: #ef4444 !important;
 }
 
 .header-msg-link.telegram { color: #229ED9 !important; }
 .header-msg-link.viber { color: #7952c4 !important; }
 .header-msg-link.instagram { color: #E1306C !important; }
 
+.header-fav-btn,
 .header-cart-btn {
     position: relative !important;
+}
+
+.header-fav-badge {
+    position: absolute !important;
+    top: -4px !important;
+    right: -4px !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    line-height: 17px !important;
+    padding: 0 4px !important;
+    border-radius: 999px !important;
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    border: 1.5px solid #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .header-cart-badge {
@@ -7358,5 +7404,471 @@ body {
         font-size: 0.9rem;
     }
 }
+
+/* ==========================================================================
+   FAVORITES (ОБРАНЕ) MODULE STYLES
+   ========================================================================== */
+
+/* Favorites Drawer Overlay */
+.favorites-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.favorites-drawer-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Favorites Drawer Sidebar */
+.favorites-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 440px;
+    max-width: 100%;
+    height: 100%;
+    height: 100dvh;
+    background: #ffffff;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 0 35px rgba(15, 23, 42, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.favorites-drawer.active {
+    transform: translateX(0);
+}
+
+body.fav-open {
+    overflow: hidden !important;
+}
+
+/* Favorites Drawer Header */
+.favorites-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+    flex-shrink: 0;
+}
+
+.favorites-header-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fav-header-icon {
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.favorites-header-title h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.favorites-header-count {
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.favorites-drawer-close {
+    background: transparent;
+    border: none;
+    font-size: 1.7rem;
+    color: #64748b;
+    cursor: pointer;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.favorites-drawer-close:hover {
+    color: #0f172a;
+    background: #e2e8f0;
+}
+
+/* Favorites Drawer Body */
+.favorites-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Favorites Empty State */
+.fav-empty-state {
+    text-align: center;
+    padding: 60px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto 0;
+}
+
+.fav-empty-icon {
+    font-size: 3.5rem;
+    margin-bottom: 14px;
+    opacity: 0.85;
+}
+
+.fav-empty-state h4 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: #0f172a;
+    margin: 0 0 8px;
+}
+
+.fav-empty-state p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0 0 20px;
+    max-width: 300px;
+}
+
+/* Favorite Item Card */
+.fav-item-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+}
+
+.fav-item-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.fav-item-img-box {
+    width: 82px;
+    height: 82px;
+    min-width: 82px;
+    background: #f8fafc;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fav-item-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.fav-item-img-box:hover img {
+    transform: scale(1.08);
+}
+
+.fav-item-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fav-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fav-item-art {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.btn-fav-remove {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 0.95rem;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.btn-fav-remove:hover {
+    color: #ef4444;
+    background: #fee2e2;
+}
+
+.fav-item-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.fav-item-title:hover {
+    color: var(--accent-blue, #2563eb);
+}
+
+.fav-item-price {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #059669;
+}
+
+.fav-item-size-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    color: #64748b;
+}
+
+.fav-size-select {
+    padding: 3px 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #0f172a;
+    cursor: pointer;
+}
+
+.fav-item-actions {
+    margin-top: 4px;
+}
+
+.btn-fav-to-cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 7px 12px;
+    background: #09090b;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-fav-to-cart:hover {
+    background: #27272a;
+    transform: translateY(-1px);
+}
+
+/* Favorites Drawer Footer */
+.favorites-drawer-footer {
+    padding: 14px 18px;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-fav-add-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    font-size: 0.94rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-fav-add-all:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+}
+
+.btn-fav-view-catalog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-fav-view-catalog:hover {
+    background: #f1f5f9;
+}
+
+.btn-fav-clear {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    padding: 4px;
+    transition: var(--transition);
+}
+
+.btn-fav-clear:hover {
+    color: #ef4444;
+}
+
+/* Card favorite button */
+.btn-card-fav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+    padding: 0;
+    margin: 0;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-card-fav:hover {
+    background: #ffffff;
+    color: #ef4444;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.25);
+}
+
+.btn-card-fav:active {
+    transform: scale(0.92);
+}
+
+.btn-card-fav.active {
+    background: #ffffff;
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.35);
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.btn-card-fav.active svg {
+    fill: #ef4444;
+    stroke: #ef4444;
+    animation: favHeartPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes favHeartPop {
+    0% { transform: scale(0.6); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* Photo Modal Favorite Button */
+.btn-photo-action.btn-photo-fav {
+    color: #64748b;
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-photo-action.btn-photo-fav:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.btn-photo-action.btn-photo-fav.active {
+    color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.18) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+.btn-photo-action.btn-photo-fav.active svg {
+    fill: #ef4444;
+    stroke: #ef4444;
+}
+
+/* Fav Pill Filter Button in Catalog */
+.gender-pill-btn.fav-pill-btn {
+    border-color: rgba(239, 68, 68, 0.25);
+}
+
+.gender-pill-btn.fav-pill-btn:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.gender-pill-btn.fav-pill-btn.active {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #ef4444 !important;
+}
+
+.gender-pill-btn.fav-pill-btn.active .pill-badge {
+    background: rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+}
+
 
 
