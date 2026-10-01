@@ -1,23 +1,23 @@
 {
-  "total": 7506,
+  "total": 7515,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7506
+      "count": 7515
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4561
+      "count": 4568
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5395
+      "count": 5394
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7506
+      "count": 7515
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5716
+      "count": 5718
     },
     {
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 762
+      "count": 769
     },
     {
       "slug": "socks",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7506
+      "count": 7515
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5632
+      "count": 5640
     },
     {
       "slug": "winter",
@@ -81,19 +81,19 @@
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1112
+      "count": 1113
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7506
+      "count": 7515
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2079
+      "count": 2080
     },
     {
       "slug": "newbalance",
@@ -133,7 +133,7 @@
     {
       "slug": "balenciaga",
       "name": "Balenciaga",
-      "count": 114
+      "count": 115
     },
     {
       "slug": "salomon",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 940
+      "count": 947
     }
   ]
 }
