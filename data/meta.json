@@ -1,23 +1,23 @@
 {
-  "total": 7528,
+  "total": 7521,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7528
+      "count": 7521
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4581
+      "count": 4576
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5407
+      "count": 5403
     }
   ],
   "categories": [
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7528
+      "count": 7521
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5736
+      "count": 5730
     },
     {
       "slug": "clothing",
       "name": "Одяг",
       "icon": "🧥",
-      "count": 769
+      "count": 768
     },
     {
       "slug": "socks",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7528
+      "count": 7521
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5634
+      "count": 5627
     },
     {
       "slug": "winter",
@@ -88,12 +88,12 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7528
+      "count": 7521
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2086
+      "count": 2082
     },
     {
       "slug": "newbalance",
@@ -103,12 +103,12 @@
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 508
+      "count": 507
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 418
+      "count": 417
     },
     {
       "slug": "ugg",
@@ -271,11 +271,6 @@
       "count": 12
     },
     {
-      "slug": "arcteryx",
-      "name": "Arc'teryx",
-      "count": 11
-    },
-    {
       "slug": "champion",
       "name": "Champion",
       "count": 11
@@ -288,6 +283,11 @@
     {
       "slug": "stussy",
       "name": "Stussy",
+      "count": 10
+    },
+    {
+      "slug": "arcteryx",
+      "name": "Arc'teryx",
       "count": 10
     },
     {
