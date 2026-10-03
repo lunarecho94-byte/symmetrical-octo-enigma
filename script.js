@@ -1897,6 +1897,12 @@ async function initDynamicCatalog() {
                 return false;
             }
             // Pinned Promo Products (Sync with Meta Ad Campaigns)
+            if (item.id == '155430' || item.id === 155430) {
+                item.isPromoPinned = true;
+                item.gender = 'unisex';
+                item.badge = '🔥 ХІТ З РЕКЛАМИ • NEW BALANCE';
+                return true;
+            }
             if (item.id == '117306' || item.id === 117306) {
                 item.isPromoPinned = true;
                 item.gender = 'unisex';
@@ -2614,10 +2620,11 @@ function applyCatalogFilters() {
 
 function sortFilteredProducts(criteria) {
     catalogFilteredProducts.sort((a, b) => {
-        // ALWAYS PIN PROMO PRODUCTS TO THE VERY TOP (117306 first, 69012 second)
+        // ALWAYS PIN PROMO PRODUCTS TO THE VERY TOP (155430 NB first, 117306 Campus second, 69012 Campus winter third)
         const getPinnedRank = (item) => {
-            if (item.id == '117306' || item.id === 117306) return 100;
-            if (item.id == '69012' || item.id === 69012) return 90;
+            if (item.id == '155430' || item.id === 155430) return 100;
+            if (item.id == '117306' || item.id === 117306) return 90;
+            if (item.id == '69012' || item.id === 69012) return 80;
             return 0;
         };
         const rankA = getPinnedRank(a);
