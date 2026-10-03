@@ -1,23 +1,23 @@
 {
-  "total": 7541,
+  "total": 7525,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7541
+      "count": 7525
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4589
+      "count": 4574
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5419
+      "count": 5408
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7541
+      "count": 7525
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5751
+      "count": 5735
     },
     {
       "slug": "clothing",
@@ -63,42 +63,42 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7541
+      "count": 7525
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5647
+      "count": 5636
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 765
+      "count": 763
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1129
+      "count": 1126
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7541
+      "count": 7525
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2107
+      "count": 2090
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1322
+      "count": 1325
     },
     {
       "slug": "adidas",
@@ -108,7 +108,7 @@
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 417
+      "count": 414
     },
     {
       "slug": "ugg",
@@ -123,7 +123,7 @@
     {
       "slug": "dior",
       "name": "Dior",
-      "count": 142
+      "count": 143
     },
     {
       "slug": "jordan",
@@ -171,19 +171,19 @@
       "count": 59
     },
     {
-      "slug": "premiata",
-      "name": "Premiata",
-      "count": 59
-    },
-    {
       "slug": "gucci",
       "name": "Gucci",
       "count": 58
     },
     {
+      "slug": "premiata",
+      "name": "Premiata",
+      "count": 58
+    },
+    {
       "slug": "offwhite",
       "name": "Off-White",
-      "count": 52
+      "count": 53
     },
     {
       "slug": "goldengoose",
