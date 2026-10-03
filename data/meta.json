@@ -1,23 +1,23 @@
 {
-  "total": 7541,
+  "total": 7548,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7541
+      "count": 7548
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4589
+      "count": 4593
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5419
+      "count": 5429
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7541
+      "count": 7548
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5751
+      "count": 5758
     },
     {
       "slug": "clothing",
@@ -63,57 +63,57 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7541
+      "count": 7548
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5647
+      "count": 5652
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "❄️",
-      "count": 765
+      "count": 768
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1129
+      "count": 1128
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7541
+      "count": 7548
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2107
+      "count": 2110
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1322
+      "count": 1324
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 509
+      "count": 511
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 417
+      "count": 416
     },
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 402
+      "count": 405
     },
     {
       "slug": "chanel",
@@ -148,7 +148,7 @@
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 85
+      "count": 84
     },
     {
       "slug": "coach",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 948
+      "count": 947
     }
   ]
 }
