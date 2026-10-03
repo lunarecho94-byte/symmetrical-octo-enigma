@@ -1,23 +1,23 @@
 {
-  "total": 7521,
+  "total": 7513,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7521
+      "count": 7513
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4576
+      "count": 4570
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5403
+      "count": 5397
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7521
+      "count": 7513
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5730
+      "count": 5722
     },
     {
       "slug": "clothing",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7521
+      "count": 7513
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5627
+      "count": 5623
     },
     {
       "slug": "winter",
@@ -81,14 +81,14 @@
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1130
+      "count": 1126
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7521
+      "count": 7513
     },
     {
       "slug": "nike",
@@ -98,17 +98,17 @@
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1329
+      "count": 1326
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 507
+      "count": 506
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 417
+      "count": 415
     },
     {
       "slug": "ugg",
@@ -128,7 +128,7 @@
     {
       "slug": "jordan",
       "name": "Air Jordan",
-      "count": 136
+      "count": 135
     },
     {
       "slug": "balenciaga",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 948
+      "count": 947
     }
   ]
 }
