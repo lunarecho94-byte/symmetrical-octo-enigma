@@ -1896,6 +1896,20 @@ async function initDynamicCatalog() {
             if (!item.sizes || item.sizes.length === 0) {
                 return false;
             }
+            // Pinned Promo Products (Sync with Meta Ad Campaigns)
+            if (item.id == '117306' || item.id === 117306) {
+                item.isPromoPinned = true;
+                item.gender = 'unisex';
+                item.badge = '🔥 АКЦІЯ 1 400 ГРН (З РЕКЛАМИ)';
+                item.old_price = 2400;
+                return true;
+            }
+            if (item.id == '69012' || item.id === 69012) {
+                item.isPromoPinned = true;
+                item.gender = 'unisex';
+                item.badge = '❄️ ЗИМА (РОЗМІРИ 38-45)';
+                return true;
+            }
             if (isSneakerProductItem(item) && item.sizes.length < 3) {
                 return false;
             }
@@ -2593,10 +2607,25 @@ function applyCatalogFilters() {
 
     // Update Filter Summary Bar
     updateCatalogFilterUI(query);
+
+    // Deep link auto-scroll check (Ad message-match)
+    checkDeepLinkPromo();
 }
 
 function sortFilteredProducts(criteria) {
     catalogFilteredProducts.sort((a, b) => {
+        // ALWAYS PIN PROMO PRODUCTS TO THE VERY TOP (117306 first, 69012 second)
+        const getPinnedRank = (item) => {
+            if (item.id == '117306' || item.id === 117306) return 100;
+            if (item.id == '69012' || item.id === 69012) return 90;
+            return 0;
+        };
+        const rankA = getPinnedRank(a);
+        const rankB = getPinnedRank(b);
+        if (rankA !== rankB) {
+            return rankB - rankA;
+        }
+
         switch (criteria) {
             case 'price-asc':
                 return a.price - b.price;
@@ -2624,6 +2653,35 @@ function sortFilteredProducts(criteria) {
         }
     });
 }
+
+function checkDeepLinkPromo() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetId = urlParams.get('id') || urlParams.get('product') || (urlParams.has('promo') ? '117306' : null);
+        if (targetId && !window._hasScrolledToPromo) {
+            window._hasScrolledToPromo = true;
+            setTimeout(() => {
+                if (window.scrollToPromoCard) {
+                    window.scrollToPromoCard(targetId);
+                }
+            }, 600);
+        }
+    } catch (e) {}
+}
+
+window.scrollToPromoCard = function(id) {
+    const card = document.getElementById(`prod-${id}`);
+    if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.style.transition = 'all 0.4s ease';
+        card.style.outline = '3px solid #ef4444';
+        card.style.boxShadow = '0 0 25px rgba(239, 68, 68, 0.45)';
+        setTimeout(() => {
+            card.style.outline = '';
+            card.style.boxShadow = '';
+        }, 4000);
+    }
+};
 
 function escapeHtml(str) {
     if (!str) return '';
