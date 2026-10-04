@@ -3,11 +3,11 @@
   "rewrites": [
     {
       "source": "/product/:id",
-      "destination": "/product.html?id=:id"
+      "destination": "/product?id=:id"
     },
     {
       "source": "/p/:id",
-      "destination": "/product.html?id=:id"
+      "destination": "/product?id=:id"
     }
   ]
 }
