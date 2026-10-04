@@ -514,7 +514,7 @@ function renderFavoritesDrawer() {
 
         return `
             <div class="fav-item-card" id="favItem_${item.id}">
-                <a href="${prodUrl}" class="fav-item-img-box" onclick="closeFavoritesDrawer()" title="Перейти на сторінку товару">
+                <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="fav-item-img-box" onclick="closeFavoritesDrawer()" title="Переглянути товар у новому вікні">
                     <img src="${imgUrl}" alt="${escapeHtml(displayName)}" loading="lazy" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat || 'shoes'}')">
                 </a>
                 <div class="fav-item-info">
@@ -522,8 +522,8 @@ function renderFavoritesDrawer() {
                         <span class="fav-item-art">АРТ: ${escapeHtml(item.art || '---')}</span>
                         <button type="button" class="btn-fav-remove" onclick="toggleFavorite('${item.id}', event)" aria-label="Видалити з обраного" title="Видалити">✕</button>
                     </div>
-                    <a href="${prodUrl}" onclick="closeFavoritesDrawer()" style="text-decoration:none; color:inherit;">
-                        <h4 class="fav-item-title" title="Перейти на сторінку товару">${escapeHtml(displayName)}</h4>
+                    <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" onclick="closeFavoritesDrawer()" style="text-decoration:none; color:inherit;">
+                        <h4 class="fav-item-title" title="Переглянути товар у новому вікні">${escapeHtml(displayName)}</h4>
                     </a>
                     <div class="fav-item-price">${formattedPrice}</div>
                     ${sizeSelectHtml}
@@ -696,11 +696,12 @@ function renderCart() {
             let html = '<div class="cart-items-list">';
             cart.forEach(item => {
                 const itemTotal = (item.price * item.qty).toLocaleString('uk-UA');
+                const cartProdUrl = item.prodId ? `/product/${generateProductSlug(item.title, item.prodId)}` : '';
                 html += `
                     <div class="cart-item" data-id="${item.id}">
-                        <img src="${item.img}" alt="${item.title}" class="cart-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')">
+                        ${cartProdUrl ? `<a href="${cartProdUrl}" target="_blank" rel="noopener noreferrer" class="cart-item-img-link" title="Переглянути товар у новому вікні"><img src="${item.img}" alt="${item.title}" class="cart-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')"></a>` : `<img src="${item.img}" alt="${item.title}" class="cart-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')">`}
                         <div class="cart-item-info">
-                            <h4 class="cart-item-title">${item.title}</h4>
+                            ${cartProdUrl ? `<a href="${cartProdUrl}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; color:inherit;" title="Переглянути товар у новому вікні"><h4 class="cart-item-title">${item.title}</h4></a>` : `<h4 class="cart-item-title">${item.title}</h4>`}
                             <div class="cart-item-meta">
                                 <span class="cart-item-size">Розмір: <b>${item.size}</b></span>
                                 ${item.art ? `<span class="cart-item-art" style="margin-left: 8px; color: #64748b; font-size: 0.8rem;">Арт: <b>${item.art}</b></span>` : ''}
@@ -2805,14 +2806,16 @@ function createProductCardElement(item) {
     const prodUrl = getProductUrl(item);
 
     card.innerHTML = `
-        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event, '${prodUrl}')" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event, '${prodUrl}')" title="Переглянути сторінку товару: ${escapeHtml(displayName)}">
+        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event, '${prodUrl}', true)" title="Переглянути сторінку товару: ${escapeHtml(displayName)}">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
             ${favBtnHtml}
-            <a href="${prodUrl}" class="btn-card-pdp-link btn-zoom-overlay" aria-label="Відкрити сторінку товару" onclick="openProductPage('${item.id}', event, '${prodUrl}')">
+            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-pdp-link btn-zoom-overlay" aria-label="Відкрити сторінку товару" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)">
                 <span>Відкрити товар</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </a>
-            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onclick="openProductPage('${item.id}', event, '${prodUrl}')" onerror="handleCardImgError(this, '${item.cat}')">
+            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="product-img-link" tabindex="-1" aria-hidden="true">
+                <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
+            </a>
         </div>
         ${thumbsHtml}
         <div class="product-details">
@@ -2823,7 +2826,7 @@ function createProductCardElement(item) {
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <a href="${prodUrl}" class="product-title-link" onclick="openProductPage('${item.id}', event, '${prodUrl}')" title="Переглянути окрему сторінку товару: ${escapeHtml(displayName)}">
+            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="product-title-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" title="Переглянути окрему сторінку товару: ${escapeHtml(displayName)}">
                 <h3 class="product-title">${escapeHtml(displayName)}</h3>
             </a>
             <div class="product-specs">
@@ -2845,7 +2848,7 @@ function createProductCardElement(item) {
                 <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(displayName)} (${item.price} грн)', '${formattedPrice}', event, '${item.id}')">
                     В кошик
                 </button>
-                <a href="${prodUrl}" class="btn-details-link" onclick="openProductPage('${item.id}', event, '${prodUrl}')" title="Відкрити окрему сторінку товару">
+                <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="btn-details-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" title="Відкрити окрему сторінку товару">
                     Детальніше ➔
                 </a>
             </div>
@@ -2860,7 +2863,7 @@ function createProductCardElement(item) {
             e.target.closest('.btn-size-chart-link')) {
             return;
         }
-        openProductPage(item.id, e, prodUrl);
+        openProductPage(item.id, e, prodUrl, true);
     });
 
     return card;
@@ -5120,9 +5123,9 @@ function getProductUrl(item) {
 }
 window.getProductUrl = getProductUrl;
 
-function openProductPage(productId, e, directUrl) {
+function openProductPage(productId, e, directUrl, openInNewWindow = true) {
     if (e) {
-        if (e.ctrlKey || e.metaKey || e.button === 1) return; // Allow opening in new tab
+        if (e.ctrlKey || e.metaKey || e.button === 1) return; // Allow native browser new tab
         if (e.target && (
             e.target.closest('.btn-card-fav') || 
             e.target.closest('.card-thumbnails') || 
@@ -5132,16 +5135,38 @@ function openProductPage(productId, e, directUrl) {
         )) {
             return;
         }
+
+        // If clicked inside an anchor tag that has target="_blank", let browser natively open new window/tab
+        const anchor = e.target.closest('a[target="_blank"]');
+        if (anchor && anchor.href && anchor.href !== '#' && !anchor.href.startsWith('javascript:')) {
+            e.stopPropagation();
+            return;
+        }
+
         e.preventDefault();
         e.stopPropagation();
     }
-    if (directUrl) {
-        window.location.href = directUrl;
-        return;
+
+    let targetUrl = directUrl;
+    if (!targetUrl && productId) {
+        const item = (typeof catalogAllProducts !== 'undefined' && catalogAllProducts && catalogAllProducts.find(p => String(p.id) === String(productId))) || { id: productId };
+        targetUrl = getProductUrl(item);
     }
-    if (!productId) return;
-    const item = (catalogAllProducts && catalogAllProducts.find(p => String(p.id) === String(productId))) || { id: productId };
-    window.location.href = getProductUrl(item);
+
+    if (!targetUrl || targetUrl === '#') return;
+
+    if (openInNewWindow) {
+        try {
+            const win = window.open(targetUrl, '_blank', 'noopener,noreferrer');
+            if (win) {
+                try { win.focus(); } catch (err) {}
+                return;
+            }
+        } catch (err) {
+            console.warn('window.open blocked, falling back to current window', err);
+        }
+    }
+    window.location.href = targetUrl;
 }
 window.openProductPage = openProductPage;
 

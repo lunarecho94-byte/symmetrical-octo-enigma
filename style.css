@@ -1617,7 +1617,17 @@ section, header, footer, .announcement-bar {
     user-select: none;
 }
 
-.product-img-wrapper img {
+.product-img-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+.product-img-wrapper img,
+.product-img-link img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -1628,7 +1638,8 @@ section, header, footer, .announcement-bar {
     cursor: pointer !important;
 }
 
-.product-card:hover .product-img-wrapper img {
+.product-card:hover .product-img-wrapper img,
+.product-card:hover .product-img-link img {
     transform: scale(1.05);
 }
 
