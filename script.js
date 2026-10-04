@@ -512,7 +512,7 @@ function renderFavoritesDrawer() {
 
         return `
             <div class="fav-item-card" id="favItem_${item.id}">
-                <div class="fav-item-img-box" onclick="closeFavoritesDrawer(); openPhotoModal('${item.id}')" title="Детальніше">
+                <div class="fav-item-img-box" onclick="closeFavoritesDrawer(); window.location.href='product.html?id=' + encodeURIComponent('${item.id}')" title="Перейти на сторінку товару">
                     <img src="${imgUrl}" alt="${escapeHtml(displayName)}" loading="lazy" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat || 'shoes'}')">
                 </div>
                 <div class="fav-item-info">
@@ -520,7 +520,9 @@ function renderFavoritesDrawer() {
                         <span class="fav-item-art">АРТ: ${escapeHtml(item.art || '---')}</span>
                         <button type="button" class="btn-fav-remove" onclick="toggleFavorite('${item.id}', event)" aria-label="Видалити з обраного" title="Видалити">✕</button>
                     </div>
-                    <h4 class="fav-item-title" onclick="closeFavoritesDrawer(); openPhotoModal('${item.id}')" title="Детальніше">${escapeHtml(displayName)}</h4>
+                    <a href="product.html?id=${encodeURIComponent(item.id)}" onclick="closeFavoritesDrawer()" style="text-decoration:none; color:inherit;">
+                        <h4 class="fav-item-title" title="Перейти на сторінку товару">${escapeHtml(displayName)}</h4>
+                    </a>
                     <div class="fav-item-price">${formattedPrice}</div>
                     ${sizeSelectHtml}
                     <div class="fav-item-actions">
@@ -2799,10 +2801,10 @@ function createProductCardElement(item) {
     `;
 
     card.innerHTML = `
-        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openPhotoModal('${item.id}')" onkeydown="if(event.key==='Enter'||event.key===' ')openPhotoModal('${item.id}')" title="Натисніть для детального перегляду фото в HD якості">
+        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event)" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event)" title="Переглянути товар: ${escapeHtml(displayName)}">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
             ${favBtnHtml}
-            <button type="button" class="btn-zoom-overlay" aria-label="Детальний огляд фото" onclick="event.stopPropagation(); openPhotoModal('${item.id}')">
+            <a href="product.html?id=${encodeURIComponent(item.id)}" class="btn-zoom-overlay" aria-label="Детальніше про товар" onclick="event.stopPropagation()">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -2810,8 +2812,8 @@ function createProductCardElement(item) {
                     <line x1="8" y1="11" x2="14" y2="11"></line>
                 </svg>
                 <span>Детальніше</span>
-            </button>
-            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onclick="openPhotoModal('${item.id}')" onerror="handleCardImgError(this, '${item.cat}')">
+            </a>
+            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onclick="openProductPage('${item.id}', event)" onerror="handleCardImgError(this, '${item.cat}')">
         </div>
         ${thumbsHtml}
         <div class="product-details">
@@ -2822,7 +2824,9 @@ function createProductCardElement(item) {
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <h3 class="product-title" onclick="openPhotoModal('${item.id}')" title="Детальний огляд товару">${escapeHtml(displayName)}</h3>
+            <a href="product.html?id=${encodeURIComponent(item.id)}" class="product-title-link" title="Переглянути сторінку товару ${escapeHtml(displayName)}">
+                <h3 class="product-title">${escapeHtml(displayName)}</h3>
+            </a>
             <div class="product-specs">
                 <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>${escapeHtml(item.art)}</b></span></div>
                 ${item.mat ? `<div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">${escapeHtml(item.mat)}</span></div>` : ''}
@@ -2842,6 +2846,9 @@ function createProductCardElement(item) {
                 <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(displayName)} (${item.price} грн)', '${formattedPrice}', event, '${item.id}')">
                     В кошик
                 </button>
+                <a href="product.html?id=${encodeURIComponent(item.id)}" class="btn-details-link" title="Переглянути окрему сторінку товару">
+                    Детальніше ➔
+                </a>
             </div>
         </div>
     `;
@@ -3872,6 +3879,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initDynamicCatalog();
     initNovaPoshtaAutocomplete();
     initPhotoViewerInteractions();
+
+    if (document.getElementById('productDetailPage')) {
+        initProductDetailPage();
+    }
 
 
     // Handle Form Submit with PDF Generation
@@ -5114,4 +5125,641 @@ window.showManagerOrdersModal = showManagerOrdersModal;
 window.closeManagerOrdersModal = closeManagerOrdersModal;
 window.exportOrdersAsText = exportOrdersAsText;
 window.clearOrdersLedger = clearOrdersLedger;
+
+// ==========================================================================
+// DEDICATED PRODUCT DETAIL PAGE (PDP) LOGIC
+// ==========================================================================
+
+let pdpCurrentProduct = null;
+let pdpSelectedSize = '';
+let pdpCurrentPhotoIndex = 0;
+
+function openProductPage(productId, e) {
+    if (e) {
+        if (e.defaultPrevented) return;
+        if (e.target && (
+            e.target.closest('.btn-card-fav') || 
+            e.target.closest('.card-thumbnails') || 
+            e.target.closest('.size-options') || 
+            e.target.closest('.btn-buy') || 
+            e.target.closest('.btn-size-chart-link')
+        )) {
+            return;
+        }
+    }
+    if (!productId) return;
+    window.location.href = `product.html?id=${encodeURIComponent(productId)}`;
+}
+window.openProductPage = openProductPage;
+
+async function initProductDetailPage() {
+    const pdpEl = document.getElementById('productDetailPage');
+    if (!pdpEl) return;
+
+    const skeleton = document.getElementById('pdpLoadingSkeleton');
+    const notFound = document.getElementById('pdpNotFound');
+    const content = document.getElementById('pdpContent');
+
+    // 1. Get Product ID or Art from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let productId = urlParams.get('id');
+    let productArt = urlParams.get('art');
+
+    if (!productId && !productArt) {
+        const pathMatch = window.location.pathname.match(/\/p(?:roduct)?\/([^/?#]+)/i);
+        if (pathMatch) {
+            productId = decodeURIComponent(pathMatch[1]);
+        }
+    }
+
+    if (!productId && !productArt) {
+        if (skeleton) skeleton.style.display = 'none';
+        if (notFound) notFound.style.display = 'block';
+        return;
+    }
+
+    // 2. Fetch catalog products if not loaded
+    try {
+        if (!catalogAllProducts || catalogAllProducts.length === 0) {
+            const resp = await fetch('data/products.json');
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const raw = await resp.json();
+            const defectSizeRegex = /нюанс|дефект|брак|плям|уцінк|потертост|потёрт|скидк|-50%/i;
+            catalogAllProducts = raw.filter(item => {
+                if (item.sizes && Array.isArray(item.sizes)) {
+                    item.sizes = item.sizes.filter(s => !defectSizeRegex.test(s));
+                }
+                if (!item.sizes || item.sizes.length === 0) return false;
+                if (isSneakerProductItem(item) && item.sizes.length < 3) return false;
+                if (isLvBagItem(item)) return false;
+                return true;
+            });
+        }
+    } catch (err) {
+        console.error('Error loading products for PDP:', err);
+    }
+
+    if (!catalogAllProducts || catalogAllProducts.length === 0) {
+        if (skeleton) skeleton.style.display = 'none';
+        if (notFound) notFound.style.display = 'block';
+        return;
+    }
+
+    // 3. Find Product
+    let product = null;
+    if (productId) {
+        product = catalogAllProducts.find(p => String(p.id) === String(productId));
+    }
+    if (!product && productArt) {
+        product = catalogAllProducts.find(p => p.art && p.art.toLowerCase() === productArt.toLowerCase());
+    }
+
+    if (!product) {
+        if (skeleton) skeleton.style.display = 'none';
+        if (notFound) notFound.style.display = 'block';
+        return;
+    }
+
+    pdpCurrentProduct = product;
+    pdpCurrentPhotoIndex = 0;
+
+    // 4. Render Product Details
+    renderProductDetailPage(product);
+
+    if (skeleton) skeleton.style.display = 'none';
+    if (content) content.style.display = 'grid';
+
+    // 5. Render Recommended Products
+    renderPdpRecommendedProducts(product);
+
+    // 6. Track ViewContent
+    safeTrackFbq('ViewContent', {
+        content_name: product.name,
+        content_category: product.cat_name || product.cat,
+        content_ids: [product.id],
+        content_type: 'product',
+        value: product.price,
+        currency: 'UAH'
+    });
+}
+window.initProductDetailPage = initProductDetailPage;
+
+function renderProductDetailPage(item) {
+    const displayName = formatProductDisplayName(item);
+    const categoryTitle = getCategoryTitle(item.cat, item);
+    const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
+    const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
+
+    // Document Meta
+    document.title = `${displayName} — купити в Україні за ${formattedPrice} | URBAN`;
+    const metaDesc = document.getElementById('pdpMetaDesc');
+    if (metaDesc) metaDesc.content = `${displayName} за ціною ${formattedPrice}. Артикул: ${item.art}. Швидка доставка 1-2 дні Новою Поштою, оплата при отриманні або на карту.`;
+    
+    // OpenGraph
+    const ogTitle = document.getElementById('ogTitle');
+    if (ogTitle) ogTitle.content = `${displayName} | URBAN`;
+    const ogImage = document.getElementById('ogImage');
+    if (ogImage && item.imgs && item.imgs[0]) ogImage.content = item.imgs[0];
+    const ogUrl = document.getElementById('ogUrl');
+    if (ogUrl) ogUrl.content = window.location.href;
+
+    // Twitter
+    const twTitle = document.getElementById('twTitle');
+    if (twTitle) twTitle.content = `${displayName} | URBAN`;
+    const twImage = document.getElementById('twImage');
+    if (twImage && item.imgs && item.imgs[0]) twImage.content = item.imgs[0];
+
+    // Breadcrumbs
+    const crumbCat = document.getElementById('pdpCrumbCat');
+    if (crumbCat) {
+        crumbCat.textContent = categoryTitle;
+        crumbCat.href = `index.html#catalog`;
+    }
+    const crumbBrand = document.getElementById('pdpCrumbBrand');
+    if (crumbBrand) {
+        crumbBrand.textContent = item.brand_name || 'Бренд';
+    }
+    const crumbTitle = document.getElementById('pdpCrumbTitle');
+    if (crumbTitle) {
+        crumbTitle.textContent = displayName;
+    }
+
+    // Badge
+    const badgeEl = document.getElementById('pdpBadge');
+    if (badgeEl) {
+        badgeEl.textContent = item.badge || '✨ Топ якість';
+    }
+
+    // Discount
+    const discEl = document.getElementById('pdpDiscountBadge');
+    if (discEl) {
+        if (item.old_price && item.old_price > item.price) {
+            const pct = Math.round(((item.old_price - item.price) / item.old_price) * 100);
+            discEl.textContent = `-${pct}%`;
+            discEl.style.display = 'block';
+        } else {
+            discEl.style.display = 'none';
+        }
+    }
+
+    // Title
+    const titleEl = document.getElementById('pdpTitle');
+    if (titleEl) titleEl.textContent = displayName;
+
+    // Brand Tag
+    const brandTag = document.getElementById('pdpBrandTag');
+    if (brandTag) brandTag.textContent = item.brand_name || categoryTitle;
+
+    // Art
+    const artVal = document.getElementById('pdpArtVal');
+    if (artVal) artVal.textContent = item.art || '---';
+
+    // Prices
+    const priceNow = document.getElementById('pdpPriceNow');
+    if (priceNow) priceNow.textContent = formattedPrice;
+
+    const priceOld = document.getElementById('pdpPriceOld');
+    if (priceOld) {
+        if (formattedOldPrice) {
+            priceOld.textContent = formattedOldPrice;
+            priceOld.style.display = 'inline';
+        } else {
+            priceOld.style.display = 'none';
+        }
+    }
+
+    // Gallery
+    renderPdpGallery(item);
+
+    // Sizes
+    renderPdpSizes(item);
+
+    // Specs
+    renderPdpSpecs(item);
+
+    // Favorite Button State
+    updatePdpFavoriteButton(item.id);
+
+    // Init swipe gesture on main image box
+    initPdpSwipe(item);
+}
+
+function renderPdpGallery(item) {
+    const mainImg = document.getElementById('pdpMainImg');
+    const thumbsStrip = document.getElementById('pdpThumbsStrip');
+    const btnPrev = document.getElementById('pdpBtnPrev');
+    const btnNext = document.getElementById('pdpBtnNext');
+
+    const imgs = (item.imgs && item.imgs.length > 0) ? item.imgs : ['images/sneakers.webp'];
+    if (pdpCurrentPhotoIndex >= imgs.length) pdpCurrentPhotoIndex = 0;
+
+    if (mainImg) {
+        mainImg.src = imgs[pdpCurrentPhotoIndex];
+        mainImg.alt = formatProductDisplayName(item);
+    }
+
+    if (imgs.length <= 1) {
+        if (btnPrev) btnPrev.style.display = 'none';
+        if (btnNext) btnNext.style.display = 'none';
+        if (thumbsStrip) thumbsStrip.style.display = 'none';
+    } else {
+        if (btnPrev) btnPrev.style.display = 'flex';
+        if (btnNext) btnNext.style.display = 'flex';
+        if (thumbsStrip) {
+            thumbsStrip.style.display = 'flex';
+            thumbsStrip.innerHTML = imgs.map((img, idx) => `
+                <button type="button" class="pdp-thumb-btn ${idx === pdpCurrentPhotoIndex ? 'active' : ''}" onclick="pdpSwitchPhoto(${idx})" aria-label="Фото ${idx + 1}">
+                    <img src="${img}" alt="Фото ${idx + 1}" loading="lazy" referrerpolicy="no-referrer">
+                </button>
+            `).join('');
+        }
+    }
+}
+
+function pdpSwitchPhoto(idx) {
+    if (!pdpCurrentProduct) return;
+    const imgs = pdpCurrentProduct.imgs || ['images/sneakers.webp'];
+    if (idx < 0) idx = imgs.length - 1;
+    if (idx >= imgs.length) idx = 0;
+    pdpCurrentPhotoIndex = idx;
+
+    const mainImg = document.getElementById('pdpMainImg');
+    if (mainImg) {
+        mainImg.style.opacity = '0.35';
+        mainImg.src = imgs[pdpCurrentPhotoIndex];
+        setTimeout(() => { mainImg.style.opacity = '1'; }, 100);
+    }
+
+    const thumbs = document.querySelectorAll('.pdp-thumb-btn');
+    thumbs.forEach((tb, i) => {
+        if (i === pdpCurrentPhotoIndex) {
+            tb.classList.add('active');
+            tb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+            tb.classList.remove('active');
+        }
+    });
+}
+window.pdpSwitchPhoto = pdpSwitchPhoto;
+
+function pdpGalleryPrev() { pdpSwitchPhoto(pdpCurrentPhotoIndex - 1); }
+window.pdpGalleryPrev = pdpGalleryPrev;
+
+function pdpGalleryNext() { pdpSwitchPhoto(pdpCurrentPhotoIndex + 1); }
+window.pdpGalleryNext = pdpGalleryNext;
+
+function initPdpSwipe(item) {
+    const box = document.getElementById('pdpMainImgBox');
+    if (!box || box._pdpSwipeInit) return;
+    box._pdpSwipeInit = true;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    box.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+        }
+    }, { passive: true });
+
+    box.addEventListener('touchend', (e) => {
+        if (e.changedTouches && e.changedTouches.length === 1) {
+            touchEndX = e.changedTouches[0].clientX;
+            const diff = touchEndX - touchStartX;
+            if (Math.abs(diff) > 40) {
+                if (diff < 0) {
+                    pdpGalleryNext();
+                } else {
+                    pdpGalleryPrev();
+                }
+            }
+        }
+    }, { passive: true });
+}
+
+function renderPdpSizes(item) {
+    const grid = document.getElementById('pdpSizeGrid');
+    const label = document.getElementById('pdpSelectedSizeLabel');
+    if (!grid) return;
+
+    const sizes = item.sizes || [];
+    if (sizes.length === 0) {
+        grid.innerHTML = '<span style="color:#64748b; font-size:13px;">Універсальний розмір (One Size)</span>';
+        pdpSelectedSize = 'One Size';
+        if (label) label.textContent = 'One Size';
+        return;
+    }
+
+    pdpSelectedSize = formatSizeLabel(String(sizes[0]).trim());
+    if (label) label.textContent = pdpSelectedSize;
+
+    grid.innerHTML = sizes.map((sz, idx) => {
+        const rawSz = String(sz || '').trim();
+        const displaySz = formatSizeLabel(rawSz);
+        return `
+            <button type="button" class="pdp-size-pill ${idx === 0 ? 'active' : ''}" onclick="pdpSelectSize(this, '${escapeHtml(displaySz)}')" title="Розмір ${escapeHtml(displaySz)}">
+                ${escapeHtml(displaySz)}
+            </button>
+        `;
+    }).join('');
+}
+
+function pdpSelectSize(btn, szVal) {
+    document.querySelectorAll('.pdp-size-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    pdpSelectedSize = szVal;
+    const label = document.getElementById('pdpSelectedSizeLabel');
+    if (label) label.textContent = szVal;
+}
+window.pdpSelectSize = pdpSelectSize;
+
+function renderPdpSpecs(item) {
+    const list = document.getElementById('pdpSpecsList');
+    if (!list) return;
+
+    const rows = [
+        { label: 'Артикул товару:', val: item.art || '---' },
+        { label: 'Бренд:', val: item.brand_name || 'URBAN' },
+        { label: 'Категорія:', val: getCategoryTitle(item.cat, item) },
+        { label: 'Сезон:', val: item.season_name || (item.season === 'winter' ? 'Зима' : 'Демісезон') }
+    ];
+    if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
+    if (item.origin) rows.push({ label: 'Країна виробництва:', val: item.origin });
+    rows.push({ label: 'Стан:', val: 'Новий, у фірмовій коробці' });
+    rows.push({ label: 'Наявність:', val: '✓ В наявності на складі' });
+
+    list.innerHTML = rows.map(r => `
+        <div class="pdp-spec-row">
+            <span class="pdp-spec-label">${escapeHtml(r.label)}</span>
+            <span class="pdp-spec-val">${escapeHtml(r.val)}</span>
+        </div>
+    `).join('');
+}
+
+function pdpAddToCartAction() {
+    if (!pdpCurrentProduct) return;
+    const item = pdpCurrentProduct;
+    const displayName = formatProductDisplayName(item);
+    const mainImg = (item.imgs && item.imgs[0]) ? item.imgs[0] : 'images/sneakers.webp';
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+
+    addToCart({
+        id: `${item.id}-${chosenSize}`,
+        prodId: item.id,
+        title: displayName,
+        art: item.art || '',
+        price: item.price,
+        size: chosenSize,
+        img: mainImg,
+        mat: item.mat || '',
+        origin: item.origin || '',
+        link: window.location.href,
+        qty: 1
+    });
+}
+window.pdpAddToCartAction = pdpAddToCartAction;
+
+function pdpQuickOrderAction() {
+    if (!pdpCurrentProduct) return;
+    const item = pdpCurrentProduct;
+    const displayName = formatProductDisplayName(item);
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+
+    const modal = document.getElementById('quickOrderModalWrapper');
+    const subtitle = document.getElementById('pdpQuickModalSubtitle');
+    const inputModel = document.getElementById('pdpQuickChosenModel');
+
+    if (subtitle) subtitle.textContent = `${displayName} (Арт: ${item.art || '---'}) • ${item.price} грн • Розмір: ${chosenSize}`;
+    if (inputModel) inputModel.value = `${displayName} (Арт: ${item.art || '---'}, Розмір: ${chosenSize}, Ціна: ${item.price} грн)`;
+    if (modal) {
+        modal.style.display = 'flex';
+        void modal.offsetWidth;
+        modal.classList.add('active');
+    }
+}
+window.pdpQuickOrderAction = pdpQuickOrderAction;
+
+function pdpCloseQuickOrderModal() {
+    const modal = document.getElementById('quickOrderModalWrapper');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => { modal.style.display = 'none'; }, 200);
+    }
+}
+window.pdpCloseQuickOrderModal = pdpCloseQuickOrderModal;
+
+async function pdpSubmitQuickOrder(e) {
+    e.preventDefault();
+    if (!pdpCurrentProduct) return;
+    const item = pdpCurrentProduct;
+    const displayName = formatProductDisplayName(item);
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+
+    const nameInput = document.getElementById('pdpQuickName');
+    const phoneInput = document.getElementById('pdpQuickPhone');
+    const errorEl = document.getElementById('pdpQuickPhoneError');
+
+    const customerName = nameInput ? nameInput.value.trim() : 'Покупець';
+    const customerPhone = phoneInput ? phoneInput.value.trim() : '';
+
+    const phoneCheck = validateUkrainianPhone(customerPhone);
+    if (!phoneCheck.valid) {
+        if (errorEl) {
+            errorEl.textContent = phoneCheck.message;
+            errorEl.style.display = 'block';
+        }
+        if (phoneInput) phoneInput.focus();
+        return;
+    }
+    if (errorEl) errorEl.style.display = 'none';
+
+    const btn = document.getElementById('btnPdpSubmitQuick');
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'ОФОРМЛЕННЯ...';
+    }
+
+    const randomNum = Math.floor(10000 + Math.random() * 90000);
+    const orderId = `UG-${randomNum}`;
+    const formattedTotal = `${item.price.toLocaleString('uk-UA')} грн`;
+    const fullItemSummary = `1. ${displayName} (Арт: ${item.art || '---'}) | Розмір: ${chosenSize} | 1 шт. × ${formattedTotal}`;
+
+    const quickTtnBlock = `ПІБ: ${customerName}\nТел: ${phoneCheck.formatted}\nДоставка: Узгодити по телефону\nТовари: ${displayName} (Арт: ${item.art || '---'}, Р: ${chosenSize})\nОплата: Узгодити з менеджером — ${formattedTotal}`;
+
+    const quickOrderData = {
+        orderId: orderId,
+        orderDate: new Date().toLocaleString('uk-UA'),
+        customerName: customerName,
+        customerPhone: phoneCheck.formatted,
+        customerAddress: 'Узгодити при дзвінку менеджера',
+        paymentMethod: 'Узгодити з менеджером',
+        itemsSummary: fullItemSummary,
+        subtotalFormatted: formattedTotal
+    };
+
+    saveOrderToLedger({
+        orderId: orderId,
+        date: new Date().toLocaleString('uk-UA'),
+        customerName: customerName,
+        customerPhone: phoneCheck.formatted,
+        delivery: 'Узгодити по телефону',
+        payment: 'Узгодити з менеджером',
+        total: formattedTotal,
+        items: fullItemSummary,
+        quickTtn: quickTtnBlock
+    });
+
+    const fd = new FormData();
+    fd.append('_subject', `⚡ ШВИДКЕ ЗАМОВЛЕННЯ #${orderId} | ${formattedTotal} | ${customerName}`);
+    fd.append('_template', 'table');
+    fd.append('_captcha', 'false');
+    fd.append('Номер_замовлення', orderId);
+    fd.append('Клієнт_ПІБ', customerName);
+    fd.append('Телефон', phoneCheck.formatted);
+    fd.append('Товар', displayName);
+    fd.append('Артикул', item.art || '---');
+    fd.append('Розмір', chosenSize);
+    fd.append('Сума', formattedTotal);
+    fd.append('Сторінка_товару', window.location.href);
+    fd.append('Для_ТТН', quickTtnBlock);
+
+    try {
+        await fetch('https://formsubmit.co/ajax/lunarecho94@gmail.com', {
+            method: 'POST',
+            body: fd
+        });
+    } catch (err) {}
+
+    safeTrackFbq('Lead', {
+        content_name: displayName,
+        value: item.price,
+        currency: 'UAH'
+    });
+
+    pdpCloseQuickOrderModal();
+    if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+    }
+    showOrderSuccessModal(quickOrderData);
+}
+window.pdpSubmitQuickOrder = pdpSubmitQuickOrder;
+
+function pdpOrderViaMessenger(type, e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!pdpCurrentProduct) return;
+    const item = pdpCurrentProduct;
+    const displayName = formatProductDisplayName(item);
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+
+    const msg = `Доброго дня! Хочу замовити цей товар з сайту URBAN:\n\n` +
+        `👟 Модель: ${displayName}\n` +
+        `🏷️ Артикул: ${item.art || '---'}\n` +
+        `📏 Розмір: ${chosenSize}\n` +
+        `💰 Ціна: ${item.price.toLocaleString('uk-UA')} грн\n` +
+        `🔗 Посилання: ${window.location.href}\n\n` +
+        `Підкажіть, будь ласка, наявність та як оформити доставку!`;
+
+    copyTextToClipboard(msg);
+    showCartToast('Текст замовлення скопійовано!');
+
+    safeTrackFbq('Contact', { content_name: displayName });
+
+    if (type === 'telegram') {
+        const tgUrl = `https://t.me/+380974524435`;
+        window.open(tgUrl, '_blank');
+    } else {
+        const vbUrl = `viber://chat?number=%2B380974524435`;
+        window.location.href = vbUrl;
+    }
+}
+window.pdpOrderViaMessenger = pdpOrderViaMessenger;
+
+function pdpCopyArt() {
+    if (!pdpCurrentProduct || !pdpCurrentProduct.art) return;
+    copyTextToClipboard(pdpCurrentProduct.art);
+    showCartToast(`Артикул ${pdpCurrentProduct.art} скопійовано!`);
+}
+window.pdpCopyArt = pdpCopyArt;
+
+function pdpOpenSizeGuide() {
+    const cat = pdpCurrentProduct ? (pdpCurrentProduct.cat || 'shoes') : 'shoes';
+    openSizeChartModal(cat);
+}
+window.pdpOpenSizeGuide = pdpOpenSizeGuide;
+
+function pdpOpenZoomModal() {
+    if (!pdpCurrentProduct) return;
+    openPhotoModal(pdpCurrentProduct.id, pdpCurrentPhotoIndex);
+}
+window.pdpOpenZoomModal = pdpOpenZoomModal;
+
+function pdpToggleFavoriteAction() {
+    if (!pdpCurrentProduct) return;
+    toggleFavorite(pdpCurrentProduct.id);
+    updatePdpFavoriteButton(pdpCurrentProduct.id);
+}
+window.pdpToggleFavoriteAction = pdpToggleFavoriteAction;
+
+function updatePdpFavoriteButton(prodId) {
+    const btn = document.getElementById('btnPdpFav');
+    const textEl = document.getElementById('btnPdpFavText');
+    if (!btn) return;
+    const isFav = isFavorite(prodId);
+    if (isFav) {
+        btn.classList.add('active');
+        if (textEl) textEl.textContent = 'У збереженому ❤️';
+        const svgPath = btn.querySelector('svg path');
+        if (svgPath) {
+            svgPath.setAttribute('fill', '#ef4444');
+            svgPath.setAttribute('stroke', '#ef4444');
+        }
+    } else {
+        btn.classList.remove('active');
+        if (textEl) textEl.textContent = 'Додати в обране';
+        const svgPath = btn.querySelector('svg path');
+        if (svgPath) {
+            svgPath.setAttribute('fill', 'none');
+            svgPath.setAttribute('stroke', 'currentColor');
+        }
+    }
+}
+
+function renderPdpRecommendedProducts(currentProduct) {
+    const sec = document.getElementById('pdpRecommendedSection');
+    const grid = document.getElementById('pdpRecommendedGrid');
+    const title = document.getElementById('pdpRecTitle');
+    if (!sec || !grid || !catalogAllProducts) return;
+
+    let recs = catalogAllProducts.filter(p => String(p.id) !== String(currentProduct.id) && p.brand === currentProduct.brand);
+    if (recs.length < 4) {
+        const catRecs = catalogAllProducts.filter(p => String(p.id) !== String(currentProduct.id) && p.cat === currentProduct.cat && p.brand !== currentProduct.brand);
+        recs = recs.concat(catRecs);
+    }
+    recs = recs.slice(0, 4);
+
+    if (recs.length === 0) {
+        sec.style.display = 'none';
+        return;
+    }
+
+    if (title && currentProduct.brand_name) {
+        title.textContent = `Схожі моделі ${currentProduct.brand_name}`;
+    }
+
+    grid.innerHTML = '';
+    recs.forEach(item => {
+        grid.appendChild(createProductCardElement(item));
+    });
+    sec.style.display = 'block';
+}
+
+function pdpToggleAccordion(btn) {
+    const item = btn.closest('.pdp-acc-item');
+    if (item) {
+        item.classList.toggle('open');
+    }
+}
+window.pdpToggleAccordion = pdpToggleAccordion;
+
 
