@@ -1,11 +1,11 @@
 {
-  "total": 7535,
+  "total": 7533,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7535
+      "count": 7533
     },
     {
       "slug": "men",
@@ -17,7 +17,7 @@
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5420
+      "count": 5415
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7535
+      "count": 7533
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5749
+      "count": 5748
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "🎒",
-      "count": 832
+      "count": 831
     }
   ],
   "seasons": [
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7535
+      "count": 7533
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5643
+      "count": 5642
     },
     {
       "slug": "winter",
@@ -81,19 +81,19 @@
       "slug": "summer",
       "name": "Літо",
       "icon": "☀️",
-      "count": 1123
+      "count": 1122
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7535
+      "count": 7533
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2105
+      "count": 2106
     },
     {
       "slug": "newbalance",
@@ -108,7 +108,7 @@
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 414
+      "count": 413
     },
     {
       "slug": "ugg",
@@ -171,14 +171,14 @@
       "count": 60
     },
     {
-      "slug": "gucci",
-      "name": "Gucci",
-      "count": 58
-    },
-    {
       "slug": "tnf",
       "name": "The North Face",
       "count": 58
+    },
+    {
+      "slug": "gucci",
+      "name": "Gucci",
+      "count": 57
     },
     {
       "slug": "goldengoose",
@@ -193,7 +193,7 @@
     {
       "slug": "puma",
       "name": "Puma",
-      "count": 43
+      "count": 42
     },
     {
       "slug": "calvinklein",
