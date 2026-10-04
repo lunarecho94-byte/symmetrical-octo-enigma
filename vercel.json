@@ -2,12 +2,12 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/product/:id",
-      "destination": "/product?id=:id"
+      "source": "/product/:slug*",
+      "destination": "/product?slug=:slug*"
     },
     {
-      "source": "/p/:id",
-      "destination": "/product?id=:id"
+      "source": "/p/:slug*",
+      "destination": "/product?slug=:slug*"
     }
   ]
 }

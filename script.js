@@ -510,17 +510,19 @@ function renderFavoritesDrawer() {
             `;
         }
 
+        const prodUrl = getProductUrl(item);
+
         return `
             <div class="fav-item-card" id="favItem_${item.id}">
-                <div class="fav-item-img-box" onclick="closeFavoritesDrawer(); window.location.href='product.html?id=' + encodeURIComponent('${item.id}')" title="Перейти на сторінку товару">
+                <a href="${prodUrl}" class="fav-item-img-box" onclick="closeFavoritesDrawer()" title="Перейти на сторінку товару">
                     <img src="${imgUrl}" alt="${escapeHtml(displayName)}" loading="lazy" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat || 'shoes'}')">
-                </div>
+                </a>
                 <div class="fav-item-info">
                     <div class="fav-item-top">
                         <span class="fav-item-art">АРТ: ${escapeHtml(item.art || '---')}</span>
                         <button type="button" class="btn-fav-remove" onclick="toggleFavorite('${item.id}', event)" aria-label="Видалити з обраного" title="Видалити">✕</button>
                     </div>
-                    <a href="product.html?id=${encodeURIComponent(item.id)}" onclick="closeFavoritesDrawer()" style="text-decoration:none; color:inherit;">
+                    <a href="${prodUrl}" onclick="closeFavoritesDrawer()" style="text-decoration:none; color:inherit;">
                         <h4 class="fav-item-title" title="Перейти на сторінку товару">${escapeHtml(displayName)}</h4>
                     </a>
                     <div class="fav-item-price">${formattedPrice}</div>
@@ -2800,11 +2802,13 @@ function createProductCardElement(item) {
         </button>
     `;
 
+    const prodUrl = getProductUrl(item);
+
     card.innerHTML = `
         <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event)" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event)" title="Переглянути товар: ${escapeHtml(displayName)}">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
             ${favBtnHtml}
-            <a href="product.html?id=${encodeURIComponent(item.id)}" class="btn-zoom-overlay" aria-label="Детальніше про товар" onclick="event.stopPropagation()">
+            <a href="${prodUrl}" class="btn-zoom-overlay" aria-label="Детальніше про товар" onclick="openProductPage('${item.id}', event)">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -2824,7 +2828,7 @@ function createProductCardElement(item) {
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <a href="product.html?id=${encodeURIComponent(item.id)}" class="product-title-link" title="Переглянути сторінку товару ${escapeHtml(displayName)}">
+            <a href="${prodUrl}" class="product-title-link" onclick="openProductPage('${item.id}', event)" title="Переглянути сторінку товару ${escapeHtml(displayName)}">
                 <h3 class="product-title">${escapeHtml(displayName)}</h3>
             </a>
             <div class="product-specs">
@@ -2846,7 +2850,7 @@ function createProductCardElement(item) {
                 <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(displayName)} (${item.price} грн)', '${formattedPrice}', event, '${item.id}')">
                     В кошик
                 </button>
-                <a href="product.html?id=${encodeURIComponent(item.id)}" class="btn-details-link" title="Переглянути окрему сторінку товару">
+                <a href="${prodUrl}" class="btn-details-link" onclick="openProductPage('${item.id}', event)" title="Переглянути окрему сторінку товару">
                     Детальніше ➔
                 </a>
             </div>
@@ -5134,9 +5138,39 @@ let pdpCurrentProduct = null;
 let pdpSelectedSize = '';
 let pdpCurrentPhotoIndex = 0;
 
+function generateProductSlug(name, id) {
+    const cyrMap = {
+        'а':'a','б':'b','в':'v','г':'h','ґ':'g','д':'d','е':'e','є':'ye',
+        'ж':'zh','з':'z','и':'y','і':'i','ї':'yi','й':'y','к':'k','л':'l',
+        'м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u',
+        'ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh','щ':'shch','ь':'',
+        'ю':'yu','я':'ya','ъ':'','ы':'y','э':'e'
+    };
+    const s = String(name || '').toLowerCase();
+    let trans = '';
+    for (let i = 0; i < s.length; i++) {
+        const ch = s[i];
+        trans += cyrMap[ch] !== undefined ? cyrMap[ch] : ch;
+    }
+    const clean = trans.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    const cleanId = String(id || '').trim();
+    if (clean && cleanId) {
+        return `${clean}-${cleanId}`;
+    }
+    return clean || cleanId || 'product';
+}
+window.generateProductSlug = generateProductSlug;
+
+function getProductUrl(item) {
+    if (!item) return '#';
+    const slug = generateProductSlug(item.name || item.title || item.brand_name || item.brand || 'product', item.id);
+    return `product/${slug}`;
+}
+window.getProductUrl = getProductUrl;
+
 function openProductPage(productId, e) {
     if (e) {
-        if (e.defaultPrevented) return;
+        if (e.ctrlKey || e.metaKey || e.button === 1) return;
         if (e.target && (
             e.target.closest('.btn-card-fav') || 
             e.target.closest('.card-thumbnails') || 
@@ -5146,9 +5180,12 @@ function openProductPage(productId, e) {
         )) {
             return;
         }
+        e.preventDefault();
+        e.stopPropagation();
     }
     if (!productId) return;
-    window.location.href = `product.html?id=${encodeURIComponent(productId)}`;
+    const item = (catalogAllProducts && catalogAllProducts.find(p => String(p.id) === String(productId))) || { id: productId };
+    window.location.href = getProductUrl(item);
 }
 window.openProductPage = openProductPage;
 
@@ -5160,19 +5197,30 @@ async function initProductDetailPage() {
     const notFound = document.getElementById('pdpNotFound');
     const content = document.getElementById('pdpContent');
 
-    // 1. Get Product ID or Art from URL
+    // 1. Get Product ID, Art or Slug from URL
     const urlParams = new URLSearchParams(window.location.search);
-    let productId = urlParams.get('id');
+    let rawQuery = urlParams.get('slug') || urlParams.get('id') || urlParams.get('p') || '';
     let productArt = urlParams.get('art');
 
-    if (!productId && !productArt) {
-        const pathMatch = window.location.pathname.match(/\/p(?:roduct)?\/([^/?#]+)/i);
-        if (pathMatch) {
-            productId = decodeURIComponent(pathMatch[1]);
+    let pathSlug = '';
+    const pathMatch = window.location.pathname.match(/\/(?:p|product)\/([^/?#]+)/i);
+    if (pathMatch) {
+        pathSlug = decodeURIComponent(pathMatch[1]);
+    }
+
+    const candidate = pathSlug || rawQuery;
+    let extractedId = null;
+    if (candidate) {
+        // e.g. "adidas-originals-campus-00s-olive-black-176797" -> "176797"
+        const idMatch = candidate.match(/-([a-zA-Z0-9_]+)$/);
+        if (idMatch) {
+            extractedId = idMatch[1];
+        } else {
+            extractedId = candidate;
         }
     }
 
-    if (!productId && !productArt) {
+    if (!extractedId && !candidate && !productArt) {
         if (skeleton) skeleton.style.display = 'none';
         if (notFound) notFound.style.display = 'block';
         return;
@@ -5207,11 +5255,22 @@ async function initProductDetailPage() {
 
     // 3. Find Product
     let product = null;
-    if (productId) {
-        product = catalogAllProducts.find(p => String(p.id) === String(productId));
+    if (extractedId) {
+        product = catalogAllProducts.find(p => String(p.id) === String(extractedId));
+    }
+    if (!product && candidate) {
+        product = catalogAllProducts.find(p => String(p.id) === String(candidate));
+    }
+    if (!product && candidate) {
+        product = catalogAllProducts.find(p => generateProductSlug(p.name || p.title, p.id) === candidate);
+    }
+    if (!product && candidate) {
+        const candLower = candidate.toLowerCase();
+        product = catalogAllProducts.find(p => p.art && p.art.toLowerCase() === candLower);
     }
     if (!product && productArt) {
-        product = catalogAllProducts.find(p => p.art && p.art.toLowerCase() === productArt.toLowerCase());
+        const artLower = productArt.toLowerCase();
+        product = catalogAllProducts.find(p => p.art && p.art.toLowerCase() === artLower);
     }
 
     if (!product) {
@@ -5223,16 +5282,27 @@ async function initProductDetailPage() {
     pdpCurrentProduct = product;
     pdpCurrentPhotoIndex = 0;
 
-    // 4. Render Product Details
+    // 4. Update canonical browser URL to clean SEO slug if on query string or generic path
+    try {
+        const canonicalSlug = generateProductSlug(product.name || product.title, product.id);
+        const expectedPath = `/product/${canonicalSlug}`;
+        if (window.history && window.history.replaceState && window.location.pathname !== expectedPath) {
+            window.history.replaceState(null, '', expectedPath);
+        }
+    } catch (e) {
+        // ignore history state errors
+    }
+
+    // 5. Render Product Details
     renderProductDetailPage(product);
 
     if (skeleton) skeleton.style.display = 'none';
     if (content) content.style.display = 'grid';
 
-    // 5. Render Recommended Products
+    // 6. Render Recommended Products
     renderPdpRecommendedProducts(product);
 
-    // 6. Track ViewContent
+    // 7. Track ViewContent
     safeTrackFbq('ViewContent', {
         content_name: product.name,
         content_category: product.cat_name || product.cat,
@@ -5250,22 +5320,29 @@ function renderProductDetailPage(item) {
     const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
     const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
 
+    const canonicalSlug = generateProductSlug(item.name || item.title, item.id);
+    const canonicalUrl = `https://urbangrid.com.ua/product/${canonicalSlug}`;
+
     // Document Meta
-    document.title = `${displayName} — купити в Україні за ${formattedPrice} | URBAN`;
+    document.title = `${displayName} | URBAN`;
     const metaDesc = document.getElementById('pdpMetaDesc');
-    if (metaDesc) metaDesc.content = `${displayName} за ціною ${formattedPrice}. Артикул: ${item.art}. Швидка доставка 1-2 дні Новою Поштою, оплата при отриманні або на карту.`;
+    if (metaDesc) metaDesc.content = `${displayName}. Матеріал: ${item.mat || 'високоякісні матеріали'}. Швидка відправка Новою Поштою 1-2 дні по Україні, оплата при отриманні або на карту.`;
     
     // OpenGraph
     const ogTitle = document.getElementById('ogTitle');
     if (ogTitle) ogTitle.content = `${displayName} | URBAN`;
+    const ogDesc = document.getElementById('ogDesc');
+    if (ogDesc) ogDesc.content = `${displayName}. Матеріал: ${item.mat || 'високоякісні матеріали'}`;
     const ogImage = document.getElementById('ogImage');
     if (ogImage && item.imgs && item.imgs[0]) ogImage.content = item.imgs[0];
     const ogUrl = document.getElementById('ogUrl');
-    if (ogUrl) ogUrl.content = window.location.href;
+    if (ogUrl) ogUrl.content = canonicalUrl;
 
     // Twitter
     const twTitle = document.getElementById('twTitle');
     if (twTitle) twTitle.content = `${displayName} | URBAN`;
+    const twDesc = document.getElementById('twDesc');
+    if (twDesc) twDesc.content = `${displayName}. Матеріал: ${item.mat || 'високоякісні матеріали'}`;
     const twImage = document.getElementById('twImage');
     if (twImage && item.imgs && item.imgs[0]) twImage.content = item.imgs[0];
 
@@ -5292,14 +5369,20 @@ function renderProductDetailPage(item) {
 
     // Discount
     const discEl = document.getElementById('pdpDiscountBadge');
-    if (discEl) {
-        if (item.old_price && item.old_price > item.price) {
-            const pct = Math.round(((item.old_price - item.price) / item.old_price) * 100);
+    const discPill = document.getElementById('pdpDiscountPill');
+    if (item.old_price && item.old_price > item.price) {
+        const pct = Math.round(((item.old_price - item.price) / item.old_price) * 100);
+        if (discEl) {
             discEl.textContent = `-${pct}%`;
             discEl.style.display = 'block';
-        } else {
-            discEl.style.display = 'none';
         }
+        if (discPill) {
+            discPill.textContent = `-${pct}%`;
+            discPill.style.display = 'inline-flex';
+        }
+    } else {
+        if (discEl) discEl.style.display = 'none';
+        if (discPill) discPill.style.display = 'none';
     }
 
     // Title
@@ -5326,6 +5409,20 @@ function renderProductDetailPage(item) {
         } else {
             priceOld.style.display = 'none';
         }
+    }
+
+    // Viewers Social Proof Count
+    const viewersEl = document.getElementById('pdpViewersCount');
+    if (viewersEl) {
+        const seed = parseInt(String(item.id).replace(/\D/g, '') || '3', 10);
+        const count = 2 + (seed % 4); // 2, 3, 4, or 5 viewers
+        viewersEl.textContent = String(count);
+    }
+
+    // Description text
+    const descText = document.getElementById('pdpDescText');
+    if (descText) {
+        descText.textContent = `${displayName}. Матеріал: ${item.mat || 'високоякісні натуральні та технологічні матеріали'}. Сезон: ${item.season_name || 'демісезон'}. Комплектація: фірмова коробка, папір. Відправка Новою Поштою 1-2 дні по Україні.`;
     }
 
     // Gallery
@@ -5440,6 +5537,7 @@ function initPdpSwipe(item) {
 function renderPdpSizes(item) {
     const grid = document.getElementById('pdpSizeGrid');
     const label = document.getElementById('pdpSelectedSizeLabel');
+    const hint = document.getElementById('pdpSizeHint');
     if (!grid) return;
 
     const sizes = item.sizes || [];
@@ -5447,17 +5545,19 @@ function renderPdpSizes(item) {
         grid.innerHTML = '<span style="color:#64748b; font-size:13px;">Універсальний розмір (One Size)</span>';
         pdpSelectedSize = 'One Size';
         if (label) label.textContent = 'One Size';
+        if (hint) hint.textContent = 'Розмір: One Size';
         return;
     }
 
     pdpSelectedSize = formatSizeLabel(String(sizes[0]).trim());
     if (label) label.textContent = pdpSelectedSize;
+    if (hint) hint.textContent = `Обраний розмір: ${pdpSelectedSize}`;
 
     grid.innerHTML = sizes.map((sz, idx) => {
         const rawSz = String(sz || '').trim();
         const displaySz = formatSizeLabel(rawSz);
         return `
-            <button type="button" class="pdp-size-pill ${idx === 0 ? 'active' : ''}" onclick="pdpSelectSize(this, '${escapeHtml(displaySz)}')" title="Розмір ${escapeHtml(displaySz)}">
+            <button type="button" class="pdp-size-btn ${idx === 0 ? 'active' : ''}" onclick="pdpSelectSize(this, '${escapeHtml(displaySz)}')" title="Розмір ${escapeHtml(displaySz)}">
                 ${escapeHtml(displaySz)}
             </button>
         `;
@@ -5465,11 +5565,13 @@ function renderPdpSizes(item) {
 }
 
 function pdpSelectSize(btn, szVal) {
-    document.querySelectorAll('.pdp-size-pill').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.pdp-size-btn, .pdp-size-pill').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     pdpSelectedSize = szVal;
     const label = document.getElementById('pdpSelectedSizeLabel');
     if (label) label.textContent = szVal;
+    const hint = document.getElementById('pdpSizeHint');
+    if (hint) hint.textContent = `Обраний розмір: ${szVal}`;
 }
 window.pdpSelectSize = pdpSelectSize;
 
@@ -5679,6 +5781,11 @@ function pdpCopyArt() {
     if (!pdpCurrentProduct || !pdpCurrentProduct.art) return;
     copyTextToClipboard(pdpCurrentProduct.art);
     showCartToast(`Артикул ${pdpCurrentProduct.art} скопійовано!`);
+    const hint = document.getElementById('pdpArtCopyHint');
+    if (hint) {
+        hint.textContent = 'скопійовано!';
+        setTimeout(() => { hint.textContent = 'копіювати'; }, 2000);
+    }
 }
 window.pdpCopyArt = pdpCopyArt;
 
@@ -5694,6 +5801,16 @@ function pdpOpenZoomModal() {
 }
 window.pdpOpenZoomModal = pdpOpenZoomModal;
 
+function pdpScrollToAccordion(type) {
+    const targetId = type === 'delivery' ? 'pdpAccDelivery' : 'pdpAccReturns';
+    const acc = document.getElementById(targetId);
+    if (acc) {
+        acc.classList.add('open');
+        acc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+window.pdpScrollToAccordion = pdpScrollToAccordion;
+
 function pdpToggleFavoriteAction() {
     if (!pdpCurrentProduct) return;
     toggleFavorite(pdpCurrentProduct.id);
@@ -5708,7 +5825,7 @@ function updatePdpFavoriteButton(prodId) {
     const isFav = isFavorite(prodId);
     if (isFav) {
         btn.classList.add('active');
-        if (textEl) textEl.textContent = 'У збереженому ❤️';
+        if (textEl) textEl.textContent = 'В ОБРАНОМУ ❤️';
         const svgPath = btn.querySelector('svg path');
         if (svgPath) {
             svgPath.setAttribute('fill', '#ef4444');
@@ -5716,7 +5833,7 @@ function updatePdpFavoriteButton(prodId) {
         }
     } else {
         btn.classList.remove('active');
-        if (textEl) textEl.textContent = 'Додати в обране';
+        if (textEl) textEl.textContent = 'В ОБРАНЕ';
         const svgPath = btn.querySelector('svg path');
         if (svgPath) {
             svgPath.setAttribute('fill', 'none');
@@ -5743,8 +5860,8 @@ function renderPdpRecommendedProducts(currentProduct) {
         return;
     }
 
-    if (title && currentProduct.brand_name) {
-        title.textContent = `Схожі моделі ${currentProduct.brand_name}`;
+    if (title) {
+        title.textContent = 'СХОЖІ ПРОПОЗИЦІЇ';
     }
 
     grid.innerHTML = '';
