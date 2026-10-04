@@ -2809,7 +2809,7 @@ function createProductCardElement(item) {
         <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event, '${prodUrl}', true)" title="Переглянути сторінку товару: ${escapeHtml(displayName)}">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
             ${favBtnHtml}
-            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-pdp-link btn-zoom-overlay" aria-label="Відкрити сторінку товару" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)">
+            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-pdp-link" aria-label="Відкрити сторінку товару" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)">
                 <span>Відкрити товар</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </a>
