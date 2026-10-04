@@ -1,3 +1,13 @@
+// Safe Meta Pixel Tracker (Bulletproof against adblockers and missing fbq)
+function safeTrackFbq(eventName, eventParams) {
+    try {
+        if (typeof window.fbq === 'function') {
+            window.fbq('track', eventName, eventParams);
+        }
+    } catch (_) {}
+}
+window.safeTrackFbq = safeTrackFbq;
+
 // Gallery Image Switcher (Hero)
 function switchGalleryImg(thumbElement, imgSrc) {
     const mainImg = document.getElementById('mainGalleryImg');
@@ -212,15 +222,11 @@ function addToCart(item) {
     openCart();
 
     // Ad Conversion Tracking (Meta Pixel & GA4)
-    if (window.fbq) {
-        try {
-            fbq('track', 'AddToCart', {
-                content_name: item.title,
-                value: item.price,
-                currency: 'UAH'
-            });
-        } catch (e) {}
-    }
+    safeTrackFbq('AddToCart', {
+        content_name: item.title,
+        value: item.price,
+        currency: 'UAH'
+    });
     if (window.gtag) {
         try {
             gtag('event', 'add_to_cart', {
@@ -379,17 +385,13 @@ function toggleFavorite(productId, event) {
             showCartToast(`❤️ "${compactItem.name}" додано в Обране!`);
 
             // Meta Pixel Wishlist Tracking
-            if (window.fbq) {
-                try {
-                    fbq('track', 'AddToWishlist', {
-                        content_name: compactItem.name,
-                        content_category: compactItem.cat || 'shoes',
-                        content_ids: [String(compactItem.id)],
-                        value: compactItem.price || 0,
-                        currency: 'UAH'
-                    });
-                } catch (e) {}
-            }
+            safeTrackFbq('AddToWishlist', {
+                content_name: compactItem.name,
+                content_category: compactItem.cat || 'shoes',
+                content_ids: [String(compactItem.id)],
+                value: compactItem.price || 0,
+                currency: 'UAH'
+            });
         }
     }
 
@@ -1611,15 +1613,11 @@ async function handleCheckoutFormSubmit(e) {
 
     // Ad Conversion Tracking (Meta Pixel & GA4)
     const orderTotalNumPurchase = parseInt((document.getElementById('pdfGrandTotalSum')?.textContent || '2500').replace(/\D/g, ''), 10) || 2500;
-    if (window.fbq) {
-        try {
-            fbq('track', 'Purchase', {
-                value: orderTotalNumPurchase,
-                currency: 'UAH',
-                content_type: 'product'
-            });
-        } catch (e) {}
-    }
+    safeTrackFbq('Purchase', {
+        value: orderTotalNumPurchase,
+        currency: 'UAH',
+        content_type: 'product'
+    });
     if (window.gtag) {
         try {
             gtag('event', 'purchase', {
@@ -2910,7 +2908,12 @@ function renderCatalogGrid(append) {
                 btnLoadMore.style.display = 'inline-flex';
                 const remaining = total - catalogRenderedCount;
                 const nextChunk = Math.min(CATALOG_PAGE_SIZE, remaining);
-                btnLoadMore.querySelector('span').textContent = `Показати ще ${nextChunk} моделей`;
+                const loadMoreSpan = btnLoadMore.querySelector('span');
+                if (loadMoreSpan) {
+                    loadMoreSpan.textContent = `Показати ще ${nextChunk} моделей`;
+                } else {
+                    btnLoadMore.textContent = `Показати ще ${nextChunk} моделей`;
+                }
             }
         }
     }
@@ -3764,15 +3767,11 @@ async function checkoutViaMessenger(messenger) {
     await copyTextToClipboard(order.text);
 
     // Meta Pixel Contact Tracking
-    if (window.fbq) {
-        try {
-            fbq('track', 'Contact', {
-                content_name: messenger === 'telegram' ? 'Telegram' : 'Viber',
-                value: order.totalPrice || 0,
-                currency: 'UAH'
-            });
-        } catch (e) {}
-    }
+    safeTrackFbq('Contact', {
+        content_name: messenger === 'telegram' ? 'Telegram' : 'Viber',
+        value: order.totalPrice || 0,
+        currency: 'UAH'
+    });
 
     // Track lead and record in order dispatch ledger
     try {
@@ -3801,16 +3800,17 @@ async function checkoutViaMessenger(messenger) {
             : 'Текст замовлення скопійовано! Відкриваємо чат у Viber...'
     );
 
-    setTimeout(() => {
-        if (messenger === 'telegram') {
-            const tgUrl = `https://t.me/${TG_MANAGER_USERNAME}?text=${encodeURIComponent(order.text)}`;
-            window.open(tgUrl, '_blank');
-        } else if (messenger === 'viber') {
-            const cleanPhone = VIBER_MANAGER_PHONE.replace(/\D/g, '');
-            const viberUrl = `viber://chat?number=%2B${cleanPhone}`;
-            window.open(viberUrl, '_blank');
+    if (messenger === 'telegram') {
+        const tgUrl = `https://t.me/${TG_MANAGER_USERNAME}?text=${encodeURIComponent(order.text)}`;
+        const win = window.open(tgUrl, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+            window.location.href = tgUrl;
         }
-    }, 350);
+    } else if (messenger === 'viber') {
+        const cleanPhone = VIBER_MANAGER_PHONE.replace(/\D/g, '');
+        const viberUrl = `viber://chat?number=%2B${cleanPhone}`;
+        window.location.href = viberUrl;
+    }
 }
 
 function confirmOrderInMessenger(messenger) {
@@ -3827,10 +3827,14 @@ function confirmOrderInMessenger(messenger) {
     copyTextToClipboard(text);
 
     if (messenger === 'telegram') {
-        window.open(`https://t.me/${TG_MANAGER_USERNAME}?text=${encodeURIComponent(text)}`, '_blank');
+        const tgUrl = `https://t.me/${TG_MANAGER_USERNAME}?text=${encodeURIComponent(text)}`;
+        const win = window.open(tgUrl, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+            window.location.href = tgUrl;
+        }
     } else {
         const cleanPhone = VIBER_MANAGER_PHONE.replace(/\D/g, '');
-        window.open(`viber://chat?number=%2B${cleanPhone}`, '_blank');
+        window.location.href = `viber://chat?number=%2B${cleanPhone}`;
     }
 }
 
@@ -3898,8 +3902,13 @@ function validateUkrainianPhone(phoneStr) {
 
     if (digits.startsWith('380') && digits.length === 12) {
         nationalNumber = digits.slice(2); // e.g. 0671234567
+    } else if (digits.startsWith('80') && digits.length === 11) {
+        nationalNumber = '0' + digits.slice(2);
     } else if (digits.startsWith('0') && digits.length === 10) {
         nationalNumber = digits;
+    } else if (digits.length === 9) {
+        // Customer entered 9 digits without leading 0 (e.g. 97 452 44 35)
+        nationalNumber = '0' + digits;
     } else {
         return { 
             valid: false, 
@@ -3930,17 +3939,25 @@ function validateUkrainianPhone(phoneStr) {
 function formatPhoneInput(e) {
     const input = e.target;
     let val = input.value.replace(/\D/g, '');
+
+    // Normalize country/area code prefixes
     if (val.startsWith('380')) val = val.slice(2);
     else if (val.startsWith('38')) val = val.slice(2);
-    else if (val.startsWith('3')) val = val.slice(1);
-    
+    else if (val.startsWith('3') && val.length > 1) val = val.slice(1);
+    else if (val.startsWith('80') && val.length > 2) val = '0' + val.slice(2);
+
+    // If user starts typing without leading 0 (e.g. 97...), auto-prepend 0
+    if (val.length > 0 && !val.startsWith('0') && val !== '3') {
+        val = '0' + val;
+    }
+
     if (val.length > 10) val = val.slice(0, 10);
-    
-    if (!val) {
+
+    if (!val || val === '3') {
         input.value = '';
         return;
     }
-    
+
     let res = '+38 (';
     if (val.length <= 3) {
         res += val;
@@ -4098,14 +4115,10 @@ async function handleQuickOrderSubmit(e) {
         pdfResult: null
     });
 
-    if (window.fbq) {
-        try {
-            fbq('track', 'Lead', {
-                content_name: chosenModel || 'Замовлення в 1 клік',
-                currency: 'UAH'
-            });
-        } catch (e) {}
-    }
+    safeTrackFbq('Lead', {
+        content_name: chosenModel || 'Замовлення в 1 клік',
+        currency: 'UAH'
+    });
 
     if (submitBtn) {
         submitBtn.disabled = false;
@@ -4134,17 +4147,13 @@ function showCartCheckoutForm() {
     if (openBtn) openBtn.style.display = 'none';
 
     // Meta Pixel & GA4 Checkout Tracking
-    if (window.fbq) {
-        try {
-            const checkoutTotal = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
-            fbq('track', 'InitiateCheckout', {
-                num_items: cart.length,
-                value: checkoutTotal,
-                currency: 'UAH',
-                content_type: 'product'
-            });
-        } catch (e) {}
-    }
+    const checkoutTotal = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
+    safeTrackFbq('InitiateCheckout', {
+        num_items: cart.length,
+        value: checkoutTotal,
+        currency: 'UAH',
+        content_type: 'product'
+    });
 
     // Auto-scroll inside drawer
     const drawerBody = document.getElementById('cartDrawer');
@@ -4325,15 +4334,11 @@ async function handleCartDirectCheckout(e) {
         pdfResult
     });
 
-    if (window.fbq) {
-        try {
-            fbq('track', 'Purchase', {
-                value: orderTotalNum,
-                currency: 'UAH',
-                content_type: 'product'
-            });
-        } catch (e) {}
-    }
+    safeTrackFbq('Purchase', {
+        value: orderTotalNum,
+        currency: 'UAH',
+        content_type: 'product'
+    });
 
     clearCart();
     closeCart();
@@ -4377,6 +4382,29 @@ window.selectQuickChoice = selectQuickChoice;
 window.clearQuickChoiceSelection = clearQuickChoiceSelection;
 window.showOrderSuccessModal = showOrderSuccessModal;
 window.closeOrderSuccessModal = closeOrderSuccessModal;
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.toggleCart = toggleCart;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.updateCartQty = updateCartQty;
+window.clearCart = clearCart;
+window.showCartToast = showCartToast;
+window.switchGalleryImg = switchGalleryImg;
+window.switchCardImg = switchCardImg;
+window.selectSize = selectSize;
+window.handleCardImgError = handleCardImgError;
+window.handleCardThumbError = handleCardThumbError;
+window.handlePhotoModalImgError = handlePhotoModalImgError;
+window.downloadLastGeneratedPdf = downloadLastGeneratedPdf;
+window.scrollToTopAnimated = scrollToTopAnimated;
+window.photoViewerNext = photoViewerNext;
+window.photoViewerPrev = photoViewerPrev;
+window.photoViewerZoomIn = photoViewerZoomIn;
+window.photoViewerZoomOut = photoViewerZoomOut;
+window.photoViewerResetZoom = photoViewerResetZoom;
+window.photoModalBuyAction = photoModalBuyAction;
+window.switchPhotoModalImage = switchPhotoModalImage;
 
 // ==============================================================================
 // FULL-SCREEN HIGH-DEFINITION PHOTO DETAIL VIEWER CONTROLLER
