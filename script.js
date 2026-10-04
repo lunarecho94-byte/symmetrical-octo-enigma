@@ -5080,3 +5080,78 @@ window.closeManagerOrdersModal = closeManagerOrdersModal;
 window.exportOrdersAsText = exportOrdersAsText;
 window.clearOrdersLedger = clearOrdersLedger;
 
+
+// ==============================================================================
+// SINGLE PRODUCT MONO-LANDING CONTROLLERS (New Balance 603)
+// ==============================================================================
+let currentSingleSize = '41';
+let currentSingleInsole = '26.0';
+
+function switchSinglePhoto(src, btn) {
+    const mainImg = document.getElementById('singleMainPhoto');
+    if (mainImg) {
+        mainImg.style.opacity = '0.4';
+        setTimeout(() => {
+            mainImg.src = src;
+            mainImg.style.opacity = '1';
+        }, 120);
+    }
+    const container = document.getElementById('singleThumbsRow');
+    if (container) {
+        container.querySelectorAll('.gallery-thumb').forEach(b => b.classList.remove('active'));
+    }
+    if (btn) btn.classList.add('active');
+}
+
+function selectSingleSize(size, insole, btn) {
+    currentSingleSize = size;
+    currentSingleInsole = insole;
+
+    const chips = document.getElementById('singleSizeChips');
+    if (chips) {
+        chips.querySelectorAll('.single-size-chip').forEach(c => {
+            if (c.dataset.size === size) c.classList.add('active');
+            else c.classList.remove('active');
+        });
+    }
+
+    const info = document.getElementById('selectedSizeInfo');
+    if (info) {
+        info.innerHTML = `Обраний розмір: <b>${size}</b> (довжина устілки: <b>${insole} см</b>)`;
+    }
+
+    const previewDisplay = document.getElementById('previewSizeDisplay');
+    if (previewDisplay) {
+        previewDisplay.innerHTML = `${size} (${insole} см)`;
+    }
+
+    const sizeInput = document.getElementById('formSelectedSize');
+    if (sizeInput) sizeInput.value = size;
+
+    const modelInput = document.getElementById('quickOrderChosenModel');
+    if (modelInput) {
+        modelInput.value = `New Balance 603 Dark Grey (Арт: NB-6030) — Розмір: ${size} (${insole} см) — 2 290 грн`;
+    }
+}
+
+function scrollToOrderForm() {
+    const orderSection = document.getElementById('order-form');
+    if (orderSection) {
+        orderSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+            const nameInput = document.getElementById('quickFullName');
+            if (nameInput) nameInput.focus();
+        }, 500);
+    }
+}
+
+function openSinglePhotoModal(src) {
+    if (typeof openPhotoModal === 'function') {
+        openPhotoModal('6030', 0);
+    }
+}
+
+window.switchSinglePhoto = switchSinglePhoto;
+window.selectSingleSize = selectSingleSize;
+window.scrollToOrderForm = scrollToOrderForm;
+window.openSinglePhotoModal = openSinglePhotoModal;
