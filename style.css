@@ -3827,7 +3827,7 @@ body.cart-open {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 6px;
+    margin-bottom: 14px;
     font-size: 1.05rem;
     font-weight: 600;
     color: #334155;
