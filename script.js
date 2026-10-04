@@ -981,11 +981,11 @@ function handlePaymentChange(input) {
     const paymentSubtext = document.getElementById('orderPaymentSubtext');
     const securityNote = document.getElementById('formSecurityNote');
 
-    if (input.value.includes('Передплата') || input.value.includes('передплата')) {
-        if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (ОПЛАТА НА КАРТКУ)';
-        if (summaryLabel) summaryLabel.textContent = 'Разом до сплати (передплата):';
+    if (input.value.includes('Передплата') || input.value.includes('передплата') || input.value.includes('карт')) {
+        if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (ОПЛАТА НА КАРТУ)';
+        if (summaryLabel) summaryLabel.textContent = 'Разом до сплати (оплата на карту):';
         if (paymentSubtext) paymentSubtext.textContent = 'Економія на комісії Нової Пошти (без переплат за переказ)';
-        if (securityNote) securityNote.innerHTML = '<b>Передплата:</b> реквізити для оплати надішле менеджер після підтвердження замовлення.';
+        if (securityNote) securityNote.innerHTML = '<b>Оплата на карту:</b> реквізити для оплати надішле менеджер після підтвердження замовлення.';
     } else {
         if (submitBtn) submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
         if (summaryLabel) summaryLabel.textContent = 'Разом до сплати при отриманні:';
@@ -1480,11 +1480,11 @@ async function handleCheckoutFormSubmit(e) {
     const combinedAddress = (document.getElementById('cityNP')?.value || '').trim() || 
         (cityVal && whVal ? `${cityVal}, ${whVal}` : (cityVal || whVal || 'Узгодити з клієнтом'));
 
-    const payRadio = document.querySelector('input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
+    const payRadio = document.querySelector('input[name="cartPayment"]:checked, input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
     const paymentRaw = payRadio ? payRadio.value : 'Накладений платіж';
-    const isPrepayment = paymentRaw.includes('Передплата') || paymentRaw.includes('передплата');
+    const isPrepayment = paymentRaw.includes('Передплата') || paymentRaw.includes('передплата') || paymentRaw.includes('карт') || paymentRaw.includes('IBAN');
     const paymentFormatted = isPrepayment 
-        ? 'Повна передплата на картку / IBAN (без комісії за переказ)' 
+        ? 'Оплата на карту' 
         : 'Накладений платіж (оплата при отриманні у відділенні Нової Пошти)';
 
     const noCallChecked = document.getElementById('noCallCheckbox')?.checked;
@@ -1557,7 +1557,7 @@ async function handleCheckoutFormSubmit(e) {
 Тел: ${cleanPhone || customerPhone}
 Доставка: ${combinedAddress}
 Товари: ${quickCopyItems}
-Оплата: ${isPrepayment ? 'Оплачено (Передплата на картку/IBAN)' : 'Накладений платіж'} — ${formattedTotal}`;
+Оплата: ${isPrepayment ? 'Оплачено (Оплата на карту)' : 'Накладений платіж'} — ${formattedTotal}`;
 
     // Update hidden form inputs for native fallback
     const subjectInput = document.getElementById('formSubmitSubject');
@@ -3698,8 +3698,8 @@ function getFormattedOrderForMessenger() {
 
     let paymentMethod = 'Накладений платіж (при отриманні на пошті)';
     const checkedPay = document.querySelector('input[name="cartPayment"]:checked, input[name="Оплата"]:checked, input[name="Спосіб оплати"]:checked');
-    if (checkedPay && (checkedPay.value.includes('Передплата') || checkedPay.value.includes('IBAN'))) {
-        paymentMethod = 'Передплата на IBAN/картку (без комісії)';
+    if (checkedPay && (checkedPay.value.includes('Передплата') || checkedPay.value.includes('IBAN') || checkedPay.value.includes('карт'))) {
+        paymentMethod = 'Оплата на карту';
     }
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
