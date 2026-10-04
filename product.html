@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <link rel="stylesheet" href="style.css?v=4.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -161,7 +161,7 @@
                             <span class="pdp-gallery-badge" id="pdpBadge">🔥 Хіт продажів</span>
                             <span class="pdp-discount-badge" id="pdpDiscountBadge" style="display: none;">-15%</span>
                             
-                            <img src="images/sneakers.webp" alt="Товар" id="pdpMainImg" onclick="pdpOpenZoomModal()">
+                            <img src="images/sneakers.webp" alt="Товар" id="pdpMainImg">
                             
                             <!-- Bottom-Right Floating Navigation Arrows -->
                             <div class="pdp-gallery-arrows">
@@ -172,11 +172,6 @@
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                             </div>
-
-                            <button type="button" class="pdp-zoom-trigger" onclick="pdpOpenZoomModal()" aria-label="Збільшити фото в HD">
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                                <span>HD Збільшення</span>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -609,35 +604,10 @@
         </div>
     </div>
 
-    <!-- Full-Screen Photo Zoom Modal -->
-    <div id="photoDetailModal" class="photo-detail-modal" style="display: none;" role="dialog" aria-modal="true">
-        <div class="photo-detail-backdrop" onclick="closePhotoModal()"></div>
-        <div class="photo-detail-container">
-            <div class="photo-detail-header">
-                <div class="photo-detail-title-group">
-                    <span class="photo-detail-art" id="photoModalArt">АРТ: ---</span>
-                    <h3 class="photo-detail-title" id="photoModalTitle">Назва товару</h3>
-                </div>
-                <div class="photo-detail-controls">
-                    <div class="photo-counter" id="photoModalCounter">1 / 1</div>
-                    <button type="button" class="btn-photo-close" onclick="closePhotoModal()" aria-label="Закрити">✕</button>
-                </div>
-            </div>
-            <div class="photo-detail-viewport" id="photoViewport">
-                <button type="button" class="photo-nav-btn prev" id="btnPhotoPrev" onclick="photoViewerPrev()" aria-label="Попереднє">‹</button>
-                <div class="photo-img-canvas" id="photoImgCanvas">
-                    <img id="photoModalMainImg" src="" alt="Огляд" draggable="false">
-                </div>
-                <button type="button" class="photo-nav-btn next" id="btnPhotoNext" onclick="photoViewerNext()" aria-label="Наступне">›</button>
-            </div>
-            <div class="photo-detail-footer">
-                <div class="photo-modal-thumbs" id="photoModalThumbs"></div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=4.0"></script>
+    <script src="script.js?v=4.1"></script>
 </body>
 </html>

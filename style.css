@@ -1632,27 +1632,28 @@ section, header, footer, .announcement-bar {
     transform: scale(1.05);
 }
 
-/* Zoom overlay indicator badge on product photo */
+/* Product page link badge on product photo */
+.btn-card-pdp-link,
 .btn-zoom-overlay {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: rgba(15, 23, 42, 0.85);
+    background: rgba(15, 23, 42, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 20px;
     padding: 6px 13px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     cursor: pointer !important;
     z-index: 4;
     opacity: 0.95;
+    text-decoration: none;
     transition: all 0.25s ease;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
     pointer-events: auto !important;
@@ -1660,18 +1661,22 @@ section, header, footer, .announcement-bar {
     -webkit-tap-highlight-color: transparent;
 }
 
+.btn-card-pdp-link *,
 .btn-zoom-overlay * {
     pointer-events: none;
 }
 
+.product-card:hover .btn-card-pdp-link,
+.btn-card-pdp-link:hover,
+.btn-card-pdp-link:active,
 .product-card:hover .btn-zoom-overlay,
 .btn-zoom-overlay:hover,
 .btn-zoom-overlay:active {
     opacity: 1;
-    background: var(--accent-blue, #2563eb);
+    background: #0f172a;
     border-color: rgba(255, 255, 255, 0.55);
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.45);
 }
 
 .card-thumbnails {

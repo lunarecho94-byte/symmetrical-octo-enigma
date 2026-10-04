@@ -1874,15 +1874,15 @@ function formatProductDisplayName(item) {
 }
 
 async function initDynamicCatalog() {
-    const grid = document.querySelector('.products-grid');
+    const grid = document.getElementById('catalogProductsGrid') || (document.getElementById('productDetailPage') ? null : document.querySelector('.products-grid'));
     if (!grid) return;
 
     renderCatalogSkeletons(grid, 8);
 
     try {
         const [prodResp, metaResp] = await Promise.all([
-            fetch('data/products.json'),
-            fetch('data/meta.json')
+            fetch('/data/products.json'),
+            fetch('/data/meta.json')
         ]);
 
         if (!prodResp.ok || !metaResp.ok) {
@@ -2805,19 +2805,14 @@ function createProductCardElement(item) {
     const prodUrl = getProductUrl(item);
 
     card.innerHTML = `
-        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event)" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event)" title="Переглянути товар: ${escapeHtml(displayName)}">
+        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event, '${prodUrl}')" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event, '${prodUrl}')" title="Переглянути сторінку товару: ${escapeHtml(displayName)}">
             <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
             ${favBtnHtml}
-            <a href="${prodUrl}" class="btn-zoom-overlay" aria-label="Детальніше про товар" onclick="openProductPage('${item.id}', event)">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    <line x1="11" y1="8" x2="11" y2="14"></line>
-                    <line x1="8" y1="11" x2="14" y2="11"></line>
-                </svg>
-                <span>Детальніше</span>
+            <a href="${prodUrl}" class="btn-card-pdp-link btn-zoom-overlay" aria-label="Відкрити сторінку товару" onclick="openProductPage('${item.id}', event, '${prodUrl}')">
+                <span>Відкрити товар</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </a>
-            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onclick="openProductPage('${item.id}', event)" onerror="handleCardImgError(this, '${item.cat}')">
+            <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onclick="openProductPage('${item.id}', event, '${prodUrl}')" onerror="handleCardImgError(this, '${item.cat}')">
         </div>
         ${thumbsHtml}
         <div class="product-details">
@@ -2828,7 +2823,7 @@ function createProductCardElement(item) {
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <a href="${prodUrl}" class="product-title-link" onclick="openProductPage('${item.id}', event)" title="Переглянути сторінку товару ${escapeHtml(displayName)}">
+            <a href="${prodUrl}" class="product-title-link" onclick="openProductPage('${item.id}', event, '${prodUrl}')" title="Переглянути окрему сторінку товару: ${escapeHtml(displayName)}">
                 <h3 class="product-title">${escapeHtml(displayName)}</h3>
             </a>
             <div class="product-specs">
@@ -2850,12 +2845,24 @@ function createProductCardElement(item) {
                 <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(displayName)} (${item.price} грн)', '${formattedPrice}', event, '${item.id}')">
                     В кошик
                 </button>
-                <a href="${prodUrl}" class="btn-details-link" onclick="openProductPage('${item.id}', event)" title="Переглянути окрему сторінку товару">
+                <a href="${prodUrl}" class="btn-details-link" onclick="openProductPage('${item.id}', event, '${prodUrl}')" title="Відкрити окрему сторінку товару">
                     Детальніше ➔
                 </a>
             </div>
         </div>
     `;
+
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-card-fav') || 
+            e.target.closest('.card-thumbnails') || 
+            e.target.closest('.size-options') || 
+            e.target.closest('.btn-buy') || 
+            e.target.closest('.btn-size-chart-link')) {
+            return;
+        }
+        openProductPage(item.id, e, prodUrl);
+    });
+
     return card;
 }
 
@@ -4445,70 +4452,15 @@ let lastPhotoTapTime = 0;
 
 function openPhotoModal(productId, photoIdx) {
     if (!productId) return;
-    let item = null;
-    if (catalogAllProducts && catalogAllProducts.length) {
-        item = catalogAllProducts.find(p => String(p.id) === String(productId));
-    }
-    if (!item && catalogFilteredProducts && catalogFilteredProducts.length) {
-        item = catalogFilteredProducts.find(p => String(p.id) === String(productId));
-    }
-    if (!item) {
-        const card = document.getElementById(`prod-${productId}`);
-        if (card) {
-            const cardImg = card.querySelector('.product-img-wrapper img');
-            item = {
-                id: productId,
-                name: card.dataset.name || 'Товар',
-                brand_name: card.dataset.brand || '',
-                art: card.dataset.art || '',
-                cat: card.dataset.category || 'shoes',
-                price: parseInt(card.dataset.price || '0', 10),
-                imgs: cardImg && cardImg.src ? [cardImg.dataset.srcOrig || cardImg.src] : ['images/sneakers.webp'],
-                sizes: []
-            };
-        }
-    }
-    if (!item) return;
-
-    currentPhotoItem = item;
-    
-    if (typeof photoIdx === 'number') {
-        currentPhotoIndex = photoIdx;
-    } else {
-        const cardImg = document.getElementById(`cardImg-${item.id}`);
-        const parsedIdx = cardImg ? parseInt(cardImg.dataset.currentIndex, 10) : 0;
-        currentPhotoIndex = isNaN(parsedIdx) ? 0 : parsedIdx;
-    }
-
-    const totalImgs = (item.imgs && item.imgs.length > 0) ? item.imgs.length : 1;
-    if (currentPhotoIndex < 0 || currentPhotoIndex >= totalImgs) {
-        currentPhotoIndex = 0;
-    }
-
-    resetPhotoZoomAndPan();
-    renderPhotoModalContent();
-
-    const modal = document.getElementById('photoDetailModal');
-    if (modal) {
-        modal.style.display = 'flex';
-        void modal.offsetWidth;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+    openProductPage(productId);
 }
 
 function closePhotoModal() {
     const modal = document.getElementById('photoDetailModal');
     if (modal) {
         modal.classList.remove('active');
-        setTimeout(() => {
-            if (!modal.classList.contains('active')) {
-                modal.style.display = 'none';
-                document.body.style.overflow = '';
-                resetPhotoZoomAndPan();
-                currentPhotoItem = null;
-            }
-        }, 250);
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
     }
 }
 
@@ -5164,13 +5116,13 @@ window.generateProductSlug = generateProductSlug;
 function getProductUrl(item) {
     if (!item) return '#';
     const slug = generateProductSlug(item.name || item.title || item.brand_name || item.brand || 'product', item.id);
-    return `product/${slug}`;
+    return `/product/${slug}`;
 }
 window.getProductUrl = getProductUrl;
 
-function openProductPage(productId, e) {
+function openProductPage(productId, e, directUrl) {
     if (e) {
-        if (e.ctrlKey || e.metaKey || e.button === 1) return;
+        if (e.ctrlKey || e.metaKey || e.button === 1) return; // Allow opening in new tab
         if (e.target && (
             e.target.closest('.btn-card-fav') || 
             e.target.closest('.card-thumbnails') || 
@@ -5182,6 +5134,10 @@ function openProductPage(productId, e) {
         }
         e.preventDefault();
         e.stopPropagation();
+    }
+    if (directUrl) {
+        window.location.href = directUrl;
+        return;
     }
     if (!productId) return;
     const item = (catalogAllProducts && catalogAllProducts.find(p => String(p.id) === String(productId))) || { id: productId };
@@ -5229,7 +5185,7 @@ async function initProductDetailPage() {
     // 2. Fetch catalog products if not loaded
     try {
         if (!catalogAllProducts || catalogAllProducts.length === 0) {
-            const resp = await fetch('data/products.json');
+            const resp = await fetch('/data/products.json');
             if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
             const raw = await resp.json();
             const defectSizeRegex = /нюанс|дефект|брак|плям|уцінк|потертост|потёрт|скидк|-50%/i;
@@ -5796,8 +5752,7 @@ function pdpOpenSizeGuide() {
 window.pdpOpenSizeGuide = pdpOpenSizeGuide;
 
 function pdpOpenZoomModal() {
-    if (!pdpCurrentProduct) return;
-    openPhotoModal(pdpCurrentProduct.id, pdpCurrentPhotoIndex);
+    // Zoom modal disabled per user instruction
 }
 window.pdpOpenZoomModal = pdpOpenZoomModal;
 
