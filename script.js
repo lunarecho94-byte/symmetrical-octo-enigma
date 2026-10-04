@@ -1895,6 +1895,12 @@ async function initDynamicCatalog() {
                 return false;
             }
             // Pinned Promo Products (Sync with Meta Ad Campaigns)
+            if (item.id == '100077' || item.id === 100077) {
+                item.isPromoPinned = true;
+                item.gender = 'unisex';
+                item.badge = '🔥 ХІТ З РЕКЛАМИ • ADIDAS NITEBALL 3 060 ГРН';
+                return true;
+            }
             if (item.id == '155430' || item.id === 155430) {
                 item.isPromoPinned = true;
                 item.gender = 'unisex';
@@ -2618,8 +2624,9 @@ function applyCatalogFilters() {
 
 function sortFilteredProducts(criteria) {
     catalogFilteredProducts.sort((a, b) => {
-        // ALWAYS PIN PROMO PRODUCTS TO THE VERY TOP (155430 NB first, 117306 Campus second, 69012 Campus winter third)
+        // ALWAYS PIN PROMO PRODUCTS TO THE VERY TOP (100077 Niteball 3060 first, 155430 NB second, 117306 Campus third)
         const getPinnedRank = (item) => {
+            if (item.id == '100077' || item.id === 100077) return 110;
             if (item.id == '155430' || item.id === 155430) return 100;
             if (item.id == '117306' || item.id === 117306) return 90;
             if (item.id == '69012' || item.id === 69012) return 80;
