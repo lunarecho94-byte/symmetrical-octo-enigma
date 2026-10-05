@@ -9563,7 +9563,8 @@ body.catalog-drawer-open {
     text-align: left;
     transition: all 0.15s ease;
     font-family: inherit;
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .drawer-nav-item:hover {
@@ -9579,20 +9580,32 @@ body.catalog-drawer-open {
 
 .drawer-nav-name {
     display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
 }
 
 .drawer-nav-count {
     font-size: 11.5px;
     font-weight: 700;
-    color: #94a3b8;
+    color: #64748b;
     background: #f1f5f9;
-    padding: 2px 7px;
+    padding: 2px 8px;
     border-radius: 999px;
+    min-width: 44px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    margin-left: auto;
     transition: all 0.15s ease;
 }
 
 .drawer-nav-item.active .drawer-nav-count {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.22);
     color: #ffffff;
 }
 
@@ -9612,7 +9625,9 @@ body.catalog-drawer-open {
 .drawer-sub-toggle-btn {
     background: transparent;
     border: none;
-    padding: 8px 10px;
+    width: 32px;
+    height: 36px;
+    padding: 0;
     color: #71717a;
     cursor: pointer;
     border-radius: 6px;
@@ -9621,6 +9636,7 @@ body.catalog-drawer-open {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .drawer-sub-toggle-btn:hover {
@@ -9628,8 +9644,20 @@ body.catalog-drawer-open {
     color: #09090b;
 }
 
+.drawer-sub-toggle-btn.open {
+    color: #09090b;
+    background: #f4f4f5;
+}
+
 .drawer-sub-toggle-btn.open .sub-arrow {
     transform: rotate(180deg);
+}
+
+.drawer-sub-toggle-placeholder {
+    width: 32px;
+    height: 36px;
+    flex-shrink: 0;
+    display: block;
 }
 
 .sub-arrow {

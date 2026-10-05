@@ -2351,7 +2351,7 @@ function checkCatalogUrlParams() {
 
 function syncDrawerActiveStates() {
     // 1. Categories
-    document.querySelectorAll('#drawerCategoriesList .drawer-nav-item').forEach(btn => {
+    document.querySelectorAll('#drawerCatList .drawer-nav-item, #drawerCategoriesList .drawer-nav-item').forEach(btn => {
         const cat = btn.getAttribute('data-cat');
         btn.classList.toggle('active', cat === currentCatalogCategory);
     });

@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=6.3">
+    <link rel="stylesheet" href="style.css?v=6.4">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -429,11 +429,14 @@
                 </button>
                 <div class="drawer-accordion-content">
                     <ul class="drawer-items-list" id="drawerCatList">
-                        <li>
-                            <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
-                                <span class="drawer-nav-name">Всі товари</span>
-                                <span class="drawer-nav-count" id="drawerCatCount_all">7 547</span>
-                            </button>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
+                                    <span class="drawer-nav-name">Всі товари</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_all">7 547</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
                         </li>
                         <li class="drawer-nested-wrap">
                             <div class="drawer-nested-row">
@@ -470,17 +473,23 @@
                                 <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Футболка', 'clothing')">Футболки</button></li>
                             </ul>
                         </li>
-                        <li>
-                            <button type="button" class="drawer-nav-item" data-cat="socks" onclick="applyDrawerCategory('socks')">
-                                <span class="drawer-nav-name">Шкарпетки</span>
-                                <span class="drawer-nav-count" id="drawerCatCount_socks">50</span>
-                            </button>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="socks" onclick="applyDrawerCategory('socks')">
+                                    <span class="drawer-nav-name">Шкарпетки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_socks">50</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
                         </li>
-                        <li>
-                            <button type="button" class="drawer-nav-item" data-cat="underwear" onclick="applyDrawerCategory('underwear')">
-                                <span class="drawer-nav-name">Труси & Білизна</span>
-                                <span class="drawer-nav-count" id="drawerCatCount_underwear">140</span>
-                            </button>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="underwear" onclick="applyDrawerCategory('underwear')">
+                                    <span class="drawer-nav-name">Труси & Білизна</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_underwear">140</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
                         </li>
                         <li class="drawer-nested-wrap">
                             <div class="drawer-nested-row">
@@ -856,6 +865,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=6.3"></script>
+    <script src="script.js?v=6.4"></script>
 </body>
 </html>
