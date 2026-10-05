@@ -2755,10 +2755,10 @@ function createProductCardElement(item) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.id = `prod-${item.id}`;
-    card.dataset.brand = item.brand;
-    card.dataset.category = item.cat;
-    card.dataset.price = item.price;
-    card.dataset.name = item.name;
+    card.dataset.brand = item.brand || '';
+    card.dataset.category = item.cat || '';
+    card.dataset.price = item.price || 0;
+    card.dataset.name = item.name || '';
     card.dataset.art = item.art || '';
     card.dataset.id = item.id || '';
     card.dataset.mat = item.mat || '';
@@ -2766,105 +2766,65 @@ function createProductCardElement(item) {
 
     const displayName = formatProductDisplayName(item);
     const mainImg = (item.imgs && item.imgs[0]) ? item.imgs[0] : 'images/sneakers.webp';
-    const hasMultipleImgs = item.imgs && item.imgs.length > 1;
-
-    let thumbsHtml = '';
-    if (hasMultipleImgs) {
-        thumbsHtml = `
-            <div class="card-thumbnails" onclick="event.stopPropagation()">
-                ${item.imgs.map((img, idx) => `
-                    <img src="${img}" alt="${escapeHtml(displayName)} ${idx + 1}" class="card-thumb-img ${idx === 0 ? 'active' : ''}" onclick="switchCardImg(this, 'cardImg-${item.id}', '${img}', ${idx})" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, '${item.cat}')">
-                `).join('')}
-            </div>
-        `;
-    }
-
-    let sizesHtml = '';
-    if (item.sizes && item.sizes.length > 0) {
-        sizesHtml = item.sizes.map((sz, idx) => {
-            const rawSz = String(sz || '').trim();
-            const displaySz = formatSizeLabel(rawSz);
-            return `
-                <button type="button" class="size-btn ${idx === 0 ? 'active' : ''}" onclick="selectSize(this, '${escapeHtml(rawSz)}')" title="Розмір ${escapeHtml(displaySz)}">${escapeHtml(displaySz)}</button>
-            `;
-        }).join('');
-    }
-
-    const categoryTitle = getCategoryTitle(item.cat, item).toUpperCase();
-    const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
-    const formattedOldPrice = item.old_price ? item.old_price.toLocaleString('uk-UA') + ' грн' : '';
+    const prodUrl = getProductUrl(item);
 
     const isFav = isFavorite(item.id);
     const favBtnHtml = `
         <button type="button" class="btn-card-fav ${isFav ? 'active' : ''}" data-id="${item.id}" onclick="toggleFavorite('${item.id}', event)" aria-label="${isFav ? 'Видалити з обраного' : 'Додати в обране'}" title="${isFav ? 'Видалити з обраного' : 'Додати в обране'}">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="${isFav ? '#ef4444' : 'none'}" stroke="${isFav ? '#ef4444' : 'currentColor'}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="${isFav ? '#ef4444' : 'none'}" stroke="${isFav ? '#ef4444' : '#171717'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/>
             </svg>
         </button>
     `;
 
-    const prodUrl = getProductUrl(item);
+    // Sizes display (like reference: "36" or "36 – 45")
+    let sizesText = '';
+    if (item.sizes && item.sizes.length > 0) {
+        if (typeof currentCatalogSize !== 'undefined' && currentCatalogSize && item.sizes.includes(currentCatalogSize)) {
+            sizesText = currentCatalogSize;
+        } else if (item.sizes.length === 1) {
+            sizesText = item.sizes[0];
+        } else {
+            const first = item.sizes[0];
+            const last = item.sizes[item.sizes.length - 1];
+            sizesText = first === last ? first : `${first} – ${last}`;
+        }
+    }
+
+    // Optional badge
+    let badgeHtml = '';
+    const isGtx = /gtx|gore-?tex/i.test(item.name || '') || /gtx|gore-?tex/i.test(item.cat || '');
+    if (isGtx) {
+        badgeHtml = `
+            <div class="card-badge-diamond" title="GORE-TEX">
+                <span class="diamond-sub">GUARANTEED<br>TO KEEP YOU DRY</span>
+                <span class="diamond-main">GORE-TEX</span>
+            </div>
+        `;
+    } else if (item.badge && item.badge.trim() && !item.badge.includes('✨')) {
+        badgeHtml = `<span class="card-badge-tag">${escapeHtml(item.badge)}</span>`;
+    }
+
+    const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн.';
+    const formattedOldPrice = item.old_price && item.old_price > item.price ? item.old_price.toLocaleString('uk-UA') + ' грн.' : '';
 
     card.innerHTML = `
-        <div class="product-img-wrapper" role="button" tabindex="0" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" onkeydown="if(event.key==='Enter'||event.key===' ')openProductPage('${item.id}', event, '${prodUrl}', true)" title="Переглянути сторінку товару: ${escapeHtml(displayName)}">
-            <span class="badge-new-arrival">${escapeHtml(item.badge || '✨ Топ якість')}</span>
-            ${favBtnHtml}
-            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-pdp-link" aria-label="Відкрити сторінку товару" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)">
-                <span>Відкрити товар</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </a>
-            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="product-img-link" tabindex="-1" aria-hidden="true">
-                <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" data-current-index="0" data-src-orig="${mainImg}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
-            </a>
-        </div>
-        ${thumbsHtml}
-        <div class="product-details">
-            <div class="product-meta-header">
-                <span class="product-cat">${categoryTitle} | АРТ: ${escapeHtml(item.art)}</span>
-                <div class="product-price-top">
+        <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="want-card-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)">
+            <div class="product-img-wrapper" title="${escapeHtml(displayName)}">
+                ${badgeHtml}
+                ${favBtnHtml}
+                <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
+            </div>
+            <div class="product-details">
+                <p class="product-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</p>
+                ${sizesText ? `<p class="product-sizes-text">${escapeHtml(sizesText)}</p>` : ''}
+                <div class="product-price-row">
                     ${formattedOldPrice ? `<span class="price-old">${formattedOldPrice}</span>` : ''}
                     <span class="price-now">${formattedPrice}</span>
                 </div>
             </div>
-            <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="product-title-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" title="Переглянути окрему сторінку товару: ${escapeHtml(displayName)}">
-                <h3 class="product-title">${escapeHtml(displayName)}</h3>
-            </a>
-            <div class="product-specs">
-                <div class="spec-row"><span class="spec-label">Артикул:</span> <span class="spec-val"><b>${escapeHtml(item.art)}</b></span></div>
-                ${item.mat ? `<div class="spec-row"><span class="spec-label">Матеріал:</span> <span class="spec-val">${escapeHtml(item.mat)}</span></div>` : ''}
-                ${item.origin ? `<div class="spec-row"><span class="spec-label">Виробник:</span> <span class="spec-val">${escapeHtml(item.origin)}</span></div>` : ''}
-                <div class="spec-row"><span class="spec-label">Наявність:</span> <span class="spec-val in-stock">✓ В наявності</span></div>
-            </div>
-            <div class="size-selector">
-                <div class="size-selector-header">
-                    <label>Обери розмір:</label>
-                    <button type="button" class="btn-size-chart-link" onclick="openSizeChartModal('${item.cat || 'shoes'}')">Таблиця розмірів</button>
-                </div>
-                <div class="size-options">
-                    ${sizesHtml}
-                </div>
-            </div>
-            <div class="product-card-footer">
-                <button type="button" class="btn-buy" onclick="selectModelInForm('${escapeHtml(displayName)} (${item.price} грн)', '${formattedPrice}', event, '${item.id}')">
-                    В кошик
-                </button>
-                <a href="${prodUrl}" target="_blank" rel="noopener noreferrer" class="btn-details-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', true)" title="Відкрити окрему сторінку товару">
-                    Детальніше ➔
-                </a>
-            </div>
-        </div>
+        </a>
     `;
-
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-card-fav') || 
-            e.target.closest('.card-thumbnails') || 
-            e.target.closest('.size-options') || 
-            e.target.closest('.btn-buy') || 
-            e.target.closest('.btn-size-chart-link')) {
-            return;
-        }
-        openProductPage(item.id, e, prodUrl, true);
-    });
 
     return card;
 }
