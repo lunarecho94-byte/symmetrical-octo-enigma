@@ -8457,7 +8457,17 @@ body.fav-open {
 
 @media (max-width: 768px) {
     .pdp-breadcrumbs-bar {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 14px;
+    }
+    .pdp-breadcrumbs {
         display: none !important;
+    }
+    .pdp-back-link {
+        padding: 7px 14px;
+        font-size: 12.5px;
     }
     .pdp-gallery-inner {
         flex-direction: column-reverse;
@@ -9135,6 +9145,13 @@ body.fav-open {
 /* ==========================================================================
    CATALOG BURGER DRAWER & ACTIVE FILTER TAGS
    ========================================================================== */
+
+/* Header Brand Wrap */
+.header-brand-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
 
 /* Header Catalog Button */
 .header-catalog-btn {
