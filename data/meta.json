@@ -11,7 +11,7 @@
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 4605
+      "count": 4237
     },
     {
       "slug": "women",
@@ -69,19 +69,19 @@
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 6740
+      "count": 6716
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 727
+      "count": 741
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "",
-      "count": 128
+      "count": 138
     }
   ],
   "brands": [

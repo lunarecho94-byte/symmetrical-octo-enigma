@@ -833,10 +833,62 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     elif t.lower() == 'homme':
         t = 'Футболка Homme'
 
-    # 13. Bags naming cleanup: prepend "Сумка" if it's a bag without product type
-    if cat_slug == 'bags':
-        if not any(t.lower().startswith(p) for p in ['сумка', 'рюкзак', 'бананка', 'гаманець', 'ремінь', 'окуляри', 'браслет', 'годинник', 'клатч', 'шопер']):
-            t = f'Сумка {t}'
+    # 13. Bags naming cleanup: prepend "Сумка" / "Рюкзак" / "Гаманець" if it's an accessory without product type
+    if cat_slug in ('accessories', 'bags'):
+        t_lower = t.lower()
+        has_type = any(t_lower.startswith(p) for p in ['сумка', 'рюкзак', 'бананка', 'гаманець', 'ремінь', 'окуляри', 'браслет', 'годинник', 'клатч', 'шопер', 'коробка', 'шапка', 'кепка', 'панама', 'головний убір', 'чохол'])
+        if not has_type:
+            if 'kanken' in t_lower or 'rainbow' in t_lower:
+                t = f'Рюкзак Fjallraven Kanken {t}' if 'kanken' not in t_lower else f'Рюкзак {t}'
+            elif any(k in t_lower for k in ['гаманець', 'кошелек', 'wallet', 'card case', 'card holder', 'purse']):
+                t = f'Гаманець {t}'
+            elif any(k in cat_name.lower() for k in ['бананк']):
+                t = f'Бананка {t}'
+            elif any(k in cat_name.lower() for k in ['рюкзак', 'backpack']):
+                t = f'Рюкзак {t}'
+            else:
+                t = f'Сумка {t}'
+
+    # 13b. Clothing naming cleanup: enrich bare codes and missing product types
+    if cat_slug == 'clothing':
+        t_lower = t.lower()
+        cname_lower = cat_name.lower()
+        if re.match(r'^P\d{3}$', t):
+            t = f'Спортивні штани {t}'
+        elif re.match(r'^S\d{3}$', t):
+            t = f'Світшот {t}'
+        elif re.match(r'^T\d{3}$', t):
+            t = f'Флісовий світшот {t}'
+        elif re.match(r'^(?:PT|PS)\d{3}$', t):
+            t = f'Спортивний костюм {t}'
+        elif re.match(r'^SC\d{2}$', t):
+            t = f'Літній комплект {t}'
+        elif re.match(r'^б\/нкз\d+$', t, re.I):
+            t = f'Зимовий спортивний костюм {t}'
+        elif re.match(r'^б\/нко\d+$', t, re.I):
+            t = f'Світшот {t}'
+        elif re.match(r'^б\/нк\d+$', t, re.I):
+            t = f'Спортивний костюм {t}'
+        elif re.match(r'^Б\/Н\d+$', t, re.I):
+            t = f'Зимова куртка {t}'
+        elif t_lower.startswith('nike storm fit'):
+            t = f'Пуховик {t}'
+        elif t_lower.startswith('the north face 700') or t_lower == 'the north face purple':
+            t = f'Пуховик {t}'
+        elif t_lower.startswith("arc'teryx") and 'куртка' not in t_lower:
+            t = f'Куртка {t}'
+        elif t_lower.startswith('stone island david'):
+            t = f'Куртка {t}'
+        elif any(k in t_lower for k in ['adidas x gucci', 'the north face x gucci', 'palm angels']) and not any(k in t_lower for k in ['футболка', 'костюм', 'худі']):
+            t = f'Футболка {t}'
+        elif any(k in cname_lower for k in ['штани', 'штаны', 'джогер', 'карго']) and not any(k in t_lower for k in ['штани', 'джинси', 'джогер', 'карго']):
+            t = f'Спортивні штани {t}'
+        elif any(k in cname_lower for k in ['куртк', 'пуховик']) and not any(k in t_lower for k in ['куртка', 'пуховик', 'парка', 'бомбер', 'вітровка', 'анорак']):
+            t = f'Куртка {t}'
+        elif any(k in cname_lower for k in ['світшот', 'толстовк']) and not any(k in t_lower for k in ['світшот', 'толстовка', 'худі', 'кофта']):
+            t = f'Світшот {t}'
+        elif any(k in cname_lower for k in ['костюм']) and not any(k in t_lower for k in ['костюм', 'комплект']):
+            t = f'Спортивний костюм {t}'
 
     # 14. Prepend brand if known and missing from title
     if brand_slug != 'other' and brand_title.lower() not in t.lower() and brand_slug not in t.lower():
@@ -846,7 +898,7 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
             pass
         elif brand_slug == 'drmartens' and 'martens' in t.lower():
             pass
-        elif any(t.lower().startswith(p) for p in ['сумка', 'спортивний костюм', 'куртка', 'зимове взуття', 'кросівки', 'худі', 'кепка', 'шапка', 'чоловіча білизна', 'жіноча білизна', 'окуляри', 'ремінь']):
+        elif any(t.lower().startswith(p) for p in ['сумка', 'рюкзак', 'бананка', 'спортивний костюм', 'спортивні штани', 'світшот', 'літній комплект', 'пуховик', 'куртка', 'зимове взуття', 'кросівки', 'худі', 'кепка', 'шапка', 'чоловіча білизна', 'жіноча білизна', 'окуляри', 'ремінь']):
             pass
         else:
             t = f'{brand_title} {t}'

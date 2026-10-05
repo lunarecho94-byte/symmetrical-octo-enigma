@@ -1893,10 +1893,22 @@ function formatProductDisplayName(item) {
         const catName = getCategoryTitle(item.cat);
         const brandName = (item.brand_name && item.brand_name !== 'Інші бренди') ? item.brand_name : '';
         if (catName.includes('Одяг') || item.cat === 'clothing') {
-            name = brandName ? `Куртка / Одяг ${brandName} ${name}` : `Куртка / Одяг ${name}`;
+            if (/^P\d/i.test(name)) {
+                name = `Спортивні штани ${name}`;
+            } else if (/^S\d/i.test(name)) {
+                name = `Світшот ${name}`;
+            } else if (/^T\d/i.test(name)) {
+                name = `Флісовий світшот ${name}`;
+            } else if (/^(?:PT|PS)/i.test(name)) {
+                name = `Спортивний костюм ${name}`;
+            } else if (/^SC/i.test(name)) {
+                name = `Літній комплект ${name}`;
+            } else {
+                name = brandName ? `${brandName} ${name}` : `Одяг ${name}`;
+            }
         } else if (catName.includes('Кросівки') || item.cat === 'shoes' || item.cat === 'winter') {
-            name = brandName ? `Кросівки ${brandName} ${name}` : `Взуття ${name}`;
-        } else if (catName.includes('Сумки') || item.cat === 'bags') {
+            name = brandName ? `Кросівки ${brandName} ${name}` : `Кросівки ${name}`;
+        } else if (catName.includes('Сумки') || item.cat === 'accessories' || item.cat === 'bags') {
             name = brandName ? `Сумка ${brandName} ${name}` : `Сумка ${name}`;
         } else {
             name = brandName ? `${brandName} ${name}` : `Товар ${name}`;
