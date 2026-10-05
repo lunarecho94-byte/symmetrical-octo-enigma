@@ -114,41 +114,41 @@ def clean_origin(origin):
         return ""
         
     if re.search(r'[вb][\'ʼ`]?.*[тt]нам|vietn|vuetn', orig_lower):
-        return "В'єтнам 🇻🇳"
+        return "В'єтнам"
     elif re.search(r'кита|china', orig_lower):
-        return "Китай 🇨🇳"
+        return "Китай"
     elif re.search(r'туреч|турц|turkey', orig_lower):
-        return "Туреччина 🇹🇷"
+        return "Туреччина"
     elif re.search(r'італія|италия|italy', orig_lower):
-        return "Італія 🇮🇹"
+        return "Італія"
     elif re.search(r'франц|france|paris', orig_lower):
-        return "Франція 🇫🇷"
+        return "Франція"
     elif re.search(r'індонез|индонез|indonesia', orig_lower):
-        return "Індонезія 🇮🇩"
+        return "Індонезія"
     elif re.search(r'україна|украина|ukraine', orig_lower):
-        return "Україна 🇺🇦"
+        return "Україна"
     elif re.search(r'єгипет|египет|egypt', orig_lower):
-        return "Єгипет 🇪🇬"
+        return "Єгипет"
     elif re.search(r'австрал|australia', orig_lower):
-        return "Австралія 🇦🇺"
+        return "Австралія"
     elif re.search(r'португал|portugal', orig_lower):
-        return "Португалія 🇵🇹"
+        return "Португалія"
     elif re.search(r'німеч|герман|germany', orig_lower):
-        return "Німеччина 🇩🇪"
+        return "Німеччина"
     elif re.search(r'сша|usa', orig_lower):
-        return "США 🇺🇸"
+        return "США"
     elif re.search(r'камбодж|cambodia', orig_lower):
-        return "Камбоджа 🇰🇭"
+        return "Камбоджа"
     elif re.search(r'бангладеш|bangladesh', orig_lower):
-        return "Бангладеш 🇧🇩"
+        return "Бангладеш"
     elif re.search(r'іспан|испан|spain', orig_lower):
-        return "Іспанія 🇪🇸"
+        return "Іспанія"
     elif re.search(r'індія|индия|india', orig_lower):
-        return "Індія 🇮🇳"
+        return "Індія"
     elif re.search(r'швеція|швеция|sweden', orig_lower):
-        return "Швеція 🇸🇪"
+        return "Швеція"
     elif re.search(r'румунія|румыния|romania', orig_lower):
-        return "Румунія 🇷🇴"
+        return "Румунія"
         
     return orig
 
@@ -246,37 +246,37 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
 
     # Special Kids Homme t-shirt
     if 'k0025 homme' in title_cat_lower or title_cat_lower == 'homme':
-        return 'clothing', 'Одяг', '🧥'
+        return 'clothing', 'Одяг', ''
 
     # 1. Definitive Footwear Brand & Model overrides:
     # UGG, Merrell, Crocs, Birkenstock in EasyDrop are ALWAYS footwear (shoes)
     if brand_slug in ('ugg', 'merrell', 'birkenstock') or re.search(r'\b(ugg|угг|merrell|birkenstock)\b', title_cat_lower):
-        return 'shoes', 'Взуття', '👟'
+        return 'shoes', 'Взуття', ''
 
     # Models with 'sock', 'cap', 'pouch' that are actually footwear
     if re.search(r'tazz sock|sock dart|speed sock|ice cap|drainmaker|2002r.*pouch|knu skool|old skool', title_cat_lower):
-        return 'shoes', 'Взуття', '👟'
+        return 'shoes', 'Взуття', ''
 
     # Feed category name explicitly marks footwear:
     if '(взуття)' in cat_name.lower() or re.search(r'кросівки|кеди|сланці|шльопанці|тапочки|\bboots\b|\bsneakers\b|зим.*взуття', cat_name, re.I):
-        return 'shoes', 'Взуття', '👟'
+        return 'shoes', 'Взуття', ''
 
     # 2. Underwear (Труси / Нижня білизна / Домашній одяг / Піжами)
     # Feed category marks underwear & pajamas:
     if re.search(r'труси\s*\(одяг\)|\bтруси\b|чоловіча білизна|комплекти білизни|попожам|піжам', cat_name, re.I):
-        return 'underwear', 'Труси & Білизна', '🩲'
+        return 'underwear', 'Труси & Білизна', ''
     # Text marks underwear (including sets of underwear + socks, pajamas):
     if re.search(r'трус|боксер|білизн|плавки|попожам|піжам|пеньюар|кігурумі|нічна сорочк|\bunderwear\b|\bbriefs?\b|\bboxers?\b', title_cat_lower):
-        return 'underwear', 'Труси & Білизна', '🩲'
+        return 'underwear', 'Труси & Білизна', ''
 
     # 3. Socks (Шкарпетки)
     # Feed category marks pure socks:
     if re.search(r'комплекти шкарпеток|\bноски\b|шкарпетки', cat_name, re.I) and 'білизн' not in cat_name.lower():
-        return 'socks', 'Шкарпетки', '🧦'
+        return 'socks', 'Шкарпетки', ''
     # Name marks socks (only if not a shoe with shoe sizes):
     if re.search(r'шкарпетк|носк|\bsocks?\b', title_cat_lower):
         if not (len(shoe_sizes) >= 2 and any(k in title_cat_lower for k in ['ugg', 'nike', 'adidas', 'runner', 'trainer', 'boot', 'tazz'])):
-            return 'socks', 'Шкарпетки', '🧦'
+            return 'socks', 'Шкарпетки', ''
 
     # 4. Bags & Accessories
     desc_start = ''
@@ -286,21 +286,21 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
 
     # Handbag/Belt dimensions check: e.g. "34 x 26 x 13", "25x17x9", "100 х 2,5"
     if params_str and re.search(r'\d+\s*[xх]\s*\d+', params_str) and not any(k in title_cat_lower for k in ['кросівки', 'кеди', 'взуття', 'костюм']):
-        return 'accessories', 'Аксесуари & Сумки', '🎒'
+        return 'accessories', 'Аксесуари & Сумки', ''
 
     if BAG_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(сумка|рюкзак|бананка|гаманець|ремінь|окуляри|браслет|клатч|шапка|кепка|панама)', desc_start, re.I)):
-        return 'accessories', 'Аксесуари & Сумки', '🎒'
+        return 'accessories', 'Аксесуари & Сумки', ''
 
     # 5. Clothing & Outerwear
     if re.search(r'\bодяг\b|\(одяг\)|костюм|куртк|пуховик|худі|світшот|толстовк|штани|шорти|футболк|сорочк|рубашк|джинс', cat_name, re.I):
-        return 'clothing', 'Одяг & Куртки', '🧥'
+        return 'clothing', 'Одяг & Куртки', ''
 
     if CLOTHING_KEYWORDS.search(title_cat) or (desc_start and re.search(r'^(костюм|куртка|пуховик|худі|світшот|штани|футболка|шорти|сорочка)', desc_start, re.I)):
-        return 'clothing', 'Одяг & Куртки', '🧥'
+        return 'clothing', 'Одяг & Куртки', ''
 
     # If product has clothing sizes (S, M, L, XL, XXL) and NO shoe sizes, it is Clothing!
     if clothing_sizes and not shoe_sizes:
-        return 'clothing', 'Одяг & Куртки', '🧥'
+        return 'clothing', 'Одяг & Куртки', ''
 
     # 6. Footwear models & numeric shoe sizes (e.g. 36-47):
     # If it has 2+ numeric shoe sizes and comes from a sneaker brand or has sneaker keywords
@@ -309,27 +309,27 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
         'кросів', 'кроссов', 'кеди', 'кеды', 'ботинк', 'черевик', 'хайтоп', 'sneaker', 'сникер', 'лофер', 'туфл', 'чобот', 'сабо', 'сандал', 'шльоп', 'сланц', 'slide'
     ]):
         if not any(k in title_cat_lower for k in ['футболк', 'худі', 'світшот', 'штани', 'шорти', 'куртка', 'костюм', 'шапка', 'кепка', 'панама', 'сумка', 'рюкзак', 'попожам', 'піжам']):
-            return 'shoes', 'Взуття', '👟'
+            return 'shoes', 'Взуття', ''
 
     if shoe_sizes:
-        return 'shoes', 'Взуття', '👟'
+        return 'shoes', 'Взуття', ''
 
     # 7. Fallback is Shoes
-    return 'shoes', 'Взуття', '👟'
+    return 'shoes', 'Взуття', ''
 
 def determine_season(name, cat_slug, mat="", desc=""):
     txt = f"{name} {mat} {desc}".lower()
     
     # 1. Winter (Зима / Термо / Хутро / Пуховики)
     if re.search(r'зимов|термо|хутр|мех|winter|пуховик|сноубутс|дутики|мунбут|\bugg\b|угг|термобілизн|термокостюм|фліс|шерсть|тепл', txt):
-        return 'winter', 'Зима', '❄️'
+        return 'winter', 'Зима', ''
         
     # 2. Summer (Літо / Сітка / Шорти / Футболки / Сланці / Сандалі)
     if re.search(r'літн|лето|літо|summer|шорти|шорты|майк|футболк|сланц|шльоп|шлеп|сандал|\bcrocs\b|крокс|mesh|сітка|сетка|топ\b', txt):
-        return 'summer', 'Літо', '☀️'
+        return 'summer', 'Літо', ''
         
     # 3. Demi-season (Демісезон / Весна-Осінь / Базове щоденне)
-    return 'demi', 'Демісезон', '🍂'
+    return 'demi', 'Демісезон', ''
 
 def determine_brand(name, cat_name):
     combined = f"{name} {cat_name}".lower()
@@ -988,17 +988,17 @@ def main():
         old_price = round((price * 1.18) / 10) * 10
         
         # Badge
-        badge = "✨ Топ якість"
+        badge = "Топ якість"
         if re.search(r'піжам|попожам|пеньюар', clean_name, re.I):
-            badge = "💖 Домашній затишок"
+            badge = "Домашній затишок"
         elif season_slug == 'winter':
-            badge = "❄️ Зима • Термо"
+            badge = "Зима • Термо"
         elif season_slug == 'summer':
-            badge = "☀️ Літо • Легкість"
+            badge = "Літо • Легкість"
         elif 'sale' in cname.lower() or 'уцінка' in cname.lower():
-            badge = "🏷 Знижка"
+            badge = "Знижка"
         elif brand_slug in ['nike', 'jordan', 'newbalance', 'adidas']:
-            badge = "🔥 Хіт продажів"
+            badge = "Хіт продажів"
             
         products.append({
             'id': str(gid),
@@ -1044,23 +1044,23 @@ def main():
     meta = {
         'total': len(products),
         'genders': [
-            {'slug': 'all', 'name': 'Всі товари', 'icon': '🔥', 'count': len(products)},
-            {'slug': 'men', 'name': 'Чоловічі', 'icon': '👨', 'count': men_count},
-            {'slug': 'women', 'name': 'Жіночі', 'icon': '👩', 'count': women_count}
+            {'slug': 'all', 'name': 'Всі товари', 'icon': '', 'count': len(products)},
+            {'slug': 'men', 'name': 'Чоловічі', 'icon': '', 'count': men_count},
+            {'slug': 'women', 'name': 'Жіночі', 'icon': '', 'count': women_count}
         ],
         'categories': [
-            {'slug': 'all', 'name': 'Всі товари', 'icon': '🔥', 'count': len(products)},
-            {'slug': 'shoes', 'name': 'Взуття', 'icon': '👟', 'count': category_counts['shoes']},
-            {'slug': 'clothing', 'name': 'Одяг', 'icon': '🧥', 'count': category_counts['clothing']},
-            {'slug': 'socks', 'name': 'Шкарпетки', 'icon': '🧦', 'count': category_counts['socks']},
-            {'slug': 'underwear', 'name': 'Труси & Білизна', 'icon': '🩲', 'count': category_counts['underwear']},
-            {'slug': 'accessories', 'name': 'Аксесуари & Сумки', 'icon': '🎒', 'count': category_counts['accessories']},
+            {'slug': 'all', 'name': 'Всі товари', 'icon': '', 'count': len(products)},
+            {'slug': 'shoes', 'name': 'Взуття', 'icon': '', 'count': category_counts['shoes']},
+            {'slug': 'clothing', 'name': 'Одяг', 'icon': '', 'count': category_counts['clothing']},
+            {'slug': 'socks', 'name': 'Шкарпетки', 'icon': '', 'count': category_counts['socks']},
+            {'slug': 'underwear', 'name': 'Труси & Білизна', 'icon': '', 'count': category_counts['underwear']},
+            {'slug': 'accessories', 'name': 'Аксесуари & Сумки', 'icon': '', 'count': category_counts['accessories']},
         ],
         'seasons': [
-            {'slug': 'all', 'name': 'Всі сезони', 'icon': '🌍', 'count': len(products)},
-            {'slug': 'demi', 'name': 'Демісезон', 'icon': '🍂', 'count': season_counts['demi']},
-            {'slug': 'winter', 'name': 'Зима', 'icon': '❄️', 'count': season_counts['winter']},
-            {'slug': 'summer', 'name': 'Літо', 'icon': '☀️', 'count': season_counts['summer']},
+            {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},
+            {'slug': 'demi', 'name': 'Демісезон', 'icon': '', 'count': season_counts['demi']},
+            {'slug': 'winter', 'name': 'Зима', 'icon': '', 'count': season_counts['winter']},
+            {'slug': 'summer', 'name': 'Літо', 'icon': '', 'count': season_counts['summer']},
         ],
 
         'brands': (lambda: [

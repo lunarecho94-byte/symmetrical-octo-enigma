@@ -8062,11 +8062,11 @@ body.fav-open {
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     background: transparent;
     border: none;
-    color: #171717;
+    color: #000000;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -8079,6 +8079,18 @@ body.fav-open {
     -webkit-tap-highlight-color: transparent;
     transition: transform 0.2s ease, opacity 0.2s ease;
     box-shadow: none;
+}
+
+.btn-card-fav svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+    stroke: #000000;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.22));
+    transition: transform 0.2s ease, fill 0.2s ease, stroke 0.2s ease;
 }
 
 .btn-card-fav:hover {
@@ -8100,6 +8112,7 @@ body.fav-open {
 .btn-card-fav.active svg {
     fill: #ef4444 !important;
     stroke: #ef4444 !important;
+    filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.35));
     animation: favHeartPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -8734,6 +8747,18 @@ body.fav-open {
     background: #fef2f2;
     border-color: #ef4444;
     color: #ef4444;
+}
+
+.btn-pdp-fav-outline svg {
+    fill: #ffffff;
+    stroke: #000000;
+    stroke-width: 2.2px;
+    transition: all 0.2s ease;
+}
+
+.btn-pdp-fav-outline.active svg {
+    fill: #ef4444 !important;
+    stroke: #ef4444 !important;
 }
 
 .btn-pdp-buy {

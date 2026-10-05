@@ -441,8 +441,8 @@ function updateFavoritesUI() {
             btn.setAttribute('title', isFav ? 'Видалити з обраного' : 'Додати в обране');
             const svg = btn.querySelector('svg');
             if (svg) {
-                svg.setAttribute('fill', isFav ? '#ef4444' : 'none');
-                svg.setAttribute('stroke', isFav ? '#ef4444' : 'currentColor');
+                svg.setAttribute('fill', isFav ? '#ef4444' : '#ffffff');
+                svg.setAttribute('stroke', isFav ? '#ef4444' : '#000000');
             }
         }
     });
@@ -3352,7 +3352,7 @@ function createProductCardElement(item) {
     const isFav = isFavorite(item.id);
     const favBtnHtml = `
         <button type="button" class="btn-card-fav ${isFav ? 'active' : ''}" data-id="${item.id}" onclick="toggleFavorite('${item.id}', event)" aria-label="${isFav ? 'Видалити з обраного' : 'Додати в обране'}" title="${isFav ? 'Видалити з обраного' : 'Додати в обране'}">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="${isFav ? '#ef4444' : 'none'}" stroke="${isFav ? '#ef4444' : '#171717'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? '#ef4444' : '#ffffff'}" stroke="${isFav ? '#ef4444' : '#000000'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/>
             </svg>
         </button>
@@ -6348,8 +6348,8 @@ function updatePdpFavoriteButton(prodId) {
         if (textEl) textEl.textContent = 'В ОБРАНЕ';
         const svgPath = btn.querySelector('svg path');
         if (svgPath) {
-            svgPath.setAttribute('fill', 'none');
-            svgPath.setAttribute('stroke', 'currentColor');
+            svgPath.setAttribute('fill', '#ffffff');
+            svgPath.setAttribute('stroke', '#000000');
         }
     }
 }
