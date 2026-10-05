@@ -1938,6 +1938,17 @@ async function initDynamicCatalog() {
             }
             return true;
         });
+
+        // Always prioritize new footwear deliveries at the beginning of the catalog
+        catalogAllProducts.sort((a, b) => {
+            const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
+            const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
+            if (isShoeA !== isShoeB) {
+                return isShoeB - isShoeA;
+            }
+            return (parseInt(b.id, 10) || 0) - (parseInt(a.id, 10) || 0);
+        });
+
         catalogMeta = await metaResp.json();
 
         // Render Dynamic 3-tier Tabs
@@ -3333,29 +3344,49 @@ function applyCatalogFilters() {
 
 function sortFilteredProducts(criteria) {
     catalogFilteredProducts.sort((a, b) => {
+        const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
+        const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
+        const idA = parseInt(a.id, 10) || 0;
+        const idB = parseInt(b.id, 10) || 0;
+
         switch (criteria) {
-            case 'price-asc':
-                return a.price - b.price;
-            case 'price-desc':
-                return b.price - a.price;
+            case 'price-asc': {
+                const diff = a.price - b.price;
+                if (diff !== 0) return diff;
+                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                return idB - idA;
+            }
+            case 'price-desc': {
+                const diff = b.price - a.price;
+                if (diff !== 0) return diff;
+                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                return idB - idA;
+            }
             case 'discount': {
                 const discountA = (a.old_price || a.price) - a.price;
                 const discountB = (b.old_price || b.price) - b.price;
-                return discountB - discountA;
+                const diff = discountB - discountA;
+                if (diff !== 0) return diff;
+                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                return idB - idA;
             }
-            case 'name-asc':
-                return a.name.localeCompare(b.name, 'uk', { sensitivity: 'base' });
-            case 'newest':
-                return parseInt(b.id, 10) - parseInt(a.id, 10);
+            case 'name-asc': {
+                const diff = a.name.localeCompare(b.name, 'uk', { sensitivity: 'base' });
+                if (diff !== 0) return diff;
+                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                return idB - idA;
+            }
+            case 'newest': {
+                // Footwear (обувь) ALWAYS comes first at the beginning of the catalog
+                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                return idB - idA;
+            }
             case 'popular':
             default: {
-                const badgeWeight = (item) => {
-                    if (item.badge && item.badge.includes('Хіт')) return 3;
-                    if (item.badge && item.badge.includes('Знижка')) return 2;
-                    if (item.badge) return 1;
-                    return 0;
-                };
-                return badgeWeight(b) - badgeWeight(a);
+                // Footwear (обувь) ALWAYS comes first at the beginning of the catalog
+                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                // Always show new supplies (highest ID) first
+                return idB - idA;
             }
         }
     });
