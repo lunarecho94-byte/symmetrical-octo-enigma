@@ -9456,13 +9456,15 @@ body.catalog-drawer-open {
 
 /* Drawer Scrollable Body */
 .catalog-drawer-body {
-    flex: 1;
+    flex: 1 1 auto;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 12px 14px 24px;
+    padding: 12px 14px 28px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    min-height: 0;
 }
 
 /* Drawer Accordions */
@@ -9471,7 +9473,8 @@ body.catalog-drawer-open {
     border-radius: 12px;
     overflow: hidden;
     background: #ffffff;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
 }
 
 .drawer-accordion.open {
@@ -9481,6 +9484,7 @@ body.catalog-drawer-open {
 
 .drawer-accordion-head {
     width: 100%;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -9494,6 +9498,7 @@ body.catalog-drawer-open {
     transition: background 0.15s ease;
     text-align: left;
     font-family: inherit;
+    flex-shrink: 0;
 }
 
 .drawer-accordion-head:hover {
@@ -9703,12 +9708,14 @@ body.catalog-drawer-open {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    flex-shrink: 0;
 }
 
 .drawer-service-item {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-height: 40px;
     padding: 9px 12px;
     border-radius: 8px;
     background: transparent;
@@ -9836,8 +9843,12 @@ body.catalog-drawer-open {
     }
 
     .catalog-drawer {
-        width: 320px;
-        max-width: 86vw;
+        width: 350px;
+        max-width: 90vw;
+    }
+
+    .catalog-drawer-body {
+        padding: 12px 14px calc(24px + env(safe-area-inset-bottom, 0px));
     }
 
     .catalog-active-filters-bar {
