@@ -1930,26 +1930,26 @@ async function initDynamicCatalog() {
             if (item.id == '100077' || item.id === 100077) {
                 item.isPromoPinned = true;
                 item.gender = 'unisex';
-                item.badge = '🔥 ХІТ З РЕКЛАМИ • ADIDAS NITEBALL 3 060 ГРН';
+                delete item.badge;
                 return true;
             }
             if (item.id == '155430' || item.id === 155430) {
                 item.isPromoPinned = true;
                 item.gender = 'unisex';
-                item.badge = '🔥 ХІТ З РЕКЛАМИ • NEW BALANCE';
+                delete item.badge;
                 return true;
             }
             if (item.id == '117306' || item.id === 117306) {
                 item.isPromoPinned = true;
                 item.gender = 'unisex';
-                item.badge = '🔥 АКЦІЯ 1 400 ГРН (З РЕКЛАМИ)';
+                delete item.badge;
                 item.old_price = 2400;
                 return true;
             }
             if (item.id == '69012' || item.id === 69012) {
                 item.isPromoPinned = true;
                 item.gender = 'unisex';
-                item.badge = '❄️ ЗИМА (РОЗМІРИ 38-45)';
+                delete item.badge;
                 return true;
             }
             if (isSneakerProductItem(item) && item.sizes.length < 3) {
@@ -2946,8 +2946,6 @@ function createProductCardElement(item) {
                 <span class="diamond-main">GORE-TEX</span>
             </div>
         `;
-    } else if (item.badge && item.badge.trim() && !item.badge.includes('✨')) {
-        badgeHtml = `<span class="card-badge-tag">${escapeHtml(item.badge)}</span>`;
     }
 
     const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн.';

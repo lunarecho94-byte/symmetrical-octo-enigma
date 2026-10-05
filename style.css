@@ -1700,6 +1700,7 @@ section, header, footer, .announcement-bar {
 }
 
 .card-badge-tag {
+    display: none !important;
     position: absolute;
     top: 10px;
     left: 10px;
