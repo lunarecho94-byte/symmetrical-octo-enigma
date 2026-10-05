@@ -9280,98 +9280,191 @@ body.fav-open {
     width: 100%;
 }
 
-.catalog-bar-top-row,
-.catalog-main-search-row {
+/* Catalog Action Toolbar: Filters & Sort Buttons */
+.catalog-action-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
 }
 
-.catalog-bar-burger-btn {
+.catalog-filter-trigger-btn {
+    flex: 1 1 50%;
+    min-width: 0;
+    height: 44px;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 8px;
     background: #09090b;
-    color: #ffffff;
-    border: 1px solid #09090b;
+    border: 1.5px solid #09090b;
     border-radius: 12px;
-    padding: 11px 18px;
+    padding: 0 16px;
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 700;
+    color: #ffffff;
     cursor: pointer;
-    white-space: nowrap;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-    flex-shrink: 0;
     touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.catalog-bar-burger-btn:hover {
+.catalog-filter-trigger-btn:hover {
     background: #27272a;
     border-color: #27272a;
     transform: translateY(-1px);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
-.catalog-bar-burger-btn:active {
+.catalog-filter-trigger-btn:active {
     transform: translateY(0);
 }
 
-.catalog-bar-burger-text {
+.catalog-filter-btn-text {
     font-family: inherit;
     line-height: 1;
     letter-spacing: 0.01em;
 }
 
-/* Quick Category Navigation Strip (Horizontal Swipeable Chips) */
-.catalog-quick-nav-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 2px 0 6px;
-    width: 100%;
-}
-
-.catalog-quick-nav-bar::-webkit-scrollbar {
-    display: none;
-}
-
-.catalog-nav-chip {
+.catalog-filter-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 16px;
-    background: #f4f4f5;
-    color: #18181b;
-    border: 1px solid #e4e4e7;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
     border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    flex-shrink: 0;
-    user-select: none;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
 }
 
-.catalog-nav-chip:hover {
-    background: #e4e4e7;
-    border-color: #d4d4d8;
+.catalog-filter-trigger-btn.active .catalog-filter-badge {
+    background: #ffffff;
     color: #09090b;
 }
 
-.catalog-nav-chip.active {
+.catalog-sort-wrapper {
+    flex: 1 1 50%;
+    min-width: 0;
+}
+
+.catalog-sort-inner {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1.5px solid #e4e4e7;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.catalog-sort-inner:hover,
+.catalog-sort-inner:focus-within {
+    border-color: #09090b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.sort-icon-svg {
+    position: absolute;
+    left: 12px;
+    color: #71717a;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.sort-chevron {
+    position: absolute;
+    right: 12px;
+    font-size: 11px;
+    color: #71717a;
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+.catalog-sort-select {
+    width: 100%;
+    height: 100%;
+    padding: 0 26px 0 36px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #09090b;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: inherit;
+}
+
+/* Drawer Size Grid */
+.drawer-size-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 6px 2px 10px;
+}
+
+.drawer-size-chip {
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f4f5;
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #18181b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    touch-action: manipulation;
+}
+
+.drawer-size-chip:hover {
+    background: #e4e4e7;
+    border-color: #d4d4d8;
+}
+
+.drawer-size-chip.active {
     background: #09090b;
     color: #ffffff;
     border-color: #09090b;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+.drawer-all-sizes-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    margin-top: 4px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+    background: #f8fafc;
+    color: #2563eb;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+}
+
+.drawer-all-sizes-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
 }
 
 /* Catalog Off-Canvas Drawer Overlay */

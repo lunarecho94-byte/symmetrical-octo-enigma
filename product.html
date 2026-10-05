@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=6.5">
+    <link rel="stylesheet" href="style.css?v=6.6">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -511,7 +511,37 @@
                 </div>
             </div>
 
-            <!-- Accordion 2: Для кого (Стать) -->
+            <!-- Accordion 2: Розмір -->
+            <div class="drawer-accordion" id="drawerAccSize">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccSize')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="10"/><line x1="12" y1="5" x2="12" y2="8"/><line x1="17" y1="5" x2="17" y2="10"/></svg>
+                        Розмір
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <div class="drawer-size-grid">
+                        <button type="button" class="drawer-size-chip active" data-drawer-size="all" onclick="applyDrawerSize('all')">Всі</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="36" onclick="applyDrawerSize('36')">36</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="37" onclick="applyDrawerSize('37')">37</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="38" onclick="applyDrawerSize('38')">38</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="39" onclick="applyDrawerSize('39')">39</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="40" onclick="applyDrawerSize('40')">40</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="41" onclick="applyDrawerSize('41')">41</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="42" onclick="applyDrawerSize('42')">42</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="43" onclick="applyDrawerSize('43')">43</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="44" onclick="applyDrawerSize('44')">44</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="45" onclick="applyDrawerSize('45')">45</button>
+                    </div>
+                    <button type="button" class="drawer-all-sizes-btn" onclick="closeCatalogDrawer(); openSizeModal();">
+                        <span>Усі розміри (взуття та одяг)...</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Accordion 3: Для кого (Стать) -->
             <div class="drawer-accordion" id="drawerAccGender">
                 <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccGender')">
                     <span class="drawer-accordion-label">
@@ -865,6 +895,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=6.5"></script>
+    <script src="script.js?v=6.6"></script>
 </body>
 </html>

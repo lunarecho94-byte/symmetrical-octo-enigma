@@ -53,7 +53,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=6.5">
+    <link rel="stylesheet" href="style.css?v=6.6">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -123,79 +123,45 @@
 
             <!-- Modern Catalog Control Bar -->
             <div class="catalog-control-bar">
-                <div class="catalog-main-search-row">
-                    <button type="button" class="catalog-bar-burger-btn" onclick="toggleCatalogDrawer()" aria-label="Відкрити каталог" title="Категорії, стать, сезон та бренди">
-                        <span class="catalog-burger-icon">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </span>
-                        <span class="catalog-bar-burger-text">Каталог</span>
+                <div class="catalog-search-box">
+                    <svg class="search-lens-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input 
+                        type="search" 
+                        id="catalogSearchInput" 
+                        class="catalog-search-input" 
+                        placeholder="Пошук у каталозі: назва, бренд, артикул..." 
+                        aria-label="Пошук по каталогу"
+                        autocomplete="off"
+                        oninput="handleCatalogSearch(this.value)"
+                    >
+                    <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
+                </div>
+
+                <div class="catalog-action-bar">
+                    <button type="button" class="catalog-filter-trigger-btn" id="catalogFilterTriggerBtn" onclick="toggleCatalogDrawer()" aria-label="Відкрити фільтри" title="Категорії, бренди, розміри та фільтри">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="6" x2="20" y2="6"/>
+                            <line x1="7" y1="12" x2="17" y2="12"/>
+                            <line x1="10" y1="18" x2="14" y2="18"/>
+                        </svg>
+                        <span class="catalog-filter-btn-text">Фільтри</span>
+                        <span class="catalog-filter-badge" id="catalogFilterBadge" style="display: none;">0</span>
                     </button>
 
-                    <div class="catalog-search-box">
-                        <svg class="search-lens-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        <input 
-                            type="search" 
-                            id="catalogSearchInput" 
-                            class="catalog-search-input" 
-                            placeholder="Пошук за назвою, брендом або артикулом..." 
-                            aria-label="Пошук по каталогу"
-                            autocomplete="off"
-                            oninput="handleCatalogSearch(this.value)"
-                        >
-                        <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
-                    </div>
-                </div>
-
-                <!-- Quick Category Navigation Strip (Horizontal Swipeable Pills) -->
-                <div class="catalog-quick-nav-bar" id="catalogQuickNavBar" role="navigation" aria-label="Швидкі категорії">
-                    <button type="button" class="catalog-nav-chip active" data-nav="all" onclick="applyQuickNavFilter('all', this)">Всі товари</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="shoes" onclick="applyQuickNavFilter('shoes', this)">Кросівки</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="men" onclick="applyQuickNavFilter('men', this)">Чоловіче</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="women" onclick="applyQuickNavFilter('women', this)">Жіноче</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="winter" onclick="applyQuickNavFilter('winter', this)">Зима / Термо</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="clothing" onclick="applyQuickNavFilter('clothing', this)">Одяг</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="accessories" onclick="applyQuickNavFilter('accessories', this)">Аксесуари</button>
-                    <button type="button" class="catalog-nav-chip" data-nav="discount" onclick="applyQuickNavFilter('discount', this)">Знижки %</button>
-                </div>
-
-                <div class="brand-filter-bar">
-                    <!-- Brand Select Button -->
-                    <div class="brand-select-wrapper">
-                        <button type="button" class="brand-select-btn" id="brandSelectBtn" onclick="openBrandModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть бренд">
-                            <span class="brand-btn-left">
-                                <span class="brand-btn-label" id="brandBtnLabel">Всі бренди</span>
-                                <span class="brand-btn-count" id="brandBtnCount">(7 547)</span>
-                            </span>
-                            <span class="brand-btn-arrow">▾</span>
-                        </button>
-                        <button type="button" class="brand-quick-clear-btn" id="brandQuickClearBtn" onclick="clearBrandSelection(event)" title="Скинути фільтр бренду" style="display: none;" aria-label="Скинути фільтр бренду">✕</button>
-                    </div>
-
-                    <!-- Size Select Button -->
-                    <div class="size-select-wrapper">
-                        <button type="button" class="size-select-btn" id="sizeSelectBtn" onclick="openSizeModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть розмір">
-                            <span class="size-btn-left">
-                                <span class="size-btn-label" id="sizeBtnLabel">Розмір</span>
-                            </span>
-                            <span class="size-btn-arrow">▾</span>
-                        </button>
-                        <button type="button" class="size-quick-clear-btn" id="sizeQuickClearBtn" onclick="clearSizeSelection(event)" title="Скинути фільтр розміру" style="display: none;" aria-label="Скинути фільтр розміру">✕</button>
-                    </div>
-
-                    <!-- Catalog Sort -->
-                    <div class="catalog-sort-bar">
-                        <label for="catalogSortSelect" class="sort-label">Сортування:</label>
-                        <div class="sort-select-wrapper">
-                            <select id="catalogSortSelect" class="sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
+                    <div class="catalog-sort-wrapper">
+                        <div class="catalog-sort-inner">
+                            <svg class="sort-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 5h10M11 9h7M11 13h4M3 17l3 3 3-3M6 18V4"/>
+                            </svg>
+                            <select id="catalogSortSelect" class="catalog-sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
                                 <option value="popular">За популярністю</option>
                                 <option value="discount">Найбільша знижка</option>
-                                <option value="price-asc">Від дешевих до дорогих</option>
-                                <option value="price-desc">Від дорогих до дешевих</option>
+                                <option value="price-asc">Ціна: від дешевих</option>
+                                <option value="price-desc">Ціна: від дорогих</option>
                                 <option value="newest">Новинки спочатку</option>
                                 <option value="name-asc">За назвою (А-Я)</option>
                             </select>
+                            <span class="sort-chevron">▾</span>
                         </div>
                     </div>
                 </div>
@@ -649,7 +615,37 @@
                 </div>
             </div>
 
-            <!-- Accordion 2: Для кого (Стать) -->
+            <!-- Accordion 2: Розмір -->
+            <div class="drawer-accordion" id="drawerAccSize">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccSize')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="10"/><line x1="12" y1="5" x2="12" y2="8"/><line x1="17" y1="5" x2="17" y2="10"/></svg>
+                        Розмір
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <div class="drawer-size-grid">
+                        <button type="button" class="drawer-size-chip active" data-drawer-size="all" onclick="applyDrawerSize('all')">Всі</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="36" onclick="applyDrawerSize('36')">36</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="37" onclick="applyDrawerSize('37')">37</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="38" onclick="applyDrawerSize('38')">38</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="39" onclick="applyDrawerSize('39')">39</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="40" onclick="applyDrawerSize('40')">40</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="41" onclick="applyDrawerSize('41')">41</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="42" onclick="applyDrawerSize('42')">42</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="43" onclick="applyDrawerSize('43')">43</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="44" onclick="applyDrawerSize('44')">44</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="45" onclick="applyDrawerSize('45')">45</button>
+                    </div>
+                    <button type="button" class="drawer-all-sizes-btn" onclick="closeCatalogDrawer(); openSizeModal();">
+                        <span>Усі розміри (взуття та одяг)...</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Accordion 3: Для кого (Стать) -->
             <div class="drawer-accordion" id="drawerAccGender">
                 <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccGender')">
                     <span class="drawer-accordion-label">
@@ -1112,7 +1108,7 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=6.5"></script>
+    <script src="script.js?v=6.6"></script>
 
     <!-- Quick Choice Modal / Bottom Sheet -->
     <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">

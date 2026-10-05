@@ -2251,6 +2251,21 @@ function applyDrawerBrand(brand) {
     if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
 }
 
+function applyDrawerSize(size) {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = size === 'all' ? 'index.html#catalog' : `index.html?size=${encodeURIComponent(size)}#catalog`;
+        return;
+    }
+    if (size === 'all') {
+        filterCatalogBySize('all');
+    } else {
+        filterCatalogBySize(size);
+    }
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
 function applyDrawerSubSearch(keyword, cat) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
@@ -2373,6 +2388,36 @@ function syncDrawerActiveStates() {
         const b = btn.getAttribute('data-brand');
         btn.classList.toggle('active', b === currentCatalogBrand);
     });
+
+    // 5. Sizes
+    document.querySelectorAll('.drawer-size-chip').forEach(btn => {
+        const s = btn.getAttribute('data-drawer-size');
+        btn.classList.toggle('active', s === currentCatalogSize);
+    });
+}
+
+function updateCatalogFilterBadge() {
+    let count = 0;
+    if (typeof currentCatalogCategory !== 'undefined' && currentCatalogCategory !== 'all') count++;
+    if (typeof currentCatalogGender !== 'undefined' && currentCatalogGender !== 'all') count++;
+    if (typeof currentCatalogSeason !== 'undefined' && currentCatalogSeason !== 'all') count++;
+    if (typeof currentCatalogBrand !== 'undefined' && currentCatalogBrand !== 'all') count++;
+    if (typeof currentCatalogSize !== 'undefined' && currentCatalogSize !== 'all') count++;
+    if (typeof currentCatalogPriceRange !== 'undefined' && currentCatalogPriceRange !== 'all') count++;
+
+    const badge = document.getElementById('catalogFilterBadge');
+    const filterBtn = document.getElementById('catalogFilterTriggerBtn');
+    if (badge) {
+        if (count > 0) {
+            badge.textContent = count;
+            badge.style.display = 'inline-flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+    if (filterBtn) {
+        filterBtn.classList.toggle('active', count > 0);
+    }
 }
 
 function renderActiveFilterTags() {
@@ -2459,6 +2504,7 @@ function renderActiveFilterTags() {
     if (tags.length === 0) {
         bar.style.display = 'none';
         container.innerHTML = '';
+        updateCatalogFilterBadge();
         return;
     }
 
@@ -2469,6 +2515,7 @@ function renderActiveFilterTags() {
             <button type="button" class="chip-remove-btn" onclick="${tag.removeAction}" aria-label="Видалити фільтр ${escapeHtml(tag.label)}">&times;</button>
         </span>
     `).join('');
+    updateCatalogFilterBadge();
 }
 
 function removeActiveFilterTag(type) {
@@ -2523,6 +2570,7 @@ function resetAllCatalogFilters() {
     updateBrandButtonState();
     updateSizeButtonState();
     updateFilterBadges();
+    updateCatalogFilterBadge();
     syncDrawerActiveStates();
     syncQuickNavChips('all');
     applyCatalogFilters();
@@ -2621,10 +2669,12 @@ window.applyDrawerCategory = applyDrawerCategory;
 window.applyDrawerGender = applyDrawerGender;
 window.applyDrawerSeason = applyDrawerSeason;
 window.applyDrawerBrand = applyDrawerBrand;
+window.applyDrawerSize = applyDrawerSize;
 window.applyDrawerSubSearch = applyDrawerSubSearch;
 window.applyDrawerFavorites = applyDrawerFavorites;
 window.handleDrawerSearch = handleDrawerSearch;
 window.resetAllCatalogFilters = resetAllCatalogFilters;
+window.updateCatalogFilterBadge = updateCatalogFilterBadge;
 window.removeActiveFilterTag = removeActiveFilterTag;
 window.applyQuickNavFilter = applyQuickNavFilter;
 window.syncQuickNavChips = syncQuickNavChips;
