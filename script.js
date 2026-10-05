@@ -5531,7 +5531,6 @@ function renderPdpSpecs(item) {
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
     if (item.origin) rows.push({ label: 'Країна виробництва:', val: item.origin });
     rows.push({ label: 'Стан:', val: 'Новий, у фірмовій коробці' });
-    rows.push({ label: 'Наявність:', val: '✓ В наявності на складі' });
 
     list.innerHTML = rows.map(r => `
         <div class="pdp-spec-row">
