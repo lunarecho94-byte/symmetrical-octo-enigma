@@ -1888,6 +1888,28 @@ function formatProductDisplayName(item) {
     name = name.replace(/\b(?:оригинал|оригинальный|оригинальная|оригинальное|оригинальные|оригинального|оригинальных)\b/gi, 'фирменный');
     name = name.replace(/\b(?:офіційний|офіційна|офіційне|офіційні|офіційно|офіційного)\b/gi, '');
     name = name.replace(/\b(?:официальный|официальная|официальное|официальные|официально|официального)\b/gi, '');
+
+    // Strip URLs and No brand
+    name = name.replace(/https?:\/\/[^\s]+/g, '').trim();
+    name = name.replace(/\s*\bNo\s*brand\b/gi, '').trim();
+    name = name.replace(/^КАРГО\s+(2Y|\d+)/i, 'Штани карго $1');
+    name = name.replace(/^V(\d{2,3})$/i, (m, c) => 'Вітровка з капюшоном демісезонна V' + c);
+    name = name.replace(/^F(\d{2,4})$/i, (m, c) => 'Худі оверсайз F' + c);
+    name = name.replace(/^SJ(\d{2,4})$/i, (m, c) => 'Куртка демісезонна SJ' + c);
+    name = name.replace(/^WJ(\d{2,4})$/i, (m, c) => 'Куртка зимова WJ' + c);
+    name = name.replace(/^SS(\d{2,4})$/i, (m, c) => 'Спортивний костюм SS' + c);
+    name = name.replace(/^H(\d{3,4})$/i, (m, c) => 'Сланці H' + c);
+    name = name.replace(/^SL(\d{2,4})$/i, (m, c) => 'Шльопанці SL' + c);
+    name = name.replace(/^J(\d{1,4})$/i, (m, c) => 'Куртка демісезонна J' + c);
+    name = name.replace(/^SH(\d{1,4})$/i, (m, c) => 'Шорти SH' + c);
+    name = name.replace(/^TS(\d{1,4})$/i, (m, c) => 'Футболка TS' + c);
+    name = name.replace(/б\/нкз\d+/gi, 'Зимовий спортивний костюм');
+    name = name.replace(/б\/нко\d+/gi, 'Олімпійка спортивна');
+    name = name.replace(/б\/нк\d+/gi, 'Спортивний костюм');
+    name = name.replace(/Б\/Н\d+/gi, 'Зимова тепла куртка');
+    name = name.replace(/SPб\/н\d+/gi, 'Спортивні штани');
+    name = name.replace(/\bб\/н\b/gi, '').trim();
+
     name = name.replace(/\s{2,}/g, ' ').trim();
     if (!name || name.length <= 2 || /^\d+$/.test(name) || /^[A-Z]\d{1,3}$/i.test(name)) {
         const catName = getCategoryTitle(item.cat);

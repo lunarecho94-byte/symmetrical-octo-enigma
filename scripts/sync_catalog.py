@@ -235,6 +235,10 @@ KNOWN_BRANDS = [
     ('cartier', 'Cartier', [r'cartier']),
     ('chloe', 'Chloé', [r'chloe', r'chloé']),
     ('armani', 'Armani', [r'armani', r'ea7']),
+    ('reebok', 'Reebok', [r'reebok']),
+    ('mizuno', 'Mizuno', [r'mizuno']),
+    ('dsquared2', 'Dsquared2', [r'dsquared']),
+    ('tommy', 'Tommy Hilfiger', [r'tommy', r'hilfiger']),
 ]
 
 def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", brand_slug=""):
@@ -356,7 +360,272 @@ def determine_season(name, cat_slug, mat="", desc=""):
     # 3. DEMI-SEASON (Демісезон / Весна-Осінь / Базове щоденне взуття та одяг)
     return 'demi', 'Демісезон', ''
 
-def determine_brand(name, cat_name):
+EXPLICIT_PRODUCT_OVERRIDES = {
+    # 1. б/н products
+    '125679': {'name': 'Спортивний костюм Adidas Originals Білий / Чорний', 'brand': ('adidas', 'Adidas')},
+    '125825': {'name': 'Зимовий спортивний костюм Tommy Jeans x Coca-Cola Червоний', 'brand': ('tommy', 'Tommy Hilfiger')},
+    '125826': {'name': 'Зимовий спортивний костюм Tommy Jeans x Coca-Cola Сірий', 'brand': ('tommy', 'Tommy Hilfiger')},
+    '125828': {'name': 'Зимовий спортивний костюм Adidas Originals Tape Білий', 'brand': ('adidas', 'Adidas')},
+    '125617': {'name': 'Спортивний костюм Nike Swoosh Чорний', 'brand': ('nike', 'Nike')},
+    '125622': {'name': 'Спортивний костюм Nike Just Do It Рефлективний', 'brand': ('nike', 'Nike')},
+    '125625': {'name': 'Спортивний костюм Nike Swoosh Червоний / Чорний', 'brand': ('nike', 'Nike')},
+    '125681': {'name': 'Спортивний костюм Adidas Чорний / Жовтий', 'brand': ('adidas', 'Adidas')},
+    '125694': {'name': 'Спортивний костюм Under Armour Рефлективний Сірий', 'brand': ('underarmour', 'Under Armour')},
+    '125696': {'name': 'Спортивний костюм Under Armour Рефлективний Графітовий', 'brand': ('underarmour', 'Under Armour')},
+    '125842': {'name': 'Олімпійка Adidas Originals Біла', 'brand': ('adidas', 'Adidas')},
+    '125844': {'name': 'Олімпійка Adidas Originals Чорна', 'brand': ('adidas', 'Adidas')},
+    '126117': {'name': 'Спортивні штани Tommy Jeans Темно-сині', 'brand': ('tommy', 'Tommy Hilfiger')},
+    '126120': {'name': 'Спортивні штани Adidas Originals 3-Stripes', 'brand': ('adidas', 'Adidas')},
+    '126123': {'name': 'Спортивні штани Givenchy Чорні', 'brand': ('other', 'Givenchy')},
+    '126230': {'name': 'Зимові спортивні штани Adidas Originals 3-Stripes Чорні', 'brand': ('adidas', 'Adidas')},
+    '126234': {'name': 'Зимові спортивні штани Adidas Originals Tape Білі', 'brand': ('adidas', 'Adidas')},
+    '125320': {'name': 'Пуховик The North Face 1996 Nuptse Синій', 'brand': ('tnf', 'The North Face')},
+    '125322': {'name': 'Пуховик The North Face 1996 Nuptse Помаранчевий', 'brand': ('tnf', 'The North Face')},
+
+    # 2. NB357-360 winter sneakers
+    '194279': {'name': 'Зимові кросівки New Balance 9060 Black Fur', 'brand': ('newbalance', 'New Balance')},
+    '194281': {'name': 'Зимові кросівки New Balance 9060 Grey Fur', 'brand': ('newbalance', 'New Balance')},
+    '194282': {'name': 'Зимові кросівки New Balance 9060 Khaki / Brown Fur', 'brand': ('newbalance', 'New Balance')},
+    '194283': {'name': 'Зимові кросівки New Balance 9060 Light Grey Fur', 'brand': ('newbalance', 'New Balance')},
+
+    # 3. H slides
+    '123029': {'name': "В'єтнамки Rider Soft Dry Foam Хакі", 'brand': ('other', 'Rider')},
+    '123042': {'name': 'Сланці Reebok Classic White / Black', 'brand': ('reebok', 'Reebok')},
+    '168381': {'name': 'Сланці Rider на липучці Сірі', 'brand': ('other', 'Rider')},
+    '168382': {'name': 'Сланці Rider на липучці Black / Blue', 'brand': ('other', 'Rider')},
+
+    # 4. SC summer sets
+    '126296': {'name': 'Літній комплект Jordan Jumpman + Шорти Nike Білий / Чорний', 'brand': ('jordan', 'Air Jordan')},
+    '126297': {'name': 'Літній комплект Nike Swoosh Білий', 'brand': ('nike', 'Nike')},
+    '126484': {'name': 'Літній комплект Adidas Чорний', 'brand': ('adidas', 'Adidas')},
+    '126486': {'name': 'Літній комплект Adidas Білий / Чорний', 'brand': ('adidas', 'Adidas')},
+    '126487': {'name': 'Літній комплект Adidas Червоний / Чорний', 'brand': ('adidas', 'Adidas')},
+
+    # 5. SH shorts
+    '126268': {'name': 'Шорти Nike Air Білі з чорними вставками', 'brand': ('nike', 'Nike')},
+    '126266': {'name': 'Шорти Nike Air з лампасами Білі', 'brand': ('nike', 'Nike')},
+    '126269': {'name': 'Шорти Adidas Originals 3-Stripes Червоні', 'brand': ('adidas', 'Adidas')},
+
+    # 6. TS t-shirts
+    '126283': {'name': 'Футболка Nike Air Fly Higher Світло-оливкова', 'brand': ('nike', 'Nike')},
+    '126285': {'name': 'Футболка Nike Air Fly Higher Сіра', 'brand': ('nike', 'Nike')},
+    '126287': {'name': 'Футболка Nike Air Fly Higher Чорна', 'brand': ('nike', 'Nike')},
+    '126289': {'name': 'Футболка Nike Air Fly Higher Біла', 'brand': ('nike', 'Nike')},
+    '126290': {'name': 'Футболка Nike Air Сіра', 'brand': ('nike', 'Nike')},
+    '126293': {'name': 'Футболка Nike Air Чорна', 'brand': ('nike', 'Nike')},
+    '126294': {'name': 'Футболка Nike Air Біла', 'brand': ('nike', 'Nike')},
+    '126279': {'name': 'Футболка Machinist Shift Жовта', 'brand': ('other', 'Machinist')},
+    '126280': {'name': 'Футболка Polo Ralph Lauren Чорна', 'brand': ('ralphlauren', 'Ralph Lauren')},
+    '126282': {'name': 'Футболка Polo Ralph Lauren Біла', 'brand': ('ralphlauren', 'Ralph Lauren')},
+
+    # 7. P sweatpants
+    '162206': {'name': 'Спортивні штани джогери Basic Бежеві', 'brand': ('other', 'Basic')},
+    '162208': {'name': 'Спортивні штани джогери Basic Блакитні', 'brand': ('other', 'Basic')},
+
+    # 8. S sweatshirts / pullovers
+    '162179': {'name': 'Світшот Colorblock Бежевий / Білий', 'brand': ('other', 'Basic')},
+    '162180': {'name': 'Світшот Colorblock Блакитний / Білий', 'brand': ('other', 'Basic')},
+    '162181': {'name': 'Світшот Colorblock Чорний / Білий', 'brand': ('other', 'Basic')},
+    '162183': {'name': 'Світшот Colorblock Графітовий / Білий', 'brand': ('other', 'Basic')},
+    '162184': {'name': 'Світшот Colorblock Оливковий / Білий', 'brand': ('other', 'Basic')},
+    '162186': {'name': 'Світшот Colorblock Світло-сірий / Білий', 'brand': ('other', 'Basic')},
+    '162188': {'name': 'Світшот Basic Чорний', 'brand': ('other', 'Basic')},
+    '162190': {'name': 'Анорак на блискавці Colorblock Білий / Сірий / Чорний', 'brand': ('other', 'Basic')},
+
+    # 9. T oversize t-shirts
+    '162192': {'name': 'Футболка оверсайз Colorblock Бежева / Біла', 'brand': ('other', 'Basic')},
+    '162195': {'name': 'Футболка оверсайз Colorblock Блакитна / Біла', 'brand': ('other', 'Basic')},
+    '162197': {'name': 'Футболка оверсайз Colorblock Чорна / Біла', 'brand': ('other', 'Basic')},
+    '162199': {'name': 'Футболка оверсайз Colorblock Графітова / Біла', 'brand': ('other', 'Basic')},
+    '162201': {'name': 'Футболка оверсайз Colorblock Оливкова / Біла', 'brand': ('other', 'Basic')},
+    '162204': {'name': 'Футболка оверсайз Colorblock Світло-сіра / Біла', 'brand': ('other', 'Basic')},
+
+    # 10. M apparel
+    '48529': {'name': 'Худі Jordan Flight Чорне', 'brand': ('jordan', 'Air Jordan')},
+    '48531': {'name': 'Спортивні штани Jordan Flight Чорні', 'brand': ('jordan', 'Air Jordan')},
+    '48550': {'name': 'Штани карго Nike Чорні', 'brand': ('nike', 'Nike')},
+    '48551': {'name': 'Спортивні штани Nike Swoosh Чорні', 'brand': ('nike', 'Nike')},
+    '48554': {'name': 'Штани карго Jordan Flight Чорні', 'brand': ('jordan', 'Air Jordan')},
+    '48557': {'name': 'Штани карго Nike Sportswear Чорні', 'brand': ('nike', 'Nike')},
+    '48559': {'name': 'Спортивні штани Nike Dri-FIT Чорні', 'brand': ('nike', 'Nike')},
+    '48574': {'name': 'Тепла вовняна сорочка Stone Island в клітинку', 'brand': ('stoneisland', 'Stone Island')},
+    '48576': {'name': 'Штани карго Stone Island Сірі', 'brand': ('stoneisland', 'Stone Island')},
+    '53873': {'name': 'Олімпійка Balenciaga Colorblock Бежева / Чорна', 'brand': ('balenciaga', 'Balenciaga')},
+    '53874': {'name': 'Олімпійка Balenciaga Colorblock Сіра / Чорна', 'brand': ('balenciaga', 'Balenciaga')},
+
+    # 11. Stone Island & Arc'teryx jackets
+    '70180': {'name': "Куртка вітровка Arc'teryx Beta LT Чорна (Gore-Tex)", 'brand': ('arcteryx', "Arc'teryx")},
+    '70190': {'name': 'Куртка вітровка Stone Island Grid Чорна', 'brand': ('stoneisland', 'Stone Island')},
+    '70174': {'name': 'Куртка вітровка Stone Island Soft Shell Чорна', 'brand': ('stoneisland', 'Stone Island')},
+    '70189': {'name': 'Куртка вітровка Stone Island Garment Dyed Чорна', 'brand': ('stoneisland', 'Stone Island')},
+
+    # 12. Adidas hoodies
+    '76343': {'name': 'Худі на блискавці Adidas 3-Stripes Чорне', 'brand': ('adidas', 'Adidas')},
+    '80147': {'name': 'Худі на блискавці Adidas Originals Чорне', 'brand': ('adidas', 'Adidas')},
+
+    # 13. Bare brand footwear
+    '153641': {'name': 'Кросівки Adidas Yeezy Boost 350 V2 Cream White', 'brand': ('adidas', 'Adidas')},
+    '130610': {'name': 'Кросівки Adidas Forum Low White / Green', 'brand': ('adidas', 'Adidas')},
+    '179886': {'name': 'Кросівки Nike Zoom Fly Pink', 'brand': ('nike', 'Nike')},
+    '140244': {'name': 'Кросівки Nike Air Max 90 Mid Winter Black / Orange', 'brand': ('nike', 'Nike')},
+    '183737': {'name': 'Кросівки Gucci Re-Web Burgundy GG', 'brand': ('gucci', 'Gucci')},
+    '183732': {'name': 'Кросівки Gucci Tennis 1977 Platform Pink GG', 'brand': ('gucci', 'Gucci')},
+    '183734': {'name': 'Кросівки Gucci Tennis 1977 Platform Black / White GG', 'brand': ('gucci', 'Gucci')},
+    '183735': {'name': 'Кросівки Gucci Tennis 1977 Platform Red GG', 'brand': ('gucci', 'Gucci')},
+    '215515': {'name': 'Кросівки Premiata Mick Blue / Grey', 'brand': ('premiata', 'Premiata')},
+    '219545': {'name': 'Кросівки Premiata Mick Black', 'brand': ('premiata', 'Premiata')},
+    '224015': {'name': 'Кросівки Fila Original Fitness White / Black / Red', 'brand': ('fila', 'Fila')},
+
+    # 14. No brand sneakers
+    '19683': {'name': 'Кросівки Nike M2K Tekno White', 'brand': ('nike', 'Nike')},
+    '19677': {'name': 'Кросівки Adidas Yeezy Boost 700 V2 Vanta Black', 'brand': ('adidas', 'Adidas')},
+    '20371': {'name': 'Кросівки Converse Run Star Hike White', 'brand': ('converse', 'Converse')},
+    '19687': {'name': 'Кросівки Converse Run Star Hike Low Black', 'brand': ('converse', 'Converse')},
+    '19685': {'name': 'Кросівки Nike Air VaporMax Blue', 'brand': ('nike', 'Nike')},
+    '20699': {'name': 'Кросівки Adidas Ozweego White', 'brand': ('adidas', 'Adidas')},
+    '20766': {'name': 'Кросівки Nike Dunk Low Black White', 'brand': ('nike', 'Nike')},
+    '20769': {'name': 'Кросівки Chunky Holographic Reflective', 'brand': ('other', 'Інші бренди')},
+    '19686': {'name': 'Кросівки Converse Run Star Hike Black', 'brand': ('converse', 'Converse')},
+    '19688': {'name': 'Кросівки Nike Air VaporMax White', 'brand': ('nike', 'Nike')},
+    '19684': {'name': 'Кросівки Nike Air Force 1 Low White', 'brand': ('nike', 'Nike')},
+    '20768': {'name': 'Кеди Casual Skate Beige Suede', 'brand': ('other', 'Інші бренди')},
+
+    # 15. Special items
+    '189527': {'name': 'Зимові черевики UGG Lowmel Black', 'brand': ('ugg', 'UGG')},
+    '125083': {'name': 'Вітровка Tommy Hilfiger Демісезонна', 'brand': ('tommy', 'Tommy Hilfiger')},
+    '252213': {'name': 'Кросівки Asics Gel-Pickax Black', 'brand': ('asics', 'Asics')},
+
+    # 16. Specific V windbreakers
+    '124793': {'name': 'Вітровка The North Face Black / Grey', 'brand': ('tnf', 'The North Face')},
+    '124803': {'name': 'Вітровка Under Armour Black', 'brand': ('underarmour', 'Under Armour')},
+    '124839': {'name': 'Вітровка New Balance Black з капюшоном', 'brand': ('newbalance', 'New Balance')},
+    '124565': {'name': 'Вітровка Adidas Adventure Black з капюшоном', 'brand': ('adidas', 'Adidas')},
+    '124567': {'name': 'Вітровка Adidas Neo Black з капюшоном', 'brand': ('adidas', 'Adidas')},
+    '124788': {'name': 'Вітровка The North Face Black', 'brand': ('tnf', 'The North Face')},
+
+    # 17. Additional specific fixes (No brand boots, bags, loafers, sneakers)
+    '25291': {'name': 'Черевики челсі шкіряні зимові з пряжкою Чорні', 'brand': ('other', 'Інші бренди')},
+    '25292': {'name': 'Черевики челсі шкіряні зимові з пряжкою Бежеві', 'brand': ('other', 'Інші бренди')},
+    '21336': {'name': 'Жіночі високі черевики на платформі з хутром Бежеві', 'brand': ('other', 'Інші бренди')},
+    '99491': {'name': 'Сумка месенджер текстильна End&start Чорна', 'brand': ('other', 'Інші бренди')},
+    '106510': {'name': 'Кросівки лакові на платформі Alexander McQueen Бежеві', 'brand': ('other', 'Alexander McQueen')},
+    '106493': {'name': 'Кросівки Adidas Yeezy Boost 700 V2 Black / White', 'brand': ('adidas', 'Adidas')},
+    '106512': {'name': 'Масивні кросівки Chunky Sole Black / White', 'brand': ('other', 'Інші бренди')},
+    '220512': {'name': 'Кросівки трекінгові Salomon S/LAB Genesis Zip Чорні', 'brand': ('salomon', 'Salomon')},
+    '220513': {'name': 'Кросівки Asics Gel-Kinsei FluidRide Чорні', 'brand': ('asics', 'Asics')},
+    '220519': {'name': 'Кросівки Asics Gel-Kinsei FluidRide Світло-сірі', 'brand': ('asics', 'Asics')},
+    '220514': {'name': 'Кросівки Asics Gel-Contend 4 Бежеві', 'brand': ('asics', 'Asics')},
+    '220516': {'name': 'Кросівки Asics Gel-Contend 4 Оливкові', 'brand': ('asics', 'Asics')},
+    '220523': {'name': 'Кросівки New Balance 1906R Silver / Navy', 'brand': ('newbalance', 'New Balance')},
+    '220525': {'name': 'Кросівки Adidas Campus 00s Grey Gum', 'brand': ('adidas', 'Adidas')},
+    '226382': {'name': 'Кросівки замшеві Miu Miu з подвійними шнурками Чорні', 'brand': ('miumiu', 'Miu Miu')},
+    '226383': {'name': 'Кросівки замшеві Miu Miu з подвійними шнурками Коричневі', 'brand': ('miumiu', 'Miu Miu')},
+    '226387': {'name': 'Лофери замшеві Loro Piana Summer Charms Walk Пісочні', 'brand': ('loropiana', 'Loro Piana')},
+    '226389': {'name': 'Лофери замшеві Loro Piana Summer Walk Світло-сірі', 'brand': ('loropiana', 'Loro Piana')},
+    '226391': {'name': 'Лофери замшеві Loro Piana Summer Walk Бежеві', 'brand': ('loropiana', 'Loro Piana')},
+    '226393': {'name': 'Мюлі замшеві Loro Piana Summer Walk Темно-коричневі', 'brand': ('loropiana', 'Loro Piana')},
+    '226394': {'name': 'Мюлі замшеві Loro Piana Summer Walk Чорні', 'brand': ('loropiana', 'Loro Piana')},
+    '226395': {'name': 'Лофери замшеві Loro Piana Summer Charms Walk Чорні', 'brand': ('loropiana', 'Loro Piana')},
+    '226407': {'name': 'Лофери замшеві Loro Piana Summer Charms Walk Коричневі', 'brand': ('loropiana', 'Loro Piana')},
+}
+
+EXPLICIT_NAME_OVERRIDES = {
+    'б/нк8': ('Спортивний костюм Adidas Originals Білий / Чорний', ('adidas', 'Adidas')),
+    'б/нкз1': ('Зимовий спортивний костюм Tommy Jeans x Coca-Cola Червоний', ('tommy', 'Tommy Hilfiger')),
+    'б/нкз2': ('Зимовий спортивний костюм Tommy Jeans x Coca-Cola Сірий', ('tommy', 'Tommy Hilfiger')),
+    'б/нкз3': ('Зимовий спортивний костюм Adidas Originals Tape Білий', ('adidas', 'Adidas')),
+    'б/нк2': ('Спортивний костюм Nike Swoosh Чорний', ('nike', 'Nike')),
+    'б/нк4': ('Спортивний костюм Nike Just Do It Рефлективний', ('nike', 'Nike')),
+    'б/нк5': ('Спортивний костюм Nike Swoosh Червоний / Чорний', ('nike', 'Nike')),
+    'б/нк10': ('Спортивний костюм Adidas Чорний / Жовтий', ('adidas', 'Adidas')),
+    'б/нк11': ('Спортивний костюм Under Armour Рефлективний Сірий', ('underarmour', 'Under Armour')),
+    'б/нк14': ('Спортивний костюм Under Armour Рефлективний Графітовий', ('underarmour', 'Under Armour')),
+    'б/нко1': ('Олімпійка Adidas Originals Біла', ('adidas', 'Adidas')),
+    'б/нко2': ('Олімпійка Adidas Originals Чорна', ('adidas', 'Adidas')),
+    'spб/н1': ('Спортивні штани Tommy Jeans Темно-сині', ('tommy', 'Tommy Hilfiger')),
+    'spб/н2': ('Спортивні штани Adidas Originals 3-Stripes', ('adidas', 'Adidas')),
+    'spб/н3': ('Спортивні штани Givenchy Чорні', ('other', 'Givenchy')),
+    'spб/н4': ('Зимові спортивні штани Adidas Originals 3-Stripes Чорні', ('adidas', 'Adidas')),
+    'spб/н5': ('Зимові спортивні штани Adidas Originals Tape Білі', ('adidas', 'Adidas')),
+    'б/н3': ('Пуховик The North Face 1996 Nuptse Синій', ('tnf', 'The North Face')),
+    'б/н4': ('Пуховик The North Face 1996 Nuptse Помаранчевий', ('tnf', 'The North Face')),
+    'nb357': ('Зимові кросівки New Balance 9060 Black Fur', ('newbalance', 'New Balance')),
+    'nb358': ('Зимові кросівки New Balance 9060 Grey Fur', ('newbalance', 'New Balance')),
+    'nb359': ('Зимові кросівки New Balance 9060 Khaki / Brown Fur', ('newbalance', 'New Balance')),
+    'nb360': ('Зимові кросівки New Balance 9060 Light Grey Fur', ('newbalance', 'New Balance')),
+    'h018': ("В'єтнамки Rider Soft Dry Foam Хакі", ('other', 'Rider')),
+    'h028': ('Сланці Reebok Classic White / Black', ('reebok', 'Reebok')),
+    'h041': ('Сланці Rider на липучці Сірі', ('other', 'Rider')),
+    'h042': ('Сланці Rider на липучці Black / Blue', ('other', 'Rider')),
+    'sc03': ('Літній комплект Jordan Jumpman + Шорти Nike Білий / Чорний', ('jordan', 'Air Jordan')),
+    'sc04': ('Літній комплект Nike Swoosh Білий', ('nike', 'Nike')),
+    'sc06': ('Літній комплект Adidas Чорний', ('adidas', 'Adidas')),
+    'sc07': ('Літній комплект Adidas Білий / Чорний', ('adidas', 'Adidas')),
+    'sc08': ('Літній комплект Adidas Червоний / Чорний', ('adidas', 'Adidas')),
+    'sh03': ('Шорти Nike Air Білі з чорними вставками', ('nike', 'Nike')),
+    'sh05': ('Шорти Nike Air з лампасами Білі', ('nike', 'Nike')),
+    'sh06': ('Шорти Adidas Originals 3-Stripes Червоні', ('adidas', 'Adidas')),
+    'ts01': ('Футболка Nike Air Fly Higher Світло-оливкова', ('nike', 'Nike')),
+    'ts02': ('Футболка Nike Air Fly Higher Сіра', ('nike', 'Nike')),
+    'ts03': ('Футболка Nike Air Fly Higher Чорна', ('nike', 'Nike')),
+    'ts04': ('Футболка Nike Air Fly Higher Біла', ('nike', 'Nike')),
+    'ts05': ('Футболка Nike Air Сіра', ('nike', 'Nike')),
+    'ts08': ('Футболка Nike Air Чорна', ('nike', 'Nike')),
+    'ts09': ('Футболка Nike Air Біла', ('nike', 'Nike')),
+    'ts12': ('Футболка Machinist Shift Жовта', ('other', 'Machinist')),
+    'ts13': ('Футболка Polo Ralph Lauren Чорна', ('ralphlauren', 'Ralph Lauren')),
+    'ts14': ('Футболка Polo Ralph Lauren Біла', ('ralphlauren', 'Ralph Lauren')),
+    'p001': ('Спортивні штани джогери Basic Бежеві', ('other', 'Basic')),
+    'p002': ('Спортивні штани джогери Basic Блакитні', ('other', 'Basic')),
+    's001': ('Світшот Colorblock Бежевий / Білий', ('other', 'Basic')),
+    's002': ('Світшот Colorblock Блакитний / Білий', ('other', 'Basic')),
+    's003': ('Світшот Colorblock Чорний / Білий', ('other', 'Basic')),
+    's004': ('Світшот Colorblock Графітовий / Білий', ('other', 'Basic')),
+    's005': ('Світшот Colorblock Оливковий / Білий', ('other', 'Basic')),
+    's006': ('Світшот Colorblock Світло-сірий / Білий', ('other', 'Basic')),
+    's007': ('Світшот Basic Чорний', ('other', 'Basic')),
+    's008': ('Анорак на блискавці Colorblock Білий / Сірий / Чорний', ('other', 'Basic')),
+    't001': ('Футболка оверсайз Colorblock Бежева / Біла', ('other', 'Basic')),
+    't002': ('Футболка оверсайз Colorblock Блакитна / Біла', ('other', 'Basic')),
+    't003': ('Футболка оверсайз Colorblock Чорна / Біла', ('other', 'Basic')),
+    't004': ('Футболка оверсайз Colorblock Графітова / Біла', ('other', 'Basic')),
+    't005': ('Футболка оверсайз Colorblock Оливкова / Біла', ('other', 'Basic')),
+    't006': ('Футболка оверсайз Colorblock Світло-сіра / Біла', ('other', 'Basic')),
+    'm8011': ('Худі Jordan Flight Чорне', ('jordan', 'Air Jordan')),
+    'm8012': ('Спортивні штани Jordan Flight Чорні', ('jordan', 'Air Jordan')),
+    'm8029': ('Штани карго Nike Чорні', ('nike', 'Nike')),
+    'm8030': ('Спортивні штани Nike Swoosh Чорні', ('nike', 'Nike')),
+    'm8033': ('Штани карго Jordan Flight Чорні', ('jordan', 'Air Jordan')),
+    'm8036': ('Штани карго Nike Sportswear Чорні', ('nike', 'Nike')),
+    'm8038': ('Спортивні штани Nike Dri-FIT Чорні', ('nike', 'Nike')),
+    'm8049': ('Тепла вовняна сорочка Stone Island в клітинку', ('stoneisland', 'Stone Island')),
+    'm8051': ('Штани карго Stone Island Сірі', ('stoneisland', 'Stone Island')),
+    'm8054': ('Олімпійка Balenciaga Colorblock Бежева / Чорна', ('balenciaga', 'Balenciaga')),
+    'm8055': ('Олімпійка Balenciaga Colorblock Сіра / Чорна', ('balenciaga', 'Balenciaga')),
+    'ic8261': ('Худі на блискавці Adidas 3-Stripes Чорне', ('adidas', 'Adidas')),
+    'ia8135': ('Худі на блискавці Adidas Originals Чорне', ('adidas', 'Adidas')),
+    'v111': ('Вітровка The North Face Black / Grey', ('tnf', 'The North Face')),
+    'v82': ('Вітровка Under Armour Black', ('underarmour', 'Under Armour')),
+    'v98': ('Вітровка New Balance Black з капюшоном', ('newbalance', 'New Balance')),
+    'v101': ('Вітровка Adidas Adventure Black з капюшоном', ('adidas', 'Adidas')),
+    'v102': ('Вітровка Adidas Neo Black з капюшоном', ('adidas', 'Adidas')),
+    'v88': ('Вітровка The North Face Black', ('tnf', 'The North Face')),
+    'hilfiger': ('Вітровка Tommy Hilfiger Демісезонна', ('tommy', 'Tommy Hilfiger')),
+}
+
+def determine_brand(name, cat_name, gid=None):
+    if gid and str(gid) in EXPLICIT_PRODUCT_OVERRIDES:
+        override = EXPLICIT_PRODUCT_OVERRIDES[str(gid)]
+        if 'brand' in override:
+            return override['brand']
+            
+    name_clean = name.strip().lower()
+    name_clean_no_sale = re.sub(r'\s*\(?(?:sale|розпродаж|уцінка|скидка)\)?', '', name_clean).strip()
+    if name_clean in EXPLICIT_NAME_OVERRIDES:
+        return EXPLICIT_NAME_OVERRIDES[name_clean][1]
+    if name_clean_no_sale in EXPLICIT_NAME_OVERRIDES:
+        return EXPLICIT_NAME_OVERRIDES[name_clean_no_sale][1]
+
     combined = f"{name} {cat_name}".lower()
     for slug, title, pats in KNOWN_BRANDS:
         if any(re.search(p, combined) for p in pats):
@@ -598,7 +867,17 @@ EMOJI_PATTERN = re.compile(
     re.UNICODE
 )
 
-def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc="", params_str=""):
+def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc="", params_str="", gid=None):
+    if gid and str(gid) in EXPLICIT_PRODUCT_OVERRIDES:
+        return EXPLICIT_PRODUCT_OVERRIDES[str(gid)]['name']
+        
+    name_clean = name.strip().lower()
+    name_clean_no_sale = re.sub(r'\s*\(?(?:sale|розпродаж|уцінка|скидка|распродажа)\)?', '', name_clean).strip()
+    if name_clean in EXPLICIT_NAME_OVERRIDES:
+        return EXPLICIT_NAME_OVERRIDES[name_clean][0]
+    if name_clean_no_sale in EXPLICIT_NAME_OVERRIDES:
+        return EXPLICIT_NAME_OVERRIDES[name_clean_no_sale][0]
+
     t = name.strip()
     
     # 1. Junk rejection: omit completely from site
@@ -608,6 +887,12 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
         return None
     if any(w in t.lower() or w in desc.lower() for w in ['(з дефектом)', 'дефект', 'брак', 'розпаровка', 'уцінка брак']):
         return None
+
+    # Strip URLs
+    t = re.sub(r'https?://[^\s]+', '', t).strip()
+
+    # Strip "No brand"
+    t = re.sub(r'\s*\bNo\s*brand\b', '', t, flags=re.I).strip()
         
     # 2. Strip emojis across all unicode blocks and variation selectors
     t = EMOJI_PATTERN.sub('', t).strip()
@@ -705,14 +990,15 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
             t = f'Dr. Martens {t}'
             
     # 8. Handle code-only names (V82, WJ153, SS28, F34, H042, SL60, NTR495, NB299, VN02)
+    t = re.sub(r'^КАРГО\s+(2Y|\d+)', r'Штани карго \1', t, flags=re.I)
     if re.match(r'^V\d{2,3}$', t, re.I):
-        t = f'Вітровка {t.upper()}'
+        t = f'Вітровка з капюшоном демісезонна {t.upper()}'
     elif re.match(r'^WJ\d{2,4}$', t, re.I):
         t = f'Куртка зимова {t.upper()}'
     elif re.match(r'^SS\d{2,4}$', t, re.I):
         t = f'Спортивний костюм {t.upper()}'
     elif re.match(r'^F\d{2,4}$', t, re.I):
-        t = f'Худі {t.upper()}'
+        t = f'Худі оверсайз {t.upper()}'
     elif re.match(r'^H\d{3,4}$', t, re.I):
         t = f'Сланці {t.upper()}'
     elif re.match(r'^SL\d{2,4}$', t, re.I):
@@ -720,7 +1006,7 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     elif re.match(r'^J\d{1,4}$', t, re.I):
         t = f'Куртка демісезонна {t.upper()}'
     elif re.match(r'^SJ\d{1,4}$', t, re.I):
-        t = f'Куртка {t.upper()}'
+        t = f'Куртка демісезонна {t.upper()}'
     elif re.match(r'^SP(?:б/н)?\d{1,4}$', t, re.I):
         t = f'Спортивні штани {t.upper()}'
     elif re.match(r'^SH\d{1,4}$', t, re.I):
@@ -864,13 +1150,15 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
         elif re.match(r'^SC\d{2}$', t):
             t = f'Літній комплект {t}'
         elif re.match(r'^б\/нкз\d+$', t, re.I):
-            t = f'Зимовий спортивний костюм {t}'
+            t = 'Зимовий спортивний костюм'
         elif re.match(r'^б\/нко\d+$', t, re.I):
-            t = f'Світшот {t}'
+            t = 'Олімпійка спортивна'
         elif re.match(r'^б\/нк\d+$', t, re.I):
-            t = f'Спортивний костюм {t}'
+            t = 'Спортивний костюм'
         elif re.match(r'^Б\/Н\d+$', t, re.I):
-            t = f'Зимова куртка {t}'
+            t = 'Зимова тепла куртка'
+        elif re.match(r'^SPб\/н\d+$', t, re.I):
+            t = 'Спортивні штани'
         elif t_lower.startswith('nike storm fit'):
             t = f'Пуховик {t}'
         elif t_lower.startswith('the north face 700') or t_lower == 'the north face purple':
@@ -1032,10 +1320,10 @@ def main():
         sorted_sizes = sort_sizes(sizes)
         params_str = ' '.join(clean_text(p.text) for it in items for p in it.findall('param') if p.text)
         
-        brand_slug, brand_title = determine_brand(name, cname)
+        brand_slug, brand_title = determine_brand(name, cname, gid=gid)
         cat_slug, cat_title, cat_icon = determine_category(name, cname, desc, params_str, sorted_sizes, mat, brand_slug)
 
-        clean_name = clean_product_title(name, cat_slug, brand_slug, brand_title, cname, desc, params_str)
+        clean_name = clean_product_title(name, cat_slug, brand_slug, brand_title, cname, desc, params_str, gid=gid)
         if not clean_name:
             continue
 

@@ -69,19 +69,19 @@
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 6716
+      "count": 6704
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 741
+      "count": 746
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "",
-      "count": 138
+      "count": 145
     }
   ],
   "brands": [
@@ -93,22 +93,22 @@
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2137
+      "count": 2141
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1325
+      "count": 1326
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 526
+      "count": 530
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 414
+      "count": 418
     },
     {
       "slug": "ugg",
@@ -138,7 +138,7 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 114
+      "count": 115
     },
     {
       "slug": "hermes",
@@ -156,14 +156,14 @@
       "count": 77
     },
     {
-      "slug": "saintlaurent",
-      "name": "Yves Saint Laurent",
+      "slug": "miumiu",
+      "name": "Miu Miu",
       "count": 67
     },
     {
-      "slug": "miumiu",
-      "name": "Miu Miu",
-      "count": 65
+      "slug": "saintlaurent",
+      "name": "Yves Saint Laurent",
+      "count": 67
     },
     {
       "slug": "tnf",
@@ -201,6 +201,11 @@
       "count": 40
     },
     {
+      "slug": "loropiana",
+      "name": "Loro Piana",
+      "count": 36
+    },
+    {
       "slug": "celine",
       "name": "Celine",
       "count": 34
@@ -208,11 +213,6 @@
     {
       "slug": "prada",
       "name": "Prada",
-      "count": 29
-    },
-    {
-      "slug": "loropiana",
-      "name": "Loro Piana",
       "count": 29
     },
     {
@@ -251,6 +251,11 @@
       "count": 19
     },
     {
+      "slug": "converse",
+      "name": "Converse",
+      "count": 16
+    },
+    {
       "slug": "hugo",
       "name": "Hugo Boss",
       "count": 16
@@ -268,11 +273,6 @@
     {
       "slug": "drmartens",
       "name": "Dr. Martens",
-      "count": 13
-    },
-    {
-      "slug": "converse",
-      "name": "Converse",
       "count": 13
     },
     {
@@ -388,7 +388,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 864
+      "count": 838
     }
   ]
 }
