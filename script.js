@@ -5846,7 +5846,7 @@ function renderProductDetailPage(item) {
     const ogTitle = document.getElementById('ogTitle');
     if (ogTitle) ogTitle.content = `${displayName} | URBAN`;
     const ogDesc = document.getElementById('ogDesc');
-    if (ogDesc) ogDesc.content = `${displayName}. Матеріал: ${item.mat || 'високоякісні матеріали'}`;
+    if (ogDesc) ogDesc.content = generateProductDescription(item);
     const ogImage = document.getElementById('ogImage');
     if (ogImage && item.imgs && item.imgs[0]) ogImage.content = item.imgs[0];
     const ogUrl = document.getElementById('ogUrl');
@@ -5856,7 +5856,7 @@ function renderProductDetailPage(item) {
     const twTitle = document.getElementById('twTitle');
     if (twTitle) twTitle.content = `${displayName} | URBAN`;
     const twDesc = document.getElementById('twDesc');
-    if (twDesc) twDesc.content = `${displayName}. Матеріал: ${item.mat || 'високоякісні матеріали'}`;
+    if (twDesc) twDesc.content = generateProductDescription(item);
     const twImage = document.getElementById('twImage');
     if (twImage && item.imgs && item.imgs[0]) twImage.content = item.imgs[0];
 
@@ -6091,7 +6091,17 @@ window.pdpSelectSize = pdpSelectSize;
 
 function generateProductDescription(item) {
     if (item.desc && typeof item.desc === 'string' && item.desc.trim().length > 15) {
-        return item.desc.trim();
+        let clean = item.desc.trim()
+            .replace(/Артикул\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Матеріал\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Виробник\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Країна\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Сезон\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Комплектація\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Стан\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/Відправка\s+Новою\s+Поштою[^<.\n\r]*[.\n\r]?/gi, '')
+            .trim();
+        if (clean.length > 15) return clean;
     }
 
     const cat = item.cat || 'shoes';
