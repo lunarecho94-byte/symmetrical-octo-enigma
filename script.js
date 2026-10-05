@@ -1970,9 +1970,6 @@ async function initDynamicCatalog() {
         // Render Dynamic Brand Chips
         renderBrandFilterChips(catalogMeta);
 
-        // Render Dynamic Size Filter Chips
-        renderSizeFilterChips(catalogMeta);
-
         // Initial Badges calculation & Catalog Render
         updateFilterBadges();
         applyCatalogFilters();
