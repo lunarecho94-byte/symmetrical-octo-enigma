@@ -4,19 +4,19 @@
     {
       "slug": "all",
       "name": "Всі товари",
-      "icon": "",
+      "icon": "🔥",
       "count": 7547
     },
     {
       "slug": "men",
       "name": "Чоловічі",
-      "icon": "",
+      "icon": "👨",
       "count": 4588
     },
     {
       "slug": "women",
       "name": "Жіночі",
-      "icon": "",
+      "icon": "👩",
       "count": 5425
     }
   ],
@@ -24,37 +24,37 @@
     {
       "slug": "all",
       "name": "Всі товари",
-      "icon": "",
+      "icon": "🔥",
       "count": 7547
     },
     {
       "slug": "shoes",
       "name": "Взуття",
-      "icon": "",
+      "icon": "👟",
       "count": 5758
     },
     {
       "slug": "clothing",
       "name": "Одяг",
-      "icon": "",
+      "icon": "🧥",
       "count": 764
     },
     {
       "slug": "socks",
       "name": "Шкарпетки",
-      "icon": "",
+      "icon": "🧦",
       "count": 50
     },
     {
       "slug": "underwear",
       "name": "Труси & Білизна",
-      "icon": "",
+      "icon": "🩲",
       "count": 140
     },
     {
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
-      "icon": "",
+      "icon": "🎒",
       "count": 835
     }
   ],
@@ -62,25 +62,25 @@
     {
       "slug": "all",
       "name": "Всі сезони",
-      "icon": "",
+      "icon": "🌍",
       "count": 7547
     },
     {
       "slug": "demi",
       "name": "Демісезон",
-      "icon": "",
+      "icon": "🍂",
       "count": 5655
     },
     {
       "slug": "winter",
       "name": "Зима",
-      "icon": "",
+      "icon": "❄️",
       "count": 772
     },
     {
       "slug": "summer",
       "name": "Літо",
-      "icon": "",
+      "icon": "☀️",
       "count": 1120
     }
   ],
