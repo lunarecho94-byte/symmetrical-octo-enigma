@@ -3010,6 +3010,10 @@ function updateSizeButtonState() {
 }
 
 function openSizeModal() {
+    if (!document.getElementById('catalog')) {
+        window.location.href = 'index.html#catalog';
+        return;
+    }
     const modal = document.getElementById('sizeModal');
     if (!modal) return;
     modal.classList.add('active');
@@ -3120,6 +3124,10 @@ function renderSizeModalItems() {
 
 function selectSizeFromModal(size) {
     closeSizeModal();
+    if (!document.getElementById('catalog')) {
+        window.location.href = size === 'all' ? 'index.html#catalog' : `index.html?size=${encodeURIComponent(size)}#catalog`;
+        return;
+    }
     if (currentCatalogSize === size) {
         filterCatalogBySize('all');
     } else {

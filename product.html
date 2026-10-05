@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=6.6">
+    <link rel="stylesheet" href="style.css?v=6.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -657,10 +657,10 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                     <span>Кошик (<span id="drawerCartBadge">0</span>)</span>
                 </button>
-                <a href="index.html" class="drawer-service-item">
+                <button type="button" class="drawer-service-item" onclick="closeCatalogDrawer(); openSizeChartModal();">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="10"/><line x1="12" y1="5" x2="12" y2="8"/><line x1="17" y1="5" x2="17" y2="10"/></svg>
                     <span>Таблиця розмірів</span>
-                </a>
+                </button>
                 <a href="tel:+380974524435" class="drawer-service-item">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     <span>+38 (097) 452-44-35 (Пн-Нд 09:00-21:00)</span>
@@ -853,36 +853,94 @@
     </aside>
 
     <!-- Size Guide Modal -->
-    <div id="sizeModal" class="size-modal-backdrop" onclick="closeSizeChartModal()" role="dialog" aria-modal="true">
-        <div class="size-modal-card" onclick="event.stopPropagation()">
-            <div class="size-modal-header">
-                <h3>Таблиця розмірів</h3>
-                <button type="button" class="size-modal-close" onclick="closeSizeChartModal()" aria-label="Закрити">&times;</button>
+    <div id="sizeChartModal" class="size-chart-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="sizeChartTitle">
+        <div class="size-chart-overlay" onclick="closeSizeChartModal()"></div>
+        <div class="size-chart-card">
+            <div class="size-chart-head">
+                <h3 id="sizeChartTitle" class="size-chart-title">Таблиця розмірів</h3>
+                <button type="button" class="btn-close-modal" onclick="closeSizeChartModal()" aria-label="Закрити">✕</button>
             </div>
-            <div class="size-modal-body">
-                <div class="size-table-wrapper">
-                    <table class="size-chart-table">
-                        <thead>
-                            <tr>
-                                <th>EU</th>
-                                <th>US</th>
-                                <th>UK</th>
-                                <th>Довжина стопи (см)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>36</td><td>5.5</td><td>4.5</td><td>22.5 - 23.0 см</td></tr>
-                            <tr><td>37</td><td>6.0</td><td>5.0</td><td>23.5 см</td></tr>
-                            <tr><td>38</td><td>6.5</td><td>5.5</td><td>24.0 см</td></tr>
-                            <tr><td>39</td><td>7.5</td><td>6.5</td><td>24.5 - 25.0 см</td></tr>
-                            <tr><td>40</td><td>8.0</td><td>7.0</td><td>25.5 см</td></tr>
-                            <tr><td>41</td><td>8.5</td><td>7.5</td><td>26.0 см</td></tr>
-                            <tr><td>42</td><td>9.0</td><td>8.0</td><td>26.5 см</td></tr>
-                            <tr><td>43</td><td>9.5</td><td>8.5</td><td>27.5 см</td></tr>
-                            <tr><td>44</td><td>10.0</td><td>9.0</td><td>28.0 см</td></tr>
-                            <tr><td>45</td><td>11.0</td><td>10.0</td><td>29.0 см</td></tr>
-                        </tbody>
-                    </table>
+            <div class="size-chart-tabs">
+                <button type="button" class="size-tab-btn active" id="sizeTabShoes" onclick="switchSizeChartTab('shoes')">
+                    Взуття
+                </button>
+                <button type="button" class="size-tab-btn" id="sizeTabClothing" onclick="switchSizeChartTab('clothing')">
+                    Одяг
+                </button>
+            </div>
+            <div class="size-chart-body">
+                <!-- Shoe Size Pane -->
+                <div id="sizePaneShoes" class="size-pane">
+                    <p class="size-chart-desc">Довжина устілки вказана в сантиметрах (см). Для правильного вибору розміру заміряйте довжину устілки вашого зручного взуття або довжину стопи.</p>
+                    <div class="size-table-container">
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th>Розмір (EUR)</th>
+                                    <th>Устілка (см)</th>
+                                    <th>Категорія</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>36</b></td><td>23.0 см</td><td>Жіночі</td></tr>
+                                <tr><td><b>37</b></td><td>23.5 см</td><td>Жіночі</td></tr>
+                                <tr><td><b>38</b></td><td>24.0 см</td><td>Жіночі</td></tr>
+                                <tr><td><b>39</b></td><td>24.5 - 25.0 см</td><td>Жіночі / Унісекс</td></tr>
+                                <tr><td><b>40</b></td><td>25.5 см</td><td>Унісекс</td></tr>
+                                <tr><td><b>41</b></td><td>26.0 см</td><td>Унісекс / Чоловічі</td></tr>
+                                <tr><td><b>42</b></td><td>26.5 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>43</b></td><td>27.5 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>44</b></td><td>28.0 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>45</b></td><td>28.5 см</td><td>Чоловічі</td></tr>
+                                <tr><td><b>46</b></td><td>29.0 см</td><td>Чоловічі</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="size-measuring-guide">
+                        <h4>Як заміряти стопу:</h4>
+                        <ol>
+                            <li>Покладіть аркуш паперу біля стіни на рівну підлогу.</li>
+                            <li>Станьте на аркуш так, щоб п'ята впиралася у стіну.</li>
+                            <li>Зробіть відмітку біля найдовшого пальця та виміряйте відстань лінійкою.</li>
+                        </ol>
+                        <p class="size-mgr-note">При замовленні наш менеджер обов'язково допоможе уточнити точний розмір під обрану модель!</p>
+                    </div>
+                </div>
+
+                <!-- Clothing Size Pane -->
+                <div id="sizePaneClothing" class="size-pane" style="display: none;">
+                    <p class="size-chart-desc">Таблиця стандартних розмірів для худі, спортивних костюмів, курток, штанів та футболок. Орієнтуйтеся на зріст, обхват грудей, талії та стегон.</p>
+                    <div class="size-table-container">
+                        <table class="size-table">
+                            <thead>
+                                <tr>
+                                    <th>Розмір</th>
+                                    <th>Зріст (см)</th>
+                                    <th>Груди (см)</th>
+                                    <th>Талія (см)</th>
+                                    <th>Стегна (см)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><b>XS</b></td><td>155 – 165 см</td><td>82 – 88 см</td><td>66 – 72 см</td><td>88 – 94 см</td></tr>
+                                <tr><td><b>S</b></td><td>165 – 172 см</td><td>88 – 94 см</td><td>72 – 78 см</td><td>94 – 98 см</td></tr>
+                                <tr><td><b>M</b></td><td>170 – 178 см</td><td>94 – 100 см</td><td>78 – 85 см</td><td>98 – 104 см</td></tr>
+                                <tr><td><b>L</b></td><td>175 – 184 см</td><td>100 – 108 см</td><td>85 – 92 см</td><td>104 – 110 см</td></tr>
+                                <tr><td><b>XL</b></td><td>180 – 190 см</td><td>108 – 116 см</td><td>92 – 100 см</td><td>110 – 116 см</td></tr>
+                                <tr><td><b>2XL</b></td><td>185 – 195 см</td><td>116 – 124 см</td><td>100 – 110 см</td><td>116 – 122 см</td></tr>
+                                <tr><td><b>3XL</b></td><td>185 – 200 см</td><td>124 – 132 см</td><td>110 – 120 см</td><td>122 – 128 см</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="size-measuring-guide">
+                        <h4>Як підібрати розмір одягу:</h4>
+                        <ol>
+                            <li><b>Основні параметри:</b> зріст, обхват грудей, талії та стегон — найнадійніший орієнтир для вибору спортивного та streetwear одягу.</li>
+                            <li><b>Для вільної (оверсайз) посадки:</b> якщо ваші параметри на межі двох розмірів, сміливо обирайте більший.</li>
+                            <li><b>Індивідуальний підбір:</b> при дзвінку менеджер особисто уточнить ваші параметри та допоможе підібрати ідеальну посадку.</li>
+                        </ol>
+                        <p class="size-mgr-note">При оформленні замовлення можна вказати ваші параметри в коментарі для 100% точності!</p>
+                    </div>
                 </div>
             </div>
             <div class="size-chart-foot">
@@ -895,6 +953,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=6.6"></script>
+    <script src="script.js?v=6.7"></script>
 </body>
 </html>
