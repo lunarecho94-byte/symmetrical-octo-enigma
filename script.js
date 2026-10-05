@@ -2922,18 +2922,10 @@ function createProductCardElement(item) {
         </button>
     `;
 
-    // Sizes display (like reference: "36" or "36 – 45")
+    // Sizes display (list all available sizes, never through a hyphen)
     let sizesText = '';
     if (item.sizes && item.sizes.length > 0) {
-        if (typeof currentCatalogSize !== 'undefined' && currentCatalogSize && item.sizes.includes(currentCatalogSize)) {
-            sizesText = currentCatalogSize;
-        } else if (item.sizes.length === 1) {
-            sizesText = item.sizes[0];
-        } else {
-            const first = item.sizes[0];
-            const last = item.sizes[item.sizes.length - 1];
-            sizesText = first === last ? first : `${first} – ${last}`;
-        }
+        sizesText = item.sizes.map(s => String(s).trim()).filter(Boolean).join(', ');
     }
 
     // Optional badge
@@ -2960,7 +2952,7 @@ function createProductCardElement(item) {
             </div>
             <div class="product-details">
                 <p class="product-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</p>
-                ${sizesText ? `<p class="product-sizes-text">${escapeHtml(sizesText)}</p>` : '<p class="product-sizes-text">&nbsp;</p>'}
+                ${sizesText ? `<p class="product-sizes-text" title="Розміри: ${escapeHtml(sizesText)}">${escapeHtml(sizesText)}</p>` : '<p class="product-sizes-text">&nbsp;</p>'}
                 <div class="product-price-row">
                     ${formattedOldPrice ? `<span class="price-old">${formattedOldPrice}</span>` : ''}
                     <span class="price-now">${formattedPrice}</span>
