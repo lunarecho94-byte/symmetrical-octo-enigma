@@ -382,7 +382,7 @@ function toggleFavorite(productId, event) {
             };
             favs.push(compactItem);
             saveFavorites(favs);
-            showCartToast(`❤️ "${compactItem.name}" додано в Обране!`);
+            showCartToast(`"${compactItem.name}" додано в Обране!`);
 
             // Meta Pixel Wishlist Tracking
             safeTrackFbq('AddToWishlist', {
@@ -477,9 +477,9 @@ function renderFavoritesDrawer() {
     if (favs.length === 0) {
         body.innerHTML = `
             <div class="fav-empty-state">
-                <div class="fav-empty-icon">🤍</div>
+                <div class="fav-empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
                 <h4>Список обраного порожній</h4>
-                <p>Зберігайте вподобані моделі кросівок та одягу, натиснувши сердечко ❤️ на картці товару.</p>
+                <p>Зберігайте вподобані моделі кросівок та одягу, натиснувши на іконку сердечка на картці товару.</p>
                 <button type="button" class="btn-primary" onclick="closeFavoritesDrawer(); document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });">
                     Перейти до каталогу
                 </button>
@@ -529,7 +529,7 @@ function renderFavoritesDrawer() {
                     ${sizeSelectHtml}
                     <div class="fav-item-actions">
                         <button type="button" class="btn-fav-to-cart" onclick="addFavoriteItemToCart('${item.id}')">
-                            <span>В кошик</span> 🛍️
+                            <span>В кошик</span>
                         </button>
                     </div>
                 </div>
@@ -1373,14 +1373,14 @@ async function sendOrderDispatch({
     async function dispatchTelegramNotification() {
         if (!TG_TOKEN || !TG_CHAT) return;
         try {
-            const tgText = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ ${formattedOrderId}</b>\n\n` +
-                `👤 <b>Клієнт:</b> ${customerName}\n` +
-                `📞 <b>Телефон:</b> ${cleanPhone || customerPhone}\n` +
-                `📍 <b>Доставка:</b> ${delivery}\n` +
-                `💳 <b>Оплата:</b> ${payment}\n` +
-                `💰 <b>Сума:</b> <b>${total}</b>\n\n` +
-                `📦 <b>Товари:</b>\n${itemsText}\n\n` +
-                `📋 <b>Дані для ТТН:</b>\n<code>${quickTtn}</code>`;
+            const tgText = `<b>НОВЕ ЗАМОВЛЕННЯ ${formattedOrderId}</b>\n\n` +
+                `<b>Клієнт:</b> ${customerName}\n` +
+                `<b>Телефон:</b> ${cleanPhone || customerPhone}\n` +
+                `<b>Доставка:</b> ${delivery}\n` +
+                `<b>Оплата:</b> ${payment}\n` +
+                `<b>Сума:</b> <b>${total}</b>\n\n` +
+                `<b>Товари:</b>\n${itemsText}\n\n` +
+                `<b>Дані для ТТН:</b>\n<code>${quickTtn}</code>`;
 
             const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
                 method: 'POST',
@@ -1970,8 +1970,10 @@ async function initDynamicCatalog() {
         // Render Dynamic Brand Chips
         renderBrandFilterChips(catalogMeta);
 
-        // Initial Badges calculation & Catalog Render
+        // Initial URL params, Badges calculation & Catalog Render
+        checkCatalogUrlParams();
         updateFilterBadges();
+        syncDrawerActiveStates();
         applyCatalogFilters();
     } catch (err) {
         console.error('Failed to load dynamic catalog:', err);
@@ -2058,17 +2060,28 @@ function updateFilterBadges() {
     Object.keys(genderCounts).forEach(g => {
         const el = document.getElementById(`badgeGender_${g}`);
         if (el) el.textContent = genderCounts[g].toLocaleString('uk-UA');
+        const drawerEl = document.getElementById(`drawerGenderCount_${g}`);
+        if (drawerEl) drawerEl.textContent = genderCounts[g].toLocaleString('uk-UA');
     });
 
     Object.keys(categoryCounts).forEach(c => {
         const el = document.getElementById(`badgeCat_${c}`);
         if (el) el.textContent = categoryCounts[c].toLocaleString('uk-UA');
+        const drawerEl = document.getElementById(`drawerCatCount_${c}`);
+        if (drawerEl) drawerEl.textContent = categoryCounts[c].toLocaleString('uk-UA');
     });
 
     Object.keys(seasonCounts).forEach(s => {
         const el = document.getElementById(`badgeSeason_${s}`);
         if (el) el.textContent = seasonCounts[s].toLocaleString('uk-UA');
+        const drawerEl = document.getElementById(`drawerSeasonCount_${s}`);
+        if (drawerEl) drawerEl.textContent = seasonCounts[s].toLocaleString('uk-UA');
     });
+
+    const drawerFav = document.getElementById('drawerGenderCount_fav');
+    if (drawerFav && typeof getFavorites === 'function') {
+        drawerFav.textContent = getFavorites().length;
+    }
 }
 
 function selectCatalogGender(gender, btn) {
@@ -2121,6 +2134,430 @@ function selectCatalogSeason(seasonSlug, btn) {
 
     applyCatalogFilters();
 }
+
+// ==========================================================================
+// CATALOG OFF-CANVAS BURGER DRAWER & ACTIVE FILTER TAGS
+// ==========================================================================
+
+function openCatalogDrawer() {
+    const drawer = document.getElementById('catalogDrawer');
+    const overlay = document.getElementById('catalogDrawerOverlay');
+    if (drawer && overlay) {
+        drawer.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('catalog-drawer-open');
+        syncDrawerActiveStates();
+        updateDrawerServiceBadges();
+    }
+}
+
+function closeCatalogDrawer() {
+    const drawer = document.getElementById('catalogDrawer');
+    const overlay = document.getElementById('catalogDrawerOverlay');
+    if (drawer && overlay) {
+        drawer.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('catalog-drawer-open');
+    }
+}
+
+function toggleCatalogDrawer() {
+    const drawer = document.getElementById('catalogDrawer');
+    if (drawer && drawer.classList.contains('active')) {
+        closeCatalogDrawer();
+    } else {
+        openCatalogDrawer();
+    }
+}
+
+function toggleDrawerAccordion(accordionId) {
+    const acc = document.getElementById(accordionId);
+    if (!acc) return;
+    acc.classList.toggle('open');
+}
+
+function toggleDrawerNested(subId, event) {
+    if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+    }
+    const subList = document.getElementById(subId);
+    if (!subList) return;
+    const isExpanded = subList.classList.toggle('open');
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.toggle('open', isExpanded);
+    }
+}
+
+function updateDrawerServiceBadges() {
+    const favCount = (typeof getFavorites === 'function') ? getFavorites().length : 0;
+    const cartItems = (typeof getCart === 'function') ? getCart() : [];
+    const cartCount = cartItems.reduce((sum, item) => sum + (item.qty || 1), 0);
+
+    const favEl = document.getElementById('drawerFavBadge');
+    if (favEl) favEl.textContent = favCount;
+    const favCountGender = document.getElementById('drawerGenderCount_fav');
+    if (favCountGender) favCountGender.textContent = favCount;
+
+    const cartEl = document.getElementById('drawerCartBadge');
+    if (cartEl) cartEl.textContent = cartCount;
+}
+
+function applyDrawerCategory(cat) {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = `index.html?cat=${encodeURIComponent(cat)}#catalog`;
+        return;
+    }
+    selectCatalogCategory(cat);
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyDrawerGender(gender) {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = `index.html?gender=${encodeURIComponent(gender)}#catalog`;
+        return;
+    }
+    selectCatalogGender(gender);
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyDrawerSeason(season) {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = `index.html?season=${encodeURIComponent(season)}#catalog`;
+        return;
+    }
+    selectCatalogSeason(season);
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyDrawerBrand(brand) {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = `index.html?brand=${encodeURIComponent(brand)}#catalog`;
+        return;
+    }
+    currentCatalogBrand = brand || 'all';
+    updateBrandButtonState();
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    applyCatalogFilters();
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyDrawerSubSearch(keyword, cat) {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = `index.html?cat=${encodeURIComponent(cat)}&search=${encodeURIComponent(keyword)}#catalog`;
+        return;
+    }
+    if (cat) currentCatalogCategory = cat;
+    currentCatalogSearchQuery = keyword;
+    const searchInput = document.getElementById('catalogSearchInput');
+    if (searchInput) searchInput.value = keyword;
+    updateBrandButtonState();
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    applyCatalogFilters();
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function applyDrawerFavorites() {
+    closeCatalogDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = 'index.html?gender=favorites#catalog';
+        return;
+    }
+    selectCatalogGender('favorites');
+    const catSection = document.getElementById('catalog');
+    if (catSection) catSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function handleDrawerSearch(val) {
+    const trimmed = (val || '').trim();
+    if (!document.getElementById('catalog')) {
+        return;
+    }
+    const searchInput = document.getElementById('catalogSearchInput');
+    if (searchInput) {
+        searchInput.value = trimmed;
+    }
+    currentCatalogSearchQuery = trimmed;
+    applyCatalogFilters();
+}
+
+function checkCatalogUrlParams() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        let changed = false;
+
+        const cat = urlParams.get('cat');
+        if (cat) {
+            currentCatalogCategory = cat;
+            changed = true;
+        }
+
+        const gender = urlParams.get('gender');
+        if (gender) {
+            currentCatalogGender = gender;
+            changed = true;
+        }
+
+        const season = urlParams.get('season');
+        if (season) {
+            currentCatalogSeason = season;
+            changed = true;
+        }
+
+        const brand = urlParams.get('brand');
+        if (brand) {
+            currentCatalogBrand = brand;
+            changed = true;
+        }
+
+        const size = urlParams.get('size');
+        if (size) {
+            currentCatalogSize = size;
+            changed = true;
+        }
+
+        const search = urlParams.get('search');
+        if (search) {
+            currentCatalogSearchQuery = search;
+            const searchInput = document.getElementById('catalogSearchInput');
+            if (searchInput) searchInput.value = search;
+            changed = true;
+        }
+
+        const filter = urlParams.get('filter');
+        if (filter === 'favorites') {
+            currentCatalogGender = 'favorites';
+            changed = true;
+        }
+
+        if (changed) {
+            updateBrandButtonState();
+            updateSizeButtonState();
+        }
+    } catch (e) {}
+}
+
+function syncDrawerActiveStates() {
+    // 1. Categories
+    document.querySelectorAll('#drawerCategoriesList .drawer-nav-item').forEach(btn => {
+        const cat = btn.getAttribute('data-cat');
+        btn.classList.toggle('active', cat === currentCatalogCategory);
+    });
+
+    // 2. Gender
+    document.querySelectorAll('#drawerGenderList .drawer-nav-item').forEach(btn => {
+        const g = btn.getAttribute('data-gender');
+        btn.classList.toggle('active', g === currentCatalogGender);
+    });
+
+    // 3. Season
+    document.querySelectorAll('#drawerSeasonList .drawer-nav-item').forEach(btn => {
+        const s = btn.getAttribute('data-season');
+        btn.classList.toggle('active', s === currentCatalogSeason);
+    });
+
+    // 4. Brands
+    document.querySelectorAll('#drawerBrandsList .drawer-nav-item').forEach(btn => {
+        const b = btn.getAttribute('data-brand');
+        btn.classList.toggle('active', b === currentCatalogBrand);
+    });
+}
+
+function renderActiveFilterTags() {
+    const bar = document.getElementById('catalogActiveFiltersBar');
+    const container = document.getElementById('activeFiltersChips');
+    if (!bar || !container) return;
+
+    const tags = [];
+
+    // Gender
+    if (currentCatalogGender !== 'all') {
+        let label = 'Для всіх';
+        if (currentCatalogGender === 'favorites') label = 'Обрані товари';
+        else if (currentCatalogGender === 'men') label = 'Чоловіче';
+        else if (currentCatalogGender === 'women') label = 'Жіноче';
+        tags.push({
+            type: 'gender',
+            label: label,
+            removeAction: "removeActiveFilterTag('gender')"
+        });
+    }
+
+    // Category
+    if (currentCatalogCategory !== 'all') {
+        tags.push({
+            type: 'category',
+            label: getCategoryTitle(currentCatalogCategory),
+            removeAction: "removeActiveFilterTag('category')"
+        });
+    }
+
+    // Season
+    if (currentCatalogSeason !== 'all') {
+        tags.push({
+            type: 'season',
+            label: getSeasonTitle(currentCatalogSeason),
+            removeAction: "removeActiveFilterTag('season')"
+        });
+    }
+
+    // Brand
+    if (currentCatalogBrand !== 'all') {
+        const brandItem = catalogMeta && catalogMeta.brands && catalogMeta.brands.find(b => b.slug === currentCatalogBrand);
+        const bName = brandItem ? brandItem.name : currentCatalogBrand;
+        tags.push({
+            type: 'brand',
+            label: `Бренд: ${bName}`,
+            removeAction: "removeActiveFilterTag('brand')"
+        });
+    }
+
+    // Size
+    if (currentCatalogSize !== 'all') {
+        tags.push({
+            type: 'size',
+            label: `Розмір: ${currentCatalogSize}`,
+            removeAction: "removeActiveFilterTag('size')"
+        });
+    }
+
+    // Price Range
+    if (currentCatalogPriceRange !== 'all') {
+        let pLabel = '';
+        if (currentCatalogPriceRange === 'under-1500') pLabel = 'до 1 500 грн';
+        else if (currentCatalogPriceRange === '1500-2500') pLabel = '1 500 - 2 500 грн';
+        else if (currentCatalogPriceRange === '2500-3500') pLabel = '2 500 - 3 500 грн';
+        else if (currentCatalogPriceRange === 'above-3500') pLabel = 'від 3 500 грн';
+        tags.push({
+            type: 'price',
+            label: `Ціна: ${pLabel}`,
+            removeAction: "removeActiveFilterTag('price')"
+        });
+    }
+
+    // Search query
+    if (currentCatalogSearchQuery && currentCatalogSearchQuery.trim()) {
+        tags.push({
+            type: 'search',
+            label: `Пошук: «${currentCatalogSearchQuery.trim()}»`,
+            removeAction: "removeActiveFilterTag('search')"
+        });
+    }
+
+    if (tags.length === 0) {
+        bar.style.display = 'none';
+        container.innerHTML = '';
+        return;
+    }
+
+    bar.style.display = 'flex';
+    container.innerHTML = tags.map(tag => `
+        <span class="active-filter-chip">
+            <span class="chip-text">${escapeHtml(tag.label)}</span>
+            <button type="button" class="chip-remove-btn" onclick="${tag.removeAction}" aria-label="Видалити фільтр ${escapeHtml(tag.label)}">&times;</button>
+        </span>
+    `).join('');
+}
+
+function removeActiveFilterTag(type) {
+    if (type === 'gender') {
+        currentCatalogGender = 'all';
+    } else if (type === 'category') {
+        currentCatalogCategory = 'all';
+    } else if (type === 'season') {
+        currentCatalogSeason = 'all';
+    } else if (type === 'brand') {
+        currentCatalogBrand = 'all';
+        updateBrandButtonState();
+    } else if (type === 'size') {
+        currentCatalogSize = 'all';
+        updateSizeButtonState();
+    } else if (type === 'price') {
+        currentCatalogPriceRange = 'all';
+        const priceSelect = document.getElementById('catalogPriceFilter');
+        if (priceSelect) priceSelect.value = 'all';
+    } else if (type === 'search') {
+        currentCatalogSearchQuery = '';
+        const searchInput = document.getElementById('catalogSearchInput');
+        if (searchInput) searchInput.value = '';
+        const drawerSearch = document.getElementById('drawerSearchInput');
+        if (drawerSearch) drawerSearch.value = '';
+    }
+
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    applyCatalogFilters();
+}
+
+function resetAllCatalogFilters() {
+    currentCatalogCategory = 'all';
+    currentCatalogGender = 'all';
+    currentCatalogSeason = 'all';
+    currentCatalogBrand = 'all';
+    currentCatalogSize = 'all';
+    currentCatalogPriceRange = 'all';
+    currentCatalogSearchQuery = '';
+
+    const searchInput = document.getElementById('catalogSearchInput');
+    if (searchInput) searchInput.value = '';
+    const drawerSearch = document.getElementById('drawerSearchInput');
+    if (drawerSearch) drawerSearch.value = '';
+    const priceSelect = document.getElementById('catalogPriceFilter');
+    if (priceSelect) priceSelect.value = 'all';
+    const sortSelect = document.getElementById('catalogSortSelect');
+    if (sortSelect) sortSelect.value = 'popular';
+    currentCatalogSort = 'popular';
+
+    updateBrandButtonState();
+    updateSizeButtonState();
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    applyCatalogFilters();
+}
+
+// Global window exposure for inline onclick handlers
+window.openCatalogDrawer = openCatalogDrawer;
+window.closeCatalogDrawer = closeCatalogDrawer;
+window.toggleCatalogDrawer = toggleCatalogDrawer;
+window.toggleDrawerAccordion = toggleDrawerAccordion;
+window.toggleDrawerNested = toggleDrawerNested;
+window.applyDrawerCategory = applyDrawerCategory;
+window.applyDrawerGender = applyDrawerGender;
+window.applyDrawerSeason = applyDrawerSeason;
+window.applyDrawerBrand = applyDrawerBrand;
+window.applyDrawerSubSearch = applyDrawerSubSearch;
+window.applyDrawerFavorites = applyDrawerFavorites;
+window.handleDrawerSearch = handleDrawerSearch;
+window.resetAllCatalogFilters = resetAllCatalogFilters;
+window.removeActiveFilterTag = removeActiveFilterTag;
+
+// Global Escape and Enter handlers for catalog drawer
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeCatalogDrawer();
+    }
+    if (e.key === 'Enter' && e.target && e.target.id === 'drawerSearchInput') {
+        const val = e.target.value.trim();
+        if (val) {
+            closeCatalogDrawer();
+            if (!document.getElementById('catalog')) {
+                window.location.href = `index.html?search=${encodeURIComponent(val)}#catalog`;
+            }
+        }
+    }
+});
 
 let currentBrandsList = [];
 
@@ -2212,7 +2649,7 @@ function renderBrandModalItems(list) {
 
     modalList.innerHTML = list.map(b => {
         const isActive = currentCatalogBrand === b.slug;
-        const icon = b.slug === 'all' ? '🔥 ' : '';
+        const icon = '';
         return `
             <button type="button" class="brand-list-item ${isActive ? 'active' : ''}" data-brand="${b.slug}" onclick="selectBrandFromModal('${b.slug}')">
                 <span class="brand-item-name">${icon}${escapeHtml(b.name)}</span>
@@ -2761,9 +3198,11 @@ function applyCatalogFilters() {
     catalogRenderedCount = 0;
     renderCatalogGrid(false);
 
-    // Update Filter Summary Bar
+    // Update Filter Summary Bar & Active Filter Chips
     updateCatalogFilterUI(query);
     updateSizeButtonState();
+    renderActiveFilterTags();
+    syncDrawerActiveStates();
 
     // Deep link auto-scroll check (Ad message-match)
     checkDeepLinkPromo();
@@ -2986,7 +3425,7 @@ function renderCatalogGrid(append) {
             grid.appendChild(noResultsBox);
             if (noResultsDetail) {
                 if (currentCatalogGender === 'favorites') {
-                    noResultsDetail.textContent = 'У вас поки немає збережених товарів. Натискайте ❤️ на картці будь-якої моделі, щоб зберегти її в Обране!';
+                    noResultsDetail.textContent = 'У вас поки немає збережених товарів. Натискайте на сердечко на картці будь-якої моделі, щоб зберегти її в Обране!';
                 } else {
                     noResultsDetail.textContent = currentCatalogSearchQuery 
                         ? `За запитом «${currentCatalogSearchQuery}» товарів на складі не знайдено. Спробуйте інше слово або скиньте фільтри.`
@@ -3063,9 +3502,9 @@ function updateCatalogFilterUI(query) {
             const labels = [];
             if (currentCatalogGender !== 'all') {
                 if (currentCatalogGender === 'favorites') {
-                    labels.push('❤️ Обране');
+                    labels.push('Обране');
                 } else {
-                    labels.push(currentCatalogGender === 'men' ? '👨 Чоловіче' : '👩 Жіноче');
+                    labels.push(currentCatalogGender === 'men' ? 'Чоловіче' : 'Жіноче');
                 }
             }
             if (currentCatalogCategory !== 'all') {
@@ -5049,11 +5488,11 @@ function showManagerOrdersModal() {
             <div style="background:#fff;width:100%;max-width:850px;max-height:90vh;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);font-family:inherit;">
                 <div style="padding:16px 20px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;background:#f9fafb;">
                     <div>
-                        <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#111827;">📦 Журнал замовлень URBAN</h3>
+                        <h3 style="margin:0;font-size:1.15rem;font-weight:800;color:#111827;">Журнал замовлень URBAN</h3>
                         <p style="margin:2px 0 0;font-size:0.8rem;color:#6b7280;">Автономний резервний реєстр замовлень на цьому пристрої</p>
                     </div>
                     <div style="display:flex;gap:8px;align-items:center;">
-                        <button type="button" onclick="exportOrdersAsText()" style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;">📥 Експорт (.txt)</button>
+                        <button type="button" onclick="exportOrdersAsText()" style="padding:6px 12px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;">Експорт (.txt)</button>
                         <button type="button" onclick="closeManagerOrdersModal()" style="padding:6px 12px;background:#f3f4f6;color:#374151;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;cursor:pointer;">✕</button>
                     </div>
                 </div>
@@ -5121,9 +5560,9 @@ function renderManagerOrdersList() {
                 </div>
                 <div style="background:#f9fafb;padding:8px 10px;border-radius:8px;font-size:0.8rem;color:#374151;white-space:pre-wrap;line-height:1.4;">${escapeHtml(ord.items || '')}</div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:4px;">
-                    <button type="button" onclick="copyOrderTtn(${idx})" style="padding:6px 12px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">📋 Копіювати для Нової Пошти</button>
-                    <a href="${tgLink}" target="_blank" style="padding:6px 12px;background:#e0f2fe;color:#0284c7;border-radius:6px;font-size:0.75rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">💬 Відкрити в Telegram</a>
-                    <a href="tel:${cleanPhone}" style="padding:6px 12px;background:#ecfdf5;color:#059669;border-radius:6px;font-size:0.75rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">📞 Зателефонувати</a>
+                    <button type="button" onclick="copyOrderTtn(${idx})" style="padding:6px 12px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;">Копіювати для Нової Пошти</button>
+                    <a href="${tgLink}" target="_blank" style="padding:6px 12px;background:#e0f2fe;color:#0284c7;border-radius:6px;font-size:0.75rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Відкрити в Telegram</a>
+                    <a href="tel:${cleanPhone}" style="padding:6px 12px;background:#ecfdf5;color:#059669;border-radius:6px;font-size:0.75rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Зателефонувати</a>
                 </div>
             </div>
         `;
@@ -5439,7 +5878,7 @@ function renderProductDetailPage(item) {
     // Badge
     const badgeEl = document.getElementById('pdpBadge');
     if (badgeEl) {
-        badgeEl.textContent = item.badge || '✨ Топ якість';
+        badgeEl.textContent = item.badge || 'Топ якість';
     }
 
     // Discount
@@ -5786,7 +6225,7 @@ async function pdpSubmitQuickOrder(e) {
     });
 
     const fd = new FormData();
-    fd.append('_subject', `⚡ ШВИДКЕ ЗАМОВЛЕННЯ #${orderId} | ${formattedTotal} | ${customerName}`);
+    fd.append('_subject', `ШВИДКЕ ЗАМОВЛЕННЯ #${orderId} | ${formattedTotal} | ${customerName}`);
     fd.append('_template', 'table');
     fd.append('_captcha', 'false');
     fd.append('Номер_замовлення', orderId);
@@ -5829,11 +6268,11 @@ function pdpOrderViaMessenger(type, e) {
     const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
 
     const msg = `Доброго дня! Хочу замовити цей товар з сайту URBAN:\n\n` +
-        `👟 Модель: ${displayName}\n` +
-        `🏷️ Артикул: ${item.art || '---'}\n` +
-        `📏 Розмір: ${chosenSize}\n` +
-        `💰 Ціна: ${item.price.toLocaleString('uk-UA')} грн\n` +
-        `🔗 Посилання: ${window.location.href}\n\n` +
+        `Модель: ${displayName}\n` +
+        `Артикул: ${item.art || '---'}\n` +
+        `Розмір: ${chosenSize}\n` +
+        `Ціна: ${item.price.toLocaleString('uk-UA')} грн\n` +
+        `Посилання: ${window.location.href}\n\n` +
         `Підкажіть, будь ласка, наявність та як оформити доставку!`;
 
     copyTextToClipboard(msg);
@@ -5898,7 +6337,7 @@ function updatePdpFavoriteButton(prodId) {
     const isFav = isFavorite(prodId);
     if (isFav) {
         btn.classList.add('active');
-        if (textEl) textEl.textContent = 'В ОБРАНОМУ ❤️';
+        if (textEl) textEl.textContent = 'В ОБРАНОМУ';
         const svgPath = btn.querySelector('svg path');
         if (svgPath) {
             svgPath.setAttribute('fill', '#ef4444');

@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=5.2">
+    <link rel="stylesheet" href="style.css?v=5.3">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -58,15 +58,26 @@
     <!-- Header Navigation -->
     <header class="header">
         <div class="container header-container">
-            <a href="index.html" class="logo urbano-animated-logo" title="URBAN — Sneakers For Your City">
-                <div class="logo-mark-box">
-                    <img src="images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
-                </div>
-                <div class="logo-text-box">
-                    <span class="logo-text-title">URBAN</span>
-                    <span class="logo-text-sub">SNEAKERS FOR YOUR CITY</span>
-                </div>
-            </a>
+            <div class="header-brand-wrap">
+                <button type="button" class="header-catalog-btn" id="headerCatalogBtn" onclick="toggleCatalogDrawer()" aria-label="Каталог товарів" title="Відкрити каталог">
+                    <span class="catalog-burger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    <span class="catalog-btn-text">Каталог</span>
+                </button>
+
+                <a href="index.html" class="logo urbano-animated-logo" title="URBAN — Sneakers For Your City">
+                    <div class="logo-mark-box">
+                        <img src="images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
+                    </div>
+                    <div class="logo-text-box">
+                        <span class="logo-text-title">URBAN</span>
+                        <span class="logo-text-sub">SNEAKERS FOR YOUR CITY</span>
+                    </div>
+                </a>
+            </div>
             
             <a href="index.html" class="header-back-catalog-btn" title="Перейти до каталогу товарів">
                 <span>← До каталогу</span>
@@ -130,7 +141,9 @@
 
             <!-- Not Found State -->
             <div id="pdpNotFound" class="pdp-not-found" style="display: none;">
-                <div class="pdp-not-found-icon">🔍</div>
+                <div class="pdp-not-found-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                </div>
                 <h2>Товар не знайдено</h2>
                 <p>Можливо, цей товар уже розпродано або посилання застаріло. Перегляньте наш актуальний каталог — у нас понад 7 800 моделей у наявності!</p>
                 <a href="index.html" class="btn-primary btn-pdp-go-home">Перейти до каталогу</a>
@@ -149,7 +162,7 @@
 
                         <!-- Main Image Box (Right of thumbs) -->
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
-                            <span class="pdp-gallery-badge" id="pdpBadge">🔥 Хіт продажів</span>
+                            <span class="pdp-gallery-badge" id="pdpBadge">Хіт продажів</span>
                             <span class="pdp-discount-badge" id="pdpDiscountBadge" style="display: none;">-15%</span>
                             
                             <img src="images/sneakers.webp" alt="Товар" id="pdpMainImg" class="pdp-main-img">
@@ -232,7 +245,7 @@
                         </button>
                         
                         <button type="button" class="btn-pdp-1click" id="btnPdp1Click" onclick="pdpQuickOrderAction()">
-                            <span>⚡ ШВИДКЕ ЗАМОВЛЕННЯ В 1 КЛІК</span>
+                            <span>ШВИДКЕ ЗАМОВЛЕННЯ В 1 КЛІК</span>
                         </button>
 
                         <div class="pdp-msg-row">
@@ -278,28 +291,36 @@
                     <!-- Trust Perks -->
                     <div class="pdp-trust-card">
                         <div class="pdp-trust-item">
-                            <span class="pdp-trust-icon">🚚</span>
+                            <span class="pdp-trust-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            </span>
                             <div class="pdp-trust-text">
                                 <strong>Доставка Новою Поштою</strong>
                                 <span>1-2 дні по всій території України</span>
                             </div>
                         </div>
                         <div class="pdp-trust-item">
-                            <span class="pdp-trust-icon">💳</span>
+                            <span class="pdp-trust-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                            </span>
                             <div class="pdp-trust-text">
                                 <strong>Зручна оплата</strong>
                                 <span>При отриманні (післяплата) або на карту</span>
                             </div>
                         </div>
                         <div class="pdp-trust-item">
-                            <span class="pdp-trust-icon">👟</span>
+                            <span class="pdp-trust-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </span>
                             <div class="pdp-trust-text">
                                 <strong>Примірка на пошті</strong>
                                 <span>Огляд товару перед остаточною оплатою</span>
                             </div>
                         </div>
                         <div class="pdp-trust-item">
-                            <span class="pdp-trust-icon">🔄</span>
+                            <span class="pdp-trust-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+                            </span>
                             <div class="pdp-trust-text">
                                 <strong>Гарантія 14 днів</strong>
                                 <span>Простий та швидкий обмін або повернення</span>
@@ -311,7 +332,7 @@
                     <div class="pdp-accordions">
                         <div class="pdp-acc-item" id="pdpAccDelivery">
                             <button type="button" class="pdp-acc-head" onclick="pdpToggleAccordion(this)">
-                                <span>🚚 Доставка та оплата</span>
+                                <span>Доставка та оплата</span>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="pdp-acc-body">
@@ -320,7 +341,7 @@
                         </div>
                         <div class="pdp-acc-item" id="pdpAccReturns">
                             <button type="button" class="pdp-acc-head" onclick="pdpToggleAccordion(this)">
-                                <span>🔄 Обмін та повернення</span>
+                                <span>Обмін та повернення</span>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="pdp-acc-body">
@@ -329,7 +350,7 @@
                         </div>
                         <div class="pdp-acc-item">
                             <button type="button" class="pdp-acc-head" onclick="pdpToggleAccordion(this)">
-                                <span>📏 Як підібрати точний розмір?</span>
+                                <span>Як підібрати точний розмір?</span>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
                             </button>
                             <div class="pdp-acc-body">
@@ -384,11 +405,11 @@
             </div>
             <div class="footer-links">
                 <h4>Контакти</h4>
-                <p>📞 <a href="tel:+380974524435">+38 (097) 452-44-35</a></p>
-                <p>💬 <a href="https://t.me/+380974524435" target="_blank">Telegram: @urban_manager</a></p>
-                <p>💜 <a href="viber://chat?number=%2B380974524435">Viber: +38 (097) 452-44-35</a></p>
-                <p>📸 <a href="https://www.instagram.com/urban20026" target="_blank">Instagram: @urban20026</a></p>
-                <p>⏰ Графік роботи: щодня 09:00 - 21:00</p>
+                <p><a href="tel:+380974524435">+38 (097) 452-44-35</a></p>
+                <p><a href="https://t.me/+380974524435" target="_blank">Telegram: @urban_manager</a></p>
+                <p><a href="viber://chat?number=%2B380974524435">Viber: +38 (097) 452-44-35</a></p>
+                <p><a href="https://www.instagram.com/urban20026" target="_blank">Instagram: @urban20026</a></p>
+                <p>Графік роботи: щодня 09:00 - 21:00</p>
             </div>
             <div class="footer-bottom">
                 <p>© 2026 URBAN — Всі права захищено. Створено для найкращого шопінгу в Україні.</p>
@@ -397,6 +418,241 @@
     </footer>
 
     <!-- Shared Modals and Drawers -->
+    <!-- Catalog Off-Canvas Drawer Overlay -->
+    <div id="catalogDrawerOverlay" class="catalog-drawer-overlay" onclick="closeCatalogDrawer()"></div>
+
+    <!-- Catalog Off-Canvas Drawer (Left Slide-out) -->
+    <aside id="catalogDrawer" class="catalog-drawer" aria-label="Каталог товарів" role="dialog" aria-modal="true">
+        <div class="catalog-drawer-header">
+            <div class="catalog-drawer-title-box">
+                <svg class="catalog-drawer-title-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+                <h3>Каталог товарів</h3>
+            </div>
+            <button type="button" class="catalog-drawer-close" onclick="closeCatalogDrawer()" aria-label="Закрити каталог">&times;</button>
+        </div>
+
+        <div class="drawer-search-box">
+            <svg class="drawer-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="drawerSearchInput" class="drawer-search-input" placeholder="Пошук у каталозі..." oninput="handleDrawerSearch(this.value)">
+        </div>
+
+        <div class="catalog-drawer-body">
+            <!-- Accordion 1: Категорії товарів -->
+            <div class="drawer-accordion open" id="drawerAccCategory">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccCategory')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        Категорії товарів
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerCatList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
+                                <span class="drawer-nav-name">Всі товари</span>
+                                <span class="drawer-nav-count" id="drawerCatCount_all">7 547</span>
+                            </button>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="shoes" onclick="applyDrawerCategory('shoes')">
+                                    <span class="drawer-nav-name">Взуття</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_shoes">5 758</span>
+                                </button>
+                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubShoes', event)" aria-label="Підкатегорії взуття">
+                                    <span class="sub-arrow">▾</span>
+                                </button>
+                            </div>
+                            <ul class="drawer-sub-items" id="drawerSubShoes">
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кросівки', 'shoes')">Кросівки</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кеди', 'shoes')">Кеди</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Черевики', 'shoes')">Черевики & Термо</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Сланці', 'shoes')">Сланці & Тапочки</button></li>
+                            </ul>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="clothing" onclick="applyDrawerCategory('clothing')">
+                                    <span class="drawer-nav-name">Одяг</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_clothing">764</span>
+                                </button>
+                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubClothing', event)" aria-label="Підкатегорії одягу">
+                                    <span class="sub-arrow">▾</span>
+                                </button>
+                            </div>
+                            <ul class="drawer-sub-items" id="drawerSubClothing">
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Куртка', 'clothing')">Куртки & Пуховики</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Костюм', 'clothing')">Спортивні костюми</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Худі', 'clothing')">Худі & Світшоти</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Штани', 'clothing')">Штани & Карго</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Футболка', 'clothing')">Футболки</button></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-cat="socks" onclick="applyDrawerCategory('socks')">
+                                <span class="drawer-nav-name">Шкарпетки</span>
+                                <span class="drawer-nav-count" id="drawerCatCount_socks">50</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-cat="underwear" onclick="applyDrawerCategory('underwear')">
+                                <span class="drawer-nav-name">Труси & Білизна</span>
+                                <span class="drawer-nav-count" id="drawerCatCount_underwear">140</span>
+                            </button>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="accessories" onclick="applyDrawerCategory('accessories')">
+                                    <span class="drawer-nav-name">Аксесуари & Сумки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_accessories">835</span>
+                                </button>
+                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubAccessories', event)" aria-label="Підкатегорії аксесуарів">
+                                    <span class="sub-arrow">▾</span>
+                                </button>
+                            </div>
+                            <ul class="drawer-sub-items" id="drawerSubAccessories">
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Сумка', 'accessories')">Сумки & Месенджери</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Рюкзак', 'accessories')">Рюкзаки</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кепка', 'accessories')">Кепки & Шапки</button></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion 2: Для кого (Стать) -->
+            <div class="drawer-accordion" id="drawerAccGender">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccGender')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Для кого
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerGenderList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-gender="all" onclick="applyDrawerGender('all')">
+                                <span class="drawer-nav-name">Всі товари</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_all">7 547</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="men" onclick="applyDrawerGender('men')">
+                                <span class="drawer-nav-name">Чоловіче</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_men">4 588</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="women" onclick="applyDrawerGender('women')">
+                                <span class="drawer-nav-name">Жіноче</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_women">5 425</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="favorites" onclick="applyDrawerFavorites()">
+                                <span class="drawer-nav-name">Обрані товари</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_fav">0</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion 3: Сезон -->
+            <div class="drawer-accordion" id="drawerAccSeason">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccSeason')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        Сезон
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerSeasonList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-season="all" onclick="applyDrawerSeason('all')">
+                                <span class="drawer-nav-name">Всі сезони</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_all">7 547</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="demi" onclick="applyDrawerSeason('demi')">
+                                <span class="drawer-nav-name">Демісезон</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_demi">5 655</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="winter" onclick="applyDrawerSeason('winter')">
+                                <span class="drawer-nav-name">Зима / Термо</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_winter">772</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="summer" onclick="applyDrawerSeason('summer')">
+                                <span class="drawer-nav-name">Літо</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_summer">1 120</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion 4: Популярні бренди -->
+            <div class="drawer-accordion" id="drawerAccBrands">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccBrands')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                        Популярні бренди
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerBrandsList">
+                        <li><button type="button" class="drawer-nav-item active" data-brand="all" onclick="applyDrawerBrand('all')"><span class="drawer-nav-name">Всі бренди</span><span class="drawer-nav-count">7 547</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="nike" onclick="applyDrawerBrand('nike')"><span class="drawer-nav-name">Nike</span><span class="drawer-nav-count">2 110</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="newbalance" onclick="applyDrawerBrand('newbalance')"><span class="drawer-nav-name">New Balance</span><span class="drawer-nav-count">1 506</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="adidas" onclick="applyDrawerBrand('adidas')"><span class="drawer-nav-name">Adidas</span><span class="drawer-nav-count">1 002</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="puma" onclick="applyDrawerBrand('puma')"><span class="drawer-nav-name">Puma</span><span class="drawer-nav-count">442</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="trapstar" onclick="applyDrawerBrand('trapstar')"><span class="drawer-nav-name">Trapstar</span><span class="drawer-nav-count">186</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="vans" onclick="applyDrawerBrand('vans')"><span class="drawer-nav-name">Vans</span><span class="drawer-nav-count">131</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="ugg" onclick="applyDrawerBrand('ugg')"><span class="drawer-nav-name">UGG</span><span class="drawer-nav-count">113</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="asics" onclick="applyDrawerBrand('asics')"><span class="drawer-nav-name">Asics</span><span class="drawer-nav-count">99</span></button></li>
+                    </ul>
+                    <button type="button" class="drawer-all-brands-btn" onclick="closeCatalogDrawer(); location.href='index.html';">
+                        <span>Усі 56 брендів у каталозі...</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Service & Help Links in Drawer -->
+            <div class="drawer-service-links">
+                <button type="button" class="drawer-service-item" onclick="closeCatalogDrawer(); openFavoritesDrawer();">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span>Обрані товари (<span id="drawerFavBadge">0</span>)</span>
+                </button>
+                <button type="button" class="drawer-service-item" onclick="closeCatalogDrawer(); openCart();">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span>Кошик (<span id="drawerCartBadge">0</span>)</span>
+                </button>
+                <a href="index.html" class="drawer-service-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="10"/><line x1="12" y1="5" x2="12" y2="8"/><line x1="17" y1="5" x2="17" y2="10"/></svg>
+                    <span>Таблиця розмірів</span>
+                </a>
+                <a href="tel:+380974524435" class="drawer-service-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>+38 (097) 452-44-35 (Пн-Нд 09:00-21:00)</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
     <!-- Cart Drawer -->
     <div id="cartBackdrop" class="cart-backdrop" onclick="closeCart()"></div>
     <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
@@ -437,7 +693,9 @@
                             <label for="npCityInput">Місто отримання:</label>
                         </div>
                         <div class="np-input-wrapper">
-                            <span class="np-input-icon">📍</span>
+                            <span class="np-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </span>
                             <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
                             <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
                             <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
@@ -454,12 +712,14 @@
                             <label for="npWarehouseInput">Відділення або поштомат:</label>
                             <div class="np-type-filter" id="npWarehouseFilterTabs">
                                 <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
-                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">📦 Відділення</button>
-                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">📮 Поштомати</button>
+                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">Відділення</button>
+                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">Поштомати</button>
                             </div>
                         </div>
                         <div class="np-input-wrapper">
-                            <span class="np-input-icon">📦</span>
+                            <span class="np-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            </span>
                             <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Введіть або оберіть відділення / поштомат..." autocomplete="off" required>
                             <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
                             <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
@@ -468,7 +728,7 @@
                         <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
                         <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
                         <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
-                        <span class="np-helper-hint" id="npWarehouseHint">⚡ Почніть вводити номер або вулицю для пошуку</span>
+                        <span class="np-helper-hint" id="npWarehouseHint">Почніть вводити номер або вулицю для пошуку</span>
                     </div>
                     <div class="cart-form-group">
                         <label>Спосіб оплати:</label>
@@ -490,7 +750,7 @@
             </div>
 
             <button type="button" id="btnOpenCartCheckout" class="btn-primary btn-checkout-cart" onclick="showCartCheckoutForm()">
-                ОФОРМИТИ ЗАМОВЛЕННЯ ➔
+                ОФОРМИТИ ЗАМОВЛЕННЯ
             </button>
             <div class="cart-msg-quick-row">
                 <span class="cart-msg-quick-title">або через месенджер без дзвінка:</span>
@@ -533,7 +793,7 @@
         <div class="brand-modal-sheet" onclick="event.stopPropagation()" style="max-width: 480px; margin: auto;">
             <div class="brand-modal-header">
                 <div class="brand-modal-title-box">
-                    <h3 class="brand-modal-title">⚡ Швидке замовлення в 1 клік</h3>
+                    <h3 class="brand-modal-title">Швидке замовлення в 1 клік</h3>
                     <span class="brand-modal-subtitle" id="pdpQuickModalSubtitle">Залиште свій номер телефону</span>
                 </div>
                 <button type="button" class="brand-modal-close" onclick="pdpCloseQuickOrderModal()">✕</button>
@@ -619,6 +879,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=5.2"></script>
+    <script src="script.js?v=5.3"></script>
 </body>
 </html>

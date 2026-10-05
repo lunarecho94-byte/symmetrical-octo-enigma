@@ -53,7 +53,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=5.2">
+    <link rel="stylesheet" href="style.css?v=5.3">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -78,15 +78,26 @@
     <!-- Header Navigation -->
     <header class="header">
         <div class="container header-container">
-            <a href="#" class="logo urbano-animated-logo" title="URBAN — Sneakers For Your City">
-                <div class="logo-mark-box">
-                    <img src="images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
-                </div>
-                <div class="logo-text-box">
-                    <span class="logo-text-title">URBAN</span>
-                    <span class="logo-text-sub">SNEAKERS FOR YOUR CITY</span>
-                </div>
-            </a>
+            <div class="header-brand-wrap">
+                <button type="button" class="header-catalog-btn" id="headerCatalogBtn" onclick="toggleCatalogDrawer()" aria-label="Каталог товарів" title="Відкрити каталог">
+                    <span class="catalog-burger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    <span class="catalog-btn-text">Каталог</span>
+                </button>
+
+                <a href="#" class="logo urbano-animated-logo" title="URBAN — Sneakers For Your City">
+                    <div class="logo-mark-box">
+                        <img src="images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
+                    </div>
+                    <div class="logo-text-box">
+                        <span class="logo-text-title">URBAN</span>
+                        <span class="logo-text-sub">SNEAKERS FOR YOUR CITY</span>
+                    </div>
+                </a>
+            </div>
             
             <div class="header-status">
                 <span class="status-dot"></span>
@@ -116,136 +127,43 @@
         <div class="container">
             <div class="section-header">
                 <h1>КАТАЛОГ ТОВАРІВ</h1>
-                <p>Обирайте за статтю, категорією та сезоном — усе в наявності зі швидкою доставкою!</p>
+                <p>Обирайте в каталозі — усе в наявності зі швидкою доставкою по Україні!</p>
             </div>
 
-            <!-- Multi-Tier Filter Navigation: Gender, Categories, Seasons -->
-            <div class="catalog-filters-container">
-                <!-- Tier 1: Для кого (Стать) -->
-                <div class="filter-row gender-filter-row">
-                    <span class="filter-row-label">Для кого:</span>
-                    <div class="gender-pills-scroll" id="catalogGenderTabs">
-                        <button type="button" class="gender-pill-btn active" data-gender="all" onclick="selectCatalogGender('all', this)">
-                            <span class="pill-icon">🔥</span>
-                            <span class="pill-title">Всі</span>
-                            <span class="pill-badge" id="badgeGender_all">7 385</span>
-                        </button>
-                        <button type="button" class="gender-pill-btn" data-gender="men" onclick="selectCatalogGender('men', this)">
-                            <span class="pill-icon">👨</span>
-                            <span class="pill-title">Чоловічі</span>
-                            <span class="pill-badge" id="badgeGender_men">4 505</span>
-                        </button>
-                        <button type="button" class="gender-pill-btn" data-gender="women" onclick="selectCatalogGender('women', this)">
-                            <span class="pill-icon">👩</span>
-                            <span class="pill-title">Жіночі</span>
-                            <span class="pill-badge" id="badgeGender_women">5 300</span>
-                        </button>
-                        <button type="button" class="gender-pill-btn fav-pill-btn" id="btnFilterFav" data-gender="favorites" onclick="toggleFavoritesFilter(this)" title="Показати збережені товари">
-                            <span class="pill-icon">❤️</span>
-                            <span class="pill-title">Обране</span>
-                            <span class="pill-badge" id="badgeGender_fav">0</span>
-                        </button>
+            <!-- Modern Catalog Control Bar -->
+            <div class="catalog-control-bar">
+                <div class="catalog-main-search-row">
+                    <button type="button" class="catalog-bar-burger-btn" onclick="toggleCatalogDrawer()" aria-label="Відкрити каталог" title="Категорії, стать, сезон та бренди">
+                        <span class="catalog-burger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        <span class="catalog-bar-burger-text">Каталог</span>
+                    </button>
+
+                    <div class="catalog-search-box">
+                        <svg class="search-lens-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input 
+                            type="search" 
+                            id="catalogSearchInput" 
+                            class="catalog-search-input" 
+                            placeholder="Пошук у каталозі: назва, бренд, артикул (напр. 9060, Nike, Samba, куртка)..." 
+                            aria-label="Пошук по каталогу"
+                            autocomplete="off"
+                            oninput="handleCatalogSearch(this.value)"
+                        >
+                        <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
                     </div>
                 </div>
 
-                <!-- Tier 2: Категорії -->
-                <div class="filter-row category-filter-row">
-                    <span class="filter-row-label">Категорія:</span>
-                    <div class="main-cat-tabs" id="mainCategoryTabs">
-                        <button type="button" class="main-cat-btn active" data-cat="all" onclick="selectCatalogCategory('all', this)">
-                            <span class="cat-icon">🔥</span>
-                            <span class="cat-title">Всі товари</span>
-                            <span class="cat-badge" id="badgeCat_all">7 385</span>
-                        </button>
-                        <button type="button" class="main-cat-btn" data-cat="shoes" onclick="selectCatalogCategory('shoes', this)">
-                            <span class="cat-icon">👟</span>
-                            <span class="cat-title">Взуття</span>
-                            <span class="cat-badge" id="badgeCat_shoes">5 662</span>
-                        </button>
-                        <button type="button" class="main-cat-btn" data-cat="clothing" onclick="selectCatalogCategory('clothing', this)">
-                            <span class="cat-icon">🧥</span>
-                            <span class="cat-title">Одяг</span>
-                            <span class="cat-badge" id="badgeCat_clothing">762</span>
-                        </button>
-                        <button type="button" class="main-cat-btn" data-cat="socks" onclick="selectCatalogCategory('socks', this)">
-                            <span class="cat-icon">🧦</span>
-                            <span class="cat-title">Шкарпетки</span>
-                            <span class="cat-badge" id="badgeCat_socks">50</span>
-                        </button>
-                        <button type="button" class="main-cat-btn" data-cat="underwear" onclick="selectCatalogCategory('underwear', this)">
-                            <span class="cat-icon">🩲</span>
-                            <span class="cat-title">Труси & Білизна</span>
-                            <span class="cat-badge" id="badgeCat_underwear">140</span>
-                        </button>
-                        <button type="button" class="main-cat-btn" data-cat="accessories" onclick="selectCatalogCategory('accessories', this)">
-                            <span class="cat-icon">🎒</span>
-                            <span class="cat-title">Аксесуари & Сумки</span>
-                            <span class="cat-badge" id="badgeCat_accessories">771</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tier 3: Сезон -->
-                <div class="filter-row season-filter-row">
-                    <span class="filter-row-label">Сезон:</span>
-                    <div class="season-pills-scroll" id="catalogSeasonTabs">
-                        <button type="button" class="season-pill-btn active" data-season="all" onclick="selectCatalogSeason('all', this)">
-                            <span class="pill-icon">🌍</span>
-                            <span class="pill-title">Всі сезони</span>
-                            <span class="pill-badge" id="badgeSeason_all">7 385</span>
-                        </button>
-                        <button type="button" class="season-pill-btn" data-season="demi" onclick="selectCatalogSeason('demi', this)">
-                            <span class="pill-icon">🍂</span>
-                            <span class="pill-title">Демісезон</span>
-                            <span class="pill-badge" id="badgeSeason_demi">5 509</span>
-                        </button>
-                        <button type="button" class="season-pill-btn" data-season="winter" onclick="selectCatalogSeason('winter', this)">
-                            <span class="pill-icon">❄️</span>
-                            <span class="pill-title">Зима</span>
-                            <span class="pill-badge" id="badgeSeason_winter">751</span>
-                        </button>
-                        <button type="button" class="season-pill-btn" data-season="summer" onclick="selectCatalogSeason('summer', this)">
-                            <span class="pill-icon">☀️</span>
-                            <span class="pill-title">Літо</span>
-                            <span class="pill-badge" id="badgeSeason_summer">1 125</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Interactive Catalog Search Bar -->
-            <div class="catalog-search-wrapper">
-                <div class="catalog-search-box">
-                    <svg class="search-lens-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input 
-                        type="search" 
-                        id="catalogSearchInput" 
-                        class="catalog-search-input" 
-                        placeholder="Пошук у каталозі: назва, бренд, артикул (напр. 9060, Nike, Samba, куртка, сумка)..." 
-                        aria-label="Пошук по каталогу"
-                        autocomplete="off"
-                        oninput="handleCatalogSearch(this.value)"
-                    >
-                    <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
-                </div>
-
-                <!-- Live Results Counter & Reset Action -->
-                <div id="searchResultsInfo" class="search-results-info" style="display: none;">
-                    <span id="searchResultsCount">Знайдено: 0 моделей</span>
-                    <button type="button" class="btn-reset-search" onclick="clearCatalogSearch()">Скинути всі фільтри ✕</button>
-                </div>
-            </div>
-
-            <!-- Unified Quick Choice, Brand Filter & Sort Bar -->
-            <div class="category-filter-wrapper">
                 <div class="brand-filter-bar">
                     <!-- Brand Select Button -->
                     <div class="brand-select-wrapper">
                         <button type="button" class="brand-select-btn" id="brandSelectBtn" onclick="openBrandModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть бренд">
                             <span class="brand-btn-left">
-                                <span class="brand-btn-icon">🏷️</span>
                                 <span class="brand-btn-label" id="brandBtnLabel">Всі бренди</span>
-                                <span class="brand-btn-count" id="brandBtnCount">(7 804)</span>
+                                <span class="brand-btn-count" id="brandBtnCount">(7 547)</span>
                             </span>
                             <span class="brand-btn-arrow">▾</span>
                         </button>
@@ -256,7 +174,6 @@
                     <div class="size-select-wrapper">
                         <button type="button" class="size-select-btn" id="sizeSelectBtn" onclick="openSizeModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть розмір">
                             <span class="size-btn-left">
-                                <span class="size-btn-icon">👟</span>
                                 <span class="size-btn-label" id="sizeBtnLabel">Розмір</span>
                             </span>
                             <span class="size-btn-arrow">▾</span>
@@ -268,7 +185,6 @@
                     <div class="quick-choice-wrapper">
                         <button type="button" class="quick-choice-btn" id="quickChoiceBtn" onclick="openQuickChoiceModal()" aria-haspopup="dialog" aria-expanded="false" title="Швидкий вибір">
                             <span class="quick-choice-btn-left">
-                                <span class="quick-choice-btn-icon">⚡</span>
                                 <span class="quick-choice-btn-label" id="quickChoiceBtnLabel">Швидкий вибір</span>
                             </span>
                             <span class="quick-choice-btn-arrow">▾</span>
@@ -282,7 +198,7 @@
                         <div class="sort-select-wrapper">
                             <select id="catalogSortSelect" class="sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
                                 <option value="popular">За популярністю</option>
-                                <option value="discount">Найбільша знижка 🔥</option>
+                                <option value="discount">Найбільша знижка</option>
                                 <option value="price-asc">Від дешевих до дорогих</option>
                                 <option value="price-desc">Від дорогих до дешевих</option>
                                 <option value="newest">Новинки спочатку</option>
@@ -290,6 +206,19 @@
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <!-- Active Filter Tags Bar -->
+                <div class="catalog-active-filters-bar" id="catalogActiveFiltersBar" style="display: none;">
+                    <span class="active-filters-label">Активні фільтри:</span>
+                    <div class="active-filters-chips" id="activeFiltersChips"></div>
+                    <button type="button" class="active-filters-clear-all" onclick="resetAllCatalogFilters()">Скинути всі ✕</button>
+                </div>
+
+                <!-- Live Results Counter & Reset Action -->
+                <div id="searchResultsInfo" class="search-results-info" style="display: none;">
+                    <span id="searchResultsCount">Знайдено: 0 моделей</span>
+                    <button type="button" class="btn-reset-search" onclick="resetAllCatalogFilters()">Скинути всі фільтри ✕</button>
                 </div>
             </div>
 
@@ -614,6 +543,241 @@
         </a>
     </nav>
 
+    <!-- Catalog Off-Canvas Drawer Overlay -->
+    <div id="catalogDrawerOverlay" class="catalog-drawer-overlay" onclick="closeCatalogDrawer()"></div>
+
+    <!-- Catalog Off-Canvas Drawer (Left Slide-out) -->
+    <aside id="catalogDrawer" class="catalog-drawer" aria-label="Каталог товарів" role="dialog" aria-modal="true">
+        <div class="catalog-drawer-header">
+            <div class="catalog-drawer-title-box">
+                <svg class="catalog-drawer-title-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+                <h3>Каталог товарів</h3>
+            </div>
+            <button type="button" class="catalog-drawer-close" onclick="closeCatalogDrawer()" aria-label="Закрити каталог">&times;</button>
+        </div>
+
+        <div class="drawer-search-box">
+            <svg class="drawer-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="drawerSearchInput" class="drawer-search-input" placeholder="Пошук у каталозі..." oninput="handleDrawerSearch(this.value)">
+        </div>
+
+        <div class="catalog-drawer-body">
+            <!-- Accordion 1: Категорії товарів -->
+            <div class="drawer-accordion open" id="drawerAccCategory">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccCategory')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        Категорії товарів
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerCatList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
+                                <span class="drawer-nav-name">Всі товари</span>
+                                <span class="drawer-nav-count" id="drawerCatCount_all">7 547</span>
+                            </button>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="shoes" onclick="applyDrawerCategory('shoes')">
+                                    <span class="drawer-nav-name">Взуття</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_shoes">5 758</span>
+                                </button>
+                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubShoes', event)" aria-label="Підкатегорії взуття">
+                                    <span class="sub-arrow">▾</span>
+                                </button>
+                            </div>
+                            <ul class="drawer-sub-items" id="drawerSubShoes">
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кросівки', 'shoes')">Кросівки</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кеди', 'shoes')">Кеди</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Черевики', 'shoes')">Черевики & Термо</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Сланці', 'shoes')">Сланці & Тапочки</button></li>
+                            </ul>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="clothing" onclick="applyDrawerCategory('clothing')">
+                                    <span class="drawer-nav-name">Одяг</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_clothing">764</span>
+                                </button>
+                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubClothing', event)" aria-label="Підкатегорії одягу">
+                                    <span class="sub-arrow">▾</span>
+                                </button>
+                            </div>
+                            <ul class="drawer-sub-items" id="drawerSubClothing">
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Куртка', 'clothing')">Куртки & Пуховики</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Костюм', 'clothing')">Спортивні костюми</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Худі', 'clothing')">Худі & Світшоти</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Штани', 'clothing')">Штани & Карго</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Футболка', 'clothing')">Футболки</button></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-cat="socks" onclick="applyDrawerCategory('socks')">
+                                <span class="drawer-nav-name">Шкарпетки</span>
+                                <span class="drawer-nav-count" id="drawerCatCount_socks">50</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-cat="underwear" onclick="applyDrawerCategory('underwear')">
+                                <span class="drawer-nav-name">Труси & Білизна</span>
+                                <span class="drawer-nav-count" id="drawerCatCount_underwear">140</span>
+                            </button>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="accessories" onclick="applyDrawerCategory('accessories')">
+                                    <span class="drawer-nav-name">Аксесуари & Сумки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_accessories">835</span>
+                                </button>
+                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubAccessories', event)" aria-label="Підкатегорії аксесуарів">
+                                    <span class="sub-arrow">▾</span>
+                                </button>
+                            </div>
+                            <ul class="drawer-sub-items" id="drawerSubAccessories">
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Сумка', 'accessories')">Сумки & Месенджери</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Рюкзак', 'accessories')">Рюкзаки</button></li>
+                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кепка', 'accessories')">Кепки & Шапки</button></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion 2: Для кого (Стать) -->
+            <div class="drawer-accordion" id="drawerAccGender">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccGender')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Для кого
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerGenderList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-gender="all" onclick="applyDrawerGender('all')">
+                                <span class="drawer-nav-name">Всі товари</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_all">7 547</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="men" onclick="applyDrawerGender('men')">
+                                <span class="drawer-nav-name">Чоловіче</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_men">4 588</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="women" onclick="applyDrawerGender('women')">
+                                <span class="drawer-nav-name">Жіноче</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_women">5 425</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="favorites" onclick="applyDrawerFavorites()">
+                                <span class="drawer-nav-name">Обрані товари</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_fav">0</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion 3: Сезон -->
+            <div class="drawer-accordion" id="drawerAccSeason">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccSeason')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        Сезон
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerSeasonList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-season="all" onclick="applyDrawerSeason('all')">
+                                <span class="drawer-nav-name">Всі сезони</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_all">7 547</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="demi" onclick="applyDrawerSeason('demi')">
+                                <span class="drawer-nav-name">Демісезон</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_demi">5 655</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="winter" onclick="applyDrawerSeason('winter')">
+                                <span class="drawer-nav-name">Зима / Термо</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_winter">772</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="summer" onclick="applyDrawerSeason('summer')">
+                                <span class="drawer-nav-name">Літо</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_summer">1 120</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accordion 4: Популярні бренди -->
+            <div class="drawer-accordion" id="drawerAccBrands">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccBrands')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                        Популярні бренди
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list" id="drawerBrandsList">
+                        <li><button type="button" class="drawer-nav-item active" data-brand="all" onclick="applyDrawerBrand('all')"><span class="drawer-nav-name">Всі бренди</span><span class="drawer-nav-count">7 547</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="nike" onclick="applyDrawerBrand('nike')"><span class="drawer-nav-name">Nike</span><span class="drawer-nav-count">2 110</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="newbalance" onclick="applyDrawerBrand('newbalance')"><span class="drawer-nav-name">New Balance</span><span class="drawer-nav-count">1 506</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="adidas" onclick="applyDrawerBrand('adidas')"><span class="drawer-nav-name">Adidas</span><span class="drawer-nav-count">1 002</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="puma" onclick="applyDrawerBrand('puma')"><span class="drawer-nav-name">Puma</span><span class="drawer-nav-count">442</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="trapstar" onclick="applyDrawerBrand('trapstar')"><span class="drawer-nav-name">Trapstar</span><span class="drawer-nav-count">186</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="vans" onclick="applyDrawerBrand('vans')"><span class="drawer-nav-name">Vans</span><span class="drawer-nav-count">131</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="ugg" onclick="applyDrawerBrand('ugg')"><span class="drawer-nav-name">UGG</span><span class="drawer-nav-count">113</span></button></li>
+                        <li><button type="button" class="drawer-nav-item" data-brand="asics" onclick="applyDrawerBrand('asics')"><span class="drawer-nav-name">Asics</span><span class="drawer-nav-count">99</span></button></li>
+                    </ul>
+                    <button type="button" class="drawer-all-brands-btn" onclick="closeCatalogDrawer(); openBrandModal();">
+                        <span>Усі 56 брендів (пошук)...</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Service & Help Links in Drawer -->
+            <div class="drawer-service-links">
+                <button type="button" class="drawer-service-item" onclick="closeCatalogDrawer(); openFavoritesDrawer();">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span>Обрані товари (<span id="drawerFavBadge">0</span>)</span>
+                </button>
+                <button type="button" class="drawer-service-item" onclick="closeCatalogDrawer(); openCart();">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span>Кошик (<span id="drawerCartBadge">0</span>)</span>
+                </button>
+                <button type="button" class="drawer-service-item" onclick="closeCatalogDrawer(); openSizeChartModal();">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="10"/><line x1="12" y1="5" x2="12" y2="8"/><line x1="17" y1="5" x2="17" y2="10"/></svg>
+                    <span>Таблиця розмірів</span>
+                </button>
+                <a href="tel:+380974524435" class="drawer-service-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>+38 (097) 452-44-35 (Пн-Нд 09:00-21:00)</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
     <!-- Favorites Drawer Overlay -->
     <div id="favoritesDrawerOverlay" class="favorites-drawer-overlay" onclick="closeFavoritesDrawer()"></div>
 
@@ -621,7 +785,9 @@
     <aside id="favoritesDrawer" class="favorites-drawer" aria-label="Обрані товари" role="dialog" aria-modal="true">
         <div class="favorites-drawer-header">
             <div class="favorites-header-title">
-                <span class="fav-header-icon">❤️</span>
+                <svg class="fav-header-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
                 <h3>Обрані товари</h3>
                 <span class="favorites-header-count">(<span id="favoritesDrawerTotalCount">0</span>)</span>
             </div>
@@ -634,10 +800,10 @@
 
         <div id="favoritesDrawerFooter" class="favorites-drawer-footer" style="display: none;">
             <button type="button" class="btn-fav-add-all" onclick="addAllFavoritesToCart()">
-                🛍️ Додати всі в кошик
+                Додати всі в кошик
             </button>
             <button type="button" class="btn-fav-view-catalog" onclick="viewFavoritesInCatalog()">
-                🔍 Показати у каталозі
+                Показати у каталозі
             </button>
             <button type="button" class="btn-fav-clear" onclick="clearFavorites()">
                 Очистити обране
@@ -690,7 +856,9 @@
                             <label for="npCityInput">Місто отримання:</label>
                         </div>
                         <div class="np-input-wrapper">
-                            <span class="np-input-icon">📍</span>
+                            <span class="np-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </span>
                             <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
                             <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
                             <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
@@ -707,12 +875,14 @@
                             <label for="npWarehouseInput">Відділення або поштомат:</label>
                             <div class="np-type-filter" id="npWarehouseFilterTabs">
                                 <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
-                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">📦 Відділення</button>
-                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">📮 Поштомати</button>
+                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">Відділення</button>
+                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">Поштомати</button>
                             </div>
                         </div>
                         <div class="np-input-wrapper">
-                            <span class="np-input-icon">📦</span>
+                            <span class="np-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            </span>
                             <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Введіть або оберіть відділення / поштомат..." autocomplete="off" required>
                             <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
                             <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
@@ -721,7 +891,7 @@
                         <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
                         <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
                         <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
-                        <span class="np-helper-hint" id="npWarehouseHint">⚡ Почніть вводити номер або вулицю для пошуку</span>
+                        <span class="np-helper-hint" id="npWarehouseHint">Почніть вводити номер або вулицю для пошуку</span>
                     </div>
                     <div class="cart-form-group">
                         <label>Спосіб оплати:</label>
@@ -743,7 +913,7 @@
             </div>
 
             <button type="button" id="btnOpenCartCheckout" class="btn-primary btn-checkout-cart" onclick="showCartCheckoutForm()">
-                ОФОРМИТИ ЗАМОВЛЕННЯ ➔
+                ОФОРМИТИ ЗАМОВЛЕННЯ
             </button>
             <div class="cart-msg-quick-row">
                 <span class="cart-msg-quick-title">або через месенджер без дзвінка:</span>
@@ -796,9 +966,7 @@
             <!-- Sticky / Prominent Action Bar -->
             <div class="order-success-actions-sticky">
                 <button type="button" class="btn-return-shopping" onclick="closeOrderSuccessModal()">
-                    <span class="btn-return-icon">🛍️</span>
                     <span>Повернутися до покупок</span>
-                    <span class="btn-return-arrow">➔</span>
                 </button>
             </div>
 
@@ -945,14 +1113,14 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=5.2"></script>
+    <script src="script.js?v=5.3"></script>
 
     <!-- Quick Choice Modal / Bottom Sheet -->
     <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">
         <div class="brand-modal-sheet" onclick="event.stopPropagation()">
             <div class="brand-modal-header">
                 <div class="brand-modal-title-box">
-                    <h3 class="brand-modal-title" id="quickChoiceModalTitle">⚡ Швидкий вибір</h3>
+                    <h3 class="brand-modal-title" id="quickChoiceModalTitle">Швидкий вибір</h3>
                     <span class="brand-modal-subtitle">Популярні запити, моделі та сезон</span>
                 </div>
                 <button type="button" class="brand-modal-close" onclick="closeQuickChoiceModal()" aria-label="Закрити модальне вікно">✕</button>
@@ -961,18 +1129,15 @@
             <div class="quick-choice-modal-body">
                 <!-- Group 1: Для кого -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">👥 Для кого</div>
+                    <div class="quick-modal-group-title">Для кого</div>
                     <div class="quick-modal-chips-grid">
                         <button type="button" class="quick-modal-chip" data-type="gender" data-val="all" data-label="Всі товари" onclick="selectQuickChoice('gender', 'all', 'Всі товари')">
-                            <span class="quick-modal-chip-icon">🔥</span>
                             <span class="quick-modal-chip-text">Всі товари</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="men" data-label="👨 Чоловіче" onclick="selectQuickChoice('gender', 'men', '👨 Чоловіче')">
-                            <span class="quick-modal-chip-icon">👨</span>
+                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="men" data-label="Чоловіче" onclick="selectQuickChoice('gender', 'men', 'Чоловіче')">
                             <span class="quick-modal-chip-text">Чоловіче</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="women" data-label="👩 Жіноче" onclick="selectQuickChoice('gender', 'women', '👩 Жіноче')">
-                            <span class="quick-modal-chip-icon">👩</span>
+                        <button type="button" class="quick-modal-chip" data-type="gender" data-val="women" data-label="Жіноче" onclick="selectQuickChoice('gender', 'women', 'Жіноче')">
                             <span class="quick-modal-chip-text">Жіноче</span>
                         </button>
                     </div>
@@ -980,26 +1145,21 @@
 
                 <!-- Group 2: Категорії товарів -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">🗂️ Категорія товару</div>
+                    <div class="quick-modal-group-title">Категорії</div>
                     <div class="quick-modal-chips-grid">
-                        <button type="button" class="quick-modal-chip" data-type="category" data-val="shoes" data-label="👟 Взуття" onclick="selectQuickChoice('category', 'shoes', '👟 Взуття')">
-                            <span class="quick-modal-chip-icon">👟</span>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="shoes" data-label="Взуття" onclick="selectQuickChoice('category', 'shoes', 'Взуття')">
                             <span class="quick-modal-chip-text">Взуття</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="category" data-val="clothing" data-label="🧥 Одяг" onclick="selectQuickChoice('category', 'clothing', '🧥 Одяг')">
-                            <span class="quick-modal-chip-icon">🧥</span>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="clothing" data-label="Одяг" onclick="selectQuickChoice('category', 'clothing', 'Одяг')">
                             <span class="quick-modal-chip-text">Одяг</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="category" data-val="socks" data-label="🧦 Шкарпетки" onclick="selectQuickChoice('category', 'socks', '🧦 Шкарпетки')">
-                            <span class="quick-modal-chip-icon">🧦</span>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="socks" data-label="Шкарпетки" onclick="selectQuickChoice('category', 'socks', 'Шкарпетки')">
                             <span class="quick-modal-chip-text">Шкарпетки</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="category" data-val="underwear" data-label="🩲 Труси" onclick="selectQuickChoice('category', 'underwear', '🩲 Труси')">
-                            <span class="quick-modal-chip-icon">🩲</span>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="underwear" data-label="Труси & Білизна" onclick="selectQuickChoice('category', 'underwear', 'Труси & Білизна')">
                             <span class="quick-modal-chip-text">Труси & Білизна</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="category" data-val="accessories" data-label="🎒 Аксесуари" onclick="selectQuickChoice('category', 'accessories', '🎒 Аксесуари')">
-                            <span class="quick-modal-chip-icon">🎒</span>
+                        <button type="button" class="quick-modal-chip" data-type="category" data-val="accessories" data-label="Аксесуари & Сумки" onclick="selectQuickChoice('category', 'accessories', 'Аксесуари & Сумки')">
                             <span class="quick-modal-chip-text">Аксесуари & Сумки</span>
                         </button>
                     </div>
@@ -1007,18 +1167,15 @@
 
                 <!-- Group 3: Сезон -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">🌤️ Сезон</div>
+                    <div class="quick-modal-group-title">Сезон</div>
                     <div class="quick-modal-chips-grid">
-                        <button type="button" class="quick-modal-chip" data-type="season" data-val="demi" data-label="🍂 Демісезон" onclick="selectQuickChoice('season', 'demi', '🍂 Демісезон')">
-                            <span class="quick-modal-chip-icon">🍂</span>
+                        <button type="button" class="quick-modal-chip" data-type="season" data-val="demi" data-label="Демісезон" onclick="selectQuickChoice('season', 'demi', 'Демісезон')">
                             <span class="quick-modal-chip-text">Демісезон</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="season" data-val="winter" data-label="❄️ Зима" onclick="selectQuickChoice('season', 'winter', '❄️ Зима')">
-                            <span class="quick-modal-chip-icon">❄️</span>
+                        <button type="button" class="quick-modal-chip" data-type="season" data-val="winter" data-label="Зима / Термо" onclick="selectQuickChoice('season', 'winter', 'Зима / Термо')">
                             <span class="quick-modal-chip-text">Зима / Термо</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="season" data-val="summer" data-label="☀️ Літо" onclick="selectQuickChoice('season', 'summer', '☀️ Літо')">
-                            <span class="quick-modal-chip-icon">☀️</span>
+                        <button type="button" class="quick-modal-chip" data-type="season" data-val="summer" data-label="Літо" onclick="selectQuickChoice('season', 'summer', 'Літо')">
                             <span class="quick-modal-chip-text">Літо</span>
                         </button>
                     </div>
@@ -1026,128 +1183,111 @@
 
                 <!-- Group 4: Акції та Сортування -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">🔥 Акції та Сортування</div>
+                    <div class="quick-modal-group-title">Акції та сортування</div>
                     <div class="quick-modal-chips-grid">
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="SALE" data-label="🏷️ SALE" onclick="selectQuickChoice('search', 'SALE', '🏷️ SALE')">
-                            <span class="quick-modal-chip-icon">🏷️</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="SALE" data-label="SALE" onclick="selectQuickChoice('search', 'SALE', 'SALE')">
                             <span class="quick-modal-chip-text">Розпродаж / SALE</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="sort" data-val="discount" data-label="🔥 Знижки" onclick="selectQuickChoice('sort', 'discount', '🔥 Знижки')">
-                            <span class="quick-modal-chip-icon">💥</span>
+                        <button type="button" class="quick-modal-chip" data-type="sort" data-val="discount" data-label="Топ знижки" onclick="selectQuickChoice('sort', 'discount', 'Топ знижки')">
                             <span class="quick-modal-chip-text">Топ знижки</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="sort" data-val="newest" data-label="🌟 Новинки" onclick="selectQuickChoice('sort', 'newest', '🌟 Новинки')">
-                            <span class="quick-modal-chip-icon">🌟</span>
+                        <button type="button" class="quick-modal-chip" data-type="sort" data-val="newest" data-label="Новинки спочатку" onclick="selectQuickChoice('sort', 'newest', 'Новинки спочатку')">
                             <span class="quick-modal-chip-text">Новинки спочатку</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Group 3: Топові моделі та хіти -->
+                <!-- Group 5: Топові моделі та хіти -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">👟 Топові хіти та моделі</div>
+                    <div class="quick-modal-group-title">Популярні серії</div>
                     <div class="quick-modal-chips-grid">
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Nike" data-label="👟 Nike" onclick="selectQuickChoice('search', 'Nike', '👟 Nike')">
-                            <span class="quick-modal-chip-icon">👟</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Nike" data-label="Nike" onclick="selectQuickChoice('search', 'Nike', 'Nike')">
                             <span class="quick-modal-chip-text">Nike</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="9060" data-label="🔥 NB 9060" onclick="selectQuickChoice('search', '9060', '🔥 NB 9060')">
-                            <span class="quick-modal-chip-icon">🔥</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="9060" data-label="NB 9060" onclick="selectQuickChoice('search', '9060', 'NB 9060')">
                             <span class="quick-modal-chip-text">NB 9060</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="Air Force" data-label="Air Force" onclick="selectQuickChoice('search', 'Air Force', 'Air Force')">
-                            <span class="quick-modal-chip-icon">⚪</span>
                             <span class="quick-modal-chip-text">Air Force</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="Samba" data-label="Adidas Samba" onclick="selectQuickChoice('search', 'Samba', 'Adidas Samba')">
-                            <span class="quick-modal-chip-icon">⚽</span>
                             <span class="quick-modal-chip-text">Adidas Samba</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="Asics" data-label="Asics Gel" onclick="selectQuickChoice('search', 'Asics', 'Asics Gel')">
-                            <span class="quick-modal-chip-icon">⚡</span>
                             <span class="quick-modal-chip-text">Asics Gel</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="UGG" data-label="UGG" onclick="selectQuickChoice('search', 'UGG', 'UGG')">
-                            <span class="quick-modal-chip-icon">🥾</span>
                             <span class="quick-modal-chip-text">UGG</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="Salomon" data-label="Salomon" onclick="selectQuickChoice('search', 'Salomon', 'Salomon')">
-                            <span class="quick-modal-chip-icon">🏔️</span>
                             <span class="quick-modal-chip-text">Salomon</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="On Cloud" data-label="On Cloud" onclick="selectQuickChoice('search', 'On Cloud', 'On Cloud')">
-                            <span class="quick-modal-chip-icon">☁️</span>
                             <span class="quick-modal-chip-text">On Cloud</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="Jordan" data-label="Air Jordan" onclick="selectQuickChoice('search', 'Jordan', 'Air Jordan')">
-                            <span class="quick-modal-chip-icon">🏀</span>
                             <span class="quick-modal-chip-text">Air Jordan</span>
                         </button>
                         <button type="button" class="quick-modal-chip" data-type="search" data-val="Adidas" data-label="Adidas" onclick="selectQuickChoice('search', 'Adidas', 'Adidas')">
-                            <span class="quick-modal-chip-icon">👟</span>
                             <span class="quick-modal-chip-text">Adidas</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Group 4: Одяг та аксесуари -->
+                <!-- Group 6: Одяг та аксесуари -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">🧥 Одяг та аксесуари</div>
+                    <div class="quick-modal-group-title">Одяг та аксесуари</div>
                     <div class="quick-modal-chips-grid">
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Куртка" data-label="🧥 Куртки" onclick="selectQuickChoice('search', 'Куртка', '🧥 Куртки')">
-                            <span class="quick-modal-chip-icon">🧥</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Куртка" data-label="Куртки" onclick="selectQuickChoice('search', 'Куртка', 'Куртки')">
                             <span class="quick-modal-chip-text">Куртки & Пуховики</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Костюм" data-label="🏃 Костюми" onclick="selectQuickChoice('search', 'Костюм', '🏃 Костюми')">
-                            <span class="quick-modal-chip-icon">🏃</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Костюм" data-label="Костюми" onclick="selectQuickChoice('search', 'Костюм', 'Костюми')">
                             <span class="quick-modal-chip-text">Спортивні костюми</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Сумка" data-label="🎒 Сумки" onclick="selectQuickChoice('search', 'Сумка', '🎒 Сумки')">
-                            <span class="quick-modal-chip-icon">🎒</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Сумка" data-label="Сумки" onclick="selectQuickChoice('search', 'Сумка', 'Сумки')">
                             <span class="quick-modal-chip-text">Сумки & Месенджери</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Кепка" data-label="🧢 Кепки" onclick="selectQuickChoice('search', 'Кепка', '🧢 Кепки')">
-                            <span class="quick-modal-chip-icon">🧢</span>
+                        <button type="button" class="quick-modal-chip" data-type="search" data-val="Кепка" data-label="Кепки" onclick="selectQuickChoice('search', 'Кепка', 'Кепки')">
                             <span class="quick-modal-chip-text">Кепки & Шапки</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Group 5: Популярні розміри -->
+                <!-- Group 7: Популярні розміри -->
                 <div class="quick-modal-group">
-                    <div class="quick-modal-group-title">👟 Розмір у наявності</div>
+                    <div class="quick-modal-group-title">Розміри в наявності</div>
                     <div class="quick-modal-chips-grid">
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="38" data-label="👟 38" onclick="selectQuickChoice('size', '38', '👟 38')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="38" data-label="38" onclick="selectQuickChoice('size', '38', '38')">
                             <span class="quick-modal-chip-text">38</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="39" data-label="👟 39" onclick="selectQuickChoice('size', '39', '👟 39')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="39" data-label="39" onclick="selectQuickChoice('size', '39', '39')">
                             <span class="quick-modal-chip-text">39</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="40" data-label="👟 40" onclick="selectQuickChoice('size', '40', '👟 40')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="40" data-label="40" onclick="selectQuickChoice('size', '40', '40')">
                             <span class="quick-modal-chip-text">40</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="41" data-label="👟 41" onclick="selectQuickChoice('size', '41', '👟 41')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="41" data-label="41" onclick="selectQuickChoice('size', '41', '41')">
                             <span class="quick-modal-chip-text">41</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="42" data-label="👟 42" onclick="selectQuickChoice('size', '42', '👟 42')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="42" data-label="42" onclick="selectQuickChoice('size', '42', '42')">
                             <span class="quick-modal-chip-text">42</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="43" data-label="👟 43" onclick="selectQuickChoice('size', '43', '👟 43')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="43" data-label="43" onclick="selectQuickChoice('size', '43', '43')">
                             <span class="quick-modal-chip-text">43</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="44" data-label="👟 44" onclick="selectQuickChoice('size', '44', '👟 44')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="44" data-label="44" onclick="selectQuickChoice('size', '44', '44')">
                             <span class="quick-modal-chip-text">44</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="45" data-label="👟 45" onclick="selectQuickChoice('size', '45', '👟 45')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="45" data-label="45" onclick="selectQuickChoice('size', '45', '45')">
                             <span class="quick-modal-chip-text">45</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="M" data-label="👕 M" onclick="selectQuickChoice('size', 'M', '👕 M')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="M" data-label="M" onclick="selectQuickChoice('size', 'M', 'M')">
                             <span class="quick-modal-chip-text">M</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="L" data-label="👕 L" onclick="selectQuickChoice('size', 'L', '👕 L')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="L" data-label="L" onclick="selectQuickChoice('size', 'L', 'L')">
                             <span class="quick-modal-chip-text">L</span>
                         </button>
-                        <button type="button" class="quick-modal-chip" data-type="size" data-val="XL" data-label="👕 XL" onclick="selectQuickChoice('size', 'XL', '👕 XL')">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="XL" data-label="XL" onclick="selectQuickChoice('size', 'XL', 'XL')">
                             <span class="quick-modal-chip-text">XL</span>
                         </button>
                     </div>
@@ -1166,14 +1306,16 @@
         <div class="brand-modal-sheet" onclick="event.stopPropagation()">
             <div class="brand-modal-header">
                 <div class="brand-modal-title-box">
-                    <h3 class="brand-modal-title" id="brandModalTitle">🏷️ Оберіть бренд</h3>
+                    <h3 class="brand-modal-title" id="brandModalTitle">Оберіть бренд</h3>
                     <span class="brand-modal-subtitle" id="brandModalTotalSubtitle">Всього брендів: 56</span>
                 </div>
                 <button type="button" class="brand-modal-close" onclick="closeBrandModal()" aria-label="Закрити модальне вікно">✕</button>
             </div>
 
             <div class="brand-modal-search-box">
-                <span class="brand-search-icon">🔍</span>
+                <span class="brand-search-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </span>
                 <input type="text" id="brandModalSearchInput" class="brand-modal-search-input" placeholder="Швидкий пошук бренду (напр. Nike, Jordan)..." oninput="handleBrandModalSearch(this.value)" autocomplete="off">
                 <button type="button" id="brandModalSearchClear" class="brand-search-clear" onclick="clearBrandModalSearch()" style="display: none;" aria-label="Очистити пошук бренду">✕</button>
             </div>
@@ -1194,7 +1336,7 @@
         <div class="brand-modal-sheet" onclick="event.stopPropagation()">
             <div class="brand-modal-header">
                 <div class="brand-modal-title-box">
-                    <h3 class="brand-modal-title" id="sizeModalTitle">👟 Оберіть розмір</h3>
+                    <h3 class="brand-modal-title" id="sizeModalTitle">Оберіть розмір</h3>
                     <span class="brand-modal-subtitle">Фільтрація товарів за наявністю вашого розміру</span>
                 </div>
                 <button type="button" class="brand-modal-close" onclick="closeSizeModal()" aria-label="Закрити модальне вікно">✕</button>
@@ -1203,10 +1345,10 @@
             <!-- Size Tabs: Shoes vs Clothing -->
             <div class="size-modal-tabs">
                 <button type="button" class="size-modal-tab-btn active" id="sizeModalTabShoes" onclick="switchSizeModalCategory('shoes')">
-                    👟 Взуття
+                    Взуття
                 </button>
                 <button type="button" class="size-modal-tab-btn" id="sizeModalTabClothing" onclick="switchSizeModalCategory('clothing')">
-                    🧥 Одяг
+                    Одяг
                 </button>
             </div>
 
@@ -1243,10 +1385,10 @@
             </div>
             <div class="size-chart-tabs">
                 <button type="button" class="size-tab-btn active" id="sizeTabShoes" onclick="switchSizeChartTab('shoes')">
-                    👟 Взуття
+                    Взуття
                 </button>
                 <button type="button" class="size-tab-btn" id="sizeTabClothing" onclick="switchSizeChartTab('clothing')">
-                    🧥 Одяг
+                    Одяг
                 </button>
             </div>
             <div class="size-chart-body">
