@@ -2975,6 +2975,8 @@ function focusSearchInput(e) {
         setTimeout(() => {
             input.focus();
         }, 300);
+    } else {
+        window.location.href = 'index.html#catalogSearchInput';
     }
 }
 
