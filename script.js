@@ -480,7 +480,7 @@ function renderFavoritesDrawer() {
                 <div class="fav-empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
                 <h4>Список обраного порожній</h4>
                 <p>Зберігайте вподобані моделі кросівок та одягу, натиснувши на іконку сердечка на картці товару.</p>
-                <button type="button" class="btn-primary" onclick="closeFavoritesDrawer(); document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });">
+                <button type="button" class="btn-primary" onclick="closeFavoritesDrawer(); if (document.getElementById('catalog')) { document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' }); } else { window.location.href = 'index.html#catalog'; }">
                     Перейти до каталогу
                 </button>
             </div>
@@ -639,6 +639,10 @@ function toggleFavoritesFilter(btnEl) {
 
 function viewFavoritesInCatalog() {
     closeFavoritesDrawer();
+    if (!document.getElementById('catalog')) {
+        window.location.href = 'index.html?gender=favorites#catalog';
+        return;
+    }
     const favTab = document.getElementById('btnFilterFav');
     if (favTab) {
         toggleFavoritesFilter(favTab);

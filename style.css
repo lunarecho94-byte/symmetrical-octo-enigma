@@ -7761,6 +7761,11 @@ body {
    FAVORITES (ОБРАНЕ) MODULE STYLES
    ========================================================================== */
 
+/* Safety rule to prevent any legacy drawer classes from ever appearing in document flow */
+.fav-drawer, .fav-backdrop, .cart-backdrop {
+    display: none !important;
+}
+
 /* Favorites Drawer Overlay */
 .favorites-drawer-overlay {
     position: fixed;

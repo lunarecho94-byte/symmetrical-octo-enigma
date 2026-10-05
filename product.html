@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=6.8">
+    <link rel="stylesheet" href="style.css?v=6.9">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -669,11 +669,16 @@
         </div>
     </aside>
 
-    <!-- Cart Drawer -->
-    <div id="cartBackdrop" class="cart-backdrop" onclick="closeCart()"></div>
-    <aside id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
+    <!-- Cart Drawer Overlay -->
+    <div id="cartDrawerOverlay" class="cart-drawer-overlay" onclick="closeCart()"></div>
+
+    <!-- Cart Drawer Sidebar -->
+    <aside id="cartDrawer" class="cart-drawer" aria-label="Кошик товарів" role="dialog" aria-modal="true">
         <div class="cart-drawer-header">
-            <h3 id="cartDrawerTitle">Ваш кошик <span id="cartDrawerCount">(0)</span></h3>
+            <div class="cart-header-title">
+                <h3>Кошик</h3>
+                <span class="cart-header-count">(<span id="cartDrawerTotalCount">0</span>)</span>
+            </div>
             <button type="button" class="cart-drawer-close" onclick="closeCart()" aria-label="Закрити кошик">&times;</button>
         </div>
 
@@ -834,20 +839,35 @@
         </div>
     </div>
 
-    <!-- Favorites Drawer -->
-    <div id="favoritesBackdrop" class="fav-backdrop" onclick="closeFavoritesDrawer()"></div>
-    <aside id="favoritesDrawer" class="fav-drawer" role="dialog" aria-modal="true" aria-labelledby="favDrawerTitle">
-        <div class="fav-drawer-header">
-            <h3 id="favDrawerTitle">Обрані товари <span id="favDrawerCount">(0)</span></h3>
-            <button type="button" class="fav-drawer-close" onclick="closeFavoritesDrawer()" aria-label="Закрити обране">&times;</button>
+    <!-- Favorites Drawer Overlay -->
+    <div id="favoritesDrawerOverlay" class="favorites-drawer-overlay" onclick="closeFavoritesDrawer()"></div>
+
+    <!-- Favorites Drawer Sidebar -->
+    <aside id="favoritesDrawer" class="favorites-drawer" aria-label="Обрані товари" role="dialog" aria-modal="true">
+        <div class="favorites-drawer-header">
+            <div class="favorites-header-title">
+                <svg class="fav-header-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                <h3>Обрані товари</h3>
+                <span class="favorites-header-count">(<span id="favoritesDrawerTotalCount">0</span>)</span>
+            </div>
+            <button type="button" class="favorites-drawer-close" onclick="closeFavoritesDrawer()" aria-label="Закрити обране">&times;</button>
         </div>
-        <div id="favoritesDrawerBody" class="fav-drawer-body"></div>
-        <div id="favoritesDrawerFooter" class="fav-drawer-footer" style="display: none;">
-            <button type="button" class="btn-primary btn-add-all-fav" onclick="addAllFavoritesToCart()">
-                Додати всі до кошика
+
+        <div id="favoritesDrawerBody" class="favorites-drawer-body">
+            <!-- Items rendered dynamically by JS -->
+        </div>
+
+        <div id="favoritesDrawerFooter" class="favorites-drawer-footer" style="display: none;">
+            <button type="button" class="btn-fav-add-all" onclick="addAllFavoritesToCart()">
+                Додати всі в кошик
             </button>
-            <button type="button" class="btn-clear-fav" onclick="clearAllFavorites()">
-                Очистити список
+            <button type="button" class="btn-fav-view-catalog" onclick="viewFavoritesInCatalog()">
+                Показати у каталозі
+            </button>
+            <button type="button" class="btn-fav-clear" onclick="clearFavorites()">
+                Очистити обране
             </button>
         </div>
     </aside>
@@ -953,6 +973,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=6.8"></script>
+    <script src="script.js?v=6.9"></script>
 </body>
 </html>
