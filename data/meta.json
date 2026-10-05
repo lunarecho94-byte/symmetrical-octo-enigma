@@ -93,17 +93,17 @@
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2120
+      "count": 2137
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1320
+      "count": 1325
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 511
+      "count": 526
     },
     {
       "slug": "asics",
@@ -121,19 +121,19 @@
       "count": 183
     },
     {
+      "slug": "jordan",
+      "name": "Air Jordan",
+      "count": 141
+    },
+    {
       "slug": "dior",
       "name": "Dior",
       "count": 139
     },
     {
-      "slug": "jordan",
-      "name": "Air Jordan",
-      "count": 137
-    },
-    {
       "slug": "balenciaga",
       "name": "Balenciaga",
-      "count": 119
+      "count": 121
     },
     {
       "slug": "salomon",
@@ -166,14 +166,14 @@
       "count": 65
     },
     {
-      "slug": "premiata",
-      "name": "Premiata",
+      "slug": "tnf",
+      "name": "The North Face",
       "count": 62
     },
     {
-      "slug": "tnf",
-      "name": "The North Face",
-      "count": 58
+      "slug": "premiata",
+      "name": "Premiata",
+      "count": 62
     },
     {
       "slug": "gucci",
@@ -216,6 +216,11 @@
       "count": 29
     },
     {
+      "slug": "stoneisland",
+      "name": "Stone Island",
+      "count": 28
+    },
+    {
       "slug": "vans",
       "name": "Vans",
       "count": 27
@@ -223,11 +228,6 @@
     {
       "slug": "louisvuitton",
       "name": "Louis Vuitton",
-      "count": 26
-    },
-    {
-      "slug": "stoneisland",
-      "name": "Stone Island",
       "count": 26
     },
     {
@@ -261,6 +261,11 @@
       "count": 16
     },
     {
+      "slug": "underarmour",
+      "name": "Under Armour",
+      "count": 14
+    },
+    {
       "slug": "drmartens",
       "name": "Dr. Martens",
       "count": 13
@@ -271,13 +276,18 @@
       "count": 13
     },
     {
+      "slug": "reebok",
+      "name": "Reebok",
+      "count": 13
+    },
+    {
       "slug": "champion",
       "name": "Champion",
       "count": 11
     },
     {
-      "slug": "underarmour",
-      "name": "Under Armour",
+      "slug": "tommy",
+      "name": "Tommy Hilfiger",
       "count": 11
     },
     {
@@ -288,6 +298,11 @@
     {
       "slug": "arcteryx",
       "name": "Arc'teryx",
+      "count": 10
+    },
+    {
+      "slug": "mizuno",
+      "name": "Mizuno",
       "count": 10
     },
     {
@@ -351,6 +366,11 @@
       "count": 2
     },
     {
+      "slug": "ralphlauren",
+      "name": "Ralph Lauren",
+      "count": 2
+    },
+    {
       "slug": "chloe",
       "name": "Chloé",
       "count": 2
@@ -361,9 +381,14 @@
       "count": 1
     },
     {
+      "slug": "dsquared2",
+      "name": "Dsquared2",
+      "count": 1
+    },
+    {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 953
+      "count": 864
     }
   ]
 }
