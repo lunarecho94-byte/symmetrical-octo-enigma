@@ -9945,6 +9945,33 @@ body.catalog-drawer-open {
     flex-shrink: 0;
 }
 
+.drawer-service-item.drawer-service-tg svg {
+    color: #0284c7;
+}
+
+.drawer-service-item.drawer-service-tg:hover {
+    background: #f0f9ff;
+    color: #0284c7;
+}
+
+.drawer-service-item.drawer-service-insta svg {
+    color: #e1306c;
+}
+
+.drawer-service-item.drawer-service-insta:hover {
+    background: #fdf2f8;
+    color: #db2777;
+}
+
+.drawer-service-item.drawer-service-viber svg {
+    color: #7360f2;
+}
+
+.drawer-service-item.drawer-service-viber:hover {
+    background: #f5f3ff;
+    color: #6d28d9;
+}
+
 /* Active Filter Tags Bar */
 .catalog-active-filters-bar {
     display: flex;
