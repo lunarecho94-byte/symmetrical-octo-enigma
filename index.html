@@ -53,7 +53,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=6.0">
+    <link rel="stylesheet" href="style.css?v=6.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -148,13 +148,25 @@
                             type="search" 
                             id="catalogSearchInput" 
                             class="catalog-search-input" 
-                            placeholder="Пошук у каталозі: назва, бренд, артикул (напр. 9060, Nike, Samba, куртка)..." 
+                            placeholder="Пошук за назвою, брендом або артикулом..." 
                             aria-label="Пошук по каталогу"
                             autocomplete="off"
                             oninput="handleCatalogSearch(this.value)"
                         >
                         <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
                     </div>
+                </div>
+
+                <!-- Quick Category Navigation Strip (Horizontal Swipeable Pills) -->
+                <div class="catalog-quick-nav-bar" id="catalogQuickNavBar" role="navigation" aria-label="Швидкі категорії">
+                    <button type="button" class="catalog-nav-chip active" data-nav="all" onclick="applyQuickNavFilter('all', this)">Всі товари</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="shoes" onclick="applyQuickNavFilter('shoes', this)">Кросівки</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="men" onclick="applyQuickNavFilter('men', this)">Чоловіче</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="women" onclick="applyQuickNavFilter('women', this)">Жіноче</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="winter" onclick="applyQuickNavFilter('winter', this)">Зима / Термо</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="clothing" onclick="applyQuickNavFilter('clothing', this)">Одяг</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="accessories" onclick="applyQuickNavFilter('accessories', this)">Аксесуари</button>
+                    <button type="button" class="catalog-nav-chip" data-nav="discount" onclick="applyQuickNavFilter('discount', this)">Знижки %</button>
                 </div>
 
                 <div class="brand-filter-bar">
@@ -179,17 +191,6 @@
                             <span class="size-btn-arrow">▾</span>
                         </button>
                         <button type="button" class="size-quick-clear-btn" id="sizeQuickClearBtn" onclick="clearSizeSelection(event)" title="Скинути фільтр розміру" style="display: none;" aria-label="Скинути фільтр розміру">✕</button>
-                    </div>
-
-                    <!-- Quick Choice Button -->
-                    <div class="quick-choice-wrapper">
-                        <button type="button" class="quick-choice-btn" id="quickChoiceBtn" onclick="openQuickChoiceModal()" aria-haspopup="dialog" aria-expanded="false" title="Швидкий вибір">
-                            <span class="quick-choice-btn-left">
-                                <span class="quick-choice-btn-label" id="quickChoiceBtnLabel">Швидкий вибір</span>
-                            </span>
-                            <span class="quick-choice-btn-arrow">▾</span>
-                        </button>
-                        <button type="button" class="quick-choice-clear-btn" id="quickChoiceClearBtn" onclick="clearQuickChoiceSelection(event)" title="Скинути швидкий вибір" style="display: none;" aria-label="Скинути швидкий вибір">✕</button>
                     </div>
 
                     <!-- Catalog Sort -->
@@ -1113,7 +1114,7 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=6.0"></script>
+    <script src="script.js?v=6.1"></script>
 
     <!-- Quick Choice Modal / Bottom Sheet -->
     <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">

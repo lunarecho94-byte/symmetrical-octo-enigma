@@ -2524,7 +2524,91 @@ function resetAllCatalogFilters() {
     updateSizeButtonState();
     updateFilterBadges();
     syncDrawerActiveStates();
+    syncQuickNavChips('all');
     applyCatalogFilters();
+}
+
+function applyQuickNavFilter(key, btn) {
+    if (key === 'all') {
+        currentCatalogCategory = 'all';
+        currentCatalogGender = 'all';
+        currentCatalogSeason = 'all';
+        currentCatalogBrand = 'all';
+        currentCatalogSize = 'all';
+        currentCatalogPriceRange = 'all';
+        currentCatalogSearchQuery = '';
+        const searchInput = document.getElementById('catalogSearchInput');
+        if (searchInput) searchInput.value = '';
+        const sortSelect = document.getElementById('catalogSortSelect');
+        if (sortSelect) sortSelect.value = 'popular';
+        currentCatalogSort = 'popular';
+    } else if (key === 'shoes') {
+        currentCatalogCategory = 'shoes';
+    } else if (key === 'men') {
+        currentCatalogGender = 'men';
+    } else if (key === 'women') {
+        currentCatalogGender = 'women';
+    } else if (key === 'winter') {
+        currentCatalogSeason = 'winter';
+    } else if (key === 'clothing') {
+        currentCatalogCategory = 'clothing';
+    } else if (key === 'accessories') {
+        currentCatalogCategory = 'accessories';
+    } else if (key === 'discount') {
+        handleCatalogSort('discount');
+        const sortSelect = document.getElementById('catalogSortSelect');
+        if (sortSelect) sortSelect.value = 'discount';
+        syncQuickNavChips('discount');
+        return;
+    }
+
+    updateBrandButtonState();
+    updateSizeButtonState();
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    syncQuickNavChips(key);
+    applyCatalogFilters();
+
+    const catSection = document.getElementById('catalog');
+    if (catSection) {
+        const topPos = catSection.getBoundingClientRect().top + window.pageYOffset - 90;
+        window.scrollTo({ top: topPos, behavior: 'smooth' });
+    }
+}
+
+function syncQuickNavChips(explicitKey) {
+    const chips = document.querySelectorAll('.catalog-nav-chip');
+    if (!chips.length) return;
+    chips.forEach(c => c.classList.remove('active'));
+
+    let activeKey = explicitKey;
+    if (!activeKey) {
+        if (currentCatalogSeason === 'winter') {
+            activeKey = 'winter';
+        } else if (currentCatalogCategory === 'shoes') {
+            activeKey = 'shoes';
+        } else if (currentCatalogCategory === 'clothing') {
+            activeKey = 'clothing';
+        } else if (currentCatalogCategory === 'accessories') {
+            activeKey = 'accessories';
+        } else if (currentCatalogGender === 'men') {
+            activeKey = 'men';
+        } else if (currentCatalogGender === 'women') {
+            activeKey = 'women';
+        } else if (currentCatalogSort === 'discount') {
+            activeKey = 'discount';
+        } else {
+            activeKey = 'all';
+        }
+    }
+
+    const activeChip = document.querySelector(`.catalog-nav-chip[data-nav="${activeKey}"]`);
+    if (activeChip) {
+        activeChip.classList.add('active');
+        try {
+            activeChip.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        } catch (e) {}
+    }
 }
 
 // Global window exposure for inline onclick handlers
@@ -2542,6 +2626,8 @@ window.applyDrawerFavorites = applyDrawerFavorites;
 window.handleDrawerSearch = handleDrawerSearch;
 window.resetAllCatalogFilters = resetAllCatalogFilters;
 window.removeActiveFilterTag = removeActiveFilterTag;
+window.applyQuickNavFilter = applyQuickNavFilter;
+window.syncQuickNavChips = syncQuickNavChips;
 
 // Global Escape and Enter handlers for catalog drawer
 document.addEventListener('keydown', (e) => {
@@ -3203,6 +3289,7 @@ function applyCatalogFilters() {
     updateSizeButtonState();
     renderActiveFilterTags();
     syncDrawerActiveStates();
+    syncQuickNavChips();
 
     // Deep link auto-scroll check (Ad message-match)
     checkDeepLinkPromo();

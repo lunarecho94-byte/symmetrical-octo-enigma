@@ -1518,9 +1518,11 @@ section, header, footer, .announcement-bar {
         display: none;
     }
     .search-results-info {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         gap: 8px;
+        padding: 8px 12px;
     }
     .filter-chips-scroll,
     .size-filter-chips-scroll,
@@ -5446,39 +5448,23 @@ header.header {
 @media (max-width: 768px) {
     .brand-filter-bar {
         display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 6px;
+        width: 100%;
     }
-    .quick-choice-wrapper,
-    .brand-select-wrapper,
-    .size-select-wrapper,
-    .catalog-sort-bar {
-        flex: 1 1 calc(50% - 4px);
+    .brand-select-wrapper {
+        flex: 1.1 1 auto;
         min-width: 0;
     }
-    .quick-choice-btn,
-    .brand-select-btn,
-    .size-select-btn {
-        width: 100%;
-        padding: 8px 10px;
-        font-size: 13px;
-    }
-    .quick-choice-btn-label,
-    .brand-btn-label,
-    .size-btn-label {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 95px;
-    }
-    .brand-btn-count,
-    .size-btn-count {
-        font-size: 11px;
-        padding: 2px 5px;
+    .size-select-wrapper {
+        flex: 0.9 1 auto;
+        min-width: 0;
     }
     .catalog-sort-bar {
+        flex: 1.2 1 auto;
+        min-width: 0;
         margin-top: 0;
-        width: auto;
     }
     .catalog-sort-bar .sort-label {
         display: none;
@@ -5486,12 +5472,34 @@ header.header {
     .catalog-sort-bar .sort-select-wrapper {
         width: 100%;
     }
+    .brand-select-btn,
+    .size-select-btn {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 12.5px;
+        height: 38px;
+        border-radius: 12px;
+        gap: 4px;
+        justify-content: center;
+    }
+    .brand-btn-label,
+    .size-btn-label {
+        white-space: nowrap;
+        max-width: none;
+        overflow: visible;
+        text-overflow: clip;
+    }
+    .brand-btn-count,
+    .size-btn-count {
+        font-size: 10.5px;
+        padding: 2px 4px;
+    }
     .sort-select-wrapper select {
         padding: 8px 10px;
-        font-size: 13px;
+        font-size: 12.5px;
         height: 38px;
         width: 100%;
-        border-radius: 20px;
+        border-radius: 12px;
         border: 1.5px solid #e4e4e7;
     }
 }
@@ -9216,7 +9224,8 @@ body.fav-open {
     width: 100%;
 }
 
-.catalog-bar-top-row {
+.catalog-bar-top-row,
+.catalog-main-search-row {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -9257,6 +9266,56 @@ body.fav-open {
     font-family: inherit;
     line-height: 1;
     letter-spacing: 0.01em;
+}
+
+/* Quick Category Navigation Strip (Horizontal Swipeable Chips) */
+.catalog-quick-nav-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 0 6px;
+    width: 100%;
+}
+
+.catalog-quick-nav-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.catalog-nav-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: #f4f4f5;
+    color: #18181b;
+    border: 1px solid #e4e4e7;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.catalog-nav-chip:hover {
+    background: #e4e4e7;
+    border-color: #d4d4d8;
+    color: #09090b;
+}
+
+.catalog-nav-chip.active {
+    background: #09090b;
+    color: #ffffff;
+    border-color: #09090b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
 }
 
 /* Catalog Off-Canvas Drawer Overlay */
