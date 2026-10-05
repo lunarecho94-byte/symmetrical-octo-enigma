@@ -1781,9 +1781,10 @@ section, header, footer, .announcement-bar {
 .product-price-row .price-old {
     font-family: 'Ubuntu Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
     font-size: 13px !important;
-    font-weight: 400 !important;
-    color: #a1a1aa !important;
+    font-weight: 500 !important;
+    color: #ef4444 !important;
     text-decoration: line-through !important;
+    text-decoration-color: #ef4444 !important;
     line-height: 1.2 !important;
 }
 
@@ -6871,8 +6872,9 @@ body {
 
 .price-old {
     font-size: 13px !important;
-    color: #a1a1aa !important;
+    color: #ef4444 !important;
     text-decoration: line-through !important;
+    text-decoration-color: #ef4444 !important;
     font-weight: 600 !important;
     line-height: 1 !important;
     margin-bottom: 3px !important;
@@ -8591,8 +8593,9 @@ body.fav-open {
 
 .pdp-price-old {
     font-size: 1.2rem;
-    color: #94a3b8;
-    text-decoration: line-through;
+    color: #ef4444 !important;
+    text-decoration: line-through !important;
+    text-decoration-color: #ef4444 !important;
     font-weight: 600;
 }
 
@@ -9780,6 +9783,14 @@ body.catalog-drawer-open {
     }
 }
 
-
-
-
+/* Universal Red Strikethrough Price */
+.price-old,
+.pdp-price-old,
+.product-price-row .price-old,
+.old-price,
+del.price,
+s.price {
+    color: #ef4444 !important;
+    text-decoration: line-through !important;
+    text-decoration-color: #ef4444 !important;
+}
