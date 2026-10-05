@@ -8456,6 +8456,9 @@ body.fav-open {
 }
 
 @media (max-width: 768px) {
+    .pdp-breadcrumbs-bar {
+        display: none !important;
+    }
     .pdp-gallery-inner {
         flex-direction: column-reverse;
         gap: 12px;
