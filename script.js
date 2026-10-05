@@ -2960,7 +2960,7 @@ function createProductCardElement(item) {
             </div>
             <div class="product-details">
                 <p class="product-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</p>
-                ${sizesText ? `<p class="product-sizes-text">${escapeHtml(sizesText)}</p>` : ''}
+                ${sizesText ? `<p class="product-sizes-text">${escapeHtml(sizesText)}</p>` : '<p class="product-sizes-text">&nbsp;</p>'}
                 <div class="product-price-row">
                     ${formattedOldPrice ? `<span class="price-old">${formattedOldPrice}</span>` : ''}
                     <span class="price-now">${formattedPrice}</span>
