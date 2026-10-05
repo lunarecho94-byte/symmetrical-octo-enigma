@@ -1,23 +1,23 @@
 {
-  "total": 7541,
+  "total": 7533,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7541
+      "count": 7533
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "👨",
-      "count": 4586
+      "count": 4581
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "👩",
-      "count": 5418
+      "count": 5415
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "🔥",
-      "count": 7541
+      "count": 7533
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "👟",
-      "count": 5756
+      "count": 5748
     },
     {
       "slug": "clothing",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "🌍",
-      "count": 7541
+      "count": 7533
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "🍂",
-      "count": 5650
+      "count": 5642
     },
     {
       "slug": "winter",
@@ -88,17 +88,17 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7541
+      "count": 7533
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2109
+      "count": 2106
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1322
+      "count": 1321
     },
     {
       "slug": "adidas",
@@ -128,7 +128,7 @@
     {
       "slug": "jordan",
       "name": "Air Jordan",
-      "count": 137
+      "count": 135
     },
     {
       "slug": "balenciaga",
@@ -363,7 +363,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 945
+      "count": 943
     }
   ]
 }
