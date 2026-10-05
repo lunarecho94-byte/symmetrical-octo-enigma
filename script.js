@@ -4699,7 +4699,8 @@ function openSizeChartModal(category = 'shoes') {
     if (modal) {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        switchSizeChartTab(category === 'clothing' ? 'clothing' : 'shoes');
+        const isClothing = (category === 'clothing' || category === 'underwear' || category === 'socks');
+        switchSizeChartTab(isClothing ? 'clothing' : 'shoes');
     }
 }
 
@@ -4715,7 +4716,7 @@ function switchSizeChartTab(tab) {
         if (tabClothing) tabClothing.classList.add('active');
         if (paneShoes) paneShoes.style.display = 'none';
         if (paneClothing) paneClothing.style.display = 'block';
-        if (modalTitle) modalTitle.textContent = 'Таблиця розмірів одягу';
+        if (modalTitle) modalTitle.textContent = 'Таблиця розмірів одягу та білизни';
     } else {
         if (tabShoes) tabShoes.classList.add('active');
         if (tabClothing) tabClothing.classList.remove('active');
@@ -6088,6 +6089,9 @@ function renderProductDetailPage(item) {
     // Specs
     renderPdpSpecs(item);
 
+    // Accordions (Dynamic Size guide & returns adapted to category)
+    renderPdpAccordions(item);
+
     // Favorite Button State
     updatePdpFavoriteButton(item.id);
 
@@ -6321,7 +6325,10 @@ function renderPdpSpecs(item) {
     ];
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
     if (cleanOrigin) rows.push({ label: 'Країна виробництва:', val: cleanOrigin });
-    rows.push({ label: 'Стан:', val: 'Новий, у фірмовій коробці' });
+    rows.push({
+        label: 'Стан:',
+        val: (item.cat === 'shoes') ? 'Новий, у фірмовій коробці' : 'Новий, у фірмовій упаковці'
+    });
 
     list.innerHTML = rows.map(r => `
         <div class="pdp-spec-row">
@@ -6329,6 +6336,90 @@ function renderPdpSpecs(item) {
             <span class="pdp-spec-val">${escapeHtml(r.val)}</span>
         </div>
     `).join('');
+}
+
+function renderPdpAccordions(item) {
+    const cat = item ? (item.cat || 'shoes') : 'shoes';
+    const titleEl = document.getElementById('pdpAccSizeGuideTitle');
+    const bodyEl = document.getElementById('pdpAccSizeGuideBody');
+    const returnsEl = document.getElementById('pdpAccReturnsBody');
+    const sizeGuideBtnText = document.getElementById('pdpSizeGuideBtnText');
+
+    if (cat === 'shoes') {
+        if (titleEl) titleEl.textContent = 'Як підібрати точний розмір взуття?';
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <p style="margin-bottom: 8px;">1. <strong>Замір стопи:</strong> поставте стопу на аркуш паперу біля стіни, обведіть її ручкою та виміряйте лінійкою точну відстань від краю п'яти до кінчика найдовшого пальця (довжину стопи в сантиметрах).</p>
+                <p style="margin-bottom: 8px;">2. <strong>Вибір розміру:</strong> знайдіть отримані сантиметри в таблиці розмірів під цією моделлю. Якщо довжина стопи знаходиться між двома розмірами — рекомендуємо обрати більший розмір.</p>
+                <p style="margin-bottom: 12px;">3. <strong>Допомога менеджера:</strong> під час дзвінка або в чаті менеджер обов'язково перевірить довжину устілки саме цієї пари перед відправкою!</p>
+                <div>
+                    <button type="button" class="btn-pdp-guide-inline" onclick="pdpOpenSizeGuide()">Таблиця розмірів взуття →</button>
+                </div>
+            `;
+        }
+        if (returnsEl) {
+            returnsEl.textContent = "Відповідно до Закону України «Про захист прав споживачів», ви маєте право на обмін розміру або повернення товару протягом 14 днів з моменту отримання посилки. Обов'язкова умова: збереження товарного вигляду взуття, оригінальної коробки та ярликів. Огляд та примірка доступні у відділенні Нової Пошти.";
+        }
+        if (sizeGuideBtnText) sizeGuideBtnText.textContent = 'Підібрати розмір взуття';
+    } else if (cat === 'clothing') {
+        if (titleEl) titleEl.textContent = 'Як підібрати точний розмір одягу?';
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <p style="margin-bottom: 8px;">1. <strong>Основні параметри:</strong> для точного підбору одягу орієнтуйтеся на ваш зріст, вагу та ключові обхвати: грудей (для худі, курток, футболок), талії та стегон (для штанів та спортивних костюмів).</p>
+                <p style="margin-bottom: 8px;">2. <strong>Посадка:</strong> якщо ви віддаєте перевагу вільній оверсайз-посадці або ваші мірки знаходяться між двома розмірами — рекомендуємо обрати на 1 розмір більший.</p>
+                <p style="margin-bottom: 12px;">3. <strong>Індивідуальний підбір:</strong> при оформленні замовлення вкажіть ваш зріст та вагу в коментарі, або менеджер особисто уточнить ваші мірки по телефону для 100% ідеальної посадки!</p>
+                <div>
+                    <button type="button" class="btn-pdp-guide-inline" onclick="pdpOpenSizeGuide()">Таблиця розмірів одягу →</button>
+                </div>
+            `;
+        }
+        if (returnsEl) {
+            returnsEl.textContent = "Відповідно до Закону України «Про захист прав споживачів», ви маєте право на обмін розміру або повернення товару протягом 14 днів з моменту отримання посилки. Обов'язкова умова: збереження товарного вигляду одягу, оригінальної упаковки та фабричних ярликів. Огляд та примірка доступні у відділенні Нової Пошти.";
+        }
+        if (sizeGuideBtnText) sizeGuideBtnText.textContent = 'Підібрати розмір одягу';
+    } else if (cat === 'underwear') {
+        if (titleEl) titleEl.textContent = 'Як підібрати розмір білизни?';
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <p style="margin-bottom: 8px;">1. <strong>Замір пояса та стегон:</strong> розмір білизни підбирається за обхватом пояса (резинки на рівні талії/стегон) або за вашим звичним розміром джинсів чи штанів (M, L, XL, 2XL, 3XL).</p>
+                <p style="margin-bottom: 8px;">2. <strong>Комфортна посадка:</strong> фірмові комплекти виготовлені з якісної еластичної бавовни з додаванням спандексу. Для комфортної щоденної посадки рекомендуємо обирати на один розмір більше (наприклад, L замість M).</p>
+                <p style="margin-bottom: 12px;">3. <strong>Консультація менеджера:</strong> при підтвердженні замовлення наш менеджер підкаже точну ширину резинки в сантиметрах під обрану модель!</p>
+                <div>
+                    <button type="button" class="btn-pdp-guide-inline" onclick="pdpOpenSizeGuide()">Таблиця розмірів білизни та одягу →</button>
+                </div>
+            `;
+        }
+        if (returnsEl) {
+            returnsEl.textContent = "Обмін та повернення білизни здійснюється згідно з чинним законодавством України: перевірка комплектації та розміру проводиться при отриманні у відділенні Нової Пошти. При виявленні невідповідності розміру або фабричного дефекту обмін здійснюється оперативно та за наш рахунок.";
+        }
+        if (sizeGuideBtnText) sizeGuideBtnText.textContent = 'Підібрати розмір білизни';
+    } else if (cat === 'socks') {
+        if (titleEl) titleEl.textContent = 'Розмірна сітка шкарпеток';
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <p style="margin-bottom: 8px;">1. <strong>Універсальний еластичний розмір:</strong> більшість моделей шкарпеток мають універсальний розмір One Size (36–41 або 41–45) завдяки якісній бавовні з додаванням еластану.</p>
+                <p style="margin-bottom: 8px;">2. <strong>Посадка:</strong> анатомічна резинка м'яко фіксує шкарпетку на нозі без передавлювання судин.</p>
+                <p style="margin-bottom: 0;">3. <strong>Уточнення:</strong> наш менеджер підкаже точну відповідність вашому розміру взуття перед відправкою посилки.</p>
+            `;
+        }
+        if (returnsEl) {
+            returnsEl.textContent = "Огляд та перевірка шкарпеток здійснюється при отриманні у відділенні Нової Пошти. Збереження оригінальної фабричної упаковки та ярликів є обов'язковим для збереження товарного вигляду.";
+        }
+        if (sizeGuideBtnText) sizeGuideBtnText.textContent = 'Розмірна сітка шкарпеток';
+    } else {
+        // Accessories
+        if (titleEl) titleEl.textContent = 'Параметри та розмір';
+        if (bodyEl) {
+            bodyEl.innerHTML = `
+                <p style="margin-bottom: 8px;">1. <strong>Універсальний розмір (One Size):</strong> аксесуари (сумки, рюкзаки, головні убори, прикраси) мають універсальний формат або регульовані ремені та застібки.</p>
+                <p style="margin-bottom: 0;">2. <strong>Детальні заміри:</strong> якщо вам потрібні точні габарити (висота, ширина, глибина у см або довжина ланцюжка) — наш менеджер з радістю надасть повні виміри при оформленні.</p>
+            `;
+        }
+        if (returnsEl) {
+            returnsEl.textContent = "Відповідно до Закону України «Про захист прав споживачів», ви маєте право на обмін або повернення аксесуару протягом 14 днів з моменту отримання посилки за умови збереження товарного вигляду, пломб, упаковки та бірок.";
+        }
+        if (sizeGuideBtnText) sizeGuideBtnText.textContent = 'Параметри та розмір';
+    }
 }
 
 function pdpAddToCartAction() {
@@ -6524,6 +6615,14 @@ window.pdpCopyArt = pdpCopyArt;
 
 function pdpOpenSizeGuide() {
     const cat = pdpCurrentProduct ? (pdpCurrentProduct.cat || 'shoes') : 'shoes';
+    if (cat === 'accessories' || cat === 'socks') {
+        const acc = document.getElementById('pdpAccSizeGuide');
+        if (acc) {
+            acc.classList.add('open');
+            acc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+    }
     openSizeChartModal(cat);
 }
 window.pdpOpenSizeGuide = pdpOpenSizeGuide;
