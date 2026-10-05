@@ -5933,10 +5933,10 @@ function renderProductDetailPage(item) {
         viewersEl.textContent = String(count);
     }
 
-    // Description text
+    // Description text (natural editorial description, no duplicate characteristics)
     const descText = document.getElementById('pdpDescText');
     if (descText) {
-        descText.textContent = `${displayName}. Матеріал: ${item.mat || 'високоякісні натуральні та технологічні матеріали'}. Сезон: ${item.season_name || 'демісезон'}. Комплектація: фірмова коробка, папір. Відправка Новою Поштою 1-2 дні по Україні.`;
+        descText.textContent = generateProductDescription(item);
     }
 
     // Gallery
@@ -6089,9 +6089,79 @@ function pdpSelectSize(btn, szVal) {
 }
 window.pdpSelectSize = pdpSelectSize;
 
+function generateProductDescription(item) {
+    if (item.desc && typeof item.desc === 'string' && item.desc.trim().length > 15) {
+        return item.desc.trim();
+    }
+
+    const cat = item.cat || 'shoes';
+    const season = item.season || 'demi';
+    const nameLower = (item.name || '').toLowerCase();
+
+    // 1. Footwear
+    if (cat === 'shoes') {
+        if (nameLower.includes('gore-tex') || nameLower.includes('gtx')) {
+            return "Технологічна модель із захистом від вологи та вітру. Забезпечує оптимальний мікроклімат, комфортну підтримку стопи та надійність за будь-яких примх міської погоди.";
+        }
+        if (season === 'winter' || nameLower.includes('зимов') || nameLower.includes('термо') || nameLower.includes('угг') || nameLower.includes('winter')) {
+            return "Тепла та надійна модель для прохолодного сезону. Зручна анатомічна посадка, чіпка зносостійка підошва для впевненого зчеплення з поверхнею та високі термоізоляційні властивості для щоденного комфорту в будь-яку негоду.";
+        }
+        if (season === 'summer' || nameLower.includes('сітка') || nameLower.includes('літо') || nameLower.includes('сланц') || nameLower.includes('сандал') || nameLower.includes('crocs')) {
+            return "Легка повітропроникна модель для теплої погоди. Продумана перфорація забезпечує чудову вентиляцію, а м'яка гнучка підошва дарує легкість кожного кроку під час активного міського дня.";
+        }
+        return "Культовий міський силует із виразним сучасним дизайном та бездоганною ергономікою. Забезпечує м'яку амортизацію під час ходьби, надійну фіксацію стопи та відчуття легкості впродовж усього дня. Ідеально підходить для створення стильного щоденного образу.";
+    }
+
+    // 2. Clothing
+    if (cat === 'clothing') {
+        if (nameLower.includes('куртк') || nameLower.includes('пуховик') || nameLower.includes('жилет')) {
+            return "Практичний та стильний верхній одяг для щоденного захисту від холоду та вітру. Продуманий ергономічний крій зберігає свободу рухів і комфортне тепло під час прогулянок містом.";
+        }
+        if (nameLower.includes('худі') || nameLower.includes('світшот') || nameLower.includes('толстовк') || nameLower.includes('костюм')) {
+            return "Базова та затишна річ для невимушеного вуличного образу. Зручний вільний крій, м'яка внутрішня текстура та висока зносостійкість для максимального повсякденного комфорту.";
+        }
+        if (nameLower.includes('штани') || nameLower.includes('карго') || nameLower.includes('джогер') || nameLower.includes('шорти') || nameLower.includes('джинс')) {
+            return "Зручна та функціональна модель для активного міського життя. Анатомічний крій та комфортна посадка забезпечують свободу рухів протягом усього дня.";
+        }
+        if (nameLower.includes('футболк') || nameLower.includes('поло') || nameLower.includes('майк')) {
+            return "Лаконічна та стильна модель для базового гардеробу. Зручна посадка по фігурі, комфортна тканина та відмінна стійкість до щоденного носіння.";
+        }
+        return "Стильний та зручний елемент гардеробу у сучасному вуличному стилі. Забезпечує комфортну посадку, свободу рухів та відмінно поєднується з іншими речами.";
+    }
+
+    // 3. Accessories
+    if (cat === 'accessories') {
+        if (nameLower.includes('сумк') || nameLower.includes('рюкзак') || nameLower.includes('бананка') || nameLower.includes('месенджер') || nameLower.includes('клатч')) {
+            return "Функціональний та місткий аксесуар для зберігання найнеобхідніших речей. Ергономічний формат, міцні матеріали та надійна фурнітура для динамічного щоденного ритму.";
+        }
+        if (nameLower.includes('кепк') || nameLower.includes('шапк') || nameLower.includes('панам')) {
+            return "Стильний головний убір, що гармонійно доповнює повсякденний образ та забезпечує захист і комфорт за будь-якої погоди.";
+        }
+        return "Практичний та якісний аксесуар у сучасному стилі, створений для зручності та завершення вашого індивідуального образу.";
+    }
+
+    // 4. Underwear
+    if (cat === 'underwear') {
+        return "Комфортна білизна анатомічного крою з м'якою еластичною резинкою. Забезпечує приємне відчуття до тіла, повітропроникність та ідеальну посадку на весь день.";
+    }
+
+    // 5. Socks
+    if (cat === 'socks') {
+        return "Зручні шкарпетки з еластичною фіксацією, що надійно тримаються на нозі без передавлювання. Забезпечують сухість, повітрообмін та довговічність при щоденному носінні.";
+    }
+
+    // Fallback
+    return "Оригінальна якість та сучасний дизайн для вашого щоденного гардеробу. Відмінний вибір для тих, хто цінує комфорт, практичність та актуальний стиль.";
+}
+window.generateProductDescription = generateProductDescription;
+
 function renderPdpSpecs(item) {
     const list = document.getElementById('pdpSpecsList');
     if (!list) return;
+
+    const cleanOrigin = (item.origin || '')
+        .replace(/[\u{1F1E6}-\u{1F1FF}]{2}|[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27BF}]/gu, '')
+        .trim();
 
     const rows = [
         { label: 'Артикул товару:', val: item.art || '---' },
@@ -6100,7 +6170,7 @@ function renderPdpSpecs(item) {
         { label: 'Сезон:', val: item.season_name || (item.season === 'winter' ? 'Зима' : 'Демісезон') }
     ];
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
-    if (item.origin) rows.push({ label: 'Країна виробництва:', val: item.origin });
+    if (cleanOrigin) rows.push({ label: 'Країна виробництва:', val: cleanOrigin });
     rows.push({ label: 'Стан:', val: 'Новий, у фірмовій коробці' });
 
     list.innerHTML = rows.map(r => `
