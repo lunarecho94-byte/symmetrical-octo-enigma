@@ -53,7 +53,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=4.6">
+    <link rel="stylesheet" href="style.css?v=4.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -239,18 +239,6 @@
             <!-- Unified Quick Choice, Brand Filter & Sort Bar -->
             <div class="category-filter-wrapper">
                 <div class="brand-filter-bar">
-                    <!-- Quick Choice Button -->
-                    <div class="quick-choice-wrapper">
-                        <button type="button" class="quick-choice-btn" id="quickChoiceBtn" onclick="openQuickChoiceModal()" aria-haspopup="dialog" aria-expanded="false" title="Швидкий вибір">
-                            <span class="quick-choice-btn-left">
-                                <span class="quick-choice-btn-icon">⚡</span>
-                                <span class="quick-choice-btn-label" id="quickChoiceBtnLabel">Швидкий вибір</span>
-                            </span>
-                            <span class="quick-choice-btn-arrow">▾</span>
-                        </button>
-                        <button type="button" class="quick-choice-clear-btn" id="quickChoiceClearBtn" onclick="clearQuickChoiceSelection(event)" title="Скинути швидкий вибір" style="display: none;" aria-label="Скинути швидкий вибір">✕</button>
-                    </div>
-
                     <!-- Brand Select Button -->
                     <div class="brand-select-wrapper">
                         <button type="button" class="brand-select-btn" id="brandSelectBtn" onclick="openBrandModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть бренд">
@@ -262,6 +250,30 @@
                             <span class="brand-btn-arrow">▾</span>
                         </button>
                         <button type="button" class="brand-quick-clear-btn" id="brandQuickClearBtn" onclick="clearBrandSelection(event)" title="Скинути фільтр бренду" style="display: none;" aria-label="Скинути фільтр бренду">✕</button>
+                    </div>
+
+                    <!-- Size Select Button -->
+                    <div class="size-select-wrapper">
+                        <button type="button" class="size-select-btn" id="sizeSelectBtn" onclick="openSizeModal()" aria-haspopup="dialog" aria-expanded="false" title="Оберіть розмір">
+                            <span class="size-btn-left">
+                                <span class="size-btn-icon">👟</span>
+                                <span class="size-btn-label" id="sizeBtnLabel">Розмір</span>
+                            </span>
+                            <span class="size-btn-arrow">▾</span>
+                        </button>
+                        <button type="button" class="size-quick-clear-btn" id="sizeQuickClearBtn" onclick="clearSizeSelection(event)" title="Скинути фільтр розміру" style="display: none;" aria-label="Скинути фільтр розміру">✕</button>
+                    </div>
+
+                    <!-- Quick Choice Button -->
+                    <div class="quick-choice-wrapper">
+                        <button type="button" class="quick-choice-btn" id="quickChoiceBtn" onclick="openQuickChoiceModal()" aria-haspopup="dialog" aria-expanded="false" title="Швидкий вибір">
+                            <span class="quick-choice-btn-left">
+                                <span class="quick-choice-btn-icon">⚡</span>
+                                <span class="quick-choice-btn-label" id="quickChoiceBtnLabel">Швидкий вибір</span>
+                            </span>
+                            <span class="quick-choice-btn-arrow">▾</span>
+                        </button>
+                        <button type="button" class="quick-choice-clear-btn" id="quickChoiceClearBtn" onclick="clearQuickChoiceSelection(event)" title="Скинути швидкий вибір" style="display: none;" aria-label="Скинути швидкий вибір">✕</button>
                     </div>
 
                     <!-- Catalog Sort -->
@@ -933,7 +945,7 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=4.6"></script>
+    <script src="script.js?v=4.7"></script>
 
     <!-- Quick Choice Modal / Bottom Sheet -->
     <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">
@@ -1100,6 +1112,46 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- Group 5: Популярні розміри -->
+                <div class="quick-modal-group">
+                    <div class="quick-modal-group-title">👟 Розмір у наявності</div>
+                    <div class="quick-modal-chips-grid">
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="38" data-label="👟 38" onclick="selectQuickChoice('size', '38', '👟 38')">
+                            <span class="quick-modal-chip-text">38</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="39" data-label="👟 39" onclick="selectQuickChoice('size', '39', '👟 39')">
+                            <span class="quick-modal-chip-text">39</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="40" data-label="👟 40" onclick="selectQuickChoice('size', '40', '👟 40')">
+                            <span class="quick-modal-chip-text">40</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="41" data-label="👟 41" onclick="selectQuickChoice('size', '41', '👟 41')">
+                            <span class="quick-modal-chip-text">41</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="42" data-label="👟 42" onclick="selectQuickChoice('size', '42', '👟 42')">
+                            <span class="quick-modal-chip-text">42</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="43" data-label="👟 43" onclick="selectQuickChoice('size', '43', '👟 43')">
+                            <span class="quick-modal-chip-text">43</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="44" data-label="👟 44" onclick="selectQuickChoice('size', '44', '👟 44')">
+                            <span class="quick-modal-chip-text">44</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="45" data-label="👟 45" onclick="selectQuickChoice('size', '45', '👟 45')">
+                            <span class="quick-modal-chip-text">45</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="M" data-label="👕 M" onclick="selectQuickChoice('size', 'M', '👕 M')">
+                            <span class="quick-modal-chip-text">M</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="L" data-label="👕 L" onclick="selectQuickChoice('size', 'L', '👕 L')">
+                            <span class="quick-modal-chip-text">L</span>
+                        </button>
+                        <button type="button" class="quick-modal-chip" data-type="size" data-val="XL" data-label="👕 XL" onclick="selectQuickChoice('size', 'XL', '👕 XL')">
+                            <span class="quick-modal-chip-text">XL</span>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="brand-modal-footer">
@@ -1133,6 +1185,50 @@
             <div class="brand-modal-footer">
                 <button type="button" class="brand-modal-reset-btn" onclick="selectBrandFromModal('all')">Показати всі бренди</button>
                 <button type="button" class="brand-modal-apply-btn" onclick="closeBrandModal()">Готово</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Size Selector Modal / Bottom Sheet -->
+    <div id="sizeModal" class="brand-modal-overlay" onclick="handleSizeOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="sizeModalTitle">
+        <div class="brand-modal-sheet" onclick="event.stopPropagation()">
+            <div class="brand-modal-header">
+                <div class="brand-modal-title-box">
+                    <h3 class="brand-modal-title" id="sizeModalTitle">👟 Оберіть розмір</h3>
+                    <span class="brand-modal-subtitle">Фільтрація товарів за наявністю вашого розміру</span>
+                </div>
+                <button type="button" class="brand-modal-close" onclick="closeSizeModal()" aria-label="Закрити модальне вікно">✕</button>
+            </div>
+
+            <!-- Size Tabs: Shoes vs Clothing -->
+            <div class="size-modal-tabs">
+                <button type="button" class="size-modal-tab-btn active" id="sizeModalTabShoes" onclick="switchSizeModalCategory('shoes')">
+                    👟 Взуття
+                </button>
+                <button type="button" class="size-modal-tab-btn" id="sizeModalTabClothing" onclick="switchSizeModalCategory('clothing')">
+                    🧥 Одяг
+                </button>
+            </div>
+
+            <div class="size-modal-body">
+                <!-- Shoes Pane -->
+                <div id="sizeModalPaneShoes" class="size-modal-pane">
+                    <div class="size-modal-grid" id="sizeModalShoesGrid">
+                        <!-- Populated dynamically with sizes 36-46 and live product counts -->
+                    </div>
+                </div>
+
+                <!-- Clothing Pane -->
+                <div id="sizeModalPaneClothing" class="size-modal-pane" style="display: none;">
+                    <div class="size-modal-grid" id="sizeModalClothingGrid">
+                        <!-- Populated dynamically with sizes XS-3XL and live product counts -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-modal-footer">
+                <button type="button" class="brand-modal-reset-btn" onclick="clearSizeSelection(event); closeSizeModal();">Всі розміри (скинути)</button>
+                <button type="button" class="brand-modal-apply-btn" onclick="closeSizeModal()">Готово</button>
             </div>
         </div>
     </div>

@@ -1794,6 +1794,33 @@ function productMatchesSeason(p, season) {
     if (!season || season === 'all') return true;
     return p.season === season;
 }
+
+function productMatchesSize(p, size) {
+    if (!size || size === 'all') return true;
+    if (!p.sizes || !Array.isArray(p.sizes) || p.sizes.length === 0) return false;
+
+    const targetLower = String(size).trim().toLowerCase();
+    const targetNum = parseInt(targetLower, 10);
+
+    return p.sizes.some(s => {
+        const sStr = String(s).trim().toLowerCase();
+        if (sStr === targetLower) return true;
+
+        // Check range like "36-42" or "36–42"
+        const rangeMatch = sStr.match(/^(\d{2})\s*[-–—]\s*(\d{2})$/);
+        if (rangeMatch && !isNaN(targetNum)) {
+            const min = parseInt(rangeMatch[1], 10);
+            const max = parseInt(rangeMatch[2], 10);
+            if (targetNum >= min && targetNum <= max) return true;
+        }
+
+        // Check comma/slash list
+        const parts = sStr.split(/[/,\s]+/).map(x => x.trim());
+        if (parts.includes(targetLower)) return true;
+
+        return false;
+    });
+}
 let catalogFilteredProducts = [];
 let catalogRenderedCount = 0;
 const CATALOG_PAGE_SIZE = 24;
@@ -2331,6 +2358,8 @@ function selectQuickChoice(type, val, label) {
         const sortSel = document.getElementById('catalogSortSelect');
         if (sortSel) sortSel.value = val;
         applyCatalogFilters();
+    } else if (type === 'size') {
+        filterCatalogBySize(val);
     }
 
     const grid = document.querySelector('.products-grid');
@@ -2355,6 +2384,8 @@ function clearQuickChoiceSelection(e) {
         selectCatalogCategory('all');
     } else if (prevType === 'season') {
         selectCatalogSeason('all');
+    } else if (prevType === 'size') {
+        filterCatalogBySize('all');
     } else if (prevType === 'search') {
         const input = document.getElementById('catalogSearchInput');
         if (input) input.value = '';
@@ -2389,28 +2420,154 @@ function updateQuickChoiceButtonState() {
     });
 }
 
-function renderSizeFilterChips(meta) {
-    const container = document.getElementById('catalogSizeFilterChips');
-    if (!container) return;
+let currentSizeModalCategory = 'shoes';
 
-    // Use top sizes from catalog
-    const defaultSizes = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', 'S', 'M', 'L', 'XL', 'XXL'];
-    
-    let html = `
-        <button type="button" class="size-filter-btn ${currentCatalogSize === 'all' ? 'active' : ''}" data-size="all" onclick="filterCatalogBySize('all', this)">
-            Всі
-        </button>
-    `;
+function updateSizeButtonState() {
+    const btn = document.getElementById('sizeSelectBtn');
+    const label = document.getElementById('sizeBtnLabel');
+    const clearBtn = document.getElementById('sizeQuickClearBtn');
+    if (!btn || !label) return;
 
-    defaultSizes.forEach(sz => {
-        html += `
-            <button type="button" class="size-filter-btn ${currentCatalogSize === sz ? 'active' : ''}" data-size="${sz}" onclick="filterCatalogBySize('${sz}', this)">
-                ${sz}
-            </button>
-        `;
-    });
+    if (currentCatalogSize !== 'all') {
+        btn.classList.add('active');
+        label.textContent = `Розмір: ${currentCatalogSize}`;
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+    } else {
+        btn.classList.remove('active');
+        label.textContent = 'Розмір';
+        if (clearBtn) clearBtn.style.display = 'none';
+    }
+}
 
-    container.innerHTML = html;
+function openSizeModal() {
+    const modal = document.getElementById('sizeModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+
+    // Auto-select tab: if category is clothing/outerwear, open clothing tab
+    if (currentCatalogCategory === 'clothing' || currentCatalogCategory === 'outerwear') {
+        switchSizeModalCategory('clothing');
+    } else {
+        switchSizeModalCategory('shoes');
+    }
+
+    renderSizeModalItems();
+}
+
+function closeSizeModal() {
+    const modal = document.getElementById('sizeModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+}
+
+function handleSizeOverlayClick(e) {
+    if (e.target.id === 'sizeModal') {
+        closeSizeModal();
+    }
+}
+
+function switchSizeModalCategory(cat) {
+    currentSizeModalCategory = cat;
+    const tabShoes = document.getElementById('sizeModalTabShoes');
+    const tabClothing = document.getElementById('sizeModalTabClothing');
+    const paneShoes = document.getElementById('sizeModalPaneShoes');
+    const paneClothing = document.getElementById('sizeModalPaneClothing');
+
+    if (tabShoes && tabClothing && paneShoes && paneClothing) {
+        if (cat === 'shoes') {
+            tabShoes.classList.add('active');
+            tabClothing.classList.remove('active');
+            paneShoes.style.display = 'block';
+            paneClothing.style.display = 'none';
+        } else {
+            tabClothing.classList.add('active');
+            tabShoes.classList.remove('active');
+            paneClothing.style.display = 'block';
+            paneShoes.style.display = 'none';
+        }
+    }
+}
+
+function renderSizeModalItems() {
+    const shoeSizes = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46'];
+    const clothingSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
+
+    // Compute live counts
+    const counts = {};
+    if (catalogAllProducts && catalogAllProducts.length) {
+        catalogAllProducts.forEach(p => {
+            if (!productMatchesGender(p, currentCatalogGender)) return;
+            if (!productMatchesSeason(p, currentCatalogSeason)) return;
+            if (currentCatalogBrand !== 'all' && p.brand !== currentCatalogBrand) return;
+
+            shoeSizes.forEach(sz => {
+                if (productMatchesSize(p, sz)) {
+                    counts[sz] = (counts[sz] || 0) + 1;
+                }
+            });
+            clothingSizes.forEach(sz => {
+                if (productMatchesSize(p, sz)) {
+                    counts[sz] = (counts[sz] || 0) + 1;
+                }
+            });
+        });
+    }
+
+    const shoesGrid = document.getElementById('sizeModalShoesGrid');
+    if (shoesGrid) {
+        shoesGrid.innerHTML = shoeSizes.map(sz => {
+            const count = counts[sz] || 0;
+            const isActive = currentCatalogSize === sz;
+            return `
+                <button type="button" class="size-modal-item ${isActive ? 'active' : ''} ${count === 0 ? 'empty' : ''}" data-size="${sz}" onclick="selectSizeFromModal('${sz}')">
+                    <span class="size-modal-num">${sz}</span>
+                    <span class="size-modal-count">${count ? count.toLocaleString('uk-UA') + ' мод.' : 'немає'}</span>
+                    <span class="size-modal-check">${isActive ? '✓' : ''}</span>
+                </button>
+            `;
+        }).join('');
+    }
+
+    const clothingGrid = document.getElementById('sizeModalClothingGrid');
+    if (clothingGrid) {
+        clothingGrid.innerHTML = clothingSizes.map(sz => {
+            const count = counts[sz] || 0;
+            const isActive = currentCatalogSize === sz;
+            return `
+                <button type="button" class="size-modal-item ${isActive ? 'active' : ''} ${count === 0 ? 'empty' : ''}" data-size="${sz}" onclick="selectSizeFromModal('${sz}')">
+                    <span class="size-modal-num">${sz}</span>
+                    <span class="size-modal-count">${count ? count.toLocaleString('uk-UA') + ' мод.' : 'немає'}</span>
+                    <span class="size-modal-check">${isActive ? '✓' : ''}</span>
+                </button>
+            `;
+        }).join('');
+    }
+}
+
+function selectSizeFromModal(size) {
+    closeSizeModal();
+    if (currentCatalogSize === size) {
+        filterCatalogBySize('all');
+    } else {
+        filterCatalogBySize(size);
+    }
+    const grid = document.querySelector('.products-grid');
+    if (grid) {
+        const topPos = grid.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: topPos, behavior: 'smooth' });
+    }
+}
+
+function clearSizeSelection(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    filterCatalogBySize('all');
 }
 
 function filterCatalog(brand, btn) {
@@ -2432,19 +2589,7 @@ function filterCatalogBySize(size, btn) {
         currentCatalogSize = size;
     }
 
-    const container = document.getElementById('catalogSizeFilterChips');
-    if (container) {
-        container.querySelectorAll('.size-filter-btn').forEach(b => {
-            if (b.dataset.size === currentCatalogSize) b.classList.add('active');
-            else b.classList.remove('active');
-        });
-    }
-
-    const indicator = document.getElementById('activeSizeLabel');
-    if (indicator) {
-        indicator.textContent = (currentCatalogSize === 'all') ? 'Всі розміри' : `Розмір: ${size}`;
-    }
-
+    updateSizeButtonState();
     applyCatalogFilters();
 }
 
@@ -2537,6 +2682,7 @@ function clearCatalogSearch() {
     if (activePriceLabel) activePriceLabel.textContent = 'Всі';
 
     updateFilterBadges();
+    updateSizeButtonState();
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -2590,10 +2736,8 @@ function applyCatalogFilters() {
         }
 
         // 4. Size Filter
-        if (currentCatalogSize !== 'all') {
-            if (!item.sizes || !item.sizes.includes(currentCatalogSize)) {
-                return false;
-            }
+        if (!productMatchesSize(item, currentCatalogSize)) {
+            return false;
         }
 
         // 5. Price Range Filter
@@ -2622,6 +2766,7 @@ function applyCatalogFilters() {
 
     // Update Filter Summary Bar
     updateCatalogFilterUI(query);
+    updateSizeButtonState();
 
     // Deep link auto-scroll check (Ad message-match)
     checkDeepLinkPromo();
@@ -4369,6 +4514,13 @@ window.selectBrandFromModal = selectBrandFromModal;
 window.clearBrandSelection = clearBrandSelection;
 window.handleBrandModalSearch = handleBrandModalSearch;
 window.clearBrandModalSearch = clearBrandModalSearch;
+window.openSizeModal = openSizeModal;
+window.closeSizeModal = closeSizeModal;
+window.handleSizeOverlayClick = handleSizeOverlayClick;
+window.switchSizeModalCategory = switchSizeModalCategory;
+window.selectSizeFromModal = selectSizeFromModal;
+window.clearSizeSelection = clearSizeSelection;
+window.updateSizeButtonState = updateSizeButtonState;
 window.openQuickChoiceModal = openQuickChoiceModal;
 window.closeQuickChoiceModal = closeQuickChoiceModal;
 window.handleQuickChoiceOverlayClick = handleQuickChoiceOverlayClick;

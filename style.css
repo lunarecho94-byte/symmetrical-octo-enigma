@@ -4824,7 +4824,8 @@ header.header {
 }
 
 .quick-choice-wrapper,
-.brand-select-wrapper {
+.brand-select-wrapper,
+.size-select-wrapper {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -4832,7 +4833,8 @@ header.header {
 }
 
 .quick-choice-btn,
-.brand-select-btn {
+.brand-select-btn,
+.size-select-btn {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
@@ -4852,13 +4854,15 @@ header.header {
 }
 
 .quick-choice-btn:hover,
-.brand-select-btn:hover {
+.brand-select-btn:hover,
+.size-select-btn:hover {
     border-color: #09090b;
     background: #f8fafc;
 }
 
 .quick-choice-btn.active,
-.brand-select-btn.active {
+.brand-select-btn.active,
+.size-select-btn.active {
     background: #09090b;
     color: #ffffff;
     border-color: #09090b;
@@ -4866,23 +4870,27 @@ header.header {
 }
 
 .quick-choice-btn-left,
-.brand-btn-left {
+.brand-btn-left,
+.size-btn-left {
     display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 
 .quick-choice-btn-icon,
-.brand-btn-icon {
+.brand-btn-icon,
+.size-btn-icon {
     font-size: 14px;
 }
 
 .quick-choice-btn-label,
-.brand-btn-label {
+.brand-btn-label,
+.size-btn-label {
     font-weight: 600;
 }
 
-.brand-btn-count {
+.brand-btn-count,
+.size-btn-count {
     font-size: 12px;
     font-weight: 700;
     color: #71717a;
@@ -4892,25 +4900,29 @@ header.header {
     transition: all 0.2s ease;
 }
 
-.brand-select-btn.active .brand-btn-count {
+.brand-select-btn.active .brand-btn-count,
+.size-select-btn.active .size-btn-count {
     background: rgba(255, 255, 255, 0.2);
     color: #ffffff;
 }
 
 .quick-choice-btn-arrow,
-.brand-btn-arrow {
+.brand-btn-arrow,
+.size-btn-arrow {
     font-size: 11px;
     color: #71717a;
     transition: transform 0.2s ease;
 }
 
 .quick-choice-btn.active .quick-choice-btn-arrow,
-.brand-select-btn.active .brand-btn-arrow {
+.brand-select-btn.active .brand-btn-arrow,
+.size-select-btn.active .size-btn-arrow {
     color: #ffffff;
 }
 
 .quick-choice-clear-btn,
-.brand-quick-clear-btn {
+.brand-quick-clear-btn,
+.size-quick-clear-btn {
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -4927,7 +4939,8 @@ header.header {
 }
 
 .quick-choice-clear-btn:hover,
-.brand-quick-clear-btn:hover {
+.brand-quick-clear-btn:hover,
+.size-quick-clear-btn:hover {
     background: #ef4444;
     border-color: #ef4444;
     color: #ffffff;
@@ -5274,6 +5287,124 @@ header.header {
     line-height: 1.2;
 }
 
+/* Size Modal Styles */
+.size-modal-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    background: #f4f4f5;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.size-modal-tab-btn {
+    flex: 1;
+    padding: 9px 12px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #71717a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+}
+
+.size-modal-tab-btn.active {
+    background: #ffffff;
+    color: #09090b;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.size-modal-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+    padding: 4px 2px 14px 0;
+    max-height: 52vh;
+}
+
+.size-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+@media (min-width: 480px) {
+    .size-modal-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.size-modal-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 6px;
+    background: #f8fafc;
+    border: 1.5px solid #e4e4e7;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.size-modal-item:hover:not(.empty) {
+    border-color: #09090b;
+    background: #f1f5f9;
+}
+
+.size-modal-item.active {
+    background: #09090b;
+    border-color: #09090b;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(9, 9, 11, 0.2);
+}
+
+.size-modal-item.empty {
+    opacity: 0.35;
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    cursor: not-allowed;
+}
+
+.size-modal-num {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: inherit;
+}
+
+.size-modal-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: #71717a;
+    margin-top: 4px;
+    line-height: 1;
+}
+
+.size-modal-item.active .size-modal-count {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.size-modal-check {
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #10b981;
+}
+
+.size-modal-item.active .size-modal-check {
+    color: #34d399;
+}
+
 @media (max-width: 768px) {
     .brand-filter-bar {
         display: flex;
@@ -5281,31 +5412,35 @@ header.header {
         gap: 8px;
     }
     .quick-choice-wrapper,
-    .brand-select-wrapper {
+    .brand-select-wrapper,
+    .size-select-wrapper,
+    .catalog-sort-bar {
         flex: 1 1 calc(50% - 4px);
         min-width: 0;
     }
     .quick-choice-btn,
-    .brand-select-btn {
+    .brand-select-btn,
+    .size-select-btn {
         width: 100%;
         padding: 8px 10px;
         font-size: 13px;
     }
     .quick-choice-btn-label,
-    .brand-btn-label {
+    .brand-btn-label,
+    .size-btn-label {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 95px;
     }
-    .brand-btn-count {
+    .brand-btn-count,
+    .size-btn-count {
         font-size: 11px;
         padding: 2px 5px;
     }
     .catalog-sort-bar {
-        margin-top: 2px;
-        width: 100%;
-        flex-shrink: 0;
+        margin-top: 0;
+        width: auto;
     }
     .catalog-sort-bar .sort-label {
         display: none;
@@ -5314,10 +5449,12 @@ header.header {
         width: 100%;
     }
     .sort-select-wrapper select {
-        padding: 8px 12px;
+        padding: 8px 10px;
         font-size: 13px;
         height: 38px;
         width: 100%;
+        border-radius: 20px;
+        border: 1.5px solid #e4e4e7;
     }
 }
 
