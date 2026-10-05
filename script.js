@@ -5925,13 +5925,8 @@ function renderProductDetailPage(item) {
         }
     }
 
-    // Viewers Social Proof Count
-    const viewersEl = document.getElementById('pdpViewersCount');
-    if (viewersEl) {
-        const seed = parseInt(String(item.id).replace(/\D/g, '') || '3', 10);
-        const count = 2 + (seed % 4); // 2, 3, 4, or 5 viewers
-        viewersEl.textContent = String(count);
-    }
+    // Viewers Social Proof Count (Random 0 to 39)
+    initPdpViewersCounter();
 
     // Description text (natural editorial description, no duplicate characteristics)
     const descText = document.getElementById('pdpDescText');
@@ -6470,5 +6465,68 @@ function pdpToggleAccordion(btn) {
     }
 }
 window.pdpToggleAccordion = pdpToggleAccordion;
+
+// ==========================================
+// PDP LIVE VIEWERS COUNTER (0 - 39)
+// ==========================================
+let pdpViewersInterval = null;
+
+function getPdpViewersSuffix(count) {
+    const safeCount = Math.max(0, Math.min(39, Math.round(count)));
+    const mod100 = safeCount % 100;
+    const mod10 = safeCount % 10;
+    if (mod100 >= 11 && mod100 <= 14) {
+        return 'людей зараз переглядають цей товар';
+    }
+    if (mod10 === 1) {
+        return 'людина зараз переглядає цей товар';
+    }
+    if (mod10 >= 2 && mod10 <= 4) {
+        return 'людини зараз переглядають цей товар';
+    }
+    return 'людей зараз переглядають цей товар';
+}
+
+function updatePdpViewersDisplay(count) {
+    const safeCount = Math.max(0, Math.min(39, Math.round(count)));
+    const textEl = document.getElementById('pdpViewersText');
+    const countEl = document.getElementById('pdpViewersCount');
+    const suffix = getPdpViewersSuffix(safeCount);
+
+    if (textEl) {
+        textEl.innerHTML = `<strong id="pdpViewersCount">${safeCount}</strong> ${suffix}`;
+    } else if (countEl) {
+        countEl.textContent = String(safeCount);
+        const parentSpan = countEl.parentElement;
+        if (parentSpan) {
+            parentSpan.innerHTML = `<strong id="pdpViewersCount">${safeCount}</strong> ${suffix}`;
+        }
+    }
+    return safeCount;
+}
+
+function initPdpViewersCounter() {
+    if (pdpViewersInterval) {
+        clearInterval(pdpViewersInterval);
+        pdpViewersInterval = null;
+    }
+
+    // Random viewers count from 0 to 39 inclusive
+    let currentViewers = Math.floor(Math.random() * 40);
+    updatePdpViewersDisplay(currentViewers);
+
+    // Subtle natural live fluctuation between 0 and 39
+    pdpViewersInterval = setInterval(() => {
+        const delta = Math.random() < 0.5 ? (Math.random() < 0.5 ? 1 : -1) : 0;
+        if (delta !== 0) {
+            currentViewers = Math.max(0, Math.min(39, currentViewers + delta));
+            updatePdpViewersDisplay(currentViewers);
+        }
+    }, 12000);
+}
+window.getPdpViewersSuffix = getPdpViewersSuffix;
+window.updatePdpViewersDisplay = updatePdpViewersDisplay;
+window.initPdpViewersCounter = initPdpViewersCounter;
+
 
 
