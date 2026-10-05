@@ -1930,32 +1930,6 @@ async function initDynamicCatalog() {
             if (!item.sizes || item.sizes.length === 0) {
                 return false;
             }
-            // Pinned Promo Products (Sync with Meta Ad Campaigns)
-            if (item.id == '100077' || item.id === 100077) {
-                item.isPromoPinned = true;
-                item.gender = 'unisex';
-                delete item.badge;
-                return true;
-            }
-            if (item.id == '155430' || item.id === 155430) {
-                item.isPromoPinned = true;
-                item.gender = 'unisex';
-                delete item.badge;
-                return true;
-            }
-            if (item.id == '117306' || item.id === 117306) {
-                item.isPromoPinned = true;
-                item.gender = 'unisex';
-                delete item.badge;
-                item.old_price = 2400;
-                return true;
-            }
-            if (item.id == '69012' || item.id === 69012) {
-                item.isPromoPinned = true;
-                item.gender = 'unisex';
-                delete item.badge;
-                return true;
-            }
             if (isSneakerProductItem(item) && item.sizes.length < 3) {
                 return false;
             }
@@ -3359,20 +3333,6 @@ function applyCatalogFilters() {
 
 function sortFilteredProducts(criteria) {
     catalogFilteredProducts.sort((a, b) => {
-        // ALWAYS PIN PROMO PRODUCTS TO THE VERY TOP (100077 Niteball 3060 first, 155430 NB second, 117306 Campus third)
-        const getPinnedRank = (item) => {
-            if (item.id == '100077' || item.id === 100077) return 110;
-            if (item.id == '155430' || item.id === 155430) return 100;
-            if (item.id == '117306' || item.id === 117306) return 90;
-            if (item.id == '69012' || item.id === 69012) return 80;
-            return 0;
-        };
-        const rankA = getPinnedRank(a);
-        const rankB = getPinnedRank(b);
-        if (rankA !== rankB) {
-            return rankB - rankA;
-        }
-
         switch (criteria) {
             case 'price-asc':
                 return a.price - b.price;
