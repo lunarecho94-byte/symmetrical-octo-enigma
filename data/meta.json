@@ -69,19 +69,19 @@
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 5655
+      "count": 6703
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 775
+      "count": 725
     },
     {
       "slug": "summer",
       "name": "Літо",
       "icon": "",
-      "count": 1124
+      "count": 126
     }
   ],
   "brands": [

@@ -318,17 +318,42 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
     return 'shoes', 'Взуття', ''
 
 def determine_season(name, cat_slug, mat="", desc=""):
-    txt = f"{name} {mat} {desc}".lower()
-    
-    # 1. Winter (Зима / Термо / Хутро / Пуховики)
-    if re.search(r'зимов|термо|хутр|мех|winter|пуховик|сноубутс|дутики|мунбут|\bugg\b|угг|термобілизн|термокостюм|фліс|шерсть|тепл', txt):
+    name_lower = name.lower()
+    mat_lower = (mat or '').lower()
+    full_ctx = f"{name_lower} {mat_lower}"
+
+    # 0. Check 'без меха' / 'без хутра'
+    has_no_fur = bool(re.search(r'без\s+(?:меха|хутра)', full_ctx))
+
+    # 1. WINTER (Зима / Термо / Хутро / Пуховики / Утеплені моделі)
+    is_polar = bool(re.search(r'antarktik|gaiadome|duckboot', name_lower))
+    winter_kw = bool(re.search(
+        r'\b(?:зима|зимов[іаеий]|winter|термо|хутро|хутра|хутром|мех|мехом|пуховик|пуховики|парка|сноубутс|дутики|мунбут|мунбути|фліс|флісі|шерсть|утеплен[іаеий]|єврозима|еврозима|primaloft|thinsulate)\b',
+        full_ctx
+    ))
+    is_ugg = bool(re.search(r'\b(ugg|угг)\b', name_lower)) and not bool(re.search(r'сланц|сандал|шльоп', name_lower))
+    has_fur_in_title = bool(re.search(r'\(хутро\)|\(термо\)', name_lower))
+    is_warm_apparel = bool(re.search(r'пуховик|парка|пальто|дублянк', name_lower))
+
+    if (winter_kw or is_polar or is_ugg or is_warm_apparel or has_fur_in_title) and not has_no_fur:
         return 'winter', 'Зима', ''
-        
-    # 2. Summer (Літо / Сітка / Шорти / Футболки / Сланці / Сандалі)
-    if re.search(r'літн|лето|літо|summer|шорти|шорты|майк|футболк|сланц|шльоп|шлеп|сандал|\bcrocs\b|крокс|mesh|сітка|сетка|топ\b', txt):
-        return 'summer', 'Літо', ''
-        
-    # 3. Demi-season (Демісезон / Весна-Осінь / Базове щоденне)
+
+    # 2. SUMMER (Літо / Сланці / Сандалі / Шорти / Футболки)
+    # Tactical / Waterproof / Heavy boots / Warm clothing MUST NEVER be summer:
+    is_gtx_waterproof = bool(re.search(r'gore[-\s]?tex|gtx|cordura|waterproof|forces|quest\s*4d', name_lower))
+    is_heavy_boot = bool(re.search(r'ботинк|черевик|берц|чобот|хайтоп|дутик|сноубут|мунбут', name_lower))
+    is_warm_clothing = bool(re.search(r'худі|худи|світшот|свитшот|толстовк|штани|штаны|джинс|куртк|вітровк|ветровк|бомбер|анорак|костюм', name_lower))
+
+    if not (is_gtx_waterproof or is_heavy_boot or is_warm_clothing or is_warm_apparel):
+        is_open_shoe = bool(re.search(r'сланц|шльоп|шлеп|сандал|босоніж|\bcrocs\b|крокс|вьетнамк|в\'єтнамк|\bslides?\b|\bclog\b', name_lower)) and cat_slug == 'shoes'
+        is_summer_clothing = bool(re.search(r'\b(?:шорти|шорты|майка|майки|футболка|футболки|поло|купальник|купальники|плавки)\b', name_lower)) and cat_slug in ('clothing', 'underwear')
+        is_summer_mesh = bool(re.search(r'\b(?:climacool|breeze)\b', name_lower)) and cat_slug == 'shoes' and not bool(re.search(r'шкіра|кожа|замша|нубук|suede|leather', full_ctx))
+        is_summer_acc = bool(re.search(r'\b(?:панама|панамка)\b', name_lower)) and cat_slug == 'accessories'
+
+        if is_open_shoe or is_summer_clothing or is_summer_mesh or is_summer_acc:
+            return 'summer', 'Літо', ''
+
+    # 3. DEMI-SEASON (Демісезон / Весна-Осінь / Базове щоденне взуття та одяг)
     return 'demi', 'Демісезон', ''
 
 def determine_brand(name, cat_name):
@@ -838,6 +863,8 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     t = re.sub(r'\bBottega Veneta Veneta\b', 'Bottega Veneta', t, flags=re.I)
     t = re.sub(r'\bNew Balance New Balane\b', 'New Balance', t, flags=re.I)
     t = re.sub(r'\bNew Balance New Balance\b', 'New Balance', t, flags=re.I)
+    t = re.sub(r'\bSalomon\s+Solomon\b', 'Salomon', t, flags=re.I)
+    t = re.sub(r'\bSolomon\b', 'Salomon', t, flags=re.I)
 
     t = re.sub(r'\s+', ' ', t).strip(' -.,')
     return t
@@ -988,11 +1015,14 @@ def main():
         old_price = round((price * 1.18) / 10) * 10
         
         # Badge
+        is_gtx = bool(re.search(r'gore[-\s]?tex|gtx|cordura|waterproof|forces|quest\s*4d', clean_name, re.I))
         badge = "Топ якість"
         if re.search(r'піжам|попожам|пеньюар', clean_name, re.I):
             badge = "Домашній затишок"
         elif season_slug == 'winter':
             badge = "Зима • Термо"
+        elif is_gtx:
+            badge = "Вологозахист Gore-Tex"
         elif season_slug == 'summer':
             badge = "Літо • Легкість"
         elif 'sale' in cname.lower() or 'уцінка' in cname.lower():

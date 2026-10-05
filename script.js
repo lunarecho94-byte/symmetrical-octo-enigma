@@ -6316,7 +6316,7 @@ function renderPdpSpecs(item) {
         { label: 'Артикул товару:', val: item.art || '---' },
         { label: 'Бренд:', val: item.brand_name || 'URBAN' },
         { label: 'Категорія:', val: getCategoryTitle(item.cat, item) },
-        { label: 'Сезон:', val: item.season_name || (item.season === 'winter' ? 'Зима' : 'Демісезон') }
+        { label: 'Сезон:', val: item.season_name || (item.season === 'winter' ? 'Зима' : (item.season === 'summer' ? 'Літо' : 'Демісезон')) }
     ];
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
     if (cleanOrigin) rows.push({ label: 'Країна виробництва:', val: cleanOrigin });
