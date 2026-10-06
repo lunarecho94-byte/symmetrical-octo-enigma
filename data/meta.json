@@ -11,13 +11,13 @@
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 4259
+      "count": 4248
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 5487
+      "count": 5494
     }
   ],
   "categories": [
@@ -211,6 +211,11 @@
       "count": 34
     },
     {
+      "slug": "aloyoga",
+      "name": "Alo Yoga",
+      "count": 30
+    },
+    {
       "slug": "prada",
       "name": "Prada",
       "count": 29
@@ -388,7 +393,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 840
+      "count": 810
     }
   ]
 }

@@ -239,6 +239,7 @@ KNOWN_BRANDS = [
     ('mizuno', 'Mizuno', [r'mizuno']),
     ('dsquared2', 'Dsquared2', [r'dsquared']),
     ('tommy', 'Tommy Hilfiger', [r'tommy', r'hilfiger']),
+    ('aloyoga', 'Alo Yoga', [r'\balo\b', r'alo\s*yoga']),
 ]
 
 def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", brand_slug=""):
@@ -527,6 +528,14 @@ EXPLICIT_PRODUCT_OVERRIDES = {
     '226394': {'name': 'Мюлі замшеві Loro Piana Summer Walk Чорні', 'brand': ('loropiana', 'Loro Piana')},
     '226395': {'name': 'Лофери замшеві Loro Piana Summer Charms Walk Чорні', 'brand': ('loropiana', 'Loro Piana')},
     '226407': {'name': 'Лофери замшеві Loro Piana Summer Charms Walk Коричневі', 'brand': ('loropiana', 'Loro Piana')},
+    '253107': {'name': 'Спідниця Alo Yoga Black', 'brand': ('aloyoga', 'Alo Yoga')},
+    '253108': {'name': 'Спідниця Alo Yoga White', 'brand': ('aloyoga', 'Alo Yoga')},
+    '253103': {'name': 'Жіночий спортивний костюм Alo Yoga Brown', 'brand': ('aloyoga', 'Alo Yoga')},
+    '253105': {'name': 'Жіночий спортивний комплект Alo Yoga Basic Black', 'brand': ('aloyoga', 'Alo Yoga')},
+    '253106': {'name': 'Жіночий спортивний комплект Alo Yoga Basic Pink', 'brand': ('aloyoga', 'Alo Yoga')},
+    '253110': {'name': 'Жіночі широкі штани Alo Yoga Сині', 'brand': ('aloyoga', 'Alo Yoga')},
+    '253109': {'name': 'Жіноча футболка Alo Yoga Basic Black', 'brand': ('aloyoga', 'Alo Yoga')},
+    '208541': {'name': 'Кросівки Alo Yoga Runner Beige', 'brand': ('aloyoga', 'Alo Yoga')},
 }
 
 EXPLICIT_NAME_OVERRIDES = {
@@ -635,7 +644,7 @@ def determine_brand(name, cat_name, gid=None):
 GENDER_WOMEN_KW = re.compile(r'жіноч|женск|\bwomen\b|\bwoman\b|\bdamen\b|дівчат|для неї', re.I)
 GENDER_MEN_KW = re.compile(r'чоловіч|мужск|\bmen\b|\bman\b|хлопц|для нього', re.I)
 GENDER_UNISEX_KW = re.compile(r'унісекс|унисекс|unisex', re.I)
-WOMEN_BAGS_BRANDS = {'chanel', 'pinko', 'jacquemus', 'chloe', 'miumiu', 'hermes'}
+WOMEN_BAGS_BRANDS = {'chanel', 'pinko', 'jacquemus', 'chloe', 'miumiu', 'hermes', 'aloyoga'}
 WOMEN_BAGS_KW = re.compile(r'жіноч|женск|клатч|лоро піана|loro piana|lady dior|book tote', re.I)
 WOMEN_SHOE_MODELS = re.compile(
     r'platform|платформ|clog|slipper|dipper|funkette|tazzlita|disquette|tazz|tasman|mary jane|каблук|балетк|love pink|bailey|bow|coquette|fur slipper|босоніж|ботильйон|туфл|лодочк|шпильк|mule|мюли|мюлі',
@@ -644,6 +653,9 @@ WOMEN_SHOE_MODELS = re.compile(
 
 def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     full_text = f"{name} {cname} {desc}".lower()
+
+    if brand_slug == 'aloyoga':
+        return 'women'
 
     if cat_slug in ('accessories', 'bags'):
         if brand_slug in WOMEN_BAGS_BRANDS or WOMEN_BAGS_KW.search(full_text):
@@ -664,6 +676,10 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
         return 'men'
 
     if cat_slug == 'socks':
+        if GENDER_WOMEN_KW.search(full_text):
+            return 'women'
+        if GENDER_MEN_KW.search(full_text):
+            return 'men'
         return 'unisex'
 
     if cat_slug == 'shoes':
@@ -699,7 +715,11 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
                 return 'unisex'
 
     if cat_slug == 'clothing':
-        is_w = bool(GENDER_WOMEN_KW.search(full_text)) or bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|топ\b|боді|легінси|лосіни|попожам|піжам|пеньюар|кігурумі|miu\s*miu', full_text, re.I)) or brand_slug in ('miumiu', 'chanel', 'chloe', 'pinko', 'jacquemus')
+        is_w = (
+            bool(GENDER_WOMEN_KW.search(full_text)) or
+            bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|юбк|юбка|топ\b|боді|боди|легінси|лосіни|попожам|піжам|пеньюар|кігурумі|велосипедки|корсет|alo\s*yoga|\balo\b|miu\s*miu', full_text, re.I)) or
+            brand_slug in ('miumiu', 'chanel', 'chloe', 'pinko', 'jacquemus', 'aloyoga')
+        )
         if is_w:
             return 'women'
         return 'men'
@@ -914,6 +934,8 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     t = re.sub(r'^Термо\s*костюм\s+Columbia\s+Women\b', 'Жіноча термобілизна Columbia', t, flags=re.I)
     t = re.sub(r'^Термо\s*костюм\s+Columbia\s+Black\s+Men\b', 'Чоловіча термобілизна Columbia Black', t, flags=re.I)
     t = re.sub(r'^(?:Піжама\s+комбінезон(?:\s*\(попожама\))?|Попожама)\b', 'Жіноча піжама-комбінезон', t, flags=re.I)
+    t = re.sub(r'^(?:ЮБКА|Юбка)\s*', 'Спідниця ', t, flags=re.I)
+    t = re.sub(r'\bюбка\b', 'спідниця', t, flags=re.I)
     t = re.sub(r'^МУЖСКИЕ\s*', 'Чоловічі ', t, flags=re.I)
     t = re.sub(r'^ЖЕНСКИЕ\s*', 'Жіночі ', t, flags=re.I)
     t = re.sub(r'^СВИТШОТ\s*', 'Світшот ', t, flags=re.I)
@@ -988,6 +1010,13 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
     elif low.startswith('1460 '):
         if 'martens' not in low:
             t = f'Dr. Martens {t}'
+
+    if brand_slug == 'aloyoga' and cat_slug == 'shoes':
+        t = re.sub(r'^Alo\s+Yoga\s+', 'Кросівки Alo Yoga ', t, flags=re.I)
+        t = re.sub(r'^Alo\s+Shoes\s+', 'Кросівки Alo Yoga ', t, flags=re.I)
+        t = re.sub(r'^Alo\s+Recovery\s+', 'Кросівки Alo Yoga Recovery ', t, flags=re.I)
+        if not t.lower().startswith(('кросівки', 'кеди', 'черевики')):
+            t = f'Кросівки {t}'
             
     # 8. Handle code-only names (V82, WJ153, SS28, F34, H042, SL60, NTR495, NB299, VN02)
     t = re.sub(r'^КАРГО\s+(2Y|\d+)', r'Штани карго \1', t, flags=re.I)

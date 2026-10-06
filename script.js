@@ -1892,6 +1892,8 @@ function formatProductDisplayName(item) {
     // Strip URLs and No brand
     name = name.replace(/https?:\/\/[^\s]+/g, '').trim();
     name = name.replace(/\s*\bNo\s*brand\b/gi, '').trim();
+    name = name.replace(/^(?:ЮБКА|Юбка)\s*/i, 'Спідниця ');
+    name = name.replace(/\bюбка\b/gi, 'спідниця');
     name = name.replace(/^КАРГО\s+(2Y|\d+)/i, 'Штани карго $1');
     name = name.replace(/^V(\d{2,3})$/i, (m, c) => 'Вітровка з капюшоном демісезонна V' + c);
     name = name.replace(/^F(\d{2,4})$/i, (m, c) => 'Худі оверсайз F' + c);
