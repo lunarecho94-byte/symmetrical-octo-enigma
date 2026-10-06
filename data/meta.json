@@ -1,23 +1,23 @@
 {
-  "total": 7607,
+  "total": 7634,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 7607
+      "count": 7634
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 4242
+      "count": 4259
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 5471
+      "count": 5487
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 7607
+      "count": 7634
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "",
-      "count": 5797
+      "count": 5827
     },
     {
       "slug": "clothing",
@@ -55,7 +55,7 @@
       "slug": "accessories",
       "name": "Аксесуари & Сумки",
       "icon": "",
-      "count": 856
+      "count": 853
     }
   ],
   "seasons": [
@@ -63,19 +63,19 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 7607
+      "count": 7634
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 6710
+      "count": 6727
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 752
+      "count": 762
     },
     {
       "slug": "summer",
@@ -88,42 +88,42 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7607
+      "count": 7634
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2146
+      "count": 2153
     },
     {
       "slug": "newbalance",
       "name": "New Balance",
-      "count": 1327
+      "count": 1335
     },
     {
       "slug": "adidas",
       "name": "Adidas",
-      "count": 531
+      "count": 532
     },
     {
       "slug": "asics",
       "name": "Asics",
-      "count": 418
+      "count": 417
     },
     {
       "slug": "ugg",
       "name": "UGG",
-      "count": 404
+      "count": 405
     },
     {
       "slug": "chanel",
       "name": "Chanel",
-      "count": 183
+      "count": 181
     },
     {
       "slug": "jordan",
       "name": "Air Jordan",
-      "count": 141
+      "count": 140
     },
     {
       "slug": "dior",
@@ -131,14 +131,19 @@
       "count": 139
     },
     {
+      "slug": "salomon",
+      "name": "Salomon",
+      "count": 124
+    },
+    {
       "slug": "balenciaga",
       "name": "Balenciaga",
       "count": 123
     },
     {
-      "slug": "salomon",
-      "name": "Salomon",
-      "count": 121
+      "slug": "oncloud",
+      "name": "On Cloud",
+      "count": 88
     },
     {
       "slug": "hermes",
@@ -146,14 +151,9 @@
       "count": 87
     },
     {
-      "slug": "oncloud",
-      "name": "On Cloud",
-      "count": 85
-    },
-    {
       "slug": "coach",
       "name": "Coach",
-      "count": 77
+      "count": 76
     },
     {
       "slug": "miumiu",
@@ -168,7 +168,7 @@
     {
       "slug": "tnf",
       "name": "The North Face",
-      "count": 61
+      "count": 64
     },
     {
       "slug": "premiata",
@@ -181,14 +181,14 @@
       "count": 57
     },
     {
-      "slug": "goldengoose",
-      "name": "Golden Goose",
-      "count": 55
-    },
-    {
       "slug": "offwhite",
       "name": "Off-White",
-      "count": 52
+      "count": 54
+    },
+    {
+      "slug": "goldengoose",
+      "name": "Golden Goose",
+      "count": 54
     },
     {
       "slug": "puma",
@@ -246,6 +246,11 @@
       "count": 19
     },
     {
+      "slug": "lacoste",
+      "name": "Lacoste",
+      "count": 19
+    },
+    {
       "slug": "jacquemus",
       "name": "Jacquemus",
       "count": 19
@@ -261,11 +266,6 @@
       "count": 16
     },
     {
-      "slug": "lacoste",
-      "name": "Lacoste",
-      "count": 16
-    },
-    {
       "slug": "underarmour",
       "name": "Under Armour",
       "count": 14
@@ -278,7 +278,7 @@
     {
       "slug": "reebok",
       "name": "Reebok",
-      "count": 12
+      "count": 13
     },
     {
       "slug": "champion",
@@ -388,7 +388,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 839
+      "count": 840
     }
   ]
 }
