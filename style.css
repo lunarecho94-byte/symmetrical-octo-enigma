@@ -1619,6 +1619,22 @@ section, header, footer, .announcement-bar {
     border: none !important;
 }
 
+/* Return-to-product highlight effect when returning from PDP */
+.product-card.product-card-returned .product-img-wrapper {
+    outline: 3px solid #7c3aed !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 26px rgba(124, 58, 237, 0.45) !important;
+    animation: returnedCardPulse 1.8s ease-in-out !important;
+}
+
+@keyframes returnedCardPulse {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.03); }
+    50% { transform: scale(0.99); }
+    75% { transform: scale(1.015); }
+    100% { transform: scale(1); }
+}
+
 .want-card-link {
     display: flex;
     flex-direction: column;

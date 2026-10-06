@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=7.5">
+    <link rel="stylesheet" href="style.css?v=7.6">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -99,13 +99,13 @@
             
             <!-- Breadcrumbs & Return Navigation -->
             <div class="pdp-breadcrumbs-bar">
-                <a href="index.html" class="pdp-back-link" onclick="if(window.history.length>1){window.history.back(); return false;}">
+                <a href="index.html" class="pdp-back-link" id="pdpBackLink" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">
                     ← Назад до каталогу
                 </a>
                 <nav class="pdp-breadcrumbs" aria-label="Навігація">
-                    <a href="index.html">Головна</a>
+                    <a href="index.html" id="pdpCrumbHome" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">Головна</a>
                     <span class="sep">/</span>
-                    <a href="index.html" id="pdpCrumbCat">Каталог</a>
+                    <a href="index.html" id="pdpCrumbCat" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">Каталог</a>
                     <span class="sep">/</span>
                     <span id="pdpCrumbBrand">Бренд</span>
                     <span class="sep">/</span>
@@ -133,7 +133,7 @@
                 </div>
                 <h2>Товар не знайдено</h2>
                 <p>Можливо, цей товар уже розпродано або посилання застаріло. Перегляньте наш актуальний каталог — у нас понад 7 500 моделей у наявності!</p>
-                <a href="index.html" class="btn-primary btn-pdp-go-home">Перейти до каталогу</a>
+                <a href="index.html" class="btn-primary btn-pdp-go-home" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">Перейти до каталогу</a>
             </div>
 
             <!-- Active Product Content -->
@@ -640,7 +640,7 @@
                         <li><button type="button" class="drawer-nav-item" data-brand="dior" onclick="applyDrawerBrand('dior')"><span class="drawer-nav-name">Dior</span><span class="drawer-nav-count">139</span></button></li>
                         <li><button type="button" class="drawer-nav-item" data-brand="puma" onclick="applyDrawerBrand('puma')"><span class="drawer-nav-name">Puma</span><span class="drawer-nav-count">42</span></button></li>
                     </ul>
-                    <button type="button" class="drawer-all-brands-btn" onclick="closeCatalogDrawer(); location.href='index.html';">
+                    <button type="button" class="drawer-all-brands-btn" onclick="closeCatalogDrawer(); if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();}else{location.href='index.html';}">
                         <span>Усі 55 брендів у каталозі...</span>
                         <span>→</span>
                     </button>
@@ -973,6 +973,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=7.9"></script>
+    <script src="script.js?v=8.0"></script>
 </body>
 </html>
