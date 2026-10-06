@@ -1,17 +1,17 @@
 {
-  "total": 7595,
+  "total": 7594,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 7595
+      "count": 7594
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 4237
+      "count": 4236
     },
     {
       "slug": "women",
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 7595
+      "count": 7594
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "",
-      "count": 5785
+      "count": 5784
     },
     {
       "slug": "clothing",
@@ -63,13 +63,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 7595
+      "count": 7594
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 6704
+      "count": 6703
     },
     {
       "slug": "winter",
@@ -88,12 +88,12 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7595
+      "count": 7594
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2141
+      "count": 2140
     },
     {
       "slug": "newbalance",
