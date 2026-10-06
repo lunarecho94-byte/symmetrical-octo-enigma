@@ -322,10 +322,11 @@ def determine_category(name, cat_name, desc, params_str="", sizes=None, mat="", 
     # 7. Fallback is Shoes
     return 'shoes', 'Взуття', ''
 
-def determine_season(name, cat_slug, mat="", desc=""):
+def determine_season(name, cat_slug, mat="", desc="", cname=""):
     name_lower = name.lower()
     mat_lower = (mat or '').lower()
-    full_ctx = f"{name_lower} {mat_lower}"
+    cname_lower = (cname or '').lower()
+    full_ctx = f"{name_lower} {mat_lower} {cname_lower}"
 
     # 0. Check 'без меха' / 'без хутра'
     has_no_fur = bool(re.search(r'без\s+(?:меха|хутра)', full_ctx))
@@ -351,7 +352,7 @@ def determine_season(name, cat_slug, mat="", desc=""):
 
     if not (is_gtx_waterproof or is_heavy_boot or is_warm_clothing or is_warm_apparel):
         is_open_shoe = bool(re.search(r'сланц|шльоп|шлеп|сандал|босоніж|\bcrocs\b|крокс|вьетнамк|в\'єтнамк|\bslides?\b|\bclog\b', name_lower)) and cat_slug == 'shoes'
-        is_summer_clothing = bool(re.search(r'\b(?:шорти|шорты|майка|майки|футболка|футболки|поло|купальник|купальники|плавки)\b', name_lower)) and cat_slug in ('clothing', 'underwear')
+        is_summer_clothing = (bool(re.search(r'\b(?:шорти|шорты|майка|майки|футболка|футболки|поло|купальник|купальники|плавки)\b', name_lower)) or bool(re.search(r'шорти|шорты', cname_lower))) and cat_slug in ('clothing', 'underwear')
         is_summer_mesh = bool(re.search(r'\b(?:climacool|breeze)\b', name_lower)) and cat_slug == 'shoes' and not bool(re.search(r'шкіра|кожа|замша|нубук|suede|leather', full_ctx))
         is_summer_acc = bool(re.search(r'\b(?:панама|панамка)\b', name_lower)) and cat_slug == 'accessories'
 
@@ -536,6 +537,13 @@ EXPLICIT_PRODUCT_OVERRIDES = {
     '253110': {'name': 'Жіночі широкі штани Alo Yoga Сині', 'brand': ('aloyoga', 'Alo Yoga')},
     '253109': {'name': 'Жіноча футболка Alo Yoga Basic Black', 'brand': ('aloyoga', 'Alo Yoga')},
     '208541': {'name': 'Кросівки Alo Yoga Runner Beige', 'brand': ('aloyoga', 'Alo Yoga')},
+    '170405': {'name': 'Жіноча футболка оверсайз Balenciaga Logo Embroidery Black', 'brand': ('balenciaga', 'Balenciaga')},
+    '167814': {'name': 'Жіноче худі оверсайз Balenciaga Political Campaign Beige', 'brand': ('balenciaga', 'Balenciaga')},
+    '173658': {'name': 'Шорти Nike ACG UV Black', 'brand': ('nike', 'Nike')},
+    '234799': {'name': 'Шорти Nike Black', 'brand': ('nike', 'Nike')},
+    '234800': {'name': 'Шорти Nike Blue', 'brand': ('nike', 'Nike')},
+    '98991': {'name': 'Шорти Patagonia Khaki', 'brand': ('other', 'Patagonia')},
+    '234797': {'name': 'Шорти Salomon 11byBBS', 'brand': ('salomon', 'Salomon')},
 }
 
 EXPLICIT_NAME_OVERRIDES = {
@@ -651,9 +659,13 @@ WOMEN_SHOE_MODELS = re.compile(
     re.I
 )
 
-def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
+def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc="", gid=None):
     full_text = f"{name} {cname} {desc}".lower()
 
+    if gid and str(gid) in ('170405', '167814', '167810', '167806', '167815', '167812'):
+        return 'women'
+    if cname and '1740596413644' in str(cname):
+        return 'women'
     if brand_slug == 'aloyoga':
         return 'women'
 
@@ -717,7 +729,7 @@ def determine_gender(name, cat_slug, brand_slug, sizes, cname="", desc=""):
     if cat_slug == 'clothing':
         is_w = (
             bool(GENDER_WOMEN_KW.search(full_text)) or
-            bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|юбк|юбка|топ\b|боді|боди|легінси|лосіни|попожам|піжам|пеньюар|кігурумі|велосипедки|корсет|alo\s*yoga|\balo\b|miu\s*miu', full_text, re.I)) or
+            bool(re.search(r'жіноч|женск|плаття|сукня|спідниця|юбк|юбка|топ\b|боді|боди|легінси|лосіни|попожам|піжам|пеньюар|кігурумі|велосипедки|корсет|alo\s*yoga|\balo\b|miu\s*miu|political\s*campaign|logo\s*embroidery', full_text, re.I)) or
             brand_slug in ('miumiu', 'chanel', 'chloe', 'pinko', 'jacquemus', 'aloyoga')
         )
         if is_w:
@@ -1017,6 +1029,9 @@ def clean_product_title(name, cat_slug, brand_slug, brand_title, cat_name, desc=
         t = re.sub(r'^Alo\s+Recovery\s+', 'Кросівки Alo Yoga Recovery ', t, flags=re.I)
         if not t.lower().startswith(('кросівки', 'кеди', 'черевики')):
             t = f'Кросівки {t}'
+
+    if re.search(r'шорти|шорты', cat_name.lower()) and not re.search(r'шорт', t.lower()):
+        t = f'Шорти {t}'
             
     # 8. Handle code-only names (V82, WJ153, SS28, F34, H042, SL60, NTR495, NB299, VN02)
     t = re.sub(r'^КАРГО\s+(2Y|\d+)', r'Штани карго \1', t, flags=re.I)
@@ -1367,8 +1382,8 @@ def main():
         if 'сумка' in clean_name.lower() and re.search(r'\b(lv|лв|louis\s*vuitton)\b', clean_name, re.I):
             continue
         
-        gender = determine_gender(clean_name, cat_slug, brand_slug, sorted_sizes, cname, desc)
-        season_slug, season_title, season_icon = determine_season(clean_name, cat_slug, mat, desc)
+        gender = determine_gender(clean_name, cat_slug, brand_slug, sorted_sizes, cname, desc, gid=gid)
+        season_slug, season_title, season_icon = determine_season(clean_name, cat_slug, mat, desc, cname=cname)
 
         category_counts[cat_slug] += 1
         season_counts[season_slug] += 1
