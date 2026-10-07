@@ -1844,13 +1844,31 @@ function checkCatalogReturnState() {
         const urlParams = new URLSearchParams(window.location.search);
         returnProductId = urlParams.get('return') || urlParams.get('return_product') || urlParams.get('p') || '';
         
+        const hasReturnParam = Boolean(returnProductId);
+        const hasPdpReferrer = Boolean(document.referrer && (
+            document.referrer.includes('/product') || 
+            document.referrer.includes('product.html')
+        ));
+
+        // If this is a direct organic visit to the catalog (not returning from PDP),
+        // wipe any stale session storage so it never restores old sessions and never leaks memory!
+        if (!hasReturnParam && !hasPdpReferrer) {
+            try {
+                sessionStorage.removeItem('urban_catalog_state');
+                sessionStorage.removeItem('urban_last_viewed_product_id');
+            } catch (e) {}
+            returnProductId = null;
+            savedCatalogState = null;
+            return;
+        }
+
         let storedState = null;
         try {
             const raw = sessionStorage.getItem('urban_catalog_state');
             if (raw) storedState = JSON.parse(raw);
         } catch (e) {}
 
-        if (storedState && (Date.now() - (storedState.timestamp || 0) < 2 * 60 * 60 * 1000)) {
+        if (storedState && (Date.now() - (storedState.timestamp || 0) < 30 * 60 * 1000)) {
             savedCatalogState = storedState;
             if (!returnProductId) {
                 returnProductId = storedState.productId;
@@ -1862,6 +1880,12 @@ function checkCatalogReturnState() {
                 returnProductId = sessionStorage.getItem('urban_last_viewed_product_id');
             } catch (e) {}
         }
+
+        // Clean up sessionStorage immediately so it only executes once and never poisons future visits
+        try {
+            sessionStorage.removeItem('urban_catalog_state');
+            sessionStorage.removeItem('urban_last_viewed_product_id');
+        } catch (e) {}
 
         if (returnProductId) {
             returnProductId = String(returnProductId).trim();
@@ -3557,7 +3581,7 @@ function applyCatalogFilters() {
     // Sort
     sortFilteredProducts(currentCatalogSort);
 
-    // Calculate how many products to render
+    // Calculate how many products to render (Hard safety cap to prevent mobile WebKit memory crashes)
     let initialBatchCount = CATALOG_PAGE_SIZE;
     if (returnProductId) {
         let targetIdx = catalogFilteredProducts.findIndex(p => String(p.id) === String(returnProductId));
@@ -3578,13 +3602,27 @@ function applyCatalogFilters() {
             }
         }
         if (targetIdx !== -1) {
-            // Render enough batches so target product is fully present in DOM
-            initialBatchCount = Math.max(initialBatchCount, Math.ceil((targetIdx + 6) / CATALOG_PAGE_SIZE) * CATALOG_PAGE_SIZE);
+            if (targetIdx < 48) {
+                // Render up to 48 items so target card is fully present in DOM
+                initialBatchCount = Math.max(initialBatchCount, Math.ceil((targetIdx + 4) / CATALOG_PAGE_SIZE) * CATALOG_PAGE_SIZE);
+            } else {
+                // To prevent mobile memory crashes, never render hundreds or thousands of cards at once!
+                // Move the viewed product to the beginning of the view list so it is immediately rendered in the first batch
+                const targetItem = catalogFilteredProducts.splice(targetIdx, 1)[0];
+                if (targetItem) {
+                    catalogFilteredProducts.unshift(targetItem);
+                }
+                initialBatchCount = CATALOG_PAGE_SIZE;
+            }
         }
     }
     if (savedCatalogState && savedCatalogState.renderedCount) {
-        initialBatchCount = Math.max(initialBatchCount, savedCatalogState.renderedCount);
+        // Cap saved batch count on mobile/reload to at most 48 items
+        initialBatchCount = Math.max(initialBatchCount, Math.min(48, savedCatalogState.renderedCount));
     }
+
+    // Absolute hard ceiling: NEVER render more than 48 cards synchronously
+    initialBatchCount = Math.min(48, Math.max(CATALOG_PAGE_SIZE, initialBatchCount));
 
     // Render from page 1 with initialBatchCount
     catalogRenderedCount = 0;
@@ -3966,9 +4004,11 @@ function focusSearchInput(e) {
 // Mobile Swipe Support for Product Cards (Strictly horizontal intentional swipe)
 function initSwipeGalleries() {
     document.querySelectorAll('.product-card').forEach(card => {
+        if (card._swipeInitialized) return;
         const wrapper = card.querySelector('.product-img-wrapper');
         const thumbs = card.querySelectorAll('.card-thumb-img');
         if (!wrapper || thumbs.length <= 1) return;
+        card._swipeInitialized = true;
 
         let startX = 0;
         let startY = 0;
@@ -6148,6 +6188,7 @@ function scrollToCatalogProductCard(productId, fallbackY) {
             // Clear session storage so subsequent visits don't auto-scroll
             try {
                 sessionStorage.removeItem('urban_last_viewed_product_id');
+                sessionStorage.removeItem('urban_catalog_state');
             } catch (e) {}
 
             // Clean return parameter from URL
