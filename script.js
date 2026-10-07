@@ -1199,11 +1199,122 @@ async function generateOrderPdf(orderId, orderDate) {
 }
 
 /**
- * Резервований диспетчер надсилання замовлень:
- * 1. Надійне збереження в автономний реєстр (localStorage + sessionStorage) - 0% втрат замовлень
- * 2. Основна відправка через FormSubmit AJAX із розширеним таймаутом (9с) та валідним реферером
- * 3. Автоматичний повтор (retry) без важкого PDF-вкладення у разі повільного мобільного зв'язку
+ * Резервований багатоканальний диспетчер надсилання замовлень:
+ * 1. Автономний локальний реєстр (localStorage + sessionStorage) — 100% збереження
+ * 2. Telegram Bot (основний миттєвий канал із звуковим push-сповіщенням менеджеру)
+ * 3. Slapform (хмарне резервне збереження)
+ * 4. FormSubmit (резервна пошта на Gmail)
  */
+function escapeTelegramHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+window.escapeTelegramHtml = escapeTelegramHtml;
+
+function saveOrderToLedger(orderRecord) {
+    if (!orderRecord) return;
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(orderRecord));
+        const existingLedger = JSON.parse(localStorage.getItem('ug_orders_ledger') || '[]');
+        existingLedger.unshift(orderRecord);
+        if (existingLedger.length > 100) existingLedger.length = 100;
+        localStorage.setItem('ug_orders_ledger', JSON.stringify(existingLedger));
+    } catch (e) {
+        console.warn('Order ledger save note:', e);
+    }
+}
+window.saveOrderToLedger = saveOrderToLedger;
+
+async function sendTelegramOrderNotification({
+    orderId,
+    customerName,
+    customerPhone,
+    delivery,
+    payment,
+    itemsText,
+    quickTtn,
+    total,
+    contactPreference
+}) {
+    const TG_TOKEN = window.TG_ORDER_BOT_TOKEN || '8679193496:AAGi5T0ZijUX1ksKkY0T2KB8Hh0UK_W2MyE';
+    const TG_CHAT = window.TG_ORDER_CHAT_ID || '7907920864';
+    if (!TG_TOKEN || !TG_CHAT) return false;
+
+    const safeId = escapeTelegramHtml(orderId);
+    const safeName = escapeTelegramHtml(customerName);
+    const safePhone = escapeTelegramHtml(customerPhone);
+    const safeDelivery = escapeTelegramHtml(delivery);
+    const safePayment = escapeTelegramHtml(payment);
+    const safeContact = escapeTelegramHtml(contactPreference || '');
+    const safeTotal = escapeTelegramHtml(total);
+    const safeItems = escapeTelegramHtml(itemsText);
+    const safeTtn = escapeTelegramHtml(quickTtn);
+
+    const htmlText = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ ${safeId}</b>\n\n` +
+        `👤 <b>Клієнт:</b> ${safeName}\n` +
+        `📞 <b>Телефон:</b> ${safePhone}\n` +
+        `📍 <b>Доставка:</b> ${safeDelivery}\n` +
+        `💳 <b>Оплата:</b> ${safePayment}\n` +
+        (safeContact ? `💬 <b>Зв'язок:</b> ${safeContact}\n` : '') +
+        `💰 <b>Сума:</b> <b>${safeTotal}</b>\n\n` +
+        `📦 <b>Товари:</b>\n${safeItems}\n\n` +
+        `📋 <b>Дані для швидкої ТТН (Нова Пошта):</b>\n<code>${safeTtn}</code>`;
+
+    const plainText = `🛍️ НОВЕ ЗАМОВЛЕННЯ ${orderId}\n\n` +
+        `👤 Клієнт: ${customerName}\n` +
+        `📞 Телефон: ${customerPhone}\n` +
+        `📍 Доставка: ${delivery}\n` +
+        `💳 Оплата: ${payment}\n` +
+        (contactPreference ? `💬 Зв'язок: ${contactPreference}\n` : '') +
+        `💰 Сума: ${total}\n\n` +
+        `📦 Товари:\n${itemsText}\n\n` +
+        `📋 Дані для швидкої ТТН (Нова Пошта):\n${quickTtn}`;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    try {
+        const res = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+            method: 'POST',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TG_CHAT,
+                text: htmlText,
+                parse_mode: 'HTML'
+            }),
+            signal: controller.signal
+        });
+
+        if (res.ok) {
+            clearTimeout(timeoutId);
+            return true;
+        }
+
+        console.warn('Telegram HTML send status:', res.status, 'Retrying as plain text...');
+        const plainRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+            method: 'POST',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TG_CHAT,
+                text: plainText
+            }),
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        return plainRes.ok;
+    } catch (err) {
+        clearTimeout(timeoutId);
+        console.warn('Telegram dispatch note:', err);
+        return false;
+    }
+}
+window.sendTelegramOrderNotification = sendTelegramOrderNotification;
+
 async function sendOrderDispatch({
     orderId,
     orderDate,
@@ -1221,7 +1332,7 @@ async function sendOrderDispatch({
     const formattedOrderId = (orderId || 'UG-0000').startsWith('#') ? orderId : `#${orderId}`;
     const cleanPhone = (customerPhone || '').replace(/[^\d+]/g, '');
 
-    // 1. Збереження в локальний автономний журнал замовлень (гарантія безпеки даних менеджера)
+    // 1. Автономне локальне збереження в журнал замовлень (100% захист даних)
     const orderRecord = {
         orderId: formattedOrderId,
         date: orderDate || new Date().toLocaleString('uk-UA'),
@@ -1234,119 +1345,36 @@ async function sendOrderDispatch({
         total: total || '',
         timestamp: Date.now()
     };
-
-    try {
-        sessionStorage.setItem('ug_last_order', JSON.stringify(orderRecord));
-        const existingLedger = JSON.parse(localStorage.getItem('ug_orders_ledger') || '[]');
-        existingLedger.unshift(orderRecord);
-        if (existingLedger.length > 100) existingLedger.length = 100;
-        localStorage.setItem('ug_orders_ledger', JSON.stringify(existingLedger));
-    } catch (e) {
-        console.warn('Order ledger save note:', e);
-    }
-
-    // 2. Формування даних для відправки на пошту
-    const emailSubject = subject || `Замовлення ${formattedOrderId} | ${total} | ${customerName}`;
-    const currentOrigin = window.location.origin || 'https://urbangrid.com.ua';
-
-    function buildFormData(withAttachment = true) {
-        const fd = new FormData();
-        fd.append('_captcha', 'false');
-        fd.append('_template', 'table');
-        fd.append('_subject', emailSubject);
-        fd.append('_url', currentOrigin);
-
-        fd.append('№', `${formattedOrderId} (${orderRecord.date})`);
-        fd.append('Сума', total);
-        fd.append('Оплата', payment);
-        if (contactPreference) {
-            fd.append('Дзвінок', contactPreference);
-        }
-        fd.append('Клієнт', customerName);
-        fd.append('Тел', cleanPhone || customerPhone);
-        fd.append('Доставка', delivery);
-        fd.append('Товари', itemsText);
-        fd.append('Для ТТН', quickTtn);
-
-        if (withAttachment && pdfResult && pdfResult.blob) {
-            fd.append('attachment', pdfResult.blob, pdfResult.fileName || `Zamovlennya_${orderId}.pdf`);
-        }
-        return fd;
-    }
+    saveOrderToLedger(orderRecord);
 
     let submitted = false;
 
-    // Список цільових адрес для сповіщень про нові замовлення
-    const TARGET_EMAILS = ['lunarecho94@gmail.com', 'lunarecho94@gmali.com', 'lunarecho94@icloud.com'];
-
-    // Спроба 1: ShipMyForm (паралельна миттєва відправка на lunarecho94@gmail.com / lunarecho94@gmali.com)
-    for (const targetEmail of TARGET_EMAILS) {
-        try {
-            const controllerShip = new AbortController();
-            const timeoutShip = setTimeout(() => controllerShip.abort(), 6000);
-            fetch(`https://shipmyform.com/to/${targetEmail}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify({
-                    subject: emailSubject,
-                    'Замовлення': formattedOrderId,
-                    'Дата': orderRecord.date,
-                    'Клієнт': customerName,
-                    'Телефон': cleanPhone || customerPhone,
-                    'Доставка': delivery,
-                    'Оплата': payment,
-                    'Сума': total,
-                    'Товари': itemsText,
-                    'Дані для ТТН': quickTtn
-                }),
-                signal: controllerShip.signal
-            }).then(res => {
-                clearTimeout(timeoutShip);
-                if (res.ok) submitted = true;
-            }).catch(() => {
-                clearTimeout(timeoutShip);
-            });
-        } catch (shipErr) {
-            console.warn('ShipMyForm dispatch note:', shipErr);
-        }
+    // 2. Головний найнадійніший канал: Telegram Bot (миттєве звукове push-сповіщення менеджеру)
+    try {
+        const tgOk = await sendTelegramOrderNotification({
+            orderId: formattedOrderId,
+            customerName: customerName || 'Клієнт',
+            customerPhone: cleanPhone || customerPhone,
+            delivery: delivery || 'Узгодити з менеджером',
+            payment: payment || 'Накладений платіж',
+            itemsText: itemsText || '',
+            quickTtn: quickTtn || '',
+            total: total || '',
+            contactPreference: contactPreference || ''
+        });
+        if (tgOk) submitted = true;
+    } catch (tgErr) {
+        console.warn('Telegram notification dispatch error:', tgErr);
     }
 
-    // Спроба 2: Резервний шлюз 000form (відправка на lunarecho94@gmail.com)
-    try {
-        const controller000 = new AbortController();
-        const timeout000 = setTimeout(() => controller000.abort(), 6000);
-        const fd000 = new FormData();
-        fd000.append('subject', emailSubject);
-        fd000.append('Замовлення', formattedOrderId);
-        fd000.append('Дата', orderRecord.date);
-        fd000.append('Клієнт', customerName);
-        fd000.append('Телефон', cleanPhone || customerPhone);
-        fd000.append('Доставка', delivery);
-        fd000.append('Оплата', payment);
-        fd000.append('Сума', total);
-        fd000.append('Товари', itemsText);
-        fd000.append('Дані для ТТН', quickTtn);
-
-        fetch('https://000form.com/f/lunarecho94@gmail.com', {
-            method: 'POST',
-            body: fd000,
-            signal: controller000.signal
-        }).then(res => {
-            clearTimeout(timeout000);
-            if (res.ok) submitted = true;
-        }).catch(() => {
-            clearTimeout(timeout000);
-        });
-    } catch (err000) {}
-
-    // Спроба 3: Slapform (хмарне збереження в панелі Slapform)
+    // 3. Резервний канал 1: Slapform (хмарна база)
     const SLAPFORM_FORM_ID = window.SLAPFORM_FORM_ID || '6Z5d923ip';
     if (SLAPFORM_FORM_ID) {
         try {
             const controller0 = new AbortController();
-            const timeoutId0 = setTimeout(() => controller0.abort(), 5000);
+            const timeoutId0 = setTimeout(() => controller0.abort(), 4000);
             const slapPayload = {
-                slap_subject: emailSubject,
+                slap_subject: subject || `Замовлення ${formattedOrderId} | ${total} | ${customerName}`,
                 'Замовлення': formattedOrderId,
                 'Дата': orderRecord.date,
                 'Клієнт': customerName,
@@ -1363,6 +1391,7 @@ async function sendOrderDispatch({
 
             fetch(`https://api.slapform.com/${SLAPFORM_FORM_ID}`, {
                 method: 'POST',
+                keepalive: true,
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify(slapPayload),
                 signal: controller0.signal
@@ -1377,46 +1406,32 @@ async function sendOrderDispatch({
         }
     }
 
-    // Додатковий найнадійніший канал: Telegram Bot (миттєве push-сповіщення менеджеру зі звуком)
-    const TG_TOKEN = window.TG_ORDER_BOT_TOKEN || '8679193496:AAGi5T0ZijUX1ksKkY0T2KB8Hh0UK_W2MyE';
-    const TG_CHAT = window.TG_ORDER_CHAT_ID || '7907920864';
-
-    async function dispatchTelegramNotification() {
-        if (!TG_TOKEN || !TG_CHAT) return;
-        try {
-            const tgText = `<b>НОВЕ ЗАМОВЛЕННЯ ${formattedOrderId}</b>\n\n` +
-                `<b>Клієнт:</b> ${customerName}\n` +
-                `<b>Телефон:</b> ${cleanPhone || customerPhone}\n` +
-                `<b>Доставка:</b> ${delivery}\n` +
-                `<b>Оплата:</b> ${payment}\n` +
-                `<b>Сума:</b> <b>${total}</b>\n\n` +
-                `<b>Товари:</b>\n${itemsText}\n\n` +
-                `<b>Дані для ТТН:</b>\n<code>${quickTtn}</code>`;
-
-            const tgRes = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TG_CHAT,
-                    text: tgText,
-                    parse_mode: 'HTML'
-                })
-            });
-            if (tgRes.ok) submitted = true;
-        } catch (tgErr) {
-            console.warn('Telegram dispatch note:', tgErr);
-        }
-    }
-    dispatchTelegramNotification();
-
-    // Резервний шлюз FormSubmit (відправка на Gmail)
+    // 4. Резервний канал 2: FormSubmit (відправка на Gmail)
     try {
+        const emailSubject = subject || `Замовлення ${formattedOrderId} | ${total} | ${customerName}`;
+        const currentOrigin = window.location.origin || 'https://urbangrid.com.ua';
+        const fd = new FormData();
+        fd.append('_captcha', 'false');
+        fd.append('_template', 'table');
+        fd.append('_subject', emailSubject);
+        fd.append('_url', currentOrigin);
+        fd.append('№', `${formattedOrderId} (${orderRecord.date})`);
+        fd.append('Сума', total);
+        fd.append('Оплата', payment);
+        if (contactPreference) fd.append('Дзвінок', contactPreference);
+        fd.append('Клієнт', customerName);
+        fd.append('Тел', cleanPhone || customerPhone);
+        fd.append('Доставка', delivery);
+        fd.append('Товари', itemsText);
+        fd.append('Для ТТН', quickTtn);
+
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 6000);
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
 
         fetch('https://formsubmit.co/ajax/lunarecho94@gmail.com', {
             method: 'POST',
-            body: buildFormData(false),
+            keepalive: true,
+            body: fd,
             signal: controller.signal
         }).then(res => {
             clearTimeout(timeoutId);
@@ -1628,6 +1643,7 @@ async function handleCheckoutFormSubmit(e) {
     });
 
     // Save rich order summary in sessionStorage for the thank-you page
+    const orderTotalNumPurchase = orderTotalNum || 0;
     const orderSummaryInfo = {
         orderId,
         orderDate: formattedDate,
@@ -1682,12 +1698,12 @@ function checkOrderSuccess() {
 function showOrderSuccessModal(orderInfo) {
     const modal = document.getElementById('orderSuccessModal');
     if (!modal) {
-        alert('Дякуємо за замовлення!\n\nВаше замовлення успішно прийнято. Менеджер зв\'яжеться з вами протягом 10 хвилин для узгодження деталей та відправки.');
+        alert('Дякуємо за замовлення!\n\nВаше замовлення успішно прийнято. Менеджер зв\'яжеться з вами найближчим часом для узгодження деталей та відправки.');
         return;
     }
 
-    const orderNumEl = document.getElementById('successOrderNum');
-    const detailsBox = document.getElementById('successOrderDetailsBox');
+    const orderNumEl = document.getElementById('successOrderNum') || document.getElementById('successOrderId');
+    const detailsBox = document.getElementById('successOrderDetailsBox') || document.getElementById('successOrderDetails');
 
     if (orderInfo) {
         if (orderNumEl) orderNumEl.textContent = `№ ${orderInfo.orderId}`;
@@ -1695,10 +1711,10 @@ function showOrderSuccessModal(orderInfo) {
             detailsBox.innerHTML = `
                 <div class="details-row"><span>Одержувач:</span> <b>${orderInfo.customerName}</b></div>
                 <div class="details-row"><span>Телефон:</span> <b>${orderInfo.customerPhone}</b></div>
-                <div class="details-row"><span>Доставка:</span> <b>${orderInfo.customerAddress}</b></div>
-                <div class="details-row"><span>Оплата:</span> <b>${orderInfo.paymentMethod}</b></div>
-                <div class="details-row"><span>Товари:</span> <b>${orderInfo.itemsSummary}</b></div>
-                <div class="details-row"><span>Сума до сплати:</span> <b>${orderInfo.subtotalFormatted}</b></div>
+                <div class="details-row"><span>Доставка:</span> <b>${orderInfo.customerAddress || orderInfo.delivery || 'Узгодити з менеджером'}</b></div>
+                <div class="details-row"><span>Оплата:</span> <b>${orderInfo.paymentMethod || orderInfo.payment || 'Накладений платіж'}</b></div>
+                <div class="details-row"><span>Товари:</span> <b>${orderInfo.itemsSummary || orderInfo.itemsText}</b></div>
+                <div class="details-row"><span>Сума до сплати:</span> <b>${orderInfo.subtotalFormatted || orderInfo.total}</b></div>
             `;
         }
     } else {
@@ -6883,7 +6899,7 @@ function pdpCloseQuickOrderModal() {
 window.pdpCloseQuickOrderModal = pdpCloseQuickOrderModal;
 
 async function pdpSubmitQuickOrder(e) {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     if (!pdpCurrentProduct) return;
     const item = pdpCurrentProduct;
     const displayName = formatProductDisplayName(item);
@@ -6893,7 +6909,7 @@ async function pdpSubmitQuickOrder(e) {
     const phoneInput = document.getElementById('pdpQuickPhone');
     const errorEl = document.getElementById('pdpQuickPhoneError');
 
-    const customerName = nameInput ? nameInput.value.trim() : 'Покупець';
+    const customerName = (nameInput ? nameInput.value.trim() : '') || 'Покупець';
     const customerPhone = phoneInput ? phoneInput.value.trim() : '';
 
     const phoneCheck = validateUkrainianPhone(customerPhone);
@@ -6914,11 +6930,11 @@ async function pdpSubmitQuickOrder(e) {
     }
 
     const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const orderId = `UG-${randomNum}`;
+    const orderId = `UG-Q${randomNum}`;
     const formattedTotal = `${item.price.toLocaleString('uk-UA')} грн`;
     const fullItemSummary = `1. ${displayName} (Арт: ${item.art || '---'}) | Розмір: ${chosenSize} | 1 шт. × ${formattedTotal}`;
 
-    const quickTtnBlock = `ПІБ: ${customerName}\nТел: ${phoneCheck.formatted}\nДоставка: Узгодити по телефону\nТовари: ${displayName} (Арт: ${item.art || '---'}, Р: ${chosenSize})\nОплата: Узгодити з менеджером — ${formattedTotal}`;
+    const quickTtnBlock = `ПІБ: ${customerName}\nТел: ${phoneCheck.formatted}\nДоставка: Узгодити по телефону (швидке замовлення з картки товару)\nТовари: ${displayName} (Арт: ${item.art || '---'}, Р: ${chosenSize})\nОплата: Узгодити з менеджером — ${formattedTotal}`;
 
     const quickOrderData = {
         orderId: orderId,
@@ -6926,43 +6942,46 @@ async function pdpSubmitQuickOrder(e) {
         customerName: customerName,
         customerPhone: phoneCheck.formatted,
         customerAddress: 'Узгодити при дзвінку менеджера',
+        delivery: 'Узгодити при дзвінку менеджера',
         paymentMethod: 'Узгодити з менеджером',
+        payment: 'Узгодити з менеджером',
         itemsSummary: fullItemSummary,
-        subtotalFormatted: formattedTotal
+        itemsText: fullItemSummary,
+        total: formattedTotal,
+        subtotalFormatted: formattedTotal,
+        totalNum: item.price || 0
     };
 
     saveOrderToLedger({
         orderId: orderId,
-        date: new Date().toLocaleString('uk-UA'),
+        date: quickOrderData.orderDate,
         customerName: customerName,
         customerPhone: phoneCheck.formatted,
-        delivery: 'Узгодити по телефону',
+        delivery: 'Узгодити по телефону (швидке замовлення з картки товару)',
         payment: 'Узгодити з менеджером',
         total: formattedTotal,
         items: fullItemSummary,
         quickTtn: quickTtnBlock
     });
 
-    const fd = new FormData();
-    fd.append('_subject', `ШВИДКЕ ЗАМОВЛЕННЯ #${orderId} | ${formattedTotal} | ${customerName}`);
-    fd.append('_template', 'table');
-    fd.append('_captcha', 'false');
-    fd.append('Номер_замовлення', orderId);
-    fd.append('Клієнт_ПІБ', customerName);
-    fd.append('Телефон', phoneCheck.formatted);
-    fd.append('Товар', displayName);
-    fd.append('Артикул', item.art || '---');
-    fd.append('Розмір', chosenSize);
-    fd.append('Сума', formattedTotal);
-    fd.append('Сторінка_товару', window.location.href);
-    fd.append('Для_ТТН', quickTtnBlock);
-
     try {
-        await fetch('https://formsubmit.co/ajax/lunarecho94@gmail.com', {
-            method: 'POST',
-            body: fd
+        await sendOrderDispatch({
+            orderId: orderId,
+            orderDate: quickOrderData.orderDate,
+            customerName: customerName,
+            customerPhone: phoneCheck.formatted,
+            delivery: 'Узгодити по телефону (швидке замовлення з картки товару)',
+            payment: 'Узгодити з менеджером (Накладений платіж / передплата)',
+            itemsText: fullItemSummary,
+            quickTtn: quickTtnBlock,
+            total: formattedTotal,
+            subject: `ШВИДКЕ ЗАМОВЛЕННЯ З ТОВАРУ #${orderId} | ${formattedTotal} | ${customerName} | ${displayName}`,
+            contactPreference: 'Очікує швидкого дзвінка менеджера (1 клік з картки товару)',
+            pdfResult: null
         });
-    } catch (err) {}
+    } catch (dispErr) {
+        console.warn('PDP order dispatch note:', dispErr);
+    }
 
     safeTrackFbq('Lead', {
         content_name: displayName,
@@ -6970,12 +6989,17 @@ async function pdpSubmitQuickOrder(e) {
         currency: 'UAH'
     });
 
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(quickOrderData));
+    } catch (e) {}
+
     pdpCloseQuickOrderModal();
     if (btn) {
         btn.disabled = false;
         btn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
     }
-    showOrderSuccessModal(quickOrderData);
+
+    window.location.href = `thank-you.html?orderId=${encodeURIComponent(orderId)}&total=${encodeURIComponent(item.price || 2500)}`;
 }
 window.pdpSubmitQuickOrder = pdpSubmitQuickOrder;
 
