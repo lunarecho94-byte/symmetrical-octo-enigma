@@ -1,11 +1,11 @@
 {
-  "total": 7705,
+  "total": 7726,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 7705
+      "count": 7726
     },
     {
       "slug": "men",
@@ -17,7 +17,7 @@
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 5550
+      "count": 5569
     }
   ],
   "categories": [
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 7705
+      "count": 7726
     },
     {
       "slug": "shoes",
       "name": "Взуття",
       "icon": "",
-      "count": 5860
+      "count": 5881
     },
     {
       "slug": "clothing",
@@ -63,19 +63,19 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 7705
+      "count": 7726
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 6631
+      "count": 6633
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 922
+      "count": 941
     },
     {
       "slug": "summer",
@@ -88,12 +88,12 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 7705
+      "count": 7726
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 2166
+      "count": 2164
     },
     {
       "slug": "newbalance",
@@ -106,14 +106,14 @@
       "count": 547
     },
     {
-      "slug": "asics",
-      "name": "Asics",
-      "count": 417
-    },
-    {
       "slug": "ugg",
       "name": "UGG",
-      "count": 412
+      "count": 431
+    },
+    {
+      "slug": "asics",
+      "name": "Asics",
+      "count": 416
     },
     {
       "slug": "chanel",
@@ -133,12 +133,12 @@
     {
       "slug": "salomon",
       "name": "Salomon",
-      "count": 125
+      "count": 126
     },
     {
       "slug": "balenciaga",
       "name": "Balenciaga",
-      "count": 123
+      "count": 124
     },
     {
       "slug": "coach",
@@ -148,7 +148,7 @@
     {
       "slug": "oncloud",
       "name": "On Cloud",
-      "count": 89
+      "count": 90
     },
     {
       "slug": "hermes",
@@ -168,7 +168,7 @@
     {
       "slug": "tnf",
       "name": "The North Face",
-      "count": 62
+      "count": 63
     },
     {
       "slug": "premiata",
@@ -393,7 +393,7 @@
     {
       "slug": "other",
       "name": "Інші бренди",
-      "count": 809
+      "count": 810
     }
   ]
 }
