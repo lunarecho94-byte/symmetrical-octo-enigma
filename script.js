@@ -1844,68 +1844,25 @@ function checkCatalogReturnState() {
         const urlParams = new URLSearchParams(window.location.search);
         returnProductId = urlParams.get('return') || urlParams.get('return_product') || urlParams.get('p') || '';
         
-        const hasReturnParam = Boolean(returnProductId);
-        const hasPdpReferrer = Boolean(document.referrer && (
-            document.referrer.includes('/product') || 
-            document.referrer.includes('product.html')
-        ));
-
-        // If this is a direct organic visit to the catalog (not returning from PDP),
-        // wipe any stale session storage so it never restores old sessions and never leaks memory!
-        if (!hasReturnParam && !hasPdpReferrer) {
-            try {
-                sessionStorage.removeItem('urban_catalog_state');
-                sessionStorage.removeItem('urban_last_viewed_product_id');
-            } catch (e) {}
-            returnProductId = null;
-            savedCatalogState = null;
-            return;
-        }
-
-        let storedState = null;
-        try {
-            const raw = sessionStorage.getItem('urban_catalog_state');
-            if (raw) storedState = JSON.parse(raw);
-        } catch (e) {}
-
-        if (storedState && (Date.now() - (storedState.timestamp || 0) < 30 * 60 * 1000)) {
-            savedCatalogState = storedState;
-            if (!returnProductId) {
-                returnProductId = storedState.productId;
-            }
-        }
-
-        if (!returnProductId) {
-            try {
-                returnProductId = sessionStorage.getItem('urban_last_viewed_product_id');
-            } catch (e) {}
-        }
-
-        // Clean up sessionStorage immediately so it only executes once and never poisons future visits
+        // Always purge any stale sessionStorage records so they NEVER persist across page reloads
         try {
             sessionStorage.removeItem('urban_catalog_state');
             sessionStorage.removeItem('urban_last_viewed_product_id');
         } catch (e) {}
 
+        savedCatalogState = null;
+
+        // ONLY if the user navigated with an explicit return parameter in the URL do we center that product once
         if (returnProductId) {
             returnProductId = String(returnProductId).trim();
-            // Restore saved filter options if user hasn't explicitly specified different URL parameters
-            if (savedCatalogState) {
-                if (savedCatalogState.gender && !urlParams.has('gender')) currentCatalogGender = savedCatalogState.gender;
-                if (savedCatalogState.category && !urlParams.has('cat')) currentCatalogCategory = savedCatalogState.category;
-                if (savedCatalogState.season && !urlParams.has('season')) currentCatalogSeason = savedCatalogState.season;
-                if (savedCatalogState.brand && !urlParams.has('brand')) currentCatalogBrand = savedCatalogState.brand;
-                if (savedCatalogState.size && !urlParams.has('size')) currentCatalogSize = savedCatalogState.size;
-                if (savedCatalogState.search && !urlParams.has('search')) {
-                    currentCatalogSearchQuery = savedCatalogState.search;
-                    const searchInput = document.getElementById('catalogSearchInput');
-                    if (searchInput) searchInput.value = savedCatalogState.search;
-                }
-                if (savedCatalogState.sort && !urlParams.has('sort')) {
-                    currentCatalogSort = savedCatalogState.sort;
-                    const sortSelect = document.getElementById('catalogSortSelect');
-                    if (sortSelect) sortSelect.value = savedCatalogState.sort;
-                }
+            // Clean the parameter from the browser URL bar immediately so page refresh never repeats the jump
+            if (window.history && window.history.replaceState) {
+                const url = new URL(window.location.href);
+                url.searchParams.delete('return');
+                url.searchParams.delete('return_product');
+                url.searchParams.delete('p');
+                const clean = url.pathname + (url.search ? url.search : '') + (url.hash && !url.hash.startsWith('#prod-') ? url.hash : '');
+                window.history.replaceState({}, document.title, clean);
             }
         }
     } catch (err) {
@@ -4907,19 +4864,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Restore product card scroll position on browser back/forward cache navigation
-window.addEventListener('pageshow', (event) => {
-    let lastId = null;
-    try {
-        lastId = sessionStorage.getItem('urban_last_viewed_product_id');
-    } catch (e) {}
-    if (lastId && !document.getElementById('productDetailPage')) {
-        if (typeof scrollToCatalogProductCard === 'function') {
-            scrollToCatalogProductCard(lastId);
-        }
-    }
-});
-
 
 // ==========================================================================
 // STRICT UKRAINIAN PHONE NUMBER VALIDATION & FORMATTING
@@ -6148,24 +6092,13 @@ function returnToCatalogProduct(productId) {
         targetId = currentPhotoItem.id;
     }
 
-    if (targetId) {
-        try {
-            sessionStorage.setItem('urban_last_viewed_product_id', String(targetId));
-        } catch (e) {}
-    }
+    try {
+        sessionStorage.removeItem('urban_last_viewed_product_id');
+        sessionStorage.removeItem('urban_catalog_state');
+    } catch (e) {}
 
-    const hasInternalReferrer = document.referrer && (
-        document.referrer.includes(window.location.host) ||
-        document.referrer.includes('urbangrid.com.ua') ||
-        document.referrer.includes('localhost')
-    ) && !document.referrer.includes('/product/') && !document.referrer.includes('product.html');
-
-    if (window.history.length > 1 && hasInternalReferrer) {
-        window.history.back();
-    } else {
-        const url = targetId ? `index.html?return=${encodeURIComponent(targetId)}` : 'index.html';
-        window.location.href = url;
-    }
+    const url = targetId ? `index.html?return=${encodeURIComponent(targetId)}` : 'index.html';
+    window.location.href = url;
 }
 window.returnToCatalogProduct = returnToCatalogProduct;
 
@@ -6185,7 +6118,8 @@ function scrollToCatalogProductCard(productId, fallbackY) {
                 card.classList.remove('product-card-returned');
             }, 2500);
 
-            // Clear session storage so subsequent visits don't auto-scroll
+            // Clear return state from memory so subsequent calls never repeat
+            returnProductId = null;
             try {
                 sessionStorage.removeItem('urban_last_viewed_product_id');
                 sessionStorage.removeItem('urban_catalog_state');
@@ -6258,20 +6192,8 @@ function openProductPage(productId, e, directUrl, openInNewWindow = false) {
 
     if (productId) {
         try {
-            sessionStorage.setItem('urban_last_viewed_product_id', String(productId));
-            sessionStorage.setItem('urban_catalog_state', JSON.stringify({
-                productId: String(productId),
-                scrollY: window.pageYOffset || document.documentElement.scrollTop || 0,
-                renderedCount: (typeof catalogRenderedCount !== 'undefined') ? catalogRenderedCount : 24,
-                category: (typeof currentCatalogCategory !== 'undefined') ? currentCatalogCategory : 'all',
-                gender: (typeof currentCatalogGender !== 'undefined') ? currentCatalogGender : 'all',
-                season: (typeof currentCatalogSeason !== 'undefined') ? currentCatalogSeason : 'all',
-                brand: (typeof currentCatalogBrand !== 'undefined') ? currentCatalogBrand : 'all',
-                size: (typeof currentCatalogSize !== 'undefined') ? currentCatalogSize : 'all',
-                search: (typeof currentCatalogSearchQuery !== 'undefined') ? currentCatalogSearchQuery : '',
-                sort: (typeof currentCatalogSort !== 'undefined') ? currentCatalogSort : 'popular',
-                timestamp: Date.now()
-            }));
+            sessionStorage.removeItem('urban_last_viewed_product_id');
+            sessionStorage.removeItem('urban_catalog_state');
         } catch (err) {}
     }
 
@@ -6420,7 +6342,8 @@ window.initProductDetailPage = initProductDetailPage;
 function renderProductDetailPage(item) {
     window.currentPdpProduct = item;
     try {
-        sessionStorage.setItem('urban_last_viewed_product_id', String(item.id));
+        sessionStorage.removeItem('urban_last_viewed_product_id');
+        sessionStorage.removeItem('urban_catalog_state');
     } catch (e) {}
 
     const returnUrl = `index.html?return=${encodeURIComponent(item.id)}`;
