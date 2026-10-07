@@ -2386,6 +2386,9 @@ function applyDrawerFavorites() {
 function handleDrawerSearch(val) {
     const trimmed = (val || '').trim();
     if (!document.getElementById('catalog')) {
+        if (trimmed) {
+            window.location.href = `index.html?search=${encodeURIComponent(trimmed)}#catalog`;
+        }
         return;
     }
     const searchInput = document.getElementById('catalogSearchInput');
@@ -2778,7 +2781,21 @@ document.addEventListener('keydown', (e) => {
             closeCatalogDrawer();
             if (!document.getElementById('catalog')) {
                 window.location.href = `index.html?search=${encodeURIComponent(val)}#catalog`;
+            } else {
+                const cat = document.getElementById('catalog');
+                if (cat) cat.scrollIntoView({ behavior: 'smooth' });
             }
+        }
+    }
+    if (e.key === 'Enter' && e.target && e.target.id === 'catalogSearchInput') {
+        clearTimeout(catalogSearchDebounceTimer);
+        currentCatalogSearchQuery = e.target.value.trim();
+        applyCatalogFilters();
+        e.target.blur();
+        const grid = document.querySelector('.products-grid');
+        if (grid) {
+            const topPos = grid.getBoundingClientRect().top + window.pageYOffset - 120;
+            window.scrollTo({ top: topPos, behavior: 'smooth' });
         }
     }
 });
@@ -3374,54 +3391,168 @@ function handleCatalogSort(criteria) {
     applyCatalogFilters();
 }
 
+let catalogProductSearchScores = new Map();
+
+const CYRILLIC_HOMOGLYPH_MAP = {
+    'а': 'a', 'в': 'b', 'с': 'c', 'е': 'e', 'ё': 'e',
+    'н': 'h', 'к': 'k', 'м': 'm', 'о': 'o', 'р': 'p',
+    'т': 't', 'х': 'x', 'і': 'i', 'ї': 'i', 'у': 'y'
+};
+
+function normalizeSearchCode(str) {
+    if (!str) return '';
+    let s = String(str).toLowerCase().trim();
+    for (const [cyr, lat] of Object.entries(CYRILLIC_HOMOGLYPH_MAP)) {
+        s = s.split(cyr).join(lat);
+    }
+    return s.replace(/[^a-z0-9]/g, '');
+}
+
+function extractArticleSearchQuery(raw) {
+    if (!raw) return '';
+    let str = String(raw).trim().toLowerCase();
+    str = str.replace(/^(?:артикул|арт|код\s*товару|код\s*товара|код|sku|id|товар|номер|модель|№|#)[\s.:#№\-_/]*/i, '');
+    return normalizeSearchCode(str);
+}
+
+function getProductArtMatchScore(item, rawQuery) {
+    if (!item || !rawQuery) return 0;
+    const cleanQ = extractArticleSearchQuery(rawQuery);
+    const normArt = normalizeSearchCode(item.art);
+    const normId = normalizeSearchCode(item.id);
+
+    // 1. Whole query match
+    if (cleanQ && cleanQ.length >= 2) {
+        if (normArt && normArt === cleanQ) return 1000;
+        if (normId && normId === cleanQ) return 950;
+        if (cleanQ.length >= 3 && normArt && normArt.startsWith(cleanQ)) return 800;
+        if (cleanQ.length >= 3 && normId && normId.startsWith(cleanQ)) return 750;
+        if (cleanQ.length >= 3 && normArt && normArt.includes(cleanQ)) return 600;
+        if (cleanQ.length >= 4 && normId && normId.includes(cleanQ)) return 550;
+    }
+
+    // 2. Token match if query has multiple words (e.g. "Nike N00367", "арт А00136")
+    const words = String(rawQuery).trim().split(/\s+/);
+    if (words.length > 1) {
+        let bestTokScore = 0;
+        for (const w of words) {
+            const tokCode = extractArticleSearchQuery(w);
+            if (!tokCode || tokCode.length < 2) continue;
+            if (/^\d+$/.test(tokCode) && tokCode.length < 4) continue;
+
+            let score = 0;
+            if (normArt && normArt === tokCode) score = 900;
+            else if (normId && normId === tokCode) score = 850;
+            else if (tokCode.length >= 3 && normArt && normArt.startsWith(tokCode)) score = 700;
+            else if (tokCode.length >= 3 && normArt && normArt.includes(tokCode)) score = 500;
+
+            if (score > bestTokScore) bestTokScore = score;
+        }
+        if (bestTokScore > 0) return bestTokScore;
+    }
+
+    return 0;
+}
+
 function applyCatalogFilters() {
     if (!catalogAllProducts.length) return;
 
-    const query = currentCatalogSearchQuery.trim().toLowerCase();
-    const queryTokens = query ? query.split(/\s+/).filter(Boolean) : [];
+    catalogProductSearchScores.clear();
+
+    const query = currentCatalogSearchQuery.trim();
+    const queryLower = query.toLowerCase();
     const clearBtn = document.getElementById('clearSearchBtn');
 
     if (clearBtn) {
         clearBtn.style.display = query ? 'flex' : 'none';
     }
 
+    // Clean tokens for haystack fulltext
+    const rawTokens = queryLower ? queryLower.split(/\s+/).filter(Boolean) : [];
+    const noiseWords = new Set(['арт', 'арт.', 'артикул', 'артикул:', 'код', 'код:', 'sku', 'sku:', 'id', 'id:', '№', '#']);
+    const queryTokens = (rawTokens.length > 1)
+        ? rawTokens.filter(t => !noiseWords.has(t))
+        : rawTokens;
+
     // Filter array
     catalogFilteredProducts = catalogAllProducts.filter(item => {
-        // 0. Gender Filter
-        if (!productMatchesGender(item, currentCatalogGender)) return false;
-
-        // 1. Category Filter
-        if (!productMatchesCategory(item, currentCatalogCategory)) return false;
-
-        // 2. Season Filter
-        if (!productMatchesSeason(item, currentCatalogSeason)) return false;
-
-        // 3. Brand
-        if (currentCatalogBrand !== 'all' && item.brand !== currentCatalogBrand) {
-            return false;
+        const artScore = query ? getProductArtMatchScore(item, query) : 0;
+        if (artScore > 0) {
+            catalogProductSearchScores.set(String(item.id), artScore);
         }
 
-        // 4. Size Filter
-        if (!productMatchesSize(item, currentCatalogSize)) {
-            return false;
-        }
+        // Direct article/ID matches (score >= 600) bypass category, gender, brand, season, size filters!
+        const isDirectArtMatch = artScore >= 600;
 
-        // 5. Price Range Filter
-        if (currentCatalogPriceRange !== 'all') {
-            if (currentCatalogPriceRange === 'under-1500' && item.price >= 1500) return false;
-            if (currentCatalogPriceRange === '1500-2500' && (item.price < 1500 || item.price > 2500)) return false;
-            if (currentCatalogPriceRange === '2500-3500' && (item.price < 2500 || item.price > 3500)) return false;
-            if (currentCatalogPriceRange === 'above-3500' && item.price <= 3500) return false;
-        }
+        if (!isDirectArtMatch) {
+            // 0. Gender Filter
+            if (!productMatchesGender(item, currentCatalogGender)) return false;
 
-        // 6. Query Search
-        if (queryTokens.length > 0) {
-            const haystack = `${item.name} ${item.brand_name} ${item.art} ${item.mat} ${item.origin} ${item.cat} ${item.season} ${item.cat_name || ''} ${item.season_name || ''}`.toLowerCase();
-            const matchesAll = queryTokens.every(tok => haystack.includes(tok));
-            if (!matchesAll) return false;
+            // 1. Category Filter
+            if (!productMatchesCategory(item, currentCatalogCategory)) return false;
+
+            // 2. Season Filter
+            if (!productMatchesSeason(item, currentCatalogSeason)) return false;
+
+            // 3. Brand
+            if (currentCatalogBrand !== 'all' && item.brand !== currentCatalogBrand) {
+                return false;
+            }
+
+            // 4. Size Filter
+            if (!productMatchesSize(item, currentCatalogSize)) {
+                return false;
+            }
+
+            // 5. Price Range Filter
+            if (currentCatalogPriceRange !== 'all') {
+                if (currentCatalogPriceRange === 'under-1500' && item.price >= 1500) return false;
+                if (currentCatalogPriceRange === '1500-2500' && (item.price < 1500 || item.price > 2500)) return false;
+                if (currentCatalogPriceRange === '2500-3500' && (item.price < 2500 || item.price > 3500)) return false;
+                if (currentCatalogPriceRange === 'above-3500' && item.price <= 3500) return false;
+            }
+
+            // 6. Query Search
+            if (queryTokens.length > 0) {
+                if (artScore === 0) {
+                    const haystack = `${item.id || ''} ${item.name || ''} ${item.brand_name || ''} ${item.art || ''} ${item.mat || ''} ${item.origin || ''} ${item.cat || ''} ${item.season || ''} ${item.cat_name || ''} ${item.season_name || ''}`.toLowerCase();
+                    const normHaystack = normalizeSearchCode(haystack);
+                    const matchesAll = queryTokens.every(tok => {
+                        if (haystack.includes(tok)) return true;
+                        const normTok = normalizeSearchCode(tok);
+                        return normTok && normHaystack.includes(normTok);
+                    });
+                    if (!matchesAll) return false;
+                }
+            }
         }
         return true;
     });
+
+    // Fallback: If query produced 0 results under active restrictive filters, search the entire catalog!
+    if (query && catalogFilteredProducts.length === 0) {
+        const globalMatches = catalogAllProducts.filter(item => {
+            const artScore = getProductArtMatchScore(item, query);
+            if (artScore > 0) {
+                catalogProductSearchScores.set(String(item.id), artScore);
+                if (artScore >= 500) return true;
+            }
+            if (queryTokens.length > 0) {
+                const haystack = `${item.id || ''} ${item.name || ''} ${item.brand_name || ''} ${item.art || ''} ${item.mat || ''} ${item.origin || ''} ${item.cat || ''} ${item.season || ''} ${item.cat_name || ''} ${item.season_name || ''}`.toLowerCase();
+                const normHaystack = normalizeSearchCode(haystack);
+                return queryTokens.every(tok => {
+                    if (haystack.includes(tok)) return true;
+                    const normTok = normalizeSearchCode(tok);
+                    return normTok && normHaystack.includes(normTok);
+                });
+            }
+            return false;
+        });
+
+        if (globalMatches.length > 0) {
+            catalogFilteredProducts = globalMatches;
+        }
+    }
 
     // Sort
     sortFilteredProducts(currentCatalogSort);
@@ -3477,6 +3608,13 @@ function applyCatalogFilters() {
 
 function sortFilteredProducts(criteria) {
     catalogFilteredProducts.sort((a, b) => {
+        // 1. Article / ID match score takes absolute top priority
+        const scoreA = catalogProductSearchScores.get(String(a.id)) || 0;
+        const scoreB = catalogProductSearchScores.get(String(b.id)) || 0;
+        if (scoreA !== scoreB) {
+            return scoreB - scoreA;
+        }
+
         const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
         const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
         const idA = parseInt(a.id, 10) || 0;
@@ -6188,11 +6326,13 @@ async function initProductDetailPage() {
     }
     if (!product && candidate) {
         const candLower = candidate.toLowerCase();
-        product = catalogAllProducts.find(p => p.art && p.art.toLowerCase() === candLower);
+        const candNorm = normalizeSearchCode(candidate);
+        product = catalogAllProducts.find(p => p.art && (p.art.toLowerCase() === candLower || normalizeSearchCode(p.art) === candNorm));
     }
     if (!product && productArt) {
         const artLower = productArt.toLowerCase();
-        product = catalogAllProducts.find(p => p.art && p.art.toLowerCase() === artLower);
+        const artNorm = normalizeSearchCode(productArt);
+        product = catalogAllProducts.find(p => p.art && (p.art.toLowerCase() === artLower || normalizeSearchCode(p.art) === artNorm));
     }
 
     if (!product) {
