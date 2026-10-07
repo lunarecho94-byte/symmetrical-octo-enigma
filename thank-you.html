@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <title>Дякуємо за замовлення! | URBAN — Sneakers For Your City</title>
+    <meta name="description" content="Ваше замовлення в магазині URBAN успішно прийнято! Очікуйте дзвінка менеджера та відправку Новою Поштою.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/urbano_emblem.png">
+    <link rel="apple-touch-icon" href="images/urbano_emblem.png">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="style.css?v=7.6">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1423887033036082');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1423887033036082&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        :root {
+            --ty-bg: #f8fafc;
+            --ty-card: #ffffff;
+            --ty-text: #0f172a;
+            --ty-muted: #64748b;
+            --ty-green: #10b981;
+            --ty-green-light: #ecfdf5;
+            --ty-blue: #3b82f6;
+            --ty-border: #e2e8f0;
+            --ty-radius: 20px;
+        }
+
+        body {
+            background-color: var(--ty-bg);
+            color: var(--ty-text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Top Bar */
+        .ty-topbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--ty-border);
+            padding: 14px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .ty-topbar-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ty-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .ty-brand img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .ty-brand-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            color: #0f172a;
+        }
+
+        .ty-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #3b82f6;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: #eff6ff;
+            transition: all 0.2s ease;
+        }
+
+        .ty-back-link:hover {
+            background: #dbeafe;
+        }
+
+        /* Main Container */
+        .ty-main {
+            flex: 1;
+            max-width: 680px;
+            width: 100%;
+            margin: 24px auto 40px;
+            padding: 0 16px;
+            box-sizing: border-box;
+        }
+
+        /* Hero Success Card */
+        .ty-card {
+            background: var(--ty-card);
+            border: 1px solid var(--ty-border);
+            border-radius: var(--ty-radius);
+            padding: 32px 24px;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Animated Success Checkmark */
+        .ty-icon-box {
+            width: 76px;
+            height: 76px;
+            background: var(--ty-green-light);
+            border: 3px solid var(--ty-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--ty-green);
+            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.12);
+            animation: tyPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes tyPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.12); }
+            50% { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(16, 185, 129, 0.06); }
+        }
+
+        .ty-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .ty-subtitle {
+            font-size: 0.98rem;
+            color: var(--ty-muted);
+            margin: 0 0 18px;
+            line-height: 1.5;
+        }
+
+        .ty-order-badge {
+            display: inline-block;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1e293b;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        /* Order Details Box */
+        .ty-details-card {
+            background: #ffffff;
+            border: 1px solid var(--ty-border);
+            border-radius: var(--ty-radius);
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+        }
+
+        .ty-details-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ty-details-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ty-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px dashed #f1f5f9;
+            font-size: 0.95rem;
+            gap: 16px;
+        }
+
+        .ty-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .ty-label {
+            color: var(--ty-muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .ty-value {
+            font-weight: 600;
+            color: #0f172a;
+            text-align: right;
+            word-break: break-word;
+        }
+
+        .ty-value.highlight {
+            color: #059669;
+            font-size: 1.15rem;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Next Steps Timeline */
+        .ty-steps-card {
+            background: #ffffff;
+            border: 1px solid var(--ty-border);
+            border-radius: var(--ty-radius);
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
+        }
+
+        .ty-steps-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 16px;
+            color: #0f172a;
+        }
+
+        .ty-step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 0;
+            position: relative;
+        }
+
+        .ty-step-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+        }
+
+        .ty-step-text h4 {
+            margin: 0 0 4px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .ty-step-text p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: var(--ty-muted);
+            line-height: 1.45;
+        }
+
+        /* Action Buttons */
+        .ty-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .ty-btn-primary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #0f172a;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 16px 24px;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .ty-btn-primary:hover {
+            background: #1e293b;
+            transform: translateY(-1px);
+        }
+
+        .ty-messenger-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .ty-msg-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+            margin: 0 0 10px;
+        }
+
+        .ty-msg-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .ty-msg-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .ty-msg-btn.tg {
+            background: #e0f2fe;
+            color: #0284c7;
+            border: 1px solid #bae6fd;
+        }
+        .ty-msg-btn.tg:hover { background: #bae6fd; }
+
+        .ty-msg-btn.viber {
+            background: #f3e8ff;
+            color: #7e22ce;
+            border: 1px solid #e9d5ff;
+        }
+        .ty-msg-btn.viber:hover { background: #e9d5ff; }
+
+        /* Footer */
+        .ty-footer {
+            text-align: center;
+            padding: 24px 16px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            border-top: 1px solid var(--ty-border);
+            background: #ffffff;
+        }
+
+        @media (max-width: 480px) {
+            .ty-card { padding: 24px 16px; }
+            .ty-title { font-size: 1.45rem; }
+            .ty-row { flex-direction: column; gap: 4px; }
+            .ty-value { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="ty-topbar">
+        <div class="ty-topbar-inner">
+            <a href="index.html" class="ty-brand">
+                <img src="images/urbano_emblem.png" alt="URBAN">
+                <span class="ty-brand-text">URBAN</span>
+            </a>
+            <a href="index.html" class="ty-back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                До каталогу
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="ty-main">
+
+        <!-- Hero Confirmation Card -->
+        <div class="ty-card">
+            <div class="ty-icon-box">
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <div id="tyOrderBadge" class="ty-order-badge">№ UG-00000</div>
+            <h1 class="ty-title">ДЯКУЄМО ЗА ЗАМОВЛЕННЯ!</h1>
+            <p class="ty-subtitle">Ваше замовлення успішно прийнято та передано в обробку на склад URBAN.</p>
+        </div>
+
+        <!-- Order Summary Details -->
+        <div class="ty-details-card">
+            <div class="ty-details-header">
+                <h3 class="ty-details-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    Дані замовлення
+                </h3>
+                <span id="tyOrderStatus" style="font-size: 0.85rem; font-weight: 600; color: #10b981; background: #ecfdf5; padding: 4px 10px; border-radius: 20px;">Прийнято</span>
+            </div>
+
+            <div id="tyDetailsList">
+                <div class="ty-row">
+                    <span class="ty-label">Одержувач:</span>
+                    <span class="ty-value" id="tyCustomerName">—</span>
+                </div>
+                <div class="ty-row">
+                    <span class="ty-label">Телефон:</span>
+                    <span class="ty-value" id="tyCustomerPhone">—</span>
+                </div>
+                <div class="ty-row">
+                    <span class="ty-label">Доставка:</span>
+                    <span class="ty-value" id="tyDelivery">Нова Пошта (1-2 дні по Україні)</span>
+                </div>
+                <div class="ty-row">
+                    <span class="ty-label">Оплата:</span>
+                    <span class="ty-value" id="tyPayment">Накладений платіж (після примірки)</span>
+                </div>
+                <div class="ty-row">
+                    <span class="ty-label">Обрані товари:</span>
+                    <span class="ty-value" id="tyItems">—</span>
+                </div>
+                <div class="ty-row" style="margin-top: 6px; padding-top: 14px; border-top: 2px solid #e2e8f0;">
+                    <span class="ty-label" style="font-size: 1.05rem; font-weight: 700; color: #0f172a;">До сплати:</span>
+                    <span class="ty-value highlight" id="tyTotal">0 грн</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps Timeline -->
+        <div class="ty-steps-card">
+            <h3 class="ty-steps-title">Що відбувається далі?</h3>
+            
+            <div class="ty-step-item">
+                <div class="ty-step-num">1</div>
+                <div class="ty-step-text">
+                    <h4>Зв'язок менеджера</h4>
+                    <p>Наш менеджер зв'яжеться з вами протягом 10–15 хвилин для підтвердження розміру та узгодження відправки.</p>
+                </div>
+            </div>
+
+            <div class="ty-step-item">
+                <div class="ty-step-num">2</div>
+                <div class="ty-step-text">
+                    <h4>Відправка Новою Поштою</h4>
+                    <p>Ми надійно запакуємо кросівки та передамо кур'єрській службі. Доставка зазвичай займає 1–2 дні.</p>
+                </div>
+            </div>
+
+            <div class="ty-step-item">
+                <div class="ty-step-num">3</div>
+                <div class="ty-step-text">
+                    <h4>Примірка та оплата</h4>
+                    <p>Ви оглядаєте пару у відділенні та міряєте перед оплатою. Жодних передплат чи ризиків!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messenger Fast Confirmation -->
+        <div class="ty-messenger-box">
+            <div class="ty-msg-title">Бажаєте підтвердити замовлення швидше в месенджері?</div>
+            <div class="ty-msg-btns">
+                <a href="https://t.me/unarecho94" id="tyTgLink" target="_blank" class="ty-msg-btn tg">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.67c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg>
+                    Telegram
+                </a>
+                <a href="viber://chat?number=%2B380974524435" target="_blank" class="ty-msg-btn viber">
+                    <svg width="18" height="18" viewBox="0 0 512 512" fill="currentColor"><path d="M444.3 49.9c-12.7-11.7-64.1-49-178.7-49.5 0 0-135.1-8.1-200.9 52.3-36.6 36.6-49.5 90.3-50.9 156.8s-3.1 191.1 117 224.9l.1 0-.1 51.6s-.8 20.9 13 25.1c16.6 5.2 26.4-10.7 42.3-27.8 8.7-9.4 20.7-23.2 29.8-33.7 82.2 6.9 145.3-8.9 152.5-11.2 16.6-5.4 110.5-17.4 125.7-142 15.8-128.6-7.6-209.8-49.8-246.5z"/></svg>
+                    Viber
+                </a>
+            </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="ty-actions">
+            <a href="index.html#catalog" class="ty-btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Повернутися до каталогу кросівок
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="ty-footer">
+        <p>© 2026 URBAN — Трендовий одяг та взуття в Україні. Усі права захищено.</p>
+    </footer>
+
+    <!-- Dedicated Purchase Tracking & Details Population -->
+    <script>
+    (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let orderId = urlParams.get('orderId') || urlParams.get('order') || '';
+        let totalParam = urlParams.get('total') || '';
+        let orderData = null;
+
+        // 1. Try to load rich order data from sessionStorage
+        try {
+            const rawStored = sessionStorage.getItem('ug_last_order');
+            if (rawStored) {
+                orderData = JSON.parse(rawStored);
+            }
+        } catch (e) {
+            console.warn('Could not parse ug_last_order:', e);
+        }
+
+        // Merge URL params with stored data
+        if (!orderId && orderData && orderData.orderId) {
+            orderId = orderData.orderId;
+        }
+        let totalNum = 0;
+        if (totalParam) {
+            totalNum = parseInt(String(totalParam).replace(/\D/g, ''), 10) || 0;
+        } else if (orderData && orderData.totalNum) {
+            totalNum = parseInt(String(orderData.totalNum).replace(/\D/g, ''), 10) || 0;
+        } else if (orderData && orderData.total) {
+            totalNum = parseInt(String(orderData.total).replace(/\D/g, ''), 10) || 0;
+        }
+
+        // 2. Populate Order Details in DOM
+        const badgeEl = document.getElementById('tyOrderBadge');
+        const nameEl = document.getElementById('tyCustomerName');
+        const phoneEl = document.getElementById('tyCustomerPhone');
+        const deliveryEl = document.getElementById('tyDelivery');
+        const paymentEl = document.getElementById('tyPayment');
+        const itemsEl = document.getElementById('tyItems');
+        const totalEl = document.getElementById('tyTotal');
+
+        if (orderId) {
+            if (badgeEl) badgeEl.textContent = `№ ${orderId}`;
+        } else {
+            const tempNum = 'UG-' + Math.floor(10000 + Math.random() * 90000);
+            if (badgeEl) badgeEl.textContent = `№ ${tempNum}`;
+            orderId = tempNum;
+        }
+
+        if (orderData) {
+            if (nameEl) nameEl.textContent = orderData.customerName || 'Клієнт';
+            if (phoneEl) phoneEl.textContent = orderData.customerPhone || 'Вказано при замовленні';
+            if (deliveryEl) deliveryEl.textContent = orderData.delivery || orderData.customerAddress || 'Нова Пошта (1-2 дні)';
+            if (paymentEl) paymentEl.textContent = orderData.payment || orderData.paymentMethod || 'Накладений платіж (після примірки)';
+            if (itemsEl) itemsEl.textContent = orderData.itemsSummary || orderData.itemsText || 'Обрана модель кросівок';
+            if (totalEl) totalEl.textContent = orderData.total || orderData.subtotalFormatted || (totalNum ? totalNum.toLocaleString('uk-UA') + ' грн' : 'Згідно з обраною парою');
+            
+            // Customize Telegram link if items available
+            const tgLink = document.getElementById('tyTgLink');
+            if (tgLink && orderData.itemsSummary) {
+                const tgMsg = `Доброго дня! Моє замовлення №${orderId}: ${orderData.itemsSummary}. Підтверджую!`;
+                tgLink.href = `https://t.me/unarecho94?text=${encodeURIComponent(tgMsg)}`;
+            }
+        } else if (totalNum > 0) {
+            if (totalEl) totalEl.textContent = totalNum.toLocaleString('uk-UA') + ' грн';
+        }
+
+        // 3. STRICT META PIXEL PURCHASE TRACKING
+        // ONLY triggers if orderId exists AND has not been fired in this session for this specific order
+        if (orderId) {
+            const trackingKey = 'ug_purchase_fired_' + orderId;
+            const alreadyFired = sessionStorage.getItem(trackingKey);
+
+            if (!alreadyFired) {
+                // Mark as fired immediately to prevent duplicate fires on F5/refresh
+                sessionStorage.setItem(trackingKey, '1');
+
+                const purchaseValue = totalNum > 0 ? totalNum : 2500;
+                
+                try {
+                    if (typeof window.fbq === 'function') {
+                        window.fbq('track', 'Purchase', {
+                            value: purchaseValue,
+                            currency: 'UAH',
+                            content_type: 'product',
+                            content_name: orderData?.itemsSummary || 'Замовлення URBAN',
+                            order_id: orderId
+                        });
+                        console.log('✅ Meta Pixel Purchase fired on thank-you page:', { orderId, purchaseValue });
+                    }
+                } catch (pixelErr) {
+                    console.warn('Meta Pixel tracking note:', pixelErr);
+                }
+
+                // Google Analytics GA4 Purchase (if present)
+                if (window.gtag) {
+                    try {
+                        gtag('event', 'purchase', {
+                            transaction_id: orderId,
+                            value: purchaseValue,
+                            currency: 'UAH'
+                        });
+                    } catch (_) {}
+                }
+            } else {
+                console.log('ℹ️ Purchase event already recorded for order', orderId, '— skipping duplicate fire.');
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

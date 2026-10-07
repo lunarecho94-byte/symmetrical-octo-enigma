@@ -1627,22 +1627,24 @@ async function handleCheckoutFormSubmit(e) {
         pdfResult
     });
 
-    // Ad Conversion Tracking (Meta Pixel & GA4)
-    const orderTotalNumPurchase = parseInt((document.getElementById('pdfGrandTotalSum')?.textContent || '2500').replace(/\D/g, ''), 10) || 2500;
-    safeTrackFbq('Purchase', {
-        value: orderTotalNumPurchase,
-        currency: 'UAH',
-        content_type: 'product'
-    });
-    if (window.gtag) {
-        try {
-            gtag('event', 'purchase', {
-                transaction_id: orderId,
-                value: orderTotalNumPurchase,
-                currency: 'UAH'
-            });
-        } catch (e) {}
-    }
+    // Save rich order summary in sessionStorage for the thank-you page
+    const orderSummaryInfo = {
+        orderId,
+        orderDate: formattedDate,
+        customerName,
+        customerPhone,
+        customerAddress: combinedAddress,
+        delivery: combinedAddress,
+        payment: paymentFormatted,
+        paymentMethod: paymentFormatted,
+        itemsSummary: orderItemsText,
+        itemsText: orderItemsText,
+        total: formattedTotal,
+        totalNum: orderTotalNumPurchase
+    };
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(orderSummaryInfo));
+    } catch (e) {}
 
     clearCart();
     isSubmittingOrder = false;
@@ -1650,7 +1652,9 @@ async function handleCheckoutFormSubmit(e) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ (НАКЛАДЕНИЙ ПЛАТІЖ)';
     }
-    showOrderSuccessModal(pdfResult ? pdfResult.orderData : null);
+
+    // Redirect to welcome / thank-you page (Pixel Purchase triggers strictly there)
+    window.location.href = `thank-you.html?orderId=${encodeURIComponent(orderId)}&total=${encodeURIComponent(orderTotalNumPurchase)}`;
 }
 
 function checkOrderSuccess() {
@@ -5113,7 +5117,12 @@ async function handleQuickOrderSubmit(e) {
     phoneInput.value = '';
     clearQuickOrderModel();
 
-    showOrderSuccessModal(quickOrderData);
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(quickOrderData));
+    } catch (e) {}
+
+    const quickPriceNum = parseInt((quickOrderData.subtotalFormatted || '2500').replace(/\D/g, ''), 10) || 2500;
+    window.location.href = `thank-you.html?orderId=${encodeURIComponent(orderId)}&total=${encodeURIComponent(quickPriceNum)}`;
 }
 
 // ==========================================================================
@@ -5319,12 +5328,6 @@ async function handleCartDirectCheckout(e) {
         pdfResult
     });
 
-    safeTrackFbq('Purchase', {
-        value: orderTotalNum,
-        currency: 'UAH',
-        content_type: 'product'
-    });
-
     clearCart();
     closeCart();
     hideCartCheckoutForm();
@@ -5333,7 +5336,12 @@ async function handleCartDirectCheckout(e) {
         submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
     }
 
-    showOrderSuccessModal(orderSummaryData);
+    try {
+        sessionStorage.setItem('ug_last_order', JSON.stringify(orderSummaryData));
+    } catch (e) {}
+
+    // Redirect to welcome / thank-you page (Pixel Purchase triggers strictly there)
+    window.location.href = `thank-you.html?orderId=${encodeURIComponent(orderId)}&total=${encodeURIComponent(orderTotalNum)}`;
 }
 
 // Global window exposure
