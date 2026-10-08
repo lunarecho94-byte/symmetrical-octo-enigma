@@ -6715,18 +6715,49 @@ function pdpSelectSize(btn, szVal) {
 window.pdpSelectSize = pdpSelectSize;
 
 function generateProductDescription(item) {
-    if (item.desc && typeof item.desc === 'string' && item.desc.trim().length > 15) {
-        let clean = item.desc.trim()
-            .replace(/Артикул\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/Матеріал\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/[🧷📌🔸🔹•\-*]?\s*(?:Виробник|Країна(?:\s+виробництва)?)\s*:[^\n\r]+[\n\r]?/gi, '')
-            .replace(/Сезон\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/Комплектація\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/Стан\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/Відправка\s+Новою\s+Поштою[^<.\n\r]*[.\n\r]?/gi, '')
-            .replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, '')
-            .trim();
-        if (clean.length > 15) return clean;
+    if (item && item.desc && typeof item.desc === 'string') {
+        const lines = item.desc.split('\n');
+        const kept = [];
+        const itemName = (item.name || '').toLowerCase();
+        const titleTokens = itemName.split(/\s+/).filter(w => w.length > 2);
+
+        for (let rawLine of lines) {
+            let line = rawLine.trim();
+            if (!line) continue;
+
+            const noEmoji = line.replace(/[\u{1F000}-\u{1FFFF}\u{2000}-\u{3300}]/gu, '').trim();
+            if (!noEmoji) continue;
+
+            if (/^(?:Артикул|Арт|Розмір[иі]?|Матеріал|Сезон|Виробник|Країна|Стан|Комплектація)\b/i.test(noEmoji)) {
+                const matExtra = noEmoji.match(/^Матеріал\s*:\s*[^.]+\.\s*(.+)$/i);
+                if (matExtra && matExtra[1] && matExtra[1].trim().length > 8) {
+                    kept.push(matExtra[1].trim());
+                }
+                continue;
+            }
+
+            if (titleTokens.length > 0 && noEmoji.length > 5) {
+                const lineTokens = noEmoji.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+                const overlap = lineTokens.filter(tok => titleTokens.includes(tok)).length;
+                if (lineTokens.length > 0 && (overlap / lineTokens.length) >= 0.6 && lineTokens.length <= 8) {
+                    continue;
+                }
+            }
+
+            let cleanLine = line.replace(/[\u{1F000}-\u{1FFFF}\u{2000}-\u{3300}]/gu, '')
+                .replace(/(?:Артикул|Арт|Розмір[иі]?|Матеріал|Сезон|Виробник|Країна|Стан)\s*:\s*[^,.]+[.,]?/gi, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            if (cleanLine.length > 5) {
+                kept.push(cleanLine);
+            }
+        }
+
+        let combined = kept.join(' ').replace(/\s{2,}/g, ' ').trim();
+        if (combined.length > 15) {
+            return combined.charAt(0).toUpperCase() + combined.slice(1);
+        }
     }
 
     const cat = item.cat || 'shoes';
@@ -6813,7 +6844,7 @@ function renderPdpSpecs(item) {
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
     rows.push({
         label: 'Стан:',
-        val: (item.cat === 'shoes') ? 'Новий, у фірмовій коробці' : 'Новий, у фірмовій упаковці'
+        val: 'Новий'
     });
 
     list.innerHTML = rows.map(r => `

@@ -145,11 +145,39 @@ def transform_product(p):
     else:
         mat = 'Поліестер / Плащівка'
 
-    # Origin country extraction (disabled by user request)
+    # Clean description: no duplicated characteristics or emojis
     origin = ""
-    desc = re.sub(r'[🧷📌🔸🔹•\-*]?\s*(?:Виробник|Країна(?:\s+виробництва)?)\s*:[^\n\r]+', '', desc, flags=re.I)
-    desc = re.sub(r'[\U0001F1E6-\U0001F1FF]{2}', '', desc)
-    desc = re.sub(r'\n{2,}', '\n', desc).strip()
+    lines = desc.split('\n')
+    kept = []
+    title_tokens = [w for w in re.findall(r'\w+', t_lower) if len(w) > 2]
+    for raw_line in lines:
+        line_str = raw_line.strip()
+        if not line_str:
+            continue
+        no_emoji = re.sub(r'[\U00010000-\U0010ffff\u2000-\u3300]', '', line_str).strip()
+        if not no_emoji:
+            continue
+        if re.match(r'^(?:Артикул|Арт|Розмір[иі]?|Матеріал|Сезон|Виробник|Країна|Стан|Комплектація)\b', no_emoji, re.I):
+            mat_extra = re.match(r'^Матеріал\s*:\s*[^.]+\.\s*(.+)$', no_emoji, re.I)
+            if mat_extra and mat_extra.group(1) and len(mat_extra.group(1).strip()) > 8:
+                kept.append(mat_extra.group(1).strip())
+            continue
+        if title_tokens and len(no_emoji) > 5:
+            line_tokens = [w for w in re.findall(r'\w+', no_emoji.lower()) if len(w) > 2]
+            overlap = len([tok for tok in line_tokens if tok in title_tokens])
+            if line_tokens and (overlap / len(line_tokens)) >= 0.6 and len(line_tokens) <= 8:
+                continue
+        clean_line = re.sub(r'[\U00010000-\U0010ffff\u2000-\u3300]', '', line_str)
+        clean_line = re.sub(r'(?:Артикул|Арт|Розмір[иі]?|Матеріал|Сезон|Виробник|Країна|Стан)\s*:\s*[^,.]+[.,]?', '', clean_line, flags=re.I)
+        clean_line = re.sub(r'\s+', ' ', clean_line).strip()
+        if len(clean_line) > 5:
+            kept.append(clean_line)
+    desc = ' '.join(kept)
+    desc = re.sub(r'\s{2,}', ' ', desc).strip()
+    if len(desc) > 15:
+        desc = desc[0].upper() + desc[1:]
+    else:
+        desc = ""
 
     # Category and subcategory classification
     p_cat_id = str(p.get('category', {}).get('id') if isinstance(p.get('category'), dict) else '')
