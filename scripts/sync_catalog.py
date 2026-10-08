@@ -145,17 +145,11 @@ def transform_product(p):
     else:
         mat = 'Поліестер / Плащівка'
 
-    # Origin country extraction
-    origin = "Україна"
-    m_orig = re.search(r'Виробник:\s*([^\n\r.]+)', desc, re.I)
-    if m_orig:
-        origin = m_orig.group(1).strip()
-    elif 'китай' in desc.lower():
-        origin = 'Китай 🇨🇳'
-    elif 'туреччин' in desc.lower():
-        origin = 'Туреччина 🇹🇷'
-    elif "в'єтнам" in desc.lower() or 'вьетнам' in desc.lower():
-        origin = "В'єтнам 🇻🇳"
+    # Origin country extraction (disabled by user request)
+    origin = ""
+    desc = re.sub(r'[🧷📌🔸🔹•\-*]?\s*(?:Виробник|Країна(?:\s+виробництва)?)\s*:[^\n\r]+', '', desc, flags=re.I)
+    desc = re.sub(r'[\U0001F1E6-\U0001F1FF]{2}', '', desc)
+    desc = re.sub(r'\n{2,}', '\n', desc).strip()
 
     # Category and subcategory classification
     p_cat_id = str(p.get('category', {}).get('id') if isinstance(p.get('category'), dict) else '')
@@ -389,7 +383,6 @@ def main():
     for p in feed_items:
         desc_parts = [p['name']]
         if p.get('mat'): desc_parts.append(f"Матеріал: {p['mat']}")
-        if p.get('origin'): desc_parts.append(f"Виробник: {p['origin']}")
         if p.get('sizes'): desc_parts.append(f"Розміри: {', '.join(p['sizes'][:6])}")
         desc_parts.append(f"Арт: {p['art']}")
         desc_str = ' • '.join(desc_parts)

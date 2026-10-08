@@ -1539,7 +1539,6 @@ async function handleCheckoutFormSubmit(e) {
             const qtyText = (item.qty || 1) > 1 ? ` | ${item.qty || 1} шт. × ${item.price.toLocaleString('uk-UA')} грн` : '';
             const detailsArr = [];
             if (item.mat) detailsArr.push(`Матеріал: ${item.mat}`);
-            if (item.origin) detailsArr.push(`Виробник: ${item.origin}`);
             const detailsLine = detailsArr.length > 0 ? `• ${detailsArr.join(' | ')}\n` : '';
             const linkLine = item.prodId ? `• https://urbangrid.com.ua/#prod-${item.prodId}\n` : '';
 
@@ -4682,7 +4681,6 @@ function getFormattedOrderForMessenger() {
             itemsText += `  Кількість: ${item.qty || 1} шт.\n`;
             itemsText += `  Ціна: ${item.price.toLocaleString('uk-UA')} грн (разом: ${lineSum.toLocaleString('uk-UA')} грн)\n`;
             if (item.mat) itemsText += `  Матеріал: ${item.mat}\n`;
-            if (item.origin) itemsText += `  Виробник: ${item.origin}\n`;
             if (item.prodId) itemsText += `  Посилання на сайті: https://urbangrid.com.ua/#prod-${item.prodId}\n`;
             itemsText += `\n`;
             itemsSummaryList += `${item.title}${item.art ? ` (Арт: ${item.art})` : ''} [${item.size}, ${item.qty || 1} шт.]; `;
@@ -5290,7 +5288,6 @@ async function handleCartDirectCheckout(e) {
         const qtyText = (item.qty || 1) > 1 ? ` | ${item.qty || 1} шт. × ${item.price.toLocaleString('uk-UA')} грн` : '';
         const detailsArr = [];
         if (item.mat) detailsArr.push(`Матеріал: ${item.mat}`);
-        if (item.origin) detailsArr.push(`Виробник: ${item.origin}`);
         const detailsLine = detailsArr.length > 0 ? `• ${detailsArr.join(' | ')}\n` : '';
         const linkLine = item.prodId ? `• https://urbangrid.com.ua/#prod-${item.prodId}\n` : '';
 
@@ -6722,12 +6719,12 @@ function generateProductDescription(item) {
         let clean = item.desc.trim()
             .replace(/Артикул\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
             .replace(/Матеріал\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/Виробник\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
-            .replace(/Країна\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
+            .replace(/[🧷📌🔸🔹•\-*]?\s*(?:Виробник|Країна(?:\s+виробництва)?)\s*:[^\n\r]+[\n\r]?/gi, '')
             .replace(/Сезон\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
             .replace(/Комплектація\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
             .replace(/Стан\s*:\s*[^<.\n\r]+[.\n\r]?/gi, '')
             .replace(/Відправка\s+Новою\s+Поштою[^<.\n\r]*[.\n\r]?/gi, '')
+            .replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, '')
             .trim();
         if (clean.length > 15) return clean;
     }
@@ -6797,10 +6794,6 @@ function renderPdpSpecs(item) {
     const list = document.getElementById('pdpSpecsList');
     if (!list) return;
 
-    const cleanOrigin = (item.origin || '')
-        .replace(/[\u{1F1E6}-\u{1F1FF}]{2}|[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27BF}]/gu, '')
-        .trim();
-
     const rows = [
         { label: 'Артикул товару:', val: item.art || '---' }
     ];
@@ -6818,7 +6811,6 @@ function renderPdpSpecs(item) {
         { label: 'Сезон:', val: item.season_name || (item.season === 'winter' ? 'Зима' : (item.season === 'summer' ? 'Літо' : 'Демісезон')) }
     );
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
-    if (cleanOrigin) rows.push({ label: 'Країна виробництва:', val: cleanOrigin });
     rows.push({
         label: 'Стан:',
         val: (item.cat === 'shoes') ? 'Новий, у фірмовій коробці' : 'Новий, у фірмовій упаковці'
