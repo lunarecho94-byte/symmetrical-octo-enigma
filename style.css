@@ -6568,33 +6568,55 @@ body {
     padding: 48px 0 36px !important;
     border-top: 1px solid #27272a !important;
     margin-top: 48px !important;
+    text-align: left !important;
 }
 
-.footer-content {
+.footer-content,
+.footer-container {
     display: grid !important;
     grid-template-columns: 2fr 1.5fr 1.5fr !important;
     gap: 32px !important;
+    text-align: left !important;
 }
 
 @media (max-width: 768px) {
-    .footer-content {
+    .footer-content,
+    .footer-container {
         grid-template-columns: 1fr !important;
         gap: 24px !important;
+        text-align: left !important;
     }
     .footer {
-        padding-bottom: 84px !important;
+        padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
     }
 }
 
+.footer-brand-col,
+.footer-brand,
+.footer-info-col,
+.footer-contacts-col,
+.footer-links {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: left !important;
+}
+
 .footer-logo {
+    display: inline-block !important;
     font-size: 20px !important;
     font-weight: 800 !important;
     color: #ffffff !important;
     margin-bottom: 8px !important;
     letter-spacing: 0.5px !important;
+    text-decoration: none !important;
 }
 
-.footer-tagline {
+.footer-logo:hover {
+    color: #10b981 !important;
+}
+
+.footer-tagline,
+.footer-desc {
     font-size: 13px !important;
     color: #a1a1aa !important;
     margin-bottom: 12px !important;
@@ -6604,6 +6626,20 @@ body {
 .footer-copy {
     font-size: 12px !important;
     color: #71717a !important;
+}
+
+.footer-orders-link {
+    color: #71717a !important;
+    text-decoration: none !important;
+    opacity: 0.7 !important;
+    font-size: 0.78rem !important;
+    margin-left: 6px !important;
+    transition: all 0.2s ease !important;
+}
+
+.footer-orders-link:hover {
+    opacity: 1 !important;
+    color: #10b981 !important;
 }
 
 .footer h4 {
@@ -6619,40 +6655,75 @@ body {
     font-size: 13px !important;
     line-height: 1.5 !important;
     margin-bottom: 6px !important;
+    color: #a1a1aa !important;
+}
+
+.footer a,
+.footer a:link,
+.footer a:visited {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: color 0.15s ease !important;
+}
+
+.footer a:hover {
+    color: #10b981 !important;
+}
+
+.footer a[href^="tel"],
+.footer a[href^="mailto"] {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.footer a[href^="tel"]:hover,
+.footer a[href^="mailto"]:hover {
+    color: #10b981 !important;
+    -webkit-text-fill-color: #10b981 !important;
 }
 
 .footer-link {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    gap: 8px !important;
     color: #ffffff !important;
     text-decoration: none !important;
     font-size: 14px !important;
     font-weight: 700 !important;
     margin-bottom: 12px !important;
+    -webkit-text-fill-color: #ffffff !important;
+    transition: color 0.15s ease !important;
+}
+
+.footer-link:hover {
+    color: #10b981 !important;
+    -webkit-text-fill-color: #10b981 !important;
 }
 
 .footer-messengers-row {
     display: flex !important;
     gap: 8px !important;
+    flex-wrap: wrap !important;
+    margin-top: 4px !important;
 }
 
 .footer-msg-btn {
     display: inline-flex !important;
     align-items: center !important;
     gap: 6px !important;
-    padding: 6px 12px !important;
-    border-radius: 6px !important;
+    padding: 7px 13px !important;
+    border-radius: 8px !important;
     font-size: 12px !important;
     font-weight: 600 !important;
     color: #ffffff !important;
     text-decoration: none !important;
     background: #27272a !important;
-    transition: background 0.15s !important;
+    transition: transform 0.15s, opacity 0.15s, background 0.15s !important;
 }
 
 .footer-msg-btn:hover {
-    background: #3f3f46 !important;
+    transform: translateY(-1px) !important;
+    opacity: 0.9 !important;
 }
 
 .footer-msg-btn.telegram { background: #229ED9 !important; }
