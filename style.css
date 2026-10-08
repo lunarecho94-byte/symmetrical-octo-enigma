@@ -8283,6 +8283,9 @@ body.fav-open {
     padding: 24px 0 60px;
     background: #ffffff;
     min-height: calc(100vh - 200px);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
 .pdp-breadcrumbs-bar {
@@ -8354,12 +8357,18 @@ body.fav-open {
     grid-template-columns: 1.08fr 1fr;
     gap: 48px;
     align-items: start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 @media (max-width: 960px) {
     .pdp-grid {
-        grid-template-columns: 1fr;
-        gap: 28px;
+        grid-template-columns: 100%;
+        gap: 24px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 }
 
@@ -8367,11 +8376,17 @@ body.fav-open {
 .pdp-gallery-wrap {
     position: sticky;
     top: 86px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 @media (max-width: 960px) {
     .pdp-gallery-wrap {
         position: static;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 }
 
@@ -8379,6 +8394,9 @@ body.fav-open {
     display: flex;
     gap: 14px;
     align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 /* Vertical Thumbnails Strip (Left) */
@@ -8444,6 +8462,9 @@ body.fav-open {
     justify-content: center;
     user-select: none;
     touch-action: manipulation;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .pdp-main-image-box img,
@@ -8571,29 +8592,47 @@ body.fav-open {
     .pdp-gallery-inner {
         flex-direction: column-reverse;
         gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        align-items: stretch;
     }
     .pdp-thumbs-strip {
         flex-direction: row;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
         max-height: none;
         overflow-x: auto;
         overflow-y: hidden;
         gap: 8px;
-        padding-bottom: 4px;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .pdp-thumbs-strip::-webkit-scrollbar {
+        display: none;
     }
     .pdp-thumb-btn {
-        width: 60px;
-        height: 74px;
+        width: 58px;
+        height: 72px;
+        flex-shrink: 0;
     }
     .pdp-main-image-box {
-        aspect-ratio: 1/1;
-        max-height: 380px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        aspect-ratio: 486 / 636;
+        max-height: 480px;
         min-height: auto;
     }
     .pdp-main-image-box img,
     #pdpMainImg,
     .pdp-main-img {
-        padding: 14px;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 }
 
@@ -8601,6 +8640,9 @@ body.fav-open {
 .pdp-info-wrap {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 /* Breadcrumbs line (want-it reference style) */

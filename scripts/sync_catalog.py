@@ -200,10 +200,11 @@ def transform_product(p):
         ('stone island', 'stoneisland', 'Stone Island'),
         ('tommy', 'tommy', 'Tommy Hilfiger'),
     ]
-    brand = 'radrop'
-    brand_name = 'R.A drop'
+    brand = 'urban'
+    brand_name = 'URBAN'
+    combined_search_text = (t_lower + ' ' + desc.lower())
     for k, b_slug, b_name in brand_map:
-        if k in t_lower:
+        if k in combined_search_text:
             brand = b_slug
             brand_name = b_name
             break
@@ -283,7 +284,7 @@ def main():
     brand_counts = Counter(p['brand'] for p in products)
 
     brand_name_map = {
-        'radrop': 'R.A drop',
+        'urban': 'URBAN',
         'tnf': 'The North Face',
         'columbia': 'Columbia',
         'nike': 'Nike',
@@ -336,7 +337,7 @@ def main():
         '  <channel>',
         '    <title>URBAN — Куртки, Пальто та Верхній одяг</title>',
         '    <link>https://urbangrid.com.ua</link>',
-        '    <description>Каталог курток, пальто та пуховиків від R.A drop. Швидка доставка Новою Поштою по Україні.</description>'
+        '    <description>Каталог курток, пальто та пуховиків URBAN. Швидка доставка Новою Поштою по Україні.</description>'
     ]
 
     for p in feed_items:

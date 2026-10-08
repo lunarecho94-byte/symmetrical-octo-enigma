@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=7.7">
+    <link rel="stylesheet" href="style.css?v=7.8">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -105,9 +105,11 @@
                 <nav class="pdp-breadcrumbs" aria-label="Навігація">
                     <a href="index.html" id="pdpCrumbHome" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">Головна</a>
                     <span class="sep">/</span>
-                    <a href="index.html" id="pdpCrumbCat" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">Каталог</a>
-                    <span class="sep">/</span>
-                    <span id="pdpCrumbBrand">Бренд</span>
+                    <a href="index.html" id="pdpCrumbCat" onclick="if(typeof returnToCatalogProduct==='function'){returnToCatalogProduct();return false;}">Одяг</a>
+                    <span class="sep" id="pdpCrumbSepSub" style="display: none;">/</span>
+                    <a href="index.html" id="pdpCrumbSubcat" style="display: none;">Категорія</a>
+                    <span class="sep" id="pdpCrumbSepBrand" style="display: none;">/</span>
+                    <span id="pdpCrumbBrand" style="display: none;">Бренд</span>
                     <span class="sep">/</span>
                     <span class="curr" id="pdpCrumbTitle"></span>
                 </nav>
@@ -965,6 +967,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=9.2"></script>
+    <script src="script.js?v=9.3"></script>
 </body>
 </html>

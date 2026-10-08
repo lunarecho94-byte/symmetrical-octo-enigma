@@ -5581,7 +5581,8 @@ function renderPhotoModalContent() {
 
             const activeThumb = thumbsContainer.querySelector('.photo-modal-thumb-img.active');
             if (activeThumb) {
-                activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                const offset = activeThumb.offsetLeft - (thumbsContainer.clientWidth / 2) + (activeThumb.clientWidth / 2);
+                thumbsContainer.scrollTo({ left: Math.max(0, offset), behavior: 'smooth' });
             }
         } else {
             thumbsContainer.style.display = 'none';
@@ -6418,11 +6419,10 @@ function renderProductDetailPage(item) {
     if (twImage && item.imgs && item.imgs[0]) twImage.content = item.imgs[0];
 
     // Breadcrumbs & Return Navigation
-    const crumbCat = document.getElementById('pdpCrumbCat');
-    if (crumbCat) {
-        crumbCat.textContent = categoryTitle || 'Каталог';
-        crumbCat.href = returnUrl;
-        crumbCat.onclick = (e) => {
+    const crumbHome = document.getElementById('pdpCrumbHome') || document.querySelector('.pdp-breadcrumbs a[href="index.html"]');
+    if (crumbHome) {
+        crumbHome.href = returnUrl;
+        crumbHome.onclick = (e) => {
             e.preventDefault();
             returnToCatalogProduct(item.id);
         };
@@ -6435,14 +6435,6 @@ function renderProductDetailPage(item) {
             returnToCatalogProduct(item.id);
         };
     }
-    const crumbHome = document.getElementById('pdpCrumbHome') || document.querySelector('.pdp-breadcrumbs a[href="index.html"]');
-    if (crumbHome) {
-        crumbHome.href = returnUrl;
-        crumbHome.onclick = (e) => {
-            e.preventDefault();
-            returnToCatalogProduct(item.id);
-        };
-    }
     const goHomeBtn = document.querySelector('.btn-pdp-go-home');
     if (goHomeBtn) {
         goHomeBtn.href = returnUrl;
@@ -6451,10 +6443,51 @@ function renderProductDetailPage(item) {
             returnToCatalogProduct(item.id);
         };
     }
-    const crumbBrand = document.getElementById('pdpCrumbBrand');
-    if (crumbBrand) {
-        crumbBrand.textContent = item.brand_name || 'Бренд';
+
+    const crumbCat = document.getElementById('pdpCrumbCat');
+    if (crumbCat) {
+        crumbCat.textContent = 'Одяг';
+        crumbCat.href = returnUrl;
+        crumbCat.onclick = (e) => {
+            e.preventDefault();
+            returnToCatalogProduct(item.id);
+        };
     }
+
+    const subcatSlug = item.subcat || (item.cat !== 'clothing' ? item.cat : '');
+    const subcatTitle = subcatSlug ? getCategoryTitle(subcatSlug, item) : '';
+    const crumbSubcat = document.getElementById('pdpCrumbSubcat');
+    const crumbSepSub = document.getElementById('pdpCrumbSepSub');
+    if (crumbSubcat) {
+        if (subcatTitle) {
+            crumbSubcat.textContent = subcatTitle;
+            crumbSubcat.href = `index.html?cat=${encodeURIComponent(subcatSlug)}#catalog`;
+            crumbSubcat.style.display = '';
+            if (crumbSepSub) crumbSepSub.style.display = '';
+        } else {
+            crumbSubcat.style.display = 'none';
+            if (crumbSepSub) crumbSepSub.style.display = 'none';
+        }
+    }
+
+    const isExternalBrand = item.brand && item.brand !== 'urban' && item.brand !== 'radrop' && item.brand !== 'all';
+    const crumbBrand = document.getElementById('pdpCrumbBrand');
+    const crumbSepBrand = document.getElementById('pdpCrumbSepBrand');
+    if (crumbBrand) {
+        if (isExternalBrand && item.brand_name) {
+            crumbBrand.textContent = item.brand_name;
+            crumbBrand.style.display = '';
+            if (crumbSepBrand) crumbSepBrand.style.display = '';
+        } else if (!crumbSubcat && subcatTitle) {
+            crumbBrand.textContent = subcatTitle;
+            crumbBrand.style.display = '';
+            if (crumbSepBrand) crumbSepBrand.style.display = '';
+        } else {
+            crumbBrand.style.display = 'none';
+            if (crumbSepBrand) crumbSepBrand.style.display = 'none';
+        }
+    }
+
     const crumbTitle = document.getElementById('pdpCrumbTitle');
     if (crumbTitle) {
         crumbTitle.textContent = displayName;
@@ -6490,7 +6523,13 @@ function renderProductDetailPage(item) {
 
     // Brand Tag
     const brandTag = document.getElementById('pdpBrandTag');
-    if (brandTag) brandTag.textContent = item.brand_name || categoryTitle;
+    if (brandTag) {
+        if (isExternalBrand && item.brand_name) {
+            brandTag.textContent = item.brand_name;
+        } else {
+            brandTag.textContent = subcatTitle || 'URBAN';
+        }
+    }
 
     // Art
     const artVal = document.getElementById('pdpArtVal');
@@ -6585,10 +6624,14 @@ function pdpSwitchPhoto(idx) {
     }
 
     const thumbs = document.querySelectorAll('.pdp-thumb-btn');
+    const thumbsStrip = document.getElementById('pdpThumbsStrip');
     thumbs.forEach((tb, i) => {
         if (i === pdpCurrentPhotoIndex) {
             tb.classList.add('active');
-            tb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            if (thumbsStrip) {
+                const offset = tb.offsetLeft - (thumbsStrip.clientWidth / 2) + (tb.clientWidth / 2);
+                thumbsStrip.scrollTo({ left: Math.max(0, offset), behavior: 'smooth' });
+            }
         } else {
             tb.classList.remove('active');
         }
@@ -7126,9 +7169,9 @@ function renderPdpRecommendedProducts(currentProduct) {
     const title = document.getElementById('pdpRecTitle');
     if (!sec || !grid || !catalogAllProducts) return;
 
-    let recs = catalogAllProducts.filter(p => String(p.id) !== String(currentProduct.id) && p.brand === currentProduct.brand);
+    let recs = catalogAllProducts.filter(p => String(p.id) !== String(currentProduct.id) && (p.subcat && currentProduct.subcat ? p.subcat === currentProduct.subcat : p.brand === currentProduct.brand));
     if (recs.length < 4) {
-        const catRecs = catalogAllProducts.filter(p => String(p.id) !== String(currentProduct.id) && p.cat === currentProduct.cat && p.brand !== currentProduct.brand);
+        const catRecs = catalogAllProducts.filter(p => String(p.id) !== String(currentProduct.id) && !recs.some(r => String(r.id) === String(p.id)));
         recs = recs.concat(catRecs);
     }
     recs = recs.slice(0, 4);
