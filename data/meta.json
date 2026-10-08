@@ -1,17 +1,17 @@
 {
-  "total": 248,
+  "total": 254,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 248
+      "count": 254
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 236
+      "count": 242
     },
     {
       "slug": "women",
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "🧥",
-      "count": 248
+      "count": 254
     },
     {
       "slug": "winter_jacket",
@@ -38,6 +38,12 @@
       "name": "Пальто",
       "icon": "🧥",
       "count": 5
+    },
+    {
+      "slug": "denim",
+      "name": "Джинсівки",
+      "icon": "👖",
+      "count": 6
     },
     {
       "slug": "leather",
@@ -69,31 +75,31 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 248
+      "count": 254
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 46
+      "count": 48
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 202
+      "count": 206
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 248
+      "count": 254
     },
     {
       "slug": "radrop",
       "name": "R.A drop",
-      "count": 231
+      "count": 237
     },
     {
       "slug": "tnf",

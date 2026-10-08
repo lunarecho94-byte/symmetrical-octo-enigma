@@ -65,7 +65,7 @@ def fetch_all_vendor_products(vendor_id=MYDROP_VENDOR_ID):
 def filter_jackets_and_coats(products):
     """Filters products to include only jackets, parkas, windbreakers, and coats."""
     jacket_pattern = re.compile(
-        r'куртк|пальто|бомбер|вітр[іі]вк|косух|пуховик|парк[аи]|анорак|softshell|софтшел|дублянк',
+        r'куртк|пальто|бомбер|вітр[іі]вк|косух|пуховик|парк[аи]|анорак|softshell|софтшел|дублянк|джинс[іі]вк|джинсовк',
         re.IGNORECASE
     )
     matched = []
@@ -148,6 +148,9 @@ def transform_product(p):
     if 'пальто' in t_lower:
         cat_name = 'Одяг & Пальто'
         subcat = 'coat'
+    elif 'джинс' in t_lower:
+        cat_name = 'Одяг & Джинсівки'
+        subcat = 'denim'
     elif 'пуховик' in t_lower or 'парк' in t_lower:
         cat_name = 'Одяг & Пуховики'
         subcat = 'down_jacket'
@@ -174,11 +177,11 @@ def transform_product(p):
     if is_winter:
         season = 'winter'
         season_name = 'Зима'
-        badge = 'Зима • Тепла'
+        badge = 'Зима • На хутрі' if 'хутр' in t_lower else 'Зима • Тепла'
     else:
         season = 'demi'
         season_name = 'Демісезон'
-        badge = 'Демісезон • Тренд'
+        badge = 'Демісезон • Джинс' if subcat == 'denim' else 'Демісезон • Тренд'
 
     # Gender classification
     if 'жіноч' in t_lower or (p.get('category') and 'жіноч' in p['category'].get('title', '').lower()):
@@ -300,6 +303,7 @@ def main():
             {'slug': 'all', 'name': 'Всі моделі', 'icon': '🧥', 'count': len(products)},
             {'slug': 'winter_jacket', 'name': 'Зимові куртки', 'icon': '❄️', 'count': subcat_counts.get('winter_jacket', 0) + subcat_counts.get('down_jacket', 0)},
             {'slug': 'coat', 'name': 'Пальто', 'icon': '🧥', 'count': subcat_counts.get('coat', 0)},
+            {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
             {'slug': 'leather', 'name': 'Шкіряні & Косухи', 'icon': '⚡', 'count': subcat_counts.get('leather', 0)},
             {'slug': 'bomber', 'name': 'Бомбери', 'icon': '🔥', 'count': subcat_counts.get('bomber', 0)},
             {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '💨', 'count': subcat_counts.get('windbreaker', 0)},
