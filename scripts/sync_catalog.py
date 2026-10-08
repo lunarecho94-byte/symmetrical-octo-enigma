@@ -62,18 +62,31 @@ def fetch_all_vendor_products(vendor_id=MYDROP_VENDOR_ID):
     return all_products
 
 
-def filter_jackets_and_coats(products):
-    """Filters products to include only jackets, parkas, windbreakers, and coats."""
-    jacket_pattern = re.compile(
-        r'куртк|пальто|бомбер|вітр[іі]вк|косух|пуховик|парк[аи]|анорак|softshell|софтшел|дублянк|джинс[іі]вк|джинсовк',
+def fetch_category_products(category_id, vendor_id=MYDROP_VENDOR_ID):
+    """Fetches all products for a specific category ID from MyDrop."""
+    url = f"{BACKEND_BASE_URL}/vendors/{vendor_id}/products?categoryId={category_id}&perPage=100"
+    req = urllib.request.Request(url, headers=HEADERS)
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            return data.get('results', [])
+    except Exception as e:
+        print(f"  Error fetching category {category_id}: {e}")
+        return []
+
+
+def filter_target_products(products):
+    """Filters products to include jackets, parkas, windbreakers, coats, and leggings."""
+    pattern = re.compile(
+        r'куртк|пальто|бомбер|вітр[іі]вк|косух|пуховик|парк[аи]|анорак|softshell|софтшел|дублянк|джинс[іі]вк|джинсовк|лосин|лег[г]?інс',
         re.IGNORECASE
     )
     matched = []
     for p in products:
         title = (p.get('title') or '').strip()
-        if jacket_pattern.search(title):
+        if pattern.search(title):
             matched.append(p)
-    print(f"Filtered {len(matched)} jackets and coats from {len(products)} total products.")
+    print(f"Filtered {len(matched)} target products from {len(products)} total products.")
     return matched
 
 
@@ -145,7 +158,18 @@ def transform_product(p):
         origin = "В'єтнам 🇻🇳"
 
     # Category and subcategory classification
-    if 'пальто' in t_lower:
+    p_cat_id = str(p.get('category', {}).get('id') if isinstance(p.get('category'), dict) else '')
+    is_leggings = ('лосин' in t_lower or 'легінс' in t_lower or 'леггинс' in t_lower or p_cat_id == '162679')
+
+    if is_leggings:
+        cat_name = 'Одяг & Лосини та легінси'
+        subcat = 'leggings'
+        mat = 'Еластичний біфлекс / Спандекс'
+        origin = 'Туреччина 🇹🇷'
+        badge = 'Лосини • Еластичні'
+        if not desc:
+            desc = f"Комфортні {title.lower()} з високою посадкою. Еластичний матеріал біфлекс приємний до тіла, не просвічує, чудово тягнеться, забезпечує бездоганну підтримку під час тренувань і щоденного носіння."
+    elif 'пальто' in t_lower:
         cat_name = 'Одяг & Пальто'
         subcat = 'coat'
     elif 'джинс' in t_lower:
@@ -178,13 +202,16 @@ def transform_product(p):
         season = 'winter'
         season_name = 'Зима'
         badge = 'Зима • На хутрі' if 'хутр' in t_lower else 'Зима • Тепла'
+    elif is_leggings:
+        season = 'demi'
+        season_name = 'Всесезон'
     else:
         season = 'demi'
         season_name = 'Демісезон'
         badge = 'Демісезон • Джинс' if subcat == 'denim' else 'Демісезон • Тренд'
 
     # Gender classification
-    if 'жіноч' in t_lower or (p.get('category') and 'жіноч' in p['category'].get('title', '').lower()):
+    if is_leggings or 'жіноч' in t_lower or (p.get('category') and 'жіноч' in str(p.get('category')).lower()):
         gender = 'women'
     else:
         gender = 'men'
@@ -257,7 +284,13 @@ def main():
 
     # 1. Fetch products from MyDrop
     raw_products = fetch_all_vendor_products()
-    matched_products = filter_jackets_and_coats(raw_products)
+    matched_products = filter_target_products(raw_products)
+    cat_162679_prods = fetch_category_products(162679)
+    existing_ids = {p['id'] for p in matched_products}
+    for p in cat_162679_prods:
+        if p['id'] not in existing_ids:
+            matched_products.append(p)
+            existing_ids.add(p['id'])
 
     # 2. Fetch full specifications
     detailed_products = fetch_product_details(matched_products)
@@ -309,6 +342,7 @@ def main():
             {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '💨', 'count': subcat_counts.get('windbreaker', 0)},
             {'slug': 'jacket', 'name': 'Демісезонні куртки', 'icon': '🍂', 'count': subcat_counts.get('jacket', 0)},
             {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
+            {'slug': 'leggings', 'name': 'Жіночі лосини та легінси', 'icon': '✨', 'count': subcat_counts.get('leggings', 0)},
         ],
         'seasons': [
             {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},

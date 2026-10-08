@@ -1,11 +1,11 @@
 {
-  "total": 254,
+  "total": 257,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 254
+      "count": 257
     },
     {
       "slug": "men",
@@ -17,7 +17,7 @@
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 12
+      "count": 15
     }
   ],
   "categories": [
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "🧥",
-      "count": 254
+      "count": 257
     },
     {
       "slug": "winter_jacket",
@@ -68,6 +68,12 @@
       "name": "Джинсівки",
       "icon": "👖",
       "count": 6
+    },
+    {
+      "slug": "leggings",
+      "name": "Жіночі лосини та легінси",
+      "icon": "✨",
+      "count": 3
     }
   ],
   "seasons": [
@@ -75,7 +81,7 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 254
+      "count": 257
     },
     {
       "slug": "winter",
@@ -87,19 +93,19 @@
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 206
+      "count": 209
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 254
+      "count": 257
     },
     {
       "slug": "urban",
       "name": "URBAN",
-      "count": 236
+      "count": 239
     },
     {
       "slug": "tnf",
