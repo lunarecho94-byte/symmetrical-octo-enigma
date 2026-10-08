@@ -1935,6 +1935,21 @@ function isLvBagItem(item) {
     return false;
 }
 
+function isWinterClothingItem(item) {
+    if (!item) return false;
+    const isClothing = item.cat === 'clothing' || (item.cat_name && /одяг/i.test(item.cat_name));
+    if (!isClothing) return false;
+
+    // Direct winter tag
+    if (item.season === 'winter' || (item.season_name && /зим/i.test(item.season_name))) {
+        return true;
+    }
+
+    // Winter apparel keywords in title, description, material or badge
+    const text = `${item.name || ''} ${item.mat || ''} ${item.badge || ''} ${item.desc || ''}`.toLowerCase();
+    return /зим|winter|пуховик|куртк|парк|пальто|дублянк|фліс|флис|fleece|термо|thermo|утепл|холофайбер|холлофайбер|пух|синтепон|силікон|силикон|овчин|байка|начес/i.test(text);
+}
+
 function formatProductDisplayName(item) {
     let name = (item.name || '').trim();
     if (/^(?:Піжама\s+комбінезон(?:\s*\(попожама\))?|Попожама)($|\s|[.,\(\)])/i.test(name)) {
@@ -2036,8 +2051,13 @@ async function initDynamicCatalog() {
             return true;
         });
 
-        // Always prioritize new footwear deliveries at the beginning of the catalog
+        // Always prioritize winter clothing at the beginning of the catalog
         catalogAllProducts.sort((a, b) => {
+            const isWinterA = isWinterClothingItem(a) ? 1 : 0;
+            const isWinterB = isWinterClothingItem(b) ? 1 : 0;
+            if (isWinterA !== isWinterB) {
+                return isWinterB - isWinterA;
+            }
             const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
             const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
             if (isShoeA !== isShoeB) {
@@ -3630,6 +3650,8 @@ function sortFilteredProducts(criteria) {
             return scoreB - scoreA;
         }
 
+        const isWinterA = isWinterClothingItem(a) ? 1 : 0;
+        const isWinterB = isWinterClothingItem(b) ? 1 : 0;
         const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
         const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
         const idA = parseInt(a.id, 10) || 0;
@@ -3639,12 +3661,14 @@ function sortFilteredProducts(criteria) {
             case 'price-asc': {
                 const diff = a.price - b.price;
                 if (diff !== 0) return diff;
+                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
                 if (isShoeA !== isShoeB) return isShoeB - isShoeA;
                 return idB - idA;
             }
             case 'price-desc': {
                 const diff = b.price - a.price;
                 if (diff !== 0) return diff;
+                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
                 if (isShoeA !== isShoeB) return isShoeB - isShoeA;
                 return idB - idA;
             }
@@ -3653,23 +3677,23 @@ function sortFilteredProducts(criteria) {
                 const discountB = (b.old_price || b.price) - b.price;
                 const diff = discountB - discountA;
                 if (diff !== 0) return diff;
+                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
                 if (isShoeA !== isShoeB) return isShoeB - isShoeA;
                 return idB - idA;
             }
             case 'name-asc': {
                 const diff = a.name.localeCompare(b.name, 'uk', { sensitivity: 'base' });
                 if (diff !== 0) return diff;
+                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
                 if (isShoeA !== isShoeB) return isShoeB - isShoeA;
                 return idB - idA;
             }
-            case 'newest': {
-                // Footwear (обувь) ALWAYS comes first at the beginning of the catalog
-                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
-                return idB - idA;
-            }
+            case 'newest':
             case 'popular':
             default: {
-                // Footwear (обувь) ALWAYS comes first at the beginning of the catalog
+                // Winter clothing (зимовий одяг) ALWAYS comes FIRST at the beginning of the catalog
+                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
+                // Then footwear (shoes)
                 if (isShoeA !== isShoeB) return isShoeB - isShoeA;
                 // Always show new supplies (highest ID) first
                 return idB - idA;

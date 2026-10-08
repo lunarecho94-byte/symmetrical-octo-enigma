@@ -334,12 +334,12 @@ def determine_season(name, cat_slug, mat="", desc="", cname=""):
     # 1. WINTER (Зима / Термо / Хутро / Пуховики / Утеплені моделі)
     is_polar = bool(re.search(r'antarktik|gaiadome|duckboot', name_lower))
     winter_kw = bool(re.search(
-        r'\b(?:зима|зимов[іаеий]|winter|термо|хутро|хутра|хутром|мех|мехом|пуховик|пуховики|парка|сноубутс|дутики|мунбут|мунбути|фліс|флісі|шерсть|утеплен[іаеий]|єврозима|еврозима|primaloft|thinsulate)\b',
+        r'(?:зима|зимов|winter|термо|хутр|мех|мехом|пуховик|пуховики|парка|сноубут|дутик|мунбут|фліс|флис|fleece|шерсть|утепл|єврозима|еврозима|primaloft|thinsulate|холлофайбер|холофайбер|силікон|силикон)',
         full_ctx
     ))
     is_ugg = bool(re.search(r'\b(ugg|угг)\b', name_lower)) and not bool(re.search(r'сланц|сандал|шльоп', name_lower))
     has_fur_in_title = bool(re.search(r'\(хутро\)|\(термо\)', name_lower))
-    is_warm_apparel = bool(re.search(r'пуховик|парка|пальто|дублянк', name_lower))
+    is_warm_apparel = bool(re.search(r'пуховик|парка|пальто|дублянк|куртк|анорак', name_lower)) and cat_slug == 'clothing' and not bool(re.search(r'вітровк|ветровк', name_lower))
 
     if (winter_kw or is_polar or is_ugg or is_warm_apparel or has_fur_in_title) and not has_no_fur:
         return 'winter', 'Зима', ''
@@ -1444,6 +1444,20 @@ def main():
     for p in products:
         if not p.get('art') or str(p.get('art')).lower() in ('none', 'null', '-'):
             p['art'] = str(p.get('id'))
+
+    def is_winter_clothing(p):
+        if p.get('cat') != 'clothing':
+            return False
+        if p.get('season') == 'winter':
+            return True
+        text = f"{p.get('name', '')} {p.get('mat', '')} {p.get('badge', '')} {p.get('desc', '')}".lower()
+        return bool(re.search(r'зим|winter|пуховик|куртк|парка|пальто|дублянк|фліс|флис|fleece|термо|thermo|утепл|холофайбер|холлофайбер|пух|синтепон|силікон|силикон|овчин|байка|начес', text))
+
+    # Always prioritize winter clothing at the beginning of catalog
+    products.sort(key=lambda p: (
+        0 if is_winter_clothing(p) else (1 if p.get('cat') == 'shoes' else 2),
+        -int(p.get('id') or 0)
+    ))
 
     # Save data/products.json
     os.makedirs('data', exist_ok=True)
