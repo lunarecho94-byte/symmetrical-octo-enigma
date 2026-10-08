@@ -334,7 +334,7 @@ def determine_season(name, cat_slug, mat="", desc="", cname=""):
     # 1. WINTER (Зима / Термо / Хутро / Пуховики / Утеплені моделі)
     is_polar = bool(re.search(r'antarktik|gaiadome|duckboot', name_lower))
     winter_kw = bool(re.search(
-        r'(?:зима|зимов|winter|термо|хутр|мех|мехом|пуховик|пуховики|парка|сноубут|дутик|мунбут|фліс|флис|fleece|шерсть|утепл|єврозима|еврозима|primaloft|thinsulate|холлофайбер|холофайбер|силікон|силикон)',
+        r'(?:зима|зимов|winter|термо|хутр|мех|мехом|пуховик|пуховики|парка|сноубут|дутик|мунбут|фліс|флис|fleece|шерсть|утепл|єврозима|еврозима|primaloft|thinsulate|холлофайбер|холофайбер|силікон|силикон|жилет|безрукав)',
         full_ctx
     ))
     is_ugg = bool(re.search(r'\b(ugg|угг)\b', name_lower)) and not bool(re.search(r'сланц|сандал|шльоп', name_lower))
@@ -1445,19 +1445,81 @@ def main():
         if not p.get('art') or str(p.get('art')).lower() in ('none', 'null', '-'):
             p['art'] = str(p.get('id'))
 
-    def is_winter_clothing(p):
-        if p.get('cat') != 'clothing':
-            return False
-        if p.get('season') == 'winter':
-            return True
-        text = f"{p.get('name', '')} {p.get('mat', '')} {p.get('badge', '')} {p.get('desc', '')}".lower()
-        return bool(re.search(r'зим|winter|пуховик|куртк|парка|пальто|дублянк|фліс|флис|fleece|термо|thermo|утепл|холофайбер|холлофайбер|пух|синтепон|силікон|силикон|овчин|байка|начес', text))
+    def get_apparel_type(p):
+        name = (p.get('name') or '').lower()
+        cat = p.get('cat') or ''
+        mat = (p.get('mat') or '').lower()
+        desc = (p.get('desc') or '').lower()
+        full = f'{name} {mat} {desc}'
 
-    # Always prioritize winter clothing at the beginning of catalog
-    products.sort(key=lambda p: (
-        0 if is_winter_clothing(p) else (1 if p.get('cat') == 'shoes' else 2),
-        -int(p.get('id') or 0)
-    ))
+        is_clothing = (cat == 'clothing') or bool(re.search(r'одяг', p.get('cat_name', ''), re.I))
+
+        # 1. Жилетки / Безрукавки (vests)
+        if is_clothing and bool(re.search(r'\b(?:жилет|безрукав)[а-яіїєґ\']*|\bvest\b', name)):
+            return 'vest'
+
+        # 2. Курточки / Пуховики / Парки (jackets)
+        if is_clothing and bool(re.search(r'куртк|пуховик|парка|пальто|дублянк|анорак', name)) and not bool(re.search(r'вітровк|ветровк', name)):
+            return 'jacket'
+
+        # 3. Кофти / Худі / Світшоти / Толстовки / Фліски / Светри (hoodies/sweaters)
+        if is_clothing and bool(re.search(r'кофт|худі|худи|світшот|свитшот|толстовк|фліс|флис|fleece|светр|джемпер|кардиган|лонгас|кенгуру', name)):
+            return 'hoodie'
+
+        # 4. Зимові костюми & теплий зимовий одяг
+        if is_clothing and (
+            p.get('season') == 'winter' or
+            bool(re.search(r'костюм', name)) and bool(re.search(r'зим|winter|фліс|флис|fleece|термо|thermo|утепл|начес|байка|теплий|теплый', full)) or
+            bool(re.search(r'зим|winter|термо|thermo|утепл|холофайбер|холлофайбер|пух|синтепон|силікон|силикон|овчин|байка|начес', full))
+        ):
+            return 'suit'
+
+        # 5. Зимове взуття (UGG, термо, хутро, сноубути)
+        if cat == 'shoes' and (p.get('season') == 'winter' or bool(re.search(r'зим|winter|термо|thermo|хутр|мех|сноубут|дутик|мунбут|угг|\bugg\b', full))):
+            return 'winter_shoe'
+
+        if cat == 'shoes':
+            return 'shoe'
+
+        return 'other'
+
+    jackets = sorted([p for p in products if get_apparel_type(p) == 'jacket'], key=lambda p: -int(p.get('id') or 0))
+    vests = sorted([p for p in products if get_apparel_type(p) == 'vest'], key=lambda p: -int(p.get('id') or 0))
+    hoodies = sorted([p for p in products if get_apparel_type(p) == 'hoodie'], key=lambda p: -int(p.get('id') or 0))
+    suits = sorted([p for p in products if get_apparel_type(p) == 'suit'], key=lambda p: -int(p.get('id') or 0))
+    winter_shoes = sorted([p for p in products if get_apparel_type(p) == 'winter_shoe'], key=lambda p: -int(p.get('id') or 0))
+    shoes = sorted([p for p in products if get_apparel_type(p) == 'shoe'], key=lambda p: -int(p.get('id') or 0))
+    others = sorted([p for p in products if get_apparel_type(p) == 'other'], key=lambda p: -int(p.get('id') or 0))
+
+    showcase = []
+    idx_j, idx_v, idx_h, idx_s, idx_ws = 0, 0, 0, 0, 0
+
+    while idx_v < len(vests):
+        for _ in range(2):
+            if idx_j < len(jackets): showcase.append(jackets[idx_j]); idx_j += 1
+        if idx_v < len(vests):
+            showcase.append(vests[idx_v]); idx_v += 1
+        for _ in range(2):
+            if idx_h < len(hoodies): showcase.append(hoodies[idx_h]); idx_h += 1
+        if idx_s < len(suits):
+            showcase.append(suits[idx_s]); idx_s += 1
+        if idx_ws < len(winter_shoes):
+            showcase.append(winter_shoes[idx_ws]); idx_ws += 1
+
+    while idx_j < len(jackets) or idx_h < len(hoodies) or idx_s < len(suits):
+        for _ in range(2):
+            if idx_j < len(jackets): showcase.append(jackets[idx_j]); idx_j += 1
+        for _ in range(2):
+            if idx_h < len(hoodies): showcase.append(hoodies[idx_h]); idx_h += 1
+        if idx_s < len(suits): showcase.append(suits[idx_s]); idx_s += 1
+        if idx_ws < len(winter_shoes): showcase.append(winter_shoes[idx_ws]); idx_ws += 1
+
+    while idx_ws < len(winter_shoes):
+        showcase.append(winter_shoes[idx_ws]); idx_ws += 1
+
+    showcase.extend(shoes)
+    showcase.extend(others)
+    products = showcase
 
     # Save data/products.json
     os.makedirs('data', exist_ok=True)

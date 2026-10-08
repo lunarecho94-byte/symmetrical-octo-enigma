@@ -2051,19 +2051,11 @@ async function initDynamicCatalog() {
             return true;
         });
 
-        // Always prioritize winter clothing at the beginning of the catalog
-        catalogAllProducts.sort((a, b) => {
-            const isWinterA = isWinterClothingItem(a) ? 1 : 0;
-            const isWinterB = isWinterClothingItem(b) ? 1 : 0;
-            if (isWinterA !== isWinterB) {
-                return isWinterB - isWinterA;
+        // Tag and preserve showcase order (jackets, vests, hoodies, winter apparel, shoes)
+        catalogAllProducts.forEach((item, idx) => {
+            if (typeof item._order !== 'number') {
+                item._order = idx;
             }
-            const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
-            const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
-            if (isShoeA !== isShoeB) {
-                return isShoeB - isShoeA;
-            }
-            return (parseInt(b.id, 10) || 0) - (parseInt(a.id, 10) || 0);
         });
 
         catalogMeta = await metaResp.json();
@@ -3657,19 +3649,20 @@ function sortFilteredProducts(criteria) {
         const idA = parseInt(a.id, 10) || 0;
         const idB = parseInt(b.id, 10) || 0;
 
+        const orderA = typeof a._order === 'number' ? a._order : 999999;
+        const orderB = typeof b._order === 'number' ? b._order : 999999;
+
         switch (criteria) {
             case 'price-asc': {
                 const diff = a.price - b.price;
                 if (diff !== 0) return diff;
-                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
-                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                if (orderA !== orderB) return orderA - orderB;
                 return idB - idA;
             }
             case 'price-desc': {
                 const diff = b.price - a.price;
                 if (diff !== 0) return diff;
-                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
-                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                if (orderA !== orderB) return orderA - orderB;
                 return idB - idA;
             }
             case 'discount': {
@@ -3677,25 +3670,20 @@ function sortFilteredProducts(criteria) {
                 const discountB = (b.old_price || b.price) - b.price;
                 const diff = discountB - discountA;
                 if (diff !== 0) return diff;
-                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
-                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                if (orderA !== orderB) return orderA - orderB;
                 return idB - idA;
             }
             case 'name-asc': {
                 const diff = a.name.localeCompare(b.name, 'uk', { sensitivity: 'base' });
                 if (diff !== 0) return diff;
-                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
-                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
+                if (orderA !== orderB) return orderA - orderB;
                 return idB - idA;
             }
             case 'newest':
             case 'popular':
             default: {
-                // Winter clothing (зимовий одяг) ALWAYS comes FIRST at the beginning of the catalog
-                if (isWinterA !== isWinterB) return isWinterB - isWinterA;
-                // Then footwear (shoes)
-                if (isShoeA !== isShoeB) return isShoeB - isShoeA;
-                // Always show new supplies (highest ID) first
+                // Priority showcase order: jackets, vests, hoodies, winter apparel, shoes
+                if (orderA !== orderB) return orderA - orderB;
                 return idB - idA;
             }
         }
