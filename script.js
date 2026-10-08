@@ -3642,10 +3642,6 @@ function sortFilteredProducts(criteria) {
             return scoreB - scoreA;
         }
 
-        const isWinterA = isWinterClothingItem(a) ? 1 : 0;
-        const isWinterB = isWinterClothingItem(b) ? 1 : 0;
-        const isShoeA = (a.cat === 'shoes' || isSneakerProductItem(a)) ? 1 : 0;
-        const isShoeB = (b.cat === 'shoes' || isSneakerProductItem(b)) ? 1 : 0;
         const idA = parseInt(a.id, 10) || 0;
         const idB = parseInt(b.id, 10) || 0;
 

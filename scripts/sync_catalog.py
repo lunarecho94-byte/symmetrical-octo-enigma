@@ -1478,6 +1478,9 @@ def main():
         if cat == 'shoes' and (p.get('season') == 'winter' or bool(re.search(r'зим|winter|термо|thermo|хутр|мех|сноубут|дутик|мунбут|угг|\bugg\b', full))):
             return 'winter_shoe'
 
+        if is_clothing:
+            return 'other_clothing'
+
         if cat == 'shoes':
             return 'shoe'
 
@@ -1487,12 +1490,13 @@ def main():
     vests = sorted([p for p in products if get_apparel_type(p) == 'vest'], key=lambda p: -int(p.get('id') or 0))
     hoodies = sorted([p for p in products if get_apparel_type(p) == 'hoodie'], key=lambda p: -int(p.get('id') or 0))
     suits = sorted([p for p in products if get_apparel_type(p) == 'suit'], key=lambda p: -int(p.get('id') or 0))
+    other_clothing = sorted([p for p in products if get_apparel_type(p) == 'other_clothing'], key=lambda p: -int(p.get('id') or 0))
     winter_shoes = sorted([p for p in products if get_apparel_type(p) == 'winter_shoe'], key=lambda p: -int(p.get('id') or 0))
     shoes = sorted([p for p in products if get_apparel_type(p) == 'shoe'], key=lambda p: -int(p.get('id') or 0))
     others = sorted([p for p in products if get_apparel_type(p) == 'other'], key=lambda p: -int(p.get('id') or 0))
 
     showcase = []
-    idx_j, idx_v, idx_h, idx_s, idx_ws = 0, 0, 0, 0, 0
+    idx_j, idx_v, idx_h, idx_s = 0, 0, 0, 0
 
     while idx_v < len(vests):
         for _ in range(2):
@@ -1503,8 +1507,6 @@ def main():
             if idx_h < len(hoodies): showcase.append(hoodies[idx_h]); idx_h += 1
         if idx_s < len(suits):
             showcase.append(suits[idx_s]); idx_s += 1
-        if idx_ws < len(winter_shoes):
-            showcase.append(winter_shoes[idx_ws]); idx_ws += 1
 
     while idx_j < len(jackets) or idx_h < len(hoodies) or idx_s < len(suits):
         for _ in range(2):
@@ -1512,12 +1514,15 @@ def main():
         for _ in range(2):
             if idx_h < len(hoodies): showcase.append(hoodies[idx_h]); idx_h += 1
         if idx_s < len(suits): showcase.append(suits[idx_s]); idx_s += 1
-        if idx_ws < len(winter_shoes): showcase.append(winter_shoes[idx_ws]); idx_ws += 1
 
-    while idx_ws < len(winter_shoes):
-        showcase.append(winter_shoes[idx_ws]); idx_ws += 1
+    # All remaining clothing items (demi pants, t-shirts, tracksuits, etc.)
+    showcase.extend(other_clothing)
 
+    # Footwear (winter shoes first, then general shoes)
+    showcase.extend(winter_shoes)
     showcase.extend(shoes)
+
+    # Accessories and other items
     showcase.extend(others)
     products = showcase
 
