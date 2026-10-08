@@ -331,9 +331,10 @@ def main():
     # 3. Transform to store schema
     products = [transform_product(p) for p in detailed_products]
 
-    # Prioritize: In-stock first, then Winter season first, then newest ID desc
+    # Prioritize: In-stock first, women's categories first, then Winter season first, then newest ID desc
     products.sort(key=lambda x: (
         0 if x['in_stock'] else 1,
+        0 if x.get('gender') == 'women' else 1,
         0 if x['season'] == 'winter' else 1,
         -int(x['id'])
     ))
@@ -362,11 +363,13 @@ def main():
         'total': len(products),
         'genders': [
             {'slug': 'all', 'name': 'Всі товари', 'icon': '', 'count': len(products)},
-            {'slug': 'men', 'name': 'Чоловічі', 'icon': '', 'count': gender_counts.get('men', 0)},
             {'slug': 'women', 'name': 'Жіночі', 'icon': '', 'count': gender_counts.get('women', 0)},
+            {'slug': 'men', 'name': 'Чоловічі', 'icon': '', 'count': gender_counts.get('men', 0)},
         ],
         'categories': [
             {'slug': 'all', 'name': 'Всі моделі', 'icon': '🧥', 'count': len(products)},
+            {'slug': 'vest', 'name': 'Жіночі жилетки та безрукавки', 'icon': '🦺', 'count': subcat_counts.get('vest', 0)},
+            {'slug': 'leggings', 'name': 'Жіночі лосини та легінси', 'icon': '✨', 'count': subcat_counts.get('leggings', 0)},
             {'slug': 'winter_jacket', 'name': 'Зимові куртки та пуховики', 'icon': '❄️', 'count': subcat_counts.get('winter_jacket', 0) + subcat_counts.get('down_jacket', 0)},
             {'slug': 'coat', 'name': 'Чоловічі стильні пальто', 'icon': '🧥', 'count': subcat_counts.get('coat', 0)},
             {'slug': 'leather', 'name': 'Шкіряні куртки та косухи', 'icon': '⚡', 'count': subcat_counts.get('leather', 0)},
@@ -374,8 +377,6 @@ def main():
             {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '💨', 'count': subcat_counts.get('windbreaker', 0)},
             {'slug': 'jacket', 'name': 'Демісезонні куртки', 'icon': '🍂', 'count': subcat_counts.get('jacket', 0)},
             {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
-            {'slug': 'vest', 'name': 'Жіночі жилетки та безрукавки', 'icon': '🦺', 'count': subcat_counts.get('vest', 0)},
-            {'slug': 'leggings', 'name': 'Жіночі лосини та легінси', 'icon': '✨', 'count': subcat_counts.get('leggings', 0)},
         ],
         'seasons': [
             {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},

@@ -8,16 +8,16 @@
       "count": 260
     },
     {
-      "slug": "men",
-      "name": "Чоловічі",
-      "icon": "",
-      "count": 242
-    },
-    {
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
       "count": 18
+    },
+    {
+      "slug": "men",
+      "name": "Чоловічі",
+      "icon": "",
+      "count": 242
     }
   ],
   "categories": [
@@ -26,6 +26,18 @@
       "name": "Всі моделі",
       "icon": "🧥",
       "count": 260
+    },
+    {
+      "slug": "vest",
+      "name": "Жіночі жилетки та безрукавки",
+      "icon": "🦺",
+      "count": 3
+    },
+    {
+      "slug": "leggings",
+      "name": "Жіночі лосини та легінси",
+      "icon": "✨",
+      "count": 3
     },
     {
       "slug": "winter_jacket",
@@ -68,18 +80,6 @@
       "name": "Джинсівки",
       "icon": "👖",
       "count": 6
-    },
-    {
-      "slug": "vest",
-      "name": "Жіночі жилетки та безрукавки",
-      "icon": "🦺",
-      "count": 3
-    },
-    {
-      "slug": "leggings",
-      "name": "Жіночі лосини та легінси",
-      "icon": "✨",
-      "count": 3
     }
   ],
   "seasons": [

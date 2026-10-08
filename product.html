@@ -448,7 +448,25 @@
                             <div class="drawer-nested-row">
                                 <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
                                     <span class="drawer-nav-name">🧥 Всі моделі</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_all">254</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_all">260</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="vest" onclick="applyDrawerCategory('vest')">
+                                    <span class="drawer-nav-name">🦺 Жіночі жилетки та безрукавки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_vest">3</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="leggings" onclick="applyDrawerCategory('leggings')">
+                                    <span class="drawer-nav-name">✨ Жіночі лосини та легінси</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_leggings">3</span>
                                 </button>
                                 <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
                             </div>
@@ -562,19 +580,19 @@
                         <li>
                             <button type="button" class="drawer-nav-item active" data-gender="all" onclick="applyDrawerGender('all')">
                                 <span class="drawer-nav-name">Всі товари</span>
-                                <span class="drawer-nav-count" id="drawerGenderCount_all">7 634</span>
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="drawer-nav-item" data-gender="men" onclick="applyDrawerGender('men')">
-                                <span class="drawer-nav-name">Чоловіче</span>
-                                <span class="drawer-nav-count" id="drawerGenderCount_men">4 246</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_all">260</span>
                             </button>
                         </li>
                         <li>
                             <button type="button" class="drawer-nav-item" data-gender="women" onclick="applyDrawerGender('women')">
                                 <span class="drawer-nav-name">Жіноче</span>
-                                <span class="drawer-nav-count" id="drawerGenderCount_women">5 496</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_women">18</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="men" onclick="applyDrawerGender('men')">
+                                <span class="drawer-nav-name">Чоловіче</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_men">242</span>
                             </button>
                         </li>
                         <li>
@@ -953,6 +971,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.0"></script>
+    <script src="script.js?v=10.1"></script>
 </body>
 </html>
