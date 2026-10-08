@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 URBAN — Catalog Synchronization Engine
-Synchronizes products from MyDrop (R.A drop supplier /ra) for jackets & coats.
+Synchronizes products from MyDrop for jackets & coats.
 Generates:
   - data/products.json
   - data/meta.json
@@ -27,7 +27,7 @@ OUTPUT_PRODUCTS = os.path.join(DATA_DIR, 'products.json')
 OUTPUT_META = os.path.join(DATA_DIR, 'meta.json')
 OUTPUT_FEED = os.path.join(PROJECT_DIR, 'feed.xml')
 
-MYDROP_VENDOR_ID = 2473  # R.A drop (https://mydrop.com.ua/ra)
+MYDROP_VENDOR_ID = 2473  # Outerwear supplier (https://mydrop.com.ua/ra)
 BACKEND_BASE_URL = 'https://backend.mydrop.com.ua/dropshipper'
 
 ctx = ssl.create_default_context()
