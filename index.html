@@ -53,7 +53,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.0">
+    <link rel="stylesheet" href="style.css?v=8.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -739,33 +739,6 @@
                 </div>
             </div>
 
-            <!-- Accordion 4: Популярні бренди -->
-            <div class="drawer-accordion" id="drawerAccBrands">
-                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccBrands')">
-                    <span class="drawer-accordion-label">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                        Популярні бренди
-                    </span>
-                    <span class="drawer-acc-arrow">▾</span>
-                </button>
-                <div class="drawer-accordion-content">
-                    <ul class="drawer-items-list" id="drawerBrandsList">
-                        <li><button type="button" class="drawer-nav-item active" data-brand="all" onclick="applyDrawerBrand('all')"><span class="drawer-nav-name">Всі бренди</span><span class="drawer-nav-count">7 595</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="nike" onclick="applyDrawerBrand('nike')"><span class="drawer-nav-name">Nike</span><span class="drawer-nav-count">2 120</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="newbalance" onclick="applyDrawerBrand('newbalance')"><span class="drawer-nav-name">New Balance</span><span class="drawer-nav-count">1 320</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="adidas" onclick="applyDrawerBrand('adidas')"><span class="drawer-nav-name">Adidas</span><span class="drawer-nav-count">511</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="asics" onclick="applyDrawerBrand('asics')"><span class="drawer-nav-name">Asics</span><span class="drawer-nav-count">414</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="ugg" onclick="applyDrawerBrand('ugg')"><span class="drawer-nav-name">UGG</span><span class="drawer-nav-count">404</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="chanel" onclick="applyDrawerBrand('chanel')"><span class="drawer-nav-name">Chanel</span><span class="drawer-nav-count">183</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="dior" onclick="applyDrawerBrand('dior')"><span class="drawer-nav-name">Dior</span><span class="drawer-nav-count">139</span></button></li>
-                        <li><button type="button" class="drawer-nav-item" data-brand="puma" onclick="applyDrawerBrand('puma')"><span class="drawer-nav-name">Puma</span><span class="drawer-nav-count">42</span></button></li>
-                    </ul>
-                    <button type="button" class="drawer-all-brands-btn" onclick="closeCatalogDrawer(); openBrandModal();">
-                        <span>Усі 55 брендів (пошук)...</span>
-                        <span>→</span>
-                    </button>
-                </div>
-            </div>
 
             <!-- Service & Help Links in Drawer -->
             <div class="drawer-service-links">
@@ -1124,7 +1097,7 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=9.5"></script>
+    <script src="script.js?v=9.6"></script>
 
     <!-- Quick Choice Modal / Bottom Sheet -->
     <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">
