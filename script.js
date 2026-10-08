@@ -1818,7 +1818,9 @@ function productMatchesGender(p, gender) {
 function productMatchesCategory(p, cat) {
     if (!cat || cat === 'all') return true;
     if (cat === 'sale') return !!p.is_sale;
-    return p.cat === cat;
+    if (cat === 'clothing') return p.cat === 'clothing';
+    if (cat === 'winter_jacket') return p.subcat === 'winter_jacket' || p.subcat === 'down_jacket';
+    return p.cat === cat || p.subcat === cat;
 }
 
 function productMatchesSeason(p, season) {
@@ -2131,6 +2133,9 @@ function updateFilterBadges() {
 
     const genderCounts = { all: 0, men: 0, women: 0 };
     const categoryCounts = { all: 0, shoes: 0, clothing: 0, socks: 0, underwear: 0, accessories: 0 };
+    if (typeof catalogMeta !== 'undefined' && catalogMeta && catalogMeta.categories) {
+        catalogMeta.categories.forEach(c => { categoryCounts[c.slug] = 0; });
+    }
     const seasonCounts = { all: 0, demi: 0, winter: 0, summer: 0 };
 
     catalogAllProducts.forEach(p => {
@@ -2146,6 +2151,12 @@ function updateFilterBadges() {
             categoryCounts.all++;
             if (p.cat && categoryCounts[p.cat] !== undefined) {
                 categoryCounts[p.cat]++;
+            }
+            if (p.subcat && categoryCounts[p.subcat] !== undefined) {
+                categoryCounts[p.subcat]++;
+            }
+            if (p.subcat === 'down_jacket' && categoryCounts['winter_jacket'] !== undefined) {
+                categoryCounts['winter_jacket']++;
             }
         }
 

@@ -18,9 +18,9 @@ cd "$PROJECT_DIR"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 LOG_FILE="$PROJECT_DIR/scripts/sync.log"
 
-echo "[$TIMESTAMP] Starting EasyDrop catalog sync..." >> "$LOG_FILE"
+echo "[$TIMESTAMP] Starting MyDrop (R.A drop) catalog sync..." >> "$LOG_FILE"
 
-# 1. Run Python sync script with automatic XML download
+# 1. Run Python sync script with automatic download
 python3 "$PROJECT_DIR/scripts/sync_catalog.py" --download >> "$LOG_FILE" 2>&1
 
 # 2. Check if catalog files changed
@@ -29,7 +29,7 @@ CHANGED_FILES=$(git status --porcelain data/ feed.xml)
 if [ -n "$CHANGED_FILES" ]; then
     echo "[$TIMESTAMP] Changes detected in catalog data. Committing and pushing..." >> "$LOG_FILE"
     git add data/products.json data/meta.json feed.xml
-    git -c user.name="Vladimir" -c user.email="zb9m9yrccy@privaterelay.appleid.com" commit -m "Автоматична синхронізація наявності EasyDrop [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
+    git -c user.name="Vladimir" -c user.email="zb9m9yrccy@privaterelay.appleid.com" commit -m "Автоматична синхронізація наявності MyDrop R.A drop [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
 
     # Pull rebase before push to avoid lock / non-fast-forward conflicts
     git pull origin main --rebase >> "$LOG_FILE" 2>&1 || true
