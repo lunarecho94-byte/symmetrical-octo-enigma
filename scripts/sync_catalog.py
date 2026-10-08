@@ -237,8 +237,8 @@ def transform_product(p):
         ('stone island', 'stoneisland', 'Stone Island'),
         ('tommy', 'tommy', 'Tommy Hilfiger'),
     ]
-    brand = 'urban'
-    brand_name = 'URBAN'
+    brand = ''
+    brand_name = ''
     combined_search_text = (t_lower + ' ' + desc.lower())
     for k, b_slug, b_name in brand_map:
         if k in combined_search_text:
@@ -325,10 +325,9 @@ def main():
     gender_counts = Counter(p['gender'] for p in products)
     season_counts = Counter(p['season'] for p in products)
     subcat_counts = Counter(p['subcat'] for p in products)
-    brand_counts = Counter(p['brand'] for p in products)
+    brand_counts = Counter(p['brand'] for p in products if p.get('brand'))
 
     brand_name_map = {
-        'urban': 'URBAN',
         'tnf': 'The North Face',
         'columbia': 'Columbia',
         'nike': 'Nike',
@@ -368,6 +367,7 @@ def main():
                 'count': b_count
             }
             for b_slug, b_count in brand_counts.most_common()
+            if b_slug and b_slug != 'urban'
         ]
     }
 
@@ -396,6 +396,7 @@ def main():
 
         main_img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
         g_gender = 'male' if p.get('gender') == 'men' else ('female' if p.get('gender') == 'women' else 'unisex')
+        feed_brand = p.get('brand_name') or 'URBAN'
         feed_xml_lines.extend([
             '    <item>',
             f'      <g:id>prod-{p["id"]}</g:id>',
@@ -403,7 +404,7 @@ def main():
             f'      <description>{escape(desc_str)}</description>',
             f'      <link>https://urbangrid.com.ua/#prod-{p["id"]}</link>',
             f'      <g:image_link>{main_img}</g:image_link>',
-            f'      <g:brand>{escape(p["brand_name"])}</g:brand>',
+            f'      <g:brand>{escape(feed_brand)}</g:brand>',
             f'      <g:gender>{g_gender}</g:gender>',
             '      <g:age_group>adult</g:age_group>',
             '      <g:condition>new</g:condition>',

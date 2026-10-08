@@ -6529,7 +6529,7 @@ function renderProductDetailPage(item) {
         if (isExternalBrand && item.brand_name) {
             brandTag.textContent = item.brand_name;
         } else {
-            brandTag.textContent = subcatTitle || 'URBAN';
+            brandTag.textContent = subcatTitle || '';
         }
     }
 
@@ -6802,11 +6802,21 @@ function renderPdpSpecs(item) {
         .trim();
 
     const rows = [
-        { label: 'Артикул товару:', val: item.art || '---' },
-        { label: 'Бренд:', val: item.brand_name || 'URBAN' },
+        { label: 'Артикул товару:', val: item.art || '---' }
+    ];
+
+    const brandName = (item.brand_name || '').trim();
+    const brandSlug = (item.brand || '').toLowerCase().trim();
+    const isUrbanOrEmpty = !brandName || brandName.toLowerCase() === 'urban' || brandSlug === 'urban' || brandName.toLowerCase() === 'ра дроп' || brandName.toLowerCase() === 'r.a drop' || brandSlug === 'radrop';
+
+    if (!isUrbanOrEmpty) {
+        rows.push({ label: 'Бренд:', val: brandName });
+    }
+
+    rows.push(
         { label: 'Категорія:', val: getCategoryTitle(item.cat, item) },
         { label: 'Сезон:', val: item.season_name || (item.season === 'winter' ? 'Зима' : (item.season === 'summer' ? 'Літо' : 'Демісезон')) }
-    ];
+    );
     if (item.mat) rows.push({ label: 'Матеріал:', val: item.mat });
     if (cleanOrigin) rows.push({ label: 'Країна виробництва:', val: cleanOrigin });
     rows.push({
