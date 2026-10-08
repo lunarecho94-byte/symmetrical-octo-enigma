@@ -1,23 +1,23 @@
 {
-  "total": 257,
+  "total": 302,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 257
+      "count": 302
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 242
+      "count": 284
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 15
+      "count": 18
     }
   ],
   "categories": [
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "🧥",
-      "count": 257
+      "count": 302
     },
     {
       "slug": "winter_jacket",
@@ -70,6 +70,12 @@
       "count": 6
     },
     {
+      "slug": "vest",
+      "name": "Жіночі жилетки та безрукавки",
+      "icon": "🦺",
+      "count": 45
+    },
+    {
       "slug": "leggings",
       "name": "Жіночі лосини та легінси",
       "icon": "✨",
@@ -81,31 +87,31 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 257
+      "count": 302
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 48
+      "count": 57
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 209
+      "count": 245
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 257
+      "count": 302
     },
     {
       "slug": "urban",
       "name": "URBAN",
-      "count": 239
+      "count": 283
     },
     {
       "slug": "tnf",
@@ -115,7 +121,7 @@
     {
       "slug": "columbia",
       "name": "Columbia",
-      "count": 4
+      "count": 5
     },
     {
       "slug": "nike",
