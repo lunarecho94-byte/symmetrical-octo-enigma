@@ -2473,6 +2473,9 @@ function checkCatalogUrlParams() {
         }
 
         if (changed) {
+            document.querySelectorAll('.main-cat-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.cat === currentCatalogCategory);
+            });
             updateBrandButtonState();
             updateSizeButtonState();
         }
@@ -3149,12 +3152,8 @@ function openSizeModal() {
     document.body.classList.add('modal-open');
     document.body.style.overflow = 'hidden';
 
-    // Auto-select tab: if category is clothing/outerwear, open clothing tab
-    if (currentCatalogCategory === 'clothing' || currentCatalogCategory === 'outerwear') {
-        switchSizeModalCategory('clothing');
-    } else {
-        switchSizeModalCategory('shoes');
-    }
+    // Default to clothing tab since catalog is jackets & outerwear
+    switchSizeModalCategory('clothing');
 
     renderSizeModalItems();
 }
@@ -3197,7 +3196,7 @@ function switchSizeModalCategory(cat) {
 
 function renderSizeModalItems() {
     const shoeSizes = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46'];
-    const clothingSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
+    const clothingSizes = ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL'];
 
     // Compute live counts
     const counts = {};
@@ -3737,22 +3736,19 @@ function escapeHtml(str) {
 }
 
 function getCategoryTitle(cat, item) {
-    if (cat === 'underwear') {
-        if (item && item.name && /піжам|попожам|пеньюар|халат|нічн/i.test(item.name)) {
-            return 'Білизна & Домашній одяг';
-        }
-        return 'Труси & Білизна';
+    if (typeof catalogMeta !== 'undefined' && catalogMeta && catalogMeta.categories) {
+        const found = catalogMeta.categories.find(c => c.slug === cat);
+        if (found) return found.name;
     }
     switch (cat) {
-        case 'men': return 'Чоловічі';
-        case 'women': return 'Жіночі';
-        case 'shoes': return 'Взуття';
+        case 'winter_jacket': return 'Зимові куртки та пуховики';
+        case 'coat': return 'Чоловічі стильні пальто';
+        case 'leather': return 'Шкіряні куртки та косухи';
+        case 'bomber': return 'Бомбери';
+        case 'windbreaker': return 'Вітровки';
+        case 'jacket': return 'Демісезонні куртки';
+        case 'denim': return 'Джинсівки';
         case 'clothing': return 'Одяг';
-        case 'socks': return 'Шкарпетки';
-        case 'underwear': return 'Труси & Білизна';
-        case 'accessories': return 'Аксесуари & Сумки';
-        case 'bags': return 'Аксесуари & Сумки';
-        case 'winter': return 'Взуття';
         case 'sale': return 'Знижки & SALE';
         default: return 'Товари';
     }

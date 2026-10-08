@@ -7054,6 +7054,18 @@ body {
     flex-shrink: 0;
 }
 
+.catalog-categories-bar {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 0 6px 0;
+}
+
+.catalog-categories-bar::-webkit-scrollbar {
+    display: none;
+}
+
 .gender-pills-scroll,
 .season-pills-scroll,
 .main-cat-tabs {
@@ -7066,6 +7078,7 @@ body {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     flex: 1;
+    flex-wrap: nowrap;
 }
 
 .gender-pills-scroll::-webkit-scrollbar,
@@ -7093,6 +7106,7 @@ body {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
 }
 
 .main-cat-btn:hover,

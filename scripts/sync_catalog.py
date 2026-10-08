@@ -301,13 +301,13 @@ def main():
         ],
         'categories': [
             {'slug': 'all', 'name': 'Всі моделі', 'icon': '🧥', 'count': len(products)},
-            {'slug': 'winter_jacket', 'name': 'Зимові куртки', 'icon': '❄️', 'count': subcat_counts.get('winter_jacket', 0) + subcat_counts.get('down_jacket', 0)},
-            {'slug': 'coat', 'name': 'Пальто', 'icon': '🧥', 'count': subcat_counts.get('coat', 0)},
-            {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
-            {'slug': 'leather', 'name': 'Шкіряні & Косухи', 'icon': '⚡', 'count': subcat_counts.get('leather', 0)},
+            {'slug': 'winter_jacket', 'name': 'Зимові куртки та пуховики', 'icon': '❄️', 'count': subcat_counts.get('winter_jacket', 0) + subcat_counts.get('down_jacket', 0)},
+            {'slug': 'coat', 'name': 'Чоловічі стильні пальто', 'icon': '🧥', 'count': subcat_counts.get('coat', 0)},
+            {'slug': 'leather', 'name': 'Шкіряні куртки та косухи', 'icon': '⚡', 'count': subcat_counts.get('leather', 0)},
             {'slug': 'bomber', 'name': 'Бомбери', 'icon': '🔥', 'count': subcat_counts.get('bomber', 0)},
             {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '💨', 'count': subcat_counts.get('windbreaker', 0)},
             {'slug': 'jacket', 'name': 'Демісезонні куртки', 'icon': '🍂', 'count': subcat_counts.get('jacket', 0)},
+            {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
         ],
         'seasons': [
             {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},

@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=7.6">
+    <link rel="stylesheet" href="style.css?v=7.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -432,80 +432,74 @@
                         <li class="drawer-nested-wrap">
                             <div class="drawer-nested-row">
                                 <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
-                                    <span class="drawer-nav-name">Всі товари</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_all">7 595</span>
+                                    <span class="drawer-nav-name">🧥 Всі моделі</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_all">254</span>
                                 </button>
                                 <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
                             </div>
                         </li>
                         <li class="drawer-nested-wrap">
                             <div class="drawer-nested-row">
-                                <button type="button" class="drawer-nav-item" data-cat="shoes" onclick="applyDrawerCategory('shoes')">
-                                    <span class="drawer-nav-name">Взуття</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_shoes">5 827</span>
-                                </button>
-                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubShoes', event)" aria-label="Підкатегорії взуття">
-                                    <span class="sub-arrow">▾</span>
-                                </button>
-                            </div>
-                            <ul class="drawer-sub-items" id="drawerSubShoes">
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кросівки', 'shoes')">Кросівки</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кеди', 'shoes')">Кеди</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Черевики', 'shoes')">Черевики & Термо</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Сланці', 'shoes')">Сланці & Тапочки</button></li>
-                            </ul>
-                        </li>
-                        <li class="drawer-nested-wrap">
-                            <div class="drawer-nested-row">
-                                <button type="button" class="drawer-nav-item" data-cat="clothing" onclick="applyDrawerCategory('clothing')">
-                                    <span class="drawer-nav-name">Одяг</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_clothing">764</span>
-                                </button>
-                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubClothing', event)" aria-label="Підкатегорії одягу">
-                                    <span class="sub-arrow">▾</span>
-                                </button>
-                            </div>
-                            <ul class="drawer-sub-items" id="drawerSubClothing">
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Куртка', 'clothing')">Куртки & Пуховики</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Костюм', 'clothing')">Спортивні костюми</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Худі', 'clothing')">Худі & Світшоти</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Штани', 'clothing')">Штани & Карго</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Футболка', 'clothing')">Футболки</button></li>
-                            </ul>
-                        </li>
-                        <li class="drawer-nested-wrap">
-                            <div class="drawer-nested-row">
-                                <button type="button" class="drawer-nav-item" data-cat="socks" onclick="applyDrawerCategory('socks')">
-                                    <span class="drawer-nav-name">Шкарпетки</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_socks">50</span>
+                                <button type="button" class="drawer-nav-item" data-cat="winter_jacket" onclick="applyDrawerCategory('winter_jacket')">
+                                    <span class="drawer-nav-name">❄️ Зимові куртки та пуховики</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_winter_jacket">72</span>
                                 </button>
                                 <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
                             </div>
                         </li>
                         <li class="drawer-nested-wrap">
                             <div class="drawer-nested-row">
-                                <button type="button" class="drawer-nav-item" data-cat="underwear" onclick="applyDrawerCategory('underwear')">
-                                    <span class="drawer-nav-name">Труси & Білизна</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_underwear">140</span>
+                                <button type="button" class="drawer-nav-item" data-cat="coat" onclick="applyDrawerCategory('coat')">
+                                    <span class="drawer-nav-name">🧥 Чоловічі стильні пальто</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_coat">5</span>
                                 </button>
                                 <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
                             </div>
                         </li>
                         <li class="drawer-nested-wrap">
                             <div class="drawer-nested-row">
-                                <button type="button" class="drawer-nav-item" data-cat="accessories" onclick="applyDrawerCategory('accessories')">
-                                    <span class="drawer-nav-name">Аксесуари & Сумки</span>
-                                    <span class="drawer-nav-count" id="drawerCatCount_accessories">853</span>
+                                <button type="button" class="drawer-nav-item" data-cat="leather" onclick="applyDrawerCategory('leather')">
+                                    <span class="drawer-nav-name">⚡ Шкіряні куртки та косухи</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_leather">30</span>
                                 </button>
-                                <button type="button" class="drawer-sub-toggle-btn" onclick="toggleDrawerNested('drawerSubAccessories', event)" aria-label="Підкатегорії аксесуарів">
-                                    <span class="sub-arrow">▾</span>
-                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
                             </div>
-                            <ul class="drawer-sub-items" id="drawerSubAccessories">
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Сумка', 'accessories')">Сумки & Месенджери</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Рюкзак', 'accessories')">Рюкзаки</button></li>
-                                <li><button type="button" class="drawer-sub-link" onclick="applyDrawerSubSearch('Кепка', 'accessories')">Кепки & Шапки</button></li>
-                            </ul>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="bomber" onclick="applyDrawerCategory('bomber')">
+                                    <span class="drawer-nav-name">🔥 Бомбери</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_bomber">45</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="windbreaker" onclick="applyDrawerCategory('windbreaker')">
+                                    <span class="drawer-nav-name">💨 Вітровки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_windbreaker">25</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="jacket" onclick="applyDrawerCategory('jacket')">
+                                    <span class="drawer-nav-name">🍂 Демісезонні куртки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_jacket">71</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="denim" onclick="applyDrawerCategory('denim')">
+                                    <span class="drawer-nav-name">👖 Джинсівки</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_denim">6</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -523,19 +517,17 @@
                 <div class="drawer-accordion-content">
                     <div class="drawer-size-grid">
                         <button type="button" class="drawer-size-chip active" data-drawer-size="all" onclick="applyDrawerSize('all')">Всі</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="36" onclick="applyDrawerSize('36')">36</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="37" onclick="applyDrawerSize('37')">37</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="38" onclick="applyDrawerSize('38')">38</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="39" onclick="applyDrawerSize('39')">39</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="40" onclick="applyDrawerSize('40')">40</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="41" onclick="applyDrawerSize('41')">41</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="42" onclick="applyDrawerSize('42')">42</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="43" onclick="applyDrawerSize('43')">43</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="44" onclick="applyDrawerSize('44')">44</button>
-                        <button type="button" class="drawer-size-chip" data-drawer-size="45" onclick="applyDrawerSize('45')">45</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="S" onclick="applyDrawerSize('S')">S</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="M" onclick="applyDrawerSize('M')">M</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="L" onclick="applyDrawerSize('L')">L</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="XL" onclick="applyDrawerSize('XL')">XL</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="XXL" onclick="applyDrawerSize('XXL')">XXL</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="3XL" onclick="applyDrawerSize('3XL')">3XL</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="4XL" onclick="applyDrawerSize('4XL')">4XL</button>
+                        <button type="button" class="drawer-size-chip" data-drawer-size="5XL" onclick="applyDrawerSize('5XL')">5XL</button>
                     </div>
                     <button type="button" class="drawer-all-sizes-btn" onclick="closeCatalogDrawer(); openSizeModal();">
-                        <span>Усі розміри (взуття та одяг)...</span>
+                        <span>Усі розміри одягу...</span>
                         <span>→</span>
                     </button>
                 </div>
@@ -973,6 +965,6 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=9.1"></script>
+    <script src="script.js?v=9.2"></script>
 </body>
 </html>
