@@ -3748,6 +3748,7 @@ function getCategoryTitle(cat, item) {
         case 'windbreaker': return 'Вітровки';
         case 'jacket': return 'Демісезонні куртки';
         case 'denim': return 'Джинсівки';
+        case 'vest': return 'Жіночі жилетки та безрукавки';
         case 'leggings': return 'Жіночі лосини та легінси';
         case 'clothing': return 'Одяг';
         case 'sale': return 'Знижки & SALE';

@@ -76,9 +76,9 @@ def fetch_category_products(category_id, vendor_id=MYDROP_VENDOR_ID):
 
 
 def filter_target_products(products):
-    """Filters products to include jackets, parkas, windbreakers, coats, and leggings."""
+    """Filters products to include jackets, parkas, windbreakers, and coats."""
     pattern = re.compile(
-        r'куртк|пальто|бомбер|вітр[іі]вк|косух|пуховик|парк[аи]|анорак|softshell|софтшел|дублянк|джинс[іі]вк|джинсовк|лосин|лег[г]?інс',
+        r'куртк|пальто|бомбер|вітр[іі]вк|косух|пуховик|парк[аи]|анорак|softshell|софтшел|дублянк|джинс[іі]вк|джинсовк',
         re.IGNORECASE
     )
     matched = []
@@ -86,7 +86,7 @@ def filter_target_products(products):
         title = (p.get('title') or '').strip()
         if pattern.search(title):
             matched.append(p)
-    print(f"Filtered {len(matched)} target products from {len(products)} total products.")
+    print(f"Filtered {len(matched)} outerwear products from {len(products)} total products.")
     return matched
 
 
@@ -160,6 +160,7 @@ def transform_product(p):
     # Category and subcategory classification
     p_cat_id = str(p.get('category', {}).get('id') if isinstance(p.get('category'), dict) else '')
     is_leggings = ('лосин' in t_lower or 'легінс' in t_lower or 'леггинс' in t_lower or p_cat_id == '162679')
+    is_vest = ('жилет' in t_lower or 'безрукавк' in t_lower or p_cat_id == '153947')
 
     if is_leggings:
         cat_name = 'Одяг & Лосини та легінси'
@@ -169,6 +170,11 @@ def transform_product(p):
         badge = 'Лосини • Еластичні'
         if not desc:
             desc = f"Комфортні {title.lower()} з високою посадкою. Еластичний матеріал біфлекс приємний до тіла, не просвічує, чудово тягнеться, забезпечує бездоганну підтримку під час тренувань і щоденного носіння."
+    elif is_vest:
+        cat_name = 'Одяг & Жилетки та безрукавки'
+        subcat = 'vest'
+        mat = mat or '100% Поліестер / Синтепон 100'
+        badge = 'Жилетка • Утеплена'
     elif 'пальто' in t_lower:
         cat_name = 'Одяг & Пальто'
         subcat = 'coat'
@@ -205,13 +211,17 @@ def transform_product(p):
     elif is_leggings:
         season = 'demi'
         season_name = 'Всесезон'
+    elif is_vest:
+        season = 'demi'
+        season_name = 'Демісезон'
+        badge = 'Демісезон • Жилетка'
     else:
         season = 'demi'
         season_name = 'Демісезон'
         badge = 'Демісезон • Джинс' if subcat == 'denim' else 'Демісезон • Тренд'
 
     # Gender classification
-    if is_leggings or 'жіноч' in t_lower or (p.get('category') and 'жіноч' in str(p.get('category')).lower()):
+    if is_leggings or p_cat_id == '153947' or 'жіноч' in t_lower or (p.get('category') and 'жіноч' in str(p.get('category')).lower()):
         gender = 'women'
     else:
         gender = 'men'
@@ -286,8 +296,9 @@ def main():
     raw_products = fetch_all_vendor_products()
     matched_products = filter_target_products(raw_products)
     cat_162679_prods = fetch_category_products(162679)
+    cat_153947_prods = fetch_category_products(153947)
     existing_ids = {p['id'] for p in matched_products}
-    for p in cat_162679_prods:
+    for p in cat_162679_prods + cat_153947_prods:
         if p['id'] not in existing_ids:
             matched_products.append(p)
             existing_ids.add(p['id'])
@@ -342,6 +353,7 @@ def main():
             {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '💨', 'count': subcat_counts.get('windbreaker', 0)},
             {'slug': 'jacket', 'name': 'Демісезонні куртки', 'icon': '🍂', 'count': subcat_counts.get('jacket', 0)},
             {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
+            {'slug': 'vest', 'name': 'Жіночі жилетки та безрукавки', 'icon': '🦺', 'count': subcat_counts.get('vest', 0)},
             {'slug': 'leggings', 'name': 'Жіночі лосини та легінси', 'icon': '✨', 'count': subcat_counts.get('leggings', 0)},
         ],
         'seasons': [

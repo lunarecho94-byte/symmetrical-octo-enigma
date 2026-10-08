@@ -1,17 +1,17 @@
 {
-  "total": 302,
+  "total": 260,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 302
+      "count": 260
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 284
+      "count": 242
     },
     {
       "slug": "women",
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "🧥",
-      "count": 302
+      "count": 260
     },
     {
       "slug": "winter_jacket",
@@ -73,7 +73,7 @@
       "slug": "vest",
       "name": "Жіночі жилетки та безрукавки",
       "icon": "🦺",
-      "count": 45
+      "count": 3
     },
     {
       "slug": "leggings",
@@ -87,31 +87,31 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 302
+      "count": 260
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 57
+      "count": 48
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 245
+      "count": 212
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 302
+      "count": 260
     },
     {
       "slug": "urban",
       "name": "URBAN",
-      "count": 283
+      "count": 242
     },
     {
       "slug": "tnf",
@@ -121,7 +121,7 @@
     {
       "slug": "columbia",
       "name": "Columbia",
-      "count": 5
+      "count": 4
     },
     {
       "slug": "nike",
