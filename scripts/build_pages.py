@@ -647,7 +647,7 @@ def build_product_page_html(p, all_products):
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=10.4" defer></script>
+    <script src="script.js?v=11.0" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {json.dumps(p, ensure_ascii=False)};
@@ -756,7 +756,7 @@ def main():
             {''.join(cards_html)}
         </div>
     </main>
-    <script src="script.js?v=10.4" defer></script>
+    <script src="script.js?v=11.0" defer></script>
 </body>
 </html>'''
         cat_file = os.path.join(CATEGORY_OUT_DIR, f"{cat_slug}.html")
@@ -764,6 +764,9 @@ def main():
             f.write(cat_html)
 
     print(f"Generated category pages in {CATEGORY_OUT_DIR}")
+
+    # Prerender product cards directly into index.html
+    prerender_index_catalog(products)
 
     # Generate sitemap strictly matching items for sale
     in_stock_prods = [p for p in products if p.get('in_stock')]
@@ -779,6 +782,72 @@ def main():
         f.write('\n'.join(sitemap_lines) + '\n')
 
     print(f"Sitemap updated: {len(in_stock_prods)} URLs (matches products for sale).")
+
+
+def prerender_index_catalog(products):
+    index_file = os.path.join(PROJECT_DIR, 'index.html')
+    if not os.path.exists(index_file):
+        return
+
+    with open(index_file, 'r', encoding='utf-8') as f:
+        html = f.read()
+
+    cards_html = []
+    for idx, p in enumerate(products):
+        slug = p.get('slug') or generate_product_slug(p['name'], p['id'])
+        img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
+        price_str = f"{p['price']:,}".replace(',', ' ') + " грн."
+        old_price_str = f"{p['old_price']:,}".replace(',', ' ') + " грн." if p.get('old_price') and p['old_price'] > p['price'] else ""
+        sizes_str = ', '.join(p.get('sizes', []))
+        is_lcp = (idx == 0)
+        priority_attrs = 'fetchpriority="high" loading="eager"' if is_lcp else ('loading="eager"' if idx < 4 else 'loading="lazy"')
+        name_esc = escape(p['name'])
+        
+        cards_html.append(f'''
+                <div class="product-card" id="prod-{p['id']}" data-brand="{escape(p.get('brand',''))}" data-category="{escape(p.get('cat',''))}" data-price="{p['price']}" data-name="{name_esc}" data-art="{escape(p.get('art',''))}" data-id="{p['id']}">
+                    <a href="/product/{slug}" class="want-card-link" onclick="openProductPage('{p['id']}', event, '/product/{slug}', false)">
+                        <div class="product-img-wrapper" title="{name_esc}">
+                            <button type="button" class="btn-card-fav" data-id="{p['id']}" onclick="toggleFavorite('{p['id']}', event)" aria-label="Додати в обране" title="Додати в обране">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/>
+                                </svg>
+                            </button>
+                            <img src="{img}" alt="{name_esc}" id="cardImg-{p['id']}" {priority_attrs} width="275" height="360" decoding="async" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="product-details">
+                            <p class="product-title" title="{name_esc}">{name_esc}</p>
+                            <p class="product-sizes-text" title="Розміри: {sizes_str}">{sizes_str}</p>
+                            <div class="product-price-row">
+                                {f'<span class="price-old">{old_price_str}</span>' if old_price_str else ''}
+                                <span class="price-now">{price_str}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>''')
+
+    all_cards_str = '\n'.join(cards_html)
+
+    # Replace .products-grid content
+    pattern = re.compile(r'(<div class="products-grid">\s*<div id="noSearchResultsBox".*?</div>\s*)(?:<div class="card-skeleton">.*?</div>\s*|<div class="product-card".*?</div>\s*)*', re.DOTALL)
+    if pattern.search(html):
+        new_grid_content = r'\1' + all_cards_str + '\n            '
+        html = pattern.sub(new_grid_content, html, count=1)
+    else:
+        html = re.sub(
+            r'(<div class="products-grid">)(.*?)(</div>\s*<!-- Catalog Pagination)',
+            r'\1\n' + all_cards_str + r'\n            \3',
+            html,
+            flags=re.DOTALL
+        )
+
+    # Update progress info and count
+    html = re.sub(r'<span id="catalogShowingCount">.*?</span>', f'<span id="catalogShowingCount">Показано {len(products)} з {len(products)} моделей</span>', html)
+    html = re.sub(r'<div class="catalog-progress-fill"[^>]*>', '<div class="catalog-progress-fill" id="catalogProgressFill" style="width: 100%;">', html)
+    html = re.sub(r'<p class="catalog-models-count"[^>]*>.*?</p>', f'<p class="catalog-models-count" id="catalogModelsCount">Знайдено {len(products)} моделей у наявності</p>', html)
+
+    with open(index_file, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f"Prerendered {len(products)} product cards directly into index.html!")
 
 
 if __name__ == '__main__':

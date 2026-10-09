@@ -2045,8 +2045,8 @@ async function initDynamicCatalog() {
 
     try {
         const [prodResp, metaResp] = await Promise.all([
-            fetch('/data/products.json'),
-            fetch('/data/meta.json')
+            fetch('/data/products.json?v=' + Date.now(), { cache: 'no-cache' }),
+            fetch('/data/meta.json?v=' + Date.now(), { cache: 'no-cache' })
         ]);
 
         if (!prodResp.ok || !metaResp.ok) {
@@ -6558,7 +6558,7 @@ async function initProductDetailPage() {
     // 2. Fetch catalog products if not loaded
     try {
         if (!catalogAllProducts || catalogAllProducts.length === 0) {
-            const resp = await fetch('/data/products.json');
+            const resp = await fetch('/data/products.json?v=' + Date.now(), { cache: 'no-cache' });
             if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
             const raw = await resp.json();
             const defectSizeRegex = /нюанс|дефект|брак|плям|уцінк|потертост|потёрт|скидк|-50%/i;
