@@ -1,11 +1,11 @@
 {
-  "total": 260,
+  "total": 259,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 260
+      "count": 259
     },
     {
       "slug": "women",
@@ -17,7 +17,7 @@
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 242
+      "count": 241
     }
   ],
   "categories": [
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "🧥",
-      "count": 260
+      "count": 259
     },
     {
       "slug": "vest",
@@ -55,7 +55,7 @@
       "slug": "leather",
       "name": "Шкіряні куртки та косухи",
       "icon": "⚡",
-      "count": 30
+      "count": 29
     },
     {
       "slug": "bomber",
@@ -87,13 +87,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 260
+      "count": 259
     },
     {
       "slug": "winter",
       "name": "Зима",
       "icon": "",
-      "count": 48
+      "count": 47
     },
     {
       "slug": "demi",
@@ -106,7 +106,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 260
+      "count": 259
     },
     {
       "slug": "tnf",
