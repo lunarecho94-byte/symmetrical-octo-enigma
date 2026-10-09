@@ -2492,12 +2492,16 @@ function checkCatalogUrlParams() {
             currentCatalogSort = sort;
             const sortSelect = document.getElementById('catalogSortSelect');
             if (sortSelect) sortSelect.value = sort;
+            updateSortDisplayLabel(sort);
             changed = true;
         } else if (currentCatalogSort !== 'default') {
             currentCatalogSort = 'default';
             const sortSelect = document.getElementById('catalogSortSelect');
             if (sortSelect) sortSelect.value = 'default';
+            updateSortDisplayLabel('default');
             changed = true;
+        } else {
+            updateSortDisplayLabel(currentCatalogSort);
         }
 
         const filter = urlParams.get('filter');
@@ -2804,6 +2808,7 @@ function resetAllCatalogFilters() {
     const sortSelect = document.getElementById('catalogSortSelect');
     if (sortSelect) sortSelect.value = 'popular';
     currentCatalogSort = 'popular';
+    updateSortDisplayLabel('popular');
 
     updateBrandButtonState();
     updateSizeButtonState();
@@ -2829,6 +2834,7 @@ function applyQuickNavFilter(key, btn) {
         const sortSelect = document.getElementById('catalogSortSelect');
         if (sortSelect) sortSelect.value = 'popular';
         currentCatalogSort = 'popular';
+        updateSortDisplayLabel('popular');
     } else if (key === 'shoes') {
         currentCatalogCategory = 'shoes';
     } else if (key === 'men') {
@@ -3599,8 +3605,37 @@ function quickSearch(term) {
     applyCatalogFilters();
 }
 
+const SORT_DISPLAY_MAP = {
+    'popular': 'За популярністю',
+    'default': 'За популярністю',
+    'discount': 'Найбільша знижка',
+    'price-asc': 'Ціна: від дешевих',
+    'price-desc': 'Ціна: від дорогих',
+    'newest': 'Новинки спочатку',
+    'name-asc': 'За назвою (А-Я)'
+};
+
+function updateSortDisplayLabel(criteria) {
+    const displayEl = document.getElementById('catalogSortCurrentVal');
+    if (!displayEl) return;
+    const sortSelect = document.getElementById('catalogSortSelect');
+    const val = criteria || (sortSelect ? sortSelect.value : 'popular');
+    if (SORT_DISPLAY_MAP[val]) {
+        displayEl.textContent = SORT_DISPLAY_MAP[val];
+    } else if (sortSelect && sortSelect.options && sortSelect.selectedIndex >= 0) {
+        displayEl.textContent = sortSelect.options[sortSelect.selectedIndex].text;
+    } else {
+        displayEl.textContent = 'За популярністю';
+    }
+}
+
 function handleCatalogSort(criteria) {
     currentCatalogSort = criteria;
+    const sortSelect = document.getElementById('catalogSortSelect');
+    if (sortSelect && sortSelect.value !== criteria) {
+        sortSelect.value = criteria;
+    }
+    updateSortDisplayLabel(criteria);
     applyCatalogFilters();
 }
 
@@ -5587,6 +5622,7 @@ window.filterCatalogBySize = filterCatalogBySize;
 window.filterCatalogByPrice = filterCatalogByPrice;
 window.loadMoreProducts = loadMoreProducts;
 window.handleCatalogSort = handleCatalogSort;
+window.updateSortDisplayLabel = updateSortDisplayLabel;
 window.openSizeChartModal = openSizeChartModal;
 window.switchSizeChartTab = switchSizeChartTab;
 window.closeSizeChartModal = closeSizeChartModal;

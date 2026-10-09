@@ -135,8 +135,20 @@
 
                 <!-- Right: Sort select and Filters button -->
                 <div class="catalog-toolbar-actions">
-                    <div class="catalog-sort-box">
-                        <select id="catalogSortSelect" class="catalog-sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
+                    <div class="catalog-sort-box" id="catalogSortBox" title="Сортування каталогу">
+                        <svg class="sort-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="m3 16 4 4 4-4"/>
+                            <path d="M7 20V4"/>
+                            <path d="m21 8-4-4-4 4"/>
+                            <path d="M17 4v16"/>
+                        </svg>
+                        <span class="sort-label-text">
+                            <span class="sort-label-full">Сортування:</span>
+                            <span class="sort-label-short">Сорт:</span>
+                        </span>
+                        <span class="sort-current-val" id="catalogSortCurrentVal">За популярністю</span>
+                        <span class="sort-chevron">▾</span>
+                        <select id="catalogSortSelect" class="catalog-sort-select-overlay" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
                             <option value="popular">За популярністю</option>
                             <option value="discount">Найбільша знижка</option>
                             <option value="price-asc">Ціна: від дешевих</option>
@@ -144,7 +156,6 @@
                             <option value="newest">Новинки спочатку</option>
                             <option value="name-asc">За назвою (А-Я)</option>
                         </select>
-                        <span class="sort-chevron">▾</span>
                     </div>
 
                     <button type="button" class="catalog-filter-trigger-btn" id="catalogFilterTriggerBtn" onclick="toggleCatalogDrawer()" aria-label="Відкрити фільтри" title="Категорії, бренди, розміри та фільтри">
