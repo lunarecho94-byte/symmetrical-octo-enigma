@@ -9442,141 +9442,227 @@ body.fav-open {
     line-height: 1;
 }
 
-/* Catalog Control Bar on Catalog Section */
-.catalog-control-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-    width: 100%;
+/* Catalog Section Header & Control Bar (Matched to User Design) */
+.catalog-section-header {
+    text-align: left;
+    margin-bottom: 18px;
 }
 
-/* Catalog Action Toolbar: Filters & Sort Buttons */
-.catalog-action-bar {
+.catalog-main-title {
+    font-family: var(--font-heading, inherit);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+    line-height: 1.15;
+}
+
+@media (max-width: 600px) {
+    .catalog-main-title {
+        font-size: 22px;
+    }
+}
+
+.catalog-models-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: #a1a1aa;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Catalog Toolbar Row: Left Pills + Right Controls */
+.catalog-toolbar-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 16px;
     width: 100%;
+    margin-bottom: 22px;
 }
 
-.catalog-filter-trigger-btn {
-    flex: 1 1 50%;
-    min-width: 0;
-    height: 44px;
+/* Quick Filter Pills (Left side) */
+.catalog-quick-pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+}
+
+.catalog-quick-pills::-webkit-scrollbar {
+    display: none;
+}
+
+.catalog-pill-btn {
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 8px;
+    background: #141418;
+    border: 1px solid #27272a;
+    color: #d4d4d8;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: #09090b;
-    border: 1.5px solid #09090b;
-    border-radius: 12px;
-    padding: 0 16px;
-    font-size: 14px;
+    transition: all 0.15s ease;
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    font-family: inherit;
+}
+
+.catalog-pill-btn:hover {
+    background: #202026;
+    border-color: #3f3f46;
+    color: #ffffff;
+}
+
+.catalog-pill-btn.active {
+    background: #00c076;
+    border-color: #00c076;
+    color: #ffffff;
     font-weight: 700;
+}
+
+/* Controls Toolbar (Right side) */
+.catalog-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.catalog-sort-box {
+    position: relative;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    background: #141418;
+    border: 1px solid #27272a;
+    border-radius: 8px;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.catalog-sort-box:hover,
+.catalog-sort-box:focus-within {
+    border-color: #3f3f46;
+    background: #1c1c22;
+}
+
+.catalog-sort-box .catalog-sort-select {
+    height: 100%;
+    padding: 0 32px 0 16px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    font-weight: 600;
     color: #ffffff;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.catalog-sort-box .sort-chevron {
+    position: absolute;
+    right: 12px;
+    font-size: 11px;
+    color: #a1a1aa;
+    pointer-events: none;
+}
+
+.catalog-filter-trigger-btn {
+    height: 38px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #141418;
+    border: 1px solid #27272a;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+    font-family: inherit;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
 
 .catalog-filter-trigger-btn:hover {
-    background: #27272a;
-    border-color: #27272a;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    background: #202026;
+    border-color: #3f3f46;
 }
 
-.catalog-filter-trigger-btn:active {
-    transform: translateY(0);
+.catalog-filter-trigger-btn.active {
+    border-color: #00c076;
 }
 
 .catalog-filter-btn-text {
     font-family: inherit;
     line-height: 1;
-    letter-spacing: 0.01em;
+}
+
+.filter-icon-svg {
+    color: #ffffff;
+    flex-shrink: 0;
 }
 
 .catalog-filter-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
     border-radius: 999px;
-    background: #ef4444;
+    background: #00c076;
     color: #ffffff;
     font-size: 11px;
     font-weight: 800;
     line-height: 1;
 }
 
-.catalog-filter-trigger-btn.active .catalog-filter-badge {
-    background: #ffffff;
-    color: #09090b;
-}
-
-.catalog-sort-wrapper {
-    flex: 1 1 50%;
-    min-width: 0;
-}
-
-.catalog-sort-inner {
-    position: relative;
-    width: 100%;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    background: #ffffff;
-    border: 1.5px solid #e4e4e7;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.catalog-sort-inner:hover,
-.catalog-sort-inner:focus-within {
-    border-color: #09090b;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.sort-icon-svg {
-    position: absolute;
-    left: 12px;
-    color: #71717a;
-    pointer-events: none;
-    flex-shrink: 0;
-}
-
-.sort-chevron {
-    position: absolute;
-    right: 12px;
-    font-size: 11px;
-    color: #71717a;
-    pointer-events: none;
-    flex-shrink: 0;
-}
-
-.catalog-sort-select {
-    width: 100%;
-    height: 100%;
-    padding: 0 26px 0 36px;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #09090b;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: inherit;
+@media (max-width: 768px) {
+    .catalog-toolbar-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .catalog-quick-pills {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        flex-wrap: nowrap;
+    }
+    .catalog-toolbar-actions {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+    }
+    .catalog-sort-box {
+        flex: 1 1 50%;
+    }
+    .catalog-sort-box .catalog-sort-select {
+        width: 100%;
+    }
+    .catalog-filter-trigger-btn {
+        flex: 1 1 50%;
+        justify-content: center;
+    }
 }
 
 /* Drawer Size Grid */

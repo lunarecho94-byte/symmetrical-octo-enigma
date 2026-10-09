@@ -54,7 +54,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -114,74 +114,69 @@
         </div>
     </header>
 
-    <!-- Full Catalog Grid: All Models with Multi-Photo Carousels -->
+    <!-- Full Catalog Grid -->
     <section class="catalog" id="catalog">
         <div class="container">
-            <div class="section-header">
-                <h1>КАТАЛОГ ТОВАРІВ</h1>
-                <p>Обирайте в каталозі — усе в наявності зі швидкою доставкою по Україні!</p>
+            <div class="catalog-section-header">
+                <h1 class="catalog-main-title" id="catalogMainTitle">КАТАЛОГ ОДЯГУ</h1>
+                <p class="catalog-models-count" id="catalogModelsCount">Знайдено 159 моделей у наявності</p>
             </div>
 
-            <!-- Modern Catalog Control Bar -->
-            <div class="catalog-control-bar">
-                <div class="catalog-search-box">
-                    <svg class="search-lens-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <input 
-                        type="search" 
-                        id="catalogSearchInput" 
-                        class="catalog-search-input" 
-                        placeholder="Пошук у каталозі: назва, бренд, артикул..." 
-                        aria-label="Пошук по каталогу"
-                        autocomplete="off"
-                        oninput="handleCatalogSearch(this.value)"
-                    >
-                    <button type="button" id="clearSearchBtn" class="clear-search-btn" onclick="clearCatalogSearch()" aria-label="Очистити пошук" style="display: none;">✕</button>
+            <!-- Modern Catalog Control Bar matching the reference -->
+            <div class="catalog-toolbar-row">
+                <!-- Left: Quick filter pills -->
+                <div class="catalog-quick-pills" id="catalogQuickPills" role="navigation" aria-label="Швидкі фільтри">
+                    <button type="button" class="catalog-pill-btn active" data-quick="all" onclick="setQuickCatalogFilter('all', this)">Всі</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="men" onclick="setQuickCatalogFilter('men', this)">Чоловічі</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="women" onclick="setQuickCatalogFilter('women', this)">Жіночі</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="demi" onclick="setQuickCatalogFilter('demi', this)">Демісезон</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="winter" onclick="setQuickCatalogFilter('winter', this)">Зимові</button>
                 </div>
 
+                <!-- Right: Sort select and Filters button -->
+                <div class="catalog-toolbar-actions">
+                    <div class="catalog-sort-box">
+                        <select id="catalogSortSelect" class="catalog-sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
+                            <option value="popular">За популярністю</option>
+                            <option value="discount">Найбільша знижка</option>
+                            <option value="price-asc">Ціна: від дешевих</option>
+                            <option value="price-desc">Ціна: від дорогих</option>
+                            <option value="newest">Новинки спочатку</option>
+                            <option value="name-asc">За назвою (А-Я)</option>
+                        </select>
+                        <span class="sort-chevron">▾</span>
+                    </div>
 
-                <div class="catalog-action-bar">
-                    <button type="button" class="catalog-filter-trigger-btn" id="catalogFilterTriggerBtn" onclick="toggleCatalogDrawer()" aria-label="Відкрити каталог" title="Каталог товарів, категорії та фільтри">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-                            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-                            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-                            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                    <button type="button" class="catalog-filter-trigger-btn" id="catalogFilterTriggerBtn" onclick="toggleCatalogDrawer()" aria-label="Відкрити фільтри" title="Категорії, бренди, розміри та фільтри">
+                        <svg class="filter-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="6" x2="20" y2="6"/>
+                            <line x1="4" y1="12" x2="20" y2="12"/>
+                            <line x1="4" y1="18" x2="20" y2="18"/>
+                            <line x1="8" y1="4" x2="8" y2="8"/>
+                            <line x1="16" y1="10" x2="16" y2="14"/>
+                            <line x1="10" y1="16" x2="10" y2="20"/>
                         </svg>
-                        <span class="catalog-filter-btn-text">Каталог</span>
+                        <span class="catalog-filter-btn-text">Фільтри</span>
                         <span class="catalog-filter-badge" id="catalogFilterBadge" style="display: none;">0</span>
                     </button>
-
-                    <div class="catalog-sort-wrapper">
-                        <div class="catalog-sort-inner">
-                            <svg class="sort-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M11 5h10M11 9h7M11 13h4M3 17l3 3 3-3M6 18V4"/>
-                            </svg>
-                            <select id="catalogSortSelect" class="catalog-sort-select" onchange="handleCatalogSort(this.value)" aria-label="Сортування каталогу">
-                                <option value="popular">За популярністю</option>
-                                <option value="discount">Найбільша знижка</option>
-                                <option value="price-asc">Ціна: від дешевих</option>
-                                <option value="price-desc">Ціна: від дорогих</option>
-                                <option value="newest">Новинки спочатку</option>
-                                <option value="name-asc">За назвою (А-Я)</option>
-                            </select>
-                            <span class="sort-chevron">▾</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Active Filter Tags Bar -->
-                <div class="catalog-active-filters-bar" id="catalogActiveFiltersBar" style="display: none;">
-                    <span class="active-filters-label">Активні фільтри:</span>
-                    <div class="active-filters-chips" id="activeFiltersChips"></div>
-                    <button type="button" class="active-filters-clear-all" onclick="resetAllCatalogFilters()">Скинути всі ✕</button>
-                </div>
-
-                <!-- Live Results Counter & Reset Action -->
-                <div id="searchResultsInfo" class="search-results-info" style="display: none;">
-                    <span id="searchResultsCount">Знайдено: 0 моделей</span>
-                    <button type="button" class="btn-reset-search" onclick="resetAllCatalogFilters()">Скинути всі фільтри ✕</button>
                 </div>
             </div>
+
+            <!-- Active Filter Tags Bar -->
+            <div class="catalog-active-filters-bar" id="catalogActiveFiltersBar" style="display: none;">
+                <span class="active-filters-label">Активні фільтри:</span>
+                <div class="active-filters-chips" id="activeFiltersChips"></div>
+                <button type="button" class="active-filters-clear-all" onclick="resetAllCatalogFilters()">Скинути всі ✕</button>
+            </div>
+
+            <!-- Live Results Counter & Reset Action -->
+            <div id="searchResultsInfo" class="search-results-info" style="display: none;">
+                <span id="searchResultsCount">Знайдено: 0 моделей</span>
+                <button type="button" class="btn-reset-search" onclick="resetAllCatalogFilters()">Скинути всі фільтри ✕</button>
+            </div>
+
+            <!-- Hidden search input for programmatic access -->
+            <input type="search" id="catalogSearchInput" class="catalog-search-input-hidden" style="display: none;" autocomplete="off">
 
 
 
@@ -1027,7 +1022,7 @@
 
     <!-- Scripts -->
     <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.3"></script>
 
     <!-- Quick Choice Modal / Bottom Sheet -->
     <div id="quickChoiceModal" class="brand-modal-overlay" onclick="handleQuickChoiceOverlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="quickChoiceModalTitle">

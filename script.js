@@ -2076,6 +2076,8 @@ async function initDynamicCatalog() {
         checkCatalogUrlParams();
         updateFilterBadges();
         syncDrawerActiveStates();
+        syncQuickCatalogPills();
+        updateCatalogModelsCountText();
         applyCatalogFilters(false);
     } catch (err) {
         console.error('Failed to load dynamic catalog:', err);
@@ -2590,11 +2592,13 @@ window.syncCatalogUrl = syncCatalogUrl;
 
 // Listen for browser back / forward buttons to restore filter state
 window.addEventListener('popstate', (e) => {
-    if (!document.getElementById('catalogProductsGrid')) return;
+    if (!document.getElementById('catalogProductsGrid') && !document.querySelector('.products-grid')) return;
     checkCatalogUrlParams();
     updateFilterBadges();
     syncDrawerActiveStates();
     syncQuickNavChips();
+    syncQuickCatalogPills();
+    updateCatalogModelsCountText();
     applyCatalogFilters(false);
 });
 
@@ -2807,6 +2811,7 @@ function resetAllCatalogFilters() {
     updateCatalogFilterBadge();
     syncDrawerActiveStates();
     syncQuickNavChips('all');
+    syncQuickCatalogPills();
     applyCatalogFilters();
 }
 
@@ -2893,6 +2898,72 @@ function syncQuickNavChips(explicitKey) {
     }
 }
 
+function setQuickCatalogFilter(filter, btn) {
+    if (filter === 'all') {
+        currentCatalogGender = 'all';
+        currentCatalogSeason = 'all';
+        currentCatalogCategory = 'all';
+    } else if (filter === 'men') {
+        currentCatalogGender = (currentCatalogGender === 'men') ? 'all' : 'men';
+        currentCatalogSeason = 'all';
+    } else if (filter === 'women') {
+        currentCatalogGender = (currentCatalogGender === 'women') ? 'all' : 'women';
+        currentCatalogSeason = 'all';
+    } else if (filter === 'demi') {
+        currentCatalogSeason = (currentCatalogSeason === 'demi') ? 'all' : 'demi';
+        currentCatalogGender = 'all';
+    } else if (filter === 'winter') {
+        currentCatalogSeason = (currentCatalogSeason === 'winter') ? 'all' : 'winter';
+        currentCatalogGender = 'all';
+    }
+
+    syncQuickCatalogPills();
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    updateCatalogFilterBadge();
+    applyCatalogFilters();
+
+    const catSection = document.getElementById('catalog');
+    if (catSection && window.pageYOffset > catSection.offsetTop + 100) {
+        catSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function syncQuickCatalogPills() {
+    let activeQuick = 'all';
+    if (currentCatalogGender === 'men' && currentCatalogSeason === 'all') {
+        activeQuick = 'men';
+    } else if (currentCatalogGender === 'women' && currentCatalogSeason === 'all') {
+        activeQuick = 'women';
+    } else if (currentCatalogSeason === 'demi' && currentCatalogGender === 'all') {
+        activeQuick = 'demi';
+    } else if (currentCatalogSeason === 'winter' && currentCatalogGender === 'all') {
+        activeQuick = 'winter';
+    } else if (currentCatalogGender === 'all' && currentCatalogSeason === 'all') {
+        activeQuick = 'all';
+    } else {
+        activeQuick = null;
+    }
+
+    document.querySelectorAll('.catalog-pill-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.quick === activeQuick);
+    });
+}
+
+function updateCatalogModelsCountText() {
+    const modelsCountEl = document.getElementById('catalogModelsCount');
+    if (!modelsCountEl) return;
+    const total = (typeof catalogFilteredProducts !== 'undefined' && catalogFilteredProducts) 
+        ? catalogFilteredProducts.length 
+        : (typeof catalogAllProducts !== 'undefined' && catalogAllProducts ? catalogAllProducts.length : 159);
+    
+    let countWord = 'моделей';
+    if (total % 10 === 1 && total % 100 !== 11) countWord = 'модель';
+    else if ([2, 3, 4].includes(total % 10) && ![12, 13, 14].includes(total % 100)) countWord = 'моделі';
+
+    modelsCountEl.textContent = `Знайдено ${total.toLocaleString('uk-UA')} ${countWord} у наявності`;
+}
+
 // Global window exposure for inline onclick handlers
 window.openCatalogDrawer = openCatalogDrawer;
 window.closeCatalogDrawer = closeCatalogDrawer;
@@ -2912,6 +2983,9 @@ window.updateCatalogFilterBadge = updateCatalogFilterBadge;
 window.removeActiveFilterTag = removeActiveFilterTag;
 window.applyQuickNavFilter = applyQuickNavFilter;
 window.syncQuickNavChips = syncQuickNavChips;
+window.setQuickCatalogFilter = setQuickCatalogFilter;
+window.syncQuickCatalogPills = syncQuickCatalogPills;
+window.updateCatalogModelsCountText = updateCatalogModelsCountText;
 
 // Global Escape and Enter handlers for catalog drawer
 document.addEventListener('keydown', (e) => {
@@ -3749,6 +3823,8 @@ function applyCatalogFilters(updateHistory = true) {
     renderActiveFilterTags();
     syncDrawerActiveStates();
     syncQuickNavChips();
+    syncQuickCatalogPills();
+    updateCatalogModelsCountText();
 
     // If returning from viewed product, scroll directly to that product card
     if (returnProductId) {
@@ -4113,15 +4189,14 @@ function updateCatalogFilterUI(query) {
 
 function focusSearchInput(e) {
     if (e && e.preventDefault) e.preventDefault();
-    const input = document.getElementById('catalogSearchInput');
-    if (input) {
-        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => {
+    openCatalogDrawer();
+    setTimeout(() => {
+        const input = document.getElementById('drawerSearchInput');
+        if (input) {
             input.focus();
-        }, 300);
-    } else {
-        window.location.href = 'index.html#catalogSearchInput';
-    }
+            input.select();
+        }
+    }, 250);
 }
 
 // Mobile Swipe Support for Product Cards (Strictly horizontal intentional swipe)
