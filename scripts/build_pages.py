@@ -51,15 +51,15 @@ def get_subcat_title(subcat):
         'hoodie': 'Зіп-худі',
         'vest': 'Жіночі жилетки та безрукавки',
         'leggings': 'Жіночі лосини та легінси',
-        'winter_jacket': 'Зимові куртки та пуховики',
+        'winter_jacket': 'Дублянки на хутрі',
         'coat': 'Чоловічі стильні пальто',
-        'leather': 'Шкіряні куртки та косухи',
+        'leather': 'Жіночі косухи',
         'bomber': 'Бомбери',
         'windbreaker': 'Вітровки',
-        'jacket': 'Демісезонні куртки',
+        'jacket': 'Демісезонні жіночі куртки',
         'denim': 'Джинсівки'
     }
-    return titles.get(subcat, 'Зіп-худі Maison Margiela')
+    return titles.get(subcat, 'Одяг та верхній одяг')
 
 
 def build_product_page_html(p, all_products):
@@ -594,7 +594,7 @@ def build_product_page_html(p, all_products):
                 <button type="button" class="btn-close-modal" onclick="closeSizeChartModal()" aria-label="Закрити">✕</button>
             </div>
             <div class="size-chart-body" style="padding: 16px;">
-                <p>Таблиця стандартних розмірів худі (оверсайз):</p>
+                <p>Таблиця стандартних розмірів одягу:</p>
                 <div class="size-table-container">
                     <table class="size-table">
                         <thead>
