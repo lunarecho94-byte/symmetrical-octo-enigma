@@ -47,6 +47,8 @@ def generate_product_slug(name, pid):
 
 def get_subcat_title(subcat):
     titles = {
+        'zip_hoodie': 'Зіп-худі Maison Margiela',
+        'hoodie': 'Зіп-худі',
         'vest': 'Жіночі жилетки та безрукавки',
         'leggings': 'Жіночі лосини та легінси',
         'winter_jacket': 'Зимові куртки та пуховики',
@@ -57,7 +59,7 @@ def get_subcat_title(subcat):
         'jacket': 'Демісезонні куртки',
         'denim': 'Джинсівки'
     }
-    return titles.get(subcat, 'Верхній одяг')
+    return titles.get(subcat, 'Зіп-худі Maison Margiela')
 
 
 def build_product_page_html(p, all_products):
@@ -592,13 +594,14 @@ def build_product_page_html(p, all_products):
                 <button type="button" class="btn-close-modal" onclick="closeSizeChartModal()" aria-label="Закрити">✕</button>
             </div>
             <div class="size-chart-body" style="padding: 16px;">
-                <p>Таблиця стандартних розмірів верхнього одягу:</p>
+                <p>Таблиця стандартних розмірів худі (оверсайз):</p>
                 <div class="size-table-container">
                     <table class="size-table">
                         <thead>
                             <tr><th>Розмір</th><th>Зріст</th><th>Обхват грудей</th></tr>
                         </thead>
                         <tbody>
+                            <tr><td><b>XS</b></td><td>160–168 см</td><td>82–88 см</td></tr>
                             <tr><td><b>S</b></td><td>165–172 см</td><td>88–94 см</td></tr>
                             <tr><td><b>M</b></td><td>170–178 см</td><td>94–100 см</td></tr>
                             <tr><td><b>L</b></td><td>175–184 см</td><td>100–108 см</td></tr>
@@ -661,6 +664,18 @@ def main():
 
     with open(META_FILE, encoding='utf-8') as f:
         meta = json.load(f)
+
+    # Clean old product files to prevent stale products
+    if os.path.exists(PRODUCT_OUT_DIR):
+        for fname in os.listdir(PRODUCT_OUT_DIR):
+            if fname.endswith('.html'):
+                os.remove(os.path.join(PRODUCT_OUT_DIR, fname))
+
+    # Clean old category files
+    if os.path.exists(CATEGORY_OUT_DIR):
+        for fname in os.listdir(CATEGORY_OUT_DIR):
+            if fname.endswith('.html'):
+                os.remove(os.path.join(CATEGORY_OUT_DIR, fname))
 
     print(f"Prerendering {len(products)} product pages...")
     rendered_count = 0
