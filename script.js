@@ -2076,7 +2076,7 @@ async function initDynamicCatalog() {
         checkCatalogUrlParams();
         updateFilterBadges();
         syncDrawerActiveStates();
-        applyCatalogFilters();
+        applyCatalogFilters(false);
     } catch (err) {
         console.error('Failed to load dynamic catalog:', err);
         grid.innerHTML = `
@@ -2427,9 +2427,12 @@ function checkCatalogUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
         let changed = false;
 
-        const cat = urlParams.get('cat');
+        const cat = urlParams.get('cat') || urlParams.get('category');
         if (cat) {
             currentCatalogCategory = cat;
+            changed = true;
+        } else if (currentCatalogCategory !== 'all') {
+            currentCatalogCategory = 'all';
             changed = true;
         }
 
@@ -2437,11 +2440,17 @@ function checkCatalogUrlParams() {
         if (gender) {
             currentCatalogGender = gender;
             changed = true;
+        } else if (currentCatalogGender !== 'all') {
+            currentCatalogGender = 'all';
+            changed = true;
         }
 
         const season = urlParams.get('season');
         if (season) {
             currentCatalogSeason = season;
+            changed = true;
+        } else if (currentCatalogSeason !== 'all') {
+            currentCatalogSeason = 'all';
             changed = true;
         }
 
@@ -2449,19 +2458,43 @@ function checkCatalogUrlParams() {
         if (brand) {
             currentCatalogBrand = brand;
             changed = true;
+        } else if (currentCatalogBrand !== 'all') {
+            currentCatalogBrand = 'all';
+            changed = true;
         }
 
         const size = urlParams.get('size');
         if (size) {
             currentCatalogSize = size;
             changed = true;
+        } else if (currentCatalogSize !== 'all') {
+            currentCatalogSize = 'all';
+            changed = true;
         }
 
-        const search = urlParams.get('search');
+        const search = urlParams.get('search') || urlParams.get('q');
         if (search) {
             currentCatalogSearchQuery = search;
             const searchInput = document.getElementById('catalogSearchInput');
             if (searchInput) searchInput.value = search;
+            changed = true;
+        } else if (currentCatalogSearchQuery) {
+            currentCatalogSearchQuery = '';
+            const searchInput = document.getElementById('catalogSearchInput');
+            if (searchInput) searchInput.value = '';
+            changed = true;
+        }
+
+        const sort = urlParams.get('sort');
+        if (sort) {
+            currentCatalogSort = sort;
+            const sortSelect = document.getElementById('catalogSortSelect');
+            if (sortSelect) sortSelect.value = sort;
+            changed = true;
+        } else if (currentCatalogSort !== 'default') {
+            currentCatalogSort = 'default';
+            const sortSelect = document.getElementById('catalogSortSelect');
+            if (sortSelect) sortSelect.value = 'default';
             changed = true;
         }
 
@@ -2471,15 +2504,99 @@ function checkCatalogUrlParams() {
             changed = true;
         }
 
-        if (changed) {
-            document.querySelectorAll('.main-cat-btn').forEach(b => {
-                b.classList.toggle('active', b.dataset.cat === currentCatalogCategory);
-            });
-            updateBrandButtonState();
-            updateSizeButtonState();
-        }
+        document.querySelectorAll('.gender-pill-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.gender === currentCatalogGender);
+        });
+        document.querySelectorAll('.main-cat-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.cat === currentCatalogCategory);
+        });
+        document.querySelectorAll('.season-pill-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.season === currentCatalogSeason);
+        });
+        updateBrandButtonState();
+        updateSizeButtonState();
     } catch (e) {}
 }
+
+function syncCatalogUrl(pushToHistory = true) {
+    if (!document.getElementById('catalogProductsGrid')) return;
+
+    const params = new URLSearchParams();
+    if (currentCatalogCategory && currentCatalogCategory !== 'all') {
+        params.set('cat', currentCatalogCategory);
+    }
+    if (currentCatalogGender && currentCatalogGender !== 'all') {
+        params.set('gender', currentCatalogGender);
+    }
+    if (currentCatalogSeason && currentCatalogSeason !== 'all') {
+        params.set('season', currentCatalogSeason);
+    }
+    if (currentCatalogBrand && currentCatalogBrand !== 'all') {
+        params.set('brand', currentCatalogBrand);
+    }
+    if (currentCatalogSize && currentCatalogSize !== 'all') {
+        params.set('size', currentCatalogSize);
+    }
+    const q = (currentCatalogSearchQuery || '').trim();
+    if (q) {
+        params.set('search', q);
+    }
+    if (currentCatalogSort && currentCatalogSort !== 'default') {
+        params.set('sort', currentCatalogSort);
+    }
+
+    const queryString = params.toString();
+    const newPath = window.location.pathname;
+    const newUrl = queryString ? `${newPath}?${queryString}` : `${newPath}`;
+
+    // Update canonical link in head:
+    // Filtered URLs point to category canonical or root, avoiding duplicate content indexation
+    let canonicalHref = 'https://urbangrid.com.ua/';
+    if (currentCatalogCategory && currentCatalogCategory !== 'all') {
+        canonicalHref = `https://urbangrid.com.ua/?cat=${encodeURIComponent(currentCatalogCategory)}`;
+    }
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
+    if (!canonicalTag) {
+        canonicalTag = document.createElement('link');
+        canonicalTag.rel = 'canonical';
+        document.head.appendChild(canonicalTag);
+    }
+    canonicalTag.href = canonicalHref;
+
+    const stateObj = {
+        cat: currentCatalogCategory,
+        gender: currentCatalogGender,
+        season: currentCatalogSeason,
+        brand: currentCatalogBrand,
+        size: currentCatalogSize,
+        search: q,
+        sort: currentCatalogSort
+    };
+
+    try {
+        const currentSearch = window.location.search.replace(/^\?/, '');
+        if (pushToHistory) {
+            if (currentSearch !== queryString) {
+                window.history.pushState(stateObj, document.title, newUrl);
+            }
+        } else {
+            window.history.replaceState(stateObj, document.title, newUrl);
+        }
+    } catch (e) {
+        // Safe fallback in sandboxed iframe or restricted environment
+    }
+}
+window.syncCatalogUrl = syncCatalogUrl;
+
+// Listen for browser back / forward buttons to restore filter state
+window.addEventListener('popstate', (e) => {
+    if (!document.getElementById('catalogProductsGrid')) return;
+    checkCatalogUrlParams();
+    updateFilterBadges();
+    syncDrawerActiveStates();
+    syncQuickNavChips();
+    applyCatalogFilters(false);
+});
 
 function syncDrawerActiveStates() {
     // 1. Categories
@@ -3476,7 +3593,7 @@ function getProductArtMatchScore(item, rawQuery) {
     return 0;
 }
 
-function applyCatalogFilters() {
+function applyCatalogFilters(updateHistory = true) {
     if (!catalogAllProducts.length) return;
 
     catalogProductSearchScores.clear();
@@ -3639,6 +3756,10 @@ function applyCatalogFilters() {
     } else {
         // Deep link auto-scroll check (Ad message-match)
         checkDeepLinkPromo();
+    }
+
+    if (updateHistory) {
+        syncCatalogUrl(true);
     }
 }
 
@@ -3821,11 +3942,20 @@ function createProductCardElement(item) {
     const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн.';
     const formattedOldPrice = item.old_price && item.old_price > item.price ? item.old_price.toLocaleString('uk-UA') + ' грн.' : '';
 
+    const isOutOfStock = !item.in_stock;
+    if (isOutOfStock) {
+        card.classList.add('is-out-of-stock');
+    }
+    const stockBadgeHtml = isOutOfStock
+        ? '<span class="card-out-of-stock-pill">Немає в наявності</span>'
+        : '';
+
     card.innerHTML = `
         <a href="${prodUrl}" class="want-card-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', false)">
             <div class="product-img-wrapper" title="${escapeHtml(displayName)}">
                 ${badgeHtml}
                 ${favBtnHtml}
+                ${stockBadgeHtml}
                 <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
             </div>
             <div class="product-details">
@@ -6548,9 +6678,6 @@ function renderProductDetailPage(item) {
         }
     }
 
-    // Viewers Social Proof Count (Random 0 to 39)
-    initPdpViewersCounter();
-
     // Description text (natural editorial description, no duplicate characteristics)
     const descText = document.getElementById('pdpDescText');
     if (descText) {
@@ -7275,23 +7402,9 @@ function updatePdpViewersDisplay(count) {
 }
 
 function initPdpViewersCounter() {
-    if (pdpViewersInterval) {
-        clearInterval(pdpViewersInterval);
-        pdpViewersInterval = null;
-    }
-
-    // Random viewers count from 0 to 39 inclusive
-    let currentViewers = Math.floor(Math.random() * 40);
-    updatePdpViewersDisplay(currentViewers);
-
-    // Subtle natural live fluctuation between 0 and 39
-    pdpViewersInterval = setInterval(() => {
-        const delta = Math.random() < 0.5 ? (Math.random() < 0.5 ? 1 : -1) : 0;
-        if (delta !== 0) {
-            currentViewers = Math.max(0, Math.min(39, currentViewers + delta));
-            updatePdpViewersDisplay(currentViewers);
-        }
-    }, 12000);
+    // Disabled per specification (no fake viewer counters)
+    const pill = document.getElementById('pdpViewersPill');
+    if (pill) pill.style.display = 'none';
 }
 window.getPdpViewersSuffix = getPdpViewersSuffix;
 window.updatePdpViewersDisplay = updatePdpViewersDisplay;

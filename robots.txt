@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /cart
+Disallow: /checkout
+Disallow: /thank-you
+Disallow: /thank-you.html
+Disallow: /*?search=*
+Disallow: /*&search=*
+
+Sitemap: https://urbangrid.com.ua/sitemap.xml

@@ -22,13 +22,14 @@ echo "[$TIMESTAMP] Starting outerwear catalog sync..." >> "$LOG_FILE"
 
 # 1. Run Python sync script with automatic download
 python3 "$PROJECT_DIR/scripts/sync_catalog.py" --download >> "$LOG_FILE" 2>&1
+python3 "$PROJECT_DIR/scripts/build_pages.py" >> "$LOG_FILE" 2>&1
 
 # 2. Check if catalog files changed
-CHANGED_FILES=$(git status --porcelain data/ feed.xml)
+CHANGED_FILES=$(git status --porcelain data/ feed.xml sitemap.xml product/ category/)
 
 if [ -n "$CHANGED_FILES" ]; then
     echo "[$TIMESTAMP] Changes detected in catalog data. Committing and pushing..." >> "$LOG_FILE"
-    git add data/products.json data/meta.json feed.xml
+    git add data/products.json data/meta.json feed.xml sitemap.xml product/ category/
     git -c user.name="Vladimir" -c user.email="zb9m9yrccy@privaterelay.appleid.com" commit -m "Автоматична синхронізація наявності та каталогу верхнього одягу [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
 
     # Pull rebase before push to avoid lock / non-fast-forward conflicts

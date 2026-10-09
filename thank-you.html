@@ -496,7 +496,7 @@
                 <div class="ty-step-num">2</div>
                 <div class="ty-step-text">
                     <h4>Відправка Новою Поштою</h4>
-                    <p>Ми надійно запакуємо кросівки та передамо кур'єрській службі. Доставка зазвичай займає 1–2 дні.</p>
+                    <p>Ми надійно запакуємо ваше замовлення та передамо кур'єрській службі. Доставка зазвичай займає 1–2 дні.</p>
                 </div>
             </div>
 
@@ -504,7 +504,7 @@
                 <div class="ty-step-num">3</div>
                 <div class="ty-step-text">
                     <h4>Примірка та оплата</h4>
-                    <p>Ви оглядаєте пару у відділенні та міряєте перед оплатою. Жодних передплат чи ризиків!</p>
+                    <p>Ви оглядаєте товар у відділенні та міряєте перед оплатою. Жодних передплат чи ризиків!</p>
                 </div>
             </div>
         </div>
@@ -528,7 +528,7 @@
         <div class="ty-actions">
             <a href="index.html#catalog" class="ty-btn-primary">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                Повернутися до каталогу кросівок
+                Повернутися до каталогу товарів
             </a>
         </div>
 
@@ -604,15 +604,16 @@
             if (totalEl) totalEl.textContent = totalNum.toLocaleString('uk-UA') + ' грн';
         }
 
-        // 3. STRICT META PIXEL PURCHASE TRACKING
-        // ONLY triggers if orderId exists AND has not been fired in this session for this specific order
+        // 3. STRICT META PIXEL PURCHASE TRACKING WITH EVENT_ID DEDUPLICATION
+        // ONLY triggers if orderId exists AND has not been fired in this browser session/storage
         if (orderId) {
             const trackingKey = 'ug_purchase_fired_' + orderId;
-            const alreadyFired = sessionStorage.getItem(trackingKey);
+            const alreadyFired = sessionStorage.getItem(trackingKey) || localStorage.getItem(trackingKey);
 
             if (!alreadyFired) {
-                // Mark as fired immediately to prevent duplicate fires on F5/refresh
+                // Mark as fired immediately in both session and local storage to prevent duplicate fires on F5/refresh
                 sessionStorage.setItem(trackingKey, '1');
+                localStorage.setItem(trackingKey, '1');
 
                 const purchaseValue = totalNum > 0 ? totalNum : 2500;
                 
@@ -624,8 +625,8 @@
                             content_type: 'product',
                             content_name: orderData?.itemsSummary || 'Замовлення URBAN',
                             order_id: orderId
-                        });
-                        console.log('✅ Meta Pixel Purchase fired on thank-you page:', { orderId, purchaseValue });
+                        }, { eventID: orderId });
+                        console.log('✅ Meta Pixel Purchase fired with eventID deduplication:', { orderId, purchaseValue });
                     }
                 } catch (pixelErr) {
                     console.warn('Meta Pixel tracking note:', pixelErr);
@@ -642,7 +643,7 @@
                     } catch (_) {}
                 }
             } else {
-                console.log('ℹ️ Purchase event already recorded for order', orderId, '— skipping duplicate fire.');
+                console.log('ℹ️ Purchase event already recorded for order', orderId, '— duplicate fire prevented.');
             }
         }
     })();

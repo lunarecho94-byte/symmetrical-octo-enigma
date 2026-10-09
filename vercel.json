@@ -1,13 +1,14 @@
 {
   "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/product/:slug*",
-      "destination": "/product?slug=:slug*"
+      "source": "/p/:slug*",
+      "destination": "/product/:slug*"
     },
     {
-      "source": "/p/:slug*",
-      "destination": "/product?slug=:slug*"
+      "source": "/product/:slug*",
+      "destination": "/product.html?slug=:slug*"
     }
   ]
 }

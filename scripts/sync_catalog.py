@@ -39,6 +39,27 @@ HEADERS = {
     'Accept': 'application/json, text/plain, */*'
 }
 
+OUTPUT_SITEMAP = os.path.join(PROJECT_DIR, 'sitemap.xml')
+
+CYR_MAP = {
+    'а':'a','б':'b','в':'v','г':'h','ґ':'g','д':'d','е':'e','є':'ye',
+    'ж':'zh','з':'z','и':'y','і':'i','ї':'yi','й':'y','к':'k','л':'l',
+    'м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u',
+    'ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh','щ':'shch','ь':'',
+    'ю':'yu','я':'ya','ъ':'','ы':'y','э':'e'
+}
+
+
+def generate_product_slug(name, pid):
+    """Generates clean readable Ukrainian transliterated slug with product ID."""
+    s = str(name or '').lower()
+    trans = ''.join(CYR_MAP.get(ch, ch) for ch in s)
+    clean = re.sub(r'[^a-z0-9]+', '-', trans).strip('-')
+    clean_id = str(pid or '').strip()
+    if clean and clean_id:
+        return f"{clean}-{clean_id}"
+    return clean or clean_id or 'product'
+
 
 def fetch_all_vendor_products(vendor_id=MYDROP_VENDOR_ID):
     """Fetches all products listed under the specified MyDrop supplier."""
@@ -188,7 +209,7 @@ def transform_product(p):
         cat_name = 'Одяг & Лосини та легінси'
         subcat = 'leggings'
         mat = 'Еластичний біфлекс / Спандекс'
-        origin = 'Туреччина 🇹🇷'
+        origin = ''
         badge = 'Лосини • Еластичні'
         if not desc:
             desc = f"Комфортні {title.lower()} з високою посадкою. Еластичний матеріал біфлекс приємний до тіла, не просвічує, чудово тягнеться, забезпечує бездоганну підтримку під час тренувань і щоденного носіння."
@@ -282,8 +303,11 @@ def transform_product(p):
     all_sizes = [s['title'].strip() for s in p.get('sizes', [])]
     sizes = avail_sizes if avail_sizes else all_sizes
 
+    slug = generate_product_slug(title, pid)
+
     return {
         'id': str(pid),
+        'slug': slug,
         'name': title,
         'price': price,
         'old_price': old_price,
@@ -331,6 +355,10 @@ def main():
     # 3. Transform to store schema
     products = [transform_product(p) for p in detailed_products]
 
+    if len(products) < 50:
+        print(f"Safety guard triggered: Fetched only {len(products)} products (expected >= 50). Keeping existing catalog files.")
+        return
+
     # Prioritize: In-stock first, women's categories first, then Winter season first, then newest ID desc
     products.sort(key=lambda x: (
         0 if x['in_stock'] else 1,
@@ -367,16 +395,16 @@ def main():
             {'slug': 'men', 'name': 'Чоловічі', 'icon': '', 'count': gender_counts.get('men', 0)},
         ],
         'categories': [
-            {'slug': 'all', 'name': 'Всі моделі', 'icon': '🧥', 'count': len(products)},
-            {'slug': 'vest', 'name': 'Жіночі жилетки та безрукавки', 'icon': '🦺', 'count': subcat_counts.get('vest', 0)},
-            {'slug': 'leggings', 'name': 'Жіночі лосини та легінси', 'icon': '✨', 'count': subcat_counts.get('leggings', 0)},
-            {'slug': 'winter_jacket', 'name': 'Зимові куртки та пуховики', 'icon': '❄️', 'count': subcat_counts.get('winter_jacket', 0) + subcat_counts.get('down_jacket', 0)},
-            {'slug': 'coat', 'name': 'Чоловічі стильні пальто', 'icon': '🧥', 'count': subcat_counts.get('coat', 0)},
-            {'slug': 'leather', 'name': 'Шкіряні куртки та косухи', 'icon': '⚡', 'count': subcat_counts.get('leather', 0)},
-            {'slug': 'bomber', 'name': 'Бомбери', 'icon': '🔥', 'count': subcat_counts.get('bomber', 0)},
-            {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '💨', 'count': subcat_counts.get('windbreaker', 0)},
-            {'slug': 'jacket', 'name': 'Демісезонні куртки', 'icon': '🍂', 'count': subcat_counts.get('jacket', 0)},
-            {'slug': 'denim', 'name': 'Джинсівки', 'icon': '👖', 'count': subcat_counts.get('denim', 0)},
+            {'slug': 'all', 'name': 'Всі моделі', 'icon': '', 'count': len(products)},
+            {'slug': 'vest', 'name': 'Жіночі жилетки та безрукавки', 'icon': '', 'count': subcat_counts.get('vest', 0)},
+            {'slug': 'leggings', 'name': 'Жіночі лосини та легінси', 'icon': '', 'count': subcat_counts.get('leggings', 0)},
+            {'slug': 'winter_jacket', 'name': 'Зимові куртки та пуховики', 'icon': '', 'count': subcat_counts.get('winter_jacket', 0) + subcat_counts.get('down_jacket', 0)},
+            {'slug': 'coat', 'name': 'Чоловічі стильні пальто', 'icon': '', 'count': subcat_counts.get('coat', 0)},
+            {'slug': 'leather', 'name': 'Шкіряні куртки та косухи', 'icon': '', 'count': subcat_counts.get('leather', 0)},
+            {'slug': 'bomber', 'name': 'Бомбери', 'icon': '', 'count': subcat_counts.get('bomber', 0)},
+            {'slug': 'windbreaker', 'name': 'Вітровки', 'icon': '', 'count': subcat_counts.get('windbreaker', 0)},
+            {'slug': 'jacket', 'name': 'Демісезонні куртки', 'icon': '', 'count': subcat_counts.get('jacket', 0)},
+            {'slug': 'denim', 'name': 'Джинсівки', 'icon': '', 'count': subcat_counts.get('denim', 0)},
         ],
         'seasons': [
             {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},
@@ -424,7 +452,7 @@ def main():
             f'      <g:id>prod-{p["id"]}</g:id>',
             f'      <title>{escape(p["name"])}</title>',
             f'      <description>{escape(desc_str)}</description>',
-            f'      <link>https://urbangrid.com.ua/#prod-{p["id"]}</link>',
+            f'      <link>https://urbangrid.com.ua/product/{p["slug"]}</link>',
             f'      <g:image_link>{main_img}</g:image_link>',
             f'      <g:brand>{escape(feed_brand)}</g:brand>',
             f'      <g:gender>{g_gender}</g:gender>',
@@ -450,6 +478,20 @@ def main():
     with open(OUTPUT_FEED, 'w', encoding='utf-8') as f:
         f.write('\n'.join(feed_xml_lines) + '\n')
     print(f"Saved {OUTPUT_FEED} with {len(feed_items)} items")
+
+    # 6. Generate sitemap.xml strictly for in-stock products for sale
+    in_stock_products = [p for p in products if p.get('in_stock')]
+    sitemap_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    ]
+    for p in in_stock_products:
+        sitemap_lines.append(f'  <url><loc>https://urbangrid.com.ua/product/{p["slug"]}</loc><changefreq>daily</changefreq><priority>0.8</priority></url>')
+    sitemap_lines.append('</urlset>')
+
+    with open(OUTPUT_SITEMAP, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(sitemap_lines) + '\n')
+    print(f"Saved {OUTPUT_SITEMAP} with {len(in_stock_products)} URLs (matching items for sale)")
 
 
 if __name__ == '__main__':

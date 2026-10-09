@@ -24,61 +24,61 @@
     {
       "slug": "all",
       "name": "Всі моделі",
-      "icon": "🧥",
+      "icon": "",
       "count": 258
     },
     {
       "slug": "vest",
       "name": "Жіночі жилетки та безрукавки",
-      "icon": "🦺",
+      "icon": "",
       "count": 3
     },
     {
       "slug": "leggings",
       "name": "Жіночі лосини та легінси",
-      "icon": "✨",
+      "icon": "",
       "count": 3
     },
     {
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
-      "icon": "❄️",
+      "icon": "",
       "count": 72
     },
     {
       "slug": "coat",
       "name": "Чоловічі стильні пальто",
-      "icon": "🧥",
+      "icon": "",
       "count": 5
     },
     {
       "slug": "leather",
       "name": "Шкіряні куртки та косухи",
-      "icon": "⚡",
+      "icon": "",
       "count": 29
     },
     {
       "slug": "bomber",
       "name": "Бомбери",
-      "icon": "🔥",
+      "icon": "",
       "count": 44
     },
     {
       "slug": "windbreaker",
       "name": "Вітровки",
-      "icon": "💨",
+      "icon": "",
       "count": 25
     },
     {
       "slug": "jacket",
       "name": "Демісезонні куртки",
-      "icon": "🍂",
+      "icon": "",
       "count": 71
     },
     {
       "slug": "denim",
       "name": "Джинсівки",
-      "icon": "👖",
+      "icon": "",
       "count": 6
     }
   ],

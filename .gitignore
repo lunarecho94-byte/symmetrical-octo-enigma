@@ -1,7 +1,10 @@
 easydrop_export.xml
 *.xml
+!sitemap.xml
+!feed.xml
 *.log
 scripts/*.log
+scratch/
 *.pyc
 __pycache__/
 .DS_Store
