@@ -1,23 +1,23 @@
 {
-  "total": 258,
+  "total": 28,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 258
+      "count": 28
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 18
+      "count": 28
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 240
+      "count": 28
     }
   ],
   "categories": [
@@ -25,61 +25,13 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 258
+      "count": 28
     },
     {
-      "slug": "vest",
-      "name": "Жіночі жилетки та безрукавки",
+      "slug": "zip_hoodie",
+      "name": "Зіп-худі Maison Margiela",
       "icon": "",
-      "count": 3
-    },
-    {
-      "slug": "leggings",
-      "name": "Жіночі лосини та легінси",
-      "icon": "",
-      "count": 3
-    },
-    {
-      "slug": "winter_jacket",
-      "name": "Зимові куртки та пуховики",
-      "icon": "",
-      "count": 72
-    },
-    {
-      "slug": "coat",
-      "name": "Чоловічі стильні пальто",
-      "icon": "",
-      "count": 5
-    },
-    {
-      "slug": "leather",
-      "name": "Шкіряні куртки та косухи",
-      "icon": "",
-      "count": 29
-    },
-    {
-      "slug": "bomber",
-      "name": "Бомбери",
-      "icon": "",
-      "count": 44
-    },
-    {
-      "slug": "windbreaker",
-      "name": "Вітровки",
-      "icon": "",
-      "count": 25
-    },
-    {
-      "slug": "jacket",
-      "name": "Демісезонні куртки",
-      "icon": "",
-      "count": 71
-    },
-    {
-      "slug": "denim",
-      "name": "Джинсівки",
-      "icon": "",
-      "count": 6
+      "count": 28
     }
   ],
   "seasons": [
@@ -87,41 +39,25 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 258
-    },
-    {
-      "slug": "winter",
-      "name": "Зима",
-      "icon": "",
-      "count": 47
+      "count": 28
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 211
+      "count": 28
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 258
+      "count": 28
     },
     {
-      "slug": "tnf",
-      "name": "The North Face",
-      "count": 12
-    },
-    {
-      "slug": "columbia",
-      "name": "Columbia",
-      "count": 4
-    },
-    {
-      "slug": "nike",
-      "name": "Nike",
-      "count": 2
+      "slug": "maison_margiela",
+      "name": "Maison Margiela",
+      "count": 28
     }
   ]
 }
