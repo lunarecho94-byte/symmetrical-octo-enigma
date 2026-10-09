@@ -1627,7 +1627,7 @@
     <item>
       <g:id>prod-5132300</g:id>
       <title>Чоловіча куртка демі чорна без капюшона New</title>
-      <description>Чоловіча куртка демі чорна без капюшона New • Матеріал: 100% поліестер ( якісна м'яка  матова плащівка ) • Розміри: M, XL, 2XL • Арт: 2482 чор</description>
+      <description>Чоловіча куртка демі чорна без капюшона New • Матеріал: 100% поліестер ( якісна м'яка  матова плащівка ) • Розміри: M, 2XL • Арт: 2482 чор</description>
       <link>https://urbangrid.com.ua/#prod-5132300</link>
       <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/449a99342f7ff94762ee.jpg</g:image_link>
       <g:brand>URBAN</g:brand>
@@ -2136,26 +2136,6 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1550 UAH</g:price>
-      <g:google_product_category>203</g:google_product_category>
-      <g:product_type>Одяг &gt; Верхній одяг &gt; Куртки та пальто</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-4397391</g:id>
-      <title>Чоловічий шкіряний бомбер коричневий</title>
-      <description>Чоловічий шкіряний бомбер коричневий • Матеріал: якісна еко-шкіра • Розміри: 2XL • Арт: 2410 кор</description>
-      <link>https://urbangrid.com.ua/#prod-4397391</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/d98b4ffd8fee42529576.jpg</g:image_link>
-      <g:brand>URBAN</g:brand>
-      <g:gender>male</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1780 UAH</g:price>
       <g:google_product_category>203</g:google_product_category>
       <g:product_type>Одяг &gt; Верхній одяг &gt; Куртки та пальто</g:product_type>
       <g:shipping>
@@ -2967,7 +2947,7 @@
     <item>
       <g:id>prod-2003850</g:id>
       <title>Чоловіча куртка стьобана чорна з капюшоном БАТАЛ кишеня на грудях</title>
-      <description>Чоловіча куртка стьобана чорна з капюшоном БАТАЛ кишеня на грудях • Матеріал: 100% поліестер • Розміри: 4XL, 5XL, 6XL • Арт: 2206</description>
+      <description>Чоловіча куртка стьобана чорна з капюшоном БАТАЛ кишеня на грудях • Матеріал: 100% поліестер • Розміри: 4XL, 5XL • Арт: 2206</description>
       <link>https://urbangrid.com.ua/#prod-2003850</link>
       <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/06d646148cbf4747d7a4.jpg</g:image_link>
       <g:brand>URBAN</g:brand>
@@ -2987,7 +2967,7 @@
     <item>
       <g:id>prod-436181</g:id>
       <title>Чоловіча вітрівка чорна БАТАЛ</title>
-      <description>Чоловіча вітрівка чорна БАТАЛ • Матеріал: поліестер 100% • Розміри: XL • Арт: 2160</description>
+      <description>Чоловіча вітрівка чорна БАТАЛ • Матеріал: поліестер 100% • Розміри: XL, XXL • Арт: 2160</description>
       <link>https://urbangrid.com.ua/#prod-436181</link>
       <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/26bf8962c0e11ddd2913.jpg</g:image_link>
       <g:brand>URBAN</g:brand>
@@ -3936,6 +3916,26 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>1750 UAH</g:price>
+      <g:google_product_category>203</g:google_product_category>
+      <g:product_type>Одяг &gt; Верхній одяг &gt; Куртки та пальто</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-4397391</g:id>
+      <title>Чоловічий шкіряний бомбер коричневий</title>
+      <description>Чоловічий шкіряний бомбер коричневий • Матеріал: якісна еко-шкіра • Розміри: M, L, XL, 2XL, 3XL • Арт: 2410 кор</description>
+      <link>https://urbangrid.com.ua/#prod-4397391</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/d98b4ffd8fee42529576.jpg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>male</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1780 UAH</g:price>
       <g:google_product_category>203</g:google_product_category>
       <g:product_type>Одяг &gt; Верхній одяг &gt; Куртки та пальто</g:product_type>
       <g:shipping>
