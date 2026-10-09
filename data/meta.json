@@ -1,11 +1,11 @@
 {
-  "total": 259,
+  "total": 258,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 259
+      "count": 258
     },
     {
       "slug": "women",
@@ -17,7 +17,7 @@
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 241
+      "count": 240
     }
   ],
   "categories": [
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "🧥",
-      "count": 259
+      "count": 258
     },
     {
       "slug": "vest",
@@ -61,7 +61,7 @@
       "slug": "bomber",
       "name": "Бомбери",
       "icon": "🔥",
-      "count": 45
+      "count": 44
     },
     {
       "slug": "windbreaker",
@@ -87,7 +87,7 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 259
+      "count": 258
     },
     {
       "slug": "winter",
@@ -99,14 +99,14 @@
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 212
+      "count": 211
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 259
+      "count": 258
     },
     {
       "slug": "tnf",
