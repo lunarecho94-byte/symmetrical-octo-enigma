@@ -91,17 +91,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/053ab45c4df362bd80fa.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -238,7 +245,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/053ab45c4df362bd80fa.jpg" alt="Синя стьобана куртка з капюшоном" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/053ab45c4df362bd80fa.jpg" alt="Синя стьобана куртка з капюшоном" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -619,8 +626,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3871263", "slug": "synya-stobana-kurtka-z-kapyushonom-3871263", "name": "Синя стьобана куртка з капюшоном", "price": 1050, "old_price": 1310, "cost_price": 500, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2278 син", "mat": "100% поліестер", "origin": "", "badge": "Демісезон • Тренд", "desc": "Синя утеплена стьобана куртка знімний капюшон Знімний капюшон, кишені на застібках, дві внутрішні кишені. Якісні зручні манжети. пояс прямий , є утяжка на шнурку. Утеплювач: холофайбер. Весна/осінь", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/053ab45c4df362bd80fa.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a34d5cf33d2c400224c7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f1eed9f092bbea5a5ae7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3e2a26fba2863977cfe0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/53156e05140441e52ee2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/263112f1014e7956f386.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/442cf277dd4e63cc1091.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e079bbb365b74e90d21f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0505d10a177fb94cd270.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/63ec4e881a592c2db9a7.jpg"], "sizes": ["M", "L", "XL", "2XL"], "in_stock": false};

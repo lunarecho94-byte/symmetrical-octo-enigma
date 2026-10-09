@@ -92,17 +92,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/77b13dacd8d992364f5a.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -243,7 +250,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/77b13dacd8d992364f5a.jpg" alt="Чорна зимова куртка з хутром на капюшоні" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/77b13dacd8d992364f5a.jpg" alt="Чорна зимова куртка з хутром на капюшоні" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -628,8 +635,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4782302", "slug": "chorna-zymova-kurtka-z-khutrom-na-kapyushoni-4782302", "name": "Чорна зимова куртка з хутром на капюшоні", "price": 2450, "old_price": 3060, "cost_price": 1950, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "columbia", "brand_name": "Columbia", "gender": "men", "art": "2445", "mat": "поліестер 100% ( щільна матова плащівка з пропиткою )", "origin": "", "badge": "Зима • На хутрі", "desc": "Зимова подовжена чоловіча куртка Columbia чорна Чотири кишені на застібках, одна внутрішня кишеня, куртка на застібці + кнопки , вітрозахісна планка. Рукави з манжетами, капюшон знімний ( хутро теж знімне ) , підкладка з тонкого флісу. Утеплювач G-loft 200.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/77b13dacd8d992364f5a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/63f49a6f1a742fff2f42.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/19f5de6bde5216bec007.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6bc890bc13beb2dc7e35.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e905e89485a7a4f9bde5.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5dbfce608324cba03a89.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d972cbc9c6ca2008df63.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ba6e51394156d761b09c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/855261b81d1e87a31674.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/09e5b43015dcca5e8e97.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c7945be43ec9be64d338.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": false};

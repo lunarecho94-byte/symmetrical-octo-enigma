@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/f2a5f9bdfbfd13151f7a.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/f2a5f9bdfbfd13151f7a.jpg" alt="Чоловічий костюм БАТАЛ плащівка куртка + штани чорний" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/f2a5f9bdfbfd13151f7a.jpg" alt="Чоловічий костюм БАТАЛ плащівка куртка + штани чорний" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -610,8 +617,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5243024", "slug": "cholovichyy-kostyum-batal-plashchivka-kurtka-shtany-chornyy-5243024", "name": "Чоловічий костюм БАТАЛ плащівка куртка + штани чорний", "price": 2200, "old_price": 2750, "cost_price": 1700, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2515 чор", "mat": "Плащівка / Поліестер", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/f2a5f9bdfbfd13151f7a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9f08341a10987b86ab80.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/baba0a3c5b8c34fcd320.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/28b92cafbec89e3de319.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a7c0b9e745d8cf39e135.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/107cfe3173dbc2c0e749.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/30585a9d8db9e1f8b152.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bb23ce7f8604e4eec742.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ee3ef0144548930af81e.jpg"], "sizes": ["2XL", "3XL", "4XL"], "in_stock": true};

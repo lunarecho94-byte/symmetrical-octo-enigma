@@ -93,17 +93,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/4066a05d167b99c65b71.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -248,7 +255,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/4066a05d167b99c65b71.jpg" alt="Зимова чоловіча подовжена парка Columbia" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/4066a05d167b99c65b71.jpg" alt="Зимова чоловіча подовжена парка Columbia" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -567,8 +574,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4782303", "slug": "zymova-cholovicha-podovzhena-parka-columbia-4782303", "name": "Зимова чоловіча подовжена парка Columbia", "price": 2400, "old_price": 3000, "cost_price": 1900, "cat": "clothing", "subcat": "down_jacket", "cat_name": "Одяг & Пуховики", "season": "winter", "season_name": "Зима", "brand": "columbia", "brand_name": "Columbia", "gender": "men", "art": "2446", "mat": "поліестер 100%", "origin": "", "badge": "Зима • Тепла", "desc": "Чотири кишені на застібках, дві внутрішні кишені, куртка на застібці ( подвійний бігунок ) + кнопки ,лого - вишивка , вітрозахісна планка. На поясі та капюшоні є шнурок утяжка. Рукави з манжетами, капюшон знімний , є підкладка флісова на спині. Лого - вишите. Утеплювач G-loft 200.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/4066a05d167b99c65b71.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e5f5dec2b0f15789fc89.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/64e71b14f780d48a3fc7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b1ad92790111509c394a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6e3c4b2cd57dfe269ed2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/880c8c8e865763bfa5ec.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a22a0097e2217bd0c82a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d3f933829fc870220e90.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fc572123c622f6a7985e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2bf21ce41b545cdc42e8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ce068235603f03cfa336.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7a2e048829f6a52470e4.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": false};

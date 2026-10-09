@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/fec448a2fb0a6a6bdec7.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/fec448a2fb0a6a6bdec7.jpg" alt="Дублянка чоловіча сіра , штучне хутро" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/fec448a2fb0a6a6bdec7.jpg" alt="Дублянка чоловіча сіра , штучне хутро" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -602,8 +609,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4443545", "slug": "dublyanka-cholovicha-sira-shtuchne-khutro-4443545", "name": "Дублянка чоловіча сіра , штучне хутро", "price": 2400, "old_price": 3000, "cost_price": 1800, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2426 сір", "mat": "штучна шкіра  ( щільна якісна ) штучне хутро", "origin": "", "badge": "Зима • На хутрі", "desc": "Дублянка сіра на штучному хутрі Дві бічні кишені , прямий пояс, на комірі ремінець.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/fec448a2fb0a6a6bdec7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6be7604b5178237f23bb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e455a2fc136ae252fb92.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/79dad9680478e85d1d23.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7e0350c0fb06d1a9d021.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a322383023d6058e5112.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1962aa7b2ae158f86769.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5b1e0b9acec8e3ae9569.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3abca1c9f24e6adb122e.jpg"], "sizes": ["S"], "in_stock": true};

@@ -95,17 +95,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/84246c24204ff2c6400f.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -258,7 +265,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/84246c24204ff2c6400f.jpg" alt="Чоловіча куртка демісезон , TNF з кишенею на грудях сіра" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/84246c24204ff2c6400f.jpg" alt="Чоловіча куртка демісезон , TNF з кишенею на грудях сіра" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -643,8 +650,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5516101", "slug": "cholovicha-kurtka-demisezon-tnf-z-kysheneyu-na-hrudyakh-sira-5516101", "name": "Чоловіча куртка демісезон , TNF з кишенею на грудях сіра", "price": 2350, "old_price": 2940, "cost_price": 1750, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "tnf", "brand_name": "The North Face", "gender": "men", "art": "2580 сір", "mat": "Поліестер / Плащівка", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/84246c24204ff2c6400f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c20b62bf4eb5a84b5162.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/16360f83dee1d3a8426d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f69c9d6775e9a9f90fcd.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4a45be4feb2a192e455b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ef29421090fe533d6241.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7d67ab2906b779ac5f1d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/96a27aded7ae2795ed5a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/105d7fdc6260ebd78c8c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a75cffeed0d5f79cfa66.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c76c33874e978985ebd8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3a52dbed14ef0f170aa1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3d74c53df8f3e81aa9bf.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c0e9861d9d2cbaa32650.jpg"], "sizes": ["S", "M", "L", "XL", "2XL"], "in_stock": false};

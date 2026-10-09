@@ -94,17 +94,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/4de0738915437c112b71.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -253,7 +260,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/4de0738915437c112b71.jpg" alt="Утеплена жіноча куртка демісезон чорна пояс резинка" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/4de0738915437c112b71.jpg" alt="Утеплена жіноча куртка демісезон чорна пояс резинка" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -622,8 +629,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4443531", "slug": "uteplena-zhinocha-kurtka-demisezon-chorna-poyas-rezynka-4443531", "name": "Утеплена жіноча куртка демісезон чорна пояс резинка", "price": 1700, "old_price": 2120, "cost_price": 1300, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "women", "art": "6002 чор", "mat": "плащівка матова ( поліестер 100% ) Бічні кишені на застібках", "origin": "", "badge": "Демісезон • Тренд", "desc": "Комір - капюшон. рукава з манжетами ( резинка ) , пояс - широка резинка , є шнурок утяжка на поясі та капюшоні. Утеплювач: силіконізований синтепон 200.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/4de0738915437c112b71.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f3237c0faa0b5666e083.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/550ae8db7f1a16800335.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b305aa27fcd64b4c80a0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cd18f611089a846c086b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7bb9f7e1079e2ac0934b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/16df2f63d3248c8723ee.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/00a580b7be3f5d385f87.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f5ba6ea6ceef78f69b9b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d34121d629a9233e6cdc.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9ccc52f7d29599747a85.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1399aba96982adbb8224.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a45e83fdaac73bf55c8c.jpg"], "sizes": ["XL"], "in_stock": true};

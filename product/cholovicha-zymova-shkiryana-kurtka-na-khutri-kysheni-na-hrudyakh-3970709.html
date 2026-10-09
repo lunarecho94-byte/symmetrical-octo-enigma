@@ -98,17 +98,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/236399d547760bc6ae89.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -273,7 +280,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/236399d547760bc6ae89.jpg" alt="Чоловіча зимова шкіряна куртка на хутрі кишені на грудях" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/236399d547760bc6ae89.jpg" alt="Чоловіча зимова шкіряна куртка на хутрі кишені на грудях" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -642,8 +649,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3970709", "slug": "cholovicha-zymova-shkiryana-kurtka-na-khutri-kysheni-na-hrudyakh-3970709", "name": "Чоловіча зимова шкіряна куртка на хутрі кишені на грудях", "price": 2400, "old_price": 3000, "cost_price": 1900, "cat": "clothing", "subcat": "leather", "cat_name": "Одяг & Шкіряні куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2297", "mat": "шкіра штучна, всередині хутро", "origin": "", "badge": "Зима • На хутрі", "desc": "Дві додаткові кишені на грудях Бічні кишені на застібках. рукави утеплені синтепоном. Є внутрішня кишеня.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/236399d547760bc6ae89.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/52cd910f372a0c67661e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0031ecf7425bdf5b73c2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5a61b4618f932a62a9d7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1d9d320eab7699f2d92a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/af0adfe5fde205a1bcb3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6889a697566cbf02dffa.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/351ff46a06ca66a2bf6d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c31a5f20d636de6d7f10.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/feb8039c8f750bc8c227.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/63a1eb0a173d252b830d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4460717e349708391dbc.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bbbe2c0ddd5eb10955c6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cc3df82923fed3c5c489.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2301baa501c8bcb12648.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d79041552dfc6661c901.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/852127bda497ccb75578.jpg"], "sizes": ["S"], "in_stock": true};

@@ -93,17 +93,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/0ff49d2f2cc3e351d190.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -248,7 +255,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/0ff49d2f2cc3e351d190.jpg" alt="Чорна зимова куртка багато кишень" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/0ff49d2f2cc3e351d190.jpg" alt="Чорна зимова куртка багато кишень" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -621,8 +628,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4876205", "slug": "chorna-zymova-kurtka-bahato-kyshen-4876205", "name": "Чорна зимова куртка багато кишень", "price": 2150, "old_price": 2690, "cost_price": 1650, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2466 чор", "mat": "Поліестер / Плащівка", "origin": "", "badge": "Зима • Тепла", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/0ff49d2f2cc3e351d190.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0e00c4418283def2f4d3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/63242af18b9282404b1b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/511f7a3d461c18d92426.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7eab02ec6ab2e165265f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8f9015b4cde57088338d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c7d42c511e0287d65c0c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/146db21753df6331708e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f92a4caf911be9f4116d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/33eefba6f6bbff9cb827.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6ca69d6ddb4d06d94e59.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f64387f73e7e95ab4944.jpg"], "sizes": ["3XL(54)", "4XL(56)"], "in_stock": true};

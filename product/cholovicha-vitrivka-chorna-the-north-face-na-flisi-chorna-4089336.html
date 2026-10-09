@@ -103,17 +103,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/734de44fd23ea2fda78e.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -298,7 +305,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/734de44fd23ea2fda78e.jpg" alt="Чоловіча вітрівка чорна The North Face на флісі чорна" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/734de44fd23ea2fda78e.jpg" alt="Чоловіча вітрівка чорна The North Face на флісі чорна" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -683,8 +690,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4089336", "slug": "cholovicha-vitrivka-chorna-the-north-face-na-flisi-chorna-4089336", "name": "Чоловіча вітрівка чорна The North Face на флісі чорна", "price": 1800, "old_price": 2250, "cost_price": 1300, "cat": "clothing", "subcat": "windbreaker", "cat_name": "Одяг & Вітровки", "season": "demi", "season_name": "Демісезон", "brand": "tnf", "brand_name": "The North Face", "gender": "men", "art": "2307 чор", "mat": "Soft Shell водовідштовхувальний щільний матеріал, з внутрішньої сторони флісова поверхня, 3 кишені ( 2 бічні , 1 на грудях ) утяжка - шнурок на капюшоні", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/734de44fd23ea2fda78e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0cc60d743f65789d5af1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e9f8b4657e3fc1eaf275.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/734ad4d07e7ca39265a5.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3027f5645c93c7db2d7d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bbe3172201da2b518bce.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b68e3ef22840c9f183ac.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cbb9675bef3bb0a5ac12.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9cbd22c3b30fd0f5aecb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a5e0e72b258ab1289c95.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/033ae592f5fd23a1e6a2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/00ba72e1e9600f309787.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c304a88d81d865557e6f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/37c3904b0200ade36adc.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2ec9bea3cfd461e1f04e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5f50154ed1f25db82c9b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7e6f92d8f9fe5bf9d57c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/abc7350f60a51a5e2973.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ab2cfa7afa9ac2125224.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3ef2e18010a390eb59c3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b978aaba2a8b59a69446.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/65d70d93848db633ef43.jpg"], "sizes": ["S", "M", "L", "XL", "XXL"], "in_stock": true};

@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/8dcca49f06547c6b2170.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/8dcca49f06547c6b2170.jpg" alt="Чоловічий шкіряний бомбер чорний" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/8dcca49f06547c6b2170.jpg" alt="Чоловічий шкіряний бомбер чорний" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -618,8 +625,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4397390", "slug": "cholovichyy-shkiryanyy-bomber-chornyy-4397390", "name": "Чоловічий шкіряний бомбер чорний", "price": 1550, "old_price": 1940, "cost_price": 1150, "cat": "clothing", "subcat": "leather", "cat_name": "Одяг & Шкіряні куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2410 чор", "mat": "якісна еко-шкіра", "origin": "", "badge": "Демісезон • Тренд", "desc": "Застібається на блискавку, вітрозахисна планка , бічні кишені без застібок, дві внутрішні кишені, пояс та рукава на манжетній резинці.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/8dcca49f06547c6b2170.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5be7bbd2b05b8e2853dd.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/60d4aeaa4df260b5e02d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5f79eda4ffdaa55ade29.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/aeb6a797a3ef8d746e89.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/78fc3eb1881bf58756f0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f0ae43be07f3ab8e7ef1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/df8fa3a4d2269f1a925c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8ccf153dc5ada95d1593.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": false};

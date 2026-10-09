@@ -231,17 +231,24 @@ def build_product_page_html(p, all_products):
 {json.dumps(breadcrumb_schema, ensure_ascii=False, indent=2)}
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="{main_img}" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -338,7 +345,7 @@ def build_product_page_html(p, all_products):
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             {f'<span class="pdp-discount-badge">-{discount_pct}%</span>' if discount_pct > 0 else ''}
-                            <img src="{main_img}" alt="{escape(display_name)}" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="{main_img}" alt="{escape(display_name)}" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -637,8 +644,7 @@ def build_product_page_html(p, all_products):
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {json.dumps(p, ensure_ascii=False)};
@@ -735,7 +741,7 @@ def main():
             {''.join(cards_html)}
         </div>
     </main>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
 </body>
 </html>'''
         cat_file = os.path.join(CATEGORY_OUT_DIR, f"{cat_slug}.html")

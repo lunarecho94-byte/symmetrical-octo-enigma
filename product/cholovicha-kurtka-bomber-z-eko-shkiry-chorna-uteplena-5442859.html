@@ -88,17 +88,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/274183f3188ea49c766c.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -223,7 +230,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/274183f3188ea49c766c.jpg" alt="Чоловіча куртка бомбер з еко-шкіри чорна утеплена" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/274183f3188ea49c766c.jpg" alt="Чоловіча куртка бомбер з еко-шкіри чорна утеплена" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -608,8 +615,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5442859", "slug": "cholovicha-kurtka-bomber-z-eko-shkiry-chorna-uteplena-5442859", "name": "Чоловіча куртка бомбер з еко-шкіри чорна утеплена", "price": 1650, "old_price": 2060, "cost_price": 1150, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2556", "mat": "еко-шкіра", "origin": "", "badge": "Демісезон • Тренд", "desc": "Підкладка м'яка приємна тканина. кишені на застібках, одна внутрішня кишеня, пояс на резинці рукава на манжетах. Утеплювач: синтепон 50г/м²", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/274183f3188ea49c766c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3ea85918d33217f76e52.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0a8b62b576bc82b31147.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/21875623c79e10e94a53.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/79245482bbd35930253e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ef19c528a00f0f0bc56c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ded82852e0b802240ff7.jpg"], "sizes": ["48", "50", "52", "54", "56"], "in_stock": true};

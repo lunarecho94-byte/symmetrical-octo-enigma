@@ -91,17 +91,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/c5f7bf80ec9f5ab66c29.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -238,7 +245,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c5f7bf80ec9f5ab66c29.jpg" alt="Чоловіча куртка вітрівка чорна Батал утеплена , знімний капюшон" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c5f7bf80ec9f5ab66c29.jpg" alt="Чоловіча куртка вітрівка чорна Батал утеплена , знімний капюшон" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -607,8 +614,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4449679", "slug": "cholovicha-kurtka-vitrivka-chorna-batal-uteplena-znimnyy-kapyushon-4449679", "name": "Чоловіча куртка вітрівка чорна Батал утеплена , знімний капюшон", "price": 1600, "old_price": 2000, "cost_price": 1200, "cat": "clothing", "subcat": "windbreaker", "cat_name": "Одяг & Вітровки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2428 чор", "mat": "матова плащівка ( поліестер 93% , спандекс 7% ) підкладіка 100% поліестер ( стьобана на синтепоні 70-100 )", "origin": "", "badge": "Демісезон • Тренд", "desc": "4 кишені на застібках , 1 внутрішня кишеня на застібці. Капюшон - знімний , є утяжка. Пояс - резинка. Манжети на резинці.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/c5f7bf80ec9f5ab66c29.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/018bd66bb7b7179121bb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/80e8c9baba813b0c8df3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6588d805edd9e6cf3639.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c4e8487a0bc4359956ee.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7e162db6c90ccfa4147b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5b0a34b6de496662da45.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/af24d45072bcded9e650.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c1fb75ae961eeb716680.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f8e2bcc2ccc4fbf783be.jpg"], "sizes": ["60"], "in_stock": true};

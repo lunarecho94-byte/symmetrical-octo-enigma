@@ -94,17 +94,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/3ea781fa312fec9a0652.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -253,7 +260,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/3ea781fa312fec9a0652.jpg" alt="Чоловіча чорна вітрівка з кишенею на рукаві" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/3ea781fa312fec9a0652.jpg" alt="Чоловіча чорна вітрівка з кишенею на рукаві" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -622,8 +629,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5129413", "slug": "cholovicha-chorna-vitrivka-z-kysheneyu-na-rukavi-5129413", "name": "Чоловіча чорна вітрівка з кишенею на рукаві", "price": 1600, "old_price": 2000, "cost_price": 1200, "cat": "clothing", "subcat": "windbreaker", "cat_name": "Одяг & Вітровки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2481", "mat": "поліестер 100% ( щільня якісна плащіва тканина вітрозахисна )", "origin": "", "badge": "Демісезон • Тренд", "desc": "3 кишені на застібках + 1 внутрішня. Застібається на блискавку + кнопки , прямий пояс, знімний капюшон , манжети на липучці + резинка вшита.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/3ea781fa312fec9a0652.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2f1cd089abdf933a79df.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5bcedcca35d5c9222617.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/14b66d317b0cd4fbefae.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bb914c2802f6962c585d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ddaa87c77f4f180d99a2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/85f7f85b319f6d00768a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bd1cff26f502a4deec5d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cdbab2eb4bc1b60477e8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/66574f43bd933e1534e2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f698713b02b45d9b7e7d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/512320d937683662dcf6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/143fb6e01ae8f8444f04.jpg"], "sizes": ["4XL"], "in_stock": true};

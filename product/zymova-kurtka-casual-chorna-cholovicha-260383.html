@@ -88,17 +88,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/cd202a072568d578a788.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -223,7 +230,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/cd202a072568d578a788.jpg" alt="Зимова куртка Casual чорна чоловіча" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/cd202a072568d578a788.jpg" alt="Зимова куртка Casual чорна чоловіча" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -612,8 +619,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "260383", "slug": "zymova-kurtka-casual-chorna-cholovicha-260383", "name": "Зимова куртка Casual чорна чоловіча", "price": 1950, "old_price": 2440, "cost_price": 1450, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2089 чор", "mat": "Поліестер / Плащівка", "origin": "", "badge": "Зима • Тепла", "desc": "Мужская зимняя куртка чёрная Размеры: S,M,L,XL,XXL,3XL Материал: полиэстер 100% ( матовая плащевая ткань ), Застегивается на прорезиненную молнию, есть ветрозащитная планка, боковые карманы и один внутренний. Капюшон съемный. Утеплитель синтепон - 200. На рукавах липучку на манжетах.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/cd202a072568d578a788.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e42686ca4bfa684c56f6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/535581478aba59175bd1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/731e823c54c6958a0d91.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a83c0f5ba36f704e0122.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/af6622320f305e43f0db.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ec887e25a543dcb6fb5f.jpg"], "sizes": ["S", "M", "L", "XL", "2XL", "3XL"], "in_stock": true};

@@ -93,17 +93,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/8f225620a197015ba346.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -248,7 +255,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/8f225620a197015ba346.jpg" alt="Зимова подовжена чоловіча куртка TNF чорна" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/8f225620a197015ba346.jpg" alt="Зимова подовжена чоловіча куртка TNF чорна" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -633,8 +640,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4716271", "slug": "zymova-podovzhena-cholovicha-kurtka-tnf-chorna-4716271", "name": "Зимова подовжена чоловіча куртка TNF чорна", "price": 2250, "old_price": 2810, "cost_price": 1750, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "tnf", "brand_name": "The North Face", "gender": "men", "art": "2441", "mat": "поліестер 100%", "origin": "", "badge": "Зима • Тепла", "desc": "Дві бічні кишені на застібках, дві внутрішні кишені, куртка на застібці ( подвійний бігунок ) + кнопки , вітрозахісна планка. На поясі та капюшоні є шнурок утяжка. Рукави з манжетами, капюшон знімний , є підкладка флісова на спині. Лого - вишите.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/8f225620a197015ba346.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9894b89a9bec1a5253c9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/038dc41e4af81306888c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/76e7208c848ef66b32ac.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2f50e2419b27e770d511.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e114544fabcb5f6944f3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a94c94edc4e0ee397171.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/872636412a9da4138969.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d602407443f1208d2bd0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7f356c33256f4d17dcb5.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3ac4ac21ba26c3cd4f75.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/33233baea52d4ea46cc1.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": false};

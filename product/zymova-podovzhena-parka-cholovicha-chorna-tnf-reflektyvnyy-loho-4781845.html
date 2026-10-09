@@ -94,17 +94,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/88530fd6b76c3c518fb9.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -253,7 +260,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/88530fd6b76c3c518fb9.jpg" alt="Зимова подовжена парка чоловіча чорна TNF рефлективний лого" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/88530fd6b76c3c518fb9.jpg" alt="Зимова подовжена парка чоловіча чорна TNF рефлективний лого" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -572,8 +579,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4781845", "slug": "zymova-podovzhena-parka-cholovicha-chorna-tnf-reflektyvnyy-loho-4781845", "name": "Зимова подовжена парка чоловіча чорна TNF рефлективний лого", "price": 2000, "old_price": 2500, "cost_price": 1500, "cat": "clothing", "subcat": "down_jacket", "cat_name": "Одяг & Пуховики", "season": "winter", "season_name": "Зима", "brand": "tnf", "brand_name": "The North Face", "gender": "men", "art": "2442", "mat": "поліестер 100%", "origin": "", "badge": "Зима • Тепла", "desc": "Дві бічні кишені на застібках, дві внутрішні кишені, куртка на застібці ( подвійний бігунок ) + кнопки , вітрозахісна планка. На капюшоні є шнурок утяжка. Рукави з манжетами, капюшон знімний , є підкладка термо на спині. Лого - рефлективне.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/88530fd6b76c3c518fb9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ff08189e268282fdef8d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/dcf893497fcdc56c8a2b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9b4f7c2f87d8dbca28ee.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e54c8da5f8cfddb7c606.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e17d5671481b20cff7c3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b2733c72d6abb1480701.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0e43e6165c552bdd2251.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/918f13f7a481bd6c6b33.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8bf1f1f95e4e7bc4591b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7dd3ea34cc3ea9b24910.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4a7eefa3c86ea0ab9f62.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b1e02f728ff0db8a4286.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": false};

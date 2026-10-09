@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/c69971c283092c83b83b.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c69971c283092c83b83b.jpg" alt="Сіра чоловіча утеплена куртка" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c69971c283092c83b83b.jpg" alt="Сіра чоловіча утеплена куртка" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -618,8 +625,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4089335", "slug": "sira-cholovicha-uteplena-kurtka-4089335", "name": "Сіра чоловіча утеплена куртка", "price": 1500, "old_price": 1880, "cost_price": 1100, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2306 сір", "mat": "поліестер 100% (матова плащова тканина), бічні кишені на застібках , дві внутрішніх кишені", "origin": "", "badge": "Демісезон • Тренд", "desc": "Манжети у рукавах - резинка. Знімний капюшон. Утеплювач синтепон силіконізований 150.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/c69971c283092c83b83b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c7f1d181378905325a82.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b48c0b0f387ba4bd15c7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fb284b3525a9180cede8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a58b6e9c8fec101415b9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c152cda19779149c8c09.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/85f92aa674a86dfa0571.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/87a2bacb9dfd6ce25a3c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0e3277097fae98d3a005.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": false};

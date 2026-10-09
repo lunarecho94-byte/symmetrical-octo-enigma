@@ -88,17 +88,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/f0df95dc68a09b4950f1.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -223,7 +230,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/f0df95dc68a09b4950f1.jpg" alt="Чоловіча куртка Softshell на флісі The North Face Батал" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/f0df95dc68a09b4950f1.jpg" alt="Чоловіча куртка Softshell на флісі The North Face Батал" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -608,8 +615,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3845998", "slug": "cholovicha-kurtka-softshell-na-flisi-the-north-face-batal-3845998", "name": "Чоловіча куртка Softshell на флісі The North Face Батал", "price": 1650, "old_price": 2060, "cost_price": 1250, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "tnf", "brand_name": "The North Face", "gender": "men", "art": "2286", "mat": "Soft Shell водовідштовхувальний щільний матеріал, з внутрішньої сторони флісова поверхня, 3 кишені ( 2 бічні , 1 на грудях ) утяжка - шнурок на капюшоні", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/f0df95dc68a09b4950f1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fccffaa407d09ac30323.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/239a0e5a64d610e75024.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/664487f4d3c58df7cdfa.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e3ae6728fa2864639b52.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e75f6885463c213d166c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1bcca4a353d68b2cea7d.jpg"], "sizes": ["58", "60", "62", "64", "66"], "in_stock": false};

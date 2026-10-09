@@ -88,17 +88,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/5a701d6c7689818c0859.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -223,7 +230,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/5a701d6c7689818c0859.jpg" alt="Чоловіча синя куртка бомбер SUF" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/5a701d6c7689818c0859.jpg" alt="Чоловіча синя куртка бомбер SUF" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -592,8 +599,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4884326", "slug": "cholovicha-synya-kurtka-bomber-suf-4884326", "name": "Чоловіча синя куртка бомбер SUF", "price": 1330, "old_price": 1660, "cost_price": 930, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2470 син", "mat": "100% поліестер ( якісна м'яка плащівка )", "origin": "", "badge": "Демісезон • Тренд", "desc": "Кишені на застібках, дві внутрішні кишені. Якісні зручні манжети. пояс на резинці . Утеплювач: синтепон", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/5a701d6c7689818c0859.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cb62e0858aa643c7f556.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c9f7eeaaf89c1dd823b8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/13ea9bce4456fc743dc0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f1ec06dce561f546781b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/84611d205e34a83c9762.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d8135d38803bba64a5b2.jpg"], "sizes": ["M"], "in_stock": true};

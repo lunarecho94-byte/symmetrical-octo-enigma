@@ -92,17 +92,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/7838b9f9650f52ff71ad.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -243,7 +250,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/7838b9f9650f52ff71ad.jpg" alt="Косуха графіт чоловіча м'яка еко-шкіра" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/7838b9f9650f52ff71ad.jpg" alt="Косуха графіт чоловіча м'яка еко-шкіра" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -612,8 +619,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5212461", "slug": "kosukha-hrafit-cholovicha-m-yaka-eko-shkira-5212461", "name": "Косуха графіт чоловіча м'яка еко-шкіра", "price": 1800, "old_price": 2250, "cost_price": 1300, "cat": "clothing", "subcat": "leather", "cat_name": "Одяг & Шкіряні куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2500 сір", "mat": "Штучна шкіра", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/7838b9f9650f52ff71ad.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d721792bacb8e64c4b6f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2814105ba0380bcaffc2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f3be0f4f612810e5e488.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/516f6ac42db7c1e4475c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/353833ba4754294c9294.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8368a6bd0ba598945a9a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e90669ea55e8bdc6e937.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ff442e5ed3203741b8fc.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/63eb29620a149d5153f4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/01730e6540946ea6cbf1.jpg"], "sizes": ["2XL"], "in_stock": true};

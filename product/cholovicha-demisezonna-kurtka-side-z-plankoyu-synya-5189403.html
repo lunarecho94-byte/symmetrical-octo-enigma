@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/d959bc292e232f5bf692.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/d959bc292e232f5bf692.jpg" alt="Чоловіча демісезонна куртка "Side" з планкою синя" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/d959bc292e232f5bf692.jpg" alt="Чоловіча демісезонна куртка "Side" з планкою синя" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -618,8 +625,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5189403", "slug": "cholovicha-demisezonna-kurtka-side-z-plankoyu-synya-5189403", "name": "Чоловіча демісезонна куртка \"Side\" з планкою синя", "price": 1600, "old_price": 2000, "cost_price": 1100, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2491 син", "mat": "Поліестер / Плащівка", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/d959bc292e232f5bf692.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8cca5b12f884f9a7cb0a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/945748a8657b4876570f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8b346cbfc9eeb1a37026.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b1ebb4e63a93e7e9b75c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1ff588b80a3bba5d7389.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9a0a1ac06aba0a7b6145.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b628780001c41da29254.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ef4ae761f59db3932f94.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": true};

@@ -97,17 +97,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/c24bb6345d3767186566.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -268,7 +275,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c24bb6345d3767186566.jpg" alt="Куртка Soft Shell на флісі чорна" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c24bb6345d3767186566.jpg" alt="Куртка Soft Shell на флісі чорна" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -653,8 +660,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "246664", "slug": "kurtka-soft-shell-na-flisi-chorna-246664", "name": "Куртка Soft Shell на флісі чорна", "price": 1650, "old_price": 2060, "cost_price": 1150, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2065 чор", "mat": "Soft Shell водовідштовхувальний щільний матеріал, з внутрішньої сторони флісова поверхня,2 бічні кишені, 2 вінтрішні", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/c24bb6345d3767186566.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e90789089369aefd4dbb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a5663e632164c64bd5eb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/40c3f000f507f1ec860b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/00a5f50f418b043e1243.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/be9f26a0af1afa783bde.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/83e74aa91738be844fef.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2c701a7078214acd4940.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fb3fd3ab3090f22c3ddd.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9bcd413f60c894b9fb38.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bf093c3db04436e7ddd7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/152247daba7f4298f835.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0b9a0407cceab1a2574f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6791dcc8505136297a4a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cb44f3c0019eb18b411a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c52b519ed6e3d0040659.jpg"], "sizes": ["S", "M", "L", "XL", "XXL"], "in_stock": true};

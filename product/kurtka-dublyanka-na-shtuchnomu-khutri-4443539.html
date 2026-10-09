@@ -87,17 +87,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/8668f8575458b0e94e41.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -218,7 +225,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/8668f8575458b0e94e41.jpg" alt="Куртка дублянка на штучному хутрі" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/8668f8575458b0e94e41.jpg" alt="Куртка дублянка на штучному хутрі" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -599,8 +606,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4443539", "slug": "kurtka-dublyanka-na-shtuchnomu-khutri-4443539", "name": "Куртка дублянка на штучному хутрі", "price": 2400, "old_price": 3000, "cost_price": 1800, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "women", "art": "6006 сір", "mat": "штучна шкіра, штучне хутро", "origin": "", "badge": "Зима • На хутрі", "desc": "Дві бічні кишені , прямий пояс, на комірі ремінець.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/8668f8575458b0e94e41.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/737a0abc8cff7704f948.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fb5d7c84f37b887e68a4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5355ccbe71c5202d2764.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/eea900079c35917cdbda.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9fc59fb2f53000475349.jpg"], "sizes": ["M", "L", "XL", "XXL"], "in_stock": false};

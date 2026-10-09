@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/c5d76e6ee7c3bc666b00.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c5d76e6ee7c3bc666b00.jpg" alt="Весняний бомбер стьобаний у ромбік "Angel"" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/c5d76e6ee7c3bc666b00.jpg" alt="Весняний бомбер стьобаний у ромбік "Angel"" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -606,8 +613,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4206095", "slug": "vesnyanyy-bomber-stobanyy-u-rombik-angel-4206095", "name": "Весняний бомбер стьобаний у ромбік \"Angel\"", "price": 1150, "old_price": 1440, "cost_price": 600, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2333", "mat": "поліестер 100%", "origin": "", "badge": "Демісезон • Тренд", "desc": "Стьобана у ромбік. Пояс та манжети на резинці. Застібається на металеву застібку, бічні кишені на застібках , дві внутрішні кишені.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/c5d76e6ee7c3bc666b00.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e878964bfe850c78ef1f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/96f87906aa2364e3454a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/967ea552903abd53b9fd.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9d3cda1434326715c4db.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a885c7b7512faef71c7f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f79e1a5c0e254d92a12e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/21c095bcc5b7e3be0569.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8f3fb1ea9c8d2a1dbf46.jpg"], "sizes": ["M", "XL"], "in_stock": true};

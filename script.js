@@ -1171,7 +1171,26 @@ async function generateOrderPdf(orderId, orderDate) {
     const cleanId = (orderId || 'UG-00000').replace(/[^a-zA-Z0-9_-]/g, '');
     const fileName = `Zamovlennya_${cleanId}.pdf`;
 
-    if (!element || typeof html2pdf === 'undefined') {
+    if (!element) {
+        return { blob: null, fileName, orderData };
+    }
+
+    if (typeof html2pdf === 'undefined') {
+        try {
+            await new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = 'html2pdf.bundle.min.js';
+                s.onload = resolve;
+                s.onerror = reject;
+                document.head.appendChild(s);
+            });
+        } catch (e) {
+            console.warn('html2pdf dynamic load non-critical error:', e);
+            return { blob: null, fileName, orderData };
+        }
+    }
+
+    if (typeof html2pdf === 'undefined') {
         return { blob: null, fileName, orderData };
     }
 
@@ -4006,7 +4025,7 @@ function formatSizeLabel(sz) {
     return str;
 }
 
-function createProductCardElement(item) {
+function createProductCardElement(item, index = 10) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.id = `prod-${item.id}`;
@@ -4061,13 +4080,19 @@ function createProductCardElement(item) {
         ? '<span class="card-out-of-stock-pill">Немає в наявності</span>'
         : '';
 
+    const isLcp = (index === 0);
+    const isAboveFold = (index < 4);
+    const imgPriorityAttrs = isLcp
+        ? 'fetchpriority="high" loading="eager"'
+        : (isAboveFold ? 'loading="eager"' : 'loading="lazy"');
+
     card.innerHTML = `
         <a href="${prodUrl}" class="want-card-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', false)">
             <div class="product-img-wrapper" title="${escapeHtml(displayName)}">
                 ${badgeHtml}
                 ${favBtnHtml}
                 ${stockBadgeHtml}
-                <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
+                <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" ${imgPriorityAttrs} width="275" height="360" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
             </div>
             <div class="product-details">
                 <p class="product-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</p>
@@ -4126,8 +4151,9 @@ function renderCatalogGrid(append, customBatchSize) {
     catalogRenderedCount += nextBatch.length;
 
     const fragment = document.createDocumentFragment();
-    nextBatch.forEach(item => {
-        fragment.appendChild(createProductCardElement(item));
+    const startIdx = catalogRenderedCount - nextBatch.length;
+    nextBatch.forEach((item, idx) => {
+        fragment.appendChild(createProductCardElement(item, startIdx + idx));
     });
     grid.appendChild(fragment);
 

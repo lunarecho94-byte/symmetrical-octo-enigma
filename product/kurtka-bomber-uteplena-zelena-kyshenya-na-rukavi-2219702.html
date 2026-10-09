@@ -93,17 +93,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/697536fd4b58bf1c1420.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -248,7 +255,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/697536fd4b58bf1c1420.jpg" alt="Куртка бомбер утеплена зелена кишеня на рукаві" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/697536fd4b58bf1c1420.jpg" alt="Куртка бомбер утеплена зелена кишеня на рукаві" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -625,8 +632,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "2219702", "slug": "kurtka-bomber-uteplena-zelena-kyshenya-na-rukavi-2219702", "name": "Куртка бомбер утеплена зелена кишеня на рукаві", "price": 1800, "old_price": 2250, "cost_price": 1300, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "1425 хак", "mat": "поліестер, манжети - резинка, синтепон утеплювач 150 г/м", "origin": "", "badge": "Демісезон • Тренд", "desc": "Вітрозахисна планка, дві бічні кишені та одна внутрішня, кишеня на рукаві на блискавці.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/697536fd4b58bf1c1420.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e3d20a339fcc9fc9f237.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/017bffcb4fd81a043db4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ee8f0d12624fe11c6dd3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c565b33e4851e72cd057.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fef92524a20cd84738ac.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bf3493eae1e829b70eb6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/630bba06a88aa48c8a3f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/057363c83c13a931b13a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fb8423242aeaa9bd0074.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/810c466ca1c1b2d90c18.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/85bcc7f7f41bc2f80e8f.jpg"], "sizes": ["S", "M", "XL"], "in_stock": true};

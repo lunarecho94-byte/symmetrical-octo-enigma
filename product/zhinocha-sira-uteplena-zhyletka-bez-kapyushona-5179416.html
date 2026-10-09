@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/1876c06aec0d7e227b6f.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/1876c06aec0d7e227b6f.jpg" alt="Жіноча сіра утеплена жилетка без капюшона" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/1876c06aec0d7e227b6f.jpg" alt="Жіноча сіра утеплена жилетка без капюшона" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -590,8 +597,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5179416", "slug": "zhinocha-sira-uteplena-zhyletka-bez-kapyushona-5179416", "name": "Жіноча сіра утеплена жилетка без капюшона", "price": 1280, "old_price": 1600, "cost_price": 880, "cat": "clothing", "subcat": "vest", "cat_name": "Одяг & Жилетки та безрукавки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "women", "art": "6015 сір", "mat": "поліестер 100%, дві бічні кишені", "origin": "", "badge": "Демісезон • Жилетка", "desc": "Комір - стійка. Утеплювач - синтепон 100 .", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/1876c06aec0d7e227b6f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/979583e2608322cac9aa.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5ed811e63ff1d8d54795.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/76764ab7ec291428244e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/91abf6b79eef95a743bf.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/027a858f6f1a4df93778.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/233c01c7bff78ddb112e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7bf507c54c27812b922d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4f5b09143464a367428d.jpg"], "sizes": ["42", "44", "46", "48", "50"], "in_stock": true};

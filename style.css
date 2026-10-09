@@ -621,6 +621,8 @@ section, header, footer, .announcement-bar {
     background: #f8fafc;
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
 }
 
 .hero-grid {
@@ -2839,6 +2841,8 @@ section, header, footer, .announcement-bar {
     text-align: center;
     font-size: 0.85rem;
     color: var(--text-muted);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 300px;
 }
 
 /* ==========================================================================

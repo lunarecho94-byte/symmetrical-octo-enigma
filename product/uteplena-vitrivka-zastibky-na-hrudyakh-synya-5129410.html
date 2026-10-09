@@ -92,17 +92,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/ccf8ba289074891d8d69.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -243,7 +250,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/ccf8ba289074891d8d69.jpg" alt="Утеплена вітрівка застібки на грудях синя" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/ccf8ba289074891d8d69.jpg" alt="Утеплена вітрівка застібки на грудях синя" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -620,8 +627,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5129410", "slug": "uteplena-vitrivka-zastibky-na-hrudyakh-synya-5129410", "name": "Утеплена вітрівка застібки на грудях синя", "price": 1650, "old_price": 2060, "cost_price": 1150, "cat": "clothing", "subcat": "windbreaker", "cat_name": "Одяг & Вітровки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2479 син", "mat": "матова плащівка ( поліестер 93% , спандекс 7% ) підкладіка 100% поліестер ( стьобана на синтепоні 50 )", "origin": "", "badge": "Демісезон • Тренд", "desc": "4 кишені на застібках , 1 внутрішня кишеня на застібці. Капюшон - знімний.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/ccf8ba289074891d8d69.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2d25d52118f3de07a020.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/74e423c8b9a9955724f3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fa07d7f676f3035df6ab.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f3317f27cc0e9000e6f3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7eb8c4c94759c4c40366.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c5498577d52ac06dc103.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ce5c95ecbbca6942c6ea.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/526eb43e5c4940ff2878.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0faaddc805803e954470.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e1e110a5f5e338da9410.jpg"], "sizes": ["L", "XL", "XXXL"], "in_stock": true};

@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/037cc5f395e8c7afea01.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/037cc5f395e8c7afea01.jpg" alt="Чоловіча зимова куртка чорна на хутрі" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/037cc5f395e8c7afea01.jpg" alt="Чоловіча зимова куртка чорна на хутрі" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -618,8 +625,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3856457", "slug": "cholovicha-zymova-kurtka-chorna-na-khutri-3856457", "name": "Чоловіча зимова куртка чорна на хутрі", "price": 2050, "old_price": 2560, "cost_price": 1550, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2288 чор", "mat": "поліестер 100%", "origin": "", "badge": "Зима • На хутрі", "desc": "Знімний капюшон. Дві бічні кишені на застібках, одна внутрішня кишеня. Рукава з манжетною резинкою. Підкладка - хутро. Утеплювач синтепон силіконізований 200. Зима ️ до -25", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/037cc5f395e8c7afea01.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5d44667a1619e090bac0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9a0605f74c7ce79daf25.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b7640682da9f0b16aecb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9f444e52ae7685218433.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1d3b07dd3839a903ee0c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f4b5982ccae93c18fda8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/223dbb4aa024c1f302dd.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/599b615f73ea23e3fccb.jpg"], "sizes": ["L", "XL", "2XL", "3XL", "4XL"], "in_stock": false};

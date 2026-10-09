@@ -92,17 +92,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/fee197b93f4d7348fbe6.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -243,7 +250,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/fee197b93f4d7348fbe6.jpg" alt="Чоловіча куртка чорна демісезон утеплена БАТАЛ" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/fee197b93f4d7348fbe6.jpg" alt="Чоловіча куртка чорна демісезон утеплена БАТАЛ" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -624,8 +631,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5451229", "slug": "cholovicha-kurtka-chorna-demisezon-uteplena-batal-5451229", "name": "Чоловіча куртка чорна демісезон утеплена БАТАЛ", "price": 1750, "old_price": 2190, "cost_price": 1250, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2565", "mat": "поліестер 100%, кишені на застібках", "origin": "", "badge": "Демісезон • Тренд", "desc": "Капюшон - знімний. Утеплювач силіконізований синтепон 150 ( силікон ) . Дві внутрішні кишені. Пояс та рукава ( тонка резинка ) .", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/fee197b93f4d7348fbe6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/412ec69e4fccf2eaa81f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3b0e32053a501d1df5c5.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b72cfbf845307bafb45b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9b6881d22b7f86517593.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cbe7fa06976ce59e4673.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d8dab914c7dee656fbf4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/88dbef9fafd6f88440c2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6c5b09b1b652cdc3fa49.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ae61ac24d6307815fd03.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5ef14f53bd39d36085b3.jpg"], "sizes": ["9XL", "10XL", "11XL", "12XL"], "in_stock": true};

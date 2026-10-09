@@ -92,17 +92,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/21ea162952eacb93dfef.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -243,7 +250,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/21ea162952eacb93dfef.jpg" alt="Чоловіча куртка зимова Columbua синя з сірим Батал" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/21ea162952eacb93dfef.jpg" alt="Чоловіча куртка зимова Columbua синя з сірим Батал" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -620,8 +627,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4858583", "slug": "cholovicha-kurtka-zymova-columbua-synya-z-sirym-batal-4858583", "name": "Чоловіча куртка зимова Columbua синя з сірим Батал", "price": 2700, "old_price": 3380, "cost_price": 2100, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "columbia", "brand_name": "Columbia", "gender": "men", "art": "2463 син", "mat": "поліестер 100% ( матова плащівка з пропиткою )", "origin": "", "badge": "Зима • Тепла", "desc": "Дві бічні кишені на застібках + дві кишеня на грудях, дві внутрішні кишені, куртка на застібці + кнопки , вітрозахісна планка. На капюшоні є шнурок утяжка і на поясі ( пояс прямий ) Рукави з манжетами + липучка, капюшон знімний , є підкладка термо на спині. Утеплювач холлофайбер", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/21ea162952eacb93dfef.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e1406a0f2ff09fdab50f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3cb1839bbb49d6a25771.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b72d197ed448c73fc676.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/80ab8097add6ecd6d14f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d0808524613f40c731f8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ca88bd74cc106b2139f8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/240fecd1c07f80ed141e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/63bbe62e537acb16e130.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fa8ad287ac3b81b44b41.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8d0d6f4a72db8ad24bb8.jpg"], "sizes": ["58", "60", "62"], "in_stock": true};

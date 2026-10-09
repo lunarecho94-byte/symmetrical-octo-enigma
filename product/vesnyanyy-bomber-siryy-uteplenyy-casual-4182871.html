@@ -89,17 +89,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/9417a2173568508a3ca1.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -228,7 +235,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/9417a2173568508a3ca1.jpg" alt="Весняний бомбер сірий утеплений casual" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/9417a2173568508a3ca1.jpg" alt="Весняний бомбер сірий утеплений casual" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -597,8 +604,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4182871", "slug": "vesnyanyy-bomber-siryy-uteplenyy-casual-4182871", "name": "Весняний бомбер сірий утеплений casual", "price": 1450, "old_price": 1810, "cost_price": 1050, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2227 сір", "mat": "якісна м'яка тканина виглядає як еко-шкіра ( 100% поліестер )", "origin": "", "badge": "Демісезон • Тренд", "desc": "Кишені на застібках, дві внутрішні кишені. Якісні зручні манжети. пояс на резинці . Утеплювач: холофайбер. Весна/осінь", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/9417a2173568508a3ca1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/934a777753c973387b13.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5ced3980953e83dc1adb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c8e0f1bd80c94d1307c8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d2ccfac64bc3e3619472.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ed53f56d4fc7ab228771.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/87828f61f4fcc99fe8aa.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f0825e88a690dd88dc4f.jpg"], "sizes": ["M"], "in_stock": true};

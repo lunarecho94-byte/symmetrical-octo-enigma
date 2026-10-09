@@ -93,17 +93,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/02c80ec4c33addab6fe5.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -248,7 +255,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/02c80ec4c33addab6fe5.jpg" alt="Чоловіча вітрівка синя The North Face на флісі" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/02c80ec4c33addab6fe5.jpg" alt="Чоловіча вітрівка синя The North Face на флісі" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -633,8 +640,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5503493", "slug": "cholovicha-vitrivka-synya-the-north-face-na-flisi-5503493", "name": "Чоловіча вітрівка синя The North Face на флісі", "price": 1800, "old_price": 2250, "cost_price": 1300, "cat": "clothing", "subcat": "windbreaker", "cat_name": "Одяг & Вітровки", "season": "demi", "season_name": "Демісезон", "brand": "tnf", "brand_name": "The North Face", "gender": "men", "art": "2307 син", "mat": "Soft Shell водовідштовхувальний щільний матеріал, з внутрішньої сторони флісова поверхня, 3 кишені ( 2 бічні , 1 на грудях ) утяжка - шнурок на капюшоні", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/02c80ec4c33addab6fe5.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f0d43b4cd5ec61d06f93.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fe57bec3d955b4ba6c40.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8f33ec0887f69d8ad987.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5ac80e1f6c0ce6e9ff80.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1ff69b594764e4e761b5.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d872846b572d922760ce.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/735badd929a5a9ae668d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ddfa22a9ef8ddbcef8eb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7ec2cdfad3ba4fcf96ca.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e267529914597e9c37eb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/05d99fef84c89e3a3519.jpg"], "sizes": ["S", "M", "L", "XL", "XXL"], "in_stock": true};

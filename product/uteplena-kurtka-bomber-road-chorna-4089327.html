@@ -92,17 +92,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/3a8b41b8722958c178c3.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -243,7 +250,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/3a8b41b8722958c178c3.jpg" alt="Утеплена куртка бомбер "Road" чорна" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/3a8b41b8722958c178c3.jpg" alt="Утеплена куртка бомбер "Road" чорна" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -632,8 +639,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4089327", "slug": "uteplena-kurtka-bomber-road-chorna-4089327", "name": "Утеплена куртка бомбер \"Road\" чорна", "price": 1020, "old_price": 1280, "cost_price": 500, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2303 чор", "mat": "м'яка плащівка, манжети рукава та пояс - резинка,", "origin": "", "badge": "Зима • Тепла", "desc": "Утеплювач - холлофайбер 100 , дві бічні кишені та одна внутрішня.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/3a8b41b8722958c178c3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/98ae6ed95bd86c9608d1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9723b659e60c7088b8a8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d8a04c43b90dfa06dd8e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4de02e3bf7961a3a3844.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ebbd8b2efd5643d79140.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4b7fb4c249d210bc5407.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/60e6c2f23bf31a6c5863.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/47c1b4a75bf572826f38.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/aa9f0592089c5b1208fc.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/409a636e9a18dce82f7a.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL", "4XL"], "in_stock": false};

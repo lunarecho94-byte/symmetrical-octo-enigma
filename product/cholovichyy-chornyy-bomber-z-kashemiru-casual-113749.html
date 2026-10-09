@@ -91,17 +91,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/d064f2f48125808e97b2.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -238,7 +245,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/d064f2f48125808e97b2.jpg" alt="Чоловічий чорний бомбер з кашеміру casual" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/d064f2f48125808e97b2.jpg" alt="Чоловічий чорний бомбер з кашеміру casual" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -615,8 +622,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "113749", "slug": "cholovichyy-chornyy-bomber-z-kashemiru-casual-113749", "name": "Чоловічий чорний бомбер з кашеміру casual", "price": 1600, "old_price": 2000, "cost_price": 1100, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "1927", "mat": "штучний кашемір, усередині тканинний підклад", "origin": "", "badge": "Демісезон • Тренд", "desc": "Манжетна резинка на рукавах, поясі та комірі. Бічні кишені + 1 внутрішня. Металева застібка.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/d064f2f48125808e97b2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b33a82df60e7d528e9d4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c3ad395401110a6a23ee.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2410ad371a8b14a92510.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/abc8bcf632d9cbf387e9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/23db67d1633e3076186b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/016f8b5b577fdab0122a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/00c3581f3af82bcbd29a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ec97660b8a96b8f2d888.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9e4a8721fe60b6c3a8c0.jpg"], "sizes": ["S", "M", "L"], "in_stock": true};

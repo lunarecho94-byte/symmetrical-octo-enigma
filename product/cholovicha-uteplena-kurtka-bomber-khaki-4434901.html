@@ -89,17 +89,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/f52c90cb08b06e4baf4b.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -228,7 +235,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/f52c90cb08b06e4baf4b.jpg" alt="Чоловіча утеплена куртка бомбер хакі" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/f52c90cb08b06e4baf4b.jpg" alt="Чоловіча утеплена куртка бомбер хакі" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -597,8 +604,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4434901", "slug": "cholovicha-uteplena-kurtka-bomber-khaki-4434901", "name": "Чоловіча утеплена куртка бомбер хакі", "price": 1175, "old_price": 1470, "cost_price": 825, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2407 хак", "mat": "поліестер 100%, підкладка стьобана з тонким утеплювачем - синтепон 100г/м2", "origin": "", "badge": "Демісезон • Тренд", "desc": "Пояс та рукава на манжетній резинці , бічні кишені на кнопках , одна внутрішня кишеня. Вітрозахисна планка.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/f52c90cb08b06e4baf4b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/32314090eaf3d7dfed44.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8fd6fc4be48642f7f828.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ddd91e00814c867a5109.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7e37ea38cd4d6b8d52cb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6feb324134a2b9ca41a4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a6f22a5ef1bb6813a486.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/ab7c2f60958c200e3e01.jpg"], "sizes": ["3XL"], "in_stock": true};

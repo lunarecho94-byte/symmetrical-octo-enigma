@@ -89,17 +89,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/dd7ef04fef0a5b59aad9.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -228,7 +235,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/dd7ef04fef0a5b59aad9.jpg" alt="Сіра чоловіча вітрівка з капюшоном" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/dd7ef04fef0a5b59aad9.jpg" alt="Сіра чоловіча вітрівка з капюшоном" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -613,8 +620,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "2205129", "slug": "sira-cholovicha-vitrivka-z-kapyushonom-2205129", "name": "Сіра чоловіча вітрівка з капюшоном", "price": 1200, "old_price": 1500, "cost_price": 800, "cat": "clothing", "subcat": "windbreaker", "cat_name": "Одяг & Вітровки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2021 сір", "mat": "поліестер 100% ( щільна плащівка )", "origin": "", "badge": "Демісезон • Тренд", "desc": "Тканинна підкладка Дві бічні кишені та одна внутрішня. Шнурок утяжка у капюшоні, манжети на резинці, пояс без резинки.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/dd7ef04fef0a5b59aad9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e2e9975749b0fc1c66b8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5cdc9fba49ee8074a293.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bda98351fba1cb50630e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0938ae03c6dcb46c40bb.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b988b1e8afd941c0251b.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/aff2da4db5b0de84fafe.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e875f59e7cf41b4e2488.jpg"], "sizes": ["S", "M", "L", "XL", "XXL"], "in_stock": false};

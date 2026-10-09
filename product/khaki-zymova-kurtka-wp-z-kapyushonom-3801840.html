@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/652834706bd315b0f2f8.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/652834706bd315b0f2f8.jpg" alt="Хакі зимова куртка WP з капюшоном" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/652834706bd315b0f2f8.jpg" alt="Хакі зимова куртка WP з капюшоном" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -622,8 +629,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3801840", "slug": "khaki-zymova-kurtka-wp-z-kapyushonom-3801840", "name": "Хакі зимова куртка WP з капюшоном", "price": 2250, "old_price": 2810, "cost_price": 1650, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2120 хак", "mat": "поліестер 100% (щільна матова плащова тканина), застібається на прогумовану блискавку, є вітрозахисна планка, бічні кишені та один на рукаві на застібках", "origin": "", "badge": "Зима • Тепла", "desc": "Утеплювач синтепон силіконізований 200. ️ до -20", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/652834706bd315b0f2f8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/654d6522e962e427df9e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0d29e088c1f3d96edc07.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8ede2c6252ccb20b4a7c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b0989181bedeee0ef821.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/742c6ea74f09d4de3867.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/93057de1a0149948bd76.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/58182374ccb4c3a4fa19.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/24f3e3ad60ff64c3a388.jpg"], "sizes": ["S", "M", "L", "XL", "XXL", "XXXL"], "in_stock": true};

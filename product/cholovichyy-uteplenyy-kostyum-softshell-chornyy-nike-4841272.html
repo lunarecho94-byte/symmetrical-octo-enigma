@@ -93,17 +93,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/336383b7167298388b77.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -248,7 +255,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/336383b7167298388b77.jpg" alt="Чоловічий утеплений костюм Softshell чорний Nike" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/336383b7167298388b77.jpg" alt="Чоловічий утеплений костюм Softshell чорний Nike" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -633,8 +640,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4841272", "slug": "cholovichyy-uteplenyy-kostyum-softshell-chornyy-nike-4841272", "name": "Чоловічий утеплений костюм Softshell чорний Nike", "price": 2500, "old_price": 3120, "cost_price": 1900, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "demi", "season_name": "Демісезон", "brand": "nike", "brand_name": "Nike", "gender": "men", "art": "2454 чор", "mat": "Soft Shell водовідштовхувальний щільний матеріал, з внутрішньої сторони флісова поверхня, 2 кишені бічні у штанах на застібках + 3 кишені у кофті на застібках, низ штанини на манжеті , куртка застібається на прогумовану застібку, бічні кишені на застібках, куртка з капюшоном, рукава на манжетах", "origin": "", "badge": "Демісезон • Тренд", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/336383b7167298388b77.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1797268d8a226dff3659.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6584fac8e3af9fced6c1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1e35aeeb124215f2de13.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3dc8b3fce0dadf2d0899.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8774db76157292af8bcd.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4731177b727010a3607a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9189a4819480f5775a46.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a646e39a6fa7b432b84f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8877b8900c2cf2065d3c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5186a16c81463c48690e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/288dc5daf0d6c22f592a.jpg"], "sizes": ["M", "L", "XL", "2XL", "3XL"], "in_stock": true};

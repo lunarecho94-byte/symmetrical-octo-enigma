@@ -89,17 +89,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/1d20bbea9418ae413b24.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -228,7 +235,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/1d20bbea9418ae413b24.jpg" alt="Чоловіча стьобана зимова куртка ES синя" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/1d20bbea9418ae413b24.jpg" alt="Чоловіча стьобана зимова куртка ES синя" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -601,8 +608,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3874048", "slug": "cholovicha-stobana-zymova-kurtka-es-synya-3874048", "name": "Чоловіча стьобана зимова куртка ES синя", "price": 2100, "old_price": 2620, "cost_price": 1600, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2290 син", "mat": "Поліестер / Плащівка", "origin": "", "badge": "Зима • Тепла", "desc": "", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/1d20bbea9418ae413b24.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/450e51a74ea2712c783e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c95c213a6bc7bef6eeb4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/45e4e4ad53a207614a37.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/bfac946b4146faadd7b0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2b37ae3c97c50603a4ec.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5811b90010d272c13c82.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/55fbe7d5cc8c71fee966.jpg"], "sizes": ["S", "L"], "in_stock": true};

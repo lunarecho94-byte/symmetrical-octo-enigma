@@ -91,17 +91,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/43ef4f879616f2b3d54d.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -238,7 +245,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/43ef4f879616f2b3d54d.jpg" alt="Чоловіча куртка демі чорна без капюшона , кишеня на грудях" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/43ef4f879616f2b3d54d.jpg" alt="Чоловіча куртка демі чорна без капюшона , кишеня на грудях" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -619,8 +626,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5114036", "slug": "cholovicha-kurtka-demi-chorna-bez-kapyushona-kyshenya-na-hrudyakh-5114036", "name": "Чоловіча куртка демі чорна без капюшона , кишеня на грудях", "price": 1600, "old_price": 2000, "cost_price": 1200, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2483 чор", "mat": "100% поліестер ( якісна м'яка  матова плащівка )", "origin": "", "badge": "Демісезон • Тренд", "desc": "3 кишені на застібках. Пояс та манжети на тонкій резинці. Утеплювач: синтепон 50.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/43ef4f879616f2b3d54d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1c917dbc127d7d57ed23.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4a3d98e8fb0f36873011.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6f1cad7b4e8424cae748.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4978706a51aaded05742.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8f82aa3b3b2792c4e772.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c8dcad22a8a3e737a822.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a15626c2d0ea50739e22.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/393fad62c30f66165614.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f1563ae707a0f9c40378.jpg"], "sizes": ["M", "L", "XL", "2XL"], "in_stock": false};

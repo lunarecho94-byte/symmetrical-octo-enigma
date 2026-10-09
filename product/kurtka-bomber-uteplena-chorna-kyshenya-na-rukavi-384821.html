@@ -88,17 +88,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/208fd9e7611458b4379e.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -223,7 +230,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/208fd9e7611458b4379e.jpg" alt="Куртка бомбер утеплена чорна кишеня на рукаві" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/208fd9e7611458b4379e.jpg" alt="Куртка бомбер утеплена чорна кишеня на рукаві" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -604,8 +611,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "384821", "slug": "kurtka-bomber-uteplena-chorna-kyshenya-na-rukavi-384821", "name": "Куртка бомбер утеплена чорна кишеня на рукаві", "price": 1800, "old_price": 2250, "cost_price": 1300, "cat": "clothing", "subcat": "bomber", "cat_name": "Одяг & Бомбери", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "1425", "mat": "поліестер, манжети - резинка, синтепон утеплювач 150 г/м", "origin": "", "badge": "Демісезон • Тренд", "desc": "Вітрозахисна планка, дві бічні кишені та одна внутрішня, кишеня на рукаві на блискавці.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/208fd9e7611458b4379e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/261de3cce7f2ca248734.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d8dd8ade53dff952d202.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c7dd9a389ba6262e5d55.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/15effe7c9a355e9fba9d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e9534fe661e7ebd4cab2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6cdaec8cf98a7646c9ef.jpg"], "sizes": ["S", "M", "L", "XL"], "in_stock": true};

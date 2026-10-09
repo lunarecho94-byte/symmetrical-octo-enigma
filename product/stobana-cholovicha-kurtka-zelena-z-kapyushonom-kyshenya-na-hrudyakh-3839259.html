@@ -89,17 +89,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/3bd30102fd8c8aeb144a.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -228,7 +235,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/3bd30102fd8c8aeb144a.jpg" alt="Стьобана чоловіча куртка зелена з капюшоном, кишеня на грудях" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/3bd30102fd8c8aeb144a.jpg" alt="Стьобана чоловіча куртка зелена з капюшоном, кишеня на грудях" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -613,8 +620,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3839259", "slug": "stobana-cholovicha-kurtka-zelena-z-kapyushonom-kyshenya-na-hrudyakh-3839259", "name": "Стьобана чоловіча куртка зелена з капюшоном, кишеня на грудях", "price": 1250, "old_price": 1560, "cost_price": 500, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2222 зел", "mat": "100% поліестер", "origin": "", "badge": "Демісезон • Тренд", "desc": "Знімний капюшон, кишені на застібках, дві внутрішні кишені. кишеня на грудях. Якісні зручні манжети. пояс прямий , є утяжка на шнурку. Утеплювач: холофайбер. Весна/осінь", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/3bd30102fd8c8aeb144a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/b68c41e6f4b245e5d05f.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f9506c87371eb57f81a1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/06208ec195302b5c51d8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/216de5ec602e6e6ff1f1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6fcaa65e93679da3bd00.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0b95f93ad30c0d0c41b4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/dbfdafe7fffc872660d6.jpg"], "sizes": ["M", "L", "XL", "XXL", "3XL"], "in_stock": false};

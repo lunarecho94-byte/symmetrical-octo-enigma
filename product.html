@@ -25,10 +25,14 @@
     <meta name="twitter:description" id="twDesc" content="Одяг та взуття URBAN. Оплата при отриманні, швидка відправка Новою Поштою.">
     <meta name="twitter:image" id="twImage" content="https://urbangrid.com.ua/images/urbano_logo_full.webp">
 
-    <!-- Fonts -->
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
     
     <!-- Favicon & App Icons -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
@@ -155,7 +159,7 @@
                             <span class="pdp-gallery-badge" id="pdpBadge">Хіт продажів</span>
                             <span class="pdp-discount-badge" id="pdpDiscountBadge" style="display: none;">-15%</span>
                             
-                            <img src="images/sneakers.webp" alt="Товар" id="pdpMainImg" class="pdp-main-img">
+                            <img src="images/sneakers.webp" alt="Товар" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650">
                             
                             <!-- Bottom-Right Floating Navigation Arrows -->
                             <div class="pdp-gallery-arrows">
@@ -964,7 +968,6 @@
 
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.3"></script>
+    <script src="script.js?v=10.4" defer></script>
 </body>
 </html>

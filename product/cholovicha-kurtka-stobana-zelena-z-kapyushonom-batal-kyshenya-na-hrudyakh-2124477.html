@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/02fc6c79fa959dcd3aa7.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/02fc6c79fa959dcd3aa7.jpg" alt="Чоловіча куртка стьобана зелена з капюшоном БАТАЛ кишеня на грудях" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/02fc6c79fa959dcd3aa7.jpg" alt="Чоловіча куртка стьобана зелена з капюшоном БАТАЛ кишеня на грудях" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -606,8 +613,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "2124477", "slug": "cholovicha-kurtka-stobana-zelena-z-kapyushonom-batal-kyshenya-na-hrudyakh-2124477", "name": "Чоловіча куртка стьобана зелена з капюшоном БАТАЛ кишеня на грудях", "price": 1500, "old_price": 1880, "cost_price": 1100, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2206 зел", "mat": "100% поліестер", "origin": "", "badge": "Демісезон • Тренд", "desc": "️ ️ Повна наявність, будуть поповнюватись ️ ️ Знімний капюшон, кишені на застібках, дві внутрішні кишені. кишеня на грудях. Якісні зручні манжети. пояс прямий , є утяжка на шнурку. Утеплювач: холофайбер. Куртка демісезон, але тепла до -5-10", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/02fc6c79fa959dcd3aa7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2e6918405903f81de4a1.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4de7c71a8754399d9e73.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/664a4ef334882e4eb0e9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1b1503f2e97ab6957fb0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7e8720c9821e38244dba.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3448e7a5196214db7452.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4a3a24974e82e1e08ff8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/1a4ac342423c1c736e69.jpg"], "sizes": ["4XL", "5XL"], "in_stock": true};

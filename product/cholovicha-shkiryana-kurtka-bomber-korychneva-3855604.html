@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/d544c246a1f72e568e5e.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/d544c246a1f72e568e5e.jpg" alt="Чоловіча шкіряна куртка бомбер коричнева" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/d544c246a1f72e568e5e.jpg" alt="Чоловіча шкіряна куртка бомбер коричнева" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -622,8 +629,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "3855604", "slug": "cholovicha-shkiryana-kurtka-bomber-korychneva-3855604", "name": "Чоловіча шкіряна куртка бомбер коричнева", "price": 1200, "old_price": 1500, "cost_price": 800, "cat": "clothing", "subcat": "leather", "cat_name": "Одяг & Шкіряні куртки", "season": "demi", "season_name": "Демісезон", "brand": "", "brand_name": "", "gender": "men", "art": "2287 кор", "mat": "еко-шкіра", "origin": "", "badge": "Демісезон • Тренд", "desc": "Застібається на блискавку, кишені на блискавках, дві бічні кишені, на рукаві, та одна внутрішня. Манжетна резинка на поясі та рукавах . Підкладка тканинна без утеплювача.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/d544c246a1f72e568e5e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/9c8ba57f262af867008c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/28a3d7438f5038a37522.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e3a5d937ffbabbe25969.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/cf9413502bcb9c3227f9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/8bedf16306698065ca64.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c6da72a31e0ae3c91bb6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/d03d306d509577ff9f64.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fbc07ebc56e81f507ef4.jpg"], "sizes": ["S", "M", "L", "XL", "XXL", "XXXL"], "in_stock": false};

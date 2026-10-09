@@ -90,17 +90,24 @@
 }
     </script>
 
-    <!-- Fonts -->
+    <!-- LCP Preload: Main Product Photo -->
+    <link rel="preload" as="image" href="https://backend.mydrop.com.ua/vendor/products/uploads/16c0158e79a3f77811db.jpg" fetchpriority="high">
+
+    <!-- Fonts (Non-render-blocking asynchronous load) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:wght@400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/urbano_emblem.png">
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.6">
+    <link rel="stylesheet" href="style.css?v=8.7">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -233,7 +240,7 @@
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             <span class="pdp-discount-badge">-20%</span>
-                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/16c0158e79a3f77811db.jpg" alt="Чоловіча куртка SW утеплена сіра" id="pdpMainImg" class="pdp-main-img" referrerpolicy="no-referrer">
+                            <img src="https://backend.mydrop.com.ua/vendor/products/uploads/16c0158e79a3f77811db.jpg" alt="Чоловіча куртка SW утеплена сіра" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -618,8 +625,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="html2pdf.bundle.min.js" defer></script>
-    <script src="script.js?v=10.2"></script>
+    <script src="script.js?v=10.4" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5424129", "slug": "cholovicha-kurtka-sw-uteplena-sira-5424129", "name": "Чоловіча куртка SW утеплена сіра", "price": 1300, "old_price": 1620, "cost_price": 900, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Зимові куртки", "season": "winter", "season_name": "Зима", "brand": "", "brand_name": "", "gender": "men", "art": "2550 сір", "mat": "100% поліестер , підкладка - плюш", "origin": "", "badge": "Зима • Тепла", "desc": "Знімний капюшон, кишені на застібках, дві внутрішні кишені. Якісні зручні манжети. пояс прямий , на рукаві кишеня - обманка. Утеплювач: холлофайбер.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/16c0158e79a3f77811db.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/fb347216bf7b8506a197.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3bbe80f625e81fad7b11.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/4caaf82b4c72b812f2c2.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/61c3912aacae50103fe3.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c834b269adeedb0f8811.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/61dbe0e3b7c4d5495f68.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/40b87fe97872635279cf.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/28628b71a897c8ba409d.jpg"], "sizes": ["M", "L", "XL", "XXL", "3XL"], "in_stock": true};
