@@ -936,6 +936,93 @@ def prerender_index_catalog(products):
     html = re.sub(r'<div class="catalog-progress-fill"[^>]*>', '<div class="catalog-progress-fill" id="catalogProgressFill" style="width: 100%;">', html)
     html = re.sub(r'<p class="catalog-models-count"[^>]*>.*?</p>', f'<p class="catalog-models-count" id="catalogModelsCount">Знайдено {len(products)} моделей у наявності</p>', html)
 
+    # Synchronize title, meta and main heading
+    html = re.sub(r'<title>.*?</title>', '<title>URBAN — Зимові куртки та пуховики | Купити в Україні</title>', html)
+    html = re.sub(r'<meta name="description" content=".*?">', '<meta name="description" content="Каталог оригінальних зимових курток та пуховиків від URBAN: Nike, The North Face, Jordan, Polo Ralph Lauren, Stone Island, Hugo Boss, Napapijri. Швидка доставка Новою Поштою 1-2 дні по Україні, оплата при отриманні.">', html)
+    html = re.sub(r'<meta property="og:title" content=".*?">', '<meta property="og:title" content="URBAN — Зимові куртки та пуховики в Україні">', html)
+    html = re.sub(r'<meta property="og:description" content=".*?">', '<meta property="og:description" content="Каталог брендових зимових курток та пуховиків: Nike, The North Face, Jordan, Stone Island, Hugo Boss, Napapijri. Оплата при отриманні на Новій Пошті.">', html)
+    html = re.sub(r'<meta name="twitter:title" content=".*?">', '<meta name="twitter:title" content="URBAN — Каталог зимових курток та пуховиків">', html)
+    html = re.sub(r'<meta name="twitter:description" content=".*?">', '<meta name="twitter:description" content="Зимові куртки та пуховики: фірмова якість, водовідштовхувальна тканина, надійне утеплення. Оплата при отриманні на Новій Пошті.">', html)
+    html = re.sub(r'<h1 class="catalog-main-title"[^>]*>.*?</h1>', '<h1 class="catalog-main-title" id="catalogMainTitle">КАТАЛОГ ЗИМОВИХ КУРТОК ТА ПУХОВИКІВ</h1>', html)
+
+    # Synchronize quick pills
+    quick_pills_html = f'''<div class="catalog-quick-pills" id="catalogQuickPills" role="navigation" aria-label="Швидкі фільтри">
+                    <button type="button" class="catalog-pill-btn active" data-quick="all" onclick="setQuickCatalogFilter('all', this)">Всі ({len(products)})</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="brand:nike" onclick="setQuickCatalogFilter('brand:nike', this)">Nike</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="brand:the_north_face" onclick="setQuickCatalogFilter('brand:the_north_face', this)">The North Face</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="brand:jordan" onclick="setQuickCatalogFilter('brand:jordan', this)">Jordan</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="brand:polo_ralph_lauren" onclick="setQuickCatalogFilter('brand:polo_ralph_lauren', this)">Ralph Lauren</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="brand:stone_island" onclick="setQuickCatalogFilter('brand:stone_island', this)">Stone Island</button>
+                    <button type="button" class="catalog-pill-btn" data-quick="brand:boss" onclick="setQuickCatalogFilter('brand:boss', this)">Hugo Boss</button>
+                </div>'''
+    html = re.sub(r'<div class="catalog-quick-pills"[^>]*>.*?</div>', quick_pills_html, html, flags=re.DOTALL)
+
+    # Synchronize drawer categories
+    drawer_cats_html = f'''<ul class="drawer-items-list" id="drawerCatList">
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item active" data-cat="all" onclick="applyDrawerCategory('all')">
+                                    <span class="drawer-nav-name">Всі моделі</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_all">{len(products)}</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                        <li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="winter_jacket" onclick="applyDrawerCategory('winter_jacket')">
+                                    <span class="drawer-nav-name">Зимові куртки та пуховики</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_winter_jacket">{len(products)}</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>
+                    </ul>'''
+    html = re.sub(r'<ul class="drawer-items-list" id="drawerCatList">.*?</ul>', drawer_cats_html, html, flags=re.DOTALL)
+
+    # Synchronize drawer gender
+    drawer_gender_html = f'''<ul class="drawer-items-list" id="drawerGenderList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-gender="all" onclick="applyDrawerGender('all')">
+                                <span class="drawer-nav-name">Всі товари</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_all">{len(products)}</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="men" onclick="applyDrawerGender('men')">
+                                <span class="drawer-nav-name">Чоловічі</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_men">{len(products)}</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="favorites" onclick="applyDrawerFavorites()">
+                                <span class="drawer-nav-name">Обрані товари</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_fav">0</span>
+                            </button>
+                        </li>
+                    </ul>'''
+    html = re.sub(r'<ul class="drawer-items-list" id="drawerGenderList">.*?</ul>', drawer_gender_html, html, flags=re.DOTALL)
+
+    # Synchronize drawer season
+    drawer_season_html = f'''<ul class="drawer-items-list" id="drawerSeasonList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-season="all" onclick="applyDrawerSeason('all')">
+                                <span class="drawer-nav-name">Всі сезони</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_all">{len(products)}</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-season="winter" onclick="applyDrawerSeason('winter')">
+                                <span class="drawer-nav-name">Зима / Утеплена</span>
+                                <span class="drawer-nav-count" id="drawerSeasonCount_winter">{len(products)}</span>
+                            </button>
+                        </li>
+                    </ul>'''
+    html = re.sub(r'<ul class="drawer-items-list" id="drawerSeasonList">.*?</ul>', drawer_season_html, html, flags=re.DOTALL)
+
+    # Update cache-busting script version
+    html = re.sub(r'script\.js\?v=[\d\.]+', 'script.js?v=13.0', html)
+
     if len(products) == 0:
         html = re.sub(r'<div class="catalog-pagination-container"[^>]*>', '<div class="catalog-pagination-container" id="catalogPagination" style="display: none;">', html)
     else:

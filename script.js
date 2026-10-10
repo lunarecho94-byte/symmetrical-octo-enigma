@@ -2952,6 +2952,7 @@ function setQuickCatalogFilter(filter, btn) {
         currentCatalogGender = 'all';
         currentCatalogSeason = 'all';
         currentCatalogCategory = 'all';
+        currentCatalogBrand = 'all';
     } else if (filter === 'men') {
         currentCatalogGender = (currentCatalogGender === 'men') ? 'all' : 'men';
         currentCatalogSeason = 'all';
@@ -2964,6 +2965,9 @@ function setQuickCatalogFilter(filter, btn) {
     } else if (filter === 'winter') {
         currentCatalogSeason = (currentCatalogSeason === 'winter') ? 'all' : 'winter';
         currentCatalogGender = 'all';
+    } else if (filter && filter.startsWith('brand:')) {
+        const brandKey = filter.split(':')[1];
+        currentCatalogBrand = (currentCatalogBrand === brandKey) ? 'all' : brandKey;
     }
 
     syncQuickCatalogPills();
@@ -2980,7 +2984,9 @@ function setQuickCatalogFilter(filter, btn) {
 
 function syncQuickCatalogPills() {
     let activeQuick = 'all';
-    if (currentCatalogGender === 'men' && currentCatalogSeason === 'all') {
+    if (currentCatalogBrand && currentCatalogBrand !== 'all') {
+        activeQuick = `brand:${currentCatalogBrand}`;
+    } else if (currentCatalogGender === 'men' && currentCatalogSeason === 'all') {
         activeQuick = 'men';
     } else if (currentCatalogGender === 'women' && currentCatalogSeason === 'all') {
         activeQuick = 'women';
@@ -2988,7 +2994,7 @@ function syncQuickCatalogPills() {
         activeQuick = 'demi';
     } else if (currentCatalogSeason === 'winter' && currentCatalogGender === 'all') {
         activeQuick = 'winter';
-    } else if (currentCatalogGender === 'all' && currentCatalogSeason === 'all') {
+    } else if (currentCatalogGender === 'all' && currentCatalogSeason === 'all' && currentCatalogBrand === 'all') {
         activeQuick = 'all';
     } else {
         activeQuick = null;
