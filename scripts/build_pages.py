@@ -912,23 +912,32 @@ def prerender_index_catalog(products):
 
     all_cards_str = '\n'.join(cards_html)
 
-    # Replace .products-grid content
-    pattern = re.compile(r'(<div class="products-grid">\s*<div id="noSearchResultsBox".*?</div>\s*)(?:<div class="card-skeleton">.*?</div>\s*|<div class="product-card".*?</div>\s*)*', re.DOTALL)
-    if pattern.search(html):
-        new_grid_content = r'\1' + all_cards_str + '\n            '
-        html = pattern.sub(new_grid_content, html, count=1)
-    else:
-        html = re.sub(
-            r'(<div class="products-grid">)(.*?)(</div>\s*<!-- Catalog Pagination)',
-            r'\1\n' + all_cards_str + r'\n            \3',
-            html,
-            flags=re.DOTALL
-        )
+    # Empty state and grid content
+    no_results_display = 'block' if len(products) == 0 else 'none'
+    empty_box_html = f'''                <div id="noSearchResultsBox" class="no-results-box" style="display: {no_results_display};">
+                    <div class="no-results-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+                    <h3>У каталозі наразі немає доступних моделей</h3>
+                    <p id="noResultsDetail">Оновлення асортименту незабаром. Додавання нових позицій за посиланнями.</p>
+                    <button type="button" class="btn-reset-search-big" onclick="clearCatalogSearch()">Показати весь каталог</button>
+                </div>'''
+
+    grid_inner = f"\n{empty_box_html}\n{all_cards_str}\n            " if all_cards_str else f"\n{empty_box_html}\n            "
+    html = re.sub(
+        r'(<div class="products-grid">)(.*?)(</div>\s*<!-- Catalog Pagination)',
+        r'\1' + grid_inner + r'\3',
+        html,
+        flags=re.DOTALL
+    )
 
     # Update progress info and count
     html = re.sub(r'<span id="catalogShowingCount">.*?</span>', f'<span id="catalogShowingCount">Показано {len(products)} з {len(products)} моделей</span>', html)
     html = re.sub(r'<div class="catalog-progress-fill"[^>]*>', '<div class="catalog-progress-fill" id="catalogProgressFill" style="width: 100%;">', html)
     html = re.sub(r'<p class="catalog-models-count"[^>]*>.*?</p>', f'<p class="catalog-models-count" id="catalogModelsCount">Знайдено {len(products)} моделей у наявності</p>', html)
+
+    if len(products) == 0:
+        html = re.sub(r'<div class="catalog-pagination-container"[^>]*>', '<div class="catalog-pagination-container" id="catalogPagination" style="display: none;">', html)
+    else:
+        html = re.sub(r'<div class="catalog-pagination-container"[^>]*>', '<div class="catalog-pagination-container" id="catalogPagination">', html)
 
     with open(index_file, 'w', encoding='utf-8') as f:
         f.write(html)

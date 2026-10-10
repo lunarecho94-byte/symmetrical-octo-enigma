@@ -1,23 +1,23 @@
 {
-  "total": 36,
+  "total": 0,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 36
+      "count": 0
     },
     {
       "slug": "women",
       "name": "Жіночі",
       "icon": "",
-      "count": 36
+      "count": 0
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 28
+      "count": 0
     }
   ],
   "categories": [
@@ -25,31 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 36
-    },
-    {
-      "slug": "jacket",
-      "name": "Демісезонні жіночі куртки",
-      "icon": "",
-      "count": 4
-    },
-    {
-      "slug": "leather",
-      "name": "Жіночі косухи",
-      "icon": "",
-      "count": 3
-    },
-    {
-      "slug": "winter_jacket",
-      "name": "Дублянки на хутрі",
-      "icon": "",
-      "count": 1
-    },
-    {
-      "slug": "zip_hoodie",
-      "name": "Зіп-худі Maison Margiela",
-      "icon": "",
-      "count": 28
+      "count": 0
     }
   ],
   "seasons": [
@@ -57,36 +33,14 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 36
-    },
-    {
-      "slug": "demi",
-      "name": "Демісезон",
-      "icon": "",
-      "count": 34
-    },
-    {
-      "slug": "winter",
-      "name": "Зима / Хутро",
-      "icon": "",
-      "count": 2
+      "count": 0
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 36
-    },
-    {
-      "slug": "urban",
-      "name": "URBAN",
-      "count": 8
-    },
-    {
-      "slug": "maison_margiela",
-      "name": "Maison Margiela",
-      "count": 28
+      "count": 0
     }
   ]
 }

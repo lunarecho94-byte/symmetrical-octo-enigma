@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 """
 URBAN — Catalog Synchronization Engine
-Synchronizes products from MyDrop:
-  1. Ro&Go Drop (Vendor ID: 26510, Category: 144063) — Maison Margiela zip-hoodies (28 items)
-  2. R.A drop (Vendor ID: 2473, Category: 139443) — Women's outerwear in stock (8 items)
+Manages products imported strictly from user-provided URLs/sources with automatic 25% markup.
+Sources are stored in data/sources.json.
 Generates:
   - data/products.json
   - data/meta.json
@@ -28,14 +27,9 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(PROJECT_DIR, 'data')
 OUTPUT_PRODUCTS = os.path.join(DATA_DIR, 'products.json')
 OUTPUT_META = os.path.join(DATA_DIR, 'meta.json')
+OUTPUT_SOURCES = os.path.join(DATA_DIR, 'sources.json')
 OUTPUT_FEED = os.path.join(PROJECT_DIR, 'feed.xml')
 OUTPUT_SITEMAP = os.path.join(PROJECT_DIR, 'sitemap.xml')
-
-VENDOR_ROGO = 26510
-CAT_ROGO_HOODIES = 144063
-
-VENDOR_RA = 2473
-CAT_RA_OUTERWEAR = 139443
 
 BACKEND_BASE_URL = 'https://backend.mydrop.com.ua/dropshipper'
 
@@ -61,14 +55,55 @@ def slugify(text):
     s = str(text or '').lower()
     trans = ''.join(CYR_MAP.get(ch, ch) for ch in s)
     clean = re.sub(r'[^a-z0-9]+', '-', trans).strip('-')
-    return clean
+    return clean or 'product'
 
 
-def fetch_category_products(category_id, vendor_id):
-    """Fetches all products for the target category from MyDrop."""
+def load_sources():
+    if os.path.exists(OUTPUT_SOURCES):
+        try:
+            with open(OUTPUT_SOURCES, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Warning loading sources: {e}")
+    return []
+
+
+def save_sources(sources):
+    os.makedirs(DATA_DIR, exist_ok=True)
+    with open(OUTPUT_SOURCES, 'w', encoding='utf-8') as f:
+        json.dump(sources, f, ensure_ascii=False, indent=2)
+
+
+def resolve_vendor_id(vendor_slug_or_id):
+    s = str(vendor_slug_or_id).strip()
+    if s.isdigit():
+        return int(s)
+    url = f"{BACKEND_BASE_URL}/vendors/join/{s}"
+    req = urllib.request.Request(url, headers=HEADERS)
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=10) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            return data.get('id')
+    except Exception as e:
+        print(f"Error resolving vendor '{s}': {e}")
+        return None
+
+
+def fetch_mydrop_product(vendor_id, product_id):
+    url = f"{BACKEND_BASE_URL}/vendors/{vendor_id}/products/{product_id}"
+    req = urllib.request.Request(url, headers=HEADERS)
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+            return json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f"Error fetching product {product_id} (vendor {vendor_id}): {e}")
+        return None
+
+
+def fetch_mydrop_category_products(vendor_id, category_id):
     all_products = []
     print(f"Fetching products for vendor {vendor_id}, category {category_id}...")
-    for page in range(1, 10):
+    for page in range(1, 20):
         url = f"{BACKEND_BASE_URL}/vendors/{vendor_id}/products?categoryId={category_id}&page={page}&perPage=100"
         req = urllib.request.Request(url, headers=HEADERS)
         try:
@@ -78,88 +113,170 @@ def fetch_category_products(category_id, vendor_id):
                 if not results:
                     break
                 all_products.extend(results)
-                print(f"  Page {page}: {len(results)} items (Total: {len(all_products)})")
                 if len(results) < 100:
                     break
         except Exception as e:
             print(f"  Error fetching page {page}: {e}")
             break
-    print(f"Total category products fetched: {len(all_products)}")
     return all_products
 
 
-def fetch_product_details(products, vendor_id):
-    """Fetches full product details concurrently."""
-    print(f"Fetching full product details for vendor {vendor_id} ({len(products)} items)...")
-
-    def fetch_single(p):
-        pid = p['id']
-        url = f"{BACKEND_BASE_URL}/vendors/{vendor_id}/products/{pid}"
-        req = urllib.request.Request(url, headers=HEADERS)
-        try:
-            with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
-                detail = json.loads(resp.read().decode('utf-8'))
-                return detail
-        except Exception as e:
-            print(f"  Warning: could not fetch details for ID {pid}: {e}")
-            return p
-
-    start_time = time.time()
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        detailed_products = list(executor.map(fetch_single, products))
-
-    duration = time.time() - start_time
-    print(f"Completed details fetch in {duration:.2f} seconds.")
-    return detailed_products
-
-
-def transform_rogo_hoodie(p):
-    """Transforms a Ro&Go Drop Maison Margiela zip-hoodie."""
+def transform_product(p, vendor_name=''):
     pid = str(p['id'])
-    sku = (p.get('sku') or f"ZMM{pid}").strip().upper()
+    raw_title = (p.get('title') or '').strip()
+    sku = (p.get('sku') or f"ART{pid}").strip()
+    title_lower = raw_title.lower()
 
-    # Extract color from params
+    # Drop price and 25% markup
+    drop_price = int(float(p.get('dropPrice') or 0))
+    price = int(round(drop_price * 1.25 / 10) * 10)
+    old_price = int(round(price * 1.25 / 10) * 10)
+
+    # Color extraction
     color = ''
     for param in p.get('params', []):
         if (param.get('title') or '').strip().lower() == 'колір':
             color = (param.get('value') or '').strip()
             break
     if not color:
-        t_low = (p.get('title') or '').lower()
-        if 'чорн' in t_low: color = 'Чорний'
-        elif 'сір' in t_low: color = 'Сірий'
-        elif 'біл' in t_low: color = 'Білий'
+        if 'лавандов' in title_lower: color = 'Світло-лавандовий'
+        elif 'графіт' in title_lower: color = 'Графіт'
+        elif 'чорн' in title_lower: color = 'Чорний'
+        elif 'сір' in title_lower: color = 'Сірий'
+        elif 'біл' in title_lower or 'молоч' in title_lower: color = 'Білий'
+        elif 'беж' in title_lower: color = 'Бежевий'
+        elif 'синій' in title_lower or 'син' in title_lower: color = 'Синій'
+        elif 'зелен' in title_lower: color = 'Зелений'
+        elif 'коричнев' in title_lower: color = 'Коричневий'
 
-    title = f"Зіп-худі Maison Margiela {sku} ({color})" if color else f"Зіп-худі Maison Margiela {sku}"
+    # Category, subcategory, season classification
+    if 'дублянк' in title_lower:
+        cat = 'clothing'
+        subcat = 'winter_jacket'
+        cat_name = 'Одяг & Дублянки'
+        season = 'winter'
+        season_name = 'Зима'
+        mat = 'Штучна шкіра / Штучне хутро'
+        badge = 'На хутрі • Дублянка'
+    elif 'косух' in title_lower:
+        cat = 'clothing'
+        subcat = 'leather'
+        cat_name = 'Одяг & Косухи'
+        if 'хутр' in title_lower:
+            season = 'winter'
+            season_name = 'Зима / Демісезон'
+            mat = "М'яка еко-шкіра / Штучне хутро"
+            badge = 'На хутрі • Еко-шкіра'
+        else:
+            season = 'demi'
+            season_name = 'Демісезон'
+            mat = "М'яка еко-шкіра"
+            badge = f"{color} • Еко-шкіра" if color else 'Еко-шкіра'
+    elif 'худі' in title_lower or 'hoodie' in title_lower or 'зіп' in title_lower:
+        cat = 'clothing'
+        subcat = 'zip_hoodie'
+        cat_name = 'Одяг & Зіп-худі'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = '95% Бавовна / 5% Поліестер (петля)'
+        badge = f"{color} • DTF друк" if color else 'DTF друк'
+    elif 'куртк' in title_lower or 'пуховик' in title_lower or 'парк' in title_lower:
+        cat = 'clothing'
+        subcat = 'jacket'
+        cat_name = 'Одяг & Куртки'
+        season = 'winter' if 'зим' in title_lower else 'demi'
+        season_name = 'Зима' if season == 'winter' else 'Демісезон'
+        mat = 'Плащівка матова (100% поліестер) / Синтепон'
+        badge = f"{color} • {season_name}" if color else season_name
+    elif 'жилет' in title_lower or 'безрукавк' in title_lower:
+        cat = 'clothing'
+        subcat = 'vest'
+        cat_name = 'Одяг & Жилетки'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Плащівка / Синтепон'
+        badge = 'Жилетка'
+    elif 'штани' in title_lower or 'карго' in title_lower or 'джогер' in title_lower or 'брюк' in title_lower:
+        cat = 'clothing'
+        subcat = 'pants'
+        cat_name = 'Одяг & Штани'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Бавовна / Еластан'
+        badge = 'Штани карго'
+    elif 'джинс' in title_lower:
+        cat = 'clothing'
+        subcat = 'jeans'
+        cat_name = 'Одяг & Джинси'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = '100% Бавовна (денім)'
+        badge = 'Джинси'
+    elif 'футболк' in title_lower or 'лонгслів' in title_lower:
+        cat = 'clothing'
+        subcat = 'tshirt'
+        cat_name = 'Одяг & Футболки'
+        season = 'summer'
+        season_name = 'Літо'
+        mat = '100% Бавовна'
+        badge = 'Футболка'
+    elif 'кросівк' in title_lower or 'кеди' in title_lower or 'sneaker' in title_lower:
+        cat = 'shoes'
+        subcat = 'sneakers'
+        cat_name = 'Взуття & Кросівки'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Шкіра / Текстиль'
+        badge = 'Кросівки'
+    else:
+        cat = 'clothing'
+        subcat = 'apparel'
+        cat_name = 'Одяг'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Текстиль / Бавовна'
+        badge = 'Новинка'
 
-    drop_price = int(float(p.get('dropPrice') or 1150))
-    price = int(round(drop_price * 1.25 / 10) * 10)
-    old_price = int(round(price * 1.25 / 10) * 10)
+    # Brand detection
+    brand = 'urban'
+    brand_name = 'URBAN'
+    if 'margiela' in title_lower:
+        brand = 'maison_margiela'
+        brand_name = 'Maison Margiela'
+    elif 'nike' in title_lower:
+        brand = 'nike'
+        brand_name = 'Nike'
+    elif 'adidas' in title_lower:
+        brand = 'adidas'
+        brand_name = 'Adidas'
+    elif 'new balance' in title_lower or 'nb' in title_lower:
+        brand = 'new_balance'
+        brand_name = 'New Balance'
+    elif 'trapstar' in title_lower:
+        brand = 'trapstar'
+        brand_name = 'Trapstar'
 
-    mat = '95% Бавовна / 5% Поліестер (петля)'
-    season = 'demi'
-    season_name = 'Демісезон'
-    gender = 'unisex'
-    brand = 'maison_margiela'
-    brand_name = 'Maison Margiela'
-    cat = 'clothing'
-    subcat = 'zip_hoodie'
-    cat_name = 'Одяг & Зіп-худі'
-    origin = 'Фабричне виробництво'
-    badge = f"{color} • DTF друк" if color else 'DTF друк'
+    # Gender detection
+    if 'жіноч' in title_lower or 'жінк' in title_lower:
+        gender = 'women'
+    elif 'чоловіч' in title_lower:
+        gender = 'men'
+    else:
+        gender = 'unisex'
 
+    # Clean description
     raw_desc = p.get('description') or ''
     clean_lines = []
     for line in raw_desc.split('\n'):
-        line_str = re.sub(r'[\U00010000-\U0010ffff\u2000-\u3300]', '', line).strip()
-        if line_str:
-            clean_lines.append(line_str)
+        line_clean = re.sub(r'[\U00010000-\U0010ffff\u2000-\u3300]', '', line).strip()
+        line_clean = re.sub(r'^[•\-\*\s]+', '', line_clean).strip()
+        if line_clean and not any(line_clean.lower().startswith(x) for x in ['артикул:', 'розміри:']):
+            clean_lines.append(line_clean)
     desc = '\n'.join(clean_lines) if clean_lines else (
-        "Комфортне зіп-худі Maison Margiela вільного крою. "
-        "М'яка тканина тринитка петля (95% бавовна / 5% поліестер), якісна повноцінна блискавка, "
-        "зручний капюшон та зносостійкий DTF друк."
+        f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
     )
 
+    # Images
     imgs = []
     if p.get('images'):
         for img in p['images']:
@@ -168,16 +285,17 @@ def transform_rogo_hoodie(p):
     if not imgs and p.get('titleImage') and p['titleImage'].get('filename'):
         imgs.append(f"https://backend.mydrop.com.ua/vendor/products/uploads/{p['titleImage']['filename']}")
 
+    # Sizes
     avail_sizes = [s['title'].strip() for s in p.get('sizes', []) if s.get('availableDropshipper')]
     all_sizes = [s['title'].strip() for s in p.get('sizes', [])]
     sizes = avail_sizes if avail_sizes else all_sizes
 
-    slug = f"zip-khudi-maison-margiela-{sku.lower()}-{pid}"
+    slug = f"{slugify(raw_title)}-{pid}"
 
     return {
         'id': str(pid),
         'slug': slug,
-        'name': title,
+        'name': raw_title,
         'price': price,
         'old_price': old_price,
         'cost_price': drop_price,
@@ -192,7 +310,7 @@ def transform_rogo_hoodie(p):
         'art': sku,
         'color': color,
         'mat': mat,
-        'origin': origin,
+        'origin': 'Фабричне виробництво',
         'badge': badge,
         'desc': desc,
         'imgs': imgs,
@@ -201,163 +319,49 @@ def transform_rogo_hoodie(p):
     }
 
 
-def transform_ra_product(p):
-    """Transforms an R.A drop women's outerwear product."""
-    pid = str(p['id'])
-    raw_title = (p.get('title') or '').strip()
-    sku = (p.get('sku') or f"RA{pid}").strip()
-    title_lower = raw_title.lower()
+def parse_source_url(url_str):
+    """
+    Parses a URL and extracts source parameters.
+    Supported formats:
+    - https://mydrop.com.ua/:vendorUrl/products/:productId (or /p/:productId)
+    - https://mydrop.com.ua/:vendorUrl/c/:categoryId (or /categories/:categoryId)
+    - https://backend.mydrop.com.ua/dropshipper/vendors/:vendorId/products/:productId
+    - https://mydrop.com.ua/product/:productId
+    """
+    u = url_str.strip()
 
-    drop_price = int(float(p.get('dropPrice') or 0))
-    # 25% markup over supplier drop price
-    price = int(round(drop_price * 1.25 / 10) * 10)
-    old_price = int(round(price * 1.25 / 10) * 10)
+    # 1. Backend direct product URL
+    m = re.search(r'vendors/(\d+)/products/(\d+)', u)
+    if m:
+        return {'type': 'product', 'vendor_id': int(m.group(1)), 'product_id': int(m.group(2)), 'url': u}
 
-    # Color extraction
-    color = ''
-    if 'лавандов' in title_lower: color = 'Світло-лавандовий'
-    elif 'графіт' in title_lower: color = 'Графіт'
-    elif 'чорн' in title_lower: color = 'Чорний'
-    elif 'сір' in title_lower: color = 'Сірий'
-    elif 'біл' in title_lower or 'молоч' in title_lower: color = 'Молочний'
+    # 2. Storefront product URL: mydrop.com.ua/:vendorUrl/products/:productId or /p/:productId
+    m = re.search(r'mydrop\.com\.ua/([^/]+)/(?:products|p)/(\d+)', u)
+    if m:
+        vendor_slug = m.group(1)
+        product_id = int(m.group(2))
+        vendor_id = resolve_vendor_id(vendor_slug)
+        if vendor_id:
+            return {'type': 'product', 'vendor_id': vendor_id, 'product_id': product_id, 'vendor_slug': vendor_slug, 'url': u}
 
-    # Subcategory & metadata classification
-    if 'дублянк' in title_lower:
-        subcat = 'winter_jacket'
-        cat_name = 'Одяг & Дублянки'
-        season = 'winter'
-        season_name = 'Зима'
-        mat = 'Штучна шкіра / Штучне хутро'
-        badge = 'На хутрі • Дублянка'
-        title = f"Куртка-дублянка на хутрі {sku}"
-    elif 'косух' in title_lower:
-        subcat = 'leather'
-        cat_name = 'Одяг & Косухи'
-        if 'хутр' in title_lower:
-            season = 'winter'
-            season_name = 'Зима / Демісезон'
-            mat = "М'яка еко-шкіра / Штучне хутро"
-            badge = 'На хутрі • Еко-шкіра'
-            title = f"Жіноча куртка косуха на хутрі {sku}"
-        else:
-            season = 'demi'
-            season_name = 'Демісезон'
-            mat = "М'яка еко-шкіра"
-            badge = f"{color} • Еко-шкіра" if color else 'Еко-шкіра'
-            title = f"Жіноча куртка косуха {sku} ({color})" if color else f"Жіноча куртка косуха {sku}"
-    else:
-        subcat = 'jacket'
-        cat_name = 'Одяг & Куртки'
-        season = 'demi'
-        season_name = 'Демісезон'
-        mat = 'Плащівка матова (100% поліестер) / Синтепон 200'
-        badge = f"{color} • Демісезон" if color else 'Демісезон'
-        if 'резинк' in title_lower:
-            title = f"Утеплена жіноча куртка пояс-резинка {sku} ({color})" if color else f"Утеплена жіноча куртка {sku}"
-        elif 'коротк' in title_lower:
-            title = f"Утеплена жіноча коротка куртка з капюшоном {sku}"
-        else:
-            title = f"Утеплена жіноча куртка {sku} ({color})" if color else f"Утеплена жіноча куртка {sku}"
+    # 3. Storefront category URL: mydrop.com.ua/:vendorUrl/c/:categoryId
+    m = re.search(r'mydrop\.com\.ua/([^/]+)/(?:c|products/categories)/(\d+)', u)
+    if m:
+        vendor_slug = m.group(1)
+        cat_id = int(m.group(2))
+        vendor_id = resolve_vendor_id(vendor_slug)
+        if vendor_id:
+            return {'type': 'category', 'vendor_id': vendor_id, 'category_id': cat_id, 'vendor_slug': vendor_slug, 'url': u}
 
-    # Clean description
-    raw_desc = p.get('description') or ''
-    clean_lines = []
-    for line in raw_desc.split('\n'):
-        line_clean = re.sub(r'[\U00010000-\U0010ffff\u2000-\u3300]', '', line).strip()
-        line_clean = re.sub(r'^[•\-\*\s]+', '', line_clean).strip()
-        if line_clean and not any(line_clean.lower().startswith(x) for x in ['артикул:', 'розміри:']):
-            clean_lines.append(line_clean)
-    desc = '\n'.join(clean_lines) if clean_lines else (
-        f"{title}. Якісний матеріал ({mat}), зручний крій, надійні кишені на застібках."
-    )
+    # 4. Direct /product/:productId format
+    m = re.search(r'mydrop\.com\.ua/products?/(\d+)', u)
+    if m:
+        return {'type': 'product_id_only', 'product_id': int(m.group(1)), 'url': u}
 
-    imgs = []
-    if p.get('images'):
-        for img in p['images']:
-            if img.get('filename') and not img.get('deleted'):
-                imgs.append(f"https://backend.mydrop.com.ua/vendor/products/uploads/{img['filename']}")
-    if not imgs and p.get('titleImage') and p['titleImage'].get('filename'):
-        imgs.append(f"https://backend.mydrop.com.ua/vendor/products/uploads/{p['titleImage']['filename']}")
-
-    avail_sizes = [s['title'].strip() for s in p.get('sizes', []) if s.get('availableDropshipper')]
-    all_sizes = [s['title'].strip() for s in p.get('sizes', [])]
-    sizes = avail_sizes if avail_sizes else all_sizes
-
-    slug = f"{slugify(title)}-{pid}"
-
-    return {
-        'id': str(pid),
-        'slug': slug,
-        'name': title,
-        'price': price,
-        'old_price': old_price,
-        'cost_price': drop_price,
-        'cat': 'clothing',
-        'subcat': subcat,
-        'cat_name': cat_name,
-        'season': season,
-        'season_name': season_name,
-        'brand': 'urban',
-        'brand_name': 'URBAN',
-        'gender': 'women',
-        'art': sku,
-        'color': color,
-        'mat': mat,
-        'origin': 'Фабричне виробництво (Китай)',
-        'badge': badge,
-        'desc': desc,
-        'imgs': imgs,
-        'sizes': sizes,
-        'in_stock': len(avail_sizes) > 0
-    }
+    return None
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Synchronize MyDrop outerwear catalog.")
-    parser.add_argument('--download', action='store_true', help="Download fresh catalog from supplier API")
-    args = parser.parse_args()
-
-    os.makedirs(DATA_DIR, exist_ok=True)
-
-    # 1. Fetch Ro&Go Drop Maison Margiela zip-hoodies
-    raw_rogo = fetch_category_products(CAT_ROGO_HOODIES, VENDOR_ROGO)
-    detailed_rogo = fetch_product_details(raw_rogo, VENDOR_ROGO) if raw_rogo else []
-    rogo_products = [transform_rogo_hoodie(p) for p in detailed_rogo]
-
-    # 2. Fetch R.A drop women's outerwear (filter only in-stock with available sizes)
-    raw_ra = fetch_category_products(CAT_RA_OUTERWEAR, VENDOR_RA)
-    in_stock_ra_raw = [r for r in raw_ra if any(s.get('availableDropshipper') for s in r.get('sizes', []))]
-    detailed_ra = fetch_product_details(in_stock_ra_raw, VENDOR_RA) if in_stock_ra_raw else []
-    ra_products = [transform_ra_product(p) for p in detailed_ra]
-
-    print(f"Fetched {len(rogo_products)} Ro&Go hoodies and {len(ra_products)} R.A drop in-stock outerwear items.")
-
-    if len(rogo_products) < 5:
-        print(f"Safety guard triggered: Ro&Go fetched only {len(rogo_products)} products. Aborting.")
-        return
-
-    # Sort Ro&Go hoodies by SKU
-    def sku_num(p):
-        m = re.search(r'\d+', p.get('art', ''))
-        return int(m.group()) if m else 9999
-
-    rogo_products.sort(key=sku_num)
-
-    # Sort R.A drop items by subcat/id: jackets, leather, winter_jacket
-    subcat_order = {'jacket': 1, 'leather': 2, 'winter_jacket': 3}
-    ra_products.sort(key=lambda p: (subcat_order.get(p.get('subcat'), 9), p.get('price', 0)))
-
-    # Combine: R.A drop women's outerwear first, followed by Ro&Go zip-hoodies
-    products = ra_products + rogo_products
-
-    print(f"Total catalog products: {len(products)}")
-
-    # Save data/products.json
-    with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
-        json.dump(products, f, ensure_ascii=False, separators=(',', ':'))
-    print(f"Saved {OUTPUT_PRODUCTS} ({os.path.getsize(OUTPUT_PRODUCTS)} bytes, {len(products)} products)")
-
-    # 4. Generate data/meta.json
+def generate_meta_dict(products):
     women_count = sum(1 for p in products if p['gender'] in ('women', 'unisex'))
     men_count = sum(1 for p in products if p['gender'] in ('men', 'unisex'))
 
@@ -365,48 +369,79 @@ def main():
     season_counts = Counter(p['season'] for p in products)
     brand_counts = Counter(p['brand'] for p in products)
 
-    meta = {
+    subcat_names = {
+        'jacket': 'Демісезонні жіночі куртки',
+        'leather': 'Жіночі косухи',
+        'winter_jacket': 'Дублянки на хутрі',
+        'zip_hoodie': 'Зіп-худі',
+        'vest': 'Жилетки',
+        'pants': 'Штани та карго',
+        'jeans': 'Джинси',
+        'tshirt': 'Футболки',
+        'sneakers': 'Кросівки',
+        'apparel': 'Одяг'
+    }
+
+    brand_names = {
+        'urban': 'URBAN',
+        'maison_margiela': 'Maison Margiela',
+        'nike': 'Nike',
+        'adidas': 'Adidas',
+        'new_balance': 'New Balance',
+        'trapstar': 'Trapstar'
+    }
+
+    categories = [{'slug': 'all', 'name': 'Всі моделі', 'icon': '', 'count': len(products)}]
+    for slug, count in subcat_counts.items():
+        categories.append({
+            'slug': slug,
+            'name': subcat_names.get(slug, slug.capitalize()),
+            'icon': '',
+            'count': count
+        })
+
+    seasons = [
+        {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},
+    ]
+    if season_counts.get('demi'):
+        seasons.append({'slug': 'demi', 'name': 'Демісезон', 'icon': '', 'count': season_counts['demi']})
+    if season_counts.get('winter'):
+        seasons.append({'slug': 'winter', 'name': 'Зима / Хутро', 'icon': '', 'count': season_counts['winter']})
+    if season_counts.get('summer'):
+        seasons.append({'slug': 'summer', 'name': 'Літо', 'icon': '', 'count': season_counts['summer']})
+
+    brands = [{'slug': 'all', 'name': 'Всі бренди', 'count': len(products)}]
+    for slug, count in brand_counts.items():
+        brands.append({
+            'slug': slug,
+            'name': brand_names.get(slug, slug.upper()),
+            'count': count
+        })
+
+    return {
         'total': len(products),
         'genders': [
             {'slug': 'all', 'name': 'Всі товари', 'icon': '', 'count': len(products)},
             {'slug': 'women', 'name': 'Жіночі', 'icon': '', 'count': women_count},
             {'slug': 'men', 'name': 'Чоловічі', 'icon': '', 'count': men_count},
         ],
-        'categories': [
-            {'slug': 'all', 'name': 'Всі моделі', 'icon': '', 'count': len(products)},
-            {'slug': 'jacket', 'name': 'Демісезонні жіночі куртки', 'icon': '', 'count': subcat_counts.get('jacket', 0)},
-            {'slug': 'leather', 'name': 'Жіночі косухи', 'icon': '', 'count': subcat_counts.get('leather', 0)},
-            {'slug': 'winter_jacket', 'name': 'Дублянки на хутрі', 'icon': '', 'count': subcat_counts.get('winter_jacket', 0)},
-            {'slug': 'zip_hoodie', 'name': 'Зіп-худі Maison Margiela', 'icon': '', 'count': subcat_counts.get('zip_hoodie', 0)},
-        ],
-        'seasons': [
-            {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},
-            {'slug': 'demi', 'name': 'Демісезон', 'icon': '', 'count': season_counts.get('demi', 0)},
-            {'slug': 'winter', 'name': 'Зима / Хутро', 'icon': '', 'count': season_counts.get('winter', 0)},
-        ],
-        'brands': [
-            {'slug': 'all', 'name': 'Всі бренди', 'count': len(products)},
-            {'slug': 'urban', 'name': 'URBAN', 'count': brand_counts.get('urban', 0)},
-            {'slug': 'maison_margiela', 'name': 'Maison Margiela', 'count': brand_counts.get('maison_margiela', 0)},
-        ]
+        'categories': categories,
+        'seasons': seasons,
+        'brands': brands
     }
 
-    with open(OUTPUT_META, 'w', encoding='utf-8') as f:
-        json.dump(meta, f, ensure_ascii=False, indent=2)
-    print(f"Saved {OUTPUT_META} with {len(meta['categories'])} categories and {len(meta['brands'])} brands")
 
-    # 5. Generate feed.xml
-    feed_items = products
+def generate_feed_xml(products):
     feed_xml_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">',
         '  <channel>',
-        '    <title>URBAN — Одяг та верхній одяг</title>',
+        '    <title>URBAN — Одяг та аксесуари</title>',
         '    <link>https://urbangrid.com.ua</link>',
-        '    <description>Каталог жіночого верхнього одягу та зіп-худі Maison Margiela від URBAN. Швидка доставка Новою Поштою по Україні.</description>'
+        '    <description>Каталог одягу та взуття від URBAN. Швидка доставка Новою Поштою по Україні.</description>'
     ]
 
-    for p in feed_items:
+    for p in products:
         desc_parts = [p['name']]
         if p.get('mat'): desc_parts.append(f"Матеріал: {p['mat']}")
         if p.get('sizes'): desc_parts.append(f"Розміри: {', '.join(p['sizes'][:6])}")
@@ -414,15 +449,6 @@ def main():
         desc_str = ' • '.join(desc_parts)
 
         main_img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
-
-        if p['subcat'] == 'zip_hoodie':
-            prod_type = 'Одяг &gt; Толстовки та худі &gt; Зіп-худі'
-        elif p['subcat'] == 'leather':
-            prod_type = 'Одяг &gt; Верхній одяг &gt; Жіночі косухи'
-        elif p['subcat'] == 'winter_jacket':
-            prod_type = 'Одяг &gt; Верхній одяг &gt; Дублянки'
-        else:
-            prod_type = 'Одяг &gt; Верхній одяг &gt; Демісезонні куртки'
 
         feed_xml_lines.extend([
             '    <item>',
@@ -438,7 +464,7 @@ def main():
             '      <g:availability>in_stock</g:availability>',
             f'      <g:price>{p["price"]} UAH</g:price>',
             '      <g:google_product_category>212</g:google_product_category>',
-            f'      <g:product_type>{prod_type}</g:product_type>',
+            f'      <g:product_type>{escape(p.get("cat_name", "Одяг"))}</g:product_type>',
             '      <g:shipping>',
             '        <g:country>UA</g:country>',
             '        <g:service>Нова Пошта</g:service>',
@@ -451,12 +477,10 @@ def main():
         '  </channel>',
         '</rss>'
     ])
+    return '\n'.join(feed_xml_lines) + '\n'
 
-    with open(OUTPUT_FEED, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(feed_xml_lines) + '\n')
-    print(f"Saved {OUTPUT_FEED} with {len(feed_items)} items")
 
-    # 6. Generate sitemap.xml strictly for in-stock products
+def generate_sitemap_xml(products):
     in_stock_products = [p for p in products if p.get('in_stock')]
     sitemap_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -465,10 +489,134 @@ def main():
     for p in in_stock_products:
         sitemap_lines.append(f'  <url><loc>https://urbangrid.com.ua/product/{p["slug"]}</loc><changefreq>daily</changefreq><priority>0.8</priority></url>')
     sitemap_lines.append('</urlset>')
+    return '\n'.join(sitemap_lines) + '\n'
 
+
+def commit_catalog_files(products):
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    # 1. Save data/products.json
+    with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
+        json.dump(products, f, ensure_ascii=False, indent=2 if not products else None, separators=(',', ':') if products else None)
+    print(f"Saved {OUTPUT_PRODUCTS} with {len(products)} products")
+
+    # 2. Save data/meta.json
+    meta = generate_meta_dict(products)
+    with open(OUTPUT_META, 'w', encoding='utf-8') as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
+    print(f"Saved {OUTPUT_META} (total: {meta['total']})")
+
+    # 3. Save feed.xml
+    feed_content = generate_feed_xml(products)
+    with open(OUTPUT_FEED, 'w', encoding='utf-8') as f:
+        f.write(feed_content)
+    print(f"Saved {OUTPUT_FEED}")
+
+    # 4. Save sitemap.xml
+    sitemap_content = generate_sitemap_xml(products)
     with open(OUTPUT_SITEMAP, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(sitemap_lines) + '\n')
-    print(f"Saved {OUTPUT_SITEMAP} with {len(in_stock_products)} URLs")
+        f.write(sitemap_content)
+    print(f"Saved {OUTPUT_SITEMAP}")
+
+
+def clear_catalog():
+    print("Clearing all products and sources as requested by user...")
+    save_sources([])
+    commit_catalog_files([])
+    print("Catalog cleared successfully.")
+
+
+def sync_sources():
+    sources = load_sources()
+    if not sources:
+        print("No active sources in data/sources.json. Catalog remains empty.")
+        commit_catalog_files([])
+        return
+
+    print(f"Syncing {len(sources)} sources from data/sources.json...")
+    synced_products = []
+    seen_pids = set()
+
+    for s in sources:
+        stype = s.get('type')
+        if stype == 'product':
+            vid = s.get('vendor_id')
+            pid = s.get('product_id')
+            if vid and pid:
+                pdata = fetch_mydrop_product(vid, pid)
+                if pdata and str(pdata['id']) not in seen_pids:
+                    seen_pids.add(str(pdata['id']))
+                    synced_products.append(transform_product(pdata))
+        elif stype == 'category':
+            vid = s.get('vendor_id')
+            cid = s.get('category_id')
+            if vid and cid:
+                raw_items = fetch_mydrop_category_products(vid, cid)
+                # Fetch details for in-stock
+                in_stock_raw = [r for r in raw_items if any(sz.get('availableDropshipper') for sz in r.get('sizes', []))]
+                for item in in_stock_raw:
+                    pid = item['id']
+                    if str(pid) not in seen_pids:
+                        detail = fetch_mydrop_product(vid, pid) or item
+                        seen_pids.add(str(pid))
+                        synced_products.append(transform_product(detail))
+
+    commit_catalog_files(synced_products)
+    print(f"Successfully synced {len(synced_products)} products.")
+
+
+def add_source_urls(urls):
+    sources = load_sources()
+    added_any = False
+
+    for u in urls:
+        parsed = parse_source_url(u)
+        if not parsed:
+            print(f"Could not parse URL format: {u}")
+            continue
+
+        # Check if already in sources
+        exists = any(
+            s.get('type') == parsed['type'] and
+            s.get('vendor_id') == parsed.get('vendor_id') and
+            s.get('product_id') == parsed.get('product_id') and
+            s.get('category_id') == parsed.get('category_id')
+            for s in sources
+        )
+        if not exists:
+            sources.append(parsed)
+            added_any = True
+            print(f"Added source: {parsed}")
+        else:
+            print(f"Source already exists: {parsed}")
+
+    if added_any:
+        save_sources(sources)
+        sync_sources()
+
+
+def main():
+    parser = argparse.ArgumentParser(description="URBAN Catalog Sync Engine (User Links Only)")
+    parser.add_argument('--clear', action='store_true', help="Clear all products and configured sources")
+    parser.add_argument('--download', '--sync', action='store_true', help="Sync stock/prices for configured user sources only")
+    parser.add_argument('--add', nargs='+', help="Add one or more product/category links to the catalog")
+    parser.add_argument('--list', action='store_true', help="List configured sources")
+    args = parser.parse_args()
+
+    if args.clear:
+        clear_catalog()
+    elif args.add:
+        add_source_urls(args.add)
+    elif args.download:
+        sync_sources()
+    elif args.list:
+        sources = load_sources()
+        print(f"Configured sources ({len(sources)}):")
+        for s in sources:
+            print(f"  - {s}")
+    else:
+        # Default run (e.g. called without args)
+        sync_sources()
 
 
 if __name__ == '__main__':
