@@ -6842,16 +6842,45 @@ header.header {
     background: #18181b;
     border: 1px solid #3f3f46;
     border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85);
     color: #f4f4f5;
-    max-height: 220px;
+    max-height: 280px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     z-index: 1050;
     position: absolute;
     top: calc(100% + 4px);
     left: 0;
     right: 0;
     padding: 4px 0;
+}
+
+.np-quick-cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 0 4px;
+}
+
+.np-quick-city-btn {
+    background: #27272a;
+    border: 1px solid #3f3f46;
+    color: #f4f4f5;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    touch-action: manipulation;
+}
+
+.np-quick-city-btn:hover,
+.np-quick-city-btn:active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
 }
 
 .checkout-dark-card .np-dropdown-item {

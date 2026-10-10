@@ -4626,8 +4626,22 @@ function initNovaPoshtaAutocomplete() {
         });
     }
 
+    // --- City Autocomplete Quick Trigger ---
+    const handleCityOpen = () => {
+        const q = cityInput.value.trim();
+        if (!q) {
+            renderNpCityDropdown(NP_TOP_CITIES);
+        } else if (q.length >= 2) {
+            triggerCitySearch(q);
+        } else {
+            renderNpCityDropdown(NP_TOP_CITIES);
+        }
+    };
+    cityInput.addEventListener('focus', handleCityOpen);
+    cityInput.addEventListener('click', handleCityOpen);
+
     // --- Warehouse Autocomplete Handlers ---
-    warehouseInput.addEventListener('focus', () => {
+    const handleWarehouseOpen = () => {
         const curCityVal = cityInput.value.trim();
         if (!npSelectedCity && curCityVal) {
             ensureCityResolvedAndLoadWarehouses().then(() => {
@@ -4636,7 +4650,10 @@ function initNovaPoshtaAutocomplete() {
             return;
         }
         renderFilteredWarehouses(warehouseInput.value.trim());
-    });
+    };
+
+    warehouseInput.addEventListener('focus', handleWarehouseOpen);
+    warehouseInput.addEventListener('click', handleWarehouseOpen);
 
     warehouseInput.addEventListener('input', (e) => {
         const q = e.target.value.trim();
@@ -4653,7 +4670,7 @@ function initNovaPoshtaAutocomplete() {
         clearTimeout(npWarehouseDebounce);
         npWarehouseDebounce = setTimeout(() => {
             renderFilteredWarehouses(q);
-        }, 100);
+        }, 80);
     });
 
     warehouseInput.addEventListener('keydown', (e) => {
@@ -4697,7 +4714,7 @@ function initNovaPoshtaAutocomplete() {
             }
         }
         if (wDrop && wDrop.style.display !== 'none') {
-            if (!e.target.closest('#npWarehouseDropdown') && e.target !== wInp && e.target !== wClear && !e.target.closest('#npWarehouseFilterTabs')) {
+            if (!e.target.closest('#npWarehouseDropdown') && e.target !== wInp && e.target !== wClear && !e.target.closest('#npWarehouseFilterTabs') && !e.target.closest('.np-quick-cities')) {
                 wDrop.style.display = 'none';
             }
         }
@@ -4834,36 +4851,31 @@ async function selectNpCity(cityData, shouldFocusWarehouse = true) {
 
     syncCityNPCombined();
 
-    // Enable Warehouse Input & Pre-fetch Warehouses
+    // Enable Warehouse Input
     if (warehouseInput) {
         warehouseInput.disabled = false;
-        if (!warehouseInput.value.trim()) {
-            warehouseInput.placeholder = 'Завантаження відділень...';
+        if (shouldFocusWarehouse) {
+            warehouseInput.focus();
         }
     }
     if (warehouseHint) {
         warehouseHint.textContent = `Завантажуємо відділення Нової Пошти у ${city.present}...`;
     }
 
+    // Immediately open warehouse dropdown with animated loading state so user sees options are loading right away!
+    renderFilteredWarehouses(warehouseInput ? warehouseInput.value.trim() : '');
+
+    // Fetch warehouses in background
     await loadCityWarehouses(city);
-
-    if (warehouseInput) {
-        warehouseInput.placeholder = 'Введіть номер (напр. 25) або вулицю...';
-        if (shouldFocusWarehouse) {
-            warehouseInput.focus();
-        }
-    }
-    if (warehouseHint) {
-        if (npAllWarehouses.length > 0) {
-            warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
-        } else {
-            warehouseHint.textContent = 'Вкажіть номер відділення, поштомату або адресу доставки:';
-        }
-    }
-
-    const currentWarehouseQuery = warehouseInput ? warehouseInput.value.trim() : '';
-    renderFilteredWarehouses(currentWarehouseQuery);
 }
+
+function quickSelectCityFromWarehouse(cityName) {
+    const matched = findCityMatch(cityName);
+    if (matched) {
+        selectNpCity(matched, true);
+    }
+}
+window.quickSelectCityFromWarehouse = quickSelectCityFromWarehouse;
 
 async function ensureCityResolvedAndLoadWarehouses() {
     if (npSelectedCity || npCityResolving) return;
@@ -5036,11 +5048,14 @@ async function loadCityWarehouses(city) {
         }
         if (warehouseHint) {
             if (npAllWarehouses.length > 0) {
-                warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
+                warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Оберіть зі списку нижче або почніть вводити:`;
             } else {
                 warehouseHint.textContent = 'Вкажіть номер відділення, поштомату або адресу доставки:';
             }
         }
+
+        // IMMEDIATELY render warehouses so options appear instantly without needing another click!
+        renderFilteredWarehouses(warehouseInput ? warehouseInput.value.trim() : '');
     }
 }
 
@@ -5068,10 +5083,11 @@ function renderFilteredWarehouses(query) {
     if (!dropdown) return;
 
     if (npLoadingWarehouses) {
+        const curCity = npSelectedCity ? (npSelectedCity.name || npSelectedCity.present) : '';
         dropdown.innerHTML = `
-            <div class="np-dropdown-empty" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+            <div class="np-dropdown-empty" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:16px 12px;">
                 <div class="np-loading-spinner" style="display:inline-block; position:static;"></div>
-                <span>Завантажуємо відділення та поштомати...</span>
+                <span>Завантажуємо відділення${curCity ? ` для ${curCity}` : ''}...</span>
             </div>
         `;
         dropdown.style.display = 'block';
@@ -5083,9 +5099,9 @@ function renderFilteredWarehouses(query) {
         const cVal = cityInput ? cityInput.value.trim() : '';
         if (cVal) {
             dropdown.innerHTML = `
-                <div class="np-dropdown-empty" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                <div class="np-dropdown-empty" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:16px 12px;">
                     <div class="np-loading-spinner" style="display:inline-block; position:static;"></div>
-                    <span>Визначаємо місто «${cVal}»...</span>
+                    <span>Визначаємо місто «${cVal}» та завантажуємо відділення...</span>
                 </div>
             `;
             dropdown.style.display = 'block';
@@ -5096,8 +5112,18 @@ function renderFilteredWarehouses(query) {
             return;
         } else {
             dropdown.innerHTML = `
-                <div class="np-dropdown-empty">
-                    Вкажіть місто вище, щоб завантажити список відділень та поштоматів.
+                <div class="np-dropdown-empty" style="padding:14px 12px; text-align:center;">
+                    <div style="font-weight:700; margin-bottom:6px; color:#f8fafc; font-size:13px;">Оберіть місто для показу відділень:</div>
+                    <div class="np-quick-cities" style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-top:8px;">
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Київ')">Київ</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Львів')">Львів</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Одеса')">Одеса</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Харків')">Харків</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Дніпро')">Дніпро</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Черкаси')">Черкаси</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Вінниця')">Вінниця</button>
+                        <button type="button" class="np-quick-city-btn" onclick="quickSelectCityFromWarehouse('Запоріжжя')">Запоріжжя</button>
+                    </div>
                 </div>
             `;
             dropdown.style.display = 'block';
@@ -5146,9 +5172,18 @@ function renderFilteredWarehouses(query) {
         return;
     }
 
-    // Render up to 40 items for performance
-    const displayList = filtered.slice(0, 40);
-    let html = '';
+    // Render header with count and items
+    const displayList = filtered.slice(0, 50);
+    const totalCount = filtered.length;
+    const typeLabel = npActiveWarehouseType === 'Branch' ? 'відділень' : (npActiveWarehouseType === 'Postomat' ? 'поштоматів' : 'варіантів');
+
+    let html = `
+        <div style="padding: 6px 14px 8px; font-size: 11px; color: #94a3b8; border-bottom: 1px solid #27272a; display: flex; align-items: center; justify-content: space-between;">
+            <span>Оберіть відділення зі списку:</span>
+            <span style="background: #27272a; padding: 2px 7px; border-radius: 10px; font-weight: 600; color: #38bdf8;">${totalCount} ${typeLabel}</span>
+        </div>
+    `;
+
     displayList.forEach(w => {
         const isPostomat = w.type === 'Postomat';
         const badgeClass = isPostomat ? 'np-badge-postomat' : 'np-badge-branch';
