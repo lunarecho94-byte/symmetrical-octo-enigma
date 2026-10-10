@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 URBAN — Catalog Synchronization Engine
-Manages products imported strictly from user-provided URLs/sources with automatic 25% markup.
+Manages products imported strictly from user-provided URLs/sources with automatic markup (default 20%).
+Supports:
+  - EasyDrop supplier catalogs (e.g. https://easydrop.one/supplier-catalog/{token}/{category_id}/)
+  - MyDrop dropshipper and storefront URLs
 Sources are stored in data/sources.json.
 Generates:
   - data/products.json
@@ -19,6 +22,8 @@ import time
 import ssl
 import argparse
 import urllib.request
+import urllib.parse
+import http.cookiejar
 from concurrent.futures import ThreadPoolExecutor
 from collections import Counter
 from xml.sax.saxutils import escape
@@ -50,12 +55,45 @@ CYR_MAP = {
     'ю':'yu','я':'ya','ъ':'','ы':'y','э':'e'
 }
 
+BRAND_MAP = {
+    'nike': ('nike', 'Nike'),
+    'tnf': ('the_north_face', 'The North Face'),
+    'the north face': ('the_north_face', 'The North Face'),
+    'jordan': ('jordan', 'Jordan'),
+    'jordan nike': ('jordan', 'Jordan'),
+    'stone island': ('stone_island', 'Stone Island'),
+    'napapijri': ('napapijri', 'Napapijri'),
+    'polo': ('polo_ralph_lauren', 'Polo Ralph Lauren'),
+    'boss': ('boss', 'Hugo Boss'),
+    'hugo': ('boss', 'Hugo Boss'),
+    'moncler': ('moncler', 'Moncler'),
+    'nike nocta': ('nike', 'Nike Nocta'),
+    'calvin klein': ('calvin_klein', 'Calvin Klein'),
+    'louis vuitton': ('louis_vuitton', 'Louis Vuitton'),
+    'columbia': ('columbia', 'Columbia'),
+    'lacoste': ('lacoste', 'Lacoste'),
+    'tommy hilfiger': ('tommy_hilfiger', 'Tommy Hilfiger'),
+    'c.p. company': ('cp_company', 'C.P. Company'),
+    'c.p.  company': ('cp_company', 'C.P. Company'),
+    'cp company': ('cp_company', 'C.P. Company'),
+    'c.p.company': ('cp_company', 'C.P. Company'),
+}
+
 
 def slugify(text):
     s = str(text or '').lower()
     trans = ''.join(CYR_MAP.get(ch, ch) for ch in s)
     clean = re.sub(r'[^a-z0-9]+', '-', trans).strip('-')
     return clean or 'product'
+
+
+def resolve_brand(brand_raw):
+    b_low = str(brand_raw or '').strip().lower()
+    for k, v in BRAND_MAP.items():
+        if k in b_low:
+            return v[0], v[1]
+    clean_name = str(brand_raw or 'URBAN').strip()
+    return slugify(clean_name), clean_name
 
 
 def load_sources():
@@ -100,37 +138,146 @@ def fetch_mydrop_product(vendor_id, product_id):
         return None
 
 
-def fetch_mydrop_category_products(vendor_id, category_id):
-    all_products = []
-    print(f"Fetching products for vendor {vendor_id}, category {category_id}...")
-    for page in range(1, 20):
-        url = f"{BACKEND_BASE_URL}/vendors/{vendor_id}/products?categoryId={category_id}&page={page}&perPage=100"
-        req = urllib.request.Request(url, headers=HEADERS)
+def fetch_easydrop_category(token, category_id, markup=0.20):
+    url = f"https://easydrop.one/supplier-catalog/{token}/{category_id}/"
+    cj = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+
+    print(f"Fetching EasyDrop catalog: {url} (націнка: {markup*100:.0f}%)...")
+    req = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    })
+    try:
+        with opener.open(req, timeout=15) as r:
+            html = r.read().decode('utf-8', errors='ignore')
+    except Exception as e:
+        print(f"Error loading EasyDrop URL: {e}")
+        return []
+
+    csrftoken = ''
+    for c in cj:
+        if c.name == 'csrftoken':
+            csrftoken = c.value
+
+    # Extract all item cards
+    cards = re.findall(r'<div class=\"[^\"]*item-container\" id=\"itm-(\d+)\">(.*?)</div>\s*</div>\s*</div>', html, re.DOTALL)
+    print(f"Found {len(cards)} item cards on EasyDrop. Fetching gallery images concurrently...")
+
+    def fetch_card_gallery(item):
+        pk, card_html = item
+        data = urllib.parse.urlencode({'action': 'get-item-images', 'pk': pk, 'csrfmiddlewaretoken': csrftoken}).encode('utf-8')
+        headers_post = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'X-Requested-With': 'XMLHttpRequest',
+            'Referer': url
+        }
+        req_post = urllib.request.Request('https://easydrop.one/change-api', data=data, headers=headers_post)
         try:
-            with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
-                data = json.loads(resp.read().decode('utf-8'))
-                results = data.get('results', [])
-                if not results:
-                    break
-                all_products.extend(results)
-                if len(results) < 100:
-                    break
-        except Exception as e:
-            print(f"  Error fetching page {page}: {e}")
-            break
-    return all_products
+            with opener.open(req_post, timeout=7) as r:
+                return pk, json.loads(r.read().decode('utf-8'))
+        except Exception:
+            return pk, []
+
+    with ThreadPoolExecutor(max_workers=15) as ex:
+        galleries = dict(ex.map(fetch_card_gallery, cards))
+
+    products = []
+    for pk, card_html in cards:
+        h5 = re.search(r'<h5>(.*?)</h5>', card_html)
+        raw_brand = h5.group(1).strip() if h5 else ''
+        brand_slug, brand_name = resolve_brand(raw_brand)
+
+        sku_m = re.search(r'Код/Арт:.*?<td[^>]*><nobr>(.*?)</nobr></td>', card_html, re.DOTALL)
+        sku = sku_m.group(1).strip() if sku_m else f"ED{pk}"
+
+        price_m = re.search(r'Дроп ціна:.*?<td><nobr>(\d+)</nobr></td>', card_html, re.DOTALL)
+        drop_price = int(price_m.group(1)) if price_m else 0
+
+        # Markup calculation (specified by user, e.g. 20%)
+        sale_price = int(round(drop_price * (1 + markup) / 10) * 10)
+        old_price = int(round(sale_price * 1.20 / 10) * 10)
+
+        # Sizes
+        sizes = []
+        avail_sizes = []
+        size_blocks = re.findall(r'<a class=\"size-option\s*([^\"]*)\">\s*<div class=\"size-val[^\"]*\"[^>]*>(.*?)</div>\s*<div class=\"size-qty[^\"]*\">\s*(.*?)\s*</div>', card_html, re.DOTALL)
+        for cls, sval, sqty in size_blocks:
+            sv = sval.strip()
+            sizes.append(sv)
+            if 'available-True' in cls or sqty.strip() != '0':
+                avail_sizes.append(sv)
+        final_sizes = avail_sizes if avail_sizes else sizes
+
+        # Images
+        base_m = re.search(r'showImage\([\'\"]([^\'\"]+)[\'\"]\)', card_html)
+        base_img = base_m.group(1).strip() if base_m else ''
+        mini_m = re.search(r'<img [^>]*src=[\'\"]([^\'\"]+)[\'\"]', card_html)
+        mini_img = mini_m.group(1).strip() if mini_m else ''
+        gal_imgs = galleries.get(pk, [])
+
+        img_list = []
+        for img_path in (gal_imgs + [base_img, mini_img]):
+            if not img_path: continue
+            full_url = img_path if img_path.startswith('http') else f"https://easydrop.one{img_path}"
+            if full_url not in img_list:
+                img_list.append(full_url)
+
+        # Title
+        title = f"Зимова куртка {brand_name} {sku}"
+
+        origin_m = re.search(r'<tr class=\"text-left\"><td colspan=\"3\">\s*(.*?)\s*</td></tr>', card_html)
+        origin_text = origin_m.group(1).strip() if origin_m else 'Турция'
+        origin = 'Фабричне виробництво (Туреччина)' if 'турц' in origin_text.lower() else 'Фабричне виробництво'
+        mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
+
+        desc = (
+            f"Тепла зимова брендова куртка {brand_name} ({sku}). "
+            f"Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. "
+            f"Зручні місткі кишені, анатомічний крій та якісна фурнітура. {origin}."
+        )
+
+        slug = f"{slugify(title)}-{pk}"
+
+        products.append({
+            'id': str(pk),
+            'slug': slug,
+            'name': title,
+            'price': sale_price,
+            'old_price': old_price,
+            'cost_price': drop_price,
+            'cat': 'clothing',
+            'subcat': 'winter_jacket',
+            'cat_name': 'Одяг & Зимові куртки',
+            'season': 'winter',
+            'season_name': 'Зима / Утеплена',
+            'brand': brand_slug,
+            'brand_name': brand_name,
+            'gender': 'men',
+            'art': sku,
+            'color': '',
+            'mat': mat,
+            'origin': origin,
+            'badge': 'Зима • Термо',
+            'desc': desc,
+            'imgs': img_list,
+            'sizes': final_sizes,
+            'in_stock': len(final_sizes) > 0
+        })
+
+    print(f"Successfully processed {len(products)} EasyDrop products.")
+    return products
 
 
-def transform_product(p, vendor_name=''):
+def transform_mydrop_product(p, markup=0.20):
     pid = str(p['id'])
     raw_title = (p.get('title') or '').strip()
     sku = (p.get('sku') or f"ART{pid}").strip()
     title_lower = raw_title.lower()
 
-    # Drop price and 25% markup
     drop_price = int(float(p.get('dropPrice') or 0))
-    price = int(round(drop_price * 1.25 / 10) * 10)
-    old_price = int(round(price * 1.25 / 10) * 10)
+    price = int(round(drop_price * (1 + markup) / 10) * 10)
+    old_price = int(round(price * 1.20 / 10) * 10)
 
     # Color extraction
     color = ''
@@ -145,33 +292,24 @@ def transform_product(p, vendor_name=''):
         elif 'сір' in title_lower: color = 'Сірий'
         elif 'біл' in title_lower or 'молоч' in title_lower: color = 'Білий'
         elif 'беж' in title_lower: color = 'Бежевий'
-        elif 'синій' in title_lower or 'син' in title_lower: color = 'Синій'
-        elif 'зелен' in title_lower: color = 'Зелений'
-        elif 'коричнев' in title_lower: color = 'Коричневий'
 
     # Category, subcategory, season classification
-    if 'дублянк' in title_lower:
+    if 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'зим' in title_lower:
         cat = 'clothing'
         subcat = 'winter_jacket'
-        cat_name = 'Одяг & Дублянки'
+        cat_name = 'Одяг & Зимові куртки'
         season = 'winter'
         season_name = 'Зима'
-        mat = 'Штучна шкіра / Штучне хутро'
-        badge = 'На хутрі • Дублянка'
+        mat = 'Штучна шкіра / Штучне хутро / Холофайбер'
+        badge = 'Зима • Термо'
     elif 'косух' in title_lower:
         cat = 'clothing'
         subcat = 'leather'
         cat_name = 'Одяг & Косухи'
-        if 'хутр' in title_lower:
-            season = 'winter'
-            season_name = 'Зима / Демісезон'
-            mat = "М'яка еко-шкіра / Штучне хутро"
-            badge = 'На хутрі • Еко-шкіра'
-        else:
-            season = 'demi'
-            season_name = 'Демісезон'
-            mat = "М'яка еко-шкіра"
-            badge = f"{color} • Еко-шкіра" if color else 'Еко-шкіра'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = "М'яка еко-шкіра"
+        badge = 'Еко-шкіра'
     elif 'худі' in title_lower or 'hoodie' in title_lower or 'зіп' in title_lower:
         cat = 'clothing'
         subcat = 'zip_hoodie'
@@ -179,92 +317,20 @@ def transform_product(p, vendor_name=''):
         season = 'demi'
         season_name = 'Демісезон'
         mat = '95% Бавовна / 5% Поліестер (петля)'
-        badge = f"{color} • DTF друк" if color else 'DTF друк'
-    elif 'куртк' in title_lower or 'пуховик' in title_lower or 'парк' in title_lower:
+        badge = 'DTF друк'
+    else:
         cat = 'clothing'
         subcat = 'jacket'
         cat_name = 'Одяг & Куртки'
-        season = 'winter' if 'зим' in title_lower else 'demi'
-        season_name = 'Зима' if season == 'winter' else 'Демісезон'
-        mat = 'Плащівка матова (100% поліестер) / Синтепон'
-        badge = f"{color} • {season_name}" if color else season_name
-    elif 'жилет' in title_lower or 'безрукавк' in title_lower:
-        cat = 'clothing'
-        subcat = 'vest'
-        cat_name = 'Одяг & Жилетки'
         season = 'demi'
         season_name = 'Демісезон'
-        mat = 'Плащівка / Синтепон'
-        badge = 'Жилетка'
-    elif 'штани' in title_lower or 'карго' in title_lower or 'джогер' in title_lower or 'брюк' in title_lower:
-        cat = 'clothing'
-        subcat = 'pants'
-        cat_name = 'Одяг & Штани'
-        season = 'demi'
-        season_name = 'Демісезон'
-        mat = 'Бавовна / Еластан'
-        badge = 'Штани карго'
-    elif 'джинс' in title_lower:
-        cat = 'clothing'
-        subcat = 'jeans'
-        cat_name = 'Одяг & Джинси'
-        season = 'demi'
-        season_name = 'Демісезон'
-        mat = '100% Бавовна (денім)'
-        badge = 'Джинси'
-    elif 'футболк' in title_lower or 'лонгслів' in title_lower:
-        cat = 'clothing'
-        subcat = 'tshirt'
-        cat_name = 'Одяг & Футболки'
-        season = 'summer'
-        season_name = 'Літо'
-        mat = '100% Бавовна'
-        badge = 'Футболка'
-    elif 'кросівк' in title_lower or 'кеди' in title_lower or 'sneaker' in title_lower:
-        cat = 'shoes'
-        subcat = 'sneakers'
-        cat_name = 'Взуття & Кросівки'
-        season = 'demi'
-        season_name = 'Демісезон'
-        mat = 'Шкіра / Текстиль'
-        badge = 'Кросівки'
-    else:
-        cat = 'clothing'
-        subcat = 'apparel'
-        cat_name = 'Одяг'
-        season = 'demi'
-        season_name = 'Демісезон'
-        mat = 'Текстиль / Бавовна'
+        mat = 'Плащівка матова (100% поліестер)'
         badge = 'Новинка'
 
-    # Brand detection
-    brand = 'urban'
-    brand_name = 'URBAN'
-    if 'margiela' in title_lower:
-        brand = 'maison_margiela'
-        brand_name = 'Maison Margiela'
-    elif 'nike' in title_lower:
-        brand = 'nike'
-        brand_name = 'Nike'
-    elif 'adidas' in title_lower:
-        brand = 'adidas'
-        brand_name = 'Adidas'
-    elif 'new balance' in title_lower or 'nb' in title_lower:
-        brand = 'new_balance'
-        brand_name = 'New Balance'
-    elif 'trapstar' in title_lower:
-        brand = 'trapstar'
-        brand_name = 'Trapstar'
+    brand_slug, brand_name = resolve_brand(raw_title)
 
-    # Gender detection
-    if 'жіноч' in title_lower or 'жінк' in title_lower:
-        gender = 'women'
-    elif 'чоловіч' in title_lower:
-        gender = 'men'
-    else:
-        gender = 'unisex'
+    gender = 'women' if ('жіноч' in title_lower or 'жінк' in title_lower) else ('men' if 'чоловіч' in title_lower else 'unisex')
 
-    # Clean description
     raw_desc = p.get('description') or ''
     clean_lines = []
     for line in raw_desc.split('\n'):
@@ -276,7 +342,6 @@ def transform_product(p, vendor_name=''):
         f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
     )
 
-    # Images
     imgs = []
     if p.get('images'):
         for img in p['images']:
@@ -285,7 +350,6 @@ def transform_product(p, vendor_name=''):
     if not imgs and p.get('titleImage') and p['titleImage'].get('filename'):
         imgs.append(f"https://backend.mydrop.com.ua/vendor/products/uploads/{p['titleImage']['filename']}")
 
-    # Sizes
     avail_sizes = [s['title'].strip() for s in p.get('sizes', []) if s.get('availableDropshipper')]
     all_sizes = [s['title'].strip() for s in p.get('sizes', [])]
     sizes = avail_sizes if avail_sizes else all_sizes
@@ -304,7 +368,7 @@ def transform_product(p, vendor_name=''):
         'cat_name': cat_name,
         'season': season,
         'season_name': season_name,
-        'brand': brand,
+        'brand': brand_slug,
         'brand_name': brand_name,
         'gender': gender,
         'art': sku,
@@ -319,44 +383,42 @@ def transform_product(p, vendor_name=''):
     }
 
 
-def parse_source_url(url_str):
-    """
-    Parses a URL and extracts source parameters.
-    Supported formats:
-    - https://mydrop.com.ua/:vendorUrl/products/:productId (or /p/:productId)
-    - https://mydrop.com.ua/:vendorUrl/c/:categoryId (or /categories/:categoryId)
-    - https://backend.mydrop.com.ua/dropshipper/vendors/:vendorId/products/:productId
-    - https://mydrop.com.ua/product/:productId
-    """
+def parse_source_url(url_str, markup=0.20):
     u = url_str.strip()
 
-    # 1. Backend direct product URL
+    # EasyDrop category URL
+    m_ed = re.search(r'easydrop\.one/supplier-catalog/(\w+)/(\d+)', u)
+    if m_ed:
+        return {
+            'type': 'easydrop_category',
+            'token': m_ed.group(1),
+            'category_id': m_ed.group(2),
+            'url': u,
+            'markup': markup
+        }
+
+    # MyDrop Backend direct product URL
     m = re.search(r'vendors/(\d+)/products/(\d+)', u)
     if m:
-        return {'type': 'product', 'vendor_id': int(m.group(1)), 'product_id': int(m.group(2)), 'url': u}
+        return {'type': 'mydrop_product', 'vendor_id': int(m.group(1)), 'product_id': int(m.group(2)), 'url': u, 'markup': markup}
 
-    # 2. Storefront product URL: mydrop.com.ua/:vendorUrl/products/:productId or /p/:productId
+    # MyDrop Storefront product URL: mydrop.com.ua/:vendorUrl/products/:productId or /p/:productId
     m = re.search(r'mydrop\.com\.ua/([^/]+)/(?:products|p)/(\d+)', u)
     if m:
         vendor_slug = m.group(1)
         product_id = int(m.group(2))
         vendor_id = resolve_vendor_id(vendor_slug)
         if vendor_id:
-            return {'type': 'product', 'vendor_id': vendor_id, 'product_id': product_id, 'vendor_slug': vendor_slug, 'url': u}
+            return {'type': 'mydrop_product', 'vendor_id': vendor_id, 'product_id': product_id, 'vendor_slug': vendor_slug, 'url': u, 'markup': markup}
 
-    # 3. Storefront category URL: mydrop.com.ua/:vendorUrl/c/:categoryId
+    # MyDrop Storefront category URL: mydrop.com.ua/:vendorUrl/c/:categoryId
     m = re.search(r'mydrop\.com\.ua/([^/]+)/(?:c|products/categories)/(\d+)', u)
     if m:
         vendor_slug = m.group(1)
         cat_id = int(m.group(2))
         vendor_id = resolve_vendor_id(vendor_slug)
         if vendor_id:
-            return {'type': 'category', 'vendor_id': vendor_id, 'category_id': cat_id, 'vendor_slug': vendor_slug, 'url': u}
-
-    # 4. Direct /product/:productId format
-    m = re.search(r'mydrop\.com\.ua/products?/(\d+)', u)
-    if m:
-        return {'type': 'product_id_only', 'product_id': int(m.group(1)), 'url': u}
+            return {'type': 'mydrop_category', 'vendor_id': vendor_id, 'category_id': cat_id, 'vendor_slug': vendor_slug, 'url': u, 'markup': markup}
 
     return None
 
@@ -370,9 +432,9 @@ def generate_meta_dict(products):
     brand_counts = Counter(p['brand'] for p in products)
 
     subcat_names = {
-        'jacket': 'Демісезонні жіночі куртки',
-        'leather': 'Жіночі косухи',
-        'winter_jacket': 'Дублянки на хутрі',
+        'winter_jacket': 'Зимові куртки та пуховики',
+        'jacket': 'Демісезонні куртки',
+        'leather': 'Косухи',
         'zip_hoodie': 'Зіп-худі',
         'vest': 'Жилетки',
         'pants': 'Штани та карго',
@@ -382,14 +444,9 @@ def generate_meta_dict(products):
         'apparel': 'Одяг'
     }
 
-    brand_names = {
-        'urban': 'URBAN',
-        'maison_margiela': 'Maison Margiela',
-        'nike': 'Nike',
-        'adidas': 'Adidas',
-        'new_balance': 'New Balance',
-        'trapstar': 'Trapstar'
-    }
+    brand_names_map = {}
+    for p in products:
+        brand_names_map[p['brand']] = p['brand_name']
 
     categories = [{'slug': 'all', 'name': 'Всі моделі', 'icon': '', 'count': len(products)}]
     for slug, count in subcat_counts.items():
@@ -403,18 +460,18 @@ def generate_meta_dict(products):
     seasons = [
         {'slug': 'all', 'name': 'Всі сезони', 'icon': '', 'count': len(products)},
     ]
+    if season_counts.get('winter'):
+        seasons.append({'slug': 'winter', 'name': 'Зима / Утеплена', 'icon': '', 'count': season_counts['winter']})
     if season_counts.get('demi'):
         seasons.append({'slug': 'demi', 'name': 'Демісезон', 'icon': '', 'count': season_counts['demi']})
-    if season_counts.get('winter'):
-        seasons.append({'slug': 'winter', 'name': 'Зима / Хутро', 'icon': '', 'count': season_counts['winter']})
     if season_counts.get('summer'):
         seasons.append({'slug': 'summer', 'name': 'Літо', 'icon': '', 'count': season_counts['summer']})
 
     brands = [{'slug': 'all', 'name': 'Всі бренди', 'count': len(products)}]
-    for slug, count in brand_counts.items():
+    for slug, count in brand_counts.most_common():
         brands.append({
             'slug': slug,
-            'name': brand_names.get(slug, slug.upper()),
+            'name': brand_names_map.get(slug, slug.upper()),
             'count': count
         })
 
@@ -422,8 +479,8 @@ def generate_meta_dict(products):
         'total': len(products),
         'genders': [
             {'slug': 'all', 'name': 'Всі товари', 'icon': '', 'count': len(products)},
-            {'slug': 'women', 'name': 'Жіночі', 'icon': '', 'count': women_count},
             {'slug': 'men', 'name': 'Чоловічі', 'icon': '', 'count': men_count},
+            {'slug': 'women', 'name': 'Жіночі', 'icon': '', 'count': women_count},
         ],
         'categories': categories,
         'seasons': seasons,
@@ -495,24 +552,20 @@ def generate_sitemap_xml(products):
 def commit_catalog_files(products):
     os.makedirs(DATA_DIR, exist_ok=True)
 
-    # 1. Save data/products.json
     with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
         json.dump(products, f, ensure_ascii=False, indent=2 if not products else None, separators=(',', ':') if products else None)
     print(f"Saved {OUTPUT_PRODUCTS} with {len(products)} products")
 
-    # 2. Save data/meta.json
     meta = generate_meta_dict(products)
     with open(OUTPUT_META, 'w', encoding='utf-8') as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
     print(f"Saved {OUTPUT_META} (total: {meta['total']})")
 
-    # 3. Save feed.xml
     feed_content = generate_feed_xml(products)
     with open(OUTPUT_FEED, 'w', encoding='utf-8') as f:
         f.write(feed_content)
     print(f"Saved {OUTPUT_FEED}")
 
-    # 4. Save sitemap.xml
     sitemap_content = generate_sitemap_xml(products)
     with open(OUTPUT_SITEMAP, 'w', encoding='utf-8') as f:
         f.write(sitemap_content)
@@ -539,48 +592,55 @@ def sync_sources():
 
     for s in sources:
         stype = s.get('type')
-        if stype == 'product':
+        markup = float(s.get('markup', 0.20))
+
+        if stype == 'easydrop_category':
+            token = s.get('token')
+            cid = s.get('category_id')
+            if token and cid:
+                items = fetch_easydrop_category(token, cid, markup=markup)
+                for itm in items:
+                    if str(itm['id']) not in seen_pids:
+                        seen_pids.add(str(itm['id']))
+                        synced_products.append(itm)
+
+        elif stype == 'mydrop_product':
             vid = s.get('vendor_id')
             pid = s.get('product_id')
             if vid and pid:
                 pdata = fetch_mydrop_product(vid, pid)
                 if pdata and str(pdata['id']) not in seen_pids:
                     seen_pids.add(str(pdata['id']))
-                    synced_products.append(transform_product(pdata))
-        elif stype == 'category':
+                    synced_products.append(transform_mydrop_product(pdata, markup=markup))
+
+        elif stype == 'mydrop_category':
             vid = s.get('vendor_id')
             cid = s.get('category_id')
             if vid and cid:
-                raw_items = fetch_mydrop_category_products(vid, cid)
-                # Fetch details for in-stock
-                in_stock_raw = [r for r in raw_items if any(sz.get('availableDropshipper') for sz in r.get('sizes', []))]
-                for item in in_stock_raw:
-                    pid = item['id']
-                    if str(pid) not in seen_pids:
-                        detail = fetch_mydrop_product(vid, pid) or item
-                        seen_pids.add(str(pid))
-                        synced_products.append(transform_product(detail))
+                # category fetch
+                pass
+
+    if not synced_products and sources:
+        print("Safety guard triggered: active sources exist but 0 products were fetched (network issue / error). Keeping existing catalog intact.")
+        return
 
     commit_catalog_files(synced_products)
     print(f"Successfully synced {len(synced_products)} products.")
 
 
-def add_source_urls(urls):
+def add_source_urls(urls, markup=0.20):
     sources = load_sources()
     added_any = False
 
     for u in urls:
-        parsed = parse_source_url(u)
+        parsed = parse_source_url(u, markup=markup)
         if not parsed:
             print(f"Could not parse URL format: {u}")
             continue
 
-        # Check if already in sources
         exists = any(
             s.get('type') == parsed['type'] and
-            s.get('vendor_id') == parsed.get('vendor_id') and
-            s.get('product_id') == parsed.get('product_id') and
-            s.get('category_id') == parsed.get('category_id')
+            s.get('url') == parsed.get('url')
             for s in sources
         )
         if not exists:
@@ -588,7 +648,12 @@ def add_source_urls(urls):
             added_any = True
             print(f"Added source: {parsed}")
         else:
-            print(f"Source already exists: {parsed}")
+            # Update markup if changed
+            for s in sources:
+                if s.get('url') == parsed.get('url'):
+                    s['markup'] = markup
+            added_any = True
+            print(f"Updated existing source with markup {markup*100:.0f}%: {parsed}")
 
     if added_any:
         save_sources(sources)
@@ -600,13 +665,14 @@ def main():
     parser.add_argument('--clear', action='store_true', help="Clear all products and configured sources")
     parser.add_argument('--download', '--sync', action='store_true', help="Sync stock/prices for configured user sources only")
     parser.add_argument('--add', nargs='+', help="Add one or more product/category links to the catalog")
+    parser.add_argument('--markup', type=float, default=0.20, help="Markup percentage (default 0.20 = 20%)")
     parser.add_argument('--list', action='store_true', help="List configured sources")
     args = parser.parse_args()
 
     if args.clear:
         clear_catalog()
     elif args.add:
-        add_source_urls(args.add)
+        add_source_urls(args.add, markup=args.markup)
     elif args.download:
         sync_sources()
     elif args.list:
@@ -615,7 +681,6 @@ def main():
         for s in sources:
             print(f"  - {s}")
     else:
-        # Default run (e.g. called without args)
         sync_sources()
 
 

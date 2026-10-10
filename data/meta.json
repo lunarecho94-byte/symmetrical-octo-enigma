@@ -1,21 +1,21 @@
 {
-  "total": 0,
+  "total": 124,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 0
-    },
-    {
-      "slug": "women",
-      "name": "Жіночі",
-      "icon": "",
-      "count": 0
+      "count": 124
     },
     {
       "slug": "men",
       "name": "Чоловічі",
+      "icon": "",
+      "count": 124
+    },
+    {
+      "slug": "women",
+      "name": "Жіночі",
       "icon": "",
       "count": 0
     }
@@ -25,7 +25,13 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 0
+      "count": 124
+    },
+    {
+      "slug": "winter_jacket",
+      "name": "Зимові куртки та пуховики",
+      "icon": "",
+      "count": 124
     }
   ],
   "seasons": [
@@ -33,14 +39,90 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 0
+      "count": 124
+    },
+    {
+      "slug": "winter",
+      "name": "Зима / Утеплена",
+      "icon": "",
+      "count": 124
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 0
+      "count": 124
+    },
+    {
+      "slug": "nike",
+      "name": "Nike",
+      "count": 30
+    },
+    {
+      "slug": "the_north_face",
+      "name": "The North Face",
+      "count": 13
+    },
+    {
+      "slug": "polo_ralph_lauren",
+      "name": "Polo Ralph Lauren",
+      "count": 12
+    },
+    {
+      "slug": "jordan",
+      "name": "Jordan",
+      "count": 12
+    },
+    {
+      "slug": "stone_island",
+      "name": "Stone Island",
+      "count": 11
+    },
+    {
+      "slug": "boss",
+      "name": "Hugo Boss",
+      "count": 10
+    },
+    {
+      "slug": "napapijri",
+      "name": "Napapijri",
+      "count": 9
+    },
+    {
+      "slug": "moncler",
+      "name": "Moncler",
+      "count": 6
+    },
+    {
+      "slug": "cp_company",
+      "name": "C.P. Company",
+      "count": 5
+    },
+    {
+      "slug": "calvin_klein",
+      "name": "Calvin Klein",
+      "count": 5
+    },
+    {
+      "slug": "louis_vuitton",
+      "name": "Louis Vuitton",
+      "count": 3
+    },
+    {
+      "slug": "columbia",
+      "name": "Columbia",
+      "count": 3
+    },
+    {
+      "slug": "lacoste",
+      "name": "Lacoste",
+      "count": 3
+    },
+    {
+      "slug": "tommy_hilfiger",
+      "name": "Tommy Hilfiger",
+      "count": 2
     }
   ]
 }
