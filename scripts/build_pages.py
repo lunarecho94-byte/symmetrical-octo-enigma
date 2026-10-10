@@ -83,6 +83,8 @@ def build_product_page_html(p, all_products):
 
     imgs = p.get('imgs') or ['https://urbangrid.com.ua/images/outerwear.webp']
     main_img = imgs[0]
+    main_img_abs = main_img if main_img.startswith('http') else f"https://urbangrid.com.ua{main_img}"
+    abs_imgs = [im if im.startswith('http') else f"https://urbangrid.com.ua{im}" for im in imgs]
 
     canonical_url = f"https://urbangrid.com.ua/product/{slug}"
     meta_title = f"{display_name} — Купити за {price} грн | URBAN"
@@ -93,7 +95,7 @@ def build_product_page_html(p, all_products):
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": display_name,
-        "image": imgs,
+        "image": abs_imgs,
         "description": meta_desc,
         "sku": art,
         "brand": {
@@ -215,7 +217,7 @@ def build_product_page_html(p, all_products):
     <meta property="og:url" content="{canonical_url}">
     <meta property="og:title" content="{escape(display_name)} | URBAN">
     <meta property="og:description" content="{escape(meta_desc)}">
-    <meta property="og:image" content="{main_img}">
+    <meta property="og:image" content="{main_img_abs}">
     <meta property="og:locale" content="uk_UA">
     <meta property="og:site_name" content="URBAN">
 
@@ -223,7 +225,7 @@ def build_product_page_html(p, all_products):
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{escape(display_name)} | URBAN">
     <meta name="twitter:description" content="{escape(meta_desc)}">
-    <meta name="twitter:image" content="{main_img}">
+    <meta name="twitter:image" content="{main_img_abs}">
 
     <!-- Schema.org Microdata (JSON-LD) -->
     <script type="application/ld+json">

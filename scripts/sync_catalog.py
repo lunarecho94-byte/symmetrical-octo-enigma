@@ -216,7 +216,8 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
         mini_img = mini_m.group(1).strip() if mini_m else ''
         gal_imgs = galleries.get(pk, [])
 
-        img_list = []
+        local_thumb = f"/images/catalog/{pk}.jpg"
+        img_list = [local_thumb]
         for img_path in (gal_imgs + [base_img, mini_img]):
             if not img_path: continue
             full_url = img_path if img_path.startswith('http') else f"https://easydrop.one{img_path}"
@@ -506,6 +507,8 @@ def generate_feed_xml(products):
         desc_str = ' • '.join(desc_parts)
 
         main_img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
+        if main_img.startswith('/'):
+            main_img = f"https://urbangrid.com.ua{main_img}"
 
         feed_xml_lines.extend([
             '    <item>',

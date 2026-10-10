@@ -2054,12 +2054,15 @@ async function initDynamicCatalog() {
     const grid = document.getElementById('catalogProductsGrid') || (document.getElementById('productDetailPage') ? null : document.querySelector('.products-grid'));
     if (!grid) return;
 
-    renderCatalogSkeletons(grid, 8);
+    const hasPrerenderedCards = !!grid.querySelector('.product-card');
+    if (!hasPrerenderedCards) {
+        renderCatalogSkeletons(grid, 8);
+    }
 
     try {
         const [prodResp, metaResp] = await Promise.all([
-            fetch('/data/products.json?v=' + Date.now(), { cache: 'no-cache' }),
-            fetch('/data/meta.json?v=' + Date.now(), { cache: 'no-cache' })
+            fetch('/data/products.json'),
+            fetch('/data/meta.json')
         ]);
 
         if (!prodResp.ok || !metaResp.ok) {
@@ -2110,7 +2113,15 @@ async function initDynamicCatalog() {
         syncDrawerActiveStates();
         syncQuickCatalogPills();
         updateCatalogModelsCountText();
-        applyCatalogFilters(false);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasUrlFilter = urlParams.has('cat') || urlParams.has('gender') || urlParams.has('brand') || urlParams.has('season') || urlParams.has('search') || urlParams.has('q');
+        if (!hasPrerenderedCards || hasUrlFilter) {
+            applyCatalogFilters(false);
+        } else {
+            catalogFilteredProducts = [...catalogAllProducts];
+            catalogRenderedCount = grid.querySelectorAll('.product-card').length;
+        }
     } catch (err) {
         console.error('Failed to load dynamic catalog:', err);
         grid.innerHTML = `
