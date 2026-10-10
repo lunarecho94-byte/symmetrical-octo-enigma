@@ -448,88 +448,129 @@
     <div id="cartDrawerOverlay" class="cart-drawer-overlay" onclick="closeCart()"></div>
     <aside id="cartDrawer" class="cart-drawer" aria-label="Кошик товарів" role="dialog" aria-modal="true">
         <div class="cart-drawer-header">
+            <button type="button" class="btn-cart-back-step" id="btnCartBackStep" onclick="hideCartCheckoutForm()" style="display:none;" aria-label="Назад до товарів">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>Назад</span>
+            </button>
             <div class="cart-header-title">
-                <h3>Кошик</h3>
-                <span class="cart-header-count">(<span id="cartDrawerTotalCount">0</span>)</span>
+                <h3 id="cartDrawerHeading">Кошик</h3>
+                <span class="cart-header-count" id="cartDrawerCountWrap">(<span id="cartDrawerTotalCount">0</span>)</span>
             </div>
             <button type="button" class="cart-drawer-close" onclick="closeCart()" aria-label="Закрити кошик">&times;</button>
         </div>
-        <div id="cartDrawerBody" class="cart-drawer-body"></div>
-        <div id="cartDrawerFooter" class="cart-drawer-footer">
-            <div class="cart-summary-line">
-                <span>Загальна сума:</span>
-                <b id="cartDrawerTotalPrice" class="cart-total-price">0 грн</b>
+
+        <!-- VIEW 1: Items List & Cart Footer -->
+        <div id="cartViewItems" class="cart-view-container">
+            <div id="cartDrawerBody" class="cart-drawer-body">
+                <!-- Items rendered dynamically by JS -->
             </div>
-            <div id="cartCheckoutFormBox" class="cart-checkout-form-box" style="display: none;">
-                <div class="cart-checkout-header">
-                    <h4>Дані для відправки Новою Поштою</h4>
-                    <button type="button" class="btn-back-to-items" onclick="hideCartCheckoutForm()">← Назад до товарів</button>
+
+            <div id="cartDrawerFooter" class="cart-drawer-footer">
+                <div class="cart-summary-line">
+                    <span>Загальна сума:</span>
+                    <b id="cartDrawerTotalPrice" class="cart-total-price">0 грн</b>
                 </div>
-                <form id="cartDirectCheckoutForm" onsubmit="handleCartDirectCheckout(event)">
-                    <div class="cart-form-group">
-                        <label for="cartFullName">Прізвище та Ім'я:</label>
-                        <input type="text" id="cartFullName" class="form-input" placeholder="Олена Петренко" required autocomplete="name">
+                <button type="button" id="btnOpenCartCheckout" class="btn-primary btn-checkout-cart" onclick="showCartCheckoutForm()">
+                    ОФОРМИТИ ЗАМОВЛЕННЯ
+                </button>
+                <div class="cart-msg-quick-row">
+                    <span class="cart-msg-quick-title">або через месенджер без дзвінка:</span>
+                    <div class="cart-msg-quick-btns">
+                        <button type="button" class="btn-cart-msg-pill tg" onclick="checkoutViaMessenger('telegram')" title="Оформити через Telegram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l-.313 4.67c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg> <span>Telegram</span></button>
+                        <button type="button" class="btn-cart-msg-pill viber" onclick="checkoutViaMessenger('viber')" title="Оформити через Viber"><svg width="20" height="20" viewBox="0 512 512" fill="currentColor"><path d="M444.3 49.9c-12.7-11.7-64.1-49-178.7-49.5 0 0-135.1-8.1-200.9 52.3-36.6 36.6-49.5 90.3-50.9 156.8s-3.1 191.1 117 224.9l.1 0-.1 51.6s-.8 20.9 13 25.1c16.6 5.2 26.4-10.7 42.3-27.8 8.7-9.4 20.7-23.2 29.8-33.7 82.2 6.9 145.3-8.9 152.5-11.2 16.6-5.4 110.5-17.4 125.7-142 15.8-128.6-7.6-209.8-49.8-246.5zM458.2 287c-12.9 104-89 110.6-103 115.1-6 1.9-61.5 15.7-131.2 11.2 0 0-52 62.7-68.2 79-5.3 5.3-11.1 4.8-11-5.7 0-6.9 .4-85.7 .4-85.7l0 0C43.4 372.7 49.4 266.6 50.5 211.1s11.6-101 42.6-131.6c55.7-50.5 170.4-43 170.4-43 96.9 .4 143.3 29.6 154.1 39.4 35.7 30.6 53.9 103.8 40.6 211.1zm-139-80.8c.4 8.6-12.5 9.2-12.9 .6-1.1-22-11.4-32.7-32.6-33.9-8.6-.5-7.8-13.4 .7-12.9 27.9 1.5 43.4 17.5 44.8 46.2zm20.3 11.3c1-42.4-25.5-75.6-75.8-79.3-8.5-.6-7.6-13.5 .9-12.9 58 4.2 88.9 44.1 87.8 92.5-.1 8.6-13.1 8.2-12.9-.3zm47 13.4c.1 8.6-12.9 8.7-12.9 .1-.6-81.5-54.9-125.9-120.8-126.4-8.5-.1-8.5-12.9 0-12.9 73.7 .5 133 51.4 133.7 139.2zM375.2 329l0 .2c-10.8 19-31 40-51.8 33.3l-.2-.3c-21.1-5.9-70.8-31.5-102.2-56.5-16.2-12.8-31-27.9-42.4-42.4-10.3-12.9-20.7-28.2-30.8-46.6-21.3-38.5-26-55.7-26-55.7-6.7-20.8 14.2-41 33.3-51.8l.2 0c9.2-4.8 18-3.2 23.9 3.9 0 0 12.4 14.8 17.7 22.1 5 6.8 11.7 17.7 15.2 23.8 6.1 10.9 2.3 22-3.7 26.6l-12 9.6c-6.1 4.9-5.3 14-5.3 14s17.8 67.3 84.3 84.3c0 0 9.1 .8 14-5.3l9.6-12c4.6-6 15.7-9.8 26.6-3.7 14.7 8.3 33.4 21.2 45.8 32.9 7 5.7 8.6 14.4 3.8 23.6z"/></svg> <span>Viber</span></button>
                     </div>
-                    <div class="cart-form-group">
-                        <label for="cartPhone">Номер телефону:</label>
-                        <input type="tel" id="cartPhone" class="form-input" placeholder="+38 (067) 123-45-67" required autocomplete="tel" oninput="formatPhoneInput(event)">
-                        <div id="cartPhoneError" class="phone-error-hint" style="display: none;"></div>
-                    </div>
-                    <div class="cart-form-group np-autocomplete-group">
-                        <label for="npCityInput">Місто отримання:</label>
-                        <div class="np-input-wrapper">
-                            <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
-                            <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;">✕</button>
-                            <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
-                        </div>
-                        <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
-                        <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
-                        <input type="hidden" id="npCityName" name="Місто доставки" value="">
-                        <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
-                    </div>
-                    <div class="cart-form-group np-autocomplete-group" id="npWarehouseGroup">
-                        <div class="np-warehouse-header">
-                            <label for="npWarehouseInput">Відділення або поштомат:</label>
-                            <div class="np-type-filter" id="npWarehouseFilterTabs">
-                                <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
-                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">Відділення</button>
-                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">Поштомати</button>
-                            </div>
-                        </div>
-                        <div class="np-input-wrapper">
-                            <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Введіть або оберіть відділення / поштомат..." autocomplete="off" required>
-                            <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;">✕</button>
-                            <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
-                        </div>
-                        <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
-                        <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
-                        <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
-                        <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
-                    </div>
-                    <div class="cart-form-group">
-                        <label>Спосіб оплати:</label>
-                        <div class="cart-payment-radios">
-                            <label class="cart-radio-label">
-                                <input type="radio" name="cartPayment" value="Накладений платіж (при отриманні)" checked>
-                                <span>Накладений платіж (при отриманні)</span>
-                            </label>
-                            <label class="cart-radio-label">
-                                <input type="radio" name="cartPayment" value="Оплата на карту">
-                                <span>Оплата на карту</span>
-                            </label>
-                        </div>
-                    </div>
-                    <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
-                        ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
-                    </button>
-                </form>
+                </div>
+                <button type="button" class="btn-continue-shopping" onclick="closeCart()">
+                    ← Продовжити покупки
+                </button>
             </div>
-            <button type="button" id="btnOpenCartCheckout" class="btn-primary btn-checkout-cart" onclick="showCartCheckoutForm()">
-                ОФОРМИТИ ЗАМОВЛЕННЯ
-            </button>
-            <button type="button" class="btn-continue-shopping" onclick="closeCart()">
-                ← Продовжити покупки
-            </button>
+        </div>
+
+        <!-- VIEW 2: Clean Dedicated Checkout View -->
+        <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
+            <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
+
+            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
+                <div class="cart-form-section-title">Дані одержувача</div>
+                <div class="cart-form-group">
+                    <label for="cartFullName">Прізвище та Ім'я:</label>
+                    <input type="text" id="cartFullName" class="form-input" placeholder="Олена Петренко" required autocomplete="name">
+                </div>
+                <div class="cart-form-group">
+                    <label for="cartPhone">Номер телефону:</label>
+                    <input type="tel" id="cartPhone" class="form-input" placeholder="+38 (067) 123-45-67" required autocomplete="tel" oninput="formatPhoneInput(event)">
+                    <div id="cartPhoneError" class="phone-error-hint" style="display: none;"></div>
+                </div>
+
+                <div class="cart-form-section-title">Доставка Новою Поштою</div>
+                <div class="cart-form-group np-autocomplete-group" style="position: relative;">
+                    <label for="npCityInput">Місто отримання:</label>
+                    <div class="np-input-wrapper">
+                        <span class="np-input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </span>
+                        <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
+                        <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
+                        <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
+                    </div>
+                    <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
+                    <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
+                    <input type="hidden" id="npCityName" name="Місто доставки" value="">
+                    <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
+                </div>
+
+                <div class="cart-form-group np-autocomplete-group" id="npWarehouseGroup" style="position: relative;">
+                    <div class="np-warehouse-header">
+                        <label for="npWarehouseInput">Відділення або поштомат:</label>
+                        <div class="np-type-filter" id="npWarehouseFilterTabs">
+                            <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
+                            <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">Відділення</button>
+                            <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">Поштомати</button>
+                        </div>
+                    </div>
+                    <div class="np-input-wrapper">
+                        <span class="np-input-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </span>
+                        <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Введіть або оберіть відділення / поштомат..." autocomplete="off" required>
+                        <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
+                        <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
+                    </div>
+                    <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
+                    <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
+                    <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
+                    <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
+                    <span class="np-helper-hint" id="npWarehouseHint">Почніть вводити номер або вулицю</span>
+                </div>
+
+                <div class="cart-form-section-title">Спосіб оплати</div>
+                <div class="cart-form-group">
+                    <div class="cart-payment-cards">
+                        <label class="cart-payment-card active">
+                            <input type="radio" name="cartPayment" value="Накладений платіж (при отриманні)" checked onchange="updatePaymentCardState(this)">
+                            <div class="payment-card-body">
+                                <span class="payment-card-title">Накладений платіж</span>
+                                <span class="payment-card-desc">Оплата при отриманні у відділенні після огляду</span>
+                            </div>
+                        </label>
+                        <label class="cart-payment-card">
+                            <input type="radio" name="cartPayment" value="Оплата на карту" onchange="updatePaymentCardState(this)">
+                            <div class="payment-card-body">
+                                <span class="payment-card-title">Оплата на карту</span>
+                                <span class="payment-card-desc">Реквізити надішлемо в SMS або месенджер</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
+                    ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
+                </button>
+                <div class="cart-trust-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Оплата при отриманні • Швидка відправка 1-2 дні Новою Поштою</span>
+                </div>
+            </form>
         </div>
     </aside>
 
