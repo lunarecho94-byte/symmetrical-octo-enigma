@@ -4465,35 +4465,74 @@ function initScrollTop() {
 const NP_API_ENDPOINT = 'https://api.novaposhta.ua/v2.0/json/';
 
 // Preloaded top Ukrainian cities for instantaneous 0ms display on focus
+// Preloaded top Ukrainian cities with verified Nova Poshta Refs & multi-language aliases
 const NP_TOP_CITIES = [
-    { name: 'Київ', present: 'м. Київ, Київська обл.', ref: 'e718a680-4b33-11e4-ab6d-005056801329', deliveryCity: '8d5a980d-391c-11dd-90d9-001a92567626' },
-    { name: 'Львів', present: 'м. Львів, Львівська обл.', ref: 'e71abb60-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88f5-391c-11dd-90d9-001a92567626' },
-    { name: 'Одеса', present: 'м. Одеса, Одеська обл.', ref: 'e718bc80-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d0-391c-11dd-90d9-001a92567626' },
-    { name: 'Харків', present: 'м. Харків, Харківська обл.', ref: 'e718b520-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e0-391c-11dd-90d9-001a92567626' },
-    { name: 'Дніпро', present: 'м. Дніпро, Дніпропетровська обл.', ref: 'e718ae30-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88f0-391c-11dd-90d9-001a92567626' },
-    { name: 'Запоріжжя', present: 'м. Запоріжжя, Запорізька обл.', ref: 'e718b950-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c6-391c-11dd-90d9-001a92567626' },
-    { name: 'Вінниця', present: 'м. Вінниця, Вінницька обл.', ref: 'e718b050-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c0-391c-11dd-90d9-001a92567626' },
-    { name: 'Івано-Франківськ', present: 'м. Івано-Франківськ, Івано-Франківська обл.', ref: 'e71abb50-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c4-391c-11dd-90d9-001a92567626' },
-    { name: 'Полтава', present: 'м. Полтава, Полтавська обл.', ref: 'e718b320-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d2-391c-11dd-90d9-001a92567626' },
-    { name: 'Тернопіль', present: 'м. Тернопіль, Тернопільська обл.', ref: 'e71abb70-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d8-391c-11dd-90d9-001a92567626' },
-    { name: 'Черкаси', present: 'м. Черкаси, Черкаська обл.', ref: 'e718b760-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e2-391c-11dd-90d9-001a92567626' },
-    { name: 'Житомир', present: 'м. Житомир, Житомирська обл.', ref: 'e718b240-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c2-391c-11dd-90d9-001a92567626' },
-    { name: 'Чернівці', present: 'м. Чернівці, Чернівецька обл.', ref: 'e718b870-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e4-391c-11dd-90d9-001a92567626' },
-    { name: 'Хмельницький', present: 'м. Хмельницький, Хмельницька обл.', ref: 'e718b650-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88de-391c-11dd-90d9-001a92567626' },
-    { name: 'Рівне', present: 'м. Рівне, Рівненська обл.', ref: 'e71abb80-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d4-391c-11dd-90d9-001a92567626' },
-    { name: 'Луцьк', present: 'м. Луцьк, Волинська обл.', ref: 'e71abb90-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ca-391c-11dd-90d9-001a92567626' },
-    { name: 'Ужгород', present: 'м. Ужгород, Закарпатська обл.', ref: 'e71abba0-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88dc-391c-11dd-90d9-001a92567626' },
-    { name: 'Кривий Ріг', present: 'м. Кривий Ріг, Дніпропетровська обл.', ref: 'e718af20-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88cc-391c-11dd-90d9-001a92567626' },
-    { name: 'Миколаїв', present: 'м. Миколаїв, Миколаївська обл.', ref: 'e718b430-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ce-391c-11dd-90d9-001a92567626' },
-    { name: 'Кременчук', present: 'м. Кременчук, Полтавська обл.', ref: 'e718b330-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d3-391c-11dd-90d9-001a92567626' },
-    { name: 'Біла Церква', present: 'м. Біла Церква, Київська обл.', ref: 'e718a700-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ba-391c-11dd-90d9-001a92567626' }
+    { name: 'Київ', nameRu: 'Киев', present: 'м. Київ, Київська обл.', ref: 'e718a680-4b33-11e4-ab6d-005056801329', deliveryCity: '8d5a980d-391c-11dd-90d9-001a92567626', aliases: ['київ', 'киев', 'kyiv', 'kiev'] },
+    { name: 'Львів', nameRu: 'Львов', present: 'м. Львів, Львівська обл.', ref: 'e71abb60-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88f5-391c-11dd-90d9-001a92567626', aliases: ['львів', 'львов', 'lviv', 'lvov'] },
+    { name: 'Одеса', nameRu: 'Одесса', present: 'м. Одеса, Одеська обл.', ref: 'e71c2a15-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88d0-391c-11dd-90d9-001a92567626', aliases: ['одеса', 'одесса', 'odesa', 'odessa'] },
+    { name: 'Харків', nameRu: 'Харьков', present: 'м. Харків, Харківська обл.', ref: 'e71f8842-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e0-391c-11dd-90d9-001a92567626', aliases: ['харків', 'харьков', 'kharkiv', 'kharkov'] },
+    { name: 'Дніпро', nameRu: 'Днепр', present: 'м. Дніпро, Дніпропетровська обл.', ref: 'e717110a-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88f0-391c-11dd-90d9-001a92567626', aliases: ['дніпро', 'днепр', 'dnipro', 'dnepr', 'дніпропетровськ', 'днепропетровск'] },
+    { name: 'Запоріжжя', nameRu: 'Запорожье', present: 'м. Запоріжжя, Запорізька обл.', ref: 'e717bce9-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c6-391c-11dd-90d9-001a92567626', aliases: ['запоріжжя', 'запорожье', 'zaporizhzhia', 'zaporozhye'] },
+    { name: 'Вінниця', nameRu: 'Винница', present: 'м. Вінниця, Вінницька обл.', ref: 'e71629ab-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88de-391c-11dd-90d9-001a92567626', aliases: ['вінниця', 'винница', 'vinnytsia', 'vinnitsa'] },
+    { name: 'Івано-Франківськ', nameRu: 'Ивано-Франковск', present: 'м. Івано-Франківськ, Івано-Франківська обл.', ref: 'e7182b3c-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c8904-391c-11dd-90d9-001a92567626', aliases: ['івано-франківськ', 'ивано-франковск', 'ivano-frankivsk'] },
+    { name: 'Полтава', nameRu: 'Полтава', present: 'м. Полтава, Полтавська обл.', ref: 'e71d006d-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c8892-391c-11dd-90d9-001a92567626', aliases: ['полтава', 'poltava'] },
+    { name: 'Тернопіль', nameRu: 'Тернополь', present: 'м. Тернопіль, Тернопільська обл.', ref: 'e71efc6a-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c8900-391c-11dd-90d9-001a92567626', aliases: ['тернопіль', 'тернополь', 'ternopil'] },
+    { name: 'Черкаси', nameRu: 'Черкассы', present: 'м. Черкаси, Черкаська обл.', ref: 'e71fe3ca-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c8902-391c-11dd-90d9-001a92567626', aliases: ['черкаси', 'черкассы', 'cherkasy', 'cherkassy'] },
+    { name: 'Житомир', nameRu: 'Житомир', present: 'м. Житомир, Житомирська обл.', ref: 'e717a3d0-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88c4-391c-11dd-90d9-001a92567626', aliases: ['житомир', 'zhytomyr'] },
+    { name: 'Чернівці', nameRu: 'Черновцы', present: 'м. Чернівці, Чернівецька обл.', ref: 'e71fe717-4b33-11e4-ab6d-005056801329', deliveryCity: 'e221d642-391c-11dd-90d9-001a92567626', aliases: ['чернівці', 'черновцы', 'chernivtsi', 'chernovtsy'] },
+    { name: 'Хмельницький', nameRu: 'Хмельницкий', present: 'м. Хмельницький, Хмельницька обл.', ref: 'e71f8e8f-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ac-391c-11dd-90d9-001a92567626', aliases: ['хмельницький', 'хмельницкий', 'khmelnytskyi'] },
+    { name: 'Рівне', nameRu: 'Ровно', present: 'м. Рівне, Рівненська обл.', ref: 'e71d65e1-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c896a-391c-11dd-90d9-001a92567626', aliases: ['рівне', 'ровно', 'rivne', 'rovno'] },
+    { name: 'Луцьк', nameRu: 'Луцк', present: 'м. Луцьк, Волинська обл.', ref: 'e71ab70b-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c893b-391c-11dd-90d9-001a92567626', aliases: ['луцьк', 'луцк', 'lutsk'] },
+    { name: 'Ужгород', nameRu: 'Ужгород', present: 'м. Ужгород, Закарпатська обл.', ref: 'e71f4773-4b33-11e4-ab6d-005056801329', deliveryCity: 'e221d627-391c-11dd-90d9-001a92567626', aliases: ['ужгород', 'uzhhorod', 'uzhgorod'] },
+    { name: 'Кривий Ріг', nameRu: 'Кривой Рог', present: 'м. Кривий Ріг, Дніпропетровська обл.', ref: 'e71a2cab-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c890d-391c-11dd-90d9-001a92567626', aliases: ['кривий ріг', 'кривой рог', 'kryvyi rih', 'krivoy rog'] },
+    { name: 'Миколаїв', nameRu: 'Николаев', present: 'м. Миколаїв, Миколаївська обл.', ref: 'e71b108c-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c888c-391c-11dd-90d9-001a92567626', aliases: ['миколаїв', 'николаев', 'mykolaiv', 'nikolaev'] },
+    { name: 'Кременчук', nameRu: 'Кременчуг', present: 'м. Кременчук, Полтавська обл.', ref: 'e71a26ea-4b33-11e4-ab6d-005056801329', deliveryCity: '8d5a9813-391c-11dd-90d9-001a92567626', aliases: ['кременчук', 'кременчуг', 'kremenchuk', 'kremenchug'] },
+    { name: 'Біла Церква', nameRu: 'Белая Церковь', present: 'м. Біла Церква, Київська обл.', ref: 'e7148607-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ce-391c-11dd-90d9-001a92567626', aliases: ['біла церква', 'белая церковь', 'bila tserkva'] },
+    { name: 'Кропивницький', nameRu: 'Кропивницкий', present: 'м. Кропивницький, Кіровоградська обл.', ref: 'e718b361-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c891b-391c-11dd-90d9-001a92567626', aliases: ['кропивницький', 'кропивницкий', 'kropyvnytskyi', 'кіровоград', 'кировоград'] },
+    { name: 'Кам’янське', nameRu: 'Каменское', present: 'м. Кам’янське, Дніпропетровська обл.', ref: 'e7170f37-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88ed-391c-11dd-90d9-001a92567626', aliases: ['кам’янське', 'камянське', 'каменское', 'днєпродзержинськ', 'днепродзержинск'] },
+    { name: 'Суми', nameRu: 'Сумы', present: 'м. Суми, Сумська обл.', ref: 'e71e73be-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c88e5-391c-11dd-90d9-001a92567626', aliases: ['суми', 'сумы', 'sumy'] },
+    { name: 'Чернігів', nameRu: 'Чернигов', present: 'м. Чернігів, Чернігівська обл.', ref: 'e71feb5c-4b33-11e4-ab6d-005056801329', deliveryCity: 'db5c897c-391c-11dd-90d9-001a92567626', aliases: ['чернігів', 'чернигов', 'chernihiv', 'chernigov'] }
 ];
 
 let npSelectedCity = null;
 let npAllWarehouses = [];
+let npLoadingWarehouses = false;
+let npCityResolving = false;
 let npActiveWarehouseType = 'all'; // 'all' | 'Branch' | 'Postomat'
 let npCityDebounce = null;
 let npWarehouseDebounce = null;
+
+function normalizeCityQuery(str) {
+    if (!str) return '';
+    return str.toLowerCase()
+        .replace(/^м\.\s*/i, '')
+        .replace(/^г\.\s*/i, '')
+        .replace(/^місто\s*/i, '')
+        .replace(/^город\s*/i, '')
+        .replace(/[.,]/g, ' ')
+        .trim();
+}
+
+function findCityMatch(query) {
+    if (!query) return null;
+    const q = normalizeCityQuery(query);
+    if (!q) return null;
+
+    for (const c of NP_TOP_CITIES) {
+        const cUk = normalizeCityQuery(c.name);
+        const cRu = normalizeCityQuery(c.nameRu || '');
+        if (cUk === q || cRu === q) return c;
+        if (c.aliases && c.aliases.some(a => normalizeCityQuery(a) === q)) return c;
+    }
+    for (const c of NP_TOP_CITIES) {
+        const cUk = normalizeCityQuery(c.name);
+        const cRu = normalizeCityQuery(c.nameRu || '');
+        if (cUk.startsWith(q) || cRu.startsWith(q)) return c;
+        if (c.aliases && c.aliases.some(a => normalizeCityQuery(a).startsWith(q))) return c;
+        if (c.present.toLowerCase().includes(q)) return c;
+    }
+    return null;
+}
 
 function initNovaPoshtaAutocomplete() {
     const cityInput = document.getElementById('npCityInput');
@@ -4528,10 +4567,22 @@ function initNovaPoshtaAutocomplete() {
             return;
         }
 
+        const localMatches = NP_TOP_CITIES.filter(c => {
+            const norm = normalizeCityQuery(q);
+            return normalizeCityQuery(c.name).includes(norm) ||
+                   (c.nameRu && normalizeCityQuery(c.nameRu).includes(norm)) ||
+                   (c.aliases && c.aliases.some(a => normalizeCityQuery(a).includes(norm))) ||
+                   c.present.toLowerCase().includes(norm);
+        });
+
         if (q.length < 2) {
-            const matches = NP_TOP_CITIES.filter(c => c.name.toLowerCase().startsWith(q.toLowerCase()));
-            renderNpCityDropdown(matches.length ? matches : NP_TOP_CITIES);
+            renderNpCityDropdown(localMatches.length ? localMatches : NP_TOP_CITIES);
             return;
+        }
+
+        // Show instant local matches while debouncing API search
+        if (localMatches.length > 0) {
+            renderNpCityDropdown(localMatches);
         }
 
         npCityDebounce = setTimeout(() => {
@@ -4545,12 +4596,19 @@ function initNovaPoshtaAutocomplete() {
             if (firstItem && cityDropdown.style.display !== 'none') {
                 e.preventDefault();
                 firstItem.click();
+            } else {
+                ensureCityResolvedAndLoadWarehouses();
             }
         }
     });
 
     cityInput.addEventListener('blur', () => {
-        syncCityNPCombined();
+        setTimeout(() => {
+            if (!npSelectedCity && cityInput.value.trim()) {
+                ensureCityResolvedAndLoadWarehouses();
+            }
+            syncCityNPCombined();
+        }, 150);
     });
 
     if (cityClearBtn) {
@@ -4570,17 +4628,14 @@ function initNovaPoshtaAutocomplete() {
 
     // --- Warehouse Autocomplete Handlers ---
     warehouseInput.addEventListener('focus', () => {
-        if (!npSelectedCity && cityInput.value.trim()) {
-            const typed = cityInput.value.trim().toLowerCase();
-            const matched = NP_TOP_CITIES.find(c => c.name.toLowerCase() === typed || c.present.toLowerCase().includes(typed));
-            if (matched) {
-                selectNpCity(encodeURIComponent(JSON.stringify(matched)));
-                return;
-            }
+        const curCityVal = cityInput.value.trim();
+        if (!npSelectedCity && curCityVal) {
+            ensureCityResolvedAndLoadWarehouses().then(() => {
+                renderFilteredWarehouses(warehouseInput.value.trim());
+            });
+            return;
         }
-        if (npAllWarehouses.length > 0) {
-            renderFilteredWarehouses(warehouseInput.value.trim());
-        }
+        renderFilteredWarehouses(warehouseInput.value.trim());
     });
 
     warehouseInput.addEventListener('input', (e) => {
@@ -4588,10 +4643,17 @@ function initNovaPoshtaAutocomplete() {
         if (warehouseClearBtn) warehouseClearBtn.style.display = q ? 'block' : 'none';
         syncCityNPCombined();
 
+        if (!npSelectedCity && cityInput.value.trim()) {
+            ensureCityResolvedAndLoadWarehouses().then(() => {
+                renderFilteredWarehouses(q);
+            });
+            return;
+        }
+
         clearTimeout(npWarehouseDebounce);
         npWarehouseDebounce = setTimeout(() => {
             renderFilteredWarehouses(q);
-        }, 120);
+        }, 100);
     });
 
     warehouseInput.addEventListener('keydown', (e) => {
@@ -4649,8 +4711,16 @@ async function triggerCitySearch(query) {
     const citySpinner = document.getElementById('npCitySpinner');
     if (citySpinner) citySpinner.style.display = 'block';
 
+    const norm = normalizeCityQuery(query);
+    const localMatches = NP_TOP_CITIES.filter(c => {
+        return normalizeCityQuery(c.name).includes(norm) ||
+               (c.nameRu && normalizeCityQuery(c.nameRu).includes(norm)) ||
+               (c.aliases && c.aliases.some(a => normalizeCityQuery(a).includes(norm))) ||
+               c.present.toLowerCase().includes(norm);
+    });
+
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 2500);
+    const timer = setTimeout(() => controller.abort(), 3500);
 
     try {
         const res = await fetch(NP_API_ENDPOINT, {
@@ -4663,30 +4733,36 @@ async function triggerCitySearch(query) {
                 calledMethod: 'searchSettlements',
                 methodProperties: {
                     CityName: query,
-                    Limit: '12',
+                    Limit: '15',
                     Page: '1'
                 }
             })
         });
         clearTimeout(timer);
         const json = await res.json();
-        if (json.success && json.data && json.data[0] && json.data[0].Addresses) {
-            const results = json.data[0].Addresses.map(a => ({
+        if (json.success && json.data && json.data[0] && json.data[0].Addresses && json.data[0].Addresses.length) {
+            const apiResults = json.data[0].Addresses.map(a => ({
                 name: a.MainDescription,
                 present: a.Present,
                 ref: a.Ref,
                 deliveryCity: a.DeliveryCity
             }));
-            renderNpCityDropdown(results);
+
+            // Merge local matches with API results, avoiding duplicates by ref
+            const combined = [...localMatches];
+            apiResults.forEach(ar => {
+                if (!combined.some(c => c.ref === ar.ref || c.present.toLowerCase() === ar.present.toLowerCase())) {
+                    combined.push(ar);
+                }
+            });
+            renderNpCityDropdown(combined);
         } else {
-            const local = NP_TOP_CITIES.filter(c => c.present.toLowerCase().includes(query.toLowerCase()));
-            renderNpCityDropdown(local);
+            renderNpCityDropdown(localMatches.length ? localMatches : NP_TOP_CITIES);
         }
     } catch (err) {
         clearTimeout(timer);
-        console.warn('NP Search Settlements fallback:', err);
-        const local = NP_TOP_CITIES.filter(c => c.present.toLowerCase().includes(query.toLowerCase()));
-        renderNpCityDropdown(local);
+        console.warn('NP Search Settlements fallback to local:', err);
+        renderNpCityDropdown(localMatches.length ? localMatches : NP_TOP_CITIES);
     } finally {
         clearTimeout(timer);
         if (citySpinner) citySpinner.style.display = 'none';
@@ -4722,8 +4798,16 @@ function renderNpCityDropdown(cities) {
     dropdown.style.display = 'block';
 }
 
-async function selectNpCity(encodedCity) {
-    const city = JSON.parse(decodeURIComponent(encodedCity));
+async function selectNpCity(cityData, shouldFocusWarehouse = true) {
+    let city = cityData;
+    if (typeof cityData === 'string') {
+        try {
+            city = JSON.parse(decodeURIComponent(cityData));
+        } catch (e) {
+            city = cityData;
+        }
+    }
+    if (!city) return;
     npSelectedCity = city;
 
     const cityInput = document.getElementById('npCityInput');
@@ -4732,24 +4816,30 @@ async function selectNpCity(encodedCity) {
     const warehouseInput = document.getElementById('npWarehouseInput');
     const warehouseHint = document.getElementById('npWarehouseHint');
 
-    if (cityInput) cityInput.value = city.present;
+    if (cityInput && (!cityInput.value || cityInput.value.trim() !== city.present)) {
+        cityInput.value = city.present;
+    }
     if (cityDropdown) {
         cityDropdown.style.display = 'none';
         cityDropdown.innerHTML = '';
     }
     if (cityClearBtn) cityClearBtn.style.display = 'block';
 
-    document.getElementById('npCityRef').value = city.deliveryCity || '';
-    document.getElementById('npSettlementRef').value = city.ref || '';
-    document.getElementById('npCityName').value = city.name || city.present;
+    const cityRefEl = document.getElementById('npCityRef');
+    if (cityRefEl) cityRefEl.value = city.deliveryCity || '';
+    const settlementRefEl = document.getElementById('npSettlementRef');
+    if (settlementRefEl) settlementRefEl.value = city.ref || '';
+    const cityNameEl = document.getElementById('npCityName');
+    if (cityNameEl) cityNameEl.value = city.name || city.present;
 
     syncCityNPCombined();
 
     // Enable Warehouse Input & Pre-fetch Warehouses
     if (warehouseInput) {
         warehouseInput.disabled = false;
-        warehouseInput.value = '';
-        warehouseInput.placeholder = 'Завантаження відділень...';
+        if (!warehouseInput.value.trim()) {
+            warehouseInput.placeholder = 'Завантаження відділень...';
+        }
     }
     if (warehouseHint) {
         warehouseHint.textContent = `Завантажуємо відділення Нової Пошти у ${city.present}...`;
@@ -4759,62 +4849,163 @@ async function selectNpCity(encodedCity) {
 
     if (warehouseInput) {
         warehouseInput.placeholder = 'Введіть номер (напр. 25) або вулицю...';
-        warehouseInput.focus();
+        if (shouldFocusWarehouse) {
+            warehouseInput.focus();
+        }
     }
     if (warehouseHint) {
-        warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
+        if (npAllWarehouses.length > 0) {
+            warehouseHint.textContent = `Доступно ${npAllWarehouses.length} відділень та поштоматів. Почніть вводити номер або вулицю:`;
+        } else {
+            warehouseHint.textContent = 'Вкажіть номер відділення, поштомату або адресу доставки:';
+        }
     }
-    renderFilteredWarehouses('');
+
+    const currentWarehouseQuery = warehouseInput ? warehouseInput.value.trim() : '';
+    renderFilteredWarehouses(currentWarehouseQuery);
+}
+
+async function ensureCityResolvedAndLoadWarehouses() {
+    if (npSelectedCity || npCityResolving) return;
+    const cityInput = document.getElementById('npCityInput');
+    const query = cityInput ? cityInput.value.trim() : '';
+    if (!query) return;
+
+    npCityResolving = true;
+    try {
+        // 1. Try local top cities (handles Russian, Ukrainian, aliases)
+        const matched = findCityMatch(query);
+        if (matched) {
+            await selectNpCity(matched, false);
+            return;
+        }
+
+        // 2. Try online searchSettlements
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 4000);
+        try {
+            const res = await fetch(NP_API_ENDPOINT, {
+                method: 'POST',
+                signal: controller.signal,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    apiKey: '',
+                    modelName: 'Address',
+                    calledMethod: 'searchSettlements',
+                    methodProperties: {
+                        CityName: query,
+                        Limit: '5',
+                        Page: '1'
+                    }
+                })
+            });
+            clearTimeout(timer);
+            const json = await res.json();
+            if (json.success && json.data && json.data[0] && json.data[0].Addresses && json.data[0].Addresses.length) {
+                const a = json.data[0].Addresses[0];
+                const resolved = {
+                    name: a.MainDescription,
+                    present: a.Present,
+                    ref: a.Ref,
+                    deliveryCity: a.DeliveryCity
+                };
+                await selectNpCity(resolved, false);
+                return;
+            }
+        } catch (e) {
+            clearTimeout(timer);
+        }
+
+        // 3. Fallback: city object by typed query
+        const fallbackCity = {
+            name: query,
+            present: query,
+            ref: '',
+            deliveryCity: ''
+        };
+        await selectNpCity(fallbackCity, false);
+    } finally {
+        npCityResolving = false;
+    }
 }
 
 async function loadCityWarehouses(city) {
     const spinner = document.getElementById('npWarehouseSpinner');
     if (spinner) spinner.style.display = 'block';
+    npLoadingWarehouses = true;
 
     npAllWarehouses = [];
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 2500);
+    const timer = setTimeout(() => controller.abort(), 7000);
 
     try {
-        const payload = {
-            apiKey: '',
-            modelName: 'AddressGeneral',
-            calledMethod: 'getWarehouses',
-            methodProperties: {
-                SettlementRef: city.ref,
-                Limit: '500'
+        let fetchedData = null;
+
+        // 1. Query by SettlementRef if valid
+        if (city.ref) {
+            try {
+                const payload = {
+                    apiKey: '',
+                    modelName: 'AddressGeneral',
+                    calledMethod: 'getWarehouses',
+                    methodProperties: {
+                        SettlementRef: city.ref,
+                        Limit: '500'
+                    }
+                };
+                const res = await fetch(NP_API_ENDPOINT, {
+                    method: 'POST',
+                    signal: controller.signal,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
+                if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+                    fetchedData = json.data;
+                }
+            } catch (err) {
+                console.warn('SettlementRef fetch note:', err);
             }
-        };
+        }
 
-        let res = await fetch(NP_API_ENDPOINT, {
-            method: 'POST',
-            signal: controller.signal,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        let json = await res.json();
-
-        // Fallback by CityName if SettlementRef returns 0
-        if ((!json.success || !json.data || !json.data.length) && city.name) {
-            payload.methodProperties = { CityName: city.name, Limit: '500' };
-            res = await fetch(NP_API_ENDPOINT, {
-                method: 'POST',
-                signal: controller.signal,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-            json = await res.json();
+        // 2. Direct fallback by CityName
+        if (!fetchedData || !fetchedData.length) {
+            const cityNameQuery = city.name || city.nameRu || city.present;
+            if (cityNameQuery) {
+                const payload = {
+                    apiKey: '',
+                    modelName: 'AddressGeneral',
+                    calledMethod: 'getWarehouses',
+                    methodProperties: {
+                        CityName: cityNameQuery,
+                        Limit: '500'
+                    }
+                };
+                const res = await fetch(NP_API_ENDPOINT, {
+                    method: 'POST',
+                    signal: controller.signal,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
+                if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+                    fetchedData = json.data;
+                }
+            }
         }
 
         clearTimeout(timer);
-        if (json.success && Array.isArray(json.data) && json.data.length) {
-            npAllWarehouses = json.data.map(w => {
-                const isPostomat = (w.CategoryOfWarehouse === 'Postomat') || (w.Description && w.Description.includes('Поштомат'));
+
+        if (fetchedData && fetchedData.length > 0) {
+            npAllWarehouses = fetchedData.map(w => {
+                const cat = (w.CategoryOfWarehouse || '').trim();
+                const desc = w.Description || '';
+                const isPostomat = cat === 'Postomat' || desc.includes('Поштомат');
                 return {
-                    number: parseInt(w.Number, 10) || w.Number,
-                    numberStr: String(w.Number),
-                    desc: w.Description,
-                    shortAddress: w.ShortAddress || w.Description,
+                    number: parseInt(w.Number, 10) || 999999,
+                    numberStr: String(w.Number || '').trim(),
+                    desc: desc,
+                    shortAddress: w.ShortAddress || desc,
                     ref: w.Ref,
                     type: isPostomat ? 'Postomat' : 'Branch',
                     maxWeight: w.TotalMaxWeightAllowed ? `до ${w.TotalMaxWeightAllowed} кг` : ''
@@ -4823,17 +5014,20 @@ async function loadCityWarehouses(city) {
 
             // Sort logically: branches first sorted by number, then postomats sorted by number
             npAllWarehouses.sort((a, b) => {
-                const numA = typeof a.number === 'number' ? a.number : 999999;
-                const numB = typeof b.number === 'number' ? b.number : 999999;
-                return numA - numB;
+                if (a.type !== b.type) {
+                    return a.type === 'Branch' ? -1 : 1;
+                }
+                return a.number - b.number;
             });
         }
     } catch (err) {
         clearTimeout(timer);
-        console.warn('NP Load Warehouses error or timeout:', err);
+        console.warn('NP Load Warehouses error:', err);
     } finally {
         clearTimeout(timer);
+        npLoadingWarehouses = false;
         if (spinner) spinner.style.display = 'none';
+
         const warehouseInput = document.getElementById('npWarehouseInput');
         const warehouseHint = document.getElementById('npWarehouseHint');
         if (warehouseInput) {
@@ -4855,38 +5049,97 @@ function filterWarehouseType(type, btn) {
     document.querySelectorAll('#npWarehouseFilterTabs .np-tab').forEach(t => t.classList.remove('active'));
     if (btn) btn.classList.add('active');
 
+    const cityInput = document.getElementById('npCityInput');
     const warehouseInput = document.getElementById('npWarehouseInput');
     const query = warehouseInput ? warehouseInput.value.trim() : '';
+
+    if (!npSelectedCity && cityInput && cityInput.value.trim()) {
+        ensureCityResolvedAndLoadWarehouses().then(() => {
+            renderFilteredWarehouses(query);
+        });
+        return;
+    }
+
     renderFilteredWarehouses(query);
 }
 
 function renderFilteredWarehouses(query) {
     const dropdown = document.getElementById('npWarehouseDropdown');
-    if (!dropdown || !npSelectedCity) return;
+    if (!dropdown) return;
 
-    const q = query.toLowerCase();
+    if (npLoadingWarehouses) {
+        dropdown.innerHTML = `
+            <div class="np-dropdown-empty" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                <div class="np-loading-spinner" style="display:inline-block; position:static;"></div>
+                <span>Завантажуємо відділення та поштомати...</span>
+            </div>
+        `;
+        dropdown.style.display = 'block';
+        return;
+    }
+
+    if (!npSelectedCity) {
+        const cityInput = document.getElementById('npCityInput');
+        const cVal = cityInput ? cityInput.value.trim() : '';
+        if (cVal) {
+            dropdown.innerHTML = `
+                <div class="np-dropdown-empty" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                    <div class="np-loading-spinner" style="display:inline-block; position:static;"></div>
+                    <span>Визначаємо місто «${cVal}»...</span>
+                </div>
+            `;
+            dropdown.style.display = 'block';
+            ensureCityResolvedAndLoadWarehouses().then(() => {
+                const wInput = document.getElementById('npWarehouseInput');
+                renderFilteredWarehouses(wInput ? wInput.value.trim() : '');
+            });
+            return;
+        } else {
+            dropdown.innerHTML = `
+                <div class="np-dropdown-empty">
+                    Вкажіть місто вище, щоб завантажити список відділень та поштоматів.
+                </div>
+            `;
+            dropdown.style.display = 'block';
+            return;
+        }
+    }
+
+    const q = (query || '').toLowerCase().trim();
     let filtered = npAllWarehouses;
 
     // Filter by tab type (all / Branch / Postomat)
-    if (npActiveWarehouseType !== 'all') {
-        filtered = filtered.filter(w => w.type === npActiveWarehouseType);
+    if (npActiveWarehouseType === 'Branch') {
+        filtered = filtered.filter(w => w.type === 'Branch');
+    } else if (npActiveWarehouseType === 'Postomat') {
+        filtered = filtered.filter(w => w.type === 'Postomat');
     }
 
-    // Filter by query (number or street)
+    // Filter by query with exact number match priority
     if (q) {
-        filtered = filtered.filter(w => {
-            return w.numberStr === q || 
-                   w.numberStr.startsWith(q) || 
-                   w.desc.toLowerCase().includes(q) || 
-                   w.shortAddress.toLowerCase().includes(q);
+        const exact = [];
+        const starts = [];
+        const descMatch = [];
+
+        filtered.forEach(w => {
+            if (w.numberStr === q) {
+                exact.push(w);
+            } else if (w.numberStr.startsWith(q)) {
+                starts.push(w);
+            } else if (w.desc.toLowerCase().includes(q) || w.shortAddress.toLowerCase().includes(q)) {
+                descMatch.push(w);
+            }
         });
+
+        filtered = [...exact, ...starts, ...descMatch];
     }
 
     if (!filtered.length) {
+        const typeLabel = npActiveWarehouseType === 'Branch' ? 'відділень' : (npActiveWarehouseType === 'Postomat' ? 'поштоматів' : 'відділень або поштоматів');
         dropdown.innerHTML = `
             <div class="np-dropdown-empty">
-                Відділень або поштоматів за запитом «${query}» не знайдено.
-                <br><small style="color:#94a3b8;">Спробуйте ввести тільки цифри номеру (напр. 12) або скиньте фільтр типу.</small>
+                Не знайдено ${typeLabel} за запитом «${query}».
+                <br><small style="color:#94a3b8;">Спробуйте інший номер або оберіть вкладку «Всі».</small>
             </div>
         `;
         dropdown.style.display = 'block';
