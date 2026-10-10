@@ -691,6 +691,7 @@ function renderCart() {
 
     if (drawerBody) {
         if (cart.length === 0) {
+            hideCartCheckoutForm();
             drawerBody.innerHTML = `
                 <div class="cart-empty-state">
                     <div class="cart-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
@@ -737,6 +738,16 @@ function renderCart() {
 
     // Sync Checkout Form
     syncCartWithForm();
+
+    // If dedicated drawer checkout view is open, refresh mini summary & submit button
+    const checkoutView = document.getElementById('cartCheckoutFormBox');
+    if (checkoutView && checkoutView.style.display !== 'none') {
+        renderCartMiniSummary();
+        const submitBtn = document.getElementById('cartSubmitOrderBtn');
+        if (submitBtn) {
+            submitBtn.innerHTML = `ПІДТВЕРДИТИ ЗАМОВЛЕННЯ &bull; ${totalPrice.toLocaleString('uk-UA')} грн`;
+        }
+    }
 }
 
 // Synchronize Cart Data into Checkout Form
@@ -4583,16 +4594,28 @@ function initNovaPoshtaAutocomplete() {
         });
     }
 
-    // Close dropdowns on outside click
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('#npCityDropdown') && e.target !== cityInput && e.target !== cityClearBtn) {
-            if (cityDropdown) cityDropdown.style.display = 'none';
-        }
-        if (!e.target.closest('#npWarehouseDropdown') && e.target !== warehouseInput && e.target !== warehouseClearBtn && !e.target.closest('#npWarehouseFilterTabs')) {
-            if (warehouseDropdown) warehouseDropdown.style.display = 'none';
-        }
-    });
+    // Close dropdowns on outside click or touch
+    const handleNpOutsideClick = (e) => {
+        const cDrop = document.getElementById('npCityDropdown');
+        const wDrop = document.getElementById('npWarehouseDropdown');
+        const cInp = document.getElementById('npCityInput');
+        const wInp = document.getElementById('npWarehouseInput');
+        const cClear = document.getElementById('npCityClearBtn');
+        const wClear = document.getElementById('npWarehouseClearBtn');
 
+        if (cDrop && cDrop.style.display !== 'none') {
+            if (!e.target.closest('#npCityDropdown') && e.target !== cInp && e.target !== cClear) {
+                cDrop.style.display = 'none';
+            }
+        }
+        if (wDrop && wDrop.style.display !== 'none') {
+            if (!e.target.closest('#npWarehouseDropdown') && e.target !== wInp && e.target !== wClear && !e.target.closest('#npWarehouseFilterTabs')) {
+                wDrop.style.display = 'none';
+            }
+        }
+    };
+    document.addEventListener('click', handleNpOutsideClick);
+    document.addEventListener('touchstart', handleNpOutsideClick, { passive: true });
 }
 
 async function triggerCitySearch(query) {
@@ -4684,7 +4707,10 @@ async function selectNpCity(encodedCity) {
     const warehouseHint = document.getElementById('npWarehouseHint');
 
     if (cityInput) cityInput.value = city.present;
-    if (cityDropdown) cityDropdown.style.display = 'none';
+    if (cityDropdown) {
+        cityDropdown.style.display = 'none';
+        cityDropdown.innerHTML = '';
+    }
     if (cityClearBtn) cityClearBtn.style.display = 'block';
 
     document.getElementById('npCityRef').value = city.deliveryCity || '';
@@ -4871,7 +4897,10 @@ function selectNpWarehouse(encodedWarehouse) {
     const warehouseClearBtn = document.getElementById('npWarehouseClearBtn');
 
     if (warehouseInput) warehouseInput.value = w.desc;
-    if (warehouseDropdown) warehouseDropdown.style.display = 'none';
+    if (warehouseDropdown) {
+        warehouseDropdown.style.display = 'none';
+        warehouseDropdown.innerHTML = '';
+    }
     if (warehouseClearBtn) warehouseClearBtn.style.display = 'block';
 
     document.getElementById('npWarehouseRef').value = w.ref || '';
@@ -5429,37 +5458,110 @@ async function handleQuickOrderSubmit(e) {
 function showCartCheckoutForm() {
     const cart = getCart();
     if (!cart || cart.length === 0) {
-        showCartToast('Кошик порожній! Оберіть хоча б одну пару кросівок.');
+        showCartToast('Кошик порожній! Оберіть хоча б один товар.');
         return;
     }
+    const viewItems = document.getElementById('cartViewItems');
     const formBox = document.getElementById('cartCheckoutFormBox');
-    const openBtn = document.getElementById('btnOpenCartCheckout');
-    if (formBox) formBox.style.display = 'block';
-    if (openBtn) openBtn.style.display = 'none';
+    const backBtn = document.getElementById('btnCartBackStep');
+    const heading = document.getElementById('cartDrawerHeading');
+    const countWrap = document.getElementById('cartDrawerCountWrap');
+
+    if (viewItems) viewItems.style.display = 'none';
+    if (formBox) {
+        formBox.style.display = 'block';
+        formBox.scrollTop = 0;
+    }
+    if (backBtn) backBtn.style.display = 'inline-flex';
+    if (heading) heading.textContent = 'Оформлення';
+    if (countWrap) countWrap.style.display = 'none';
+
+    // Render Mini Summary
+    renderCartMiniSummary();
+
+    // Update submit button text with total sum
+    const total = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
+    const submitBtn = document.getElementById('cartSubmitOrderBtn');
+    if (submitBtn) {
+        submitBtn.innerHTML = `ПІДТВЕРДИТИ ЗАМОВЛЕННЯ &bull; ${total.toLocaleString('uk-UA')} грн`;
+    }
 
     // Meta Pixel & GA4 Checkout Tracking
-    const checkoutTotal = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
     safeTrackFbq('InitiateCheckout', {
         num_items: cart.length,
-        value: checkoutTotal,
+        value: total,
         currency: 'UAH',
         content_type: 'product'
     });
-
-    // Auto-scroll inside drawer
-    const drawerBody = document.getElementById('cartDrawer');
-    if (drawerBody) {
-        setTimeout(() => {
-            formBox?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-    }
 }
 
 function hideCartCheckoutForm() {
+    const viewItems = document.getElementById('cartViewItems');
     const formBox = document.getElementById('cartCheckoutFormBox');
-    const openBtn = document.getElementById('btnOpenCartCheckout');
+    const backBtn = document.getElementById('btnCartBackStep');
+    const heading = document.getElementById('cartDrawerHeading');
+    const countWrap = document.getElementById('cartDrawerCountWrap');
+
+    if (viewItems) viewItems.style.display = 'flex';
     if (formBox) formBox.style.display = 'none';
-    if (openBtn) openBtn.style.display = 'block';
+    if (backBtn) backBtn.style.display = 'none';
+    if (heading) heading.textContent = 'Кошик';
+    if (countWrap) countWrap.style.display = 'inline';
+
+    // Close any open NP dropdowns
+    const cityDropdown = document.getElementById('npCityDropdown');
+    const warehouseDropdown = document.getElementById('npWarehouseDropdown');
+    if (cityDropdown) cityDropdown.style.display = 'none';
+    if (warehouseDropdown) warehouseDropdown.style.display = 'none';
+}
+
+function renderCartMiniSummary() {
+    const summaryEl = document.getElementById('cartCheckoutMiniSummary');
+    if (!summaryEl) return;
+    const cart = getCart();
+    if (!cart || cart.length === 0) {
+        summaryEl.innerHTML = '';
+        return;
+    }
+    const totalCount = cart.reduce((sum, it) => sum + (it.qty || 1), 0);
+    const totalPrice = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
+
+    let itemsHtml = '';
+    cart.forEach(it => {
+        const linePrice = ((it.price || 0) * (it.qty || 1)).toLocaleString('uk-UA');
+        itemsHtml += `
+            <div class="cart-mini-item">
+                <img src="${it.img || ''}" alt="${it.title || ''}" class="cart-mini-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')">
+                <div class="cart-mini-item-info">
+                    <div class="cart-mini-item-title" title="${it.title || ''}">${it.title || 'Товар'}</div>
+                    <div class="cart-mini-item-meta">Розмір: <b>${it.size || '-'}</b> &bull; ${it.qty || 1} шт.</div>
+                </div>
+                <div class="cart-mini-item-price">${linePrice} грн</div>
+            </div>
+        `;
+    });
+
+    summaryEl.innerHTML = `
+        <div class="cart-mini-summary-header">
+            <span>Ваше замовлення (${totalCount})</span>
+            <button type="button" class="cart-mini-summary-edit" onclick="hideCartCheckoutForm()">Редагувати</button>
+        </div>
+        <div class="cart-mini-summary-items">
+            ${itemsHtml}
+        </div>
+        <div class="cart-mini-summary-total">
+            <span>До оплати:</span>
+            <span class="val">${totalPrice.toLocaleString('uk-UA')} грн</span>
+        </div>
+    `;
+}
+
+function updatePaymentCardState(radio) {
+    if (!radio) return;
+    const cards = document.querySelectorAll('.cart-payment-card');
+    cards.forEach(card => card.classList.remove('active'));
+    const parentCard = radio.closest('.cart-payment-card');
+    if (parentCard) parentCard.classList.add('active');
 }
 
 async function handleCartDirectCheckout(e) {
@@ -5658,6 +5760,7 @@ window.formatPhoneInput = formatPhoneInput;
 window.showCartCheckoutForm = showCartCheckoutForm;
 window.hideCartCheckoutForm = hideCartCheckoutForm;
 window.handleCartDirectCheckout = handleCartDirectCheckout;
+window.updatePaymentCardState = updatePaymentCardState;
 window.openBrandModal = openBrandModal;
 window.closeBrandModal = closeBrandModal;
 window.handleBrandOverlayClick = handleBrandOverlayClick;
