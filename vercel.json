@@ -65,7 +65,15 @@
   "rewrites": [
     {
       "source": "/product/:slug*",
-      "destination": "/product.html?slug=:slug*"
+      "destination": "/"
+    },
+    {
+      "source": "/category/:slug*",
+      "destination": "/"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
