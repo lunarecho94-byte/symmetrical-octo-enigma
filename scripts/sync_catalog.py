@@ -151,7 +151,7 @@ def ensure_local_thumbnail(pk, remote_img_path):
     temp_path = os.path.join(catalog_dir, f"{pk}_tmp.jpg")
     try:
         req = urllib.request.Request(remote_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=12) as r:
+        with urllib.request.urlopen(req, timeout=12, context=ctx) as r:
             with open(temp_path, 'wb') as f:
                 f.write(r.read())
         subprocess.run(['sips', '-Z', '600', '-s', 'format', 'jpeg', '-s', 'formatOptions', '75', temp_path, '--out', thumb_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -164,7 +164,7 @@ def ensure_local_thumbnail(pk, remote_img_path):
 def fetch_easydrop_category(token, category_id, markup=0.20):
     url = f"https://easydrop.one/supplier-catalog/{token}/{category_id}/"
     cj = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj), urllib.request.HTTPSHandler(context=ctx))
 
     print(f"Fetching EasyDrop catalog: {url} (націнка: {markup*100:.0f}%)...")
     req = urllib.request.Request(url, headers={
