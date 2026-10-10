@@ -1352,6 +1352,7 @@ async function sendOrderDispatch({
     customerPhone,
     delivery,
     payment,
+    comment,
     itemsText,
     quickTtn,
     total,
@@ -1370,6 +1371,7 @@ async function sendOrderDispatch({
         customerPhone: cleanPhone || customerPhone,
         delivery: delivery || 'Узгодити з менеджером',
         payment: payment || 'Накладений платіж',
+        comment: comment || '',
         items: itemsText || '',
         quickTtn: quickTtn || '',
         total: total || '',
@@ -5502,7 +5504,10 @@ function hideCartCheckoutForm() {
     const heading = document.getElementById('cartDrawerHeading');
     const countWrap = document.getElementById('cartDrawerCountWrap');
 
-    if (viewItems) viewItems.style.display = 'flex';
+    if (viewItems) {
+        viewItems.style.display = 'flex';
+        viewItems.style.flexDirection = 'column';
+    }
     if (formBox) formBox.style.display = 'none';
     if (backBtn) backBtn.style.display = 'none';
     if (heading) heading.textContent = 'Кошик';
@@ -5681,12 +5686,18 @@ async function handleCartDirectCheckout(e) {
     const firstArt = cart[0].art ? ` (Арт: ${cart[0].art})` : '';
     const subject = `Замовлення з кошика #${orderId} | ${formattedTotal} | ${customerName} | ${totalQty} тов. (${firstTitle}${firstArt}${totalQty > 1 ? ' та ін.' : ''})`;
 
-    const quickTtnBlock = 
+    const commentVal = (document.getElementById('cartComment')?.value || '').trim();
+
+    let quickTtnBlock = 
 `ПІБ: ${customerName}
 Тел: ${phoneCheck.formatted}
 Доставка: ${fullDelivery}
 Товари: ${itemsSummaryList}
 Оплата: ${paymentMethod} — ${formattedTotal}`;
+
+    if (commentVal) {
+        quickTtnBlock += `\nКоментар: ${commentVal}`;
+    }
 
     const orderSummaryData = {
         orderId: orderId,
@@ -5696,7 +5707,8 @@ async function handleCartDirectCheckout(e) {
         customerAddress: fullDelivery,
         paymentMethod: paymentMethod,
         itemsSummary: itemsSummaryList,
-        subtotalFormatted: formattedTotal
+        subtotalFormatted: formattedTotal,
+        customerComment: commentVal
     };
 
     try {
@@ -5718,6 +5730,7 @@ async function handleCartDirectCheckout(e) {
         customerPhone: phoneCheck.formatted,
         delivery: fullDelivery,
         payment: paymentMethod,
+        comment: commentVal,
         itemsText: orderItemsText,
         quickTtn: quickTtnBlock,
         total: formattedTotal,

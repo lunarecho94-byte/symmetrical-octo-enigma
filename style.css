@@ -6392,6 +6392,351 @@ header.header {
     }
 }
 
+/* ==========================================================================
+   PHOTO 2 FIX: STRICT VERTICAL COLUMN STACKING FOR CART VIEW 1
+   ========================================================================== */
+.cart-drawer {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 430px !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+#cartViewItems,
+.cart-view-container {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+#cartDrawerBody,
+.cart-drawer-body {
+    display: block !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+    padding: 18px 20px !important;
+}
+
+#cartDrawerFooter,
+.cart-drawer-footer {
+    display: block !important;
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 18px 20px !important;
+}
+
+.cart-items-list {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 14px !important;
+    box-sizing: border-box !important;
+}
+
+.cart-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    gap: 14px !important;
+}
+
+/* ==========================================================================
+   PHOTO 1: DEDICATED DARK CARD CHECKOUT SYSTEM
+   ========================================================================== */
+.cart-checkout-view {
+    display: block;
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+    background: #09090b !important;
+    color: #f4f4f5 !important;
+    padding: 18px 18px calc(30px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.checkout-header-block {
+    margin-bottom: 20px;
+    padding: 0 4px;
+}
+
+.checkout-main-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+}
+
+.checkout-subtitle {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #9ca3af;
+    margin: 0;
+}
+
+.checkout-dark-card {
+    background: #121214;
+    border: 1px solid #27272a;
+    border-radius: 16px;
+    padding: 18px 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.checkout-dark-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.checkout-dark-card-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.checkout-dark-card-header .checkout-dark-card-title {
+    margin-bottom: 0;
+}
+
+.checkout-badge-green {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #22c55e;
+}
+
+.checkout-dark-field {
+    margin-bottom: 14px;
+    position: relative;
+}
+
+.checkout-dark-field:last-child {
+    margin-bottom: 0;
+}
+
+.checkout-dark-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #d1d5db;
+    margin-bottom: 8px;
+}
+
+.checkout-req {
+    color: #ef4444;
+    font-weight: 700;
+}
+
+.checkout-dark-input {
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    border: 1px solid #27272a;
+    background: #09090b;
+    color: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+}
+
+.checkout-dark-input::placeholder {
+    color: #71717a;
+    opacity: 1;
+}
+
+.checkout-dark-input:focus {
+    outline: none;
+    border-color: #52525b;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.checkout-dark-input.input-error {
+    border-color: #ef4444 !important;
+}
+
+.checkout-dark-textarea {
+    min-height: 72px;
+    height: auto;
+    resize: vertical;
+    line-height: 1.45;
+    padding-top: 10px;
+}
+
+/* Nova Poshta in Photo 1 Dark Card */
+.checkout-dark-card .np-type-filter {
+    display: inline-flex;
+    gap: 4px;
+    background: #18181b;
+    padding: 3px;
+    border-radius: 8px;
+    border: 1px solid #27272a;
+}
+
+.checkout-dark-card .np-type-filter .np-tab {
+    background: transparent;
+    border: none;
+    color: #a1a1aa;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.checkout-dark-card .np-type-filter .np-tab.active {
+    background: #27272a;
+    color: #ffffff;
+}
+
+.checkout-dark-card .np-dropdown-list {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+    color: #f4f4f5;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 1050;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    padding: 4px 0;
+}
+
+.checkout-dark-card .np-dropdown-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #e4e4e7;
+    cursor: pointer;
+    border-bottom: 1px solid #27272a;
+    transition: background 0.15s;
+}
+
+.checkout-dark-card .np-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.checkout-dark-card .np-dropdown-item:hover {
+    background: #27272a;
+    color: #ffffff;
+}
+
+.checkout-dark-card .np-helper-hint {
+    font-size: 11px;
+    color: #71717a;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Payment cards in Photo 1 Dark Card */
+.checkout-dark-card .cart-payment-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkout-dark-card .cart-payment-card {
+    background: #09090b;
+    border: 1.5px solid #27272a;
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.checkout-dark-card .cart-payment-card:hover {
+    border-color: #3f3f46;
+}
+
+.checkout-dark-card .cart-payment-card.active {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.checkout-dark-card .cart-payment-card .payment-card-title {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.checkout-dark-card .cart-payment-card .payment-card-desc {
+    color: #9ca3af;
+    font-size: 0.8rem;
+}
+
+/* Final Submit Button & Trust Badge in Photo 1 */
+.btn-cart-submit-final {
+    width: 100%;
+    height: 52px;
+    background: #ffffff;
+    color: #09090b;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.2s;
+    margin-top: 10px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-cart-submit-final:hover {
+    opacity: 0.95;
+    background: #f4f4f5;
+}
+
+.btn-cart-submit-final:active {
+    transform: scale(0.99);
+}
+
+.cart-trust-badge {
+    color: #9ca3af;
+    margin-top: 12px;
+    font-size: 0.76rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.cart-trust-badge svg {
+    color: #22c55e;
+}
+
+
 /* Size Chart Modal */
 .size-chart-modal {
     position: fixed;

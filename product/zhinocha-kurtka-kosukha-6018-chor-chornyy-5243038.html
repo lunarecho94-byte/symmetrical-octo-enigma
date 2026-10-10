@@ -99,7 +99,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=8.7">
+    <link rel="stylesheet" href="style.css?v=10.0">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -419,12 +419,12 @@
         </div>
 
         <!-- VIEW 1: Items List & Cart Footer -->
-        <div id="cartViewItems" class="cart-view-container">
-            <div id="cartDrawerBody" class="cart-drawer-body">
+        <div id="cartViewItems" class="cart-view-container" style="display: flex; flex-direction: column; flex: 1 1 0%; min-height: 0; width: 100%; height: 100%; overflow: hidden;">
+            <div id="cartDrawerBody" class="cart-drawer-body" style="flex: 1 1 auto; overflow-y: auto; width: 100%; -webkit-overflow-scrolling: touch;">
                 <!-- Items rendered dynamically by JS -->
             </div>
 
-            <div id="cartDrawerFooter" class="cart-drawer-footer">
+            <div id="cartDrawerFooter" class="cart-drawer-footer" style="flex-shrink: 0; width: 100%;">
                 <div class="cart-summary-line">
                     <span>Загальна сума:</span>
                     <b id="cartDrawerTotalPrice" class="cart-total-price">0 грн</b>
@@ -445,71 +445,101 @@
             </div>
         </div>
 
-        <!-- VIEW 2: Clean Dedicated Checkout View -->
+        <!-- VIEW 2: Dedicated Checkout View (PHOTO 1 DESIGN) -->
         <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
             <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
 
+            <div class="checkout-header-block">
+                <h2 class="checkout-main-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
+                <p class="checkout-subtitle">Доставка Новою Поштою • Оплата після огляду та примірки (накладений платіж)</p>
+            </div>
+
             <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
-                <div class="cart-form-section-title">Дані одержувача</div>
-                <div class="cart-form-group">
-                    <label for="cartFullName">Прізвище та Ім'я:</label>
-                    <input type="text" id="cartFullName" class="form-input" placeholder="Олена Петренко" required autocomplete="name">
-                </div>
-                <div class="cart-form-group">
-                    <label for="cartPhone">Номер телефону:</label>
-                    <input type="tel" id="cartPhone" class="form-input" placeholder="+38 (067) 123-45-67" required autocomplete="tel" oninput="formatPhoneInput(event)">
-                    <div id="cartPhoneError" class="phone-error-hint" style="display: none;"></div>
-                </div>
-
-                <div class="cart-form-section-title">Доставка Новою Поштою</div>
-                <div class="cart-form-group np-autocomplete-group" style="position: relative;">
-                    <label for="npCityInput">Місто отримання:</label>
-                    <div class="np-input-wrapper">
-                        <span class="np-input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        </span>
-                        <input type="text" id="npCityInput" class="form-input np-input" placeholder="Введіть місто (напр. Київ, Львів...)" autocomplete="off" required>
-                        <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
-                        <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
+                <!-- Card 1: Receiver Info -->
+                <div class="checkout-dark-card">
+                    <div class="checkout-dark-card-title">1. ДАНІ ОДЕРЖУВАЧА</div>
+                    <div class="checkout-dark-field">
+                        <label for="cartFullName" class="checkout-dark-label">
+                            Ім'я та прізвище <span class="checkout-req">*</span>
+                        </label>
+                        <input type="text" id="cartFullName" class="checkout-dark-input" placeholder="Іван Петренко" required autocomplete="name">
                     </div>
-                    <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
-                    <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
-                    <input type="hidden" id="npCityName" name="Місто доставки" value="">
-                    <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
+                    <div class="checkout-dark-field">
+                        <label for="cartPhone" class="checkout-dark-label">
+                            Номер телефону <span class="checkout-req">*</span>
+                        </label>
+                        <input type="tel" id="cartPhone" class="checkout-dark-input" placeholder="+38 (097) 123-45-67" required autocomplete="tel" oninput="formatPhoneInput(event)">
+                        <div id="cartPhoneError" class="phone-error-hint" style="display: none;"></div>
+                    </div>
                 </div>
 
-                <div class="cart-form-group np-autocomplete-group" id="npWarehouseGroup" style="position: relative;">
-                    <div class="np-warehouse-header">
-                        <label for="npWarehouseInput">Відділення або поштомат:</label>
-                        <div class="np-type-filter" id="npWarehouseFilterTabs">
-                            <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
-                            <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">Відділення</button>
-                            <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">Поштомати</button>
+                <!-- Card 2: Delivery Nova Poshta -->
+                <div class="checkout-dark-card">
+                    <div class="checkout-dark-card-header">
+                        <span class="checkout-dark-card-title">2. ДОСТАВКА (НОВА ПОШТА)</span>
+                        <span class="checkout-badge-green">1–2 дні</span>
+                    </div>
+                    <div class="checkout-dark-field np-autocomplete-group" style="position: relative;">
+                        <label for="npCityInput" class="checkout-dark-label">
+                            Місто / Населений пункт <span class="checkout-req">*</span>
+                        </label>
+                        <div class="np-input-wrapper">
+                            <span class="np-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </span>
+                            <input type="text" id="npCityInput" class="checkout-dark-input np-input" placeholder="Київ, Львів, Дніпро..." autocomplete="off" required>
+                            <button type="button" class="np-clear-btn" id="npCityClearBtn" style="display:none;" title="Очистити">✕</button>
+                            <div class="np-loading-spinner" id="npCitySpinner" style="display:none;"></div>
                         </div>
+                        <input type="hidden" id="npCityRef" name="NP_City_Ref" value="">
+                        <input type="hidden" id="npSettlementRef" name="NP_Settlement_Ref" value="">
+                        <input type="hidden" id="npCityName" name="Місто доставки" value="">
+                        <div class="np-dropdown-list" id="npCityDropdown" style="display:none;"></div>
                     </div>
-                    <div class="np-input-wrapper">
-                        <span class="np-input-icon">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-                        </span>
-                        <input type="text" id="npWarehouseInput" class="form-input np-input" placeholder="Введіть або оберіть відділення / поштомат..." autocomplete="off" required>
-                        <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
-                        <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
+
+                    <div class="checkout-dark-field np-autocomplete-group" id="npWarehouseGroup" style="position: relative;">
+                        <div class="np-warehouse-header">
+                            <label for="npWarehouseInput" class="checkout-dark-label">
+                                Відділення або поштомат Нової Пошти <span class="checkout-req">*</span>
+                            </label>
+                            <div class="np-type-filter" id="npWarehouseFilterTabs">
+                                <button type="button" class="np-tab active" data-type="all" onclick="filterWarehouseType('all', this)">Всі</button>
+                                <button type="button" class="np-tab" data-type="Branch" onclick="filterWarehouseType('Branch', this)">Відділення</button>
+                                <button type="button" class="np-tab" data-type="Postomat" onclick="filterWarehouseType('Postomat', this)">Поштомати</button>
+                            </div>
+                        </div>
+                        <div class="np-input-wrapper">
+                            <span class="np-input-icon">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            </span>
+                            <input type="text" id="npWarehouseInput" class="checkout-dark-input np-input" placeholder="Відділення № 25 або Поштомат № 11200" autocomplete="off" required>
+                            <button type="button" class="np-clear-btn" id="npWarehouseClearBtn" style="display:none;" title="Очистити">✕</button>
+                            <div class="np-loading-spinner" id="npWarehouseSpinner" style="display:none;"></div>
+                        </div>
+                        <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
+                        <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
+                        <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
+                        <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
+                        <span class="np-helper-hint" id="npWarehouseHint">Почніть вводити номер або вулицю</span>
                     </div>
-                    <input type="hidden" id="npWarehouseRef" name="NP_Warehouse_Ref" value="">
-                    <input type="hidden" id="npWarehouseNum" name="Номер відділення" value="">
-                    <input type="hidden" id="cityNP" name="Місто та Відділення НП" value="">
-                    <div class="np-dropdown-list" id="npWarehouseDropdown" style="display:none;"></div>
-                    <span class="np-helper-hint" id="npWarehouseHint">Почніть вводити номер або вулицю</span>
+
+                    <div class="checkout-dark-field">
+                        <label for="cartComment" class="checkout-dark-label">
+                            Коментар до замовлення (необов'язково)
+                        </label>
+                        <textarea id="cartComment" name="Коментар" class="checkout-dark-input checkout-dark-textarea" rows="2" placeholder="Уточнення щодо часу дзвінка або доставки..."></textarea>
+                    </div>
                 </div>
 
-                <div class="cart-form-section-title">Спосіб оплати</div>
-                <div class="cart-form-group">
+                <!-- Card 3: Payment Method -->
+                <div class="checkout-dark-card">
+                    <div class="checkout-dark-card-title">3. СПОСІБ ОПЛАТИ</div>
                     <div class="cart-payment-cards">
                         <label class="cart-payment-card active">
                             <input type="radio" name="cartPayment" value="Накладений платіж (при отриманні)" checked onchange="updatePaymentCardState(this)">
                             <div class="payment-card-body">
                                 <span class="payment-card-title">Накладений платіж</span>
-                                <span class="payment-card-desc">Оплата при отриманні у відділенні після огляду</span>
+                                <span class="payment-card-desc">Оплата при отриманні у відділенні після огляду та примірки</span>
                             </div>
                         </label>
                         <label class="cart-payment-card">
@@ -595,7 +625,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=11.0" defer></script>
+    <script src="script.js?v=12.0" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5243038", "slug": "zhinocha-kurtka-kosukha-6018-chor-chornyy-5243038", "name": "Жіноча куртка косуха 6018 чор (Чорний)", "price": 1000, "old_price": 1250, "cost_price": 800, "cat": "clothing", "subcat": "leather", "cat_name": "Одяг & Косухи", "season": "demi", "season_name": "Демісезон", "brand": "urban", "brand_name": "URBAN", "gender": "women", "art": "6018 чор", "color": "Чорний", "mat": "М'яка еко-шкіра", "origin": "Фабричне виробництво (Китай)", "badge": "Чорний • Еко-шкіра", "desc": "Жіноча куртка косуха чорна з еко-шкіри\nМатеріал: м'яка еко-шкіра. підкладка м'яка приємна тканина. кишені на застібках, дві внутрішніх кишені. кишеня на грудях - обманка .\nВиробник:  Китай", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/a0e406e62a50ca004462.jpg"], "sizes": ["S", "M", "L", "XL"], "in_stock": true};
