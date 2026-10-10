@@ -105,7 +105,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=10.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -478,15 +478,22 @@
         </div>
 
         <!-- VIEW 2: Dedicated Checkout View (PHOTO 1 DESIGN) -->
-        <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
+        <div id="cartCheckoutFormBox" class="cart-checkout-view cart-view-hidden" hidden style="display: none !important;">
             <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
 
             <div class="checkout-header-block">
+                <div class="checkout-badge-row">
+                    <span class="checkout-safe-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Безпечне замовлення
+                    </span>
+                    <span class="checkout-delivery-badge">1–2 дні Нова Пошта</span>
+                </div>
                 <h2 class="checkout-main-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
                 <p class="checkout-subtitle">Доставка Новою Поштою • Оплата після огляду та примірки (накладений платіж)</p>
             </div>
 
-            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
+            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" novalidate onsubmit="handleCartDirectCheckout(event)">
                 <!-- Card 1: Receiver Info -->
                 <div class="checkout-dark-card">
                     <div class="checkout-dark-card-title">1. ДАНІ ОДЕРЖУВАЧА</div>
@@ -584,7 +591,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
+                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final" onclick="handleCartDirectCheckout(event)">
                     ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
                 </button>
                 <div class="cart-trust-badge">
@@ -657,7 +664,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=12.0" defer></script>
+    <script src="script.js?v=12.1" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4443529", "slug": "uteplena-zhinocha-kurtka-6001-chor-chornyy-4443529", "name": "Утеплена жіноча куртка 6001 чор (Чорний)", "price": 1500, "old_price": 1880, "cost_price": 1200, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "urban", "brand_name": "URBAN", "gender": "women", "art": "6001 чор", "color": "Чорний", "mat": "Плащівка матова (100% поліестер) / Синтепон 200", "origin": "Фабричне виробництво (Китай)", "badge": "Чорний • Демісезон", "desc": "Утеплена жіноча куртка демісезон чорна\nМатеріал: плащівка матова ( поліестер 100% ) Бічні кишені на застібках , одна внутрішня кишеня. Комір стійка а зовні комір - капюшон. рукава з манжетами ( резинка ) , прямий пояс , є шнурок утяжка.\nУтеплювач: силіконізований синтепон 200.\nВиробник:  Китай", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/591f7194459cfe7e0c7d.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/27aa18d6b3a634575a54.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7cb75b8ee57c4ffcb564.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e87c49618cf25d3f669e.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/12fd9b061a1d682f8ca8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a83570b967af7dd3d6e6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/c70b69e47833a8182b3e.jpg"], "sizes": ["XXL"], "in_stock": true};

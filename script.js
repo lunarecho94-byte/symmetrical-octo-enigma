@@ -5469,9 +5469,17 @@ function showCartCheckoutForm() {
     const heading = document.getElementById('cartDrawerHeading');
     const countWrap = document.getElementById('cartDrawerCountWrap');
 
-    if (viewItems) viewItems.style.display = 'none';
+    // Force View 1 to be completely hidden
+    if (viewItems) {
+        viewItems.classList.add('cart-view-hidden');
+        viewItems.setAttribute('hidden', 'true');
+        viewItems.style.setProperty('display', 'none', 'important');
+    }
+    // Force View 2 to be clearly visible
     if (formBox) {
-        formBox.style.display = 'block';
+        formBox.classList.remove('cart-view-hidden');
+        formBox.removeAttribute('hidden');
+        formBox.style.setProperty('display', 'block', 'important');
         formBox.scrollTop = 0;
     }
     if (backBtn) backBtn.style.display = 'inline-flex';
@@ -5485,7 +5493,12 @@ function showCartCheckoutForm() {
     const total = cart.reduce((sum, it) => sum + (it.price * (it.qty || 1)), 0);
     const submitBtn = document.getElementById('cartSubmitOrderBtn');
     if (submitBtn) {
-        submitBtn.innerHTML = `ПІДТВЕРДИТИ ЗАМОВЛЕННЯ &bull; ${total.toLocaleString('uk-UA')} грн`;
+        submitBtn.innerHTML = `<span>ПІДТВЕРДИТИ ЗАМОВЛЕННЯ &bull; ${total.toLocaleString('uk-UA')} грн</span>`;
+    }
+
+    // Scroll checkout view to top smoothly
+    if (formBox) {
+        formBox.scrollTop = 0;
     }
 
     // Meta Pixel & GA4 Checkout Tracking
@@ -5504,11 +5517,20 @@ function hideCartCheckoutForm() {
     const heading = document.getElementById('cartDrawerHeading');
     const countWrap = document.getElementById('cartDrawerCountWrap');
 
+    // Force View 2 to be completely hidden
+    if (formBox) {
+        formBox.classList.add('cart-view-hidden');
+        formBox.setAttribute('hidden', 'true');
+        formBox.style.setProperty('display', 'none', 'important');
+    }
+    // Force View 1 to be visible as column flex
     if (viewItems) {
-        viewItems.style.display = 'flex';
+        viewItems.classList.remove('cart-view-hidden');
+        viewItems.removeAttribute('hidden');
+        viewItems.style.removeProperty('display');
+        viewItems.style.setProperty('display', 'flex', 'important');
         viewItems.style.flexDirection = 'column';
     }
-    if (formBox) formBox.style.display = 'none';
     if (backBtn) backBtn.style.display = 'none';
     if (heading) heading.textContent = 'Кошик';
     if (countWrap) countWrap.style.display = 'inline';
@@ -5539,7 +5561,10 @@ function renderCartMiniSummary() {
                 <img src="${it.img || ''}" alt="${it.title || ''}" class="cart-mini-item-img" referrerpolicy="no-referrer" onerror="handleCardThumbError(this, 'shoes')">
                 <div class="cart-mini-item-info">
                     <div class="cart-mini-item-title" title="${it.title || ''}">${it.title || 'Товар'}</div>
-                    <div class="cart-mini-item-meta">Розмір: <b>${it.size || '-'}</b> &bull; ${it.qty || 1} шт.</div>
+                    <div class="cart-mini-item-meta">
+                        <span class="cart-mini-size-badge">Розмір: ${it.size || '-'}</span>
+                        <span class="cart-mini-qty">${it.qty || 1} шт.</span>
+                    </div>
                 </div>
                 <div class="cart-mini-item-price">${linePrice} грн</div>
             </div>
@@ -5548,15 +5573,21 @@ function renderCartMiniSummary() {
 
     summaryEl.innerHTML = `
         <div class="cart-mini-summary-header">
-            <span>Ваше замовлення (${totalCount})</span>
-            <button type="button" class="cart-mini-summary-edit" onclick="hideCartCheckoutForm()">Редагувати</button>
+            <div class="cart-mini-summary-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>Ваше замовлення (${totalCount})</span>
+            </div>
+            <button type="button" class="cart-mini-summary-edit" onclick="hideCartCheckoutForm()" title="Змінити товари в кошику">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <span>Редагувати</span>
+            </button>
         </div>
         <div class="cart-mini-summary-items">
             ${itemsHtml}
         </div>
         <div class="cart-mini-summary-total">
-            <span>До оплати:</span>
-            <span class="val">${totalPrice.toLocaleString('uk-UA')} грн</span>
+            <span class="cart-mini-total-label">До оплати:</span>
+            <span class="cart-mini-total-val">${totalPrice.toLocaleString('uk-UA')} грн</span>
         </div>
     `;
 }
@@ -5581,6 +5612,21 @@ async function handleCartDirectCheckout(e) {
 
     if (!nameInput || !phoneInput) return;
 
+    // Validate Name
+    const nameVal = (nameInput.value || '').trim();
+    if (!nameVal || nameVal.length < 2) {
+        nameInput.classList.add('input-error');
+        nameInput.focus();
+        showCartToast("Будь ласка, вкажіть ваше ім'я та прізвище");
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
+        }
+        return;
+    }
+    nameInput.classList.remove('input-error');
+
+    // Validate Phone
     const phoneVal = phoneInput.value.trim();
     const phoneCheck = validateUkrainianPhone(phoneVal);
     if (!phoneCheck.valid) {
@@ -5590,6 +5636,7 @@ async function handleCartDirectCheckout(e) {
             errHint.style.display = 'block';
         }
         phoneInput.focus();
+        showCartToast(phoneCheck.message || 'Введіть коректний номер телефону');
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
@@ -5604,7 +5651,7 @@ async function handleCartDirectCheckout(e) {
     if (!cityVal || cityVal.length < 2) {
         cityInput?.classList.add('input-error');
         cityInput?.focus();
-        showCartToast('Будь ласка, вкажіть місто доставки');
+        showCartToast('Будь ласка, вкажіть місто доставки Новою Поштою');
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';
@@ -5618,7 +5665,7 @@ async function handleCartDirectCheckout(e) {
     if (!whVal) {
         whInput?.classList.add('input-error');
         whInput?.focus();
-        showCartToast('Будь ласка, вкажіть відділення або поштомат Нової Пошти');
+        showCartToast('Будь ласка, оберіть відділення або поштомат Нової Пошти');
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'ПІДТВЕРДИТИ ЗАМОВЛЕННЯ';

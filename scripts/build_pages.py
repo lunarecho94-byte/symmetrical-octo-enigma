@@ -250,7 +250,7 @@ def build_product_page_html(p, all_products):
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=10.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -539,15 +539,22 @@ def build_product_page_html(p, all_products):
         </div>
 
         <!-- VIEW 2: Dedicated Checkout View (PHOTO 1 DESIGN) -->
-        <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
+        <div id="cartCheckoutFormBox" class="cart-checkout-view cart-view-hidden" hidden style="display: none !important;">
             <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
 
             <div class="checkout-header-block">
+                <div class="checkout-badge-row">
+                    <span class="checkout-safe-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Безпечне замовлення
+                    </span>
+                    <span class="checkout-delivery-badge">1–2 дні Нова Пошта</span>
+                </div>
                 <h2 class="checkout-main-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
                 <p class="checkout-subtitle">Доставка Новою Поштою • Оплата після огляду та примірки (накладений платіж)</p>
             </div>
 
-            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
+            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" novalidate onsubmit="handleCartDirectCheckout(event)">
                 <!-- Card 1: Receiver Info -->
                 <div class="checkout-dark-card">
                     <div class="checkout-dark-card-title">1. ДАНІ ОДЕРЖУВАЧА</div>
@@ -645,7 +652,7 @@ def build_product_page_html(p, all_products):
                     </div>
                 </div>
 
-                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
+                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final" onclick="handleCartDirectCheckout(event)">
                     ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
                 </button>
                 <div class="cart-trust-badge">
@@ -718,7 +725,7 @@ def build_product_page_html(p, all_products):
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=12.0" defer></script>
+    <script src="script.js?v=12.1" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {json.dumps(p, ensure_ascii=False)};
@@ -810,7 +817,7 @@ def main():
     <title>{escape(cat_meta_title)}</title>
     <meta name="description" content="{escape(cat_meta_desc)}">
     <link rel="canonical" href="{cat_url}">
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=10.1">
     <script type="application/ld+json">
 {json.dumps(cat_schema, ensure_ascii=False, indent=2)}
     </script>
@@ -827,7 +834,7 @@ def main():
             {''.join(cards_html)}
         </div>
     </main>
-    <script src="script.js?v=12.0" defer></script>
+    <script src="script.js?v=12.1" defer></script>
 </body>
 </html>'''
         cat_file = os.path.join(CATEGORY_OUT_DIR, f"{cat_slug}.html")

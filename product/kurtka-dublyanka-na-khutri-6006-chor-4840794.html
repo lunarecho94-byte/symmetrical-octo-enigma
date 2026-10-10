@@ -108,7 +108,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=10.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -441,15 +441,22 @@
         </div>
 
         <!-- VIEW 2: Dedicated Checkout View (PHOTO 1 DESIGN) -->
-        <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
+        <div id="cartCheckoutFormBox" class="cart-checkout-view cart-view-hidden" hidden style="display: none !important;">
             <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
 
             <div class="checkout-header-block">
+                <div class="checkout-badge-row">
+                    <span class="checkout-safe-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Безпечне замовлення
+                    </span>
+                    <span class="checkout-delivery-badge">1–2 дні Нова Пошта</span>
+                </div>
                 <h2 class="checkout-main-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
                 <p class="checkout-subtitle">Доставка Новою Поштою • Оплата після огляду та примірки (накладений платіж)</p>
             </div>
 
-            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
+            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" novalidate onsubmit="handleCartDirectCheckout(event)">
                 <!-- Card 1: Receiver Info -->
                 <div class="checkout-dark-card">
                     <div class="checkout-dark-card-title">1. ДАНІ ОДЕРЖУВАЧА</div>
@@ -547,7 +554,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
+                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final" onclick="handleCartDirectCheckout(event)">
                     ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
                 </button>
                 <div class="cart-trust-badge">
@@ -620,7 +627,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=12.0" defer></script>
+    <script src="script.js?v=12.1" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4840794", "slug": "kurtka-dublyanka-na-khutri-6006-chor-4840794", "name": "Куртка-дублянка на хутрі 6006 чор", "price": 2250, "old_price": 2810, "cost_price": 1800, "cat": "clothing", "subcat": "winter_jacket", "cat_name": "Одяг & Дублянки", "season": "winter", "season_name": "Зима", "brand": "urban", "brand_name": "URBAN", "gender": "women", "art": "6006 чор", "color": "Чорний", "mat": "Штучна шкіра / Штучне хутро", "origin": "Фабричне виробництво (Китай)", "badge": "На хутрі • Дублянка", "desc": "Дублянка чорна на штучному хутрі\nМатеріал: штучна шкіра, штучне хутро. Дві бічні кишені , прямий пояс, на комірі ремінець.\nВиробник:  Китай", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/1ebfdf82d265ffc81494.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/aa82a61926be5a8d09f8.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/3821524e60f9da765d4a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/54e1bbf10c677e5d1032.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/2d960e2384fdb7d8d3e0.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/6bd55667adf7a355b777.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/46a68c988d7c6d85eb1c.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/a008965ee08e91d19ef7.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/7c28f52d1463c81b87c6.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/566846627c8458afe8ae.jpg"], "sizes": ["M"], "in_stock": true};

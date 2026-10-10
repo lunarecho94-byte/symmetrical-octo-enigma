@@ -106,7 +106,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=10.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -487,15 +487,22 @@
         </div>
 
         <!-- VIEW 2: Dedicated Checkout View (PHOTO 1 DESIGN) -->
-        <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
+        <div id="cartCheckoutFormBox" class="cart-checkout-view cart-view-hidden" hidden style="display: none !important;">
             <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
 
             <div class="checkout-header-block">
+                <div class="checkout-badge-row">
+                    <span class="checkout-safe-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Безпечне замовлення
+                    </span>
+                    <span class="checkout-delivery-badge">1–2 дні Нова Пошта</span>
+                </div>
                 <h2 class="checkout-main-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
                 <p class="checkout-subtitle">Доставка Новою Поштою • Оплата після огляду та примірки (накладений платіж)</p>
             </div>
 
-            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
+            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" novalidate onsubmit="handleCartDirectCheckout(event)">
                 <!-- Card 1: Receiver Info -->
                 <div class="checkout-dark-card">
                     <div class="checkout-dark-card-title">1. ДАНІ ОДЕРЖУВАЧА</div>
@@ -593,7 +600,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
+                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final" onclick="handleCartDirectCheckout(event)">
                     ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
                 </button>
                 <div class="cart-trust-badge">
@@ -666,7 +673,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=12.0" defer></script>
+    <script src="script.js?v=12.1" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "4443535", "slug": "uteplena-zhinocha-korotka-kurtka-z-kapyushonom-6003-4443535", "name": "Утеплена жіноча коротка куртка з капюшоном 6003", "price": 1690, "old_price": 2110, "cost_price": 1350, "cat": "clothing", "subcat": "jacket", "cat_name": "Одяг & Куртки", "season": "demi", "season_name": "Демісезон", "brand": "urban", "brand_name": "URBAN", "gender": "women", "art": "6003", "color": "Чорний", "mat": "Плащівка матова (100% поліестер) / Синтепон 200", "origin": "Фабричне виробництво (Китай)", "badge": "Чорний • Демісезон", "desc": "Утеплена жіноча чорна куртка коротка з капюшоном\nМатеріал: плащівка матова ( поліестер 100% ) Бічні кишені на застібках . Комір - капюшон. рукава з манжетами ( резинка ) , прямий пояс , є шнурок утяжка на поясі та капюшоні.\nУтеплювач: силіконізований синтепон 200.\nВиробник:  Китай", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/29dff44ee0336fcb9458.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/607eade13428fff52094.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/e979fa6c20a64bb97d51.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/01b028929bedff59eac9.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/0ce55253e5628e9aff9a.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/f26509967d8c4c56f9bf.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/5854b7969833a6aca0c4.jpg", "https://backend.mydrop.com.ua/vendor/products/uploads/36b92e7f8c04380840cf.jpg"], "sizes": ["L", "XXL"], "in_stock": true};

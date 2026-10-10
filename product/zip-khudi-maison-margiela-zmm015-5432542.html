@@ -99,7 +99,7 @@
     <link rel="apple-touch-icon" href="images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=10.0">
+    <link rel="stylesheet" href="style.css?v=10.1">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -482,15 +482,22 @@
         </div>
 
         <!-- VIEW 2: Dedicated Checkout View (PHOTO 1 DESIGN) -->
-        <div id="cartCheckoutFormBox" class="cart-checkout-view" style="display: none;">
+        <div id="cartCheckoutFormBox" class="cart-checkout-view cart-view-hidden" hidden style="display: none !important;">
             <div id="cartCheckoutMiniSummary" class="cart-checkout-mini-summary"></div>
 
             <div class="checkout-header-block">
+                <div class="checkout-badge-row">
+                    <span class="checkout-safe-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        Безпечне замовлення
+                    </span>
+                    <span class="checkout-delivery-badge">1–2 дні Нова Пошта</span>
+                </div>
                 <h2 class="checkout-main-title">ОФОРМЛЕННЯ ЗАМОВЛЕННЯ</h2>
                 <p class="checkout-subtitle">Доставка Новою Поштою • Оплата після огляду та примірки (накладений платіж)</p>
             </div>
 
-            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" onsubmit="handleCartDirectCheckout(event)">
+            <form id="cartDirectCheckoutForm" class="cart-direct-checkout-form" novalidate onsubmit="handleCartDirectCheckout(event)">
                 <!-- Card 1: Receiver Info -->
                 <div class="checkout-dark-card">
                     <div class="checkout-dark-card-title">1. ДАНІ ОДЕРЖУВАЧА</div>
@@ -588,7 +595,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final">
+                <button type="submit" id="cartSubmitOrderBtn" class="btn-primary btn-cart-submit-final" onclick="handleCartDirectCheckout(event)">
                     ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
                 </button>
                 <div class="cart-trust-badge">
@@ -661,7 +668,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=12.0" defer></script>
+    <script src="script.js?v=12.1" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {"id": "5432542", "slug": "zip-khudi-maison-margiela-zmm015-5432542", "name": "Зіп-худі Maison Margiela ZMM015 (Чорний)", "price": 1440, "old_price": 1800, "cost_price": 1150, "cat": "clothing", "subcat": "zip_hoodie", "cat_name": "Одяг & Зіп-худі", "season": "demi", "season_name": "Демісезон", "brand": "maison_margiela", "brand_name": "Maison Margiela", "gender": "unisex", "art": "ZMM015", "color": "Чорний", "mat": "95% Бавовна / 5% Поліестер (петля)", "origin": "Фабричне виробництво", "badge": "Чорний • DTF друк", "desc": "Мяка тканина, зручний капюшон і прорізні кишені  усе для твого комфорту.\nІдеально пасує до джинсів, карго або спортивних штанів.\nОсобливості:\n- Унісекс\n-Якісна бавовна\n-Повноцінна блискавка\nДеталі:\n- Розміри: ХSXXL\n- Склад: 95% бавовна / 5% поліестер\n- Тканина: петля\n- Друк: DTF  чіткість і яскравість.", "imgs": ["https://backend.mydrop.com.ua/vendor/products/uploads/cb2e08b4efbef6a8db79.png"], "sizes": ["XS", "S", "M", "L", "XL", "XXL"], "in_stock": true};
