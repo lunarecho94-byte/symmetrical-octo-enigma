@@ -209,11 +209,8 @@ def transform_ra_product(p):
     title_lower = raw_title.lower()
 
     drop_price = int(float(p.get('dropPrice') or 0))
-    raw_price = p.get('price')
-    if raw_price:
-        price = int(float(raw_price))
-    else:
-        price = int(round(drop_price * 1.25 / 10) * 10)
+    # 25% markup over supplier drop price
+    price = int(round(drop_price * 1.25 / 10) * 10)
     old_price = int(round(price * 1.25 / 10) * 10)
 
     # Color extraction
