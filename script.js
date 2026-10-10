@@ -3014,16 +3014,10 @@ function syncQuickCatalogPills() {
 
 function updateCatalogModelsCountText() {
     const modelsCountEl = document.getElementById('catalogModelsCount');
-    if (!modelsCountEl) return;
-    const total = (typeof catalogFilteredProducts !== 'undefined' && catalogFilteredProducts) 
-        ? catalogFilteredProducts.length 
-        : (typeof catalogAllProducts !== 'undefined' && catalogAllProducts ? catalogAllProducts.length : 159);
-    
-    let countWord = 'моделей';
-    if (total % 10 === 1 && total % 100 !== 11) countWord = 'модель';
-    else if ([2, 3, 4].includes(total % 10) && ![12, 13, 14].includes(total % 100)) countWord = 'моделі';
-
-    modelsCountEl.textContent = `Знайдено ${total.toLocaleString('uk-UA')} ${countWord} у наявності`;
+    if (modelsCountEl) {
+        modelsCountEl.style.display = 'none';
+        modelsCountEl.remove();
+    }
 }
 
 // Global window exposure for inline onclick handlers

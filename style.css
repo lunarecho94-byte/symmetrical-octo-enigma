@@ -10530,35 +10530,26 @@ body.fav-open {
     line-height: 1;
 }
 
-/* Catalog Section Header & Control Bar (Matched to User Design) */
-.catalog-section-header {
-    text-align: left;
-    margin-bottom: 18px;
+/* Screen reader only utility (SEO friendly) */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
-.catalog-main-title {
-    font-family: var(--font-heading, inherit);
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: -0.01em;
-    color: #ffffff;
-    text-transform: uppercase;
-    margin: 0 0 4px 0;
-    line-height: 1.15;
-}
-
-@media (max-width: 600px) {
-    .catalog-main-title {
-        font-size: 22px;
-    }
-}
-
+.catalog-section-header,
 .catalog-models-count {
-    font-size: 14px;
-    font-weight: 500;
-    color: #a1a1aa;
-    margin: 0;
-    line-height: 1.4;
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
 }
 
 /* Catalog Toolbar Row: Left Pills + Right Controls */

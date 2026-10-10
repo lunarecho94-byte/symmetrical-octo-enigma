@@ -935,7 +935,8 @@ def prerender_index_catalog(products):
     # Update progress info and count
     html = re.sub(r'<span id="catalogShowingCount">.*?</span>', f'<span id="catalogShowingCount">Показано {len(products)} з {len(products)} моделей</span>', html)
     html = re.sub(r'<div class="catalog-progress-fill"[^>]*>', '<div class="catalog-progress-fill" id="catalogProgressFill" style="width: 100%;">', html)
-    html = re.sub(r'<p class="catalog-models-count"[^>]*>.*?</p>', f'<p class="catalog-models-count" id="catalogModelsCount">Знайдено {len(products)} моделей у наявності</p>', html)
+    html = re.sub(r'<div class="catalog-section-header">\s*<h1 class="catalog-main-title"[^>]*>.*?</h1>\s*<p class="catalog-models-count"[^>]*>.*?</p>\s*</div>', '', html, flags=re.DOTALL)
+    html = re.sub(r'<p class="catalog-models-count"[^>]*>.*?</p>\s*', '', html)
 
     # Categorization counts
     subcat_counts = Counter(p.get('subcat', 'clothing') for p in products)
@@ -961,7 +962,7 @@ def prerender_index_catalog(products):
     html = re.sub(r'<meta property="og:description" content=".*?">', f'<meta property="og:description" content="{meta_desc}">', html)
     html = re.sub(r'<meta name="twitter:title" content=".*?">', f'<meta name="twitter:title" content="{meta_title}">', html)
     html = re.sub(r'<meta name="twitter:description" content=".*?">', f'<meta name="twitter:description" content="{meta_desc}">', html)
-    html = re.sub(r'<h1 class="catalog-main-title"[^>]*>.*?</h1>', f'<h1 class="catalog-main-title" id="catalogMainTitle">{cat_title}</h1>', html)
+    html = re.sub(r'<h1 class="catalog-main-title[^"]*"[^>]*>.*?</h1>', f'<h1 class="catalog-main-title sr-only" id="catalogMainTitle">{cat_title}</h1>', html)
 
     # Synchronize quick pills
     pill_items = [f'<button type="button" class="catalog-pill-btn active" data-quick="all" onclick="setQuickCatalogFilter(\'all\', this)">Всі ({len(products)})</button>']
