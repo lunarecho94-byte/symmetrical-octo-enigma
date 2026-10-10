@@ -2953,6 +2953,10 @@ function setQuickCatalogFilter(filter, btn) {
         currentCatalogSeason = 'all';
         currentCatalogCategory = 'all';
         currentCatalogBrand = 'all';
+    } else if (filter && (filter.startsWith('cat:') || filter.startsWith('subcat:'))) {
+        const catKey = filter.split(':')[1];
+        currentCatalogCategory = (currentCatalogCategory === catKey) ? 'all' : catKey;
+        currentCatalogBrand = 'all';
     } else if (filter === 'men') {
         currentCatalogGender = (currentCatalogGender === 'men') ? 'all' : 'men';
         currentCatalogSeason = 'all';
@@ -2968,6 +2972,7 @@ function setQuickCatalogFilter(filter, btn) {
     } else if (filter && filter.startsWith('brand:')) {
         const brandKey = filter.split(':')[1];
         currentCatalogBrand = (currentCatalogBrand === brandKey) ? 'all' : brandKey;
+        currentCatalogCategory = 'all';
     }
 
     syncQuickCatalogPills();
@@ -2984,7 +2989,9 @@ function setQuickCatalogFilter(filter, btn) {
 
 function syncQuickCatalogPills() {
     let activeQuick = 'all';
-    if (currentCatalogBrand && currentCatalogBrand !== 'all') {
+    if (currentCatalogCategory && currentCatalogCategory !== 'all') {
+        activeQuick = `cat:${currentCatalogCategory}`;
+    } else if (currentCatalogBrand && currentCatalogBrand !== 'all') {
         activeQuick = `brand:${currentCatalogBrand}`;
     } else if (currentCatalogGender === 'men' && currentCatalogSeason === 'all') {
         activeQuick = 'men';
@@ -2994,7 +3001,7 @@ function syncQuickCatalogPills() {
         activeQuick = 'demi';
     } else if (currentCatalogSeason === 'winter' && currentCatalogGender === 'all') {
         activeQuick = 'winter';
-    } else if (currentCatalogGender === 'all' && currentCatalogSeason === 'all' && currentCatalogBrand === 'all') {
+    } else if (currentCatalogGender === 'all' && currentCatalogSeason === 'all' && currentCatalogBrand === 'all' && currentCatalogCategory === 'all') {
         activeQuick = 'all';
     } else {
         activeQuick = null;

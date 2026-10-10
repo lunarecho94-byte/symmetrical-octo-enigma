@@ -2484,5 +2484,85 @@
         <g:price>80 UAH</g:price>
       </g:shipping>
     </item>
+    <item>
+      <g:id>prod-58762</g:id>
+      <title>Утеплений жилет 53PC</title>
+      <description>Утеплений жилет 53PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 53PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-53pc-58762</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/58762.jpg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58761</g:id>
+      <title>Утеплений жилет 52PC</title>
+      <description>Утеплений жилет 52PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 52PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-52pc-58761</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/58761.jpg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58760</g:id>
+      <title>Утеплений жилет 51PC</title>
+      <description>Утеплений жилет 51PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 51PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-51pc-58760</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/58760.jpg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58759</g:id>
+      <title>Утеплений жилет 50PC</title>
+      <description>Утеплений жилет 50PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XL, XXL • Арт: 50PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-50pc-58759</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/58759.jpg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
   </channel>
 </rss>

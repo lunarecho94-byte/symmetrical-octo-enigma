@@ -1,17 +1,17 @@
 {
-  "total": 124,
+  "total": 128,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 124
+      "count": 128
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 124
+      "count": 128
     },
     {
       "slug": "women",
@@ -25,13 +25,19 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 124
+      "count": 128
     },
     {
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
       "icon": "",
       "count": 124
+    },
+    {
+      "slug": "vest",
+      "name": "Жилетки",
+      "icon": "",
+      "count": 4
     }
   ],
   "seasons": [
@@ -39,20 +45,26 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 124
+      "count": 128
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
       "count": 124
+    },
+    {
+      "slug": "demi",
+      "name": "Демісезон",
+      "icon": "",
+      "count": 4
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 124
+      "count": 128
     },
     {
       "slug": "nike",
@@ -103,6 +115,11 @@
       "slug": "calvin_klein",
       "name": "Calvin Klein",
       "count": 5
+    },
+    {
+      "slug": "urban",
+      "name": "URBAN",
+      "count": 4
     },
     {
       "slug": "louis_vuitton",

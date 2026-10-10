@@ -21,6 +21,7 @@ import re
 import time
 import ssl
 import argparse
+import subprocess
 import urllib.request
 import urllib.parse
 import http.cookiejar
@@ -138,6 +139,28 @@ def fetch_mydrop_product(vendor_id, product_id):
         return None
 
 
+def ensure_local_thumbnail(pk, remote_img_path):
+    if not remote_img_path:
+        return
+    catalog_dir = os.path.join(PROJECT_DIR, 'images', 'catalog')
+    os.makedirs(catalog_dir, exist_ok=True)
+    thumb_path = os.path.join(catalog_dir, f"{pk}.jpg")
+    if os.path.exists(thumb_path) and os.path.getsize(thumb_path) > 1000:
+        return
+    remote_url = remote_img_path if remote_img_path.startswith('http') else f"https://easydrop.one{remote_img_path}"
+    temp_path = os.path.join(catalog_dir, f"{pk}_tmp.jpg")
+    try:
+        req = urllib.request.Request(remote_url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=12) as r:
+            with open(temp_path, 'wb') as f:
+                f.write(r.read())
+        subprocess.run(['sips', '-Z', '600', '-s', 'format', 'jpeg', '-s', 'formatOptions', '75', temp_path, '--out', thumb_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+    except Exception as e:
+        print(f"Warning downloading thumb {pk}: {e}")
+
+
 def fetch_easydrop_category(token, category_id, markup=0.20):
     url = f"https://easydrop.one/supplier-catalog/{token}/{category_id}/"
     cj = http.cookiejar.CookieJar()
@@ -216,6 +239,9 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
         mini_img = mini_m.group(1).strip() if mini_m else ''
         gal_imgs = galleries.get(pk, [])
 
+        # Auto-download and compress thumbnail locally
+        ensure_local_thumbnail(pk, gal_imgs[0] if gal_imgs else (base_img or mini_img))
+
         local_thumb = f"/images/catalog/{pk}.jpg"
         img_list = [local_thumb]
         for img_path in (gal_imgs + [base_img, mini_img]):
@@ -224,19 +250,40 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             if full_url not in img_list:
                 img_list.append(full_url)
 
-        # Title
-        title = f"Зимова куртка {brand_name} {sku}"
-
-        origin_m = re.search(r'<tr class=\"text-left\"><td colspan=\"3\">\s*(.*?)\s*</td></tr>', card_html)
-        origin_text = origin_m.group(1).strip() if origin_m else 'Турция'
-        origin = 'Фабричне виробництво (Туреччина)' if 'турц' in origin_text.lower() else 'Фабричне виробництво'
-        mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
-
-        desc = (
-            f"Тепла зимова брендова куртка {brand_name} ({sku}). "
-            f"Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. "
-            f"Зручні місткі кишені, анатомічний крій та якісна фурнітура. {origin}."
-        )
+        # Title & Category
+        is_vest = 'жилет' in raw_brand.lower() or 'жилет' in card_html.lower()[:300]
+        if is_vest:
+            subcat = 'vest'
+            cat_name = 'Одяг & Жилетки'
+            brand_slug = 'urban'
+            brand_name = 'URBAN'
+            title = f"Утеплений жилет {sku}"
+            season = 'demi'
+            season_name = 'Демісезон / Утеплений'
+            badge = 'Хіт • Утеплений'
+            mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
+            origin = 'Фабричне виробництво (Туреччина)'
+            desc = (
+                f"Стильний утеплений чоловічий жилет URBAN ({sku}). "
+                f"Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. "
+                f"Зручні місткі кишені, анатомічний крій та комфортна посадка. {origin}."
+            )
+        else:
+            subcat = 'winter_jacket'
+            cat_name = 'Одяг & Зимові куртки'
+            title = f"Зимова куртка {brand_name} {sku}"
+            season = 'winter'
+            season_name = 'Зима / Утеплена'
+            badge = 'Зима • Термо'
+            mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
+            origin_m = re.search(r'<tr class=\"text-left\"><td colspan=\"3\">\s*(.*?)\s*</td></tr>', card_html)
+            origin_text = origin_m.group(1).strip() if origin_m else 'Турция'
+            origin = 'Фабричне виробництво (Туреччина)' if 'турц' in origin_text.lower() else 'Фабричне виробництво'
+            desc = (
+                f"Тепла зимова брендова куртка {brand_name} ({sku}). "
+                f"Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. "
+                f"Зручні місткі кишені, анатомічний крій та якісна фурнітура. {origin}."
+            )
 
         slug = f"{slugify(title)}-{pk}"
 
@@ -248,10 +295,10 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             'old_price': old_price,
             'cost_price': drop_price,
             'cat': 'clothing',
-            'subcat': 'winter_jacket',
-            'cat_name': 'Одяг & Зимові куртки',
-            'season': 'winter',
-            'season_name': 'Зима / Утеплена',
+            'subcat': subcat,
+            'cat_name': cat_name,
+            'season': season,
+            'season_name': season_name,
             'brand': brand_slug,
             'brand_name': brand_name,
             'gender': 'men',
@@ -259,7 +306,7 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             'color': '',
             'mat': mat,
             'origin': origin,
-            'badge': 'Зима • Термо',
+            'badge': badge,
             'desc': desc,
             'imgs': img_list,
             'sizes': final_sizes,
