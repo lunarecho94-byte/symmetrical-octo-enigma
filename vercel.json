@@ -30,11 +30,39 @@
       ]
     }
   ],
-  "rewrites": [
+  "redirects": [
+    {
+      "source": "/category",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/categories",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/catalog",
+      "destination": "/#catalog",
+      "permanent": false
+    },
+    {
+      "source": "/shop",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/cart",
+      "destination": "/?cart=open",
+      "permanent": false
+    },
     {
       "source": "/p/:slug*",
-      "destination": "/product/:slug*"
-    },
+      "destination": "/product/:slug*",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
     {
       "source": "/product/:slug*",
       "destination": "/product.html?slug=:slug*"

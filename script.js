@@ -486,8 +486,8 @@ function renderFavoritesDrawer() {
             <div class="fav-empty-state">
                 <div class="fav-empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
                 <h4>Список обраного порожній</h4>
-                <p>Зберігайте вподобані моделі кросівок та одягу, натиснувши на іконку сердечка на картці товару.</p>
-                <button type="button" class="btn-primary" onclick="closeFavoritesDrawer(); if (document.getElementById('catalog')) { document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' }); } else { if (typeof returnToCatalogProduct === 'function') { returnToCatalogProduct(); } else { window.location.href = 'index.html'; } }">
+                <p>Зберігайте вподобані моделі одягу, натиснувши на іконку сердечка на картці товару.</p>
+                <button type="button" class="btn-primary" onclick="closeFavoritesDrawer(); if (document.getElementById('catalog')) { document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' }); } else { if (typeof returnToCatalogProduct === 'function') { returnToCatalogProduct(); } else { window.location.href = '/'; } }">
                     Перейти до каталогу
                 </button>
             </div>
@@ -647,7 +647,7 @@ function toggleFavoritesFilter(btnEl) {
 function viewFavoritesInCatalog() {
     closeFavoritesDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = 'index.html?gender=favorites#catalog';
+        window.location.href = '/?gender=favorites#catalog';
         return;
     }
     const favTab = document.getElementById('btnFilterFav');
@@ -695,8 +695,8 @@ function renderCart() {
                 <div class="cart-empty-state">
                     <div class="cart-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
                     <h4>Ваш кошик порожній</h4>
-                    <p>Перегляньте наш каталог трендових кросівок та оберіть свою пару!</p>
-                    <a href="javascript:void(0)" class="btn-primary-sm btn-go-catalog" onclick="closeCart(); if (document.getElementById('catalog')) { const c = document.getElementById('catalog'); if (c) c.scrollIntoView({ behavior: 'smooth' }); } else { if (typeof returnToCatalogProduct === 'function') { returnToCatalogProduct(); } else { window.location.href = 'index.html'; } }">
+                    <p>Перегляньте наш каталог трендового одягу та оберіть свій розмір!</p>
+                    <a href="javascript:void(0)" class="btn-primary-sm btn-go-catalog" onclick="closeCart(); if (document.getElementById('catalog')) { const c = document.getElementById('catalog'); if (c) c.scrollIntoView({ behavior: 'smooth' }); } else { if (typeof returnToCatalogProduct === 'function') { returnToCatalogProduct(); } else { window.location.href = '/'; } }">
                         Перейти до каталогу
                     </a>
                 </div>
@@ -2338,7 +2338,7 @@ function updateDrawerServiceBadges() {
 function applyDrawerCategory(cat) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = `index.html?cat=${encodeURIComponent(cat)}#catalog`;
+        window.location.href = `/?cat=${encodeURIComponent(cat)}#catalog`;
         return;
     }
     selectCatalogCategory(cat);
@@ -2349,7 +2349,7 @@ function applyDrawerCategory(cat) {
 function applyDrawerGender(gender) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = `index.html?gender=${encodeURIComponent(gender)}#catalog`;
+        window.location.href = `/?gender=${encodeURIComponent(gender)}#catalog`;
         return;
     }
     selectCatalogGender(gender);
@@ -2360,7 +2360,7 @@ function applyDrawerGender(gender) {
 function applyDrawerSeason(season) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = `index.html?season=${encodeURIComponent(season)}#catalog`;
+        window.location.href = `/?season=${encodeURIComponent(season)}#catalog`;
         return;
     }
     selectCatalogSeason(season);
@@ -2371,7 +2371,7 @@ function applyDrawerSeason(season) {
 function applyDrawerBrand(brand) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = `index.html?brand=${encodeURIComponent(brand)}#catalog`;
+        window.location.href = `/?brand=${encodeURIComponent(brand)}#catalog`;
         return;
     }
     currentCatalogBrand = brand || 'all';
@@ -2386,7 +2386,7 @@ function applyDrawerBrand(brand) {
 function applyDrawerSize(size) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = size === 'all' ? 'index.html#catalog' : `index.html?size=${encodeURIComponent(size)}#catalog`;
+        window.location.href = size === 'all' ? '/#catalog' : `/?size=${encodeURIComponent(size)}#catalog`;
         return;
     }
     if (size === 'all') {
@@ -2401,7 +2401,7 @@ function applyDrawerSize(size) {
 function applyDrawerSubSearch(keyword, cat) {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = `index.html?cat=${encodeURIComponent(cat)}&search=${encodeURIComponent(keyword)}#catalog`;
+        window.location.href = `/?cat=${encodeURIComponent(cat)}&search=${encodeURIComponent(keyword)}#catalog`;
         return;
     }
     if (cat) currentCatalogCategory = cat;
@@ -2419,7 +2419,7 @@ function applyDrawerSubSearch(keyword, cat) {
 function applyDrawerFavorites() {
     closeCatalogDrawer();
     if (!document.getElementById('catalog')) {
-        window.location.href = 'index.html?gender=favorites#catalog';
+        window.location.href = '/?gender=favorites#catalog';
         return;
     }
     selectCatalogGender('favorites');
@@ -2431,7 +2431,7 @@ function handleDrawerSearch(val) {
     const trimmed = (val || '').trim();
     if (!document.getElementById('catalog')) {
         if (trimmed) {
-            window.location.href = `index.html?search=${encodeURIComponent(trimmed)}#catalog`;
+            window.location.href = `/?search=${encodeURIComponent(trimmed)}#catalog`;
         }
         return;
     }
@@ -3022,7 +3022,7 @@ document.addEventListener('keydown', (e) => {
         if (val) {
             closeCatalogDrawer();
             if (!document.getElementById('catalog')) {
-                window.location.href = `index.html?search=${encodeURIComponent(val)}#catalog`;
+                window.location.href = `/?search=${encodeURIComponent(val)}#catalog`;
             } else {
                 const cat = document.getElementById('catalog');
                 if (cat) cat.scrollIntoView({ behavior: 'smooth' });
@@ -3358,7 +3358,7 @@ function updateSizeButtonState() {
 
 function openSizeModal() {
     if (!document.getElementById('catalog')) {
-        window.location.href = 'index.html#catalog';
+        window.location.href = '/#catalog';
         return;
     }
     const modal = document.getElementById('sizeModal');
@@ -3468,7 +3468,7 @@ function renderSizeModalItems() {
 function selectSizeFromModal(size) {
     closeSizeModal();
     if (!document.getElementById('catalog')) {
-        window.location.href = size === 'all' ? 'index.html#catalog' : `index.html?size=${encodeURIComponent(size)}#catalog`;
+        window.location.href = size === 'all' ? '/#catalog' : `/?size=${encodeURIComponent(size)}#catalog`;
         return;
     }
     if (currentCatalogSize === size) {
@@ -4409,7 +4409,7 @@ function initScrollTop() {
                 if (typeof returnToCatalogProduct === 'function') {
                     returnToCatalogProduct();
                 } else {
-                    window.location.href = 'index.html';
+                    window.location.href = '/';
                 }
                 return;
             }
@@ -6403,7 +6403,7 @@ function returnToCatalogProduct(productId) {
         sessionStorage.removeItem('urban_catalog_state');
     } catch (e) {}
 
-    const url = targetId ? `index.html?return=${encodeURIComponent(targetId)}` : 'index.html';
+    const url = targetId ? `/?return=${encodeURIComponent(targetId)}` : '/';
     window.location.href = url;
 }
 window.returnToCatalogProduct = returnToCatalogProduct;
@@ -6652,7 +6652,7 @@ function renderProductDetailPage(item) {
         sessionStorage.removeItem('urban_catalog_state');
     } catch (e) {}
 
-    const returnUrl = `index.html?return=${encodeURIComponent(item.id)}`;
+    const returnUrl = `/?return=${encodeURIComponent(item.id)}`;
     const displayName = formatProductDisplayName(item);
     const categoryTitle = getCategoryTitle(item.cat, item);
     const formattedPrice = item.price.toLocaleString('uk-UA') + ' грн';
@@ -6685,7 +6685,7 @@ function renderProductDetailPage(item) {
     if (twImage && item.imgs && item.imgs[0]) twImage.content = item.imgs[0];
 
     // Breadcrumbs & Return Navigation
-    const crumbHome = document.getElementById('pdpCrumbHome') || document.querySelector('.pdp-breadcrumbs a[href="index.html"]');
+    const crumbHome = document.getElementById('pdpCrumbHome') || document.querySelector('.pdp-breadcrumbs a[href="/"], .pdp-breadcrumbs a[href="index.html"]');
     if (crumbHome) {
         crumbHome.href = returnUrl;
         crumbHome.onclick = (e) => {
@@ -6727,7 +6727,7 @@ function renderProductDetailPage(item) {
     if (crumbSubcat) {
         if (subcatTitle) {
             crumbSubcat.textContent = subcatTitle;
-            crumbSubcat.href = `index.html?cat=${encodeURIComponent(subcatSlug)}#catalog`;
+            crumbSubcat.href = `/?cat=${encodeURIComponent(subcatSlug)}#catalog`;
             crumbSubcat.style.display = '';
             if (crumbSepSub) crumbSepSub.style.display = '';
         } else {

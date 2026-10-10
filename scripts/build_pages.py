@@ -283,7 +283,7 @@ def build_product_page_html(p, all_products):
     <header class="header">
         <div class="container header-container">
             <div class="header-brand-wrap">
-                <a href="index.html" class="logo urbano-animated-logo" title="URBAN">
+                <a href="/" class="logo urbano-animated-logo" title="URBAN">
                     <div class="logo-mark-box">
                         <img src="images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
                     </div>
@@ -323,13 +323,13 @@ def build_product_page_html(p, all_products):
 
             <!-- Breadcrumbs -->
             <div class="pdp-breadcrumbs-bar">
-                <a href="index.html" class="pdp-back-link" id="pdpBackLink">
+                <a href="/" class="pdp-back-link" id="pdpBackLink">
                     ← Назад до каталогу
                 </a>
                 <nav class="pdp-breadcrumbs" aria-label="Навігація">
-                    <a href="index.html" id="pdpCrumbHome">Головна</a>
+                    <a href="/" id="pdpCrumbHome">Головна</a>
                     <span class="sep">/</span>
-                    <a href="index.html?cat={subcat}#catalog" id="pdpCrumbSubcat">{cat_title}</a>
+                    <a href="/?cat={subcat}#catalog" id="pdpCrumbSubcat">{cat_title}</a>
                     <span class="sep">/</span>
                     <span class="curr" id="pdpCrumbTitle">{escape(display_name)}</span>
                 </nav>
@@ -747,7 +747,7 @@ def main():
 <body>
     <header class="header">
         <div class="container header-container">
-            <a href="index.html" class="logo">URBAN</a>
+            <a href="/" class="logo">URBAN</a>
         </div>
     </header>
     <main class="container" style="padding-top: 30px;">
@@ -762,6 +762,13 @@ def main():
         cat_file = os.path.join(CATEGORY_OUT_DIR, f"{cat_slug}.html")
         with open(cat_file, 'w', encoding='utf-8') as f:
             f.write(cat_html)
+
+    # Fallback redirects for root /category and /product folders
+    with open(os.path.join(CATEGORY_OUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write('<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0; url=/"><title>URBAN</title></head><body><script>window.location.replace("/");</script></body></html>')
+
+    with open(os.path.join(PRODUCT_OUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write('<!DOCTYPE html><html lang="uk"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0; url=/"><title>URBAN</title></head><body><script>window.location.replace("/");</script></body></html>')
 
     print(f"Generated category pages in {CATEGORY_OUT_DIR}")
 
