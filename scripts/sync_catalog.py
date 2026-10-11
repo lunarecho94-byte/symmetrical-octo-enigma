@@ -80,6 +80,9 @@ BRAND_MAP = {
     'c.p.  company': ('cp_company', 'C.P. Company'),
     'cp company': ('cp_company', 'C.P. Company'),
     'c.p.company': ('cp_company', 'C.P. Company'),
+    'mertra': ('mertra', 'Mertra'),
+    'valentino': ('valentino', 'Valentino'),
+    'moncler x valentino': ('moncler', 'Moncler x Valentino'),
 }
 
 SUPPLIER_TOKENS = {
@@ -99,7 +102,7 @@ WOMEN_IDS = {
     '201705', '201706', '193785', '193787', '193786', '141977', '141976', '138573', '138574', '136823', '76829', '76830', '127833', '127834', '194863'
 }
 
-PINNED_PRODUCT_IDS = ['193785']
+PINNED_PRODUCT_IDS = []
 
 
 
@@ -159,6 +162,50 @@ def fetch_mydrop_product(vendor_id, product_id):
     except Exception as e:
         print(f"Error fetching product {product_id} (vendor {vendor_id}): {e}")
         return None
+
+
+def fetch_mydrop_category(vendor_id, category_id, markup=0.20, min_stock=2):
+    url = f"{BACKEND_BASE_URL}/vendors/{vendor_id}/products?categoryId={category_id}"
+    req = urllib.request.Request(url, headers=HEADERS)
+    print(f"Fetching MyDrop category {category_id} (vendor {vendor_id}, націнка: {markup*100:.0f}%, мін. наявність: {min_stock})...")
+    try:
+        with urllib.request.urlopen(req, context=ctx, timeout=15) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+    except Exception as e:
+        print(f"Error fetching MyDrop category {category_id}: {e}")
+        return None
+
+    results = data.get('results', [])
+    print(f"Found {len(results)} items in MyDrop category {category_id}. Filtering items with stock >= {min_stock}...")
+
+    eligible_items = []
+    for itm in results:
+        sizes = itm.get('sizes', [])
+        total_qty = sum(s.get('realCountDropshipper', 0) for s in sizes if s.get('availableDropshipper'))
+        avail_count = len([s for s in sizes if s.get('availableDropshipper')])
+        if total_qty >= min_stock or (avail_count >= min_stock and total_qty > 0):
+            eligible_items.append(itm)
+        else:
+            print(f"Skipping MyDrop item {itm.get('id')} ({itm.get('title')}): stock {total_qty} < {min_stock}")
+
+    print(f"Eligible items with stock >= {min_stock}: {len(eligible_items)} of {len(results)}.")
+
+    def fetch_full_and_transform(itm):
+        pid = itm['id']
+        full_p = fetch_mydrop_product(vendor_id, pid)
+        if not full_p:
+            full_p = itm
+        transformed = transform_mydrop_product(full_p, markup=markup)
+        if transformed and transformed.get('imgs'):
+            ensure_local_thumbnail(pid, transformed['imgs'][0])
+        return transformed
+
+    with ThreadPoolExecutor(max_workers=5) as ex:
+        products = [p for p in ex.map(fetch_full_and_transform, eligible_items) if p]
+
+    print(f"Successfully processed {len(products)} MyDrop products.")
+    return products
+
 
 
 def ensure_local_thumbnail(pk, remote_img_path):
@@ -387,7 +434,15 @@ def transform_mydrop_product(p, markup=0.20):
         elif 'беж' in title_lower: color = 'Бежевий'
 
     # Category, subcategory, season classification
-    if 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'зим' in title_lower:
+    if 'жилет' in title_lower or 'безрукав' in title_lower:
+        cat = 'clothing'
+        subcat = 'vest'
+        cat_name = 'Одяг & Жилетки'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Водовідштовхувальна плащівка / Холофайбер'
+        badge = 'Хіт'
+    elif 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'зим' in title_lower:
         cat = 'clothing'
         subcat = 'winter_jacket'
         cat_name = 'Одяг & Зимові куртки'
@@ -422,7 +477,7 @@ def transform_mydrop_product(p, markup=0.20):
 
     brand_slug, brand_name = resolve_brand(raw_title)
 
-    gender = 'women' if ('жіноч' in title_lower or 'жінк' in title_lower) else ('men' if 'чоловіч' in title_lower else 'unisex')
+    gender = 'women' if ('жіноч' in title_lower or 'жінк' in title_lower) else 'men'
 
     raw_desc = p.get('description') or ''
     clean_lines = []
@@ -431,9 +486,12 @@ def transform_mydrop_product(p, markup=0.20):
         line_clean = re.sub(r'^[•\-\*\s]+', '', line_clean).strip()
         if line_clean and not any(line_clean.lower().startswith(x) for x in ['артикул:', 'розміри:']):
             clean_lines.append(line_clean)
-    desc = '\n'.join(clean_lines) if clean_lines else (
-        f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
-    )
+    if clean_lines:
+        desc = '\n'.join(clean_lines)
+    elif subcat == 'vest':
+        desc = f"Стильна брендова жилетка {raw_title}. Якісна водовідштовхувальна плащівка, надійний легкий утеплювач холофайбер для захисту від вітру та холоду. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
+    else:
+        desc = f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
 
     imgs = []
     if p.get('images'):
@@ -443,11 +501,20 @@ def transform_mydrop_product(p, markup=0.20):
     if not imgs and p.get('titleImage') and p['titleImage'].get('filename'):
         imgs.append(f"https://backend.mydrop.com.ua/vendor/products/uploads/{p['titleImage']['filename']}")
 
-    avail_sizes = [s['title'].strip() for s in p.get('sizes', []) if s.get('availableDropshipper')]
-    all_sizes = [s['title'].strip() for s in p.get('sizes', [])]
-    sizes = avail_sizes if avail_sizes else all_sizes
+    clean_sizes = []
+    for s in p.get('sizes', []):
+        if s.get('availableDropshipper'):
+            stitle = s.get('title', '').strip()
+            if stitle and stitle not in clean_sizes:
+                clean_sizes.append(stitle)
+    if not clean_sizes:
+        for s in p.get('sizes', []):
+            stitle = s.get('title', '').strip()
+            if stitle and stitle not in clean_sizes:
+                clean_sizes.append(stitle)
 
     slug = f"{slugify(raw_title)}-{pid}"
+    thumb = f"/images/catalog/{pid}.jpg"
 
     return {
         'id': str(pid),
@@ -470,9 +537,10 @@ def transform_mydrop_product(p, markup=0.20):
         'origin': 'Фабричне виробництво',
         'badge': badge,
         'desc': desc,
+        'thumb': thumb,
         'imgs': imgs,
-        'sizes': sizes,
-        'in_stock': len(avail_sizes) > 0
+        'sizes': clean_sizes,
+        'in_stock': len(clean_sizes) > 0
     }
 
 
@@ -528,7 +596,7 @@ def parse_source_url(url_str, markup=0.20):
         cat_id = int(m.group(2))
         vendor_id = resolve_vendor_id(vendor_slug)
         if vendor_id:
-            return {'type': 'mydrop_category', 'vendor_id': vendor_id, 'category_id': cat_id, 'vendor_slug': vendor_slug, 'url': u, 'markup': markup}
+            return {'type': 'mydrop_category', 'vendor_id': vendor_id, 'category_id': str(cat_id), 'vendor_slug': vendor_slug, 'url': u, 'markup': markup, 'min_stock': 2}
 
     return None
 
@@ -664,12 +732,8 @@ def generate_sitemap_xml(products):
 def commit_catalog_files(products):
     os.makedirs(DATA_DIR, exist_ok=True)
 
-    for p in products:
-        if str(p.get('id', '')) in PINNED_PRODUCT_IDS:
-            p['pinned'] = True
-
-    # Pinned products always come first, followed by newest products by ID descending
-    products.sort(key=lambda p: (0 if (str(p.get('id', '')) in PINNED_PRODUCT_IDS or p.get('pinned')) else 1, -int(p.get('id', 0))))
+    # Always put newest products at the beginning of the catalog
+    products.sort(key=lambda p: int(p.get('id', 0)), reverse=True)
 
     with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
         json.dump(products, f, ensure_ascii=False, indent=2)
@@ -747,9 +811,16 @@ def sync_sources():
         elif stype == 'mydrop_category':
             vid = s.get('vendor_id')
             cid = s.get('category_id')
+            min_stock = int(s.get('min_stock', 2))
             if vid and cid:
-                # category fetch
-                pass
+                items = fetch_mydrop_category(vid, cid, markup=markup, min_stock=min_stock)
+                if items is None:
+                    failed_sources.append(s)
+                else:
+                    for itm in items:
+                        if str(itm['id']) not in seen_pids:
+                            seen_pids.add(str(itm['id']))
+                            synced_products.append(itm)
 
     if failed_sources:
         print(f"Safety guard triggered: {len(failed_sources)} of {len(sources)} sources failed to load (network/server error). Keeping existing catalog intact to prevent data loss.")

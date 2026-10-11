@@ -24,7 +24,7 @@ PRODUCT_OUT_DIR = os.path.join(PROJECT_DIR, 'product')
 CATEGORY_OUT_DIR = os.path.join(PROJECT_DIR, 'category')
 SITEMAP_FILE = os.path.join(PROJECT_DIR, 'sitemap.xml')
 
-PINNED_PRODUCT_IDS = ['193785']
+PINNED_PRODUCT_IDS = []
 
 os.makedirs(PRODUCT_OUT_DIR, exist_ok=True)
 os.makedirs(CATEGORY_OUT_DIR, exist_ok=True)
@@ -748,8 +748,8 @@ def main():
     with open(PRODUCTS_FILE, encoding='utf-8') as f:
         products = json.load(f)
 
-    # Prioritize pinned products, followed by newest products
-    products.sort(key=lambda p: (0 if (str(p.get('id', '')) in PINNED_PRODUCT_IDS or p.get('pinned')) else 1, -int(p.get('id', 0))))
+    # Always place newest products at the beginning of the catalog
+    products.sort(key=lambda p: int(p.get('id', 0)), reverse=True)
 
     with open(META_FILE, encoding='utf-8') as f:
         meta = json.load(f)

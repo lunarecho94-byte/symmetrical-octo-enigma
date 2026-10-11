@@ -1837,7 +1837,7 @@ let currentCatalogSize = 'all';
 let currentCatalogPriceRange = 'all';
 let currentCatalogSearchQuery = '';
 let currentCatalogSort = 'newest';
-const PINNED_PRODUCT_IDS = ['193785'];
+const PINNED_PRODUCT_IDS = [];
 
 function productMatchesGender(p, gender) {
     if (!gender || gender === 'all') return true;

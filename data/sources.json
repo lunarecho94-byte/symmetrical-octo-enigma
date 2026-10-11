@@ -19,5 +19,14 @@
     "category_id": "15395",
     "url": "https://easydrop.one/supplier-catalog/25162466829867/15395/",
     "markup": 0.2
+  },
+  {
+    "type": "mydrop_category",
+    "vendor_id": 40070,
+    "vendor_slug": "generalclothes",
+    "category_id": "170197",
+    "url": "https://mydrop.com.ua/generalclothes/c/170197",
+    "markup": 0.2,
+    "min_stock": 2
   }
 ]

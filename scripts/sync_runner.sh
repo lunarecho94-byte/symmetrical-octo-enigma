@@ -25,11 +25,11 @@ python3 "$PROJECT_DIR/scripts/sync_catalog.py" --download >> "$LOG_FILE" 2>&1
 python3 "$PROJECT_DIR/scripts/build_pages.py" >> "$LOG_FILE" 2>&1
 
 # 2. Check if catalog files changed
-CHANGED_FILES=$(git status --porcelain data/products.json data/meta.json feed.xml sitemap.xml product/ category/ index.html)
+CHANGED_FILES=$(git status --porcelain data/products.json data/meta.json data/sources.json feed.xml sitemap.xml product/ category/ index.html images/catalog/)
 
 if [ -n "$CHANGED_FILES" ]; then
     echo "[$TIMESTAMP] Changes detected in catalog data. Committing and pushing..." >> "$LOG_FILE"
-    git add data/products.json data/meta.json feed.xml sitemap.xml product/ category/ index.html
+    git add data/products.json data/meta.json data/sources.json feed.xml sitemap.xml product/ category/ index.html images/catalog/
     git -c user.name="Vladimir" -c user.email="zb9m9yrccy@privaterelay.appleid.com" commit -m "Автоматична синхронізація наявності та каталогу верхнього одягу [$TIMESTAMP]" >> "$LOG_FILE" 2>&1
 
     # Pull rebase before push to avoid lock / non-fast-forward conflicts
