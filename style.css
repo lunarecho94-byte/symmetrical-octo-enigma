@@ -1668,16 +1668,19 @@ section, header, footer, .announcement-bar {
     max-width: none !important;
     max-height: none !important;
     object-fit: cover !important;
-    object-position: center !important;
+    object-position: center top !important;
     display: block !important;
     margin: 0 !important;
-    transition: transform 0.25s ease;
-    background: transparent !important;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: #f1f5f9 !important;
     padding: 0 !important;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .product-card:hover .product-img-wrapper img {
-    transform: scale(1.03) !important;
+    transform: scale(1.04) !important;
 }
 
 /* GORE-TEX Diamond Badge */

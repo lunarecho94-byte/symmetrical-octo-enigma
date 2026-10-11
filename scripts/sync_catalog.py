@@ -164,16 +164,16 @@ def ensure_local_thumbnail(pk, remote_img_path):
     catalog_dir = os.path.join(PROJECT_DIR, 'images', 'catalog')
     os.makedirs(catalog_dir, exist_ok=True)
     thumb_path = os.path.join(catalog_dir, f"{pk}.jpg")
-    if os.path.exists(thumb_path) and os.path.getsize(thumb_path) > 1000:
+    if os.path.exists(thumb_path) and os.path.getsize(thumb_path) > 30000:
         return
     remote_url = remote_img_path if remote_img_path.startswith('http') else f"https://easydrop.one{remote_img_path}"
     temp_path = os.path.join(catalog_dir, f"{pk}_tmp.jpg")
     try:
-        req = urllib.request.Request(remote_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=12, context=ctx) as r:
+        req = urllib.request.Request(remote_url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'})
+        with urllib.request.urlopen(req, timeout=15, context=ctx) as r:
             with open(temp_path, 'wb') as f:
                 f.write(r.read())
-        subprocess.run(['sips', '-Z', '600', '-s', 'format', 'jpeg', '-s', 'formatOptions', '75', temp_path, '--out', thumb_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.run(['sips', '-Z', '800', '-s', 'format', 'jpeg', '-s', 'formatOptions', '85', temp_path, '--out', thumb_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         if os.path.exists(temp_path):
             os.remove(temp_path)
     except Exception as e:
