@@ -197,7 +197,7 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             html = r.read().decode('utf-8', errors='ignore')
     except Exception as e:
         print(f"Error loading EasyDrop URL: {e}")
-        return []
+        return None
 
     csrftoken = ''
     for c in cj:
@@ -706,8 +706,17 @@ def sync_sources():
         return
 
     print(f"Syncing {len(sources)} sources from data/sources.json...")
+    existing_products = []
+    if os.path.exists(OUTPUT_PRODUCTS):
+        try:
+            with open(OUTPUT_PRODUCTS, encoding='utf-8') as f:
+                existing_products = json.load(f)
+        except Exception:
+            existing_products = []
+
     synced_products = []
     seen_pids = set()
+    failed_sources = []
 
     for s in sources:
         stype = s.get('type')
@@ -718,10 +727,13 @@ def sync_sources():
             cid = s.get('category_id')
             if token and cid:
                 items = fetch_easydrop_category(token, cid, markup=markup)
-                for itm in items:
-                    if str(itm['id']) not in seen_pids:
-                        seen_pids.add(str(itm['id']))
-                        synced_products.append(itm)
+                if items is None:
+                    failed_sources.append(s)
+                else:
+                    for itm in items:
+                        if str(itm['id']) not in seen_pids:
+                            seen_pids.add(str(itm['id']))
+                            synced_products.append(itm)
 
         elif stype == 'mydrop_product':
             vid = s.get('vendor_id')
@@ -739,8 +751,16 @@ def sync_sources():
                 # category fetch
                 pass
 
+    if failed_sources:
+        print(f"Safety guard triggered: {len(failed_sources)} of {len(sources)} sources failed to load (network/server error). Keeping existing catalog intact to prevent data loss.")
+        return
+
     if not synced_products and sources:
         print("Safety guard triggered: active sources exist but 0 products were fetched (network issue / error). Keeping existing catalog intact.")
+        return
+
+    if existing_products and len(synced_products) < int(len(existing_products) * 0.7):
+        print(f"Safety guard triggered: synced only {len(synced_products)} items, while existing catalog has {len(existing_products)} items. Keeping existing catalog intact.")
         return
 
     commit_catalog_files(synced_products)
