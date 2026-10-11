@@ -25,7 +25,7 @@ python3 "$PROJECT_DIR/scripts/sync_catalog.py" --download >> "$LOG_FILE" 2>&1
 python3 "$PROJECT_DIR/scripts/build_pages.py" >> "$LOG_FILE" 2>&1
 
 # 2. Check if catalog files changed
-CHANGED_FILES=$(git status --porcelain data/ feed.xml sitemap.xml product/ category/ index.html)
+CHANGED_FILES=$(git status --porcelain data/products.json data/meta.json feed.xml sitemap.xml product/ category/ index.html)
 
 if [ -n "$CHANGED_FILES" ]; then
     echo "[$TIMESTAMP] Changes detected in catalog data. Committing and pushing..." >> "$LOG_FILE"
