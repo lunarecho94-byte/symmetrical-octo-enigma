@@ -42,10 +42,10 @@ const FALLBACK_PRODUCT_SVG = `data:image/svg+xml;charset=utf-8,${encodeURICompon
 `)}`;
 
 function getCategoryFallbackImg(cat) {
-    if (cat === 'clothing') return '/images/tshirt.webp';
+    if (cat === 'clothing' || cat === 'jacket' || cat === 'winter_jacket' || cat === 'vest' || cat === 'zip_hoodie') return '/images/outerwear.webp';
     if (cat === 'pants') return '/images/pants.webp';
     if (cat === 'accessories' || cat === 'bags') return '/images/urbano_logo_full.webp';
-    return '/images/sneakers.webp';
+    return '/images/outerwear.webp';
 }
 
 function handleCardImgError(img, cat) {
@@ -6928,9 +6928,17 @@ window.clearOrdersLedger = clearOrdersLedger;
 // DEDICATED PRODUCT DETAIL PAGE (PDP) LOGIC
 // ==========================================================================
 
-let pdpCurrentProduct = null;
+let pdpCurrentProduct = (typeof window !== 'undefined' && (window.currentPdpProduct || window.pdpCurrentProduct)) || null;
 let pdpSelectedSize = '';
 let pdpCurrentPhotoIndex = 0;
+
+function getPdpProduct() {
+    if (!pdpCurrentProduct && typeof window !== 'undefined') {
+        pdpCurrentProduct = window.currentPdpProduct || window.pdpCurrentProduct || null;
+    }
+    return pdpCurrentProduct;
+}
+window.getPdpProduct = getPdpProduct;
 
 function generateProductSlug(name, id) {
     const cyrMap = {
@@ -7219,7 +7227,9 @@ async function initProductDetailPage() {
 window.initProductDetailPage = initProductDetailPage;
 
 function renderProductDetailPage(item) {
+    pdpCurrentProduct = item;
     window.currentPdpProduct = item;
+    window.pdpCurrentProduct = item;
     try {
         sessionStorage.removeItem('urban_last_viewed_product_id');
         sessionStorage.removeItem('urban_catalog_state');
@@ -7452,8 +7462,15 @@ function renderPdpGallery(item) {
 }
 
 function pdpSwitchPhoto(idx) {
-    if (!pdpCurrentProduct) return;
-    const imgs = pdpCurrentProduct.imgs || ['images/sneakers.webp'];
+    const prod = getPdpProduct();
+    let imgs = (prod && prod.imgs && prod.imgs.length) ? prod.imgs : null;
+    if (!imgs) {
+        const thumbImgs = document.querySelectorAll('.pdp-thumbs-strip img, .pdp-thumb-btn img');
+        if (thumbImgs && thumbImgs.length) {
+            imgs = Array.from(thumbImgs).map(img => img.src);
+        }
+    }
+    if (!imgs || !imgs.length) return;
     if (idx < 0) idx = imgs.length - 1;
     if (idx >= imgs.length) idx = 0;
     pdpCurrentPhotoIndex = idx;
@@ -7783,11 +7800,11 @@ function renderPdpAccordions(item) {
 }
 
 function pdpAddToCartAction() {
-    if (!pdpCurrentProduct) return;
-    const item = pdpCurrentProduct;
+    const item = getPdpProduct();
+    if (!item) return;
     const displayName = formatProductDisplayName(item);
-    const mainImg = (item.imgs && item.imgs[0]) ? item.imgs[0] : 'images/sneakers.webp';
-    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+    const mainImg = (item.imgs && item.imgs[0]) ? item.imgs[0] : (item.thumb || '/images/outerwear.webp');
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : (item.sizes && item.sizes.length ? item.sizes[0] : 'S'));
 
     addToCart({
         id: `${item.id}-${chosenSize}`,
@@ -7806,10 +7823,10 @@ function pdpAddToCartAction() {
 window.pdpAddToCartAction = pdpAddToCartAction;
 
 function pdpQuickOrderAction() {
-    if (!pdpCurrentProduct) return;
-    const item = pdpCurrentProduct;
+    const item = getPdpProduct();
+    if (!item) return;
     const displayName = formatProductDisplayName(item);
-    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : (item.sizes && item.sizes.length ? item.sizes[0] : 'S'));
 
     const modal = document.getElementById('quickOrderModalWrapper');
     const subtitle = document.getElementById('pdpQuickModalSubtitle');
@@ -7836,10 +7853,10 @@ window.pdpCloseQuickOrderModal = pdpCloseQuickOrderModal;
 
 async function pdpSubmitQuickOrder(e) {
     if (e && e.preventDefault) e.preventDefault();
-    if (!pdpCurrentProduct) return;
-    const item = pdpCurrentProduct;
+    const item = getPdpProduct();
+    if (!item) return;
     const displayName = formatProductDisplayName(item);
-    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : (item.sizes && item.sizes.length ? item.sizes[0] : 'S'));
 
     const nameInput = document.getElementById('pdpQuickName');
     const phoneInput = document.getElementById('pdpQuickPhone');
@@ -7941,10 +7958,10 @@ window.pdpSubmitQuickOrder = pdpSubmitQuickOrder;
 
 function pdpOrderViaMessenger(type, e) {
     if (e && e.preventDefault) e.preventDefault();
-    if (!pdpCurrentProduct) return;
-    const item = pdpCurrentProduct;
+    const item = getPdpProduct();
+    if (!item) return;
     const displayName = formatProductDisplayName(item);
-    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : '42');
+    const chosenSize = pdpSelectedSize || (item.sizes && item.sizes[0] ? formatSizeLabel(item.sizes[0]) : (item.sizes && item.sizes.length ? item.sizes[0] : 'S'));
 
     const msg = `Доброго дня! Хочу замовити цей товар з сайту URBAN:\n\n` +
         `Модель: ${displayName}\n` +
@@ -7970,9 +7987,11 @@ function pdpOrderViaMessenger(type, e) {
 window.pdpOrderViaMessenger = pdpOrderViaMessenger;
 
 function pdpCopyArt() {
-    if (!pdpCurrentProduct || !pdpCurrentProduct.art) return;
-    copyTextToClipboard(pdpCurrentProduct.art);
-    showCartToast(`Артикул ${pdpCurrentProduct.art} скопійовано!`);
+    const item = getPdpProduct();
+    const artText = (item && item.art) || (document.getElementById('pdpArtVal') ? document.getElementById('pdpArtVal').textContent.trim() : '');
+    if (!artText || artText === '---') return;
+    copyTextToClipboard(artText);
+    showCartToast(`Артикул ${artText} скопійовано!`);
     const hint = document.getElementById('pdpArtCopyHint');
     if (hint) {
         hint.textContent = 'скопійовано!';
@@ -7982,7 +8001,8 @@ function pdpCopyArt() {
 window.pdpCopyArt = pdpCopyArt;
 
 function pdpOpenSizeGuide() {
-    if (pdpCurrentProduct && pdpCurrentProduct.imgs && pdpCurrentProduct.imgs.length > 1) {
+    const item = getPdpProduct();
+    if (item && item.imgs && item.imgs.length > 1) {
         pdpSwitchPhoto(1);
         const mainBox = document.getElementById('pdpMainImgBox');
         if (mainBox) {
@@ -7990,7 +8010,7 @@ function pdpOpenSizeGuide() {
         }
         return;
     }
-    const cat = pdpCurrentProduct ? (pdpCurrentProduct.cat || 'shoes') : 'shoes';
+    const cat = item ? (item.cat || 'clothing') : 'clothing';
     if (cat === 'accessories' || cat === 'socks') {
         const acc = document.getElementById('pdpAccSizeGuide');
         if (acc) {
@@ -8019,9 +8039,10 @@ function pdpScrollToAccordion(type) {
 window.pdpScrollToAccordion = pdpScrollToAccordion;
 
 function pdpToggleFavoriteAction() {
-    if (!pdpCurrentProduct) return;
-    toggleFavorite(pdpCurrentProduct.id);
-    updatePdpFavoriteButton(pdpCurrentProduct.id);
+    const item = getPdpProduct();
+    if (!item) return;
+    toggleFavorite(item.id);
+    updatePdpFavoriteButton(item.id);
 }
 window.pdpToggleFavoriteAction = pdpToggleFavoriteAction;
 
