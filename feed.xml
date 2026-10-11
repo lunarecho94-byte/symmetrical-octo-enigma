@@ -5,6 +5,26 @@
     <link>https://urbangrid.com.ua</link>
     <description>Каталог одягу та взуття від URBAN. Швидка доставка Новою Поштою по Україні.</description>
     <item>
+      <g:id>prod-193785</g:id>
+      <title>Зимова куртка Nike Nik/1001</title>
+      <description>Зимова куртка Nike Nik/1001 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: Nik/1001</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nik-1001-193785</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/af2c3105-6a47-4a33-a7e1-e4de1c750515.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3900 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>prod-249244</g:id>
       <title>Зимова куртка Napapijri NNP/8802</title>
       <description>Зимова куртка Napapijri NNP/8802 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: NNP/8802</description>
@@ -1310,26 +1330,6 @@
       <description>Зимова куртка Nike Nik/1003 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: Nik/1003</description>
       <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nik-1003-193786</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/de1ac029-705f-4b64-b7db-5a9179d86bdb.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3900 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-193785</g:id>
-      <title>Зимова куртка Nike Nik/1001</title>
-      <description>Зимова куртка Nike Nik/1001 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: Nik/1001</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nik-1001-193785</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/af2c3105-6a47-4a33-a7e1-e4de1c750515.jpeg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>women</g:gender>
       <g:age_group>adult</g:age_group>

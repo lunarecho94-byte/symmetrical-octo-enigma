@@ -99,6 +99,9 @@ WOMEN_IDS = {
     '201705', '201706', '193785', '193787', '193786', '141977', '141976', '138573', '138574', '136823', '76829', '76830', '127833', '127834', '194863'
 }
 
+PINNED_PRODUCT_IDS = ['193785']
+
+
 
 def slugify(text):
     s = str(text or '').lower()
@@ -661,8 +664,12 @@ def generate_sitemap_xml(products):
 def commit_catalog_files(products):
     os.makedirs(DATA_DIR, exist_ok=True)
 
-    # Always put newest products at the beginning of the catalog
-    products.sort(key=lambda p: int(p.get('id', 0)), reverse=True)
+    for p in products:
+        if str(p.get('id', '')) in PINNED_PRODUCT_IDS:
+            p['pinned'] = True
+
+    # Pinned products always come first, followed by newest products by ID descending
+    products.sort(key=lambda p: (0 if (str(p.get('id', '')) in PINNED_PRODUCT_IDS or p.get('pinned')) else 1, -int(p.get('id', 0))))
 
     with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
         json.dump(products, f, ensure_ascii=False, indent=2)

@@ -1837,6 +1837,7 @@ let currentCatalogSize = 'all';
 let currentCatalogPriceRange = 'all';
 let currentCatalogSearchQuery = '';
 let currentCatalogSort = 'newest';
+const PINNED_PRODUCT_IDS = ['193785'];
 
 function productMatchesGender(p, gender) {
     if (!gender || gender === 'all') return true;
@@ -2087,8 +2088,15 @@ async function initDynamicCatalog() {
             return true;
         });
 
-        // Always place newest products at the beginning of the catalog
-        catalogAllProducts.sort((a, b) => (parseInt(b.id, 10) || 0) - (parseInt(a.id, 10) || 0));
+        // Always place pinned products at the beginning, followed by newest products
+        catalogAllProducts.sort((a, b) => {
+            const isPinnedA = (PINNED_PRODUCT_IDS.includes(String(a.id)) || a.pinned) ? 1 : 0;
+            const isPinnedB = (PINNED_PRODUCT_IDS.includes(String(b.id)) || b.pinned) ? 1 : 0;
+            if (isPinnedA !== isPinnedB) {
+                return isPinnedB - isPinnedA;
+            }
+            return (parseInt(b.id, 10) || 0) - (parseInt(a.id, 10) || 0);
+        });
         catalogAllProducts.forEach((item, idx) => {
             item._order = idx;
         });
@@ -3958,7 +3966,12 @@ function sortFilteredProducts(criteria) {
             case 'newest':
             case 'popular':
             default: {
-                // Always put newest products at the beginning of the catalog
+                // Pinned products always come first, followed by newest products
+                const isPinnedA = (PINNED_PRODUCT_IDS.includes(String(a.id)) || a.pinned) ? 1 : 0;
+                const isPinnedB = (PINNED_PRODUCT_IDS.includes(String(b.id)) || b.pinned) ? 1 : 0;
+                if (isPinnedA !== isPinnedB) {
+                    return isPinnedB - isPinnedA;
+                }
                 return idB - idA;
             }
         }
