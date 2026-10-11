@@ -661,8 +661,11 @@ def generate_sitemap_xml(products):
 def commit_catalog_files(products):
     os.makedirs(DATA_DIR, exist_ok=True)
 
+    # Always put newest products at the beginning of the catalog
+    products.sort(key=lambda p: int(p.get('id', 0)), reverse=True)
+
     with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
-        json.dump(products, f, ensure_ascii=False, indent=2 if not products else None, separators=(',', ':') if products else None)
+        json.dump(products, f, ensure_ascii=False, indent=2)
     print(f"Saved {OUTPUT_PRODUCTS} with {len(products)} products")
 
     meta = generate_meta_dict(products)

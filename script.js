@@ -1836,7 +1836,7 @@ let currentCatalogBrand = 'all';
 let currentCatalogSize = 'all';
 let currentCatalogPriceRange = 'all';
 let currentCatalogSearchQuery = '';
-let currentCatalogSort = 'popular';
+let currentCatalogSort = 'newest';
 
 function productMatchesGender(p, gender) {
     if (!gender || gender === 'all') return true;
@@ -2087,11 +2087,10 @@ async function initDynamicCatalog() {
             return true;
         });
 
-        // Tag and preserve showcase order (jackets, vests, hoodies, winter apparel, shoes)
+        // Always place newest products at the beginning of the catalog
+        catalogAllProducts.sort((a, b) => (parseInt(b.id, 10) || 0) - (parseInt(a.id, 10) || 0));
         catalogAllProducts.forEach((item, idx) => {
-            if (typeof item._order !== 'number') {
-                item._order = idx;
-            }
+            item._order = idx;
         });
 
         catalogMeta = await metaResp.json();
@@ -2540,11 +2539,11 @@ function checkCatalogUrlParams() {
             if (sortSelect) sortSelect.value = sort;
             updateSortDisplayLabel(sort);
             changed = true;
-        } else if (currentCatalogSort !== 'default') {
-            currentCatalogSort = 'default';
+        } else if (currentCatalogSort !== 'newest') {
+            currentCatalogSort = 'newest';
             const sortSelect = document.getElementById('catalogSortSelect');
-            if (sortSelect) sortSelect.value = 'default';
-            updateSortDisplayLabel('default');
+            if (sortSelect) sortSelect.value = 'newest';
+            updateSortDisplayLabel('newest');
             changed = true;
         } else {
             updateSortDisplayLabel(currentCatalogSort);
@@ -2854,9 +2853,9 @@ function resetAllCatalogFilters() {
     const priceSelect = document.getElementById('catalogPriceFilter');
     if (priceSelect) priceSelect.value = 'all';
     const sortSelect = document.getElementById('catalogSortSelect');
-    if (sortSelect) sortSelect.value = 'popular';
-    currentCatalogSort = 'popular';
-    updateSortDisplayLabel('popular');
+    if (sortSelect) sortSelect.value = 'newest';
+    currentCatalogSort = 'newest';
+    updateSortDisplayLabel('newest');
 
     updateBrandButtonState();
     updateSizeButtonState();
@@ -2880,9 +2879,9 @@ function applyQuickNavFilter(key, btn) {
         const searchInput = document.getElementById('catalogSearchInput');
         if (searchInput) searchInput.value = '';
         const sortSelect = document.getElementById('catalogSortSelect');
-        if (sortSelect) sortSelect.value = 'popular';
-        currentCatalogSort = 'popular';
-        updateSortDisplayLabel('popular');
+        if (sortSelect) sortSelect.value = 'newest';
+        currentCatalogSort = 'newest';
+        updateSortDisplayLabel('newest');
     } else if (key === 'shoes') {
         currentCatalogCategory = 'shoes';
     } else if (key === 'men') {
@@ -3646,12 +3645,12 @@ function quickSearch(term) {
 }
 
 const SORT_DISPLAY_MAP = {
+    'newest': 'Новинки спочатку',
     'popular': 'За популярністю',
-    'default': 'За популярністю',
+    'default': 'Новинки спочатку',
     'discount': 'Найбільша знижка',
     'price-asc': 'Ціна: від дешевих',
     'price-desc': 'Ціна: від дорогих',
-    'newest': 'Новинки спочатку',
     'name-asc': 'За назвою (А-Я)'
 };
 
@@ -3659,13 +3658,13 @@ function updateSortDisplayLabel(criteria) {
     const displayEl = document.getElementById('catalogSortCurrentVal');
     if (!displayEl) return;
     const sortSelect = document.getElementById('catalogSortSelect');
-    const val = criteria || (sortSelect ? sortSelect.value : 'popular');
+    const val = criteria || (sortSelect ? sortSelect.value : 'newest');
     if (SORT_DISPLAY_MAP[val]) {
         displayEl.textContent = SORT_DISPLAY_MAP[val];
     } else if (sortSelect && sortSelect.options && sortSelect.selectedIndex >= 0) {
         displayEl.textContent = sortSelect.options[sortSelect.selectedIndex].text;
     } else {
-        displayEl.textContent = 'За популярністю';
+        displayEl.textContent = 'Новинки спочатку';
     }
 }
 
@@ -3959,8 +3958,7 @@ function sortFilteredProducts(criteria) {
             case 'newest':
             case 'popular':
             default: {
-                // Priority showcase order: jackets, vests, hoodies, winter apparel, shoes
-                if (orderA !== orderB) return orderA - orderB;
+                // Always put newest products at the beginning of the catalog
                 return idB - idA;
             }
         }
