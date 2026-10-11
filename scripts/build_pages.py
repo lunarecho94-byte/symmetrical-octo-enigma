@@ -1031,6 +1031,30 @@ def prerender_index_catalog(products):
     drawer_cats_html = f'''<ul class="drawer-items-list" id="drawerCatList">\n                        ''' + '\n                        '.join(drawer_cat_items) + '\n                    </ul>'
     html = re.sub(r'<ul class="drawer-items-list" id="drawerCatList">.*?</ul>', drawer_cats_html, html, flags=re.DOTALL)
 
+    # Synchronize drawer brands
+    brand_counts = Counter(p['brand'] for p in products)
+    brand_names_map = {}
+    for p in products:
+        brand_names_map[p['brand']] = p['brand_name']
+
+    drawer_brand_items = [f'''<li>
+                            <button type="button" class="drawer-nav-item active" data-brand="all" onclick="applyDrawerBrand('all')">
+                                <span class="drawer-nav-name">Всі бренди</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_all">{len(products)}</span>
+                            </button>
+                        </li>''']
+    for b_slug, b_cnt in brand_counts.most_common():
+        b_name = brand_names_map.get(b_slug, b_slug.upper())
+        drawer_brand_items.append(f'''<li>
+                            <button type="button" class="drawer-nav-item" data-brand="{escape(b_slug)}" onclick="applyDrawerBrand('{escape(b_slug)}')">
+                                <span class="drawer-nav-name">{escape(b_name)}</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_{escape(b_slug)}">{b_cnt}</span>
+                            </button>
+                        </li>''')
+
+    drawer_brands_html = f'''<ul class="drawer-items-list drawer-brands-scroll" id="drawerBrandsList">\n                        ''' + '\n                        '.join(drawer_brand_items) + '\n                    </ul>'
+    html = re.sub(r'<ul class="drawer-items-list[^"]*" id="drawerBrandsList">.*?</ul>', drawer_brands_html, html, flags=re.DOTALL)
+
     # Synchronize drawer gender
     men_count = sum(1 for p in products if p.get('gender') == 'men')
     women_count = sum(1 for p in products if p.get('gender') == 'women')

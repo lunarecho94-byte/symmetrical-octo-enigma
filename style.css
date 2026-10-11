@@ -11112,6 +11112,30 @@ body.catalog-drawer-open {
     gap: 3px;
 }
 
+.drawer-brands-scroll {
+    max-height: 270px;
+    overflow-y: auto;
+    padding-right: 4px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.drawer-brands-scroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.drawer-brands-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.drawer-brands-scroll::-webkit-scrollbar-thumb {
+    background: #e4e4e7;
+    border-radius: 4px;
+}
+
+.drawer-brands-scroll::-webkit-scrollbar-thumb:hover {
+    background: #d4d4d8;
+}
+
 .drawer-nav-item {
     width: 100%;
     display: flex;

@@ -2685,6 +2685,12 @@ function syncDrawerActiveStates() {
         const b = btn.getAttribute('data-brand');
         btn.classList.toggle('active', b === currentCatalogBrand);
     });
+    if (currentCatalogBrand !== 'all') {
+        const brandAcc = document.getElementById('drawerAccBrand');
+        if (brandAcc && !brandAcc.classList.contains('open')) {
+            brandAcc.classList.add('open');
+        }
+    }
 
     // 5. Sizes
     document.querySelectorAll('.drawer-size-chip').forEach(btn => {
@@ -3039,6 +3045,7 @@ window.syncQuickNavChips = syncQuickNavChips;
 window.setQuickCatalogFilter = setQuickCatalogFilter;
 window.syncQuickCatalogPills = syncQuickCatalogPills;
 window.updateCatalogModelsCountText = updateCatalogModelsCountText;
+window.renderDrawerBrandsList = renderDrawerBrandsList;
 
 // Global Escape and Enter handlers for catalog drawer
 document.addEventListener('keydown', (e) => {
@@ -3137,6 +3144,24 @@ function renderBrandFilterChips(meta) {
     currentBrandsList = brandsList;
     updateBrandButtonState();
     renderBrandModalItems(brandsList);
+    renderDrawerBrandsList(brandsList);
+}
+
+function renderDrawerBrandsList(list) {
+    const drawerList = document.getElementById('drawerBrandsList');
+    if (!drawerList || !list) return;
+
+    drawerList.innerHTML = list.map(b => {
+        const isActive = currentCatalogBrand === b.slug;
+        return `
+            <li>
+                <button type="button" class="drawer-nav-item ${isActive ? 'active' : ''}" data-brand="${escapeHtml(b.slug)}" onclick="applyDrawerBrand('${escapeHtml(b.slug)}')">
+                    <span class="drawer-nav-name">${escapeHtml(b.name)}</span>
+                    <span class="drawer-nav-count" id="drawerBrandCount_${escapeHtml(b.slug)}">${b.count.toLocaleString('uk-UA')}</span>
+                </button>
+            </li>
+        `;
+    }).join('');
 }
 
 function renderBrandModalItems(list) {
