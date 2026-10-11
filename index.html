@@ -597,7 +597,7 @@
                     </a>
                 </div>
 
-                <div class="product-card" id="prod-5503599" data-brand="pukhovyk-cp-company-gray" data-category="clothing" data-gender="men" data-price="2390" data-name="Пуховик CP. Company Gray" data-art="T007" data-id="5503599">
+                <div class="product-card" id="prod-5503599" data-brand="cp_company" data-category="clothing" data-gender="men" data-price="2390" data-name="Пуховик CP. Company Gray" data-art="T007" data-id="5503599">
                     <a href="/product/pukhovyk-cp-company-gray-5503599" class="want-card-link" onclick="openProductPage('5503599', event, '/product/pukhovyk-cp-company-gray-5503599', false)">
                         <div class="product-img-wrapper" title="Пуховик CP. Company Gray">
                             <button type="button" class="btn-card-fav" data-id="5503599" onclick="toggleFavorite('5503599', event)" aria-label="Додати в обране" title="Додати в обране">
@@ -4077,7 +4077,155 @@
                 </div>
             </div>
 
-            <!-- Accordion 2: Розмір -->
+            <!-- Accordion 2: Бренди -->
+            <div class="drawer-accordion" id="drawerAccBrand">
+                <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccBrand')">
+                    <span class="drawer-accordion-label">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                            <line x1="7" y1="7" x2="7.01" y2="7"/>
+                        </svg>
+                        Бренди
+                    </span>
+                    <span class="drawer-acc-arrow">▾</span>
+                </button>
+                <div class="drawer-accordion-content">
+                    <ul class="drawer-items-list drawer-brands-scroll" id="drawerBrandsList">
+                        <li>
+                            <button type="button" class="drawer-nav-item active" data-brand="all" onclick="applyDrawerBrand('all')">
+                                <span class="drawer-nav-name">Всі бренди</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_all">170</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="nike" onclick="applyDrawerBrand('nike')">
+                                <span class="drawer-nav-name">Nike</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_nike">44</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="the_north_face" onclick="applyDrawerBrand('the_north_face')">
+                                <span class="drawer-nav-name">The North Face</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_the_north_face">22</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="jordan" onclick="applyDrawerBrand('jordan')">
+                                <span class="drawer-nav-name">Jordan</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_jordan">14</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="polo_ralph_lauren" onclick="applyDrawerBrand('polo_ralph_lauren')">
+                                <span class="drawer-nav-name">Polo Ralph Lauren</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_polo_ralph_lauren">12</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="stone_island" onclick="applyDrawerBrand('stone_island')">
+                                <span class="drawer-nav-name">Stone Island</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_stone_island">12</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="moncler" onclick="applyDrawerBrand('moncler')">
+                                <span class="drawer-nav-name">Moncler</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_moncler">10</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="boss" onclick="applyDrawerBrand('boss')">
+                                <span class="drawer-nav-name">Hugo Boss</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_boss">10</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="napapijri" onclick="applyDrawerBrand('napapijri')">
+                                <span class="drawer-nav-name">Napapijri</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_napapijri">9</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="calvin_klein" onclick="applyDrawerBrand('calvin_klein')">
+                                <span class="drawer-nav-name">Calvin Klein</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_calvin_klein">7</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="cp_company" onclick="applyDrawerBrand('cp_company')">
+                                <span class="drawer-nav-name">C.P. Company</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_cp_company">6</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="lacoste" onclick="applyDrawerBrand('lacoste')">
+                                <span class="drawer-nav-name">Lacoste</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_lacoste">4</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="urban" onclick="applyDrawerBrand('urban')">
+                                <span class="drawer-nav-name">URBAN</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_urban">4</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="armani" onclick="applyDrawerBrand('armani')">
+                                <span class="drawer-nav-name">Armani Exchange</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_armani">3</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="louis_vuitton" onclick="applyDrawerBrand('louis_vuitton')">
+                                <span class="drawer-nav-name">Louis Vuitton</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_louis_vuitton">3</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="columbia" onclick="applyDrawerBrand('columbia')">
+                                <span class="drawer-nav-name">Columbia</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_columbia">3</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="trapstar" onclick="applyDrawerBrand('trapstar')">
+                                <span class="drawer-nav-name">Trapstar</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_trapstar">2</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="tommy_hilfiger" onclick="applyDrawerBrand('tommy_hilfiger')">
+                                <span class="drawer-nav-name">Tommy Hilfiger</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_tommy_hilfiger">2</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="broken_planet" onclick="applyDrawerBrand('broken_planet')">
+                                <span class="drawer-nav-name">Broken Planet</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_broken_planet">1</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="mertra" onclick="applyDrawerBrand('mertra')">
+                                <span class="drawer-nav-name">Mertra</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_mertra">1</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-brand="denim_tears" onclick="applyDrawerBrand('denim_tears')">
+                                <span class="drawer-nav-name">Denim Tears</span>
+                                <span class="drawer-nav-count" id="drawerBrandCount_denim_tears">1</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <button type="button" class="drawer-all-sizes-btn" onclick="closeCatalogDrawer(); openBrandModal();">
+                        <span>Пошук по всіх брендах...</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Accordion 3: Розмір -->
             <div class="drawer-accordion" id="drawerAccSize">
                 <button type="button" class="drawer-accordion-head" onclick="toggleDrawerAccordion('drawerAccSize')">
                     <span class="drawer-accordion-label">

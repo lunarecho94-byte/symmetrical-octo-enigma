@@ -120,7 +120,7 @@
     {
       "slug": "cp_company",
       "name": "C.P. Company",
-      "count": 5
+      "count": 6
     },
     {
       "slug": "lacoste",
@@ -160,11 +160,6 @@
     {
       "slug": "broken_planet",
       "name": "Broken Planet",
-      "count": 1
-    },
-    {
-      "slug": "pukhovyk-cp-company-gray",
-      "name": "Пуховик CP. Company Gray",
       "count": 1
     },
     {
