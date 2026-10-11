@@ -5,6 +5,66 @@
     <link>https://urbangrid.com.ua</link>
     <description>Каталог одягу та взуття від URBAN. Швидка доставка Новою Поштою по Україні.</description>
     <item>
+      <g:id>prod-5504354</g:id>
+      <title>Худі Broken Planet фліс</title>
+      <description>Худі Broken Planet фліс • Матеріал: Трьохнитка на флісі (бавовна / поліестер) • Розміри: M, L • Арт: T172</description>
+      <link>https://urbangrid.com.ua/product/khudi-broken-planet-flis-5504354</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/fdfa3e1faa8cfc71f217.png</g:image_link>
+      <g:brand>Broken Planet</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2520 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Худі</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503595</g:id>
+      <title>Анорак TNF утеплений, бежевий</title>
+      <description>Анорак TNF утеплений, бежевий • Матеріал: Водовідштовхувальна плащівка / Рефлективні вставки / Утеплювач • Розміри: S, M, L, XL, XXL • Арт: T039</description>
+      <link>https://urbangrid.com.ua/product/anorak-tnf-uteplenyy-bezhevyy-5503595</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/b67cdf3b465e5901ee10.png</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2390 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Анораки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503594</g:id>
+      <title>Анорак TNF утеплений, сірий, рефлективні вставки</title>
+      <description>Анорак TNF утеплений, сірий, рефлективні вставки • Матеріал: Водовідштовхувальна плащівка / Рефлективні вставки / Утеплювач • Розміри: S, M, L, XXL • Арт: T040</description>
+      <link>https://urbangrid.com.ua/product/anorak-tnf-uteplenyy-siryy-reflektyvni-vstavky-5503594</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/ce82a3eb855e1d6e1a01.png</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2390 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Анораки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>prod-5513003</g:id>
       <title>Пуховик JORDAN × PSG PUFFER</title>
       <description>Пуховик JORDAN × PSG PUFFER • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: T312</description>
@@ -205,126 +265,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-5503779</g:id>
-      <title>Жилетка Mertra</title>
-      <description>Жилетка Mertra • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: T214</description>
-      <link>https://urbangrid.com.ua/product/zhyletka-mertra-5503779</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/dbd83b8e06d6ab14971e.png</g:image_link>
-      <g:brand>Mertra</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3120 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-5503777</g:id>
-      <title>Жилетка Nike сіро біла</title>
-      <description>Жилетка Nike сіро біла • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: T085</description>
-      <link>https://urbangrid.com.ua/product/zhyletka-nike-siro-bila-5503777</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/ec4d8a99b2dcda30df47.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2160 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-5503776</g:id>
-      <title>Жилетка Nike чорна</title>
-      <description>Жилетка Nike чорна • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: XXL, XXXL • Арт: T086</description>
-      <link>https://urbangrid.com.ua/product/zhyletka-nike-chorna-5503776</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/cc7397f5c10ceba9c7e7.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2400 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-5503775</g:id>
-      <title>Жилетка Nike Storm-FIT чорна</title>
-      <description>Жилетка Nike Storm-FIT чорна • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: T289</description>
-      <link>https://urbangrid.com.ua/product/zhyletka-nike-storm-fit-chorna-5503775</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/a39c24e10818a696a4a2.png</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1800 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-5503774</g:id>
-      <title>Жилетка Moncler x Valentino Біла</title>
-      <description>Жилетка Moncler x Valentino Біла • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: T291</description>
-      <link>https://urbangrid.com.ua/product/zhyletka-moncler-x-valentino-bila-5503774</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/81afcee5d414300d48b8.png</g:image_link>
-      <g:brand>Moncler</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2760 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-5503773</g:id>
-      <title>Жилетка Moncler x Valentino Чорна</title>
-      <description>Жилетка Moncler x Valentino Чорна • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XL, XXL • Арт: T290</description>
-      <link>https://urbangrid.com.ua/product/zhyletka-moncler-x-valentino-chorna-5503773</link>
-      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/4ec2236a6d44eb8c224d.png</g:image_link>
-      <g:brand>Moncler</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2760 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-5503602</g:id>
       <title>Пуховик Trapstar Black</title>
       <description>Пуховик Trapstar Black • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XXL • Арт: T009</description>
@@ -518,6 +458,446 @@
       <g:price>2880 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503779</g:id>
+      <title>Жилетка Mertra</title>
+      <description>Жилетка Mertra • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: T214</description>
+      <link>https://urbangrid.com.ua/product/zhyletka-mertra-5503779</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/dbd83b8e06d6ab14971e.png</g:image_link>
+      <g:brand>Mertra</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3120 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503777</g:id>
+      <title>Жилетка Nike сіро біла</title>
+      <description>Жилетка Nike сіро біла • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: T085</description>
+      <link>https://urbangrid.com.ua/product/zhyletka-nike-siro-bila-5503777</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/ec4d8a99b2dcda30df47.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2160 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503776</g:id>
+      <title>Жилетка Nike чорна</title>
+      <description>Жилетка Nike чорна • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: XXL, XXXL • Арт: T086</description>
+      <link>https://urbangrid.com.ua/product/zhyletka-nike-chorna-5503776</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/cc7397f5c10ceba9c7e7.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2400 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503775</g:id>
+      <title>Жилетка Nike Storm-FIT чорна</title>
+      <description>Жилетка Nike Storm-FIT чорна • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: T289</description>
+      <link>https://urbangrid.com.ua/product/zhyletka-nike-storm-fit-chorna-5503775</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/a39c24e10818a696a4a2.png</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1800 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503774</g:id>
+      <title>Жилетка Moncler x Valentino Біла</title>
+      <description>Жилетка Moncler x Valentino Біла • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: T291</description>
+      <link>https://urbangrid.com.ua/product/zhyletka-moncler-x-valentino-bila-5503774</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/81afcee5d414300d48b8.png</g:image_link>
+      <g:brand>Moncler</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2760 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-5503773</g:id>
+      <title>Жилетка Moncler x Valentino Чорна</title>
+      <description>Жилетка Moncler x Valentino Чорна • Матеріал: Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XL, XXL • Арт: T290</description>
+      <link>https://urbangrid.com.ua/product/zhyletka-moncler-x-valentino-chorna-5503773</link>
+      <g:image_link>https://backend.mydrop.com.ua/vendor/products/uploads/4ec2236a6d44eb8c224d.png</g:image_link>
+      <g:brand>Moncler</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2760 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194905</g:id>
+      <title>Зимова куртка Nike 1870</title>
+      <description>Зимова куртка Nike 1870 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 1870</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1870-194905</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/393231eb-858a-44a1-9463-b3744bc254ca.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3120 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194901</g:id>
+      <title>Зимова куртка Denim Tears 1869</title>
+      <description>Зимова куртка Denim Tears 1869 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL • Арт: 1869</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-denim-tears-1869-194901</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/074b684f-b928-4008-a0c7-fa8f37fbb9a8.jpeg</g:image_link>
+      <g:brand>Denim Tears</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2160 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194889</g:id>
+      <title>Зимова куртка Nike 1868</title>
+      <description>Зимова куртка Nike 1868 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 1868</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1868-194889</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/080dca37-c0ea-4728-b080-a67e7ebb5655.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2160 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194866</g:id>
+      <title>Зимова куртка Nike 1867</title>
+      <description>Зимова куртка Nike 1867 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL • Арт: 1867</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1867-194866</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/1cfed95a-3892-4cc0-86f1-073131a600e8.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2160 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194863</g:id>
+      <title>Зимова куртка Nike 1866</title>
+      <description>Зимова куртка Nike 1866 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: 1866</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1866-194863</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/0c05ee63-28f6-482a-bb1e-679d8c5757a4.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1800 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194860</g:id>
+      <title>Зимова куртка Nike 1865</title>
+      <description>Зимова куртка Nike 1865 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XXL • Арт: 1865</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1865-194860</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/f44c046f-1b44-4f75-9122-19b689e68063.jpeg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2760 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194656</g:id>
+      <title>Зимова куртка The North Face 1864</title>
+      <description>Зимова куртка The North Face 1864 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL • Арт: 1864</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1864-194656</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/fd417bd9-a215-4559-af77-0faa9f505ed6.jpeg</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2040 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194655</g:id>
+      <title>Зимова куртка The North Face 1863</title>
+      <description>Зимова куртка The North Face 1863 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: 1863</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1863-194655</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/6df6d961-1ad5-4f93-87cf-1ff4d7577c01.jpeg</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2760 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194653</g:id>
+      <title>Зимова куртка The North Face 1862</title>
+      <description>Зимова куртка The North Face 1862 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: 1862</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1862-194653</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/fa095199-77f1-4541-ae70-908eaa10ade6.jpeg</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2040 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194647</g:id>
+      <title>Зимова куртка The North Face 1861</title>
+      <description>Зимова куртка The North Face 1861 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: 1861</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1861-194647</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/d99fe664-7026-4028-bc80-8c785d667de0.jpeg</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>women</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2040 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194641</g:id>
+      <title>Зимова куртка The North Face 1860</title>
+      <description>Зимова куртка The North Face 1860 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL • Арт: 1860</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1860-194641</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/8be7944f-b14a-44a3-9772-b879c1ec5e28.jpeg</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2640 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-194638</g:id>
+      <title>Зимова куртка Stone Island 1859</title>
+      <description>Зимова куртка Stone Island 1859 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: 1859</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-stone-island-1859-194638</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/ae804e14-62a9-48ef-9f0b-762a6a968d74.jpeg</g:image_link>
+      <g:brand>Stone Island</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>2280 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58762</g:id>
+      <title>Утеплений жилет 53PC</title>
+      <description>Утеплений жилет 53PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 53PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-53pc-58762</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/4102468b-e8c0-4708-a8cf-13c4bcb7529d.jpeg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58761</g:id>
+      <title>Утеплений жилет 52PC</title>
+      <description>Утеплений жилет 52PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 52PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-52pc-58761</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/0dfc4553-08e3-4cb8-85f8-a5a1cc2a753f.jpeg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58760</g:id>
+      <title>Утеплений жилет 51PC</title>
+      <description>Утеплений жилет 51PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 51PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-51pc-58760</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/7606eb6a-fe23-4f46-99c0-ad3c5728a642.jpeg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-58759</g:id>
+      <title>Утеплений жилет 50PC</title>
+      <description>Утеплений жилет 50PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XL, XXL • Арт: 50PC</description>
+      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-50pc-58759</link>
+      <g:image_link>https://easydrop.one/media/uploads/images/base/0d23a81b-8dd8-4522-8887-28e47583b97d.jpeg</g:image_link>
+      <g:brand>URBAN</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>1980 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Жилетки</g:product_type>
       <g:shipping>
         <g:country>UA</g:country>
         <g:service>Нова Пошта</g:service>
@@ -1565,246 +1945,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-194905</g:id>
-      <title>Зимова куртка Nike 1870</title>
-      <description>Зимова куртка Nike 1870 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 1870</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1870-194905</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/393231eb-858a-44a1-9463-b3744bc254ca.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3120 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194901</g:id>
-      <title>Зимова куртка Denim Tears 1869</title>
-      <description>Зимова куртка Denim Tears 1869 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL • Арт: 1869</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-denim-tears-1869-194901</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/074b684f-b928-4008-a0c7-fa8f37fbb9a8.jpeg</g:image_link>
-      <g:brand>Denim Tears</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2160 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194889</g:id>
-      <title>Зимова куртка Nike 1868</title>
-      <description>Зимова куртка Nike 1868 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 1868</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1868-194889</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/080dca37-c0ea-4728-b080-a67e7ebb5655.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2160 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194866</g:id>
-      <title>Зимова куртка Nike 1867</title>
-      <description>Зимова куртка Nike 1867 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL • Арт: 1867</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1867-194866</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/1cfed95a-3892-4cc0-86f1-073131a600e8.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2160 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194863</g:id>
-      <title>Зимова куртка Nike 1866</title>
-      <description>Зимова куртка Nike 1866 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: 1866</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1866-194863</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/0c05ee63-28f6-482a-bb1e-679d8c5757a4.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1800 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194860</g:id>
-      <title>Зимова куртка Nike 1865</title>
-      <description>Зимова куртка Nike 1865 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XXL • Арт: 1865</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-1865-194860</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/f44c046f-1b44-4f75-9122-19b689e68063.jpeg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2760 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194656</g:id>
-      <title>Зимова куртка The North Face 1864</title>
-      <description>Зимова куртка The North Face 1864 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL • Арт: 1864</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1864-194656</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/fd417bd9-a215-4559-af77-0faa9f505ed6.jpeg</g:image_link>
-      <g:brand>The North Face</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2040 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194655</g:id>
-      <title>Зимова куртка The North Face 1863</title>
-      <description>Зимова куртка The North Face 1863 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: 1863</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1863-194655</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/6df6d961-1ad5-4f93-87cf-1ff4d7577c01.jpeg</g:image_link>
-      <g:brand>The North Face</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2760 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194653</g:id>
-      <title>Зимова куртка The North Face 1862</title>
-      <description>Зимова куртка The North Face 1862 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: 1862</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1862-194653</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/fa095199-77f1-4541-ae70-908eaa10ade6.jpeg</g:image_link>
-      <g:brand>The North Face</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2040 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194647</g:id>
-      <title>Зимова куртка The North Face 1861</title>
-      <description>Зимова куртка The North Face 1861 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL • Арт: 1861</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1861-194647</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/d99fe664-7026-4028-bc80-8c785d667de0.jpeg</g:image_link>
-      <g:brand>The North Face</g:brand>
-      <g:gender>women</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2040 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194641</g:id>
-      <title>Зимова куртка The North Face 1860</title>
-      <description>Зимова куртка The North Face 1860 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL • Арт: 1860</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-1860-194641</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/8be7944f-b14a-44a3-9772-b879c1ec5e28.jpeg</g:image_link>
-      <g:brand>The North Face</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2640 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-194638</g:id>
-      <title>Зимова куртка Stone Island 1859</title>
-      <description>Зимова куртка Stone Island 1859 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: 1859</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-stone-island-1859-194638</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/ae804e14-62a9-48ef-9f0b-762a6a968d74.jpeg</g:image_link>
-      <g:brand>Stone Island</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>2280 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-193787</g:id>
       <title>Зимова куртка Nike Nik/1002</title>
       <description>Зимова куртка Nike Nik/1002 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: Nik/1002</description>
@@ -2287,7 +2427,7 @@
     <item>
       <g:id>prod-144240</g:id>
       <title>Зимова куртка Nike 20JOR</title>
-      <description>Зимова куртка Nike 20JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL, XXL • Арт: 20JOR</description>
+      <description>Зимова куртка Nike 20JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 20JOR</description>
       <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-20jor-144240</link>
       <g:image_link>https://easydrop.one/media/uploads/images/base/a1cf3ad0-9046-43fa-a677-aa462c9be141.jpeg</g:image_link>
       <g:brand>Nike</g:brand>
@@ -3118,86 +3258,6 @@
       <g:price>2870 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-58762</g:id>
-      <title>Утеплений жилет 53PC</title>
-      <description>Утеплений жилет 53PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 53PC</description>
-      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-53pc-58762</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/4102468b-e8c0-4708-a8cf-13c4bcb7529d.jpeg</g:image_link>
-      <g:brand>URBAN</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1980 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-58761</g:id>
-      <title>Утеплений жилет 52PC</title>
-      <description>Утеплений жилет 52PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 52PC</description>
-      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-52pc-58761</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/0dfc4553-08e3-4cb8-85f8-a5a1cc2a753f.jpeg</g:image_link>
-      <g:brand>URBAN</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1980 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-58760</g:id>
-      <title>Утеплений жилет 51PC</title>
-      <description>Утеплений жилет 51PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 51PC</description>
-      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-51pc-58760</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/7606eb6a-fe23-4f46-99c0-ad3c5728a642.jpeg</g:image_link>
-      <g:brand>URBAN</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1980 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-58759</g:id>
-      <title>Утеплений жилет 50PC</title>
-      <description>Утеплений жилет 50PC • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: L, XL, XXL • Арт: 50PC</description>
-      <link>https://urbangrid.com.ua/product/uteplenyy-zhylet-50pc-58759</link>
-      <g:image_link>https://easydrop.one/media/uploads/images/base/0d23a81b-8dd8-4522-8887-28e47583b97d.jpeg</g:image_link>
-      <g:brand>URBAN</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>1980 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Жилетки</g:product_type>
       <g:shipping>
         <g:country>UA</g:country>
         <g:service>Нова Пошта</g:service>

@@ -1,5 +1,113 @@
 [
   {
+    "id": "5504354",
+    "slug": "khudi-broken-planet-flis-5504354",
+    "name": "Худі Broken Planet фліс",
+    "price": 2520,
+    "old_price": 3020,
+    "cost_price": 2100,
+    "cat": "clothing",
+    "subcat": "zip_hoodie",
+    "cat_name": "Одяг & Худі",
+    "season": "winter",
+    "season_name": "Зима / Фліс",
+    "brand": "broken_planet",
+    "brand_name": "Broken Planet",
+    "gender": "men",
+    "art": "T172",
+    "color": "Чорний",
+    "mat": "Трьохнитка на флісі (бавовна / поліестер)",
+    "origin": "Фабричне виробництво",
+    "badge": "Фліс • Тепле",
+    "desc": "Стильне брендове худі Худі Broken Planet фліс. Преміальна щільна трьохнитка на м'якому теплому флісі, якісний стійкий принт, анатомічний крій та подвійний капюшон для щоденного комфорту. Фабричне виробництво.",
+    "thumb": "/images/catalog/5504354.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/fdfa3e1faa8cfc71f217.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/36ddbfbcfd6b5c917af2.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4c0a30add101fe50edcc.jpeg",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/2678c958f5f35e48fd5e.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L"
+    ],
+    "in_stock": true,
+    "source_priority": 5
+  },
+  {
+    "id": "5503595",
+    "slug": "anorak-tnf-uteplenyy-bezhevyy-5503595",
+    "name": "Анорак TNF утеплений, бежевий",
+    "price": 2390,
+    "old_price": 2870,
+    "cost_price": 1990,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Анораки",
+    "season": "winter",
+    "season_name": "Зима / Утеплений",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "men",
+    "art": "T039",
+    "color": "Бежевий",
+    "mat": "Водовідштовхувальна плащівка / Рефлективні вставки / Утеплювач",
+    "origin": "Фабричне виробництво",
+    "badge": "Рефлектив • Утеплений",
+    "desc": "Теплий брендовий анорак Анорак TNF утеплений, бежевий. Якісна водовідштовхувальна плащівка з надійним захистом від негоди, рефлективні вставки, зручна кишеня-кенгуру та м'який утеплювач. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503595.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/b67cdf3b465e5901ee10.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/452ebf36925ecddb87cd.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/be071e1f2383f06ee563.png"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 5
+  },
+  {
+    "id": "5503594",
+    "slug": "anorak-tnf-uteplenyy-siryy-reflektyvni-vstavky-5503594",
+    "name": "Анорак TNF утеплений, сірий, рефлективні вставки",
+    "price": 2390,
+    "old_price": 2870,
+    "cost_price": 1990,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Анораки",
+    "season": "winter",
+    "season_name": "Зима / Утеплений",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "men",
+    "art": "T040",
+    "color": "Сірий",
+    "mat": "Водовідштовхувальна плащівка / Рефлективні вставки / Утеплювач",
+    "origin": "Фабричне виробництво",
+    "badge": "Рефлектив • Утеплений",
+    "desc": "Теплий брендовий анорак Анорак TNF утеплений, сірий, рефлективні вставки. Якісна водовідштовхувальна плащівка з надійним захистом від негоди, рефлективні вставки, зручна кишеня-кенгуру та м'який утеплювач. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503594.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/ce82a3eb855e1d6e1a01.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/0d95c72ea733750d04f4.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/fc6a5d461c3f894666d7.png"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 5
+  },
+  {
     "id": "5513003",
     "slug": "pukhovyk-jordan-psg-puffer-5513003",
     "name": "Пуховик JORDAN × PSG PUFFER",
@@ -36,7 +144,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5512984",
@@ -77,7 +186,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5508932",
@@ -115,7 +225,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5508928",
@@ -155,7 +266,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5508920",
@@ -192,7 +304,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5506303",
@@ -235,7 +348,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5506301",
@@ -276,7 +390,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5506295",
@@ -310,7 +425,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5506293",
@@ -349,7 +465,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5506284",
@@ -387,7 +504,355 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503602",
+    "slug": "pukhovyk-trapstar-black-5503602",
+    "name": "Пуховик Trapstar Black",
+    "price": 2880,
+    "old_price": 3460,
+    "cost_price": 2400,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "trapstar",
+    "brand_name": "Trapstar",
+    "gender": "men",
+    "art": "T009",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик Trapstar Black. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503602.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/cb7ffc8773d642dd1238.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/264dc142175e67cedca6.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/35063e92636ab7934887.png"
+    ],
+    "sizes": [
+      "L",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503600",
+    "slug": "pukhovyk-trapstar-beige-5503600",
+    "name": "Пуховик Trapstar Beige",
+    "price": 2880,
+    "old_price": 3460,
+    "cost_price": 2400,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "trapstar",
+    "brand_name": "Trapstar",
+    "gender": "men",
+    "art": "T008",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик Trapstar Beige. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503600.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/fad189d23726fe4c9d02.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/e9aaf213c22c1c73cdb4.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4d1df9e7d55f683bcaa4.png"
+    ],
+    "sizes": [
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503599",
+    "slug": "pukhovyk-cp-company-gray-5503599",
+    "name": "Пуховик CP. Company Gray",
+    "price": 2390,
+    "old_price": 2870,
+    "cost_price": 1990,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "pukhovyk-cp-company-gray",
+    "brand_name": "Пуховик CP. Company Gray",
+    "gender": "men",
+    "art": "T007",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик CP. Company Gray. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503599.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/d8409c72ee56101a90d8.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/c5f8a558694357dce23e.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4a452e47662260cbb0d8.png"
+    ],
+    "sizes": [
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503591",
+    "slug": "pukhovyk-moncler-batman-black-5503591",
+    "name": "Пуховик Moncler Batman Black",
+    "price": 4560,
+    "old_price": 5470,
+    "cost_price": 3800,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "moncler",
+    "brand_name": "Moncler",
+    "gender": "men",
+    "art": "T162",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик Moncler Batman Black. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503591.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/58593b9caf82f8fdeffa.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4f29623796d8fc27d6cb.png"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503584",
+    "slug": "parka-kurtka-dovha-nike-blue-5503584",
+    "name": "Парка, куртка довга Nike Blue",
+    "price": 3000,
+    "old_price": 3600,
+    "cost_price": 2500,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "men",
+    "art": "T019",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Парка, куртка довга Nike Blue. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503584.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/0646318860f27c6676dd.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/291f85b088570802ce80.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4a3b1c1fc72c6463cdaf.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/e2d9733e81e0ceae9dd2.jpeg",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4f060a12003a72704f69.jpeg"
+    ],
+    "sizes": [
+      "S",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503581",
+    "slug": "kurtka-the-north-face-teddi-bezheva-5503581",
+    "name": "Куртка The North Face Teddi бежева",
+    "price": 2880,
+    "old_price": 3460,
+    "cost_price": 2400,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "men",
+    "art": "T024",
+    "color": "Бежевий",
+    "mat": "Шерпа / Штучне хутро Teddi / Утеплювач",
+    "origin": "Фабричне виробництво",
+    "badge": "Teddi • Тепла",
+    "desc": "Теплий зимовий брендовий пуховик Куртка The North Face Teddi бежева. Якісна водовідштовхувальна плащівка (Шерпа / Штучне хутро Teddi / Утеплювач), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503581.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/065a9b0216a88d9b4149.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/b6b945c2ed457506032e.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/14f7709397115f578ec7.png"
+    ],
+    "sizes": [
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503579",
+    "slug": "pukhovyk-tnf-xx-blakytnyy-z-kapyushonom-5503579",
+    "name": "Пуховик, TNF - XX, блакитний, з капюшоном",
+    "price": 3000,
+    "old_price": 3600,
+    "cost_price": 2500,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "men",
+    "art": "T038",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик, TNF - XX, блакитний, з капюшоном. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503579.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/09fbaa998b700d1b9764.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/9a099589a123614f7891.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/42f92926d345ea60a490.png"
+    ],
+    "sizes": [
+      "L",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503578",
+    "slug": "pukhovyk-nike-storm-fit-chorno-olyvkovyy-5503578",
+    "name": "Пуховик Nike Storm-Fit чорно-оливковий",
+    "price": 2700,
+    "old_price": 3240,
+    "cost_price": 2250,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "men",
+    "art": "T184",
+    "color": "Чорний",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик Nike Storm-Fit чорно-оливковий. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503578.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/bed29845b19b4eb50e44.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/bdea7fd681cee3750f8d.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/b56d66dfca4568c9d829.png"
+    ],
+    "sizes": [
+      "S",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503576",
+    "slug": "pukhovyk-nike-storm-fit-chorno-bilyy-5503576",
+    "name": "Пуховик Nike Storm-FIT чорно-білий",
+    "price": 2880,
+    "old_price": 3460,
+    "cost_price": 2400,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "men",
+    "art": "T182",
+    "color": "Чорний",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик Nike Storm-FIT чорно-білий. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503576.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/d5a3e9a541a84b11fb11.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/47105a50b15a9236bd46.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/4e75f9682746275ba680.png"
+    ],
+    "sizes": [
+      "S",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
+  },
+  {
+    "id": "5503574",
+    "slug": "pukhovyk-nike-storm-fit-siro-chornyy-5503574",
+    "name": "Пуховик Nike Storm-FIT сіро-чорний",
+    "price": 2880,
+    "old_price": 3460,
+    "cost_price": 2400,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "men",
+    "art": "T183",
+    "color": "Чорний",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Теплий зимовий брендовий пуховик Пуховик Nike Storm-FIT сіро-чорний. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/5503574.jpg",
+    "imgs": [
+      "https://backend.mydrop.com.ua/vendor/products/uploads/5046ce4468c436a598b9.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/5db6af24990a89a8a101.png",
+      "https://backend.mydrop.com.ua/vendor/products/uploads/44519ac95ae923fcebeb.png"
+    ],
+    "sizes": [
+      "S",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 4
   },
   {
     "id": "5503779",
@@ -418,7 +883,8 @@
       "S",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 3
   },
   {
     "id": "5503777",
@@ -449,7 +915,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 3
   },
   {
     "id": "5503776",
@@ -480,7 +947,8 @@
       "XXL",
       "XXXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 3
   },
   {
     "id": "5503775",
@@ -518,7 +986,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 3
   },
   {
     "id": "5503774",
@@ -553,7 +1022,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 3
   },
   {
     "id": "5503773",
@@ -587,133 +1057,425 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 3
   },
   {
-    "id": "5503602",
-    "slug": "pukhovyk-trapstar-black-5503602",
-    "name": "Пуховик Trapstar Black",
-    "price": 2880,
-    "old_price": 3460,
-    "cost_price": 2400,
+    "id": "194905",
+    "slug": "zymova-kurtka-nike-1870-194905",
+    "name": "Зимова куртка Nike 1870",
+    "price": 3120,
+    "old_price": 3740,
+    "cost_price": 2600,
     "cat": "clothing",
     "subcat": "winter_jacket",
     "cat_name": "Одяг & Зимові куртки",
     "season": "winter",
     "season_name": "Зима / Утеплена",
-    "brand": "trapstar",
-    "brand_name": "Trapstar",
+    "brand": "nike",
+    "brand_name": "Nike",
     "gender": "men",
-    "art": "T009",
+    "art": "1870",
     "color": "",
     "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
     "origin": "Фабричне виробництво",
     "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик Trapstar Black. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503602.jpg",
+    "desc": "Тепла зимова брендова куртка Nike (1870). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194905.jpg",
     "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/cb7ffc8773d642dd1238.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/264dc142175e67cedca6.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/35063e92636ab7934887.png"
-    ],
-    "sizes": [
-      "L",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "5503600",
-    "slug": "pukhovyk-trapstar-beige-5503600",
-    "name": "Пуховик Trapstar Beige",
-    "price": 2880,
-    "old_price": 3460,
-    "cost_price": 2400,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "trapstar",
-    "brand_name": "Trapstar",
-    "gender": "men",
-    "art": "T008",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик Trapstar Beige. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503600.jpg",
-    "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/fad189d23726fe4c9d02.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/e9aaf213c22c1c73cdb4.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/4d1df9e7d55f683bcaa4.png"
+      "https://easydrop.one/media/uploads/images/base/393231eb-858a-44a1-9463-b3744bc254ca.jpeg"
     ],
     "sizes": [
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 2
   },
   {
-    "id": "5503599",
-    "slug": "pukhovyk-cp-company-gray-5503599",
-    "name": "Пуховик CP. Company Gray",
-    "price": 2390,
-    "old_price": 2870,
-    "cost_price": 1990,
+    "id": "194901",
+    "slug": "zymova-kurtka-denim-tears-1869-194901",
+    "name": "Зимова куртка Denim Tears 1869",
+    "price": 2160,
+    "old_price": 2590,
+    "cost_price": 1800,
     "cat": "clothing",
     "subcat": "winter_jacket",
     "cat_name": "Одяг & Зимові куртки",
     "season": "winter",
     "season_name": "Зима / Утеплена",
-    "brand": "pukhovyk-cp-company-gray",
-    "brand_name": "Пуховик CP. Company Gray",
-    "gender": "men",
-    "art": "T007",
+    "brand": "denim_tears",
+    "brand_name": "Denim Tears",
+    "gender": "women",
+    "art": "1869",
     "color": "",
     "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
     "origin": "Фабричне виробництво",
     "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик CP. Company Gray. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503599.jpg",
+    "desc": "Тепла зимова брендова куртка Denim Tears (1869). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194901.jpg",
     "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/d8409c72ee56101a90d8.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/c5f8a558694357dce23e.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/4a452e47662260cbb0d8.png"
+      "https://easydrop.one/media/uploads/images/base/074b684f-b928-4008-a0c7-fa8f37fbb9a8.jpeg"
     ],
     "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194889",
+    "slug": "zymova-kurtka-nike-1868-194889",
+    "name": "Зимова куртка Nike 1868",
+    "price": 2160,
+    "old_price": 2590,
+    "cost_price": 1800,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "men",
+    "art": "1868",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка Nike (1868). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194889.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/080dca37-c0ea-4728-b080-a67e7ebb5655.jpeg"
+    ],
+    "sizes": [
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194866",
+    "slug": "zymova-kurtka-nike-1867-194866",
+    "name": "Зимова куртка Nike 1867",
+    "price": 2160,
+    "old_price": 2590,
+    "cost_price": 1800,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "men",
+    "art": "1867",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка Nike (1867). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194866.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/1cfed95a-3892-4cc0-86f1-073131a600e8.jpeg"
+    ],
+    "sizes": [
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194863",
+    "slug": "zymova-kurtka-nike-1866-194863",
+    "name": "Зимова куртка Nike 1866",
+    "price": 1800,
+    "old_price": 2160,
+    "cost_price": 1500,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "nike",
+    "brand_name": "Nike",
+    "gender": "women",
+    "art": "1866",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка Nike (1866). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194863.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/0c05ee63-28f6-482a-bb1e-679d8c5757a4.jpeg"
+    ],
+    "sizes": [
+      "S",
+      "M",
       "L",
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 2
   },
   {
-    "id": "5503591",
-    "slug": "pukhovyk-moncler-batman-black-5503591",
-    "name": "Пуховик Moncler Batman Black",
-    "price": 4560,
-    "old_price": 5470,
-    "cost_price": 3800,
+    "id": "194860",
+    "slug": "zymova-kurtka-nike-1865-194860",
+    "name": "Зимова куртка Nike 1865",
+    "price": 2760,
+    "old_price": 3310,
+    "cost_price": 2300,
     "cat": "clothing",
     "subcat": "winter_jacket",
     "cat_name": "Одяг & Зимові куртки",
     "season": "winter",
     "season_name": "Зима / Утеплена",
-    "brand": "moncler",
-    "brand_name": "Moncler",
+    "brand": "nike",
+    "brand_name": "Nike",
     "gender": "men",
-    "art": "T162",
+    "art": "1865",
     "color": "",
     "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
     "origin": "Фабричне виробництво",
     "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик Moncler Batman Black. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503591.jpg",
+    "desc": "Тепла зимова брендова куртка Nike (1865). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194860.jpg",
     "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/58593b9caf82f8fdeffa.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/4f29623796d8fc27d6cb.png"
+      "https://easydrop.one/media/uploads/images/base/f44c046f-1b44-4f75-9122-19b689e68063.jpeg"
+    ],
+    "sizes": [
+      "L",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194656",
+    "slug": "zymova-kurtka-the-north-face-1864-194656",
+    "name": "Зимова куртка The North Face 1864",
+    "price": 2040,
+    "old_price": 2450,
+    "cost_price": 1700,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "women",
+    "art": "1864",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка The North Face (1864). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194656.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/fd417bd9-a215-4559-af77-0faa9f505ed6.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194655",
+    "slug": "zymova-kurtka-the-north-face-1863-194655",
+    "name": "Зимова куртка The North Face 1863",
+    "price": 2760,
+    "old_price": 3310,
+    "cost_price": 2300,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "women",
+    "art": "1863",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка The North Face (1863). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194655.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/6df6d961-1ad5-4f93-87cf-1ff4d7577c01.jpeg"
+    ],
+    "sizes": [
+      "S",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194653",
+    "slug": "zymova-kurtka-the-north-face-1862-194653",
+    "name": "Зимова куртка The North Face 1862",
+    "price": 2040,
+    "old_price": 2450,
+    "cost_price": 1700,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "women",
+    "art": "1862",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка The North Face (1862). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194653.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/fa095199-77f1-4541-ae70-908eaa10ade6.jpeg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194647",
+    "slug": "zymova-kurtka-the-north-face-1861-194647",
+    "name": "Зимова куртка The North Face 1861",
+    "price": 2040,
+    "old_price": 2450,
+    "cost_price": 1700,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "women",
+    "art": "1861",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка The North Face (1861). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194647.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/d99fe664-7026-4028-bc80-8c785d667de0.jpeg"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194641",
+    "slug": "zymova-kurtka-the-north-face-1860-194641",
+    "name": "Зимова куртка The North Face 1860",
+    "price": 2640,
+    "old_price": 3170,
+    "cost_price": 2200,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "the_north_face",
+    "brand_name": "The North Face",
+    "gender": "men",
+    "art": "1860",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка The North Face (1860). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194641.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/8be7944f-b14a-44a3-9772-b879c1ec5e28.jpeg"
+    ],
+    "sizes": [
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "194638",
+    "slug": "zymova-kurtka-stone-island-1859-194638",
+    "name": "Зимова куртка Stone Island 1859",
+    "price": 2280,
+    "old_price": 2740,
+    "cost_price": 1900,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "stone_island",
+    "brand_name": "Stone Island",
+    "gender": "men",
+    "art": "1859",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка Stone Island (1859). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
+    "thumb": "/images/catalog/194638.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/ae804e14-62a9-48ef-9f0b-762a6a968d74.jpeg"
+    ],
+    "sizes": [
+      "S",
+      "XL"
+    ],
+    "in_stock": true,
+    "source_priority": 2
+  },
+  {
+    "id": "58762",
+    "slug": "uteplenyy-zhylet-53pc-58762",
+    "name": "Утеплений жилет 53PC",
+    "price": 1980,
+    "old_price": 2380,
+    "cost_price": 1650,
+    "cat": "clothing",
+    "subcat": "vest",
+    "cat_name": "Одяг & Жилетки",
+    "season": "demi",
+    "season_name": "Демісезон / Утеплений",
+    "brand": "urban",
+    "brand_name": "URBAN",
+    "gender": "men",
+    "art": "53PC",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво (Туреччина)",
+    "badge": "Хіт • Утеплений",
+    "desc": "Стильний утеплений чоловічий жилет URBAN (53PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
+    "thumb": "/images/catalog/58762.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/4102468b-e8c0-4708-a8cf-13c4bcb7529d.jpeg",
+      "https://easydrop.one/media/uploads/images/item_8646/8040c226-fcde-4a6e-b55f-84c5aeddd04c.jpeg"
     ],
     "sizes": [
       "M",
@@ -721,210 +1483,112 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 1
   },
   {
-    "id": "5503584",
-    "slug": "parka-kurtka-dovha-nike-blue-5503584",
-    "name": "Парка, куртка довга Nike Blue",
-    "price": 3000,
-    "old_price": 3600,
-    "cost_price": 2500,
+    "id": "58761",
+    "slug": "uteplenyy-zhylet-52pc-58761",
+    "name": "Утеплений жилет 52PC",
+    "price": 1980,
+    "old_price": 2380,
+    "cost_price": 1650,
     "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
+    "subcat": "vest",
+    "cat_name": "Одяг & Жилетки",
+    "season": "demi",
+    "season_name": "Демісезон / Утеплений",
+    "brand": "urban",
+    "brand_name": "URBAN",
     "gender": "men",
-    "art": "T019",
+    "art": "52PC",
     "color": "",
     "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Парка, куртка довга Nike Blue. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503584.jpg",
+    "origin": "Фабричне виробництво (Туреччина)",
+    "badge": "Хіт • Утеплений",
+    "desc": "Стильний утеплений чоловічий жилет URBAN (52PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
+    "thumb": "/images/catalog/58761.jpg",
     "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/0646318860f27c6676dd.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/291f85b088570802ce80.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/4a3b1c1fc72c6463cdaf.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/e2d9733e81e0ceae9dd2.jpeg",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/4f060a12003a72704f69.jpeg"
+      "https://easydrop.one/media/uploads/images/base/0dfc4553-08e3-4cb8-85f8-a5a1cc2a753f.jpeg",
+      "https://easydrop.one/media/uploads/images/item_8646/4677de54-c712-4680-ae1f-d848471dc874.jpeg"
     ],
     "sizes": [
-      "S",
+      "M",
+      "L",
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 1
   },
   {
-    "id": "5503581",
-    "slug": "kurtka-the-north-face-teddi-bezheva-5503581",
-    "name": "Куртка The North Face Teddi бежева",
-    "price": 2880,
-    "old_price": 3460,
-    "cost_price": 2400,
+    "id": "58760",
+    "slug": "uteplenyy-zhylet-51pc-58760",
+    "name": "Утеплений жилет 51PC",
+    "price": 1980,
+    "old_price": 2380,
+    "cost_price": 1650,
     "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
+    "subcat": "vest",
+    "cat_name": "Одяг & Жилетки",
+    "season": "demi",
+    "season_name": "Демісезон / Утеплений",
+    "brand": "urban",
+    "brand_name": "URBAN",
     "gender": "men",
-    "art": "T024",
-    "color": "Бежевий",
-    "mat": "Шерпа / Штучне хутро Teddi / Утеплювач",
-    "origin": "Фабричне виробництво",
-    "badge": "Teddi • Тепла",
-    "desc": "Теплий зимовий брендовий пуховик Куртка The North Face Teddi бежева. Якісна водовідштовхувальна плащівка (Шерпа / Штучне хутро Teddi / Утеплювач), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503581.jpg",
-    "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/065a9b0216a88d9b4149.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/b6b945c2ed457506032e.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/14f7709397115f578ec7.png"
-    ],
-    "sizes": [
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "5503579",
-    "slug": "pukhovyk-tnf-xx-blakytnyy-z-kapyushonom-5503579",
-    "name": "Пуховик, TNF - XX, блакитний, з капюшоном",
-    "price": 3000,
-    "old_price": 3600,
-    "cost_price": 2500,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
-    "gender": "men",
-    "art": "T038",
+    "art": "51PC",
     "color": "",
     "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик, TNF - XX, блакитний, з капюшоном. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503579.jpg",
+    "origin": "Фабричне виробництво (Туреччина)",
+    "badge": "Хіт • Утеплений",
+    "desc": "Стильний утеплений чоловічий жилет URBAN (51PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
+    "thumb": "/images/catalog/58760.jpg",
     "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/09fbaa998b700d1b9764.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/9a099589a123614f7891.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/42f92926d345ea60a490.png"
+      "https://easydrop.one/media/uploads/images/base/7606eb6a-fe23-4f46-99c0-ad3c5728a642.jpeg",
+      "https://easydrop.one/media/uploads/images/item_8646/b4f7d448-d2ee-426c-bef8-b4d4993d00f2.jpeg"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 1
+  },
+  {
+    "id": "58759",
+    "slug": "uteplenyy-zhylet-50pc-58759",
+    "name": "Утеплений жилет 50PC",
+    "price": 1980,
+    "old_price": 2380,
+    "cost_price": 1650,
+    "cat": "clothing",
+    "subcat": "vest",
+    "cat_name": "Одяг & Жилетки",
+    "season": "demi",
+    "season_name": "Демісезон / Утеплений",
+    "brand": "urban",
+    "brand_name": "URBAN",
+    "gender": "men",
+    "art": "50PC",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво (Туреччина)",
+    "badge": "Хіт • Утеплений",
+    "desc": "Стильний утеплений чоловічий жилет URBAN (50PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
+    "thumb": "/images/catalog/58759.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/0d23a81b-8dd8-4522-8887-28e47583b97d.jpeg",
+      "https://easydrop.one/media/uploads/images/item_8646/ce850235-2ed8-49f7-8570-e8ac3d7113fe.jpeg"
     ],
     "sizes": [
       "L",
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "5503578",
-    "slug": "pukhovyk-nike-storm-fit-chorno-olyvkovyy-5503578",
-    "name": "Пуховик Nike Storm-Fit чорно-оливковий",
-    "price": 2700,
-    "old_price": 3240,
-    "cost_price": 2250,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "T184",
-    "color": "Чорний",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик Nike Storm-Fit чорно-оливковий. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503578.jpg",
-    "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/bed29845b19b4eb50e44.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/bdea7fd681cee3750f8d.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/b56d66dfca4568c9d829.png"
-    ],
-    "sizes": [
-      "S",
       "XL",
       "XXL"
     ],
-    "in_stock": true
-  },
-  {
-    "id": "5503576",
-    "slug": "pukhovyk-nike-storm-fit-chorno-bilyy-5503576",
-    "name": "Пуховик Nike Storm-FIT чорно-білий",
-    "price": 2880,
-    "old_price": 3460,
-    "cost_price": 2400,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "T182",
-    "color": "Чорний",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик Nike Storm-FIT чорно-білий. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503576.jpg",
-    "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/d5a3e9a541a84b11fb11.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/47105a50b15a9236bd46.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/4e75f9682746275ba680.png"
-    ],
-    "sizes": [
-      "S",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "5503574",
-    "slug": "pukhovyk-nike-storm-fit-siro-chornyy-5503574",
-    "name": "Пуховик Nike Storm-FIT сіро-чорний",
-    "price": 2880,
-    "old_price": 3460,
-    "cost_price": 2400,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "T183",
-    "color": "Чорний",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Теплий зимовий брендовий пуховик Пуховик Nike Storm-FIT сіро-чорний. Якісна водовідштовхувальна плащівка (100% поліестер / Водовідштовхувальна плащівка / Холофайбер), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/5503574.jpg",
-    "imgs": [
-      "https://backend.mydrop.com.ua/vendor/products/uploads/5046ce4468c436a598b9.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/5db6af24990a89a8a101.png",
-      "https://backend.mydrop.com.ua/vendor/products/uploads/44519ac95ae923fcebeb.png"
-    ],
-    "sizes": [
-      "S",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 1
   },
   {
     "id": "249244",
@@ -959,7 +1623,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "249243",
@@ -994,7 +1659,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "249242",
@@ -1029,7 +1695,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "249241",
@@ -1062,7 +1729,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "248366",
@@ -1094,7 +1762,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "248365",
@@ -1126,7 +1795,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "248364",
@@ -1158,7 +1828,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "248363",
@@ -1190,7 +1861,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "212321",
@@ -1225,7 +1897,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "212320",
@@ -1260,7 +1933,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "212319",
@@ -1295,7 +1969,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "210881",
@@ -1330,7 +2005,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "205536",
@@ -1365,7 +2041,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "205534",
@@ -1400,7 +2077,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "204615",
@@ -1435,7 +2113,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "204614",
@@ -1470,7 +2149,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "204613",
@@ -1505,7 +2185,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "204612",
@@ -1538,7 +2219,8 @@
       "L",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "204611",
@@ -1573,7 +2255,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "203689",
@@ -1605,7 +2288,8 @@
       "S",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "203134",
@@ -1639,7 +2323,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "203133",
@@ -1672,7 +2357,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "203132",
@@ -1707,7 +2393,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "203131",
@@ -1739,7 +2426,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "202367",
@@ -1771,7 +2459,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "202366",
@@ -1806,7 +2495,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "202365",
@@ -1838,7 +2528,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201710",
@@ -1873,7 +2564,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201708",
@@ -1907,7 +2599,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201706",
@@ -1942,7 +2635,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201705",
@@ -1976,7 +2670,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201679",
@@ -2010,7 +2705,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201254",
@@ -2045,7 +2741,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201253",
@@ -2080,7 +2777,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "201252",
@@ -2115,7 +2813,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "199626",
@@ -2150,7 +2849,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "199625",
@@ -2185,7 +2885,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "199624",
@@ -2216,7 +2917,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "198790",
@@ -2248,7 +2950,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "198789",
@@ -2282,7 +2985,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "198227",
@@ -2316,7 +3020,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "197765",
@@ -2347,7 +3052,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "197755",
@@ -2380,7 +3086,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "197751",
@@ -2415,7 +3122,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "197749",
@@ -2448,7 +3156,8 @@
       "M",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "197273",
@@ -2482,7 +3191,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "197271",
@@ -2517,7 +3227,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "196664",
@@ -2550,7 +3261,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "196663",
@@ -2584,7 +3296,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "196034",
@@ -2615,7 +3328,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "196033",
@@ -2649,7 +3363,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "196032",
@@ -2684,386 +3399,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
-  },
-  {
-    "id": "194905",
-    "slug": "zymova-kurtka-nike-1870-194905",
-    "name": "Зимова куртка Nike 1870",
-    "price": 3120,
-    "old_price": 3740,
-    "cost_price": 2600,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "1870",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Nike (1870). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194905.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/393231eb-858a-44a1-9463-b3744bc254ca.jpeg"
-    ],
-    "sizes": [
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194901",
-    "slug": "zymova-kurtka-denim-tears-1869-194901",
-    "name": "Зимова куртка Denim Tears 1869",
-    "price": 2160,
-    "old_price": 2590,
-    "cost_price": 1800,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "denim_tears",
-    "brand_name": "Denim Tears",
-    "gender": "women",
-    "art": "1869",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Denim Tears (1869). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194901.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/074b684f-b928-4008-a0c7-fa8f37fbb9a8.jpeg"
-    ],
-    "sizes": [
-      "M",
-      "L",
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194889",
-    "slug": "zymova-kurtka-nike-1868-194889",
-    "name": "Зимова куртка Nike 1868",
-    "price": 2160,
-    "old_price": 2590,
-    "cost_price": 1800,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "1868",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Nike (1868). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194889.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/080dca37-c0ea-4728-b080-a67e7ebb5655.jpeg"
-    ],
-    "sizes": [
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194866",
-    "slug": "zymova-kurtka-nike-1867-194866",
-    "name": "Зимова куртка Nike 1867",
-    "price": 2160,
-    "old_price": 2590,
-    "cost_price": 1800,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "1867",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Nike (1867). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194866.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/1cfed95a-3892-4cc0-86f1-073131a600e8.jpeg"
-    ],
-    "sizes": [
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194863",
-    "slug": "zymova-kurtka-nike-1866-194863",
-    "name": "Зимова куртка Nike 1866",
-    "price": 1800,
-    "old_price": 2160,
-    "cost_price": 1500,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "women",
-    "art": "1866",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Nike (1866). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194863.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/0c05ee63-28f6-482a-bb1e-679d8c5757a4.jpeg"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194860",
-    "slug": "zymova-kurtka-nike-1865-194860",
-    "name": "Зимова куртка Nike 1865",
-    "price": 2760,
-    "old_price": 3310,
-    "cost_price": 2300,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "nike",
-    "brand_name": "Nike",
-    "gender": "men",
-    "art": "1865",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Nike (1865). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194860.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/f44c046f-1b44-4f75-9122-19b689e68063.jpeg"
-    ],
-    "sizes": [
-      "L",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194656",
-    "slug": "zymova-kurtka-the-north-face-1864-194656",
-    "name": "Зимова куртка The North Face 1864",
-    "price": 2040,
-    "old_price": 2450,
-    "cost_price": 1700,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
-    "gender": "women",
-    "art": "1864",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка The North Face (1864). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194656.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/fd417bd9-a215-4559-af77-0faa9f505ed6.jpeg"
-    ],
-    "sizes": [
-      "M",
-      "L",
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194655",
-    "slug": "zymova-kurtka-the-north-face-1863-194655",
-    "name": "Зимова куртка The North Face 1863",
-    "price": 2760,
-    "old_price": 3310,
-    "cost_price": 2300,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
-    "gender": "women",
-    "art": "1863",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка The North Face (1863). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194655.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/6df6d961-1ad5-4f93-87cf-1ff4d7577c01.jpeg"
-    ],
-    "sizes": [
-      "S",
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194653",
-    "slug": "zymova-kurtka-the-north-face-1862-194653",
-    "name": "Зимова куртка The North Face 1862",
-    "price": 2040,
-    "old_price": 2450,
-    "cost_price": 1700,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
-    "gender": "women",
-    "art": "1862",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка The North Face (1862). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194653.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/fa095199-77f1-4541-ae70-908eaa10ade6.jpeg"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194647",
-    "slug": "zymova-kurtka-the-north-face-1861-194647",
-    "name": "Зимова куртка The North Face 1861",
-    "price": 2040,
-    "old_price": 2450,
-    "cost_price": 1700,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
-    "gender": "women",
-    "art": "1861",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка The North Face (1861). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194647.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/d99fe664-7026-4028-bc80-8c785d667de0.jpeg"
-    ],
-    "sizes": [
-      "S",
-      "M",
-      "L",
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194641",
-    "slug": "zymova-kurtka-the-north-face-1860-194641",
-    "name": "Зимова куртка The North Face 1860",
-    "price": 2640,
-    "old_price": 3170,
-    "cost_price": 2200,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "the_north_face",
-    "brand_name": "The North Face",
-    "gender": "men",
-    "art": "1860",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка The North Face (1860). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194641.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/8be7944f-b14a-44a3-9772-b879c1ec5e28.jpeg"
-    ],
-    "sizes": [
-      "XL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "194638",
-    "slug": "zymova-kurtka-stone-island-1859-194638",
-    "name": "Зимова куртка Stone Island 1859",
-    "price": 2280,
-    "old_price": 2740,
-    "cost_price": 1900,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "stone_island",
-    "brand_name": "Stone Island",
-    "gender": "men",
-    "art": "1859",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Stone Island (1859). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво.",
-    "thumb": "/images/catalog/194638.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/ae804e14-62a9-48ef-9f0b-762a6a968d74.jpeg"
-    ],
-    "sizes": [
-      "S",
-      "XL"
-    ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "193787",
@@ -3098,7 +3435,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "193786",
@@ -3132,7 +3470,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "193785",
@@ -3166,7 +3505,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "192325",
@@ -3198,7 +3538,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "192324",
@@ -3233,7 +3574,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "192323",
@@ -3268,7 +3610,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "188357",
@@ -3299,7 +3642,8 @@
     "sizes": [
       "M"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "188356",
@@ -3331,7 +3675,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "188355",
@@ -3366,7 +3711,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "186773",
@@ -3399,7 +3745,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "186772",
@@ -3432,7 +3779,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "186771",
@@ -3464,7 +3812,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "185991",
@@ -3496,7 +3845,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "185990",
@@ -3528,7 +3878,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "185989",
@@ -3559,7 +3910,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "184717",
@@ -3593,7 +3945,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "184716",
@@ -3626,7 +3979,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "184715",
@@ -3659,7 +4013,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144775",
@@ -3694,7 +4049,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144774",
@@ -3727,7 +4083,8 @@
       "M",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144772",
@@ -3762,7 +4119,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144243",
@@ -3794,7 +4152,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144242",
@@ -3826,7 +4185,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144241",
@@ -3859,7 +4219,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144240",
@@ -3888,11 +4249,11 @@
       "https://easydrop.one/media/uploads/images/base/fc03a313-1e78-406b-adba-584e81b841a0.jpeg"
     ],
     "sizes": [
-      "S",
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "144052",
@@ -3925,7 +4286,8 @@
       "XXL",
       "3XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "143437",
@@ -3959,7 +4321,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "143436",
@@ -3993,7 +4356,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "141977",
@@ -4024,7 +4388,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "141976",
@@ -4055,7 +4420,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "141065",
@@ -4087,7 +4453,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "141062",
@@ -4118,7 +4485,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "141061",
@@ -4149,7 +4517,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "139296",
@@ -4180,7 +4549,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "139295",
@@ -4213,7 +4583,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "139294",
@@ -4245,7 +4616,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "138575",
@@ -4276,7 +4648,8 @@
     "sizes": [
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "138574",
@@ -4307,7 +4680,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "138573",
@@ -4339,7 +4713,8 @@
       "S",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "137043",
@@ -4369,7 +4744,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "136823",
@@ -4403,7 +4779,8 @@
       "M",
       "L"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "132544",
@@ -4437,7 +4814,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "132543",
@@ -4469,7 +4847,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "132540",
@@ -4500,7 +4879,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "131885",
@@ -4534,7 +4914,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "131884",
@@ -4569,7 +4950,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "131883",
@@ -4601,7 +4983,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "131878",
@@ -4633,7 +5016,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "130445",
@@ -4664,7 +5048,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "127834",
@@ -4696,7 +5081,8 @@
       "M",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "127833",
@@ -4730,7 +5116,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "79222",
@@ -4761,7 +5148,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "76830",
@@ -4796,7 +5184,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "76829",
@@ -4831,7 +5220,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "75720",
@@ -4863,7 +5253,8 @@
       "S",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "75719",
@@ -4894,7 +5285,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "75718",
@@ -4925,7 +5317,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "75430",
@@ -4957,7 +5350,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "75429",
@@ -4988,7 +5382,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "75428",
@@ -5019,7 +5414,8 @@
     "sizes": [
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "72774",
@@ -5054,7 +5450,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "72773",
@@ -5089,7 +5486,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "72772",
@@ -5123,7 +5521,8 @@
       "L",
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "71985",
@@ -5154,7 +5553,8 @@
     "sizes": [
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "71984",
@@ -5186,7 +5586,8 @@
       "M",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "66623",
@@ -5217,142 +5618,8 @@
     "sizes": [
       "S"
     ],
-    "in_stock": true
-  },
-  {
-    "id": "58762",
-    "slug": "uteplenyy-zhylet-53pc-58762",
-    "name": "Утеплений жилет 53PC",
-    "price": 1980,
-    "old_price": 2380,
-    "cost_price": 1650,
-    "cat": "clothing",
-    "subcat": "vest",
-    "cat_name": "Одяг & Жилетки",
-    "season": "demi",
-    "season_name": "Демісезон / Утеплений",
-    "brand": "urban",
-    "brand_name": "URBAN",
-    "gender": "men",
-    "art": "53PC",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво (Туреччина)",
-    "badge": "Хіт • Утеплений",
-    "desc": "Стильний утеплений чоловічий жилет URBAN (53PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
-    "thumb": "/images/catalog/58762.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/4102468b-e8c0-4708-a8cf-13c4bcb7529d.jpeg",
-      "https://easydrop.one/media/uploads/images/item_8646/8040c226-fcde-4a6e-b55f-84c5aeddd04c.jpeg"
-    ],
-    "sizes": [
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "58761",
-    "slug": "uteplenyy-zhylet-52pc-58761",
-    "name": "Утеплений жилет 52PC",
-    "price": 1980,
-    "old_price": 2380,
-    "cost_price": 1650,
-    "cat": "clothing",
-    "subcat": "vest",
-    "cat_name": "Одяг & Жилетки",
-    "season": "demi",
-    "season_name": "Демісезон / Утеплений",
-    "brand": "urban",
-    "brand_name": "URBAN",
-    "gender": "men",
-    "art": "52PC",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво (Туреччина)",
-    "badge": "Хіт • Утеплений",
-    "desc": "Стильний утеплений чоловічий жилет URBAN (52PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
-    "thumb": "/images/catalog/58761.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/0dfc4553-08e3-4cb8-85f8-a5a1cc2a753f.jpeg",
-      "https://easydrop.one/media/uploads/images/item_8646/4677de54-c712-4680-ae1f-d848471dc874.jpeg"
-    ],
-    "sizes": [
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "58760",
-    "slug": "uteplenyy-zhylet-51pc-58760",
-    "name": "Утеплений жилет 51PC",
-    "price": 1980,
-    "old_price": 2380,
-    "cost_price": 1650,
-    "cat": "clothing",
-    "subcat": "vest",
-    "cat_name": "Одяг & Жилетки",
-    "season": "demi",
-    "season_name": "Демісезон / Утеплений",
-    "brand": "urban",
-    "brand_name": "URBAN",
-    "gender": "men",
-    "art": "51PC",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво (Туреччина)",
-    "badge": "Хіт • Утеплений",
-    "desc": "Стильний утеплений чоловічий жилет URBAN (51PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
-    "thumb": "/images/catalog/58760.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/7606eb6a-fe23-4f46-99c0-ad3c5728a642.jpeg",
-      "https://easydrop.one/media/uploads/images/item_8646/b4f7d448-d2ee-426c-bef8-b4d4993d00f2.jpeg"
-    ],
-    "sizes": [
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
-  },
-  {
-    "id": "58759",
-    "slug": "uteplenyy-zhylet-50pc-58759",
-    "name": "Утеплений жилет 50PC",
-    "price": 1980,
-    "old_price": 2380,
-    "cost_price": 1650,
-    "cat": "clothing",
-    "subcat": "vest",
-    "cat_name": "Одяг & Жилетки",
-    "season": "demi",
-    "season_name": "Демісезон / Утеплений",
-    "brand": "urban",
-    "brand_name": "URBAN",
-    "gender": "men",
-    "art": "50PC",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво (Туреччина)",
-    "badge": "Хіт • Утеплений",
-    "desc": "Стильний утеплений чоловічий жилет URBAN (50PC). Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. Зручні місткі кишені, анатомічний крій та комфортна посадка. Фабричне виробництво (Туреччина).",
-    "thumb": "/images/catalog/58759.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/0d23a81b-8dd8-4522-8887-28e47583b97d.jpeg",
-      "https://easydrop.one/media/uploads/images/item_8646/ce850235-2ed8-49f7-8570-e8ac3d7113fe.jpeg"
-    ],
-    "sizes": [
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34340",
@@ -5386,7 +5653,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34339",
@@ -5420,7 +5688,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34338",
@@ -5450,7 +5719,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34337",
@@ -5480,7 +5750,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34336",
@@ -5510,7 +5781,8 @@
     "sizes": [
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34335",
@@ -5541,7 +5813,8 @@
       "XL",
       "XXL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   },
   {
     "id": "34334",
@@ -5571,6 +5844,7 @@
     "sizes": [
       "XL"
     ],
-    "in_stock": true
+    "in_stock": true,
+    "source_priority": 0
   }
 ]

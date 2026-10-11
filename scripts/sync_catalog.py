@@ -90,6 +90,7 @@ BRAND_MAP = {
     'trapstar': ('trapstar', 'Trapstar'),
     'jordan x psg': ('jordan', 'Jordan x PSG'),
     'psg': ('jordan', 'Jordan x PSG'),
+    'broken planet': ('broken_planet', 'Broken Planet'),
 }
 
 SUPPLIER_TOKENS = {
@@ -440,6 +441,7 @@ def transform_mydrop_product(p, markup=0.20):
         elif 'сір' in title_lower: color = 'Сірий'
         elif 'біл' in title_lower or 'молоч' in title_lower: color = 'Білий'
         elif 'беж' in title_lower: color = 'Бежевий'
+        elif 'broken planet' in title_lower: color = 'Чорний'
 
     # Category, subcategory, season classification
     if 'жилет' in title_lower or 'безрукав' in title_lower:
@@ -450,6 +452,14 @@ def transform_mydrop_product(p, markup=0.20):
         season_name = 'Демісезон'
         mat = 'Водовідштовхувальна плащівка / Холофайбер'
         badge = 'Хіт'
+    elif 'анорак' in title_lower:
+        cat = 'clothing'
+        subcat = 'winter_jacket'
+        cat_name = 'Одяг & Анораки'
+        season = 'winter'
+        season_name = 'Зима / Утеплений'
+        mat = 'Водовідштовхувальна плащівка / Рефлективні вставки / Утеплювач'
+        badge = 'Рефлектив • Утеплений'
     elif 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'парка' in title_lower or 'куртка' in title_lower or 'зим' in title_lower:
         cat = 'clothing'
         subcat = 'winter_jacket'
@@ -470,14 +480,14 @@ def transform_mydrop_product(p, markup=0.20):
         season_name = 'Демісезон'
         mat = "М'яка еко-шкіра"
         badge = 'Еко-шкіра'
-    elif 'худі' in title_lower or 'hoodie' in title_lower or 'зіп' in title_lower:
+    elif 'худі' in title_lower or 'hoodie' in title_lower or 'зіп' in title_lower or 'світшот' in title_lower:
         cat = 'clothing'
         subcat = 'zip_hoodie'
-        cat_name = 'Одяг & Зіп-худі'
-        season = 'demi'
-        season_name = 'Демісезон'
-        mat = '95% Бавовна / 5% Поліестер (петля)'
-        badge = 'DTF друк'
+        cat_name = 'Одяг & Худі'
+        season = 'winter' if 'фліс' in title_lower else 'demi'
+        season_name = 'Зима / Фліс' if 'фліс' in title_lower else 'Демісезон'
+        mat = 'Трьохнитка на флісі (бавовна / поліестер)' if 'фліс' in title_lower else '95% Бавовна / 5% Поліестер (петля)'
+        badge = 'Фліс • Тепле' if 'фліс' in title_lower else 'DTF друк'
     else:
         cat = 'clothing'
         subcat = 'jacket'
@@ -502,8 +512,12 @@ def transform_mydrop_product(p, markup=0.20):
         desc = '\n'.join(clean_lines)
     elif subcat == 'vest':
         desc = f"Стильна брендова жилетка {raw_title}. Якісна водовідштовхувальна плащівка, надійний легкий утеплювач холофайбер для захисту від вітру та холоду. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
+    elif 'анорак' in title_lower:
+        desc = f"Теплий брендовий анорак {raw_title}. Якісна водовідштовхувальна плащівка з надійним захистом від негоди, рефлективні вставки, зручна кишеня-кенгуру та м'який утеплювач. Фабричне виробництво."
     elif subcat == 'winter_jacket':
         desc = f"Теплий зимовий брендовий пуховик {raw_title}. Якісна водовідштовхувальна плащівка ({mat}), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
+    elif subcat == 'zip_hoodie':
+        desc = f"Стильне брендове худі {raw_title}. Преміальна щільна трьохнитка на м'якому теплому флісі, якісний стійкий принт, анатомічний крій та подвійний капюшон для щоденного комфорту. Фабричне виробництво."
     else:
         desc = f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
 
@@ -627,7 +641,7 @@ def generate_meta_dict(products):
         'winter_jacket': 'Зимові куртки та пуховики',
         'jacket': 'Демісезонні куртки',
         'leather': 'Косухи',
-        'zip_hoodie': 'Зіп-худі',
+        'zip_hoodie': 'Худі та зіп-худі',
         'vest': 'Жилетки',
         'pants': 'Штани та карго',
         'jeans': 'Джинси',
@@ -746,8 +760,8 @@ def generate_sitemap_xml(products):
 def commit_catalog_files(products):
     os.makedirs(DATA_DIR, exist_ok=True)
 
-    # Always put newest products at the beginning of the catalog
-    products.sort(key=lambda p: int(p.get('id', 0)), reverse=True)
+    # Always put newest loaded products at the beginning of the catalog (latest added source first, then newest item id)
+    products.sort(key=lambda p: (p.get('source_priority', 0), int(p.get('id', 0))), reverse=True)
 
     with open(OUTPUT_PRODUCTS, 'w', encoding='utf-8') as f:
         json.dump(products, f, ensure_ascii=False, indent=2)
@@ -796,7 +810,7 @@ def sync_sources():
     seen_pids = set()
     failed_sources = []
 
-    for s in sources:
+    for s_idx, s in enumerate(sources):
         stype = s.get('type')
         markup = float(s.get('markup', 0.20))
 
@@ -811,6 +825,7 @@ def sync_sources():
                     for itm in items:
                         if str(itm['id']) not in seen_pids:
                             seen_pids.add(str(itm['id']))
+                            itm['source_priority'] = s_idx
                             synced_products.append(itm)
 
         elif stype == 'mydrop_product':
@@ -820,7 +835,9 @@ def sync_sources():
                 pdata = fetch_mydrop_product(vid, pid)
                 if pdata and str(pdata['id']) not in seen_pids:
                     seen_pids.add(str(pdata['id']))
-                    synced_products.append(transform_mydrop_product(pdata, markup=markup))
+                    transformed = transform_mydrop_product(pdata, markup=markup)
+                    transformed['source_priority'] = s_idx
+                    synced_products.append(transformed)
 
         elif stype == 'mydrop_category':
             vid = s.get('vendor_id')
@@ -834,6 +851,7 @@ def sync_sources():
                     for itm in items:
                         if str(itm['id']) not in seen_pids:
                             seen_pids.add(str(itm['id']))
+                            itm['source_priority'] = s_idx
                             synced_products.append(itm)
 
     if failed_sources:

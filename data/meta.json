@@ -1,17 +1,17 @@
 {
-  "total": 167,
+  "total": 170,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 167
+      "count": 170
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 118
+      "count": 121
     },
     {
       "slug": "women",
@@ -25,13 +25,19 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 167
+      "count": 170
+    },
+    {
+      "slug": "zip_hoodie",
+      "name": "Худі та зіп-худі",
+      "icon": "",
+      "count": 1
     },
     {
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
       "icon": "",
-      "count": 157
+      "count": 159
     },
     {
       "slug": "vest",
@@ -45,13 +51,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 167
+      "count": 170
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 157
+      "count": 160
     },
     {
       "slug": "demi",
@@ -64,7 +70,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 167
+      "count": 170
     },
     {
       "slug": "nike",
@@ -74,7 +80,7 @@
     {
       "slug": "the_north_face",
       "name": "The North Face",
-      "count": 20
+      "count": 22
     },
     {
       "slug": "jordan",
@@ -82,13 +88,13 @@
       "count": 14
     },
     {
-      "slug": "polo_ralph_lauren",
-      "name": "Polo Ralph Lauren",
+      "slug": "stone_island",
+      "name": "Stone Island",
       "count": 12
     },
     {
-      "slug": "stone_island",
-      "name": "Stone Island",
+      "slug": "polo_ralph_lauren",
+      "name": "Polo Ralph Lauren",
       "count": 12
     },
     {
@@ -152,13 +158,18 @@
       "count": 2
     },
     {
-      "slug": "mertra",
-      "name": "Mertra",
+      "slug": "broken_planet",
+      "name": "Broken Planet",
       "count": 1
     },
     {
       "slug": "pukhovyk-cp-company-gray",
       "name": "Пуховик CP. Company Gray",
+      "count": 1
+    },
+    {
+      "slug": "mertra",
+      "name": "Mertra",
       "count": 1
     },
     {

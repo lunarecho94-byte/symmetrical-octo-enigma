@@ -50,8 +50,8 @@ def generate_product_slug(name, pid):
 
 def get_subcat_title(subcat):
     titles = {
-        'zip_hoodie': 'Зіп-худі Maison Margiela',
-        'hoodie': 'Зіп-худі',
+        'zip_hoodie': 'Худі та зіп-худі',
+        'hoodie': 'Худі та зіп-худі',
         'vest': 'Жіночі жилетки та безрукавки',
         'leggings': 'Жіночі лосини та легінси',
         'winter_jacket': 'Зимові куртки та пуховики',
@@ -950,8 +950,13 @@ def prerender_index_catalog(products):
     subcat_counts = Counter(p.get('subcat', 'clothing') for p in products)
     has_vests = 'vest' in subcat_counts and subcat_counts['vest'] > 0
     has_jackets = 'winter_jacket' in subcat_counts and subcat_counts['winter_jacket'] > 0
+    has_hoodies = 'zip_hoodie' in subcat_counts and subcat_counts['zip_hoodie'] > 0
 
-    if has_vests and has_jackets:
+    if has_hoodies:
+        cat_title = "КАТАЛОГ ОДЯГУ, ЗИМОВИХ КУРТОК ТА ХУДІ"
+        meta_title = "URBAN — Зимові куртки, пуховики, жилетки та худі | Купити в Україні"
+        meta_desc = "Каталог брендового одягу від URBAN: зимові куртки, пуховики, анораки, жилетки та теплі худі. Швидка доставка Новою Поштою 1-2 дні по Україні, оплата при отриманні."
+    elif has_vests and has_jackets:
         cat_title = "КАТАЛОГ ЗИМОВИХ КУРТОК ТА УТЕПЛЕНИХ ЖИЛЕТОК"
         meta_title = "URBAN — Зимові куртки, пуховики та жилетки | Купити в Україні"
         meta_desc = "Каталог брендових зимових курток та утеплених жилетів від URBAN: Nike, The North Face, Jordan, Ralph Lauren, Stone Island, Hugo Boss. Швидка доставка Новою Поштою 1-2 дні по Україні, оплата при отриманні."
@@ -1008,6 +1013,16 @@ def prerender_index_catalog(products):
                                 <button type="button" class="drawer-nav-item" data-cat="vest" onclick="applyDrawerCategory('vest')">
                                     <span class="drawer-nav-name">Утеплені жилетки</span>
                                     <span class="drawer-nav-count" id="drawerCatCount_vest">{subcat_counts['vest']}</span>
+                                </button>
+                                <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
+                            </div>
+                        </li>''')
+    if has_hoodies:
+        drawer_cat_items.append(f'''<li class="drawer-nested-wrap">
+                            <div class="drawer-nested-row">
+                                <button type="button" class="drawer-nav-item" data-cat="zip_hoodie" onclick="applyDrawerCategory('zip_hoodie')">
+                                    <span class="drawer-nav-name">Худі та зіп-худі</span>
+                                    <span class="drawer-nav-count" id="drawerCatCount_zip_hoodie">{subcat_counts['zip_hoodie']}</span>
                                 </button>
                                 <span class="drawer-sub-toggle-placeholder" aria-hidden="true"></span>
                             </div>
