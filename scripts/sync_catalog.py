@@ -319,7 +319,7 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             'season_name': season_name,
             'brand': brand_slug,
             'brand_name': brand_name,
-            'gender': 'men',
+            'gender': 'unisex' if any(s in ('XS', 'S', 'M') for s in final_sizes) else 'men',
             'art': sku,
             'color': '',
             'mat': mat,

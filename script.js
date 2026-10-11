@@ -2248,7 +2248,10 @@ function selectCatalogGender(gender, btn) {
         b.classList.toggle('active', b.dataset.gender === currentCatalogGender);
     });
 
+    syncQuickCatalogPills();
     updateFilterBadges();
+    syncDrawerActiveStates();
+    updateCatalogFilterBadge();
 
     if (catalogMeta) {
         renderBrandFilterChips(catalogMeta);
@@ -2564,6 +2567,8 @@ function checkCatalogUrlParams() {
         });
         updateBrandButtonState();
         updateSizeButtonState();
+        syncQuickCatalogPills();
+        syncDrawerActiveStates();
     } catch (e) {}
 }
 
@@ -2950,19 +2955,14 @@ function syncQuickNavChips(explicitKey) {
 function setQuickCatalogFilter(filter, btn) {
     if (filter === 'all') {
         currentCatalogGender = 'all';
-        currentCatalogSeason = 'all';
-        currentCatalogCategory = 'all';
-        currentCatalogBrand = 'all';
+    } else if (filter === 'men') {
+        currentCatalogGender = 'men';
+    } else if (filter === 'women') {
+        currentCatalogGender = 'women';
     } else if (filter && (filter.startsWith('cat:') || filter.startsWith('subcat:'))) {
         const catKey = filter.split(':')[1];
         currentCatalogCategory = (currentCatalogCategory === catKey) ? 'all' : catKey;
         currentCatalogBrand = 'all';
-    } else if (filter === 'men') {
-        currentCatalogGender = (currentCatalogGender === 'men') ? 'all' : 'men';
-        currentCatalogSeason = 'all';
-    } else if (filter === 'women') {
-        currentCatalogGender = (currentCatalogGender === 'women') ? 'all' : 'women';
-        currentCatalogSeason = 'all';
     } else if (filter === 'demi') {
         currentCatalogSeason = (currentCatalogSeason === 'demi') ? 'all' : 'demi';
         currentCatalogGender = 'all';
@@ -2989,22 +2989,12 @@ function setQuickCatalogFilter(filter, btn) {
 
 function syncQuickCatalogPills() {
     let activeQuick = 'all';
-    if (currentCatalogCategory && currentCatalogCategory !== 'all') {
-        activeQuick = `cat:${currentCatalogCategory}`;
-    } else if (currentCatalogBrand && currentCatalogBrand !== 'all') {
-        activeQuick = `brand:${currentCatalogBrand}`;
-    } else if (currentCatalogGender === 'men' && currentCatalogSeason === 'all') {
+    if (currentCatalogGender === 'men') {
         activeQuick = 'men';
-    } else if (currentCatalogGender === 'women' && currentCatalogSeason === 'all') {
+    } else if (currentCatalogGender === 'women') {
         activeQuick = 'women';
-    } else if (currentCatalogSeason === 'demi' && currentCatalogGender === 'all') {
-        activeQuick = 'demi';
-    } else if (currentCatalogSeason === 'winter' && currentCatalogGender === 'all') {
-        activeQuick = 'winter';
-    } else if (currentCatalogGender === 'all' && currentCatalogSeason === 'all' && currentCatalogBrand === 'all' && currentCatalogCategory === 'all') {
-        activeQuick = 'all';
     } else {
-        activeQuick = null;
+        activeQuick = 'all';
     }
 
     document.querySelectorAll('.catalog-pill-btn').forEach(b => {

@@ -892,7 +892,7 @@ def prerender_index_catalog(products):
         name_esc = escape(p['name'])
         
         cards_html.append(f'''
-                <div class="product-card" id="prod-{p['id']}" data-brand="{escape(p.get('brand',''))}" data-category="{escape(p.get('cat',''))}" data-price="{p['price']}" data-name="{name_esc}" data-art="{escape(p.get('art',''))}" data-id="{p['id']}">
+                <div class="product-card" id="prod-{p['id']}" data-brand="{escape(p.get('brand',''))}" data-category="{escape(p.get('cat',''))}" data-gender="{escape(p.get('gender','men'))}" data-price="{p['price']}" data-name="{name_esc}" data-art="{escape(p.get('art',''))}" data-id="{p['id']}">
                     <a href="/product/{slug}" class="want-card-link" onclick="openProductPage('{p['id']}', event, '/product/{slug}', false)">
                         <div class="product-img-wrapper" title="{name_esc}">
                             <button type="button" class="btn-card-fav" data-id="{p['id']}" onclick="toggleFavorite('{p['id']}', event)" aria-label="Додати в обране" title="Додати в обране">
@@ -964,15 +964,14 @@ def prerender_index_catalog(products):
     html = re.sub(r'<meta name="twitter:description" content=".*?">', f'<meta name="twitter:description" content="{meta_desc}">', html)
     html = re.sub(r'<h1 class="catalog-main-title[^"]*"[^>]*>.*?</h1>', f'<h1 class="catalog-main-title sr-only" id="catalogMainTitle">{cat_title}</h1>', html)
 
-    # Synchronize quick pills
-    pill_items = [f'<button type="button" class="catalog-pill-btn active" data-quick="all" onclick="setQuickCatalogFilter(\'all\', this)">Всі ({len(products)})</button>']
-    if has_vests:
-        pill_items.append(f'<button type="button" class="catalog-pill-btn" data-quick="cat:vest" onclick="setQuickCatalogFilter(\'cat:vest\', this)">Жилетки ({subcat_counts["vest"]})</button>')
-    for b_slug, b_name in [('nike', 'Nike'), ('the_north_face', 'The North Face'), ('jordan', 'Jordan'), ('polo_ralph_lauren', 'Ralph Lauren'), ('stone_island', 'Stone Island'), ('boss', 'Hugo Boss'), ('denim_tears', 'Denim Tears')]:
-        if b_slug in [p.get('brand') for p in products]:
-            pill_items.append(f'<button type="button" class="catalog-pill-btn" data-quick="brand:{b_slug}" onclick="setQuickCatalogFilter(\'brand:{b_slug}\', this)">{b_name}</button>')
+    # Synchronize quick pills (left side: Всі, Чоловічі, Жіночі)
+    pill_items = [
+        '<button type="button" class="catalog-pill-btn active" data-quick="all" onclick="setQuickCatalogFilter(\'all\', this)">Всі</button>',
+        '<button type="button" class="catalog-pill-btn" data-quick="men" onclick="setQuickCatalogFilter(\'men\', this)">Чоловічі</button>',
+        '<button type="button" class="catalog-pill-btn" data-quick="women" onclick="setQuickCatalogFilter(\'women\', this)">Жіночі</button>'
+    ]
 
-    quick_pills_html = f'''<div class="catalog-quick-pills" id="catalogQuickPills" role="navigation" aria-label="Швидкі фільтри">\n                    ''' + '\n                    '.join(pill_items) + '\n                </div>'
+    quick_pills_html = f'''<div class="catalog-quick-pills" id="catalogQuickPills" role="navigation" aria-label="Фільтр за статтю">\n                    ''' + '\n                    '.join(pill_items) + '\n                </div>'
     html = re.sub(r'<div class="catalog-quick-pills"[^>]*>.*?</div>', quick_pills_html, html, flags=re.DOTALL)
 
     # Synchronize drawer categories
@@ -1010,6 +1009,9 @@ def prerender_index_catalog(products):
     html = re.sub(r'<ul class="drawer-items-list" id="drawerCatList">.*?</ul>', drawer_cats_html, html, flags=re.DOTALL)
 
     # Synchronize drawer gender
+    men_count = sum(1 for p in products if p.get('gender') in ['men', 'unisex'])
+    women_count = sum(1 for p in products if p.get('gender') in ['women', 'unisex'])
+
     drawer_gender_html = f'''<ul class="drawer-items-list" id="drawerGenderList">
                         <li>
                             <button type="button" class="drawer-nav-item active" data-gender="all" onclick="applyDrawerGender('all')">
@@ -1020,7 +1022,13 @@ def prerender_index_catalog(products):
                         <li>
                             <button type="button" class="drawer-nav-item" data-gender="men" onclick="applyDrawerGender('men')">
                                 <span class="drawer-nav-name">Чоловічі</span>
-                                <span class="drawer-nav-count" id="drawerGenderCount_men">{len(products)}</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_men">{men_count}</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="drawer-nav-item" data-gender="women" onclick="applyDrawerGender('women')">
+                                <span class="drawer-nav-name">Жіночі</span>
+                                <span class="drawer-nav-count" id="drawerGenderCount_women">{women_count}</span>
                             </button>
                         </li>
                         <li>
