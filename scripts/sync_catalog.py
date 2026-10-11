@@ -251,23 +251,35 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
                 avail_sizes.append(sv)
         final_sizes = avail_sizes if avail_sizes else sizes
 
-        # Images
+        # Images (High-resolution photos + size chart, exclude low-quality itemimage thumbnails)
         base_m = re.search(r'showImage\([\'\"]([^\'\"]+)[\'\"]\)', card_html)
         base_img = base_m.group(1).strip() if base_m else ''
         mini_m = re.search(r'<img [^>]*src=[\'\"]([^\'\"]+)[\'\"]', card_html)
         mini_img = mini_m.group(1).strip() if mini_m else ''
         gal_imgs = galleries.get(pk, [])
 
-        # Auto-download and compress thumbnail locally
-        ensure_local_thumbnail(pk, gal_imgs[0] if gal_imgs else (base_img or mini_img))
-
-        local_thumb = f"/images/catalog/{pk}.jpg"
-        img_list = [local_thumb]
-        for img_path in (gal_imgs + [base_img, mini_img]):
+        # Filter out low-resolution itemimage previews
+        clean_raw_imgs = []
+        for img_path in (gal_imgs + [base_img]):
             if not img_path: continue
+            if 'itemimage' in img_path: continue
+            clean_raw_imgs.append(img_path)
+
+        if not clean_raw_imgs and mini_img:
+            clean_raw_imgs.append(mini_img)
+
+        # Auto-download and compress thumbnail locally for catalog cards
+        ensure_local_thumbnail(pk, clean_raw_imgs[0] if clean_raw_imgs else mini_img)
+        local_thumb = f"/images/catalog/{pk}.jpg"
+
+        img_list = []
+        for img_path in clean_raw_imgs:
             full_url = img_path if img_path.startswith('http') else f"https://easydrop.one{img_path}"
             if full_url not in img_list:
                 img_list.append(full_url)
+
+        if not img_list and local_thumb:
+            img_list = [local_thumb]
 
         # Extract extra model info from raw_brand if present
         brand_lower = brand_name.lower()
@@ -337,6 +349,7 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             'origin': origin,
             'badge': badge,
             'desc': desc,
+            'thumb': local_thumb,
             'imgs': img_list,
             'sizes': final_sizes,
             'in_stock': len(final_sizes) > 0

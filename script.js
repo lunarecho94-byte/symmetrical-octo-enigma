@@ -4060,7 +4060,7 @@ function createProductCardElement(item, index = 10) {
     card.dataset.origin = item.origin || '';
 
     const displayName = formatProductDisplayName(item);
-    const mainImg = (item.imgs && item.imgs[0]) ? item.imgs[0] : 'images/sneakers.webp';
+    const mainImg = item.thumb || ((item.imgs && item.imgs[0]) ? item.imgs[0] : 'images/sneakers.webp');
     const prodUrl = getProductUrl(item);
 
     const isFav = isFavorite(item.id);
@@ -7322,11 +7322,17 @@ function renderPdpGallery(item) {
         if (btnNext) btnNext.style.display = 'flex';
         if (thumbsStrip) {
             thumbsStrip.style.display = 'flex';
-            thumbsStrip.innerHTML = imgs.map((img, idx) => `
-                <button type="button" class="pdp-thumb-btn ${idx === pdpCurrentPhotoIndex ? 'active' : ''}" onclick="pdpSwitchPhoto(${idx})" aria-label="Фото ${idx + 1}">
-                    <img src="${img}" alt="Фото ${idx + 1}" loading="lazy" referrerpolicy="no-referrer">
+            thumbsStrip.innerHTML = imgs.map((img, idx) => {
+                const isSize = (idx === 1 && imgs.length >= 2);
+                const label = isSize ? 'Розмірна сітка' : `Фото ${idx + 1}`;
+                const badge = isSize ? '<span class="pdp-thumb-badge">Розміри</span>' : '';
+                return `
+                <button type="button" class="pdp-thumb-btn ${idx === pdpCurrentPhotoIndex ? 'active' : ''}" onclick="pdpSwitchPhoto(${idx})" aria-label="${label}" title="${label}">
+                    <img src="${img}" alt="${label}" loading="lazy" referrerpolicy="no-referrer">
+                    ${badge}
                 </button>
-            `).join('');
+                `;
+            }).join('');
         }
     }
 }
@@ -7862,6 +7868,14 @@ function pdpCopyArt() {
 window.pdpCopyArt = pdpCopyArt;
 
 function pdpOpenSizeGuide() {
+    if (pdpCurrentProduct && pdpCurrentProduct.imgs && pdpCurrentProduct.imgs.length > 1) {
+        pdpSwitchPhoto(1);
+        const mainBox = document.getElementById('pdpMainImgBox');
+        if (mainBox) {
+            mainBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+    }
     const cat = pdpCurrentProduct ? (pdpCurrentProduct.cat || 'shoes') : 'shoes';
     if (cat === 'accessories' || cat === 'socks') {
         const acc = document.getElementById('pdpAccSizeGuide');

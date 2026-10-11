@@ -142,13 +142,16 @@ def build_product_page_html(p, all_products):
         ]
     }
 
-    # Render thumbnails
+    # Render thumbnails (Clean high-res product photos + size chart badge)
     thumbs_html = []
     for idx, img_url in enumerate(imgs):
         active_cls = "active" if idx == 0 else ""
+        label_text = "Розмірна сітка" if idx == 1 and len(imgs) >= 2 else f"Фото {idx + 1}"
+        badge_html = '<span class="pdp-thumb-badge">Розміри</span>' if idx == 1 and len(imgs) >= 2 else ''
         thumbs_html.append(f'''
-            <button type="button" class="pdp-thumb-btn {active_cls}" onclick="pdpSwitchPhoto({idx})" aria-label="Фото {idx + 1}">
-                <img src="{img_url}" alt="Фото {idx + 1}" loading="lazy" referrerpolicy="no-referrer">
+            <button type="button" class="pdp-thumb-btn {active_cls}" onclick="pdpSwitchPhoto({idx})" aria-label="{label_text}" title="{label_text}">
+                <img src="{img_url}" alt="{label_text}" loading="lazy" referrerpolicy="no-referrer">
+                {badge_html}
             </button>
         ''')
 
@@ -167,7 +170,7 @@ def build_product_page_html(p, all_products):
     related_cards_html = []
     for r in related:
         r_slug = r.get('slug') or generate_product_slug(r['name'], r['id'])
-        r_img = r['imgs'][0] if r.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
+        r_img = r.get('thumb') or (r['imgs'][0] if r.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp')
         r_price = f"{r['price']:,}".replace(',', ' ') + " грн"
         related_cards_html.append(f'''
             <div class="product-card" id="prod-{r['id']}">
@@ -793,7 +796,7 @@ def main():
         cards_html = []
         for p in cat_prods[:24]:
             p_slug = p.get('slug') or generate_product_slug(p['name'], p['id'])
-            p_img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
+            p_img = p.get('thumb') or (p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp')
             p_price = f"{p['price']:,}".replace(',', ' ') + " грн"
             cards_html.append(f'''
                 <div class="product-card" id="prod-{p['id']}">
@@ -883,7 +886,7 @@ def prerender_index_catalog(products):
     cards_html = []
     for idx, p in enumerate(products):
         slug = p.get('slug') or generate_product_slug(p['name'], p['id'])
-        img = p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp'
+        img = p.get('thumb') or (p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp')
         price_str = f"{p['price']:,}".replace(',', ' ') + " грн."
         old_price_str = f"{p['old_price']:,}".replace(',', ' ') + " грн." if p.get('old_price') and p['old_price'] > p['price'] else ""
         sizes_str = ', '.join(p.get('sizes', []))
