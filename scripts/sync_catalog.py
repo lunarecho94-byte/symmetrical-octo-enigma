@@ -425,6 +425,7 @@ def transform_mydrop_product(p, markup=0.20):
     pid = str(p['id'])
     raw_title = (p.get('title') or '').strip()
     clean_title = re.sub(r'\s*\([Кк]опія\)', '', raw_title).strip()
+    clean_title = re.sub(r'\s+,', ',', clean_title)
     sku = (p.get('sku') or f"ART{pid}").strip()
     title_lower = clean_title.lower()
 
@@ -539,14 +540,14 @@ def transform_mydrop_product(p, markup=0.20):
 
     clean_sizes = []
     for s in p.get('sizes', []):
-        stitle = s.get('title', '').strip()
-        if s.get('availableDropshipper') and 'нюанс' not in stitle.lower():
+        stitle = s.get('title', '').strip().upper()
+        if s.get('availableDropshipper') and 'нюанс' not in s.get('title', '').lower():
             if stitle and stitle not in clean_sizes:
                 clean_sizes.append(stitle)
     if not clean_sizes:
         for s in p.get('sizes', []):
-            stitle = s.get('title', '').strip()
-            if 'нюанс' not in stitle.lower() and stitle and stitle not in clean_sizes:
+            stitle = s.get('title', '').strip().upper()
+            if 'нюанс' not in s.get('title', '').lower() and stitle and stitle not in clean_sizes:
                 clean_sizes.append(stitle)
 
     slug = f"{slugify(clean_title)}-{pid}"

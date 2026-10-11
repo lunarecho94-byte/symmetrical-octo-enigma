@@ -2095,6 +2095,11 @@ async function initDynamicCatalog() {
             if (isPinnedA !== isPinnedB) {
                 return isPinnedB - isPinnedA;
             }
+            const prioA = typeof a.source_priority === 'number' ? a.source_priority : 0;
+            const prioB = typeof b.source_priority === 'number' ? b.source_priority : 0;
+            if (prioA !== prioB) {
+                return prioB - prioA;
+            }
             return (parseInt(b.id, 10) || 0) - (parseInt(a.id, 10) || 0);
         });
         catalogAllProducts.forEach((item, idx) => {
@@ -3991,12 +3996,13 @@ function sortFilteredProducts(criteria) {
             case 'newest':
             case 'popular':
             default: {
-                // Pinned products always come first, followed by newest products
+                // Pinned products always come first, followed by newest additions in catalog order
                 const isPinnedA = (PINNED_PRODUCT_IDS.includes(String(a.id)) || a.pinned) ? 1 : 0;
                 const isPinnedB = (PINNED_PRODUCT_IDS.includes(String(b.id)) || b.pinned) ? 1 : 0;
                 if (isPinnedA !== isPinnedB) {
                     return isPinnedB - isPinnedA;
                 }
+                if (orderA !== orderB) return orderA - orderB;
                 return idB - idA;
             }
         }

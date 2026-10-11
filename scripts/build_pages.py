@@ -748,8 +748,8 @@ def main():
     with open(PRODUCTS_FILE, encoding='utf-8') as f:
         products = json.load(f)
 
-    # Always place newest products at the beginning of the catalog
-    products.sort(key=lambda p: int(p.get('id', 0)), reverse=True)
+    # Always place newest products at the beginning of the catalog (latest source, newest id)
+    products.sort(key=lambda p: (p.get('source_priority', 0), int(p.get('id', 0))), reverse=True)
 
     with open(META_FILE, encoding='utf-8') as f:
         meta = json.load(f)
