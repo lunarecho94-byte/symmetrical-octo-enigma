@@ -86,6 +86,7 @@ def build_product_page_html(p, all_products):
 
     imgs = p.get('imgs') or ['https://urbangrid.com.ua/images/outerwear.webp']
     main_img = imgs[0]
+    fallback_pdp_img = p.get('thumb') or ''
     main_img_abs = main_img if main_img.startswith('http') else f"https://urbangrid.com.ua{main_img}"
     abs_imgs = [im if im.startswith('http') else f"https://urbangrid.com.ua{im}" for im in imgs]
 
@@ -254,11 +255,11 @@ def build_product_page_html(p, all_products):
     </noscript>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/urbano_emblem.png">
-    <link rel="apple-touch-icon" href="images/urbano_emblem.png">
+    <link rel="icon" type="image/png" href="/images/urbano_emblem.png">
+    <link rel="apple-touch-icon" href="/images/urbano_emblem.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css?v=10.1">
+    <link rel="stylesheet" href="/style.css?v=13.0">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -293,7 +294,7 @@ def build_product_page_html(p, all_products):
             <div class="header-brand-wrap">
                 <a href="/" class="logo urbano-animated-logo" title="URBAN">
                     <div class="logo-mark-box">
-                        <img src="images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
+                        <img src="/images/urbano_emblem.png" alt="URBAN" class="logo-mark-img">
                     </div>
                     <div class="logo-text-box">
                         <span class="logo-text-title">URBAN</span>
@@ -355,7 +356,7 @@ def build_product_page_html(p, all_products):
 
                         <div class="pdp-main-image-box" id="pdpMainImgBox">
                             {f'<span class="pdp-discount-badge">-{discount_pct}%</span>' if discount_pct > 0 else ''}
-                            <img src="{main_img}" alt="{escape(display_name)}" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer">
+                            <img src="{main_img}" data-fallback-src="{fallback_pdp_img}" alt="{escape(display_name)}" id="pdpMainImg" class="pdp-main-img" fetchpriority="high" loading="eager" width="500" height="650" referrerpolicy="no-referrer" onerror="handlePdpMainImgError(this)">
 
                             <div class="pdp-gallery-arrows">
                                 <button type="button" class="pdp-gallery-nav-btn prev" id="pdpBtnPrev" onclick="pdpGalleryPrev()" aria-label="Попереднє фото">
@@ -733,7 +734,7 @@ def build_product_page_html(p, all_products):
     </div>
 
     <!-- Scripts -->
-    <script src="script.js?v=12.1" defer></script>
+    <script src="/script.js?v=13.0" defer></script>
     <script>
     // Pre-populate page context for script.js
     window.currentPdpProduct = {json.dumps(p, ensure_ascii=False)};
@@ -828,7 +829,7 @@ def main():
     <title>{escape(cat_meta_title)}</title>
     <meta name="description" content="{escape(cat_meta_desc)}">
     <link rel="canonical" href="{cat_url}">
-    <link rel="stylesheet" href="style.css?v=10.1">
+    <link rel="stylesheet" href="/style.css?v=13.0">
     <script type="application/ld+json">
 {json.dumps(cat_schema, ensure_ascii=False, indent=2)}
     </script>
@@ -845,7 +846,7 @@ def main():
             {''.join(cards_html)}
         </div>
     </main>
-    <script src="script.js?v=12.1" defer></script>
+    <script src="/script.js?v=13.0" defer></script>
 </body>
 </html>'''
         cat_file = os.path.join(CATEGORY_OUT_DIR, f"{cat_slug}.html")
@@ -891,7 +892,8 @@ def prerender_index_catalog(products):
     cards_html = []
     for idx, p in enumerate(products):
         slug = p.get('slug') or generate_product_slug(p['name'], p['id'])
-        img = p.get('thumb') or (p['imgs'][0] if p.get('imgs') else 'https://urbangrid.com.ua/images/outerwear.webp')
+        img = p.get('thumb') or (p['imgs'][0] if p.get('imgs') else '/images/outerwear.webp')
+        fallback_img = (p.get('imgs') or [''])[0]
         price_str = f"{p['price']:,}".replace(',', ' ') + " грн."
         old_price_str = f"{p['old_price']:,}".replace(',', ' ') + " грн." if p.get('old_price') and p['old_price'] > p['price'] else ""
         sizes_str = ', '.join(p.get('sizes', []))
@@ -908,7 +910,7 @@ def prerender_index_catalog(products):
                                     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"/>
                                 </svg>
                             </button>
-                            <img src="{img}" alt="{name_esc}" id="cardImg-{p['id']}" {priority_attrs} width="275" height="360" decoding="async" referrerpolicy="no-referrer">
+                            <img src="{img}" data-fallback-src="{fallback_img}" alt="{name_esc}" id="cardImg-{p['id']}" {priority_attrs} width="275" height="360" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '{escape(p.get('cat',''))}')">
                         </div>
                         <div class="product-details">
                             <p class="product-title" title="{name_esc}">{name_esc}</p>
@@ -1112,8 +1114,9 @@ def prerender_index_catalog(products):
                     </ul>'''
     html = re.sub(r'<ul class="drawer-items-list" id="drawerSeasonList">.*?</ul>', drawer_season_html, html, flags=re.DOTALL)
 
-    # Update cache-busting script version
+    # Update cache-busting script and style versions
     html = re.sub(r'script\.js\?v=[\d\.]+', 'script.js?v=13.0', html)
+    html = re.sub(r'style\.css\?v=[\d\.]+', 'style.css?v=13.0', html)
 
     if len(products) == 0:
         html = re.sub(r'<div class="catalog-pagination-container"[^>]*>', '<div class="catalog-pagination-container" id="catalogPagination" style="display: none;">', html)

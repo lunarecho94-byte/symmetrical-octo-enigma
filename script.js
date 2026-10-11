@@ -42,35 +42,47 @@ const FALLBACK_PRODUCT_SVG = `data:image/svg+xml;charset=utf-8,${encodeURICompon
 `)}`;
 
 function getCategoryFallbackImg(cat) {
-    if (cat === 'clothing') return 'images/tshirt.webp';
-    if (cat === 'pants') return 'images/pants.webp';
-    if (cat === 'accessories' || cat === 'bags') return 'images/urbano_logo_full.webp';
-    return 'images/sneakers.webp';
+    if (cat === 'clothing') return '/images/tshirt.webp';
+    if (cat === 'pants') return '/images/pants.webp';
+    if (cat === 'accessories' || cat === 'bags') return '/images/urbano_logo_full.webp';
+    return '/images/sneakers.webp';
 }
 
 function handleCardImgError(img, cat) {
     if (!img) return;
     const retryCount = parseInt(img.dataset.retried || '0', 10);
-    const originalSrc = img.dataset.srcOrig || img.getAttribute('src') || '';
+    const currentSrc = img.getAttribute('src') || '';
+    const fallbackSrc = img.dataset.fallbackSrc || '';
+    const originalSrc = img.dataset.srcOrig || currentSrc;
 
-    // Step 1: Retry original image once after 400ms (handles transient mobile connection hiccups)
-    if (retryCount < 1 && originalSrc && originalSrc.startsWith('http')) {
+    // Step 1: If remote fallback source exists and isn't what just failed, try fallback
+    if (retryCount === 0 && fallbackSrc && !currentSrc.includes(fallbackSrc)) {
         img.dataset.retried = '1';
-        setTimeout(() => {
-            const sep = originalSrc.includes('?') ? '&' : '?';
-            img.src = `${originalSrc}${sep}_r=${Date.now()}`;
-        }, 400);
+        img.src = fallbackSrc;
         return;
     }
 
-    // Step 2: Try category-specific local asset
+    // Step 2: Retry with cache-buster parameter after 350ms (handles transient connection drops)
     if (retryCount < 2) {
         img.dataset.retried = '2';
+        setTimeout(() => {
+            const base = (fallbackSrc && retryCount >= 1) ? fallbackSrc : originalSrc;
+            if (base) {
+                const sep = base.includes('?') ? '&' : '?';
+                img.src = `${base}${sep}_r=${Date.now()}`;
+            }
+        }, 350);
+        return;
+    }
+
+    // Step 3: Try category-specific local asset
+    if (retryCount < 3) {
+        img.dataset.retried = '3';
         img.src = getCategoryFallbackImg(cat);
         return;
     }
 
-    // Step 3: Guaranteed indestructible SVG fallback
+    // Step 4: Guaranteed indestructible SVG fallback
     img.onerror = null;
     img.src = FALLBACK_PRODUCT_SVG;
 }
@@ -80,6 +92,48 @@ function handleCardThumbError(thumb, cat) {
     thumb.onerror = null;
     thumb.src = getCategoryFallbackImg(cat);
 }
+
+function handlePdpMainImgError(img) {
+    if (!img) return;
+    const retryCount = parseInt(img.dataset.retried || '0', 10);
+    const fallbackSrc = img.dataset.fallbackSrc || '';
+    const currentSrc = img.getAttribute('src') || '';
+
+    if (retryCount === 0 && fallbackSrc && !currentSrc.includes(fallbackSrc)) {
+        img.dataset.retried = '1';
+        img.src = fallbackSrc;
+        return;
+    }
+
+    if (retryCount < 2) {
+        img.dataset.retried = '2';
+        setTimeout(() => {
+            const base = fallbackSrc || currentSrc;
+            if (base) {
+                const sep = base.includes('?') ? '&' : '?';
+                img.src = `${base}${sep}_r=${Date.now()}`;
+            }
+        }, 350);
+        return;
+    }
+
+    img.onerror = null;
+    const prod = (typeof pdpCurrentProduct !== 'undefined' && pdpCurrentProduct) || (typeof currentPdpProduct !== 'undefined' && currentPdpProduct);
+    const cat = prod ? prod.cat : 'clothing';
+    img.src = getCategoryFallbackImg(cat);
+}
+
+// Global capture-phase error listener for images (catches failed images before/without inline onerror)
+document.addEventListener('error', function(e) {
+    if (e.target && e.target.tagName === 'IMG') {
+        const card = e.target.closest('.product-card');
+        if (card) {
+            handleCardImgError(e.target, card.dataset.category || '');
+        } else if (e.target.id === 'pdpMainImg') {
+            handlePdpMainImgError(e.target);
+        }
+    }
+}, true);
 
 function handlePhotoModalImgError(img, cat) {
     if (!img) return;
@@ -4149,13 +4203,15 @@ function createProductCardElement(item, index = 10) {
         ? 'fetchpriority="high" loading="eager"'
         : (isAboveFold ? 'loading="eager"' : 'loading="lazy"');
 
+    const fallbackSrc = (item.imgs && item.imgs[0]) ? item.imgs[0] : '';
+
     card.innerHTML = `
         <a href="${prodUrl}" class="want-card-link" onclick="openProductPage('${item.id}', event, '${prodUrl}', false)">
             <div class="product-img-wrapper" title="${escapeHtml(displayName)}">
                 ${badgeHtml}
                 ${favBtnHtml}
                 ${stockBadgeHtml}
-                <img src="${mainImg}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" ${imgPriorityAttrs} width="275" height="360" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
+                <img src="${mainImg}" data-fallback-src="${fallbackSrc}" alt="${escapeHtml(displayName)}" id="cardImg-${item.id}" ${imgPriorityAttrs} width="275" height="360" decoding="async" referrerpolicy="no-referrer" onerror="handleCardImgError(this, '${item.cat}')">
             </div>
             <div class="product-details">
                 <p class="product-title" title="${escapeHtml(displayName)}">${escapeHtml(displayName)}</p>
@@ -5520,6 +5576,21 @@ document.addEventListener('DOMContentLoaded', () => {
         initProductDetailPage();
     }
 
+    // Safety check for prerendered or cached broken images
+    setTimeout(() => {
+        document.querySelectorAll('.product-card img').forEach(img => {
+            if (img.complete && img.naturalWidth === 0) {
+                const card = img.closest('.product-card');
+                const cat = card ? (card.dataset.category || '') : '';
+                handleCardImgError(img, cat);
+            }
+        });
+        const pdpMain = document.getElementById('pdpMainImg');
+        if (pdpMain && pdpMain.complete && pdpMain.naturalWidth === 0) {
+            handlePdpMainImgError(pdpMain);
+        }
+    }, 150);
+
 
     // Handle Form Submit with PDF Generation
     const form = document.getElementById('checkoutForm');
@@ -6193,6 +6264,7 @@ window.switchCardImg = switchCardImg;
 window.selectSize = selectSize;
 window.handleCardImgError = handleCardImgError;
 window.handleCardThumbError = handleCardThumbError;
+window.handlePdpMainImgError = handlePdpMainImgError;
 window.handlePhotoModalImgError = handlePhotoModalImgError;
 window.downloadLastGeneratedPdf = downloadLastGeneratedPdf;
 window.scrollToTopAnimated = scrollToTopAnimated;
