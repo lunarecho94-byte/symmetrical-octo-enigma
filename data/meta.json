@@ -1,17 +1,17 @@
 {
-  "total": 185,
+  "total": 203,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 185
+      "count": 203
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 136
+      "count": 154
     },
     {
       "slug": "women",
@@ -25,19 +25,25 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 185
+      "count": 203
     },
     {
-      "slug": "zip_hoodie",
-      "name": "Худі та зіп-худі",
+      "slug": "jacket",
+      "name": "Демісезонні куртки",
       "icon": "",
-      "count": 16
+      "count": 14
     },
     {
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
       "icon": "",
-      "count": 159
+      "count": 164
+    },
+    {
+      "slug": "zip_hoodie",
+      "name": "Худі та зіп-худі",
+      "icon": "",
+      "count": 15
     },
     {
       "slug": "vest",
@@ -51,26 +57,26 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 185
+      "count": 203
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 166
+      "count": 171
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 19
+      "count": 32
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 185
+      "count": 203
     },
     {
       "slug": "nike",
@@ -118,6 +124,11 @@
       "count": 9
     },
     {
+      "slug": "urban",
+      "name": "URBAN",
+      "count": 7
+    },
+    {
       "slug": "calvin_klein",
       "name": "Calvin Klein",
       "count": 7
@@ -133,9 +144,9 @@
       "count": 4
     },
     {
-      "slug": "urban",
-      "name": "URBAN",
-      "count": 4
+      "slug": "milko",
+      "name": "Milko",
+      "count": 3
     },
     {
       "slug": "armani",
@@ -153,6 +164,21 @@
       "count": 3
     },
     {
+      "slug": "blackarmada",
+      "name": "Black Armada",
+      "count": 2
+    },
+    {
+      "slug": "blackenerge",
+      "name": "Blackenerge",
+      "count": 2
+    },
+    {
+      "slug": "enjoy_life",
+      "name": "Enjoy Life",
+      "count": 2
+    },
+    {
       "slug": "trapstar",
       "name": "Trapstar",
       "count": 2
@@ -161,6 +187,36 @@
       "slug": "tommy_hilfiger",
       "name": "Tommy Hilfiger",
       "count": 2
+    },
+    {
+      "slug": "mafavintage",
+      "name": "Mafavintage",
+      "count": 1
+    },
+    {
+      "slug": "decency_concept",
+      "name": "Decency Concept",
+      "count": 1
+    },
+    {
+      "slug": "re_star",
+      "name": "Re Star",
+      "count": 1
+    },
+    {
+      "slug": "pioneer",
+      "name": "Pioneer",
+      "count": 1
+    },
+    {
+      "slug": "omialpha",
+      "name": "Omialpha",
+      "count": 1
+    },
+    {
+      "slug": "ruthles",
+      "name": "Ruthles",
+      "count": 1
     },
     {
       "slug": "broken_planet",

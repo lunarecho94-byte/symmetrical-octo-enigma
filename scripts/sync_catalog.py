@@ -94,6 +94,18 @@ BRAND_MAP = {
     'psg': ('jordan', 'Jordan x PSG'),
     'broken planet': ('broken_planet', 'Broken Planet'),
     'yarm': ('yarm', 'YARM'),
+    'ruthles': ('ruthles', 'Ruthles'),
+    'penjoy life': ('enjoy_life', 'Enjoy Life'),
+    'enjoy life': ('enjoy_life', 'Enjoy Life'),
+    'blackarmada': ('blackarmada', 'Black Armada'),
+    'black armada': ('blackarmada', 'Black Armada'),
+    'omialpha': ('omialpha', 'Omialpha'),
+    'pioneer': ('pioneer', 'Pioneer'),
+    'blackenerge': ('blackenerge', 'Blackenerge'),
+    'decency concept': ('decency_concept', 'Decency Concept'),
+    're star': ('re_star', 'Re Star'),
+    'mafavintage': ('mafavintage', 'Mafavintage'),
+    'milko': ('milko', 'Milko'),
 }
 
 SUPPLIER_TOKENS = {
@@ -130,6 +142,8 @@ def resolve_brand(brand_raw):
         if k in b_low:
             return v[0], v[1]
     clean_name = str(brand_raw or 'URBAN').strip()
+    if len(clean_name.split()) > 2 or any(w in b_low for w in ['куртка', 'курточка', 'бомбер', 'худі', 'зіп', 'штани', 'вітровка', 'вітрівка', 'жилетка', 'пальто', 'олімпійка']):
+        return 'urban', 'URBAN'
     return slugify(clean_name), clean_name
 
 
@@ -465,7 +479,47 @@ def transform_mydrop_product(p, markup=0.20):
         season_name = 'Зима / Утеплений'
         mat = 'Водовідштовхувальна плащівка / Рефлективні вставки / Утеплювач'
         badge = 'Рефлектив • Утеплений'
-    elif 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'парка' in title_lower or 'куртка' in title_lower or 'зим' in title_lower:
+    elif 'джинсов' in title_lower:
+        cat = 'clothing'
+        subcat = 'jacket'
+        cat_name = 'Одяг & Джинсові куртки'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = '100% щільний якісний денім (бавовна)'
+        badge = 'Денім • Хіт'
+    elif 'бомбер' in title_lower:
+        cat = 'clothing'
+        subcat = 'jacket'
+        cat_name = 'Одяг & Бомбери'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Щільна зносостійка плащівка / Трикотажні манжети'
+        badge = 'Бомбер'
+    elif 'вітровк' in title_lower or 'вітрівк' in title_lower or 'олімпійк' in title_lower:
+        cat = 'clothing'
+        subcat = 'jacket'
+        cat_name = 'Одяг & Вітровки' if ('вітровк' in title_lower or 'вітрівк' in title_lower) else 'Одяг & Олімпійки'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Легка вітрозахисна водовідштовхувальна плащівка'
+        badge = 'Вітрозахисна'
+    elif 'пальто' in title_lower:
+        cat = 'clothing'
+        subcat = 'jacket'
+        cat_name = 'Одяг & Пальто'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Преміальне вовняне сукно / Кашемір'
+        badge = 'Класика'
+    elif 'демісезон' in title_lower or 'демі' in title_lower:
+        cat = 'clothing'
+        subcat = 'jacket'
+        cat_name = 'Одяг & Демісезонні куртки'
+        season = 'demi'
+        season_name = 'Демісезон'
+        mat = 'Плащівка матова (100% поліестер)'
+        badge = 'Демісезон'
+    elif 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'парка' in title_lower or 'куртка' in title_lower or 'зим' in title_lower or 'тепл' in title_lower:
         cat = 'clothing'
         subcat = 'winter_jacket'
         cat_name = 'Одяг & Зимові куртки'
@@ -474,6 +528,9 @@ def transform_mydrop_product(p, markup=0.20):
         if 'teddi' in title_lower or 'тедді' in title_lower:
             mat = 'Шерпа / Штучне хутро Teddi / Утеплювач'
             badge = 'Teddi • Тепла'
+        elif 'хутро' in title_lower:
+            mat = 'Плащівка / М’яке штучне хутро / Утеплювач'
+            badge = 'Хутро • Тепла'
         else:
             mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
             badge = 'Зима • Термо'
@@ -527,6 +584,14 @@ def transform_mydrop_product(p, markup=0.20):
     elif subcat == 'zip_hoodie':
         type_word = "зіп-худі" if ('зіп' in title_lower or 'zip' in title_lower) else "худі"
         desc = f"Стильне брендове {type_word} {brand_name} {clean_title}. Преміальна щільна трьохнитка ({mat}), зручний подвійний капюшон, якісна фурнітура, місткі кишені та комфортний крій. Фабричне виробництво."
+    elif 'бомбер' in title_lower:
+        desc = f"Стильний брендовий бомбер {clean_title}. Якісна зносостійка тканина ({mat}), зручний крій, еластичні манжети та надійна фурнітура. Фабричне виробництво."
+    elif 'джинсов' in title_lower:
+        desc = f"Стильна джинсова куртка {clean_title}. Натуральний якісний денім ({mat}), автентичний streetwear крій, міцні ґудзики та місткі кишені. Фабричне виробництво."
+    elif 'вітровк' in title_lower or 'вітрівк' in title_lower or 'олімпійк' in title_lower:
+        desc = f"Легка брендова вітровка {clean_title}. Надійний захист від вітру та легкої негоди ({mat}), комфортна посадка, якісна блискавка. Фабричне виробництво."
+    elif 'пальто' in title_lower:
+        desc = f"Стильне вкорочене пальто {clean_title}. Преміальна тканина ({mat}), елегантний класичний крій, комфортна посадка та надійна фурнітура. Фабричне виробництво."
     else:
         desc = f"{clean_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
 
