@@ -88,6 +88,17 @@ SUPPLIER_TOKENS = {
     'moloko': '78230719008224',
 }
 
+WOMEN_IDS = {
+    '201252', '201254', '201253', '201679', '197755', '192325',
+    '201708', '201710', '197765',
+    '194901',
+    '197749', '197751', '143436', '143437',
+    '188355', '188357', '188356',
+    '192323', '192324', '137043',
+    '212319', '212321', '212320', '198789', '198790', '131883', '131885', '131884', '139295', '71984', '194647', '194653', '194655', '194656',
+    '201705', '201706', '193785', '193787', '193786', '141977', '141976', '138573', '138574', '136823', '76829', '76830', '127833', '127834', '194863'
+}
+
 
 def slugify(text):
     s = str(text or '').lower()
@@ -319,7 +330,7 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             'season_name': season_name,
             'brand': brand_slug,
             'brand_name': brand_name,
-            'gender': 'unisex' if any(s in ('XS', 'S', 'M') for s in final_sizes) else 'men',
+            'gender': 'women' if str(pk) in WOMEN_IDS else 'men',
             'art': sku,
             'color': '',
             'mat': mat,
@@ -507,8 +518,8 @@ def parse_source_url(url_str, markup=0.20):
 
 
 def generate_meta_dict(products):
-    women_count = sum(1 for p in products if p['gender'] in ('women', 'unisex'))
-    men_count = sum(1 for p in products if p['gender'] in ('men', 'unisex'))
+    women_count = sum(1 for p in products if p.get('gender') == 'women')
+    men_count = sum(1 for p in products if p.get('gender') == 'men')
 
     subcat_counts = Counter(p['subcat'] for p in products)
     season_counts = Counter(p['season'] for p in products)

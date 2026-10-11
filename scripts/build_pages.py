@@ -1009,8 +1009,8 @@ def prerender_index_catalog(products):
     html = re.sub(r'<ul class="drawer-items-list" id="drawerCatList">.*?</ul>', drawer_cats_html, html, flags=re.DOTALL)
 
     # Synchronize drawer gender
-    men_count = sum(1 for p in products if p.get('gender') in ['men', 'unisex'])
-    women_count = sum(1 for p in products if p.get('gender') in ['women', 'unisex'])
+    men_count = sum(1 for p in products if p.get('gender') == 'men')
+    women_count = sum(1 for p in products if p.get('gender') == 'women')
 
     drawer_gender_html = f'''<ul class="drawer-items-list" id="drawerGenderList">
                         <li>

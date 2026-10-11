@@ -1841,8 +1841,8 @@ let currentCatalogSort = 'popular';
 function productMatchesGender(p, gender) {
     if (!gender || gender === 'all') return true;
     if (gender === 'favorites') return isFavorite(p.id);
-    if (gender === 'men') return p.gender === 'men' || p.gender === 'unisex';
-    if (gender === 'women') return p.gender === 'women' || p.gender === 'unisex';
+    if (gender === 'men') return p.gender === 'men';
+    if (gender === 'women') return p.gender === 'women';
     return true;
 }
 
