@@ -127,6 +127,38 @@ WOMEN_IDS = {
 
 PINNED_PRODUCT_IDS = []
 
+# Known image overrides for products where supplier uploaded size chart to base and garment photo to itemimage
+KNOWN_IMAGE_OVERRIDES = {
+    '34340': [
+        'https://easydrop.one/media/uploads/images/itemimage/03e7f14b-10cb-4427-81b9-b5e5c319f9cf.jpeg',
+        'https://easydrop.one/media/uploads/images/base/0985f8f1-1fcc-4bb7-ae18-52142ff6ac0c.jpeg'
+    ],
+    '34339': [
+        'https://easydrop.one/media/uploads/images/itemimage/156d9b59-7193-4ecb-a3aa-e0ce5572bb01.jpeg',
+        'https://easydrop.one/media/uploads/images/base/fd2869b5-cce0-4ec9-bd28-b1ef5f86479a.jpeg'
+    ],
+    '34338': [
+        'https://easydrop.one/media/uploads/images/itemimage/e3eb0bc3-bd16-4074-bd47-69594dd8359f.jpeg',
+        'https://easydrop.one/media/uploads/images/base/315758ea-46e5-4f8e-8182-33e45afe08cb.jpeg'
+    ],
+    '34337': [
+        'https://easydrop.one/media/uploads/images/itemimage/1fa13111-8db4-4d17-8cb0-b3c08b64c876.jpeg',
+        'https://easydrop.one/media/uploads/images/base/8db29c67-f2d1-4168-937c-dbaf67ea3666.jpeg'
+    ],
+    '34336': [
+        'https://easydrop.one/media/uploads/images/itemimage/8061c37c-5cee-4ce0-98f3-643bcaaa0ca3.jpeg',
+        'https://easydrop.one/media/uploads/images/base/f579e7b2-8d69-4c12-8377-81f20dae8766.jpeg'
+    ],
+    '34335': [
+        'https://easydrop.one/media/uploads/images/itemimage/a71ba5b2-2583-4c91-b81d-c2e4b45e78b2.jpeg',
+        'https://easydrop.one/media/uploads/images/base/b1dbe7f4-a5a5-46f3-93b8-79dd71dbcefd.jpeg'
+    ],
+    '34334': [
+        'https://easydrop.one/media/uploads/images/itemimage/e7a03d81-c476-46a8-ace7-c2eb0916da58.jpeg',
+        'https://easydrop.one/media/uploads/images/base/704ccf97-eddc-4b11-8fac-0df4f733f0b5.jpeg'
+    ]
+}
+
 
 
 def slugify(text):
@@ -341,27 +373,32 @@ def fetch_easydrop_category(token, category_id, markup=0.20, min_stock=1):
         mini_img = mini_m.group(1).strip() if mini_m else ''
         gal_imgs = galleries.get(pk, [])
 
-        # Filter out low-resolution itemimage previews
-        clean_raw_imgs = []
-        for img_path in (gal_imgs + [base_img]):
-            if not img_path: continue
-            if 'itemimage' in img_path: continue
-            clean_raw_imgs.append(img_path)
+        # Filter out low-resolution itemimage previews unless itemimage is the only photo source or overridden
+        if str(pk) in KNOWN_IMAGE_OVERRIDES:
+            img_list = list(KNOWN_IMAGE_OVERRIDES[str(pk)])
+            clean_raw_imgs = img_list
+        else:
+            clean_raw_imgs = []
+            for img_path in (gal_imgs + [base_img]):
+                if not img_path: continue
+                has_highres = any(('base/' in g or 'item_' in g) for g in gal_imgs)
+                if 'itemimage' in img_path and has_highres:
+                    continue
+                clean_raw_imgs.append(img_path)
 
-        # High quality photo filter: require high-resolution image
-        if not clean_raw_imgs:
-            print(f"Skipping EasyDrop item {pk} ({sku}): only low-res photo found")
-            continue
+            if not clean_raw_imgs:
+                print(f"Skipping EasyDrop item {pk} ({sku}): only low-res photo found")
+                continue
+
+            img_list = []
+            for img_path in clean_raw_imgs:
+                full_url = img_path if img_path.startswith('http') else f"https://easydrop.one{img_path}"
+                if full_url not in img_list:
+                    img_list.append(full_url)
 
         # Auto-download and compress thumbnail locally for catalog cards
-        ensure_local_thumbnail(pk, clean_raw_imgs[0] if clean_raw_imgs else mini_img)
+        ensure_local_thumbnail(pk, img_list[0] if img_list else mini_img)
         local_thumb = f"/images/catalog/{pk}.jpg"
-
-        img_list = []
-        for img_path in clean_raw_imgs:
-            full_url = img_path if img_path.startswith('http') else f"https://easydrop.one{img_path}"
-            if full_url not in img_list:
-                img_list.append(full_url)
 
         if not img_list and local_thumb:
             img_list = [local_thumb]
