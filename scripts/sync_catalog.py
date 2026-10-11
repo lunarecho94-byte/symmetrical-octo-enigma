@@ -83,6 +83,13 @@ BRAND_MAP = {
     'mertra': ('mertra', 'Mertra'),
     'valentino': ('valentino', 'Valentino'),
     'moncler x valentino': ('moncler', 'Moncler x Valentino'),
+    'moncler x palm angels': ('moncler', 'Moncler x Palm Angels'),
+    'palm angels': ('palm_angels', 'Palm Angels'),
+    'armani exchange': ('armani', 'Armani Exchange'),
+    'armani': ('armani', 'Armani Exchange'),
+    'trapstar': ('trapstar', 'Trapstar'),
+    'jordan x psg': ('jordan', 'Jordan x PSG'),
+    'psg': ('jordan', 'Jordan x PSG'),
 }
 
 SUPPLIER_TOKENS = {
@@ -181,8 +188,9 @@ def fetch_mydrop_category(vendor_id, category_id, markup=0.20, min_stock=2):
     eligible_items = []
     for itm in results:
         sizes = itm.get('sizes', [])
-        total_qty = sum(s.get('realCountDropshipper', 0) for s in sizes if s.get('availableDropshipper'))
-        avail_count = len([s for s in sizes if s.get('availableDropshipper')])
+        valid_sizes = [s for s in sizes if s.get('availableDropshipper') and 'нюанс' not in s.get('title', '').lower()]
+        total_qty = sum(s.get('realCountDropshipper', 0) for s in valid_sizes)
+        avail_count = len(valid_sizes)
         if total_qty >= min_stock or (avail_count >= min_stock and total_qty > 0):
             eligible_items.append(itm)
         else:
@@ -442,14 +450,18 @@ def transform_mydrop_product(p, markup=0.20):
         season_name = 'Демісезон'
         mat = 'Водовідштовхувальна плащівка / Холофайбер'
         badge = 'Хіт'
-    elif 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'зим' in title_lower:
+    elif 'дублянк' in title_lower or 'хутро' in title_lower or 'пуховик' in title_lower or 'парка' in title_lower or 'куртка' in title_lower or 'зим' in title_lower:
         cat = 'clothing'
         subcat = 'winter_jacket'
         cat_name = 'Одяг & Зимові куртки'
         season = 'winter'
-        season_name = 'Зима'
-        mat = 'Штучна шкіра / Штучне хутро / Холофайбер'
-        badge = 'Зима • Термо'
+        season_name = 'Зима / Утеплена'
+        if 'teddi' in title_lower or 'тедді' in title_lower:
+            mat = 'Шерпа / Штучне хутро Teddi / Утеплювач'
+            badge = 'Teddi • Тепла'
+        else:
+            mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
+            badge = 'Зима • Термо'
     elif 'косух' in title_lower:
         cat = 'clothing'
         subcat = 'leather'
@@ -490,6 +502,8 @@ def transform_mydrop_product(p, markup=0.20):
         desc = '\n'.join(clean_lines)
     elif subcat == 'vest':
         desc = f"Стильна брендова жилетка {raw_title}. Якісна водовідштовхувальна плащівка, надійний легкий утеплювач холофайбер для захисту від вітру та холоду. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
+    elif subcat == 'winter_jacket':
+        desc = f"Теплий зимовий брендовий пуховик {raw_title}. Якісна водовідштовхувальна плащівка ({mat}), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
     else:
         desc = f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
 
@@ -503,14 +517,14 @@ def transform_mydrop_product(p, markup=0.20):
 
     clean_sizes = []
     for s in p.get('sizes', []):
-        if s.get('availableDropshipper'):
-            stitle = s.get('title', '').strip()
+        stitle = s.get('title', '').strip()
+        if s.get('availableDropshipper') and 'нюанс' not in stitle.lower():
             if stitle and stitle not in clean_sizes:
                 clean_sizes.append(stitle)
     if not clean_sizes:
         for s in p.get('sizes', []):
             stitle = s.get('title', '').strip()
-            if stitle and stitle not in clean_sizes:
+            if 'нюанс' not in stitle.lower() and stitle and stitle not in clean_sizes:
                 clean_sizes.append(stitle)
 
     slug = f"{slugify(raw_title)}-{pid}"

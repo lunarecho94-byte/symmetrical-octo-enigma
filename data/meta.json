@@ -1,17 +1,17 @@
 {
-  "total": 147,
+  "total": 167,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 147
+      "count": 167
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 98
+      "count": 118
     },
     {
       "slug": "women",
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 147
+      "count": 167
+    },
+    {
+      "slug": "winter_jacket",
+      "name": "Зимові куртки та пуховики",
+      "icon": "",
+      "count": 157
     },
     {
       "slug": "vest",
       "name": "Жилетки",
       "icon": "",
       "count": 10
-    },
-    {
-      "slug": "winter_jacket",
-      "name": "Зимові куртки та пуховики",
-      "icon": "",
-      "count": 137
     }
   ],
   "seasons": [
@@ -45,13 +45,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 147
+      "count": 167
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 137
+      "count": 157
     },
     {
       "slug": "demi",
@@ -64,22 +64,22 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 147
+      "count": 167
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 38
+      "count": 44
     },
     {
       "slug": "the_north_face",
       "name": "The North Face",
-      "count": 18
+      "count": 20
     },
     {
       "slug": "jordan",
       "name": "Jordan",
-      "count": 13
+      "count": 14
     },
     {
       "slug": "polo_ralph_lauren",
@@ -92,6 +92,11 @@
       "count": 12
     },
     {
+      "slug": "moncler",
+      "name": "Moncler",
+      "count": 10
+    },
+    {
       "slug": "boss",
       "name": "Hugo Boss",
       "count": 10
@@ -102,9 +107,9 @@
       "count": 9
     },
     {
-      "slug": "moncler",
-      "name": "Moncler",
-      "count": 8
+      "slug": "calvin_klein",
+      "name": "Calvin Klein",
+      "count": 7
     },
     {
       "slug": "cp_company",
@@ -112,14 +117,19 @@
       "count": 5
     },
     {
-      "slug": "calvin_klein",
-      "name": "Calvin Klein",
-      "count": 5
+      "slug": "lacoste",
+      "name": "Lacoste",
+      "count": 4
     },
     {
       "slug": "urban",
       "name": "URBAN",
       "count": 4
+    },
+    {
+      "slug": "armani",
+      "name": "Armani Exchange",
+      "count": 3
     },
     {
       "slug": "louis_vuitton",
@@ -132,9 +142,9 @@
       "count": 3
     },
     {
-      "slug": "lacoste",
-      "name": "Lacoste",
-      "count": 3
+      "slug": "trapstar",
+      "name": "Trapstar",
+      "count": 2
     },
     {
       "slug": "tommy_hilfiger",
@@ -144,6 +154,11 @@
     {
       "slug": "mertra",
       "name": "Mertra",
+      "count": 1
+    },
+    {
+      "slug": "pukhovyk-cp-company-gray",
+      "name": "Пуховик CP. Company Gray",
       "count": 1
     },
     {
