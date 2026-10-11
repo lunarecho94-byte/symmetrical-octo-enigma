@@ -25,6 +25,7 @@ import subprocess
 import urllib.request
 import urllib.parse
 import http.cookiejar
+import html as html_lib
 from concurrent.futures import ThreadPoolExecutor
 from collections import Counter
 from xml.sax.saxutils import escape
@@ -74,10 +75,17 @@ BRAND_MAP = {
     'columbia': ('columbia', 'Columbia'),
     'lacoste': ('lacoste', 'Lacoste'),
     'tommy hilfiger': ('tommy_hilfiger', 'Tommy Hilfiger'),
+    'denim tears': ('denim_tears', 'Denim Tears'),
     'c.p. company': ('cp_company', 'C.P. Company'),
     'c.p.  company': ('cp_company', 'C.P. Company'),
     'cp company': ('cp_company', 'C.P. Company'),
     'c.p.company': ('cp_company', 'C.P. Company'),
+}
+
+SUPPLIER_TOKENS = {
+    '911': '25162466829867',
+    'lastore': '25162466829867',
+    'moloko': '78230719008224',
 }
 
 
@@ -208,7 +216,7 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
     products = []
     for pk, card_html in cards:
         h5 = re.search(r'<h5>(.*?)</h5>', card_html)
-        raw_brand = h5.group(1).strip() if h5 else ''
+        raw_brand = html_lib.unescape(h5.group(1).strip()) if h5 else ''
         brand_slug, brand_name = resolve_brand(raw_brand)
 
         sku_m = re.search(r'Код/Арт:.*?<td[^>]*><nobr>(.*?)</nobr></td>', card_html, re.DOTALL)
@@ -249,6 +257,16 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             full_url = img_path if img_path.startswith('http') else f"https://easydrop.one{img_path}"
             if full_url not in img_list:
                 img_list.append(full_url)
+
+        # Extract extra model info from raw_brand if present
+        brand_lower = brand_name.lower()
+        raw_lower = raw_brand.lower()
+        model_part = raw_brand
+        if raw_lower.startswith(brand_lower):
+            model_part = raw_brand[len(brand_name):].strip()
+        model_part = re.sub(r'[\'"]', '', model_part).strip()
+        model_part = re.sub(r'(?i)\b(puffer\s+jacket|jacket|куртка)\b', '', model_part).strip()
+        model_part = ' '.join(model_part.split())
 
         # Title & Category
         is_vest = 'жилет' in raw_brand.lower() or 'жилет' in card_html.lower()[:300]
@@ -434,14 +452,31 @@ def transform_mydrop_product(p, markup=0.20):
 def parse_source_url(url_str, markup=0.20):
     u = url_str.strip()
 
-    # EasyDrop category URL
+    # EasyDrop category URL e.g. supplier-catalog/78230719008224/4122/
     m_ed = re.search(r'easydrop\.one/supplier-catalog/(\w+)/(\d+)', u)
     if m_ed:
+        token = m_ed.group(1)
+        cat_id = m_ed.group(2)
+        resolved_token = SUPPLIER_TOKENS.get(token, token)
         return {
             'type': 'easydrop_category',
-            'token': m_ed.group(1),
-            'category_id': m_ed.group(2),
-            'url': u,
+            'token': resolved_token,
+            'category_id': cat_id,
+            'url': f"https://easydrop.one/supplier-catalog/{resolved_token}/{cat_id}/",
+            'markup': markup
+        }
+
+    # EasyDrop catalog-view cabinet URL e.g. easydrop.one/catalog-view/911/15395/
+    m_cv = re.search(r'easydrop\.one/catalog-view/(\w+)/(\d+)', u)
+    if m_cv:
+        supplier_id = m_cv.group(1)
+        cat_id = m_cv.group(2)
+        resolved_token = SUPPLIER_TOKENS.get(supplier_id, supplier_id)
+        return {
+            'type': 'easydrop_category',
+            'token': resolved_token,
+            'category_id': cat_id,
+            'url': f"https://easydrop.one/supplier-catalog/{resolved_token}/{cat_id}/",
             'markup': markup
         }
 

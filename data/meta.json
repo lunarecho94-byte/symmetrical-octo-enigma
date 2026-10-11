@@ -1,17 +1,17 @@
 {
-  "total": 128,
+  "total": 140,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 128
+      "count": 140
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 128
+      "count": 140
     },
     {
       "slug": "women",
@@ -25,13 +25,13 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 128
+      "count": 140
     },
     {
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
       "icon": "",
-      "count": 124
+      "count": 136
     },
     {
       "slug": "vest",
@@ -45,13 +45,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 128
+      "count": 140
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 124
+      "count": 136
     },
     {
       "slug": "demi",
@@ -64,17 +64,17 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 128
+      "count": 140
     },
     {
       "slug": "nike",
       "name": "Nike",
-      "count": 30
+      "count": 35
     },
     {
       "slug": "the_north_face",
       "name": "The North Face",
-      "count": 13
+      "count": 18
     },
     {
       "slug": "polo_ralph_lauren",
@@ -82,14 +82,14 @@
       "count": 12
     },
     {
-      "slug": "jordan",
-      "name": "Jordan",
+      "slug": "stone_island",
+      "name": "Stone Island",
       "count": 12
     },
     {
-      "slug": "stone_island",
-      "name": "Stone Island",
-      "count": 11
+      "slug": "jordan",
+      "name": "Jordan",
+      "count": 12
     },
     {
       "slug": "boss",
@@ -140,6 +140,11 @@
       "slug": "tommy_hilfiger",
       "name": "Tommy Hilfiger",
       "count": 2
+    },
+    {
+      "slug": "denim_tears",
+      "name": "Denim Tears",
+      "count": 1
     }
   ]
 }
