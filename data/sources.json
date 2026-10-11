@@ -60,8 +60,8 @@
     "type": "mydrop_category",
     "vendor_id": 40070,
     "vendor_slug": "generalclothes",
-    "category_id": "170180",
-    "url": "https://mydrop.com.ua/generalclothes/c/170180",
+    "category_id": "170383",
+    "url": "https://mydrop.com.ua/generalclothes/c/170383",
     "markup": 0.2,
     "min_stock": 2
   },
@@ -69,8 +69,8 @@
     "type": "mydrop_category",
     "vendor_id": 40070,
     "vendor_slug": "generalclothes",
-    "category_id": "170383",
-    "url": "https://mydrop.com.ua/generalclothes/c/170383",
+    "category_id": "170180",
+    "url": "https://mydrop.com.ua/generalclothes/c/170180",
     "markup": 0.2,
     "min_stock": 2
   }

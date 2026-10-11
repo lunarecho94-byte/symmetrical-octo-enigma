@@ -28,6 +28,12 @@
       "count": 203
     },
     {
+      "slug": "zip_hoodie",
+      "name": "Худі та зіп-худі",
+      "icon": "",
+      "count": 15
+    },
+    {
       "slug": "jacket",
       "name": "Демісезонні куртки",
       "icon": "",
@@ -38,12 +44,6 @@
       "name": "Зимові куртки та пуховики",
       "icon": "",
       "count": 164
-    },
-    {
-      "slug": "zip_hoodie",
-      "name": "Худі та зіп-худі",
-      "icon": "",
-      "count": 15
     },
     {
       "slug": "vest",

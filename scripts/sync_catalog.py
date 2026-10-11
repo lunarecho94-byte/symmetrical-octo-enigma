@@ -954,22 +954,22 @@ def add_source_urls(urls, markup=0.20):
             print(f"Could not parse URL format: {u}")
             continue
 
-        exists = any(
-            s.get('type') == parsed['type'] and
-            s.get('url') == parsed.get('url')
-            for s in sources
-        )
-        if not exists:
+        # If source exists, bump it to the end so it gets highest priority (newest additions at top of catalog)
+        existing_match = None
+        for s in sources:
+            if s.get('type') == parsed['type'] and s.get('url') == parsed.get('url'):
+                existing_match = s
+                break
+        if existing_match:
+            sources.remove(existing_match)
+            existing_match['markup'] = markup
+            sources.append(existing_match)
+            added_any = True
+            print(f"Bumped existing source to newest top priority: {existing_match}")
+        else:
             sources.append(parsed)
             added_any = True
-            print(f"Added source: {parsed}")
-        else:
-            # Update markup if changed
-            for s in sources:
-                if s.get('url') == parsed.get('url'):
-                    s['markup'] = markup
-            added_any = True
-            print(f"Updated existing source with markup {markup*100:.0f}%: {parsed}")
+            print(f"Added new source to top priority: {parsed}")
 
     if added_any:
         save_sources(sources)
