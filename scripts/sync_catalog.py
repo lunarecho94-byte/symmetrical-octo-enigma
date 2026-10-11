@@ -142,7 +142,7 @@ def resolve_brand(brand_raw):
         if k in b_low:
             return v[0], v[1]
     clean_name = str(brand_raw or 'URBAN').strip()
-    if len(clean_name.split()) > 2 or any(w in b_low for w in ['куртка', 'курточка', 'бомбер', 'худі', 'зіп', 'штани', 'вітровка', 'вітрівка', 'жилетка', 'пальто', 'олімпійка']):
+    if len(clean_name.split()) > 2 or any(w in b_low for w in ['куртка', 'курточка', 'бомбер', 'худі', 'зіп', 'штани', 'вітровка', 'вітрівка', 'жилетка', 'пальто', 'олімпійка', 'худи', 'худак', 'свитшот', 'світшот', 'флиска', 'фліска']):
         return 'urban', 'URBAN'
     return slugify(clean_name), clean_name
 
@@ -256,12 +256,12 @@ def ensure_local_thumbnail(pk, remote_img_path):
         print(f"Warning downloading thumb {pk}: {e}")
 
 
-def fetch_easydrop_category(token, category_id, markup=0.20):
+def fetch_easydrop_category(token, category_id, markup=0.20, min_stock=1):
     url = f"https://easydrop.one/supplier-catalog/{token}/{category_id}/"
     cj = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj), urllib.request.HTTPSHandler(context=ctx))
 
-    print(f"Fetching EasyDrop catalog: {url} (націнка: {markup*100:.0f}%)...")
+    print(f"Fetching EasyDrop catalog: {url} (націнка: {markup*100:.0f}%, мін. наявність: {min_stock})...")
     req = urllib.request.Request(url, headers={
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     })
@@ -322,10 +322,17 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
         size_blocks = re.findall(r'<a class=\"size-option\s*([^\"]*)\">\s*<div class=\"size-val[^\"]*\"[^>]*>(.*?)</div>\s*<div class=\"size-qty[^\"]*\">\s*(.*?)\s*</div>', card_html, re.DOTALL)
         for cls, sval, sqty in size_blocks:
             sv = sval.strip()
+            if sv == '.' or not sv:
+                continue
             sizes.append(sv)
-            if 'available-True' in cls or sqty.strip() != '0':
+            if 'available-True' in cls or (sqty.strip() != '0' and sqty.strip() != ''):
                 avail_sizes.append(sv)
         final_sizes = avail_sizes if avail_sizes else sizes
+
+        # Check stock filter: min_stock (e.g. >= 2)
+        if len(avail_sizes) < min_stock and len(final_sizes) < min_stock:
+            print(f"Skipping EasyDrop item {pk} ({sku}): stock {len(avail_sizes)} < {min_stock}")
+            continue
 
         # Images (High-resolution photos + size chart, exclude low-quality itemimage thumbnails)
         base_m = re.search(r'showImage\([\'\"]([^\'\"]+)[\'\"]\)', card_html)
@@ -341,8 +348,10 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             if 'itemimage' in img_path: continue
             clean_raw_imgs.append(img_path)
 
-        if not clean_raw_imgs and mini_img:
-            clean_raw_imgs.append(mini_img)
+        # High quality photo filter: require high-resolution image
+        if not clean_raw_imgs:
+            print(f"Skipping EasyDrop item {pk} ({sku}): only low-res photo found")
+            continue
 
         # Auto-download and compress thumbnail locally for catalog cards
         ensure_local_thumbnail(pk, clean_raw_imgs[0] if clean_raw_imgs else mini_img)
@@ -367,8 +376,20 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
         model_part = re.sub(r'(?i)\b(puffer\s+jacket|jacket|куртка)\b', '', model_part).strip()
         model_part = ' '.join(model_part.split())
 
-        # Title & Category
-        is_vest = 'жилет' in raw_brand.lower() or 'жилет' in card_html.lower()[:300]
+        # Extract material and origin from card_html
+        mat_m = re.search(r'class=\"item-material-label\">([^<]+)<', card_html)
+        raw_mat = mat_m.group(1).strip() if mat_m else ''
+        origin_m = re.search(r'<tr class=\"text-left\"><td colspan=\"3\">\s*(.*?)\s*</td></tr>', card_html)
+        origin_text = origin_m.group(1).strip() if origin_m else 'Турция'
+        origin = 'Фабричне виробництво (Туреччина)' if 'турц' in origin_text.lower() else 'Фабричне виробництво'
+
+        # Title & Category classification
+        raw_b_low = raw_brand.lower()
+        is_vest = 'жилет' in raw_b_low or 'жилет' in card_html.lower()[:300]
+        is_hoodie = 'худи' in raw_b_low or 'худак' in raw_b_low or 'худі' in raw_b_low
+        is_sweatshirt = 'свитшот' in raw_b_low or 'світшот' in raw_b_low
+        is_fleece = 'флиска' in raw_b_low or 'фліс' in raw_b_low
+
         if is_vest:
             subcat = 'vest'
             cat_name = 'Одяг & Жилетки'
@@ -379,11 +400,52 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             season_name = 'Демісезон / Утеплений'
             badge = 'Хіт • Утеплений'
             mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
-            origin = 'Фабричне виробництво (Туреччина)'
             desc = (
                 f"Стильний утеплений чоловічий жилет URBAN ({sku}). "
                 f"Якісна водовідштовхувальна плащівка (100% поліестер), надійний наповнювач холофайбер для збереження тепла та захисту від вітру. "
                 f"Зручні місткі кишені, анатомічний крій та комфортна посадка. {origin}."
+            )
+        elif is_hoodie:
+            subcat = 'zip_hoodie'
+            cat_name = 'Одяг & Худі'
+            brand_slug = 'urban'
+            brand_name = 'URBAN'
+            title = f"Худі оверсайз {sku}"
+            season = 'winter' if ('фліс' in raw_mat.lower() or 'флис' in raw_mat.lower()) else 'demi'
+            season_name = 'Зима / Фліс' if season == 'winter' else 'Демісезон'
+            badge = 'Оверсайз • Тепле'
+            mat = '100% преміальна щільна бавовна (коттон)' if 'коттон' in raw_mat.lower() else (raw_mat or 'Преміальна бавовна')
+            desc = (
+                f"Стильне брендове худі URBAN ({sku}). "
+                f"Якісна щільна тканина ({mat}), подвійний комфортний капюшон, еластичні манжети та зручний вільний крій оверсайз. {origin}."
+            )
+        elif is_sweatshirt:
+            subcat = 'zip_hoodie'
+            cat_name = 'Одяг & Світшоти'
+            brand_slug = 'urban'
+            brand_name = 'URBAN'
+            title = f"Теплий світшот {sku}"
+            season = 'winter'
+            season_name = 'Зима / Теплий'
+            badge = 'Полар • Теплий'
+            mat = 'М’який зносостійкий полар (фліс)' if 'полар' in raw_mat.lower() else (raw_mat or 'Теплий трикотаж')
+            desc = (
+                f"Теплий фірмовий світшот URBAN ({sku}). "
+                f"М'який та приємний до тіла матеріал ({mat}), якісна вишивка, круглий виріз горловини з еластичною резинкою. {origin}."
+            )
+        elif is_fleece:
+            subcat = 'jacket'
+            cat_name = 'Одяг & Флісові куртки'
+            brand_slug = 'urban'
+            brand_name = 'URBAN'
+            title = f"Тепла флісова куртка {sku}"
+            season = 'demi'
+            season_name = 'Демісезон / Тепла'
+            badge = 'Фліс • Тепла'
+            mat = 'Щільний високоякісний мікрофліс (100% поліестер)'
+            desc = (
+                f"Зручна та тепла флісова куртка URBAN ({sku}). "
+                f"Щільний зносостійкий фліс ({mat}), центральна застібка-блискавка, комір-стійка для захисту від вітру та місткі кишені. {origin}."
             )
         else:
             subcat = 'winter_jacket'
@@ -393,9 +455,6 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
             season_name = 'Зима / Утеплена'
             badge = 'Зима • Термо'
             mat = '100% поліестер / Водовідштовхувальна плащівка / Холофайбер'
-            origin_m = re.search(r'<tr class=\"text-left\"><td colspan=\"3\">\s*(.*?)\s*</td></tr>', card_html)
-            origin_text = origin_m.group(1).strip() if origin_m else 'Турция'
-            origin = 'Фабричне виробництво (Туреччина)' if 'турц' in origin_text.lower() else 'Фабричне виробництво'
             desc = (
                 f"Тепла зимова брендова куртка {brand_name} ({sku}). "
                 f"Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. "
@@ -660,7 +719,8 @@ def parse_source_url(url_str, markup=0.20):
             'token': resolved_token,
             'category_id': cat_id,
             'url': f"https://easydrop.one/supplier-catalog/{resolved_token}/{cat_id}/",
-            'markup': markup
+            'markup': markup,
+            'min_stock': 2
         }
 
     # EasyDrop catalog-view cabinet URL e.g. easydrop.one/catalog-view/911/15395/
@@ -674,7 +734,8 @@ def parse_source_url(url_str, markup=0.20):
             'token': resolved_token,
             'category_id': cat_id,
             'url': f"https://easydrop.one/supplier-catalog/{resolved_token}/{cat_id}/",
-            'markup': markup
+            'markup': markup,
+            'min_stock': 2
         }
 
     # MyDrop Backend direct product URL
@@ -891,8 +952,9 @@ def sync_sources():
         if stype == 'easydrop_category':
             token = s.get('token')
             cid = s.get('category_id')
+            min_stock = int(s.get('min_stock', 1))
             if token and cid:
-                items = fetch_easydrop_category(token, cid, markup=markup)
+                items = fetch_easydrop_category(token, cid, markup=markup, min_stock=min_stock)
                 if items is None:
                     failed_sources.append(s)
                 else:

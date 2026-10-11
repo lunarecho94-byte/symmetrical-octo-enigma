@@ -1,17 +1,17 @@
 {
-  "total": 203,
+  "total": 221,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 203
+      "count": 221
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 154
+      "count": 172
     },
     {
       "slug": "women",
@@ -25,19 +25,19 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 203
+      "count": 221
     },
     {
       "slug": "zip_hoodie",
       "name": "Худі та зіп-худі",
       "icon": "",
-      "count": 15
+      "count": 30
     },
     {
       "slug": "jacket",
       "name": "Демісезонні куртки",
       "icon": "",
-      "count": 14
+      "count": 17
     },
     {
       "slug": "winter_jacket",
@@ -57,31 +57,36 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 203
+      "count": 221
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 171
+      "count": 173
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 32
+      "count": 48
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 203
+      "count": 221
     },
     {
       "slug": "nike",
       "name": "Nike",
       "count": 44
+    },
+    {
+      "slug": "urban",
+      "name": "URBAN",
+      "count": 25
     },
     {
       "slug": "the_north_face",
@@ -122,11 +127,6 @@
       "slug": "napapijri",
       "name": "Napapijri",
       "count": 9
-    },
-    {
-      "slug": "urban",
-      "name": "URBAN",
-      "count": 7
     },
     {
       "slug": "calvin_klein",

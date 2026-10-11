@@ -73,5 +73,13 @@
     "url": "https://mydrop.com.ua/generalclothes/c/170180",
     "markup": 0.2,
     "min_stock": 2
+  },
+  {
+    "type": "easydrop_category",
+    "token": "78230719008224",
+    "category_id": "5341",
+    "url": "https://easydrop.one/supplier-catalog/78230719008224/5341/",
+    "markup": 0.2,
+    "min_stock": 2
   }
 ]
