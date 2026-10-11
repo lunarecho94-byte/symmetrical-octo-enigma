@@ -93,6 +93,7 @@ BRAND_MAP = {
     'jordan x psg': ('jordan', 'Jordan x PSG'),
     'psg': ('jordan', 'Jordan x PSG'),
     'broken planet': ('broken_planet', 'Broken Planet'),
+    'yarm': ('yarm', 'YARM'),
 }
 
 SUPPLIER_TOKENS = {
@@ -423,8 +424,9 @@ def fetch_easydrop_category(token, category_id, markup=0.20):
 def transform_mydrop_product(p, markup=0.20):
     pid = str(p['id'])
     raw_title = (p.get('title') or '').strip()
+    clean_title = re.sub(r'\s*\([Кк]опія\)', '', raw_title).strip()
     sku = (p.get('sku') or f"ART{pid}").strip()
-    title_lower = raw_title.lower()
+    title_lower = clean_title.lower()
 
     drop_price = int(float(p.get('dropPrice') or 0))
     price = int(round(drop_price * (1 + markup) / 10) * 10)
@@ -438,11 +440,11 @@ def transform_mydrop_product(p, markup=0.20):
             break
     if not color:
         if 'лавандов' in title_lower: color = 'Світло-лавандовий'
-        elif 'графіт' in title_lower: color = 'Графіт'
-        elif 'чорн' in title_lower: color = 'Чорний'
-        elif 'сір' in title_lower: color = 'Сірий'
-        elif 'біл' in title_lower or 'молоч' in title_lower: color = 'Білий'
-        elif 'беж' in title_lower: color = 'Бежевий'
+        elif 'графіт' in title_lower or 'graphite' in title_lower: color = 'Графіт'
+        elif 'чорн' in title_lower or 'black' in title_lower: color = 'Чорний'
+        elif 'сір' in title_lower or 'grey' in title_lower: color = 'Сірий'
+        elif 'біл' in title_lower or 'молоч' in title_lower or 'white' in title_lower: color = 'Білий'
+        elif 'беж' in title_lower or 'beige' in title_lower: color = 'Бежевий'
         elif 'broken planet' in title_lower: color = 'Чорний'
 
     # Category, subcategory, season classification
@@ -485,11 +487,11 @@ def transform_mydrop_product(p, markup=0.20):
     elif 'худі' in title_lower or 'hoodie' in title_lower or 'зіп' in title_lower or 'світшот' in title_lower:
         cat = 'clothing'
         subcat = 'zip_hoodie'
-        cat_name = 'Одяг & Худі'
+        cat_name = 'Одяг & Зіп-худі' if ('зіп' in title_lower or 'zip' in title_lower) else 'Одяг & Худі'
         season = 'winter' if 'фліс' in title_lower else 'demi'
         season_name = 'Зима / Фліс' if 'фліс' in title_lower else 'Демісезон'
-        mat = 'Трьохнитка на флісі (бавовна / поліестер)' if 'фліс' in title_lower else '95% Бавовна / 5% Поліестер (петля)'
-        badge = 'Фліс • Тепле' if 'фліс' in title_lower else 'DTF друк'
+        mat = 'Трьохнитка на флісі (бавовна / поліестер)' if 'фліс' in title_lower else 'Преміальна трьохнитка пеньє (100% бавовна)'
+        badge = 'Оверсайз' if 'oversize' in title_lower else ('Фліс • Тепле' if 'фліс' in title_lower else 'Хіт сезону')
     else:
         cat = 'clothing'
         subcat = 'jacket'
@@ -499,7 +501,10 @@ def transform_mydrop_product(p, markup=0.20):
         mat = 'Плащівка матова (100% поліестер)'
         badge = 'Новинка'
 
-    brand_slug, brand_name = resolve_brand(raw_title)
+    if sku.lower().startswith('ya'):
+        brand_slug, brand_name = 'yarm', 'YARM'
+    else:
+        brand_slug, brand_name = resolve_brand(clean_title)
 
     gender = 'women' if ('жіноч' in title_lower or 'жінк' in title_lower) else 'men'
 
@@ -513,15 +518,16 @@ def transform_mydrop_product(p, markup=0.20):
     if clean_lines:
         desc = '\n'.join(clean_lines)
     elif subcat == 'vest':
-        desc = f"Стильна брендова жилетка {raw_title}. Якісна водовідштовхувальна плащівка, надійний легкий утеплювач холофайбер для захисту від вітру та холоду. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
+        desc = f"Стильна брендова жилетка {clean_title}. Якісна водовідштовхувальна плащівка, надійний легкий утеплювач холофайбер для захисту від вітру та холоду. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
     elif 'анорак' in title_lower:
-        desc = f"Теплий брендовий анорак {raw_title}. Якісна водовідштовхувальна плащівка з надійним захистом від негоди, рефлективні вставки, зручна кишеня-кенгуру та м'який утеплювач. Фабричне виробництво."
+        desc = f"Теплий брендовий анорак {clean_title}. Якісна водовідштовхувальна плащівка з надійним захистом від негоди, рефлективні вставки, зручна кишеня-кенгуру та м'який утеплювач. Фабричне виробництво."
     elif subcat == 'winter_jacket':
-        desc = f"Теплий зимовий брендовий пуховик {raw_title}. Якісна водовідштовхувальна плащівка ({mat}), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
+        desc = f"Теплий зимовий брендовий пуховик {clean_title}. Якісна водовідштовхувальна плащівка ({mat}), надійний утеплювач для захисту від морозів та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво."
     elif subcat == 'zip_hoodie':
-        desc = f"Стильне брендове худі {raw_title}. Преміальна щільна трьохнитка на м'якому теплому флісі, якісний стійкий принт, анатомічний крій та подвійний капюшон для щоденного комфорту. Фабричне виробництво."
+        type_word = "зіп-худі" if ('зіп' in title_lower or 'zip' in title_lower) else "худі"
+        desc = f"Стильне брендове {type_word} {brand_name} {clean_title}. Преміальна щільна трьохнитка ({mat}), зручний подвійний капюшон, якісна фурнітура, місткі кишені та комфортний крій. Фабричне виробництво."
     else:
-        desc = f"{raw_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
+        desc = f"{clean_title}. Якісний матеріал ({mat}), зручний крій, надійні застібки."
 
     imgs = []
     if p.get('images'):
@@ -543,13 +549,13 @@ def transform_mydrop_product(p, markup=0.20):
             if 'нюанс' not in stitle.lower() and stitle and stitle not in clean_sizes:
                 clean_sizes.append(stitle)
 
-    slug = f"{slugify(raw_title)}-{pid}"
+    slug = f"{slugify(clean_title)}-{pid}"
     thumb = f"/images/catalog/{pid}.jpg"
 
     return {
         'id': str(pid),
         'slug': slug,
-        'name': raw_title,
+        'name': clean_title,
         'price': price,
         'old_price': old_price,
         'cost_price': drop_price,
