@@ -865,26 +865,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-197749</g:id>
-      <title>Зимова куртка Calvin Klein NM/402</title>
-      <description>Зимова куртка Calvin Klein NM/402 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, XL • Арт: NM/402</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-calvin-klein-nm-402-197749</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/197749.jpg</g:image_link>
-      <g:brand>Calvin Klein</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3590 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-197271</g:id>
       <title>Зимова куртка Napapijri NP/10</title>
       <description>Зимова куртка Napapijri NP/10 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: NP/10</description>
@@ -896,6 +876,26 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>4310 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-197749</g:id>
+      <title>Зимова куртка Calvin Klein NM/402</title>
+      <description>Зимова куртка Calvin Klein NM/402 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, XL • Арт: NM/402</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-calvin-klein-nm-402-197749</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/197749.jpg</g:image_link>
+      <g:brand>Calvin Klein</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3590 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
@@ -925,26 +925,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-196664</g:id>
-      <title>Зимова куртка Polo Ralph Lauren 78FF</title>
-      <description>Зимова куртка Polo Ralph Lauren 78FF • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL • Арт: 78FF</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-78ff-196664</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/196664.jpg</g:image_link>
-      <g:brand>Polo Ralph Lauren</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3470 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-197273</g:id>
       <title>Зимова куртка Napapijri NP/11</title>
       <description>Зимова куртка Napapijri NP/11 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: NP/11</description>
@@ -965,11 +945,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-196663</g:id>
-      <title>Зимова куртка Polo Ralph Lauren 77FF</title>
-      <description>Зимова куртка Polo Ralph Lauren 77FF • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 77FF</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-77ff-196663</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/196663.jpg</g:image_link>
+      <g:id>prod-196664</g:id>
+      <title>Зимова куртка Polo Ralph Lauren 78FF</title>
+      <description>Зимова куртка Polo Ralph Lauren 78FF • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL • Арт: 78FF</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-78ff-196664</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/196664.jpg</g:image_link>
       <g:brand>Polo Ralph Lauren</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -985,17 +965,17 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-196033</g:id>
-      <title>Зимова куртка Polo Ralph Lauren Polo/709</title>
-      <description>Зимова куртка Polo Ralph Lauren Polo/709 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: Polo/709</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-polo-709-196033</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/196033.jpg</g:image_link>
+      <g:id>prod-196663</g:id>
+      <title>Зимова куртка Polo Ralph Lauren 77FF</title>
+      <description>Зимова куртка Polo Ralph Lauren 77FF • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: 77FF</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-77ff-196663</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/196663.jpg</g:image_link>
       <g:brand>Polo Ralph Lauren</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>3710 UAH</g:price>
+      <g:price>3470 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
@@ -1030,6 +1010,26 @@
       <description>Зимова куртка Polo Ralph Lauren Polo/708 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: Polo/708</description>
       <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-polo-708-196032</link>
       <g:image_link>https://urbangrid.com.ua/images/catalog/196032.jpg</g:image_link>
+      <g:brand>Polo Ralph Lauren</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3710 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-196033</g:id>
+      <title>Зимова куртка Polo Ralph Lauren Polo/709</title>
+      <description>Зимова куртка Polo Ralph Lauren Polo/709 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: Polo/709</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-polo-709-196033</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/196033.jpg</g:image_link>
       <g:brand>Polo Ralph Lauren</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1085,26 +1085,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-193787</g:id>
-      <title>Зимова куртка Nike Nik/1002</title>
-      <description>Зимова куртка Nike Nik/1002 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: Nik/1002</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nik-1002-193787</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/193787.jpg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3900 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-192325</g:id>
       <title>Зимова куртка Moncler 72FV</title>
       <description>Зимова куртка Moncler 72FV • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: 72FV</description>
@@ -1116,6 +1096,26 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>3590 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-193787</g:id>
+      <title>Зимова куртка Nike Nik/1002</title>
+      <description>Зимова куртка Nike Nik/1002 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: Nik/1002</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nik-1002-193787</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/193787.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3900 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
@@ -1145,11 +1145,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-188356</g:id>
-      <title>Зимова куртка Lacoste 62FV</title>
-      <description>Зимова куртка Lacoste 62FV • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: 62FV</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-lacoste-62fv-188356</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/188356.jpg</g:image_link>
+      <g:id>prod-188357</g:id>
+      <title>Зимова куртка Lacoste 61FV</title>
+      <description>Зимова куртка Lacoste 61FV • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M • Арт: 61FV</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-lacoste-61fv-188357</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/188357.jpg</g:image_link>
       <g:brand>Lacoste</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1185,11 +1185,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-188357</g:id>
-      <title>Зимова куртка Lacoste 61FV</title>
-      <description>Зимова куртка Lacoste 61FV • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M • Арт: 61FV</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-lacoste-61fv-188357</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/188357.jpg</g:image_link>
+      <g:id>prod-188356</g:id>
+      <title>Зимова куртка Lacoste 62FV</title>
+      <description>Зимова куртка Lacoste 62FV • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: 62FV</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-lacoste-62fv-188356</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/188356.jpg</g:image_link>
       <g:brand>Lacoste</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1265,11 +1265,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-185990</g:id>
-      <title>Зимова куртка Jordan JORD152</title>
-      <description>Зимова куртка Jordan JORD152 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: JORD152</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-jord152-185990</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/185990.jpg</g:image_link>
+      <g:id>prod-185991</g:id>
+      <title>Зимова куртка Jordan JORD151</title>
+      <description>Зимова куртка Jordan JORD151 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: JORD151</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-jord151-185991</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/185991.jpg</g:image_link>
       <g:brand>Jordan</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1305,11 +1305,31 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-185991</g:id>
-      <title>Зимова куртка Jordan JORD151</title>
-      <description>Зимова куртка Jordan JORD151 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: JORD151</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-jord151-185991</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/185991.jpg</g:image_link>
+      <g:id>prod-185990</g:id>
+      <title>Зимова куртка Jordan JORD152</title>
+      <description>Зимова куртка Jordan JORD152 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: JORD152</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-jord152-185990</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/185990.jpg</g:image_link>
+      <g:brand>Jordan</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3350 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-185989</g:id>
+      <title>Зимова куртка Jordan JORD150</title>
+      <description>Зимова куртка Jordan JORD150 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XXL • Арт: JORD150</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-jord150-185989</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/185989.jpg</g:image_link>
       <g:brand>Jordan</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1336,6 +1356,46 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>3470 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-184717</g:id>
+      <title>Зимова куртка Polo Ralph Lauren Polo/706</title>
+      <description>Зимова куртка Polo Ralph Lauren Polo/706 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: Polo/706</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-polo-706-184717</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/184717.jpg</g:image_link>
+      <g:brand>Polo Ralph Lauren</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>3710 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-144774</g:id>
+      <title>Зимова куртка Jordan 903-JR</title>
+      <description>Зимова куртка Jordan 903-JR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, XXL • Арт: 903-JR</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-903-jr-144774</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/144774.jpg</g:image_link>
+      <g:brand>Jordan</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>4190 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
@@ -1385,91 +1445,31 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-144774</g:id>
-      <title>Зимова куртка Jordan 903-JR</title>
-      <description>Зимова куртка Jordan 903-JR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, XXL • Арт: 903-JR</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-jordan-903-jr-144774</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/144774.jpg</g:image_link>
-      <g:brand>Jordan</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>4190 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-184717</g:id>
-      <title>Зимова куртка Polo Ralph Lauren Polo/706</title>
-      <description>Зимова куртка Polo Ralph Lauren Polo/706 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: Polo/706</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-polo-ralph-lauren-polo-706-184717</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/184717.jpg</g:image_link>
-      <g:brand>Polo Ralph Lauren</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3710 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-144243</g:id>
-      <title>Зимова куртка Nike 22JOR</title>
-      <description>Зимова куртка Nike 22JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 22JOR</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-22jor-144243</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/144243.jpg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>4190 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>prod-144241</g:id>
-      <title>Зимова куртка Nike 21JOR</title>
-      <description>Зимова куртка Nike 21JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL, XXL • Арт: 21JOR</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-21jor-144241</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/144241.jpg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>4190 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-144240</g:id>
       <title>Зимова куртка Nike 20JOR</title>
       <description>Зимова куртка Nike 20JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL, XXL • Арт: 20JOR</description>
       <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-20jor-144240</link>
       <g:image_link>https://urbangrid.com.ua/images/catalog/144240.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>4190 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-144242</g:id>
+      <title>Зимова куртка Nike 23JOR</title>
+      <description>Зимова куртка Nike 23JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 23JOR</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-23jor-144242</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/144242.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1505,11 +1505,31 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-144242</g:id>
-      <title>Зимова куртка Nike 23JOR</title>
-      <description>Зимова куртка Nike 23JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 23JOR</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-23jor-144242</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/144242.jpg</g:image_link>
+      <g:id>prod-144241</g:id>
+      <title>Зимова куртка Nike 21JOR</title>
+      <description>Зимова куртка Nike 21JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL, XXL • Арт: 21JOR</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-21jor-144241</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/144241.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>4190 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-144243</g:id>
+      <title>Зимова куртка Nike 22JOR</title>
+      <description>Зимова куртка Nike 22JOR • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 22JOR</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-22jor-144243</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/144243.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1545,11 +1565,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-143436</g:id>
-      <title>Зимова куртка Calvin Klein CK501</title>
-      <description>Зимова куртка Calvin Klein CK501 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: CK501</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-calvin-klein-ck501-143436</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/143436.jpg</g:image_link>
+      <g:id>prod-143437</g:id>
+      <title>Зимова куртка Calvin Klein CK502</title>
+      <description>Зимова куртка Calvin Klein CK502 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: CK502</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-calvin-klein-ck502-143437</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/143437.jpg</g:image_link>
       <g:brand>Calvin Klein</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1565,11 +1585,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-143437</g:id>
-      <title>Зимова куртка Calvin Klein CK502</title>
-      <description>Зимова куртка Calvin Klein CK502 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: CK502</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-calvin-klein-ck502-143437</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/143437.jpg</g:image_link>
+      <g:id>prod-143436</g:id>
+      <title>Зимова куртка Calvin Klein CK501</title>
+      <description>Зимова куртка Calvin Klein CK501 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: M, L, XL, XXL • Арт: CK501</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-calvin-klein-ck501-143436</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/143436.jpg</g:image_link>
       <g:brand>Calvin Klein</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1625,11 +1645,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-139294</g:id>
-      <title>Зимова куртка The North Face TNF700</title>
-      <description>Зимова куртка The North Face TNF700 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: TNF700</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf700-139294</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/139294.jpg</g:image_link>
+      <g:id>prod-139295</g:id>
+      <title>Зимова куртка The North Face TNF702</title>
+      <description>Зимова куртка The North Face TNF702 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL, XXL • Арт: TNF702</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf702-139295</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/139295.jpg</g:image_link>
       <g:brand>The North Face</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1645,11 +1665,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-139295</g:id>
-      <title>Зимова куртка The North Face TNF702</title>
-      <description>Зимова куртка The North Face TNF702 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL, XXL • Арт: TNF702</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf702-139295</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/139295.jpg</g:image_link>
+      <g:id>prod-139294</g:id>
+      <title>Зимова куртка The North Face TNF700</title>
+      <description>Зимова куртка The North Face TNF700 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: TNF700</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf700-139294</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/139294.jpg</g:image_link>
       <g:brand>The North Face</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1705,11 +1725,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-138574</g:id>
-      <title>Зимова куртка Nike NK17</title>
-      <description>Зимова куртка Nike NK17 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S • Арт: NK17</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nk17-138574</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/138574.jpg</g:image_link>
+      <g:id>prod-138573</g:id>
+      <title>Зимова куртка Nike NK15</title>
+      <description>Зимова куртка Nike NK15 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: NK15</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nk15-138573</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/138573.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1725,11 +1745,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-138573</g:id>
-      <title>Зимова куртка Nike NK15</title>
-      <description>Зимова куртка Nike NK15 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XL • Арт: NK15</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nk15-138573</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/138573.jpg</g:image_link>
+      <g:id>prod-138574</g:id>
+      <title>Зимова куртка Nike NK17</title>
+      <description>Зимова куртка Nike NK17 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S • Арт: NK17</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nk17-138574</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/138574.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1765,11 +1785,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-141062</g:id>
-      <title>Зимова куртка Nike JOR107</title>
-      <description>Зимова куртка Nike JOR107 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S • Арт: JOR107</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-jor107-141062</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/141062.jpg</g:image_link>
+      <g:id>prod-141061</g:id>
+      <title>Зимова куртка Nike JOR106</title>
+      <description>Зимова куртка Nike JOR106 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XXL • Арт: JOR106</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-jor106-141061</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/141061.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1785,11 +1805,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-141061</g:id>
-      <title>Зимова куртка Nike JOR106</title>
-      <description>Зимова куртка Nike JOR106 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XXL • Арт: JOR106</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-jor106-141061</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/141061.jpg</g:image_link>
+      <g:id>prod-141062</g:id>
+      <title>Зимова куртка Nike JOR107</title>
+      <description>Зимова куртка Nike JOR107 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S • Арт: JOR107</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-jor107-141062</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/141062.jpg</g:image_link>
       <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1825,26 +1845,6 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-136823</g:id>
-      <title>Зимова куртка Nike Nk3</title>
-      <description>Зимова куртка Nike Nk3 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L • Арт: Nk3</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nk3-136823</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/136823.jpg</g:image_link>
-      <g:brand>Nike</g:brand>
-      <g:gender>men</g:gender>
-      <g:age_group>adult</g:age_group>
-      <g:condition>new</g:condition>
-      <g:availability>in_stock</g:availability>
-      <g:price>3470 UAH</g:price>
-      <g:google_product_category>212</g:google_product_category>
-      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
-      <g:shipping>
-        <g:country>UA</g:country>
-        <g:service>Нова Пошта</g:service>
-        <g:price>80 UAH</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>prod-132543</g:id>
       <title>Зимова куртка Hugo Boss 30RB</title>
       <description>Зимова куртка Hugo Boss 30RB • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: XL, XXL • Арт: 30RB</description>
@@ -1865,17 +1865,17 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-132544</g:id>
-      <title>Зимова куртка Hugo Boss 32RB</title>
-      <description>Зимова куртка Hugo Boss 32RB • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: 32RB</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-hugo-boss-32rb-132544</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/132544.jpg</g:image_link>
-      <g:brand>Hugo Boss</g:brand>
+      <g:id>prod-136823</g:id>
+      <title>Зимова куртка Nike Nk3</title>
+      <description>Зимова куртка Nike Nk3 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L • Арт: Nk3</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-nike-nk3-136823</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/136823.jpg</g:image_link>
+      <g:brand>Nike</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>2510 UAH</g:price>
+      <g:price>3470 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
@@ -1905,17 +1905,17 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-131883</g:id>
-      <title>Зимова куртка The North Face TNF100</title>
-      <description>Зимова куртка The North Face TNF100 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: TNF100</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf100-131883</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/131883.jpg</g:image_link>
-      <g:brand>The North Face</g:brand>
+      <g:id>prod-132544</g:id>
+      <title>Зимова куртка Hugo Boss 32RB</title>
+      <description>Зимова куртка Hugo Boss 32RB • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, L, XL, XXL • Арт: 32RB</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-hugo-boss-32rb-132544</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/132544.jpg</g:image_link>
+      <g:brand>Hugo Boss</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
-      <g:price>4310 UAH</g:price>
+      <g:price>2510 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
@@ -1945,11 +1945,11 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>prod-131884</g:id>
-      <title>Зимова куртка The North Face TNF102</title>
-      <description>Зимова куртка The North Face TNF102 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: TNF102</description>
-      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf102-131884</link>
-      <g:image_link>https://urbangrid.com.ua/images/catalog/131884.jpg</g:image_link>
+      <g:id>prod-131883</g:id>
+      <title>Зимова куртка The North Face TNF100</title>
+      <description>Зимова куртка The North Face TNF100 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, XXL • Арт: TNF100</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf100-131883</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/131883.jpg</g:image_link>
       <g:brand>The North Face</g:brand>
       <g:gender>men</g:gender>
       <g:age_group>adult</g:age_group>
@@ -1976,6 +1976,26 @@
       <g:condition>new</g:condition>
       <g:availability>in_stock</g:availability>
       <g:price>3110 UAH</g:price>
+      <g:google_product_category>212</g:google_product_category>
+      <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
+      <g:shipping>
+        <g:country>UA</g:country>
+        <g:service>Нова Пошта</g:service>
+        <g:price>80 UAH</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>prod-131884</g:id>
+      <title>Зимова куртка The North Face TNF102</title>
+      <description>Зимова куртка The North Face TNF102 • Матеріал: 100% поліестер / Водовідштовхувальна плащівка / Холофайбер • Розміри: S, M, L, XL, XXL • Арт: TNF102</description>
+      <link>https://urbangrid.com.ua/product/zymova-kurtka-the-north-face-tnf102-131884</link>
+      <g:image_link>https://urbangrid.com.ua/images/catalog/131884.jpg</g:image_link>
+      <g:brand>The North Face</g:brand>
+      <g:gender>men</g:gender>
+      <g:age_group>adult</g:age_group>
+      <g:condition>new</g:condition>
+      <g:availability>in_stock</g:availability>
+      <g:price>4310 UAH</g:price>
       <g:google_product_category>212</g:google_product_category>
       <g:product_type>Одяг &amp; Зимові куртки</g:product_type>
       <g:shipping>
