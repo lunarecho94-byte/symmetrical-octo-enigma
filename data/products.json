@@ -2892,7 +2892,8 @@
       "https://easydrop.one/media/uploads/images/base/1cfed95a-3892-4cc0-86f1-073131a600e8.jpeg"
     ],
     "sizes": [
-      "XL"
+      "XL",
+      "XXL"
     ],
     "in_stock": true,
     "source_priority": 2
@@ -4724,6 +4725,7 @@
       "https://easydrop.one/media/uploads/images/item_8646/f63f0545-c464-4c21-b0b0-d388bd98bf55.jpeg"
     ],
     "sizes": [
+      "S",
       "M",
       "L",
       "XL",
