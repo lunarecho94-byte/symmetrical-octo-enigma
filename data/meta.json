@@ -1,17 +1,17 @@
 {
-  "total": 221,
+  "total": 223,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 221
+      "count": 223
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 172
+      "count": 174
     },
     {
       "slug": "women",
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 221
+      "count": 223
     },
     {
       "slug": "zip_hoodie",
@@ -43,13 +43,13 @@
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
       "icon": "",
-      "count": 164
+      "count": 165
     },
     {
       "slug": "vest",
       "name": "Жилетки",
       "icon": "",
-      "count": 10
+      "count": 11
     }
   ],
   "seasons": [
@@ -57,26 +57,26 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 221
+      "count": 223
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 173
+      "count": 174
     },
     {
       "slug": "demi",
       "name": "Демісезон",
       "icon": "",
-      "count": 48
+      "count": 49
     }
   ],
   "brands": [
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 221
+      "count": 223
     },
     {
       "slug": "nike",
@@ -86,7 +86,7 @@
     {
       "slug": "urban",
       "name": "URBAN",
-      "count": 25
+      "count": 26
     },
     {
       "slug": "the_north_face",
@@ -116,7 +116,7 @@
     {
       "slug": "moncler",
       "name": "Moncler",
-      "count": 10
+      "count": 11
     },
     {
       "slug": "boss",
