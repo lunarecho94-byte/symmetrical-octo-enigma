@@ -2883,7 +2883,6 @@
       "https://easydrop.one/media/uploads/images/base/393231eb-858a-44a1-9463-b3744bc254ca.jpeg"
     ],
     "sizes": [
-      "XL",
       "XXL"
     ],
     "in_stock": true,
@@ -3623,6 +3622,7 @@
       "https://easydrop.one/media/uploads/images/item_8646/51960f4b-43fc-4da0-88c8-e90c31c0ee09.jpeg"
     ],
     "sizes": [
+      "S",
       "XL",
       "XXL"
     ],
@@ -4084,6 +4084,7 @@
     ],
     "sizes": [
       "S",
+      "M",
       "XL"
     ],
     "in_stock": true,
@@ -5615,6 +5616,38 @@
     "source_priority": 0
   },
   {
+    "id": "186770",
+    "slug": "zymova-kurtka-jordan-jord153-186770",
+    "name": "Зимова куртка Jordan Jord153",
+    "price": 3350,
+    "old_price": 4020,
+    "cost_price": 2795,
+    "cat": "clothing",
+    "subcat": "winter_jacket",
+    "cat_name": "Одяг & Зимові куртки",
+    "season": "winter",
+    "season_name": "Зима / Утеплена",
+    "brand": "jordan",
+    "brand_name": "Jordan",
+    "gender": "men",
+    "art": "Jord153",
+    "color": "",
+    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
+    "origin": "Фабричне виробництво (Туреччина)",
+    "badge": "Зима • Термо",
+    "desc": "Тепла зимова брендова куртка Jordan (Jord153). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
+    "thumb": "/images/catalog/186770.jpg",
+    "imgs": [
+      "https://easydrop.one/media/uploads/images/base/5ebc114c-ad71-4adf-beea-24ebc380d4fc.jpeg",
+      "https://easydrop.one/media/uploads/images/base/e0e2f195-1eea-480a-9aac-8da87e0acc40.jpeg"
+    ],
+    "sizes": [
+      "XXL"
+    ],
+    "in_stock": true,
+    "source_priority": 0
+  },
+  {
     "id": "185991",
     "slug": "zymova-kurtka-jordan-jord151-185991",
     "name": "Зимова куртка Jordan JORD151",
@@ -6609,6 +6642,7 @@
     ],
     "sizes": [
       "S",
+      "M",
       "L",
       "XL",
       "XXL"

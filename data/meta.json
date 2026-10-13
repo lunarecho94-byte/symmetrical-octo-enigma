@@ -1,17 +1,17 @@
 {
-  "total": 223,
+  "total": 224,
   "genders": [
     {
       "slug": "all",
       "name": "Всі товари",
       "icon": "",
-      "count": 223
+      "count": 224
     },
     {
       "slug": "men",
       "name": "Чоловічі",
       "icon": "",
-      "count": 174
+      "count": 175
     },
     {
       "slug": "women",
@@ -25,7 +25,7 @@
       "slug": "all",
       "name": "Всі моделі",
       "icon": "",
-      "count": 223
+      "count": 224
     },
     {
       "slug": "zip_hoodie",
@@ -43,7 +43,7 @@
       "slug": "winter_jacket",
       "name": "Зимові куртки та пуховики",
       "icon": "",
-      "count": 165
+      "count": 166
     },
     {
       "slug": "vest",
@@ -57,13 +57,13 @@
       "slug": "all",
       "name": "Всі сезони",
       "icon": "",
-      "count": 223
+      "count": 224
     },
     {
       "slug": "winter",
       "name": "Зима / Утеплена",
       "icon": "",
-      "count": 174
+      "count": 175
     },
     {
       "slug": "demi",
@@ -76,7 +76,7 @@
     {
       "slug": "all",
       "name": "Всі бренди",
-      "count": 223
+      "count": 224
     },
     {
       "slug": "nike",
@@ -101,7 +101,7 @@
     {
       "slug": "jordan",
       "name": "Jordan",
-      "count": 14
+      "count": 15
     },
     {
       "slug": "stone_island",
