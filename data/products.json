@@ -2812,6 +2812,7 @@
       "https://backend.mydrop.com.ua/vendor/products/uploads/e62d2b142bfe985cfcbe.png"
     ],
     "sizes": [
+      "S",
       "M",
       "L",
       "XL",
@@ -5770,7 +5771,6 @@
     ],
     "sizes": [
       "S",
-      "L",
       "XL",
       "XXL"
     ],
