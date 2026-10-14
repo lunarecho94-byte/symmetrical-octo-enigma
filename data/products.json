@@ -4187,7 +4187,6 @@
     "sizes": [
       "S",
       "M",
-      "L",
       "XL",
       "XXL"
     ],
@@ -5711,38 +5710,6 @@
     "source_priority": 0
   },
   {
-    "id": "185989",
-    "slug": "zymova-kurtka-jordan-jord150-185989",
-    "name": "Зимова куртка Jordan JORD150",
-    "price": 3350,
-    "old_price": 4020,
-    "cost_price": 2795,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "jordan",
-    "brand_name": "Jordan",
-    "gender": "men",
-    "art": "JORD150",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво (Туреччина)",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Jordan (JORD150). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
-    "thumb": "/images/catalog/185989.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/6ada507e-e679-4f1a-9609-23d16521f9a3.jpeg",
-      "https://easydrop.one/media/uploads/images/base/665dc39c-77ee-4df1-8ed6-87d3f759acd4.jpeg"
-    ],
-    "sizes": [
-      "XXL"
-    ],
-    "in_stock": true,
-    "source_priority": 0
-  },
-  {
     "id": "184717",
     "slug": "zymova-kurtka-polo-ralph-lauren-polo-706-184717",
     "name": "Зимова куртка Polo Ralph Lauren Polo/706",
@@ -6076,6 +6043,7 @@
       "https://easydrop.one/media/uploads/images/base/fc03a313-1e78-406b-adba-584e81b841a0.jpeg"
     ],
     "sizes": [
+      "S",
       "XL",
       "XXL"
     ],
