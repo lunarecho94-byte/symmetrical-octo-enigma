@@ -177,7 +177,7 @@ def build_product_page_html(p, all_products):
         r_price = f"{r['price']:,}".replace(',', ' ') + " грн"
         related_cards_html.append(f'''
             <div class="product-card" id="prod-{r['id']}">
-                <a href="/product/{r_slug}" class="want-card-link">
+                <a href="/product/{r_slug}" class="want-card-link" onclick="openProductPage('{r['id']}', event, '/product/{r_slug}', false)">
                     <div class="product-img-wrapper" title="{escape(r['name'])}">
                         <img src="{r_img}" alt="{escape(r['name'])}" loading="lazy" referrerpolicy="no-referrer">
                     </div>
@@ -332,11 +332,11 @@ def build_product_page_html(p, all_products):
 
             <!-- Breadcrumbs -->
             <div class="pdp-breadcrumbs-bar">
-                <a href="/" class="pdp-back-link" id="pdpBackLink">
+                <a href="/" class="pdp-back-link" id="pdpBackLink" onclick="returnToCatalogProduct('{p['id']}'); return false;">
                     ← Назад до каталогу
                 </a>
                 <nav class="pdp-breadcrumbs" aria-label="Навігація">
-                    <a href="/" id="pdpCrumbHome">Головна</a>
+                    <a href="/" id="pdpCrumbHome" onclick="returnToCatalogProduct('{p['id']}'); return false;">Головна</a>
                     <span class="sep">/</span>
                     <a href="/?cat={subcat}#catalog" id="pdpCrumbSubcat">{cat_title}</a>
                     <span class="sep">/</span>
@@ -806,7 +806,7 @@ def main():
             p_price = f"{p['price']:,}".replace(',', ' ') + " грн"
             cards_html.append(f'''
                 <div class="product-card" id="prod-{p['id']}">
-                    <a href="/product/{p_slug}" class="want-card-link">
+                    <a href="/product/{p_slug}" class="want-card-link" onclick="openProductPage('{p['id']}', event, '/product/{p_slug}', false)">
                         <div class="product-img-wrapper" title="{escape(p['name'])}">
                             <img src="{p_img}" alt="{escape(p['name'])}" loading="lazy" referrerpolicy="no-referrer">
                         </div>
