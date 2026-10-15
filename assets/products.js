@@ -22,7 +22,7 @@ window.PRODUCTS = [
     price: 500,
     oldPrice: 750,
     badge: '✨ Хіт продажу',
-    image: 'https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252-1000x1000.webp',
+    image: '/assets/img/astronavt-1.webp',
     url: '/products/nichnik-proyektor-astronavt-bluetooth/',
   },
 ];

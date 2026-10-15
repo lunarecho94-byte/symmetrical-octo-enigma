@@ -22,14 +22,16 @@
       } catch (e) {}
     })();
   </script>
-  <!-- Тема: темна за замовчуванням; вибір відвідувача запамʼятовується -->
+  <!-- Тема: глибокий синій стиль за замовчуванням -->
   <script>
-    (function () { var t = null; try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'light') document.documentElement.classList.add('dark'); })();
+    (function () {
+      try { localStorage.removeItem('theme'); } catch (e) {}
+      document.documentElement.classList.add('dark');
+    })();
   </script>
   <meta property="og:title" content="HomeNest UA — затишок та комфорт у вашому домі">
   <meta property="og:description" content="Товари для затишку та комфорту у вашому домі. Доставка Новою Поштою. Оплата при отриманні.">
-  <meta property="og:image" content="https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252-1000x1000.webp">
+  <meta property="og:image" content="/assets/img/astronavt-1.webp">
   <meta property="og:type" content="website">
 
   <!-- Meta Pixel Code (ID 1115491024548018 + 972029978660664) -->
@@ -54,16 +56,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Стилі: зібраний Tailwind CSS (assets/tw.css). Після зміни класів у HTML перезберіть його (див. README.md). -->
-  <link rel="stylesheet" href="/assets/tw.css?v=12f208fc">
+  <!-- Стилі та скрипти з оновленою версією кешування -->
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261015-v2">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=e09556fb"></script>
-  <script src="/assets/shop.js?v=3c81b83a"></script>
-  <script src="/assets/icons.js?v=a2ba886e" defer></script>
-  <script src="/assets/cart.js?v=9622efab" defer></script>
+  <script src="/assets/products.js?v=hn20261015-v2"></script>
+  <script src="/assets/shop.js?v=hn20261015-v2"></script>
+  <script src="/assets/icons.js?v=hn20261015-v2" defer></script>
+  <script src="/assets/cart.js?v=hn20261015-v2" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=d2f2d3f3">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261015-v2">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>

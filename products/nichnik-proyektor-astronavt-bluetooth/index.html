@@ -6,16 +6,18 @@
   <title>Нічник-проєктор зоряного неба Астронавт Bluetooth — HomeNest UA</title>
   <meta name="description" content="Нічник-проєктор зоряного неба Астронавт Bluetooth. 8 режимів туманностей, лазерні зірки, аудіоколонка, пульт ДК. 500 грн замість 750 грн. Доставка Новою Поштою без передоплати.">
   <meta name="theme-color" content="#1D4ED8">
-  <!-- Тема: темна за замовчуванням; вибір відвідувача запамʼятовується -->
+  <!-- Тема: глибокий синій стиль за замовчуванням -->
   <script>
-    (function () { var t = null; try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t !== 'light') document.documentElement.classList.add('dark'); })();
+    (function () {
+      try { localStorage.removeItem('theme'); } catch (e) {}
+      document.documentElement.classList.add('dark');
+    })();
   </script>
 
-  <!-- Open Graph (превʼю при поширенні посилання) — замініть og:image на реальне фото товару -->
+  <!-- Open Graph (превʼю при поширенні посилання) -->
   <meta property="og:title" content="Нічник-проєктор зоряного неба Астронавт Bluetooth — 500 грн">
   <meta property="og:description" content="Затишок та комфорт у вашому домі. Оплата при отриманні.">
-  <meta property="og:image" content="https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252-1000x1000.webp">
+  <meta property="og:image" content="/assets/img/astronavt-1.webp">
   <meta property="og:type" content="product">
 
   <!-- Meta Pixel Code (ID 1115491024548018 + 972029978660664) -->
@@ -36,35 +38,21 @@
     src="https://www.facebook.com/tr?id=972029978660664&ev=PageView&noscript=1"/></noscript>
   <!-- End Meta Pixel Code -->
 
-  <!-- ========== TIKTOK PIXEL ==========
-       1. Розкоментуйте блок нижче.
-       2. Замініть YOUR_TIKTOK_PIXEL_ID на ID вашого пікселя.
-  -->
-  <!--
-  <script>
-    !function (w, d, t) {
-      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-      ttq.load('YOUR_TIKTOK_PIXEL_ID');
-      ttq.page();
-    }(window, document, 'ttq');
-  </script>
-  -->
-
   <!-- Шрифти -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Стилі: зібраний Tailwind CSS (assets/tw.css). Після зміни класів у HTML перезберіть його (див. README.md). -->
-  <link rel="stylesheet" href="/assets/tw.css?v=12f208fc">
+  <!-- Стилі та скрипти з оновленою версією кешування -->
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261015-v2">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=e09556fb"></script>
-  <script src="/assets/shop.js?v=3c81b83a"></script>
-  <script src="/assets/icons.js?v=a2ba886e" defer></script>
-  <script src="/assets/cart.js?v=9622efab" defer></script>
+  <script src="/assets/products.js?v=hn20261015-v2"></script>
+  <script src="/assets/shop.js?v=hn20261015-v2"></script>
+  <script src="/assets/icons.js?v=hn20261015-v2" defer></script>
+  <script src="/assets/cart.js?v=hn20261015-v2" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=d2f2d3f3">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261015-v2">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -128,7 +116,7 @@
           <!-- ФОТО ТОВАРУ (головне): фото постачальника. Для продакшену завантажте на свій хостинг. -->
           <!-- Фото трохи збільшене всередині рамки, щоб обрізати сіру смужку по краю фото постачальника -->
           <div class="relative z-[1] w-full max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-black">
-            <img src="https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252-1000x1000.webp"
+            <img src="/assets/img/astronavt-1.webp"
                  alt="Нічник-проєктор зоряного неба Астронавт із Bluetooth та пультом ДК" width="1000" height="1000"
                  fetchpriority="high"
                  class="w-full h-full object-cover scale-[1.06]">
@@ -345,7 +333,7 @@
             <!-- ФОТО ТОВАРУ біля форми -->
             <div class="relative fire-glow shrink-0">
               <div class="relative z-[1] w-32 h-32 sm:w-40 sm:h-40 md:w-full md:h-auto md:max-w-md md:aspect-square rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-2xl ring-1 ring-white/10">
-                <img src="https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252-1000x1000.webp" alt="Нічник-проєктор зоряного неба Астронавт із Bluetooth та пультом ДК" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]">
+                <img src="/assets/img/astronavt-1.webp" alt="Нічник-проєктор зоряного неба Астронавт із Bluetooth та пультом ДК" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]">
               </div>
             </div>
             <div class="md:mt-7 flex items-end gap-x-3 gap-y-1 flex-wrap">
@@ -590,11 +578,11 @@
   ];
 
   const GALLERY = [
-    ['https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252-1000x1000.webp', 'Нічник-проєктор Астронавт на підставці'],
-    ['https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252_2-1000x1000.webp', 'Проєкція космічної туманності та зірок у спальні'],
-    ['https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252_3-1000x1000.webp', 'Пульт ДК та регулювання кута 360 градусів'],
-    ['https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252_4-1000x1000.webp', 'Вбудована бездротова Bluetooth колонка'],
-    ['https://dropt.in.ua/image/cache/catalog/nichnyk-proyektor-zoryanoho-neba-astronavt-bluetooth-bilyy-k-19252_5-1000x1000.webp', 'Стильний дизайн скафандра та надійні матеріали'],
+    ['/assets/img/astronavt-1.webp', 'Нічник-проєктор Астронавт на підставці'],
+    ['/assets/img/astronavt-2.webp', 'Проєкція космічної туманності та зірок у спальні'],
+    ['/assets/img/astronavt-3.webp', 'Пульт ДК та регулювання кута 360 градусів'],
+    ['/assets/img/astronavt-4.webp', 'Вбудована бездротова Bluetooth колонка'],
+    ['/assets/img/astronavt-5.webp', 'Стильний дизайн скафандра та надійні матеріали'],
   ];
 
   const USE_CASES = [
