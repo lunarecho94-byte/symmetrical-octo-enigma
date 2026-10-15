@@ -1,79 +1,15 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
+  "trailingSlash": true,
   "headers": [
     {
-      "source": "/images/(.*)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
         }
       ]
-    },
-    {
-      "source": "/data/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.(css|js)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        }
-      ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/category",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/categories",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/catalog",
-      "destination": "/#catalog",
-      "permanent": false
-    },
-    {
-      "source": "/shop",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/cart",
-      "destination": "/?cart=open",
-      "permanent": false
-    },
-    {
-      "source": "/p/:slug*",
-      "destination": "/product/:slug*",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/product/:slug*",
-      "destination": "/"
-    },
-    {
-      "source": "/category/:slug*",
-      "destination": "/"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
     }
   ]
 }

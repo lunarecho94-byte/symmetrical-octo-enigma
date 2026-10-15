@@ -1,82 +1,72 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta http-equiv="refresh" content="0; url=/">
-    <title>URBAN — Одяг та куртки</title>
-    <script>
-        window.location.replace('/');
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: #0f172a;
-        }
-        .redirect-card {
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 3px solid #e2e8f0;
-            border-top-color: #0f172a;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin: 0 auto 16px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .status-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-        .status-sub {
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-        .btn-home {
-            display: inline-block;
-            padding: 10px 22px;
-            background: #0f172a;
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-        .btn-home:hover {
-            opacity: 0.9;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="refresh" content="0; url=/">
+  <title>WarmHome UA — Перенаправлення</title>
+  <script>
+    window.location.replace('/');
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0B0F17;
+      color: #F8FAFC;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      background: #111827;
+      border: 1px solid #1F2937;
+      border-radius: 16px;
+      padding: 32px 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .flame-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #F8FAFC;
+      margin-bottom: 8px;
+    }
+    .sub {
+      font-size: 14px;
+      color: #94A3B8;
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #EA580C;
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #C2410C;
+    }
+  </style>
 </head>
 <body>
-    <div class="redirect-card">
-        <div class="spinner"></div>
-        <div class="status-title">Завантаження каталогу URBAN...</div>
-        <div class="status-sub">Перенаправляємо вас до магазину</div>
-        <a href="/" class="btn-home">Перейти зараз</a>
-    </div>
-    <script>
-        window.location.replace('/');
-    </script>
+  <div class="card">
+    <div class="flame-icon">🔥</div>
+    <h1 class="title">WarmHome UA</h1>
+    <p class="sub">Переходимо на головну сторінку магазину...</p>
+    <a href="/" class="btn">На головну</a>
+  </div>
 </body>
 </html>
