@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>HomeNest UA — обігрівачі для дому з доставкою по Україні</title>
   <meta name="description" content="HomeNest UA: обігрівачі та товари для тепла і затишку вдома. Доставка Новою Поштою 1–3 дні, оплата при отриманні, обмін та повернення 14 днів.">
-  <meta name="theme-color" content="#EA580C">
+  <meta name="theme-color" content="#1D4ED8">
   <!-- Перехід з реклами одразу на рекламований товар (зберігаємо всі UTM і fbclid).
        AD_CAMPAIGNS: назва кампанії з utm_campaign → товар.
        AD_DEFAULT: товар для кліків з Facebook/Instagram без відомої кампанії. -->
@@ -329,7 +329,7 @@
   function setTheme(dark) {
     document.documentElement.classList.toggle('dark', dark);
     try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
-    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = dark ? '#0B1220' : '#EA580C';
+    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = dark ? '#0B1220' : '#1D4ED8';
   }
   if (document.documentElement.classList.contains('dark')) setTheme(true);
   $$('.js-theme-toggle').forEach(b => b.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark'))));

@@ -1,6 +1,7 @@
-/* HomeNest UA — спільні стилі для всіх сторінок (анімації, темна тема) */
+/* HomeNest UA — спільні стилі для всіх сторінок (глибокий синій стиль, темна тема) */
 html, body { overflow-x: clip; max-width: 100%; }
 body { -webkit-tap-highlight-color: transparent; }
+
 /* Пульсація головної кнопки */
 @keyframes cta-pulse {
   0%   { box-shadow: 0 0 0 0 rgba(22,163,74,.55); }
@@ -8,67 +9,74 @@ body { -webkit-tap-highlight-color: transparent; }
   100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
 }
 .cta-pulse { animation: cta-pulse 2.2s infinite; }
-/* Тепле світіння «каміна» */
+
+/* Глибоке сапфірове світіння */
 @keyframes flicker { 0%,100% { opacity:.55 } 40% { opacity:.85 } 60% { opacity:.65 } 80% { opacity:.9 } }
 .fire-glow::before {
   content:""; position:absolute; inset:10% 10% 35% 10%;
-  background: radial-gradient(ellipse at center, rgba(249,115,22,.55), rgba(234,88,12,0) 70%);
+  background: radial-gradient(ellipse at center, rgba(37,99,235,.55), rgba(29,78,216,0) 70%);
   filter: blur(30px); animation: flicker 3s infinite; z-index:0; pointer-events:none;
 }
+
 /* Слайдер */
 .slider { scroll-snap-type: x mandatory; scrollbar-width: none; }
 .slider::-webkit-scrollbar { display: none; }
 .slider > * { scroll-snap-align: center; }
+
 /* Акордеон */
 .faq-body { display:grid; grid-template-rows:0fr; transition: grid-template-rows .3s ease; }
 .faq-item.open .faq-body { grid-template-rows:1fr; }
 .faq-item.open .faq-icon { transform: rotate(45deg); }
+
 /* Прогрес-бар залишку */
 @keyframes stripes { from { background-position: 0 0 } to { background-position: 28px 0 } }
 .stock-bar { background-image: linear-gradient(45deg, rgba(255,255,255,.25) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.25) 50%, rgba(255,255,255,.25) 75%, transparent 75%); background-size: 28px 28px; animation: stripes 1s linear infinite; }
+
 /* Spinner */
 @keyframes spin { to { transform: rotate(360deg) } }
 .spinner { width:20px; height:20px; border:3px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation: spin .8s linear infinite; }
-/* ===== Темна тема (html.dark) ===== */
+
+/* ===== Глибока синя темна тема (html.dark) ===== */
 .theme-sun { display: none; }
 html.dark { color-scheme: dark; }
-html.dark .theme-sun { display: block; color: #FACC15; }
-html.dark .js-theme-toggle:hover .theme-sun { color: #FDE047; }
+html.dark .theme-sun { display: block; color: #60A5FA; }
+html.dark .js-theme-toggle:hover .theme-sun { color: #93C5FD; }
 html.dark .theme-moon { display: none; }
-html.dark body { background: #0B1220; color: #E2E8F0; }
-html.dark .bg-white { background-color: #131D2E; }
-html.dark .bg-white\/95 { background-color: rgba(11, 18, 32, .95); }
-html.dark .bg-cream, html.dark #specsTable > tr:nth-child(odd) { background-color: #0F1828; }
-html.dark .from-orange-50 { --tw-gradient-from: #1A1410 var(--tw-gradient-from-position); --tw-gradient-to: rgba(26, 20, 16, 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-html.dark .to-white { --tw-gradient-to: #0B1220 var(--tw-gradient-to-position); }
-html.dark .bg-orange-100 { background-color: rgba(234, 88, 12, .18); }
-html.dark .hover\:bg-orange-50:hover { background-color: rgba(234, 88, 12, .12); }
-html.dark .bg-slate-100, html.dark .disabled\:bg-slate-100:disabled { background-color: #1B2638; }
-html.dark .bg-slate-300 { background-color: #475569; }
+html.dark body { background: #080D1A; color: #E2E8F0; }
+html.dark .bg-white { background-color: #0F1A30; }
+html.dark .bg-white\/95 { background-color: rgba(8, 13, 26, .95); }
+html.dark .bg-cream, html.dark #specsTable > tr:nth-child(odd) { background-color: #0B1426; }
+html.dark .from-orange-50 { --tw-gradient-from: #0D1B36 var(--tw-gradient-from-position); --tw-gradient-to: rgba(13, 27, 54, 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.dark .to-white { --tw-gradient-to: #080D1A var(--tw-gradient-to-position); }
+html.dark .bg-orange-100 { background-color: rgba(37, 99, 235, .18); }
+html.dark .hover\:bg-orange-50:hover { background-color: rgba(37, 99, 235, .12); }
+html.dark .bg-slate-100, html.dark .disabled\:bg-slate-100:disabled { background-color: #121E36; }
+html.dark .bg-slate-300 { background-color: #2D4166; }
 html.dark .bg-red-50 { background-color: rgba(239, 68, 68, .15); }
 html.dark .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .15); }
 html.dark .text-graphite, html.dark .text-slate-800 { color: #F1F5F9; }
 html.dark .text-slate-700 { color: #D5DEE9; }
-html.dark .text-slate-600 { color: #B4C0CF; }
-html.dark .text-slate-500 { color: #94A3B8; }
-html.dark .text-slate-200 { color: #26344A; }
+html.dark .text-slate-600 { color: #94A3B8; }
+html.dark .text-slate-500 { color: #64748B; }
+html.dark .text-slate-200 { color: #1E3258; }
 html.dark .text-buy-700 { color: #4ADE80; }
 html.dark .text-red-600 { color: #F87171; }
-html.dark .border-slate-100 { border-color: #1E2A3D; }
-html.dark .border-slate-200 { border-color: #263449; }
-html.dark .border-slate-300 { border-color: #334155; }
-html.dark .border-orange-100 { border-color: rgba(234, 88, 12, .3); }
-html.dark .shadow-orange-200 { --tw-shadow-color: rgba(234, 88, 12, .25); }
-html.dark input, html.dark textarea { color: #F1F5F9; background-color: #0F1828 !important; }
-html.dark input:disabled { background-color: #1B2638 !important; }
-html.dark input::placeholder, html.dark textarea::placeholder { color: #64748B; }
-html.dark .fb-tab.bg-graphite { background-color: #EA580C; }
-html.dark .bg-graphite.js-close-modal, html.dark #questionForm .fb-submit { background-color: #EA580C; }
+html.dark .border-slate-100 { border-color: #14223E; }
+html.dark .border-slate-200 { border-color: #1A2D52; }
+html.dark .border-slate-300 { border-color: #243B66; }
+html.dark .border-orange-100 { border-color: rgba(37, 99, 235, .35); }
+html.dark .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .25); }
+html.dark input, html.dark textarea { color: #F1F5F9; background-color: #0B1426 !important; }
+html.dark input:disabled { background-color: #121E36 !important; }
+html.dark input::placeholder, html.dark textarea::placeholder { color: #475569; }
+html.dark .fb-tab.bg-graphite { background-color: #1D4ED8; }
+html.dark .bg-graphite.js-close-modal, html.dark #questionForm .fb-submit { background-color: #1D4ED8; }
+
 /* фото товару на білому фоні лишаються на білих картках */
 html.dark img.bg-white { background-color: #FFFFFF; }
-html.dark #slider figure { background-color: #131D2E; }
+html.dark #slider figure { background-color: #0F1A30; }
 html.dark #slider figure > div { background-color: #FFFFFF; }
-html.dark #slider figcaption { background-color: #131D2E; }
+html.dark #slider figcaption { background-color: #0F1A30; }
 
 /* ===== Анімація та стиль логотипу HomeNest ===== */
 @keyframes homenest-float {
@@ -82,12 +90,12 @@ html.dark #slider figcaption { background-color: #131D2E; }
 
 @keyframes homenest-glow {
   0%, 100% {
-    box-shadow: 0 0 8px rgba(234, 88, 12, 0.25), 0 0 16px rgba(249, 115, 22, 0.15);
-    filter: drop-shadow(0 2px 5px rgba(234, 88, 12, 0.35));
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.25), 0 0 16px rgba(59, 130, 246, 0.15);
+    filter: drop-shadow(0 2px 5px rgba(29, 78, 216, 0.35));
   }
   50% {
-    box-shadow: 0 0 16px rgba(234, 88, 12, 0.55), 0 0 26px rgba(249, 115, 22, 0.3);
-    filter: drop-shadow(0 3px 9px rgba(234, 88, 12, 0.65));
+    box-shadow: 0 0 16px rgba(37, 99, 235, 0.55), 0 0 26px rgba(59, 130, 246, 0.3);
+    filter: drop-shadow(0 3px 9px rgba(29, 78, 216, 0.65));
   }
 }
 
@@ -97,17 +105,17 @@ html.dark #slider figcaption { background-color: #131D2E; }
   justify-content: center;
   position: relative;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(255, 247, 237, 0.95), rgba(254, 215, 170, 0.85));
-  border: 1px solid rgba(251, 146, 60, 0.45);
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.95), rgba(219, 234, 254, 0.85));
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.2);
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   animation: homenest-glow 3.5s ease-in-out infinite;
 }
 
 html.dark .homenest-logo-badge {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.9));
-  border: 1px solid rgba(234, 88, 12, 0.45);
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+  background: linear-gradient(135deg, rgba(15, 26, 48, 0.95), rgba(10, 17, 34, 0.9));
+  border: 1px solid rgba(37, 99, 235, 0.45);
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
 }
 
 .homenest-logo-img {
@@ -117,15 +125,15 @@ html.dark .homenest-logo-badge {
 }
 
 .group:hover .homenest-logo-badge {
-  border-color: rgba(234, 88, 12, 0.85);
-  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45);
+  border-color: rgba(37, 99, 235, 0.85);
+  box-shadow: 0 6px 20px rgba(29, 78, 216, 0.45);
   transform: translateY(-1.5px);
 }
 
 .group:hover .homenest-logo-img {
   animation-play-state: paused;
   transform: scale(1.15) rotate(-3deg);
-  filter: drop-shadow(0 4px 10px rgba(234, 88, 12, 0.6));
+  filter: drop-shadow(0 4px 10px rgba(37, 99, 235, 0.6));
 }
 
 .group:active .homenest-logo-badge {
@@ -135,4 +143,3 @@ html.dark .homenest-logo-badge {
 @media (prefers-reduced-motion: reduce) {
   .cta-pulse, .fire-glow::before, .stock-bar, .homenest-logo-badge, .homenest-logo-img { animation: none !important; }
 }
-
