@@ -1,4 +1,4 @@
-/* WarmHome UA — спільні стилі для всіх сторінок (анімації, темна тема) */
+/* HomeNest UA — спільні стилі для всіх сторінок (анімації, темна тема) */
 html, body { overflow-x: clip; max-width: 100%; }
 body { -webkit-tap-highlight-color: transparent; }
 /* Пульсація головної кнопки */

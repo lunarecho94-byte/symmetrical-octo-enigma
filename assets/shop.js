@@ -1,4 +1,4 @@
-/* WarmHome UA — картки товарів для каталогу і блоку «Дивіться також» */
+/* HomeNest UA — картки товарів для каталогу і блоку «Дивіться також» */
 (function () {
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = (n) => Number(n).toLocaleString('uk-UA').replace(/ /g, ' ');
