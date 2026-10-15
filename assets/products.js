@@ -80,4 +80,15 @@ window.PRODUCTS = [
     image: '/assets/img/candles-1.webp',
     url: '/products/nabir-led-svichok-ma765-3-sht-z-pultom/',
   },
+  {
+    slug: 'troyanda-v-kolbi-kar298-9-18-2-sm-z-led-pidsvichuvannyam',
+    sku: '59135',
+    name: 'Троянда в колбі KAR298 9×18,2 см з LED-підсвічуванням',
+    short: 'Декоративний світильник зі скляною колбою, теплим LED-світлом, фігурками та живленням від батарейок',
+    price: 450,
+    oldPrice: 690,
+    badge: '🌹 Вічна троянда',
+    image: '/assets/img/rose-1.webp',
+    url: '/products/troyanda-v-kolbi-kar298-9-18-2-sm-z-led-pidsvichuvannyam/',
+  },
 ];
