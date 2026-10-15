@@ -842,7 +842,7 @@ def main():
     </header>
     <main class="container" style="padding-top: 30px;">
         <h1 style="font-size: 24px; font-weight: 800; margin-bottom: 20px;">{escape(cat_title)}</h1>
-        <div class="products-grid">
+        <div class="products-grid" id="catalogProductsGrid">
             {''.join(cards_html)}
         </div>
     </main>
@@ -936,7 +936,7 @@ def prerender_index_catalog(products):
 
     grid_inner = f"\n{empty_box_html}\n{all_cards_str}\n            " if all_cards_str else f"\n{empty_box_html}\n            "
     html = re.sub(
-        r'(<div class="products-grid">)(.*?)(</div>\s*<!-- Catalog Pagination)',
+        r'(<div class="products-grid"[^>]*>)(.*?)(</div>\s*<!-- Catalog Pagination)',
         r'\1' + grid_inner + r'\3',
         html,
         flags=re.DOTALL

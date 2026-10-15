@@ -1901,12 +1901,27 @@ function productMatchesGender(p, gender) {
     return true;
 }
 
+function normalizeCategorySlug(slug) {
+    if (!slug) return "all";
+    const s = String(slug).trim().toLowerCase();
+    if (s === "all" || s === "vsi") return "all";
+    if (s === "zip-hoodie" || s === "zip_hoodie" || s === "hoodie" || s === "hoodies" || s === "khudi") return "zip_hoodie";
+    if (s === "winter-jacket" || s === "winter_jacket" || s === "winter-jackets" || s === "down-jacket" || s === "down_jacket" || s === "pukhovyk" || s === "puhovik" || s === "zymovi-kurtky") return "winter_jacket";
+    if (s === "jacket" || s === "jackets" || s === "kurtki" || s === "demisezonni-kurtky") return "jacket";
+    if (s === "vest" || s === "vests" || s === "zhyletky" || s === "zhiletki") return "vest";
+    if (s === "shoes" || s === "sneakers" || s === "krossivky" || s === "vzuttia") return "shoes";
+    return s;
+}
+window.normalizeCategorySlug = normalizeCategorySlug;
+
 function productMatchesCategory(p, cat) {
     if (!cat || cat === 'all') return true;
-    if (cat === 'sale') return !!p.is_sale;
-    if (cat === 'clothing') return p.cat === 'clothing';
-    if (cat === 'winter_jacket') return p.subcat === 'winter_jacket' || p.subcat === 'down_jacket';
-    return p.cat === cat || p.subcat === cat;
+    const norm = normalizeCategorySlug(cat);
+    if (norm === 'all') return true;
+    if (norm === 'sale') return !!p.is_sale;
+    if (norm === 'clothing') return p.cat === 'clothing';
+    if (norm === 'winter_jacket') return p.subcat === 'winter_jacket' || p.subcat === 'down_jacket';
+    return p.cat === norm || p.subcat === norm;
 }
 
 function productMatchesSeason(p, season) {
@@ -2354,7 +2369,12 @@ function selectCatalogGender(gender, btn) {
 }
 
 function selectCatalogCategory(catSlug, btn) {
-    currentCatalogCategory = catSlug || 'all';
+    const targetCat = normalizeCategorySlug(catSlug);
+    if (currentCatalogCategory === targetCat && targetCat !== 'all') {
+        currentCatalogCategory = 'all';
+    } else {
+        currentCatalogCategory = targetCat;
+    }
     currentCatalogBrand = 'all';
 
     document.querySelectorAll('.main-cat-btn').forEach(b => {
@@ -2367,7 +2387,7 @@ function selectCatalogCategory(catSlug, btn) {
         renderBrandFilterChips(catalogMeta);
     }
 
-    applyCatalogFilters();
+    applyCatalogFilters(true);
 }
 
 function selectCatalogSeason(seasonSlug, btn) {
@@ -2568,12 +2588,22 @@ function checkCatalogUrlParams() {
         const urlParams = new URLSearchParams(window.location.search);
         let changed = false;
 
-        const cat = urlParams.get('cat') || urlParams.get('category');
+        const isReturningFromPdp = !!(returnProductId || (sessionStorage.getItem('urban_is_returning') === '1'));
+
+        let rawCat = urlParams.get('cat') || urlParams.get('category');
+        if (!rawCat && window.location.pathname) {
+            const catMatch = window.location.pathname.match(/\/category\/([a-zA-Z0-9_-]+)(?:\.html)?/i);
+            if (catMatch && catMatch[1] && catMatch[1] !== 'index') {
+                rawCat = catMatch[1];
+            }
+        }
+        const cat = rawCat ? normalizeCategorySlug(rawCat) : null;
+
         if (cat) {
             currentCatalogCategory = cat;
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.category && savedCatalogState.category !== 'all') {
-            currentCatalogCategory = savedCatalogState.category;
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.category && savedCatalogState.category !== 'all') {
+            currentCatalogCategory = normalizeCategorySlug(savedCatalogState.category);
             changed = true;
         } else if (currentCatalogCategory !== 'all') {
             currentCatalogCategory = 'all';
@@ -2584,7 +2614,7 @@ function checkCatalogUrlParams() {
         if (gender) {
             currentCatalogGender = gender;
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.gender && savedCatalogState.gender !== 'all') {
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.gender && savedCatalogState.gender !== 'all') {
             currentCatalogGender = savedCatalogState.gender;
             changed = true;
         } else if (currentCatalogGender !== 'all') {
@@ -2596,7 +2626,7 @@ function checkCatalogUrlParams() {
         if (season) {
             currentCatalogSeason = season;
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.season && savedCatalogState.season !== 'all') {
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.season && savedCatalogState.season !== 'all') {
             currentCatalogSeason = savedCatalogState.season;
             changed = true;
         } else if (currentCatalogSeason !== 'all') {
@@ -2608,7 +2638,7 @@ function checkCatalogUrlParams() {
         if (brand) {
             currentCatalogBrand = brand;
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.brand && savedCatalogState.brand !== 'all') {
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.brand && savedCatalogState.brand !== 'all') {
             currentCatalogBrand = savedCatalogState.brand;
             changed = true;
         } else if (currentCatalogBrand !== 'all') {
@@ -2620,7 +2650,7 @@ function checkCatalogUrlParams() {
         if (size) {
             currentCatalogSize = size;
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.size && savedCatalogState.size !== 'all') {
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.size && savedCatalogState.size !== 'all') {
             currentCatalogSize = savedCatalogState.size;
             changed = true;
         } else if (currentCatalogSize !== 'all') {
@@ -2634,7 +2664,7 @@ function checkCatalogUrlParams() {
             const searchInput = document.getElementById('catalogSearchInput');
             if (searchInput) searchInput.value = search;
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.search) {
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.search) {
             currentCatalogSearchQuery = savedCatalogState.search;
             const searchInput = document.getElementById('catalogSearchInput');
             if (searchInput) searchInput.value = savedCatalogState.search;
@@ -2653,7 +2683,7 @@ function checkCatalogUrlParams() {
             if (sortSelect) sortSelect.value = sort;
             updateSortDisplayLabel(sort);
             changed = true;
-        } else if (savedCatalogState && savedCatalogState.sort && savedCatalogState.sort !== 'newest') {
+        } else if (isReturningFromPdp && savedCatalogState && savedCatalogState.sort && savedCatalogState.sort !== 'newest') {
             currentCatalogSort = savedCatalogState.sort;
             const sortSelect = document.getElementById('catalogSortSelect');
             if (sortSelect) sortSelect.value = savedCatalogState.sort;
@@ -2688,11 +2718,16 @@ function checkCatalogUrlParams() {
         updateSizeButtonState();
         syncQuickCatalogPills();
         syncDrawerActiveStates();
-    } catch (e) {}
+    } catch (e) {
+        console.warn('Error checking catalog url params:', e);
+    }
 }
+window.checkCatalogUrlParams = checkCatalogUrlParams;
 
 function syncCatalogUrl(pushToHistory = true) {
-    if (!document.getElementById('catalogProductsGrid')) return;
+    if (document.getElementById('productDetailPage')) return;
+    const grid = document.getElementById('catalogProductsGrid') || document.querySelector('.products-grid');
+    if (!grid) return;
 
     const params = new URLSearchParams();
     if (currentCatalogCategory && currentCatalogCategory !== 'all') {
@@ -2714,16 +2749,18 @@ function syncCatalogUrl(pushToHistory = true) {
     if (q) {
         params.set('search', q);
     }
-    if (currentCatalogSort && currentCatalogSort !== 'default') {
+    if (currentCatalogSort && currentCatalogSort !== 'newest' && currentCatalogSort !== 'default') {
         params.set('sort', currentCatalogSort);
     }
 
     const queryString = params.toString();
-    const newPath = window.location.pathname;
+    let newPath = window.location.pathname;
+    if (newPath.startsWith('/category/')) {
+        newPath = '/';
+    }
     const newUrl = queryString ? `${newPath}?${queryString}` : `${newPath}`;
 
-    // Update canonical link in head:
-    // Filtered URLs point to category canonical or root, avoiding duplicate content indexation
+    // Update canonical link in head
     let canonicalHref = 'https://urbangrid.com.ua/';
     if (currentCatalogCategory && currentCatalogCategory !== 'all') {
         canonicalHref = `https://urbangrid.com.ua/?cat=${encodeURIComponent(currentCatalogCategory)}`;
@@ -3665,7 +3702,7 @@ function filterCatalog(brand, btn) {
 
     updateBrandButtonState();
     renderBrandModalItems(currentBrandsList);
-    applyCatalogFilters();
+    applyCatalogFilters(true);
 }
 
 function filterCatalogBySize(size, btn) {
@@ -4046,6 +4083,8 @@ function applyCatalogFilters(updateHistory = true) {
 
     if (updateHistory) {
         syncCatalogUrl(true);
+    } else {
+        syncCatalogUrl(false);
     }
 }
 
