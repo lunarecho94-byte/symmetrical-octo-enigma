@@ -69,4 +69,15 @@ window.PRODUCTS = [
     image: '/assets/img/dispenser-1.webp',
     url: '/products/dispenser-dlya-kharchovoyi-plivki-ta-folgi-26x-409/',
   },
+  {
+    slug: 'nabir-led-svichok-ma765-3-sht-z-pultom',
+    sku: '59137',
+    name: 'Набір LED свічок MA765 3 шт. з пультом та таймером',
+    short: 'Електронні свічки 10, 12.5 та 15 см з теплим жовтим світлом, пультом ДК і таймером',
+    price: 499,
+    oldPrice: 750,
+    badge: '🕯️ LED декор',
+    image: '/assets/img/candles-1.webp',
+    url: '/products/nabir-led-svichok-ma765-3-sht-z-pultom/',
+  },
 ];
