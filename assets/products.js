@@ -25,4 +25,15 @@ window.PRODUCTS = [
     image: '/assets/img/astronavt-1.webp',
     url: '/products/nichnik-proyektor-astronavt-bluetooth/',
   },
+  {
+    slug: 'stelazh-nad-pralnoyu-mashynoyu-3-polytsi',
+    sku: '59190',
+    name: 'Стелаж над пральною машиною 3 полиці чорний',
+    short: 'Підлогова стійка-органайзер 72×25×155 см із нержавіючої сталі над пральною машиною та унітазом',
+    price: 490,
+    oldPrice: 720,
+    badge: '🧺 Органайзер',
+    image: '/assets/img/stelazh-1.webp',
+    url: '/products/stelazh-nad-pralnoyu-mashynoyu-3-polytsi/',
+  },
 ];
