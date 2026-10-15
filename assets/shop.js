@@ -9,8 +9,11 @@
       <div class="group flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition">
         <a href="${esc(p.url)}" class="relative block aspect-square bg-white overflow-hidden">
           <img src="${esc(p.image)}" alt="${esc(p.name)}" width="600" height="600" loading="lazy" class="w-full h-full object-cover scale-[1.06] group-hover:scale-110 transition duration-300">
-          ${discount ? `<span class="absolute top-3 right-3 bg-fire-600 text-white text-sm font-display font-extrabold px-2.5 py-1 rounded-lg shadow">-${discount}%</span>` : ''}
-          ${p.badge ? `<span class="absolute top-3 left-3 bg-graphite/90 text-white text-xs font-bold px-2.5 py-1 rounded-full">${esc(p.badge)}</span>` : ''}
+          ${(p.badge || discount) ? `
+          <div class="product-badges">
+            ${p.badge ? `<span class="badge-tag">${esc(p.badge)}</span>` : ''}
+            ${discount ? `<span class="badge-discount">-${discount}%</span>` : ''}
+          </div>` : ''}
         </a>
         <div class="flex flex-col flex-1 p-4 sm:p-5">
           <a href="${esc(p.url)}" class="font-display font-bold text-base sm:text-lg text-graphite leading-snug hover:text-fire-600">${esc(p.name)}</a>
