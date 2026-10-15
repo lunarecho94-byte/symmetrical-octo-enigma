@@ -36,4 +36,15 @@ window.PRODUCTS = [
     image: '/assets/img/stelazh-1.webp',
     url: '/products/stelazh-nad-pralnoyu-mashynoyu-3-polytsi/',
   },
+  {
+    slug: 'girlyanda-z-prishchipkami-lu999-4-5m',
+    sku: '59140',
+    name: 'Гірлянда з прищіпками для фото LU999 4,5 м 20 LED USB',
+    short: 'Світлодіодна фотогірлянда з теплим білим світлом, 20 прозорих прищіпок, USB-живлення',
+    price: 250,
+    oldPrice: 390,
+    badge: '✨ Затишок',
+    image: '/assets/img/girlyanda-1.webp',
+    url: '/products/girlyanda-z-prishchipkami-lu999-4-5m/',
+  },
 ];
