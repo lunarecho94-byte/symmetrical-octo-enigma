@@ -91,4 +91,15 @@ window.PRODUCTS = [
     image: '/assets/img/rose-1.webp',
     url: '/products/troyanda-v-kolbi-kar298-9-18-2-sm-z-led-pidsvichuvannyam/',
   },
+  {
+    slug: 'dekorativniy-kamin-kar300-280-197-mm-chorniy',
+    sku: '59106',
+    name: 'Декоративний камін KAR300 280×197 мм з LED-імітацією вогню',
+    short: 'Настільний світильник з реалістичним ефектом полум’я, подвійним живленням USB / 3×AA та затишною атмосферою',
+    price: 799,
+    oldPrice: 1190,
+    badge: '🔥 Імітація вогню',
+    image: '/assets/img/fireplace-1.webp',
+    url: '/products/dekorativniy-kamin-kar300-280-197-mm-chorniy/',
+  },
 ];
