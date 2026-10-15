@@ -6,15 +6,22 @@
   <title>Гірлянда з прищіпками для фото LU999 4,5 м 20 LED USB — HomeNest UA</title>
   <meta name="description" content="Світлодіодна фотогірлянда LU999 4,5 м з теплим білим світлом, 20 прищіпками та USB-живленням. 250 грн замість 390 грн. Доставка Новою Поштою без передоплати.">
   <meta name="theme-color" content="#1D4ED8">
-  <!-- Тема: збережений вибір користувача (за замовчуванням синя) -->
+    <meta name="color-scheme" content="light dark">
+  <meta name="darkreader-lock">
+  <!-- Тема: збережений вибір користувача (за замовчуванням світла) -->
   <script>
     (function () {
-      var t = null;
-      try { t = localStorage.getItem('theme'); } catch (e) {}
-      if (t === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
+      var isDark = false;
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark') isDark = true;
+        else if (t === 'light') isDark = false;
+        else isDark = false; // за замовчуванням СВІТЛА
+      } catch (e) {}
+      if (isDark) {
         document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
       }
     })();
   </script>
@@ -48,13 +55,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v6">
-  <script src="/assets/products.js?v=hn20261016-v6"></script>
-  <script src="/assets/shop.js?v=hn20261016-v6"></script>
-  <script src="/assets/icons.js?v=hn20261016-v6" defer></script>
-  <script src="/assets/cart.js?v=hn20261016-v6" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v7">
+  <script src="/assets/products.js?v=hn20261016-v7"></script>
+  <script src="/assets/shop.js?v=hn20261016-v7"></script>
+  <script src="/assets/icons.js?v=hn20261016-v7" defer></script>
+  <script src="/assets/cart.js?v=hn20261016-v7" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v6">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v7">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -80,10 +87,16 @@
       <div class="flex items-center gap-2">
         <a href="tel:+380974524435" class="hidden xl:inline-flex items-center gap-2 mr-3 font-semibold text-graphite hover:text-fire-600"><i data-lucide="phone" class="w-4 h-4 text-fire-600"></i>+38 (097) 452-44-35</a>
         <button type="button" class="js-cart-open relative grid place-items-center w-10 h-10 rounded-lg border border-slate-200 text-graphite hover:text-fire-600 hover:border-fire-500" aria-label="Кошик" title="Кошик"><i data-lucide="shopping-cart" class="w-5 h-5"></i><span class="js-cart-count hidden absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-fire-600 text-white text-[11px] font-bold leading-5 text-center">0</span></button>
-        <button type="button" class="js-theme-toggle inline-flex items-center justify-center gap-1.5 h-10 px-2.5 rounded-lg border border-slate-200 text-graphite hover:text-fire-600 hover:border-fire-500 transition" aria-label="Увімкнути світлу тему" title="Світла / Синя тема">
-          <i data-lucide="moon" class="theme-moon w-4 h-4"></i><i data-lucide="sun" class="theme-sun w-4 h-4"></i>
-          <span class="text-xs font-bold theme-badge hidden sm:inline">Синя</span>
-        </button>
+                <div class="theme-switch flex items-center p-0.5 rounded-xl border border-slate-200" role="group" aria-label="Перемикач теми">
+          <button type="button" class="js-theme-btn flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition" data-theme="light" aria-label="Увімкнути світлу тему" title="Світла тема">
+            <i data-lucide="sun" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Світла</span>
+          </button>
+          <button type="button" class="js-theme-btn flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition" data-theme="dark" aria-label="Увімкнути синю тему" title="Синя тема">
+            <i data-lucide="moon" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Синя</span>
+          </button>
+        </div>
         <a href="#orderForm" class="hidden sm:inline-flex items-center min-h-[40px] bg-buy-600 hover:bg-buy-700 text-white text-sm font-bold px-3 sm:px-4 rounded-lg transition">Замовити</a>
         <button id="menuBtn" class="lg:hidden p-2 -mr-2 text-graphite" aria-label="Меню" aria-expanded="false">
           <i data-lucide="menu" class="w-6 h-6"></i>
@@ -99,14 +112,19 @@
         <a href="#reviews" class="py-2 js-reviews-link">Відгуки</a>
         <a href="#delivery" class="py-2">Доставка</a>
         <a href="tel:+380974524435" class="py-2 inline-flex items-center gap-2 font-semibold text-fire-600"><i data-lucide="phone" class="w-4 h-4"></i>+38 (097) 452-44-35</a>
-        <button type="button" class="js-theme-toggle w-full mt-2 flex items-center justify-between py-2.5 px-3 rounded-xl border border-slate-200 text-sm font-semibold text-graphite hover:border-fire-500 transition">
-          <span class="inline-flex items-center gap-2">
-            <i data-lucide="moon" class="theme-moon w-4 h-4"></i>
-            <i data-lucide="sun" class="theme-sun w-4 h-4"></i>
-            <span>Тема оформлення</span>
-          </span>
-          <span class="text-xs px-2.5 py-1 rounded-md bg-orange-100 text-fire-600 font-bold theme-badge">Синя</span>
-        </button>
+                <div class="w-full mt-2 flex items-center justify-between py-2.5 px-3 rounded-xl border border-slate-200 text-sm font-semibold text-graphite">
+          <span>Тема сайту:</span>
+          <div class="theme-switch flex items-center p-0.5 rounded-xl border border-slate-200">
+            <button type="button" class="js-theme-btn flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition" data-theme="light">
+              <i data-lucide="sun" class="w-3.5 h-3.5"></i>
+              <span>Світла</span>
+            </button>
+            <button type="button" class="js-theme-btn flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition" data-theme="dark">
+              <i data-lucide="moon" class="w-3.5 h-3.5"></i>
+              <span>Синя</span>
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
   </header>
@@ -1082,21 +1100,29 @@
   }
 
   /* ==========================================================
-     ТЕМНА / СВІТЛА ТЕМА
+     СВІТЛА ТА СИНЯ ТЕМА
      ========================================================== */
-  function setTheme(dark) {
-    document.documentElement.classList.toggle('dark', dark);
-    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
-    const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = dark ? '#070D1E' : '#FFFFFF';
-    $$('.theme-badge').forEach(b => { b.textContent = dark ? 'Синя' : 'Світла'; });
-    $$('.js-theme-toggle').forEach(b => {
-      b.setAttribute('title', dark ? 'Поточна: Синя тема (натисніть для світлої)' : 'Поточна: Світла тема (натисніть для синьої)');
-      b.setAttribute('aria-label', dark ? 'Увімкнути світлу тему' : 'Увімкнути синю тему');
+  function applyTheme(isDark) {
+    document.documentElement.classList.toggle('dark', isDark);
+    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    const m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.content = isDark ? '#070D1E' : '#FFFFFF';
+    let metaScheme = document.querySelector('meta[name="color-scheme"]');
+    if (metaScheme) metaScheme.content = isDark ? 'dark' : 'only light';
+    $$('.js-theme-btn').forEach(btn => {
+      const isThisDark = btn.dataset.theme === 'dark';
+      btn.setAttribute('aria-pressed', String(isThisDark === isDark));
     });
     if (window.lucide) lucide.createIcons();
   }
-  setTheme(document.documentElement.classList.contains('dark'));
-  $$('.js-theme-toggle').forEach(b => b.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark'))));
+  let initialDark = false;
+  try { initialDark = (localStorage.getItem('theme') === 'dark'); } catch (e) {}
+  applyTheme(initialDark);
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-theme-btn');
+    if (!btn) return;
+    applyTheme(btn.dataset.theme === 'dark');
+  });
 
   /* Meta Pixel: початок оформлення */
   let checkoutTracked = false;
