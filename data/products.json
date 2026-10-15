@@ -6309,7 +6309,6 @@
     "desc": "Тепла зимова брендова куртка Nike (JOR107). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
     "thumb": "/images/catalog/141062.jpg",
     "imgs": [
-      "https://easydrop.one/media/uploads/images/base/23727d05-5d55-43f1-ac87-06eaf50cf1d2.jpeg",
       "https://easydrop.one/media/uploads/images/base/848d26d5-c1ec-4203-ac40-198ff69fdd3b.jpeg"
     ],
     "sizes": [
@@ -6341,7 +6340,6 @@
     "desc": "Тепла зимова брендова куртка Nike (JOR106). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
     "thumb": "/images/catalog/141061.jpg",
     "imgs": [
-      "https://easydrop.one/media/uploads/images/base/7911617b-14eb-4527-a730-18849ced2446.jpeg",
       "https://easydrop.one/media/uploads/images/base/848d26d5-c1ec-4203-ac40-198ff69fdd3b.jpeg"
     ],
     "sizes": [
@@ -6472,7 +6470,6 @@
     "desc": "Тепла зимова брендова куртка Nike (NK16). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
     "thumb": "/images/catalog/138575.jpg",
     "imgs": [
-      "https://easydrop.one/media/uploads/images/base/bf3af12e-c507-430e-9a5d-c017685a6fbd.jpeg",
       "https://easydrop.one/media/uploads/images/item_8646/f182a5a6-4501-44c0-9be8-f3c20f5ebb65.jpeg"
     ],
     "sizes": [
@@ -6536,43 +6533,11 @@
     "desc": "Тепла зимова брендова куртка Nike (NK15). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
     "thumb": "/images/catalog/138573.jpg",
     "imgs": [
-      "https://easydrop.one/media/uploads/images/base/0221d9a0-5f8a-4086-9fbe-4ffaf785562f.jpeg",
       "https://easydrop.one/media/uploads/images/item_8646/ff92b188-f8cf-4cc0-99f6-7b07c63f3ae0.jpeg"
     ],
     "sizes": [
       "S",
       "XL"
-    ],
-    "in_stock": true,
-    "source_priority": 0
-  },
-  {
-    "id": "137043",
-    "slug": "zymova-kurtka-columbia-40rb-137043",
-    "name": "Зимова куртка Columbia 40RB",
-    "price": 2510,
-    "old_price": 3010,
-    "cost_price": 2095,
-    "cat": "clothing",
-    "subcat": "winter_jacket",
-    "cat_name": "Одяг & Зимові куртки",
-    "season": "winter",
-    "season_name": "Зима / Утеплена",
-    "brand": "columbia",
-    "brand_name": "Columbia",
-    "gender": "women",
-    "art": "40RB",
-    "color": "",
-    "mat": "100% поліестер / Водовідштовхувальна плащівка / Холофайбер",
-    "origin": "Фабричне виробництво (Туреччина)",
-    "badge": "Зима • Термо",
-    "desc": "Тепла зимова брендова куртка Columbia (40RB). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
-    "thumb": "/images/catalog/137043.jpg",
-    "imgs": [
-      "https://easydrop.one/media/uploads/images/base/8da62f14-81a9-4697-a852-cfd2f92b924e.jpeg"
-    ],
-    "sizes": [
-      "S"
     ],
     "in_stock": true,
     "source_priority": 0
@@ -6671,7 +6636,6 @@
     "desc": "Тепла зимова брендова куртка Hugo Boss (30RB). Якісна водовідштовхувальна плащівка (100% поліестер), надійний утеплювач холофайбер для надійного захисту від холоду та вітру. Зручні місткі кишені, анатомічний крій та якісна фурнітура. Фабричне виробництво (Туреччина).",
     "thumb": "/images/catalog/132543.jpg",
     "imgs": [
-      "https://easydrop.one/media/uploads/images/base/0d93853a-a47d-4a2f-8e2a-fb7621b91d54.jpeg",
       "https://easydrop.one/media/uploads/images/item_8646/6373c9c4-f98a-476e-b557-4868f850bd39.jpeg"
     ],
     "sizes": [
