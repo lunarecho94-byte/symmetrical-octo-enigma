@@ -1,6 +1,6 @@
-/* HomeNest UA — фірмовий глибокий синій космічний стиль для всіх сторінок */
+/* HomeNest UA — спільні стилі та теми оформлення (глибока синя темна + світла) */
 html, body { overflow-x: clip; max-width: 100%; }
-body { -webkit-tap-highlight-color: transparent; }
+body { -webkit-tap-highlight-color: transparent; transition: background-color 0.25s ease, color 0.25s ease; }
 
 /* Пульсація головної кнопки */
 @keyframes cta-pulse {
@@ -36,52 +36,99 @@ body { -webkit-tap-highlight-color: transparent; }
 @keyframes spin { to { transform: rotate(360deg) } }
 .spinner { width:20px; height:20px; border:3px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation: spin .8s linear infinite; }
 
-/* ===== Фірмова глибока синя тема (за замовчуванням для всіх відвідувачів) ===== */
-html { color-scheme: dark; }
-body, html.dark body { background: #070D1E !important; color: #E2E8F0 !important; }
-.bg-white, html.dark .bg-white { background-color: #0E1830 !important; }
-.bg-white\/95, html.dark .bg-white\/95 { background-color: rgba(7, 13, 30, .96) !important; }
-.bg-cream, html.dark .bg-cream, #specsTable > tr:nth-child(odd), html.dark #specsTable > tr:nth-child(odd) { background-color: #0A1326 !important; }
-.from-orange-50, html.dark .from-orange-50 { --tw-gradient-from: #0F1E3D var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(15, 30, 61, 0) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
-.to-white, html.dark .to-white { --tw-gradient-to: #070D1E var(--tw-gradient-to-position) !important; }
-.bg-orange-100, html.dark .bg-orange-100 { background-color: rgba(37, 99, 235, .2) !important; }
-.hover\:bg-orange-50:hover, html.dark .hover\:bg-orange-50:hover { background-color: rgba(37, 99, 235, .15) !important; }
-.bg-slate-100, .disabled\:bg-slate-100:disabled, html.dark .bg-slate-100 { background-color: #121F3D !important; }
-.bg-slate-300, html.dark .bg-slate-300 { background-color: #2D4166 !important; }
-.bg-red-50, html.dark .bg-red-50 { background-color: rgba(239, 68, 68, .15) !important; }
-.bg-buy-600\/10, html.dark .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .15) !important; }
+/* ==========================================================
+   1. ТЕМНА ТЕМА (html.dark) — Глибокий синій космічний стиль
+   ========================================================== */
+html.dark { color-scheme: dark; }
+html.dark body { background: #070D1E !important; color: #E2E8F0 !important; }
+html.dark .bg-white { background-color: #0E1830 !important; }
+html.dark .bg-white\/95 { background-color: rgba(7, 13, 30, .96) !important; }
+html.dark .bg-cream, html.dark #specsTable > tr:nth-child(odd) { background-color: #0A1326 !important; }
+html.dark .from-orange-50 { --tw-gradient-from: #0F1E3D var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(15, 30, 61, 0) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+html.dark .to-white { --tw-gradient-to: #070D1E var(--tw-gradient-to-position) !important; }
+html.dark .bg-orange-100 { background-color: rgba(37, 99, 235, .2) !important; }
+html.dark .hover\:bg-orange-50:hover { background-color: rgba(37, 99, 235, .15) !important; }
+html.dark .bg-slate-100, html.dark .disabled\:bg-slate-100:disabled { background-color: #121F3D !important; }
+html.dark .bg-slate-300 { background-color: #2D4166 !important; }
+html.dark .bg-red-50 { background-color: rgba(239, 68, 68, .15) !important; }
+html.dark .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .15) !important; }
 
-/* Кольори тексту та рамок у глибокому синьому стилі */
-.text-graphite, .text-slate-800, html.dark .text-graphite, html.dark .text-slate-800 { color: #F1F5F9 !important; }
-.text-slate-700, html.dark .text-slate-700 { color: #D5DEE9 !important; }
-.text-slate-600, html.dark .text-slate-600 { color: #94A3B8 !important; }
-.text-slate-500, html.dark .text-slate-500 { color: #64748B !important; }
-.text-slate-200, html.dark .text-slate-200 { color: #1E3258 !important; }
-.text-buy-700, html.dark .text-buy-700 { color: #4ADE80 !important; }
-.text-red-600, html.dark .text-red-600 { color: #F87171 !important; }
+html.dark .text-graphite, html.dark .text-slate-800 { color: #F1F5F9 !important; }
+html.dark .text-slate-700 { color: #D5DEE9 !important; }
+html.dark .text-slate-600 { color: #94A3B8 !important; }
+html.dark .text-slate-500 { color: #64748B !important; }
+html.dark .text-slate-200 { color: #1E3258 !important; }
+html.dark .text-buy-700 { color: #4ADE80 !important; }
+html.dark .text-red-600 { color: #F87171 !important; }
 
-.border-slate-100, html.dark .border-slate-100 { border-color: #152445 !important; }
-.border-slate-200, html.dark .border-slate-200 { border-color: #1C305C !important; }
-.border-slate-300, html.dark .border-slate-300 { border-color: #263E72 !important; }
-.border-orange-100, html.dark .border-orange-100 { border-color: rgba(37, 99, 235, .4) !important; }
-.shadow-orange-200, html.dark .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .3) !important; }
+html.dark .border-slate-100 { border-color: #152445 !important; }
+html.dark .border-slate-200 { border-color: #1C305C !important; }
+html.dark .border-slate-300 { border-color: #263E72 !important; }
+html.dark .border-orange-100 { border-color: rgba(37, 99, 235, .4) !important; }
+html.dark .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .3) !important; }
 
-input, textarea { color: #F1F5F9 !important; background-color: #0A1326 !important; }
-input:disabled { background-color: #121F3D !important; }
-input::placeholder, textarea::placeholder { color: #64748B !important; }
-.fb-tab.bg-graphite { background-color: #1D4ED8 !important; }
-.bg-graphite.js-close-modal, #questionForm .fb-submit { background-color: #1D4ED8 !important; }
+html.dark input, html.dark textarea { color: #F1F5F9 !important; background-color: #0A1326 !important; }
+html.dark input:disabled { background-color: #121F3D !important; }
+html.dark input::placeholder, html.dark textarea::placeholder { color: #64748B !important; }
+html.dark .fb-tab.bg-graphite { background-color: #1D4ED8 !important; }
+html.dark .bg-graphite.js-close-modal, html.dark #questionForm .fb-submit { background-color: #1D4ED8 !important; }
 
-/* Слайдер та картки галереї */
-#slider figure { background-color: #0E1830 !important; }
-#slider figure > div { background-color: #000000 !important; }
-#slider figcaption { background-color: #0E1830 !important; }
+html.dark #slider figure { background-color: #0E1830 !important; }
+html.dark #slider figure > div { background-color: #000000 !important; }
+html.dark #slider figcaption { background-color: #0E1830 !important; }
+html.dark #mobileMenu { background-color: #0E1830 !important; border-color: #1C305C !important; }
 
-/* Кнопки перемикання теми */
-.theme-sun { display: block !important; color: #60A5FA !important; }
-.theme-moon { display: none !important; }
+html.dark .theme-sun { display: block !important; color: #60A5FA !important; }
+html.dark .theme-moon { display: none !important; }
 
-/* ===== Анімація та стиль логотипу HomeNest ===== */
+/* ==========================================================
+   2. СВІТЛА ТЕМА (html:not(.dark)) — Чистий світлий стиль з синіми акцентами
+   ========================================================== */
+html:not(.dark) { color-scheme: light; }
+html:not(.dark) body { background: #F8FAFC !important; color: #1E293B !important; }
+html:not(.dark) .bg-white { background-color: #FFFFFF !important; }
+html:not(.dark) .bg-white\/95 { background-color: rgba(255, 255, 255, .96) !important; }
+html:not(.dark) .bg-cream, html:not(.dark) #specsTable > tr:nth-child(odd) { background-color: #F1F5F9 !important; }
+html:not(.dark) .from-orange-50 { --tw-gradient-from: #EFF6FF var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(239, 246, 255, 0) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+html:not(.dark) .to-white { --tw-gradient-to: #F8FAFC var(--tw-gradient-to-position) !important; }
+html:not(.dark) .bg-orange-100 { background-color: #DBEAFE !important; }
+html:not(.dark) .hover\:bg-orange-50:hover { background-color: #EFF6FF !important; }
+html:not(.dark) .bg-slate-100, html:not(.dark) .disabled\:bg-slate-100:disabled { background-color: #F1F5F9 !important; }
+html:not(.dark) .bg-slate-300 { background-color: #CBD5E1 !important; }
+html:not(.dark) .bg-red-50 { background-color: #FEF2F2 !important; }
+html:not(.dark) .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .12) !important; }
+
+html:not(.dark) .text-graphite, html:not(.dark) .text-slate-800 { color: #0F172A !important; }
+html:not(.dark) .text-slate-700 { color: #334155 !important; }
+html:not(.dark) .text-slate-600 { color: #475569 !important; }
+html:not(.dark) .text-slate-500 { color: #64748B !important; }
+html:not(.dark) .text-slate-200 { color: #E2E8F0 !important; }
+html:not(.dark) .text-buy-700 { color: #15803D !important; }
+html:not(.dark) .text-red-600 { color: #DC2626 !important; }
+
+html:not(.dark) .border-slate-100 { border-color: #F1F5F9 !important; }
+html:not(.dark) .border-slate-200 { border-color: #E2E8F0 !important; }
+html:not(.dark) .border-slate-300 { border-color: #CBD5E1 !important; }
+html:not(.dark) .border-orange-100 { border-color: #BFDBFE !important; }
+html:not(.dark) .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .15) !important; }
+
+html:not(.dark) input, html:not(.dark) textarea { color: #0F172A !important; background-color: #FFFFFF !important; }
+html:not(.dark) input:disabled { background-color: #F1F5F9 !important; }
+html:not(.dark) input::placeholder, html:not(.dark) textarea::placeholder { color: #94A3B8 !important; }
+html:not(.dark) .fb-tab.bg-graphite { background-color: #1D4ED8 !important; }
+html:not(.dark) .bg-graphite.js-close-modal, html:not(.dark) #questionForm .fb-submit { background-color: #1D4ED8 !important; }
+
+html:not(.dark) #slider figure { background-color: #FFFFFF !important; border-color: #E2E8F0 !important; }
+html:not(.dark) #slider figure > div { background-color: #F8FAFC !important; }
+html:not(.dark) #slider figcaption { background-color: #FFFFFF !important; color: #0F172A !important; }
+html:not(.dark) #mobileMenu { background-color: #FFFFFF !important; border-color: #E2E8F0 !important; }
+
+html:not(.dark) .theme-sun { display: none !important; }
+html:not(.dark) .theme-moon { display: block !important; color: #1E293B !important; }
+
+/* ==========================================================
+   3. АНІМАЦІЯ ТА СТИЛЬ ЛОГОТИПУ HOMENEST
+   ========================================================== */
 @keyframes homenest-float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
@@ -108,11 +155,20 @@ input::placeholder, textarea::placeholder { color: #64748B !important; }
   justify-content: center;
   position: relative;
   border-radius: 12px;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: homenest-glow 3.5s ease-in-out infinite;
+}
+
+html.dark .homenest-logo-badge {
   background: linear-gradient(135deg, rgba(14, 24, 48, 0.95), rgba(10, 19, 38, 0.9)) !important;
   border: 1px solid rgba(37, 99, 235, 0.5) !important;
   box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35) !important;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: homenest-glow 3.5s ease-in-out infinite;
+}
+
+html:not(.dark) .homenest-logo-badge {
+  background: linear-gradient(135deg, #EFF6FF, #DBEAFE) !important;
+  border: 1px solid rgba(37, 99, 235, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.15) !important;
 }
 
 .homenest-logo-img {
