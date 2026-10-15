@@ -6,7 +6,7 @@
   <title>Нічник-проєктор зоряного неба Астронавт Bluetooth — HomeNest UA</title>
   <meta name="description" content="Нічник-проєктор зоряного неба Астронавт Bluetooth. 8 режимів туманностей, лазерні зірки, аудіоколонка, пульт ДК. 500 грн замість 750 грн. Доставка Новою Поштою без передоплати.">
   <meta name="theme-color" content="#1D4ED8">
-  <!-- Тема: збережений вибір користувача (за замовчуванням темна) -->
+  <!-- Тема: збережений вибір користувача (за замовчуванням синя) -->
   <script>
     (function () {
       var t = null;
@@ -49,15 +49,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти з оновленою версією кешування -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v5">
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v6">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=hn20261016-v5"></script>
-  <script src="/assets/shop.js?v=hn20261016-v5"></script>
-  <script src="/assets/icons.js?v=hn20261016-v5" defer></script>
-  <script src="/assets/cart.js?v=hn20261016-v5" defer></script>
+  <script src="/assets/products.js?v=hn20261016-v6"></script>
+  <script src="/assets/shop.js?v=hn20261016-v6"></script>
+  <script src="/assets/icons.js?v=hn20261016-v6" defer></script>
+  <script src="/assets/cart.js?v=hn20261016-v6" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v5">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v6">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -84,8 +84,9 @@
       <div class="flex items-center gap-2">
         <a href="tel:+380974524435" class="hidden xl:inline-flex items-center gap-2 mr-3 font-semibold text-graphite hover:text-fire-600"><i data-lucide="phone" class="w-4 h-4 text-fire-600"></i>+38 (097) 452-44-35</a>
 <button type="button" class="js-cart-open relative grid place-items-center w-10 h-10 rounded-lg border border-slate-200 text-graphite hover:text-fire-600 hover:border-fire-500" aria-label="Кошик" title="Кошик"><i data-lucide="shopping-cart" class="w-5 h-5"></i><span class="js-cart-count hidden absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-fire-600 text-white text-[11px] font-bold leading-5 text-center">0</span></button>
-        <button type="button" class="js-theme-toggle grid place-items-center w-10 h-10 rounded-lg border border-slate-200 text-graphite hover:text-fire-600 hover:border-fire-500 transition" aria-label="Перемкнути темну / світлу тему" title="Темна / світла тема">
-          <i data-lucide="moon" class="theme-moon w-5 h-5"></i><i data-lucide="sun" class="theme-sun w-5 h-5"></i>
+        <button type="button" class="js-theme-toggle inline-flex items-center justify-center gap-1.5 h-10 px-2.5 rounded-lg border border-slate-200 text-graphite hover:text-fire-600 hover:border-fire-500 transition" aria-label="Увімкнути світлу тему" title="Світла / Синя тема">
+          <i data-lucide="moon" class="theme-moon w-4 h-4"></i><i data-lucide="sun" class="theme-sun w-4 h-4"></i>
+          <span class="text-xs font-bold theme-badge hidden sm:inline">Синя</span>
         </button>
         <a href="#orderForm" class="hidden sm:inline-flex items-center min-h-[40px] bg-buy-600 hover:bg-buy-700 text-white text-sm font-bold px-3 sm:px-4 rounded-lg transition">Замовити</a>
         <button id="menuBtn" class="lg:hidden p-2 -mr-2 text-graphite" aria-label="Меню" aria-expanded="false">
@@ -108,7 +109,7 @@
             <i data-lucide="sun" class="theme-sun w-4 h-4"></i>
             <span>Тема оформлення</span>
           </span>
-          <span class="text-xs px-2.5 py-1 rounded-md bg-orange-100 text-fire-600 font-bold theme-badge">Темна</span>
+          <span class="text-xs px-2.5 py-1 rounded-md bg-orange-100 text-fire-600 font-bold theme-badge">Синя</span>
         </button>
       </div>
     </nav>
@@ -1124,7 +1125,11 @@
     document.documentElement.classList.toggle('dark', dark);
     try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
     const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = dark ? '#070D1E' : '#FFFFFF';
-    $$('.theme-badge').forEach(b => { b.textContent = dark ? 'Темна' : 'Світла'; });
+    $$('.theme-badge').forEach(b => { b.textContent = dark ? 'Синя' : 'Світла'; });
+    $$('.js-theme-toggle').forEach(b => {
+      b.setAttribute('title', dark ? 'Поточна: Синя тема (натисніть для світлої)' : 'Поточна: Світла тема (натисніть для синьої)');
+      b.setAttribute('aria-label', dark ? 'Увімкнути світлу тему' : 'Увімкнути синю тему');
+    });
     if (window.lucide) lucide.createIcons();
   }
   setTheme(document.documentElement.classList.contains('dark'));

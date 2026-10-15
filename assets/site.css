@@ -1,4 +1,4 @@
-/* HomeNest UA — спільні стилі та теми оформлення (глибока синя темна + світла) */
+/* HomeNest UA — спільні стилі та теми оформлення (глибока синя + світла) */
 html, body { overflow-x: clip; max-width: 100%; }
 body { -webkit-tap-highlight-color: transparent; transition: background-color 0.25s ease, color 0.25s ease; }
 
@@ -37,49 +37,79 @@ body { -webkit-tap-highlight-color: transparent; transition: background-color 0.
 .spinner { width:20px; height:20px; border:3px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation: spin .8s linear infinite; }
 
 /* ==========================================================
-   1. ТЕМНА ТЕМА (html.dark) — Глибокий синій космічний стиль
+   1. СИНЯ ТЕМА (html.dark) — Глибокий сапфіровий та королівський синій стиль
    ========================================================== */
 html.dark { color-scheme: dark; }
 html.dark body { background: #070D1E !important; color: #E2E8F0 !important; }
-html.dark .bg-white { background-color: #0E1830 !important; }
+html.dark .bg-white { background-color: #0E1A38 !important; }
 html.dark .bg-white\/95 { background-color: rgba(7, 13, 30, .96) !important; }
-html.dark .bg-cream, html.dark #specsTable > tr:nth-child(odd) { background-color: #0A1326 !important; }
-html.dark .from-orange-50 { --tw-gradient-from: #0F1E3D var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(15, 30, 61, 0) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+html.dark .bg-cream, html.dark #specsTable > tr:nth-child(odd) { background-color: #091329 !important; }
+html.dark .bg-graphite { background-color: #0A142D !important; }
+html.dark footer { background-color: #050A17 !important; border-color: #14244D !important; }
+
+html.dark .from-orange-50 {
+  --tw-gradient-from: #0E224D var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(14, 34, 77, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
 html.dark .to-white { --tw-gradient-to: #070D1E var(--tw-gradient-to-position) !important; }
-html.dark .bg-orange-100 { background-color: rgba(37, 99, 235, .2) !important; }
-html.dark .hover\:bg-orange-50:hover { background-color: rgba(37, 99, 235, .15) !important; }
-html.dark .bg-slate-100, html.dark .disabled\:bg-slate-100:disabled { background-color: #121F3D !important; }
-html.dark .bg-slate-300 { background-color: #2D4166 !important; }
-html.dark .bg-red-50 { background-color: rgba(239, 68, 68, .15) !important; }
-html.dark .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .15) !important; }
+html.dark .bg-orange-50, html.dark .bg-orange-50\/60 { background-color: rgba(30, 58, 138, .35) !important; }
+html.dark .bg-orange-100 { background-color: rgba(37, 99, 235, .25) !important; }
+html.dark .hover\:bg-orange-50:hover { background-color: rgba(37, 99, 235, .2) !important; }
+html.dark .bg-slate-100, html.dark .disabled\:bg-slate-100:disabled { background-color: #111F3E !important; }
+html.dark .bg-slate-300 { background-color: #243B66 !important; }
+html.dark .bg-red-50 { background-color: rgba(239, 68, 68, .18) !important; }
+html.dark .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .18) !important; }
+
+/* Сині акценти для синьої теми */
+html.dark .text-fire-600 { color: #60A5FA !important; }
+html.dark .text-fire-500 { color: #93C5FD !important; }
+html.dark .hover\:text-fire-600:hover { color: #93C5FD !important; }
+html.dark .bg-fire-600 { background-color: #2563EB !important; }
+html.dark .hover\:bg-fire-700:hover { background-color: #1D4ED8 !important; }
+html.dark .border-fire-500 { border-color: #3B82F6 !important; }
+html.dark .hover\:border-fire-500:hover { border-color: #60A5FA !important; }
 
 html.dark .text-graphite, html.dark .text-slate-800 { color: #F1F5F9 !important; }
 html.dark .text-slate-700 { color: #D5DEE9 !important; }
 html.dark .text-slate-600 { color: #94A3B8 !important; }
 html.dark .text-slate-500 { color: #64748B !important; }
-html.dark .text-slate-200 { color: #1E3258 !important; }
+html.dark .text-slate-400 { color: #8195B0 !important; }
+html.dark .text-slate-200 { color: #1E3566 !important; }
 html.dark .text-buy-700 { color: #4ADE80 !important; }
 html.dark .text-red-600 { color: #F87171 !important; }
 
-html.dark .border-slate-100 { border-color: #152445 !important; }
-html.dark .border-slate-200 { border-color: #1C305C !important; }
-html.dark .border-slate-300 { border-color: #263E72 !important; }
-html.dark .border-orange-100 { border-color: rgba(37, 99, 235, .4) !important; }
-html.dark .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .3) !important; }
+html.dark .border-slate-100 { border-color: #15274E !important; }
+html.dark .border-slate-200 { border-color: #1E3566 !important; }
+html.dark .border-slate-300 { border-color: #29457D !important; }
+html.dark .border-slate-800 { border-color: #162852 !important; }
+html.dark .border-orange-100 { border-color: rgba(59, 130, 246, .45) !important; }
+html.dark .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .35) !important; }
 
-html.dark input, html.dark textarea { color: #F1F5F9 !important; background-color: #0A1326 !important; }
-html.dark input:disabled { background-color: #121F3D !important; }
+html.dark input, html.dark textarea { color: #F1F5F9 !important; background-color: #091329 !important; border-color: #1E3566 !important; }
+html.dark input:disabled { background-color: #111F3E !important; }
 html.dark input::placeholder, html.dark textarea::placeholder { color: #64748B !important; }
-html.dark .fb-tab.bg-graphite { background-color: #1D4ED8 !important; }
-html.dark .bg-graphite.js-close-modal, html.dark #questionForm .fb-submit { background-color: #1D4ED8 !important; }
+html.dark .fb-tab.bg-graphite { background-color: #2563EB !important; }
+html.dark .bg-graphite.js-close-modal, html.dark #questionForm .fb-submit { background-color: #2563EB !important; }
 
-html.dark #slider figure { background-color: #0E1830 !important; }
+html.dark #slider figure { background-color: #0E1A38 !important; }
 html.dark #slider figure > div { background-color: #000000 !important; }
-html.dark #slider figcaption { background-color: #0E1830 !important; }
-html.dark #mobileMenu { background-color: #0E1830 !important; border-color: #1C305C !important; }
+html.dark #slider figcaption { background-color: #0E1A38 !important; }
+html.dark #mobileMenu { background-color: #0E1A38 !important; border-color: #1E3566 !important; }
 
-html.dark .theme-sun { display: block !important; color: #60A5FA !important; }
+html.dark .theme-sun { display: block !important; color: #F59E0B !important; }
 html.dark .theme-moon { display: none !important; }
+html.dark .js-theme-toggle { border-color: #2563EB !important; background-color: rgba(37, 99, 235, 0.15) !important; color: #60A5FA !important; }
+
+/* Модалки в синій темі */
+html.dark .modal > div { background-color: #0E1A38 !important; border: 1px solid #1E3566 !important; }
+html.dark .modal h3 { color: #F1F5F9 !important; }
+html.dark .modal p { color: #94A3B8 !important; }
+
+/* FAQ в синій темі */
+html.dark details { background-color: #0E1A38 !important; border-color: #1E3566 !important; }
+html.dark details[open] { border-color: #3B82F6 !important; }
+html.dark summary span { color: #F1F5F9 !important; }
 
 /* ==========================================================
    2. СВІТЛА ТЕМА (html:not(.dark)) — Чистий світлий стиль з синіми акцентами
@@ -89,14 +119,28 @@ html:not(.dark) body { background: #F8FAFC !important; color: #1E293B !important
 html:not(.dark) .bg-white { background-color: #FFFFFF !important; }
 html:not(.dark) .bg-white\/95 { background-color: rgba(255, 255, 255, .96) !important; }
 html:not(.dark) .bg-cream, html:not(.dark) #specsTable > tr:nth-child(odd) { background-color: #F1F5F9 !important; }
-html:not(.dark) .from-orange-50 { --tw-gradient-from: #EFF6FF var(--tw-gradient-from-position) !important; --tw-gradient-to: rgba(239, 246, 255, 0) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+html:not(.dark) .bg-graphite { background-color: #0F172A !important; }
+html:not(.dark) footer { background-color: #0F172A !important; border-color: #1E293B !important; }
+
+html:not(.dark) .from-orange-50 {
+  --tw-gradient-from: #EFF6FF var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgba(239, 246, 255, 0) var(--tw-gradient-to-position) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
 html:not(.dark) .to-white { --tw-gradient-to: #F8FAFC var(--tw-gradient-to-position) !important; }
+html:not(.dark) .bg-orange-50, html:not(.dark) .bg-orange-50\/60 { background-color: #EFF6FF !important; }
 html:not(.dark) .bg-orange-100 { background-color: #DBEAFE !important; }
 html:not(.dark) .hover\:bg-orange-50:hover { background-color: #EFF6FF !important; }
 html:not(.dark) .bg-slate-100, html:not(.dark) .disabled\:bg-slate-100:disabled { background-color: #F1F5F9 !important; }
 html:not(.dark) .bg-slate-300 { background-color: #CBD5E1 !important; }
 html:not(.dark) .bg-red-50 { background-color: #FEF2F2 !important; }
 html:not(.dark) .bg-buy-600\/10 { background-color: rgba(34, 197, 94, .12) !important; }
+
+html:not(.dark) .text-fire-600 { color: #1D4ED8 !important; }
+html:not(.dark) .text-fire-500 { color: #2563EB !important; }
+html:not(.dark) .bg-fire-600 { background-color: #1D4ED8 !important; }
+html:not(.dark) .hover\:bg-fire-700:hover { background-color: #1E40AF !important; }
+html:not(.dark) .border-fire-500 { border-color: #3B82F6 !important; }
 
 html:not(.dark) .text-graphite, html:not(.dark) .text-slate-800 { color: #0F172A !important; }
 html:not(.dark) .text-slate-700 { color: #334155 !important; }
@@ -109,10 +153,11 @@ html:not(.dark) .text-red-600 { color: #DC2626 !important; }
 html:not(.dark) .border-slate-100 { border-color: #F1F5F9 !important; }
 html:not(.dark) .border-slate-200 { border-color: #E2E8F0 !important; }
 html:not(.dark) .border-slate-300 { border-color: #CBD5E1 !important; }
+html:not(.dark) .border-slate-800 { border-color: #1E293B !important; }
 html:not(.dark) .border-orange-100 { border-color: #BFDBFE !important; }
 html:not(.dark) .shadow-orange-200 { --tw-shadow-color: rgba(37, 99, 235, .15) !important; }
 
-html:not(.dark) input, html:not(.dark) textarea { color: #0F172A !important; background-color: #FFFFFF !important; }
+html:not(.dark) input, html:not(.dark) textarea { color: #0F172A !important; background-color: #FFFFFF !important; border-color: #CBD5E1 !important; }
 html:not(.dark) input:disabled { background-color: #F1F5F9 !important; }
 html:not(.dark) input::placeholder, html:not(.dark) textarea::placeholder { color: #94A3B8 !important; }
 html:not(.dark) .fb-tab.bg-graphite { background-color: #1D4ED8 !important; }
@@ -125,6 +170,17 @@ html:not(.dark) #mobileMenu { background-color: #FFFFFF !important; border-color
 
 html:not(.dark) .theme-sun { display: none !important; }
 html:not(.dark) .theme-moon { display: block !important; color: #1E293B !important; }
+html:not(.dark) .js-theme-toggle { border-color: #CBD5E1 !important; background-color: #FFFFFF !important; color: #1E293B !important; }
+
+/* Модалки в світлій темі */
+html:not(.dark) .modal > div { background-color: #FFFFFF !important; border: 1px solid #E2E8F0 !important; }
+html:not(.dark) .modal h3 { color: #0F172A !important; }
+html:not(.dark) .modal p { color: #475569 !important; }
+
+/* FAQ в світлій темі */
+html:not(.dark) details { background-color: #FFFFFF !important; border-color: #E2E8F0 !important; }
+html:not(.dark) details[open] { border-color: #3B82F6 !important; }
+html:not(.dark) summary span { color: #0F172A !important; }
 
 /* ==========================================================
    3. АНІМАЦІЯ ТА СТИЛЬ ЛОГОТИПУ HOMENEST
