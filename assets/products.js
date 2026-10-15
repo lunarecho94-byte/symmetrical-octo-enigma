@@ -47,4 +47,15 @@ window.PRODUCTS = [
     image: '/assets/img/girlyanda-1.webp',
     url: '/products/girlyanda-z-prishchipkami-lu999-4-5m/',
   },
+  {
+    slug: 'fotopanno-kar296-125-sm-z-prishchipkami',
+    sku: '59139',
+    name: 'Фотопанно KAR296 125 см з деревʼяними сердечками та прищіпками',
+    short: 'Настінний тримач для 9 фотографій 125 см з натурального дерева, сердечками та намистинами',
+    price: 300,
+    oldPrice: 450,
+    badge: '🤍 Деревʼяний декор',
+    image: '/assets/img/fotopanno-1.webp',
+    url: '/products/fotopanno-kar296-125-sm-z-prishchipkami/',
+  },
 ];
