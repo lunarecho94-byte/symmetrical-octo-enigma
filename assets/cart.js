@@ -90,7 +90,7 @@
         </div>
         <div class="shrink-0 border-t border-slate-200 px-5 py-4" style="padding-bottom:max(1rem,env(safe-area-inset-bottom))">
           <button type="submit" id="cartSubmit" class="w-full min-h-[52px] flex items-center justify-center gap-2 rounded-xl bg-buy-600 hover:bg-buy-700 disabled:opacity-70 text-white font-bold text-lg transition"><span class="c-btn">Підтвердити на <span class="js-cart-total">0</span> грн</span></button>
-          <p class="c-form-err hidden mt-2 text-center text-sm text-red-600">Не вдалося надіслати. Спробуйте ще раз або зателефонуйте: <a href="tel:+380990227684" class="underline">+38 (099) 022-76-84</a></p>
+          <p class="c-form-err hidden mt-2 text-center text-sm text-red-600">Не вдалося надіслати. Спробуйте ще раз або зателефонуйте: <a href="tel:+380974524435" class="underline">+38 (097) 452-44-35</a></p>
         </div>
       </form>
 
