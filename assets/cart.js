@@ -196,7 +196,8 @@
   ph.addEventListener('blur', () => { if (digits(ph.value).length <= 1) ph.value = ''; });
 
   /* ---------- Нова Пошта ---------- */
-  let cityRef = '', whPicked = false, npOk = true;
+  let cityRef = '', whPicked = false, npOk = !!NP_API_KEY;
+  if (!npOk && form && form.warehouse) { form.warehouse.disabled = false; form.warehouse.placeholder = 'Номер відділення або адреса'; }
   async function np(modelName, calledMethod, methodProperties) {
     const r = await fetch('https://api.novaposhta.ua/v2.0/json/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ apiKey: NP_API_KEY, modelName, calledMethod, methodProperties }) });
     const j = await r.json(); if (!j.success) throw new Error('NP'); return j.data;

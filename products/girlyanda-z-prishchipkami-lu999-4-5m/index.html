@@ -26,11 +26,14 @@
     })();
   </script>
 
+  
+  <link rel="canonical" href="https://urbangrid.com.ua/products/girlyanda-z-prishchipkami-lu999-4-5m/">
   <!-- Open Graph -->
   <meta property="og:title" content="Гірлянда з прищіпками для фото LU999 4,5 м 20 LED USB — 250 грн">
   <meta property="og:description" content="Тепле затишне світло для ваших фотографій та інтер'єру. Оплата при отриманні.">
-  <meta property="og:image" content="/assets/img/girlyanda-1.webp">
+  <meta property="og:image" content="https://urbangrid.com.ua/assets/img/girlyanda-1.webp">
   <meta property="og:type" content="product">
+  <meta property="og:url" content="https://urbangrid.com.ua/products/girlyanda-z-prishchipkami-lu999-4-5m/">
 
   <!-- Meta Pixel Code -->
   <script>
@@ -55,13 +58,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v10">
-  <script src="/assets/products.js?v=hn20261016-v10"></script>
-  <script src="/assets/shop.js?v=hn20261016-v10"></script>
-  <script src="/assets/icons.js?v=hn20261016-v10" defer></script>
-  <script src="/assets/cart.js?v=hn20261016-v10" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v11">
+  <script src="/assets/products.js?v=hn20261016-v11"></script>
+  <script src="/assets/shop.js?v=hn20261016-v11"></script>
+  <script src="/assets/icons.js?v=hn20261016-v11" defer></script>
+  <script src="/assets/cart.js?v=hn20261016-v11" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v10">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v11">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -1024,7 +1027,8 @@
   }
 
   const npCity = form.npCity, npWh = form.npWarehouse;
-  let npCityRef = '', npWhPicked = false, npApiOk = true;
+  let npCityRef = '', npWhPicked = false, npApiOk = !!NP_API_KEY;
+  if (!npApiOk && npWh) { npWh.disabled = false; npWh.placeholder = 'Номер відділення або адреса'; }
 
   function npAutocomplete(input, search, onPick) {
     const list = $(`.np-list[data-for="${input.name}"]`), spin = $('.np-spin', input.parentElement);

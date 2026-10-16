@@ -26,11 +26,14 @@
     })();
   </script>
 
+  
+  <link rel="canonical" href="https://urbangrid.com.ua/products/troyanda-v-kolbi-kar298-9-18-2-sm-z-led-pidsvichuvannyam/">
   <!-- Open Graph -->
   <meta property="og:title" content="Вічна троянда в колбі KAR298 — 450 грн">
   <meta property="og:description" content="Декоративний світильник зі скляною колбою та теплим LED-підсвічуванням. Оплата при отриманні.">
-  <meta property="og:image" content="/assets/img/rose-1.webp">
+  <meta property="og:image" content="https://urbangrid.com.ua/assets/img/rose-1.webp">
   <meta property="og:type" content="product">
+  <meta property="og:url" content="https://urbangrid.com.ua/products/troyanda-v-kolbi-kar298-9-18-2-sm-z-led-pidsvichuvannyam/">
 
   <!-- Meta Pixel Code -->
   <script>
@@ -55,13 +58,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v10">
-  <script src="/assets/products.js?v=hn20261016-v10"></script>
-  <script src="/assets/shop.js?v=hn20261016-v10"></script>
-  <script src="/assets/icons.js?v=hn20261016-v10" defer></script>
-  <script src="/assets/cart.js?v=hn20261016-v10" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v11">
+  <script src="/assets/products.js?v=hn20261016-v11"></script>
+  <script src="/assets/shop.js?v=hn20261016-v11"></script>
+  <script src="/assets/icons.js?v=hn20261016-v11" defer></script>
+  <script src="/assets/cart.js?v=hn20261016-v11" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v10">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v11">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -942,16 +945,54 @@
     $('.btn-loader', submitBtn).classList.add('flex');
     submitBtn.disabled = true;
 
+    const phone = form.phone.value.trim();
+    const comment = form.comment?.value.trim() || '';
+    const utm = (typeof window !== 'undefined' && window.getStoredUTM) ? window.getStoredUTM() : '';
+    const npAddress = [city, wh].filter(Boolean).join(', ') || 'уточнити по телефону';
+    const text = [
+      '🔥 <b>Нове замовлення!</b>',
+      '',
+      `📦 <b>Товар:</b> ${esc(PRODUCT.name)}`,
+      `🔢 <b>Артикул:</b> ${PRODUCT.sku}`,
+      `💰 <b>Ціна:</b> ${PRODUCT.price} грн`,
+      '',
+      `👤 <b>Імʼя:</b> ${esc(name)}`,
+      `📞 <b>Телефон:</b> ${esc(phone)}`,
+      `🚚 <b>НП:</b> ${esc(npAddress)}`,
+      comment ? `\n💬 <b>Коментар:</b> ${esc(comment)}` : '',
+      '',
+      `🕒 ${new Date().toLocaleString('uk-UA', { timeZone: 'Europe/Kyiv' })}`,
+      utm ? `\n📊 <b>UTM:</b>\n${esc(utm)}` : '',
+    ].filter(Boolean).join('\n');
+
+    const fields = {
+      type: 'Замовлення',
+      name,
+      phone,
+      city,
+      warehouse: wh,
+      comment,
+      message: comment || '',
+      product: PRODUCT.name,
+      sku: PRODUCT.sku,
+      price: PRODUCT.price,
+      utm,
+      action: 'order'
+    };
+
     const payload = {
+      text,
+      fields,
+      page: location.href,
       action: 'order',
       product: PRODUCT.name,
       sku: PRODUCT.sku,
       price: PRODUCT.price,
       name,
-      phone: form.phone.value.trim(),
+      phone,
       city,
       warehouse: wh,
-      comment: form.comment?.value.trim() || '',
+      comment,
       source: location.href,
       createdAt: new Date().toISOString()
     };
@@ -960,8 +1001,7 @@
       if (LEADS_URL) {
         await fetch(LEADS_URL, {
           method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
       }
@@ -994,7 +1034,8 @@
   }
 
   const npCity = form.npCity, npWh = form.npWarehouse;
-  let npCityRef = '', npWhPicked = false, npApiOk = true;
+  let npCityRef = '', npWhPicked = false, npApiOk = !!NP_API_KEY;
+  if (!npApiOk && npWh) { npWh.disabled = false; npWh.placeholder = 'Номер відділення або адреса'; }
 
   function npAutocomplete(input, search, onPick) {
     const list = $(`.np-list[data-for="${input.name}"]`), spin = $('.np-spin', input.parentElement);

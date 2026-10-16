@@ -26,11 +26,14 @@
     })();
   </script>
 
+  
+  <link rel="canonical" href="https://urbangrid.com.ua/products/nichnik-proyektor-astronavt-bluetooth/">
   <!-- Open Graph (превʼю при поширенні посилання) -->
   <meta property="og:title" content="Нічник-проєктор зоряного неба Астронавт Bluetooth — 500 грн">
   <meta property="og:description" content="Затишок та комфорт у вашому домі. Оплата при отриманні.">
-  <meta property="og:image" content="/assets/img/astronavt-1.webp">
+  <meta property="og:image" content="https://urbangrid.com.ua/assets/img/astronavt-1.webp">
   <meta property="og:type" content="product">
+  <meta property="og:url" content="https://urbangrid.com.ua/products/nichnik-proyektor-astronavt-bluetooth/">
 
   <!-- Meta Pixel Code (ID 1115491024548018 + 972029978660664) -->
   <script>
@@ -56,15 +59,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти з оновленою версією кешування -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v10">
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v11">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=hn20261016-v10"></script>
-  <script src="/assets/shop.js?v=hn20261016-v10"></script>
-  <script src="/assets/icons.js?v=hn20261016-v10" defer></script>
-  <script src="/assets/cart.js?v=hn20261016-v10" defer></script>
+  <script src="/assets/products.js?v=hn20261016-v11"></script>
+  <script src="/assets/shop.js?v=hn20261016-v11"></script>
+  <script src="/assets/icons.js?v=hn20261016-v11" defer></script>
+  <script src="/assets/cart.js?v=hn20261016-v11" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v10">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v11">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -1059,7 +1062,8 @@
   }
 
   const npCity = form.npCity, npWh = form.npWarehouse;
-  let npCityRef = '', npWhPicked = false, npApiOk = true;
+  let npCityRef = '', npWhPicked = false, npApiOk = !!NP_API_KEY;
+  if (!npApiOk && npWh) { npWh.disabled = false; npWh.placeholder = 'Номер відділення або адреса'; }
 
   function npAutocomplete(input, search, onPick) {
     const list = $(`.np-list[data-for="${input.name}"]`), spin = $('.np-spin', input.parentElement);
