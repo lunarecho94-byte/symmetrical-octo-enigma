@@ -439,7 +439,22 @@ html.dark summary span {
   align-items: center;
   border-radius: 12px;
   padding: 2px;
+  gap: 2px;
   transition: all 0.2s ease;
+}
+
+.js-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  cursor: pointer;
+  border: none;
+  line-height: 1;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.js-theme-btn:active {
+  transform: scale(0.92);
 }
 
 html:not(.dark) .theme-switch {
