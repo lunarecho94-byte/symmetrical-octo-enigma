@@ -548,9 +548,16 @@ a[href^="tel:"], .js-phone-link {
   white-space: nowrap !important;
   word-break: keep-all !important;
   overflow-wrap: normal !important;
-  display: inline-flex;
-  align-items: center;
   flex-shrink: 0;
+}
+a[href^="tel:"].hidden, .js-phone-link.hidden {
+  display: none !important;
+}
+@media (min-width: 1280px) {
+  a[href^="tel:"].xl\:inline-flex, .js-phone-link.xl\:inline-flex {
+    display: inline-flex !important;
+    align-items: center;
+  }
 }
 
 /* ==========================================================
