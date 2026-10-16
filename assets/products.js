@@ -124,4 +124,16 @@ window.PRODUCTS = [
     image: '/assets/img/ac-1.webp',
     url: '/products/pidlohovyy-kondytsioner-obihrivach-3v1-ms-1668/',
   },
+  {
+    slug: 'modulna-skladna-shafa-konstruktor-mr-312-62',
+    sku: '57286',
+    name: 'Модульна складна шафа-органайзер з АБС-пластику МР 312-62 на 12 секцій',
+    short: '12 містких модулів-кубиків, 2 перекладини для вішалок, сталевий каркас, до 10 кг на полицю, легке збирання без інструментів',
+    price: 1599,
+    oldPrice: 2390,
+    badge: '🧱 12 секцій + 2 вішалки',
+    image: '/assets/img/wardrobe-1.webp',
+    url: '/products/modulna-skladna-shafa-konstruktor-mr-312-62/',
+  },
 ];
+
