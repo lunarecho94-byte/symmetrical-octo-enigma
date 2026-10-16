@@ -113,4 +113,15 @@ window.PRODUCTS = [
     image: '/assets/img/cup-1.webp',
     url: '/products/chashka-keramichna-na-pidstavtsi-z-pidihrivom/',
   },
+  {
+    slug: 'pidlohovyy-kondytsioner-obihrivach-3v1-ms-1668',
+    sku: '57150',
+    name: 'Підлоговий кондиціонер та обігрівач 3-в-1 зі зволоженням MS-1668',
+    short: 'Обігрів до 3600 Вт, охолодження з 4 холодоелементами, зволоження повітря, бак 5 л, сенсорний LED-дисплей та пульт',
+    price: 2999,
+    oldPrice: 4490,
+    badge: '❄️ Охолодження + 🔥 Обігрів',
+    image: '/assets/img/ac-1.webp',
+    url: '/products/pidlohovyy-kondytsioner-obihrivach-3v1-ms-1668/',
+  },
 ];
