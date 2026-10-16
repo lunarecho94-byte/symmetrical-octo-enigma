@@ -206,7 +206,43 @@ html:not(.dark) #slider figcaption {
 }
 html:not(.dark) #mobileMenu {
   background-color: #FFFFFF !important;
+  border-top: 1px solid #E2E8F0 !important;
+  border-bottom: 1px solid #CBD5E1 !important;
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08) !important;
+}
+html:not(.dark) .mobile-nav-link {
+  color: #1E293B !important;
+}
+html:not(.dark) .mobile-nav-link:hover {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+html:not(.dark) .mobile-phone-card {
+  background-color: #F8FAFC !important;
   border-color: #E2E8F0 !important;
+}
+html:not(.dark) .mobile-phone-card:hover {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+}
+html:not(.dark) .mobile-phone-card .text-slate-900 {
+  color: #0F172A !important;
+}
+html:not(.dark) .mobile-phone-card .text-slate-500 {
+  color: #64748B !important;
+}
+html:not(.dark) .mobile-phone-pill {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #334155 !important;
+}
+html:not(.dark) .mobile-theme-row {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #1E293B !important;
+}
+html:not(.dark) .mobile-theme-row .text-slate-700 {
+  color: #1E293B !important;
 }
 html:not(.dark) .modal > div {
   background-color: #FFFFFF !important;
@@ -401,8 +437,58 @@ html.dark #slider figcaption {
   background-color: #0E1A38 !important;
 }
 html.dark #mobileMenu {
+  background-color: #0B152E !important;
+  border-top: 1px solid #1A2F5A !important;
+  border-bottom: 1px solid #1E3A75 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.65), 0 8px 10px -6px rgba(0, 0, 0, 0.45) !important;
+}
+html.dark .mobile-nav-link {
+  color: #E2E8F0 !important;
+}
+html.dark .mobile-nav-link:hover {
+  background-color: #122146 !important;
+  color: #FFFFFF !important;
+}
+html.dark .mobile-nav-link span:first-child {
+  background-color: #14244D !important;
+  border: 1px solid #1F366A !important;
+}
+html.dark .mobile-phone-card {
   background-color: #0E1A38 !important;
   border-color: #1E3566 !important;
+}
+html.dark .mobile-phone-card:hover {
+  background-color: #13244D !important;
+  border-color: #2D4C8A !important;
+}
+html.dark .mobile-phone-card .text-slate-900 {
+  color: #F8FAFC !important;
+}
+html.dark .mobile-phone-card .text-slate-500 {
+  color: #94A3B8 !important;
+}
+html.dark .mobile-phone-card span:first-child {
+  background-color: #1A2E59 !important;
+  border: 1px solid #233F7A !important;
+  color: #38BDF8 !important;
+}
+html.dark .mobile-phone-pill {
+  background-color: #14244B !important;
+  border-color: #1E3566 !important;
+  color: #93C5FD !important;
+}
+html.dark .mobile-theme-row {
+  background-color: #0E1A38 !important;
+  border-color: #1E3566 !important;
+  color: #E2E8F0 !important;
+}
+html.dark .mobile-theme-row .text-slate-700 {
+  color: #E2E8F0 !important;
+}
+html.dark .mobile-theme-row span:first-child {
+  background-color: #14244D !important;
+  border: 1px solid #1F366A !important;
+  color: #38BDF8 !important;
 }
 
 /* Модалки в синій темі */
