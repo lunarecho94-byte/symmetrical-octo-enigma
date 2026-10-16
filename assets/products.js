@@ -102,4 +102,15 @@ window.PRODUCTS = [
     image: '/assets/img/fireplace-1.webp',
     url: '/products/dekorativniy-kamin-kar300-280-197-mm-chorniy/',
   },
+  {
+    slug: 'chashka-keramichna-na-pidstavtsi-z-pidihrivom',
+    sku: '55179',
+    name: 'Керамічна чашка на підставці з підігрівом 55°C у подарунковій коробці',
+    short: 'Автоматичний підігрів до 55°C, керамічна чашка з кришкою, золота ложечка та підставка 220V',
+    price: 450,
+    oldPrice: 690,
+    badge: '☕ Теплий напій 55°',
+    image: '/assets/img/cup-1.webp',
+    url: '/products/chashka-keramichna-na-pidstavtsi-z-pidihrivom/',
+  },
 ];
