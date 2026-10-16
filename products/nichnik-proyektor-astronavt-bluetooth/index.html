@@ -56,15 +56,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти з оновленою версією кешування -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v9">
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261016-v10">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=hn20261016-v9"></script>
-  <script src="/assets/shop.js?v=hn20261016-v9"></script>
-  <script src="/assets/icons.js?v=hn20261016-v9" defer></script>
-  <script src="/assets/cart.js?v=hn20261016-v9" defer></script>
+  <script src="/assets/products.js?v=hn20261016-v10"></script>
+  <script src="/assets/shop.js?v=hn20261016-v10"></script>
+  <script src="/assets/icons.js?v=hn20261016-v10" defer></script>
+  <script src="/assets/cart.js?v=hn20261016-v10" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v9">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261016-v10">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -74,22 +74,22 @@
   <!-- ===================== БЛОК 1: TOP BAR + HEADER ===================== -->
 
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-100">
-    <div class="max-w-6xl mx-auto px-4 h-14 md:h-16 flex items-center justify-between gap-2">
+    <div class="max-w-7xl mx-auto px-4 h-14 md:h-16 flex items-center justify-between gap-3 sm:gap-4">
       <a href="/" class="inline-flex items-center gap-2 sm:gap-2.5 font-display font-extrabold text-graphite whitespace-nowrap group shrink-0" aria-label="HomeNest UA">
         <span class="homenest-logo-badge w-9 h-9 p-1 shrink-0">
           <img src="/assets/img/homenest-icon.webp" alt="HomeNest Logo" class="homenest-logo-img w-full h-full object-contain">
         </span>
         <span class="inline-flex items-center text-base sm:text-lg font-extrabold tracking-tight leading-none">HomeNest<span class="text-fire-600 ml-1.5">UA</span></span>
       </a>
-      <nav class="hidden md:flex items-center gap-4 lg:gap-6 text-sm font-medium text-slate-600">
-        <a href="/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 font-semibold text-graphite hover:text-fire-600 hover:border-fire-500 transition"><i data-lucide="layout-grid" class="w-4 h-4"></i>Каталог</a>
-        <a href="#benefits" class="hidden lg:inline hover:text-fire-600 transition">Переваги</a>
-        <a href="#specs" class="hidden lg:inline hover:text-fire-600 transition">Характеристики</a>
-        <a href="#reviews" class="hidden lg:inline hover:text-fire-600 transition js-reviews-link">Відгуки</a>
-        <a href="#delivery" class="hidden lg:inline hover:text-fire-600 transition">Доставка</a>
+      <nav class="hidden md:flex items-center gap-3 lg:gap-5 text-sm font-medium text-slate-600 shrink-0">
+        <a href="/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 font-semibold text-graphite hover:text-fire-600 hover:border-fire-500 transition whitespace-nowrap"><i data-lucide="layout-grid" class="w-4 h-4"></i>Каталог</a>
+        <a href="#benefits" class="hidden lg:inline hover:text-fire-600 transition whitespace-nowrap">Переваги</a>
+        <a href="#specs" class="hidden lg:inline hover:text-fire-600 transition whitespace-nowrap">Характеристики</a>
+        <a href="#reviews" class="hidden lg:inline hover:text-fire-600 transition js-reviews-link whitespace-nowrap">Відгуки</a>
+        <a href="#delivery" class="hidden lg:inline hover:text-fire-600 transition whitespace-nowrap">Доставка</a>
       </nav>
-      <div class="flex items-center gap-2">
-        <a href="tel:+380974524435" class="hidden xl:inline-flex items-center gap-2 mr-3 font-semibold text-graphite hover:text-fire-600"><i data-lucide="phone" class="w-4 h-4 text-fire-600"></i>+38 (097) 452-44-35</a>
+      <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        <a href="tel:+380974524435" class="hidden xl:inline-flex items-center gap-1.5 mr-2 font-semibold text-sm xl:text-base text-graphite hover:text-fire-600 whitespace-nowrap shrink-0" aria-label="Зателефонувати: +38 (097) 452-44-35"><i data-lucide="phone" class="w-4 h-4 text-fire-600 shrink-0"></i><span class="whitespace-nowrap font-semibold">+38 (097) 452-44-35</span></a>
 <button type="button" class="js-cart-open relative grid place-items-center w-10 h-10 rounded-lg border border-slate-200 text-graphite hover:text-fire-600 hover:border-fire-500" aria-label="Кошик" title="Кошик"><i data-lucide="shopping-cart" class="w-5 h-5"></i><span class="js-cart-count hidden absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-fire-600 text-white text-[11px] font-bold leading-5 text-center">0</span></button>
         <div class="theme-switch flex items-center p-0.5 rounded-xl border border-slate-200" role="group" aria-label="Перемикач теми">
           <button type="button" class="js-theme-btn grid place-items-center w-8 h-8 rounded-lg transition" data-theme="light" aria-label="Увімкнути світлу тему" title="Світла тема">
@@ -113,7 +113,7 @@
         <a href="#specs" class="py-2">Характеристики</a>
         <a href="#reviews" class="py-2 js-reviews-link">Відгуки</a>
         <a href="#delivery" class="py-2">Доставка</a>
-        <a href="tel:+380974524435" class="py-2 inline-flex items-center gap-2 font-semibold text-fire-600"><i data-lucide="phone" class="w-4 h-4"></i>+38 (097) 452-44-35</a>
+        <a href="tel:+380974524435" class="py-2 inline-flex items-center gap-2 font-semibold text-fire-600 whitespace-nowrap"><i data-lucide="phone" class="w-4 h-4 shrink-0"></i><span class="whitespace-nowrap">+38 (097) 452-44-35</span></a>
         <div class="w-full mt-2 flex items-center justify-between py-2.5 px-3 rounded-xl border border-slate-200 text-sm font-semibold text-graphite">
           <span>Тема сайту:</span>
           <div class="theme-switch flex items-center p-0.5 rounded-xl border border-slate-200" role="group" aria-label="Перемикач теми">
@@ -485,7 +485,7 @@
       </div>
       <div>
         <p class="font-semibold text-white">Контакти</p>
-        <a href="tel:+380974524435" class="mt-2 inline-flex items-center gap-2 py-1 text-white text-base font-semibold hover:text-fire-500"><i data-lucide="phone" class="w-4 h-4 text-fire-500"></i>+38 (097) 452-44-35</a>
+        <a href="tel:+380974524435" class="mt-2 inline-flex items-center gap-2 py-1 text-white text-base font-semibold hover:text-fire-500 whitespace-nowrap"><i data-lucide="phone" class="w-4 h-4 text-fire-500 shrink-0"></i><span class="whitespace-nowrap">+38 (097) 452-44-35</span></a>
         <div class="mt-2.5 flex items-center gap-2">
           <a href="https://t.me/+380974524435" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#229ED9] hover:bg-[#1B8BC0] text-white text-xs font-semibold transition"><i data-lucide="send" class="w-3.5 h-3.5"></i>Telegram</a>
           <a href="viber://chat?number=%2B380974524435" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#7360F2] hover:bg-[#5E4BD8] text-white text-xs font-semibold transition"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i>Viber</a>
