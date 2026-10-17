@@ -190,6 +190,17 @@ window.PRODUCTS = [
     image: '/assets/img/flynova-pro-1.webp',
     url: '/products/litayuchyy-shar-spinner-flynova-pro/',
   },
+  {
+    slug: 'svitlodiodna-strichka-smd-5050-rgb-5m',
+    sku: 'ws26826',
+    name: 'Світлодіодна стрічка SMD 5050 RGB LED 5 м (IP65) з пультом та блоком живлення 220V',
+    short: '300 світлодіодів SMD 5050 на 5 м, 16 насичених кольорів, 4 динамічні режими, пульт ДК, силіконовий захист IP65, готовий комплект із блоком 220V',
+    price: 289,
+    oldPrice: 450,
+    badge: '🌈 16 кольорів + IP65',
+    image: '/assets/img/led-strip-1.webp',
+    url: '/products/svitlodiodna-strichka-smd-5050-rgb-5m/',
+  },
 ];
 
 
