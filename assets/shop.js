@@ -17,7 +17,6 @@
         </a>
         <div class="flex flex-col flex-1 p-4 sm:p-5">
           <a href="${esc(p.url)}" class="font-display font-bold text-base sm:text-lg text-graphite leading-snug hover:text-fire-600">${esc(p.name)}</a>
-          ${p.short ? `<p class="mt-1.5 text-sm text-slate-500">${esc(p.short)}</p>` : ''}
           <div class="mt-auto pt-4 flex items-end gap-2 flex-wrap">
             <span class="font-display font-extrabold text-2xl text-fire-600">${fmt(p.price)} грн</span>
             ${discount ? `<span class="text-sm text-slate-400 line-through mb-1">${fmt(p.oldPrice)} грн</span>` : ''}
