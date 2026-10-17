@@ -179,6 +179,17 @@ window.PRODUCTS = [
     image: '/assets/img/wifi-videodzvinok-1.webp',
     url: '/products/bezdrotovyy-dvernyy-wifi-videodzvinok-z-kameroyu/',
   },
+  {
+    slug: 'litayuchyy-shar-spinner-flynova-pro',
+    sku: 'ws96444',
+    name: 'Літаюча куля-спіннер Flynova Pro з RGB-підсвічуванням та ефектом бумеранга',
+    short: 'Ефект бумеранга та левітація над рукою, подвійний пропелер, яскраве динамічне RGB-підсвічування, гнучкий ударостійкий корпус, швидка USB-зарядка',
+    price: 220,
+    oldPrice: 350,
+    badge: '🛸 Хіт бумеранг',
+    image: '/assets/img/flynova-pro-1.webp',
+    url: '/products/litayuchyy-shar-spinner-flynova-pro/',
+  },
 ];
 
 
