@@ -57,13 +57,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v27">
-  <script src="/assets/products.js?v=hn20261017-v27"></script>
-  <script src="/assets/shop.js?v=hn20261017-v27"></script>
-  <script src="/assets/icons.js?v=hn20261017-v27" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v27" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v28">
+  <script src="/assets/products.js?v=hn20261017-v28"></script>
+  <script src="/assets/shop.js?v=hn20261017-v28"></script>
+  <script src="/assets/icons.js?v=hn20261017-v28" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v28" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v27">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v28">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -196,11 +196,11 @@
             <span class="bg-buy-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">💧 Вологозахист IP65</span>
           </div>
           <span class="absolute top-3 right-3 z-10 bg-graphite text-white font-display font-extrabold text-lg px-3 py-1 rounded-xl">-36%</span>
-          <div class="relative z-[1] w-full max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-900">
+          <div class="relative z-[1] w-full max-w-sm sm:max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-100">
             <img src="/assets/img/led-strip-1.webp"
                  alt="Світлодіодна стрічка SMD 5050 RGB LED 5 м (IP65) з пультом та блоком живлення" width="1000" height="1000"
                  fetchpriority="high"
-                 class="w-full h-full object-cover scale-[1.06]">
+                 class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -561,7 +561,7 @@
     ['/assets/img/led-strip-1.webp', 'Повний комплект: стрічка 5050 RGB на котушці, пульт ДК, контролер та блок живлення'],
     ['/assets/img/led-strip-2.webp', 'Затишне преміальне підсвічування стельової ніші та мʼяких меблів у вітальні'],
     ['/assets/img/led-strip-3.webp', 'Яскраве райдужне сяйво тричіпових світлодіодів SMD 5050 на котушці'],
-    ['/assets/img/led-strip-4.webp', 'Фонова контрастна RGB-підсвітка телевізора для комфортного кіноперегляду'],
+    ['/assets/img/led-strip-4.webp', 'Приклади підсвічування інтерʼєру: вітальня, спальня, ніша та TV-зона'],
     ['/assets/img/led-strip-5.webp', 'Фірмова блістерна заводська упаковка комплекту світлодіодної стрічки']
   ];
 
@@ -625,10 +625,10 @@
   // Слайдер фотографій
   const slider = $('#slider'), dots = $('#dots');
   slider.innerHTML = GALLERY.map(([src, caption], i) => `
-    <div class="shrink-0 w-72 sm:w-80 md:w-96 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100">
-      <div class="aspect-square overflow-hidden bg-slate-900"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]"></div>
-      <p class="p-3 text-xs text-slate-500 text-center">${caption}</p>
-    </div>
+    <figure class="shrink-0 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100">
+      <div class="aspect-square overflow-hidden bg-slate-100"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover"></div>
+      <figcaption class="p-3 text-xs text-slate-500 text-center font-medium">${caption}</figcaption>
+    </figure>
   `).join('');
 
   dots.innerHTML = GALLERY.map((_, i) => `
