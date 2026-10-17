@@ -135,5 +135,15 @@ window.PRODUCTS = [
     image: '/assets/img/wardrobe-1.webp',
     url: '/products/modulna-skladna-shafa-konstruktor-mr-312-62/',
   },
+  {
+    slug: 'stelazh-nad-tualetom-wm-64-3-polytsi',
+    sku: '35283',
+    name: 'Підлогова полиця-стелаж над унітазом WM-64 на 3 полиці',
+    short: '3 місткі полиці над бачком унітазу, бічний тримач для туалетного паперу, 3 гачки, навантаження до 20 кг, без свердління стін',
+    price: 999,
+    oldPrice: 1490,
+    badge: '🚽 3 полиці над унітазом',
+    image: '/assets/img/toilet-shelf-1.webp',
+    url: '/products/stelazh-nad-tualetom-wm-64-3-polytsi/',
+  },
 ];
-
