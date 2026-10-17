@@ -201,6 +201,17 @@ window.PRODUCTS = [
     image: '/assets/img/led-strip-1.webp',
     url: '/products/svitlodiodna-strichka-smd-5050-rgb-5m/',
   },
+  {
+    slug: 'retro-girlyanda-and6271-2-na-sonyachniy-batareyi-10m',
+    sku: 'YL62712',
+    name: 'Вулична ретро-гірлянда AND6271-2 на сонячній батареї 10 м (20 LED)',
+    short: 'Автономна сонячна панель + USB, 20 теплих LED-ламп, захист від дощу IP65, датчик сутінків та пульт із таймером',
+    price: 899,
+    oldPrice: 1290,
+    badge: '☀️ Сонячна батарея',
+    image: '/assets/img/retro-garland-1.webp',
+    url: '/products/retro-girlyanda-and6271-2-na-sonyachniy-batareyi-10m/',
+  },
 ];
 
 
