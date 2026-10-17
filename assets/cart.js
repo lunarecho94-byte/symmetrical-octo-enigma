@@ -8,7 +8,7 @@
 (function () {
   const LEADS_URL = 'https://script.google.com/macros/s/AKfycbxV8jAtsjSV5_v5c-Ut88A3b4ymgJSWugq5SjGMv-I1SX_I65oECgysxCKZsab6ERq4/exec';
   const NP_API_KEY = '';
-  const CODES = ['050','066','095','099','067','068','096','097','098','063','073','093'];
+  const CODES = ['050','066','095','099','075','067','068','096','097','098','077','063','073','093','091','092','094'];
   const KEY = 'wh_cart_v1';
 
   const $ = (s, r = document) => r.querySelector(s);
