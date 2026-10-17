@@ -223,6 +223,17 @@ window.PRODUCTS = [
     image: '/assets/img/microwave-shelf-1.webp',
     url: '/products/polytsya-nad-mikrokhvylovkoyu-yh6616-1/',
   },
+  {
+    slug: 'led-proektor-dlya-domu-smart-android-11-wifi-bluetooth-black',
+    sku: 'ws93586-1',
+    name: 'LED Проектор для дому портативний смарт з WiFi Bluetooth Android 11 1280х720р Black',
+    short: 'Смарт-проектор 1280×720 HD на базі Android 11: 200 ANSI люмен, Wi-Fi, Bluetooth, кут повороту 180°, екран до 100", вбудований динамік, пульт ДК',
+    price: 1799,
+    oldPrice: 2590,
+    badge: '🎬 Smart Android 11',
+    image: '/assets/img/projector-1.webp',
+    url: '/products/led-proektor-dlya-domu-smart-android-11-wifi-bluetooth-black/',
+  },
 ];
 
 
