@@ -26,6 +26,9 @@ body { -webkit-tap-highlight-color: transparent; transition: background-color 0.
   flex-shrink: 0 !important;
   width: 82% !important;
   max-width: 310px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 1rem !important;
 }
 @media (min-width: 640px) {
   .slider > * {
@@ -44,6 +47,37 @@ body { -webkit-tap-highlight-color: transparent; transition: background-color 0.
     width: calc(33.333% - 0.67rem) !important;
     max-width: 330px !important;
   }
+}
+
+/* Уніфікована рамка та однаковий розмір усіх фотографій і карток у слайдері */
+.slider > * > div:first-child {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+  flex-shrink: 0 !important;
+}
+.slider > * > div:first-child img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+.slider figcaption,
+.slider p.p-3 {
+  height: 3.5rem !important;
+  min-height: 3.5rem !important;
+  max-height: 3.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
 }
 
 /* Акордеон */
@@ -216,14 +250,17 @@ html:not(.dark) #questionForm .fb-submit {
 }
 
 /* Інші елементи у світлій темі */
-html:not(.dark) #slider figure {
+html:not(.dark) #slider figure,
+html:not(.dark) #slider > div {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
 }
-html:not(.dark) #slider figure > div {
+html:not(.dark) #slider figure > div,
+html:not(.dark) #slider > div > div:first-child {
   background-color: #F8FAFC !important;
 }
-html:not(.dark) #slider figcaption {
+html:not(.dark) #slider figcaption,
+html:not(.dark) #slider p.p-3 {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
 }
@@ -450,14 +487,17 @@ html.dark #questionForm .fb-submit {
   background-color: #2563EB !important;
 }
 
-html.dark #slider figure {
+html.dark #slider figure,
+html.dark #slider > div {
   background-color: #0E1A38 !important;
   border-color: #1E3566 !important;
 }
-html.dark #slider figure > div {
+html.dark #slider figure > div,
+html.dark #slider > div > div:first-child {
   background-color: #000000 !important;
 }
-html.dark #slider figcaption {
+html.dark #slider figcaption,
+html.dark #slider p.p-3 {
   background-color: #0E1A38 !important;
   color: #CBD5E1 !important;
 }

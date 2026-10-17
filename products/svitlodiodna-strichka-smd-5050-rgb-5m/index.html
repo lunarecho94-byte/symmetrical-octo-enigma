@@ -57,13 +57,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v30">
-  <script src="/assets/products.js?v=hn20261017-v30"></script>
-  <script src="/assets/shop.js?v=hn20261017-v30"></script>
-  <script src="/assets/icons.js?v=hn20261017-v30" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v30" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v31">
+  <script src="/assets/products.js?v=hn20261017-v31"></script>
+  <script src="/assets/shop.js?v=hn20261017-v31"></script>
+  <script src="/assets/icons.js?v=hn20261017-v31" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v31" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v30">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v31">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -627,9 +627,9 @@
   // Слайдер фотографій
   const slider = $('#slider'), dots = $('#dots');
   slider.innerHTML = GALLERY.map(([src, caption], i) => `
-    <figure class="shrink-0 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100">
+    <figure class="shrink-0 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100 flex flex-col">
       <div class="aspect-square overflow-hidden bg-slate-100"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover"></div>
-      <figcaption class="p-3 text-xs text-slate-500 text-center font-medium">${caption}</figcaption>
+      <figcaption class="p-3 text-xs text-slate-500 text-center font-medium h-14 flex items-center justify-center leading-snug">${caption}</figcaption>
     </figure>
   `).join('');
 
