@@ -57,13 +57,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v21">
-  <script src="/assets/products.js?v=hn20261017-v21"></script>
-  <script src="/assets/shop.js?v=hn20261017-v21"></script>
-  <script src="/assets/icons.js?v=hn20261017-v21" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v21" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v22">
+  <script src="/assets/products.js?v=hn20261017-v22"></script>
+  <script src="/assets/shop.js?v=hn20261017-v22"></script>
+  <script src="/assets/icons.js?v=hn20261017-v22" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v22" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v21">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v22">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -196,11 +196,11 @@
             <span class="bg-buy-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">🔋 Автономна від батарейок</span>
           </div>
           <span class="absolute top-3 right-3 z-10 bg-graphite text-white font-display font-extrabold text-lg px-3 py-1 rounded-xl">-36%</span>
-          <div class="relative z-[1] w-full max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-100">
+          <div class="relative z-[1] w-full max-w-sm sm:max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-100">
             <img src="/assets/img/girlyanda-kulky-1.webp"
                  alt="Світлодіодна гірлянда в металевих кульках «Теплий білий» 2м" width="1000" height="1000"
                  fetchpriority="high"
-                 class="w-full h-full object-cover scale-[1.06]">
+                 class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -249,8 +249,8 @@
         <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-center text-graphite">Живі фотографії гірлянди в металевих кульках</h2>
         <div class="relative mt-10">
           <div id="slider" class="slider flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0"></div>
-          <button id="prevSlide" class="hidden md:grid absolute left-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg place-items-center hover:bg-orange-50" aria-label="Попереднє фото"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
-          <button id="nextSlide" class="hidden md:grid absolute right-2 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white shadow-lg place-items-center hover:bg-orange-50" aria-label="Наступне фото"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
+          <button id="prevSlide" class="hidden md:grid absolute left-2 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-lg place-items-center hover:bg-orange-50 transition border border-slate-200" aria-label="Попереднє фото"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+          <button id="nextSlide" class="hidden md:grid absolute right-2 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-lg place-items-center hover:bg-orange-50 transition border border-slate-200" aria-label="Наступне фото"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
           <div id="dots" class="flex justify-center gap-4 mt-5"></div>
         </div>
       </div>
@@ -699,10 +699,10 @@
   // Слайдер фотографій
   const slider = $('#slider'), dots = $('#dots');
   slider.innerHTML = GALLERY.map(([src, caption], i) => `
-    <div class="shrink-0 w-72 sm:w-80 md:w-96 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100">
-      <div class="aspect-square overflow-hidden bg-slate-100"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]"></div>
-      <p class="p-3 text-xs text-slate-500 text-center">${caption}</p>
-    </div>
+    <figure class="shrink-0 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100">
+      <div class="aspect-square overflow-hidden bg-slate-100"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover"></div>
+      <figcaption class="p-3 text-xs text-slate-500 text-center font-medium">${caption}</figcaption>
+    </figure>
   `).join('');
 
   dots.innerHTML = GALLERY.map((_, i) => `

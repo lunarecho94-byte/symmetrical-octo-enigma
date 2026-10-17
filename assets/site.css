@@ -18,10 +18,33 @@ body { -webkit-tap-highlight-color: transparent; transition: background-color 0.
   filter: blur(30px); animation: flicker 3s infinite; z-index:0; pointer-events:none;
 }
 
-/* Слайдер */
+/* Слайдер карток */
 .slider { scroll-snap-type: x mandatory; scrollbar-width: none; }
 .slider::-webkit-scrollbar { display: none; }
-.slider > * { scroll-snap-align: center; }
+.slider > * {
+  scroll-snap-align: center;
+  flex-shrink: 0 !important;
+  width: 82% !important;
+  max-width: 310px !important;
+}
+@media (min-width: 640px) {
+  .slider > * {
+    width: 48% !important;
+    max-width: 310px !important;
+  }
+}
+@media (min-width: 768px) {
+  .slider > * {
+    width: calc(50% - 0.5rem) !important;
+    max-width: 320px !important;
+  }
+}
+@media (min-width: 1024px) {
+  .slider > * {
+    width: calc(33.333% - 0.67rem) !important;
+    max-width: 330px !important;
+  }
+}
 
 /* Акордеон */
 .faq-body { display:grid; grid-template-rows:0fr; transition: grid-template-rows .3s ease; }
@@ -429,12 +452,25 @@ html.dark #questionForm .fb-submit {
 
 html.dark #slider figure {
   background-color: #0E1A38 !important;
+  border-color: #1E3566 !important;
 }
 html.dark #slider figure > div {
   background-color: #000000 !important;
 }
 html.dark #slider figcaption {
   background-color: #0E1A38 !important;
+  color: #CBD5E1 !important;
+}
+html.dark #prevSlide,
+html.dark #nextSlide {
+  background-color: #0E1A38 !important;
+  color: #F1F5F9 !important;
+  border: 1px solid #1E3566 !important;
+}
+html.dark #prevSlide:hover,
+html.dark #nextSlide:hover {
+  background-color: #13244D !important;
+  border-color: #3B82F6 !important;
 }
 html.dark #mobileMenu {
   background-color: #0B152E !important;
