@@ -39,4 +39,48 @@
     if (window.lucide) lucide.createIcons();
     return list.length;
   };
+
+  /* ==========================================================
+     ГЛОБАЛЬНА ПІДТРИМКА ТЕМИ (СВІТЛА / СИНЯ)
+     ========================================================== */
+  window.applyTheme = function (isDark) {
+    document.documentElement.classList.toggle('dark', isDark);
+    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    const m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.content = isDark ? '#070D1E' : '#FFFFFF';
+    const metaScheme = document.querySelector('meta[name="color-scheme"]');
+    if (metaScheme) metaScheme.content = isDark ? 'dark' : 'only light';
+    document.querySelectorAll('.js-theme-btn').forEach(btn => {
+      const isThisDark = (btn.dataset.theme === 'dark');
+      btn.setAttribute('aria-pressed', String(isThisDark === isDark));
+    });
+    if (window.lucide) lucide.createIcons();
+  };
+
+  function syncThemeUi() {
+    const isDark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('.js-theme-btn').forEach(btn => {
+      const isThisDark = (btn.dataset.theme === 'dark');
+      btn.setAttribute('aria-pressed', String(isThisDark === isDark));
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncThemeUi);
+  } else {
+    syncThemeUi();
+  }
+
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.js-theme-btn');
+    if (btn) {
+      window.applyTheme(btn.dataset.theme === 'dark');
+      return;
+    }
+    const sw = e.target.closest('.theme-switch');
+    if (sw) {
+      window.applyTheme(!document.documentElement.classList.contains('dark'));
+    }
+  });
 })();
+

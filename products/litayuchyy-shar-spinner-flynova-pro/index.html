@@ -57,13 +57,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v25">
-  <script src="/assets/products.js?v=hn20261017-v25"></script>
-  <script src="/assets/shop.js?v=hn20261017-v25"></script>
-  <script src="/assets/icons.js?v=hn20261017-v25" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v25" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v26">
+  <script src="/assets/products.js?v=hn20261017-v26"></script>
+  <script src="/assets/shop.js?v=hn20261017-v26"></script>
+  <script src="/assets/icons.js?v=hn20261017-v26" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v26" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v25">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v26">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -1163,6 +1163,81 @@
       $('.btn-text', btn).classList.remove('hidden');
       $('.btn-loader', btn).classList.add('hidden');
     }
+  });
+
+  /* ==========================================================
+     СВІТЛА ТА СИНЯ ТЕМА
+     ========================================================== */
+  function applyTheme(isDark) {
+    if (window.applyTheme) {
+      window.applyTheme(isDark);
+      return;
+    }
+    document.documentElement.classList.toggle('dark', isDark);
+    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch (e) {}
+    const m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.content = isDark ? '#070D1E' : '#FFFFFF';
+    let metaScheme = document.querySelector('meta[name="color-scheme"]');
+    if (metaScheme) metaScheme.content = isDark ? 'dark' : 'only light';
+    $$('.js-theme-btn').forEach(btn => {
+      const isThisDark = btn.dataset.theme === 'dark';
+      btn.setAttribute('aria-pressed', String(isThisDark === isDark));
+    });
+    if (window.lucide) lucide.createIcons();
+  }
+  let initialDark = false;
+  try { initialDark = (localStorage.getItem('theme') === 'dark'); } catch (e) {}
+  applyTheme(initialDark);
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-theme-btn');
+    if (btn) {
+      applyTheme(btn.dataset.theme === 'dark');
+      return;
+    }
+    const sw = e.target.closest('.theme-switch');
+    if (sw) {
+      applyTheme(!document.documentElement.classList.contains('dark'));
+    }
+  });
+
+  /* Meta Pixel: початок оформлення */
+  let checkoutTracked = false;
+  $('#orderForm').addEventListener('focusin', () => {
+    if (checkoutTracked || typeof fbq !== 'function') return;
+    checkoutTracked = true;
+    fbq('track', 'InitiateCheckout', { content_ids: [PRODUCT.sku], content_type: 'product', value: PRODUCT.price, currency: 'UAH', num_items: 1 });
+  });
+
+  /* Meta Pixel: подія Contact */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="tel:"], a[href*="t.me/"], a[href^="viber:"]');
+    if (a && typeof fbq === 'function') fbq('track', 'Contact');
+  });
+
+  /* Дивіться також */
+  (function () {
+    const sec = $('#related');
+    if (sec && window.renderProducts && renderProducts($('#relatedGrid'), { exclude: sec.dataset.current, limit: 8 }) > 0) sec.classList.remove('hidden');
+  })();
+
+  /* Кнопка «Вгору» */
+  const toTop = $('#toTop');
+  const toggleToTop = window.toggleToTop = () => {
+    const mobileBusy = window.innerWidth < 768 && typing;
+    const show = window.scrollY > 600 && !mobileBusy;
+    if (window.innerWidth < 768) {
+      const barShown = !(orderVisible || typing);
+      toTop.style.bottom = barShown ? (stickyBar.offsetHeight + 12) + 'px' : 'calc(16px + env(safe-area-inset-bottom))';
+    } else {
+      toTop.style.bottom = '';
+    }
+    toTop.classList.toggle('opacity-0', !show); toTop.classList.toggle('translate-y-4', !show); toTop.classList.toggle('pointer-events-none', !show);
+  };
+  window.addEventListener('scroll', toggleToTop, { passive: true });
+  window.addEventListener('resize', toggleToTop);
+  toggleToTop();
+  toTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   });
 
   // Автоматична ініціалізація іконок

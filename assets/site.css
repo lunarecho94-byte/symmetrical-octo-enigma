@@ -562,6 +562,9 @@ html.dark summary span {
   border-radius: 12px;
   padding: 2px;
   gap: 2px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
   transition: all 0.2s ease;
 }
 
@@ -577,6 +580,10 @@ html.dark summary span {
 }
 .js-theme-btn:active {
   transform: scale(0.92);
+}
+.js-theme-btn svg,
+.js-theme-btn i {
+  pointer-events: none;
 }
 
 html:not(.dark) .theme-switch {
