@@ -212,6 +212,17 @@ window.PRODUCTS = [
     image: '/assets/img/retro-garland-1.webp',
     url: '/products/retro-girlyanda-and6271-2-na-sonyachniy-batareyi-10m/',
   },
+  {
+    slug: 'polytsya-nad-mikrokhvylovkoyu-yh6616-1',
+    sku: 'YH6616-1',
+    name: 'Кухонна полиця-підставка над мікрохвильовкою YH6616-1',
+    short: 'Стелаж-органайзер 49×49×26 см над мікрохвильовкою, зберігання посуду та спецій, бічні гачки',
+    price: 550,
+    oldPrice: 790,
+    badge: '🍳 Кухонний органайзер',
+    image: '/assets/img/microwave-shelf-1.webp',
+    url: '/products/polytsya-nad-mikrokhvylovkoyu-yh6616-1/',
+  },
 ];
 
 
