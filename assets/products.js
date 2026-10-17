@@ -146,4 +146,16 @@ window.PRODUCTS = [
     image: '/assets/img/toilet-shelf-1.webp',
     url: '/products/stelazh-nad-tualetom-wm-64-3-polytsi/',
   },
+  {
+    slug: 'atmosfernyy-nichnyk-meduza-akumulyatornyy',
+    sku: '55208',
+    name: 'Атмосферний настільний нічник «Медуза» з RGB-підсвічуванням',
+    short: 'Багатоколірне RGB-сяйво, реакція на звук Sound Activated, тепле нічне світло, вбудований акумулятор, акрилова підставка в комплекті',
+    price: 550,
+    oldPrice: 790,
+    badge: '🪼 RGB + Акумулятор',
+    image: '/assets/img/jellyfish-1.webp',
+    url: '/products/atmosfernyy-nichnyk-meduza-akumulyatornyy/',
+  },
 ];
+
