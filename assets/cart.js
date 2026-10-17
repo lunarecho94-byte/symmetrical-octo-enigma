@@ -122,7 +122,7 @@
     const ls = lines();
     $('#cartItems').innerHTML = ls.map(i => `
       <div class="flex gap-3 p-3 rounded-2xl border border-slate-200 bg-white">
-        <a href="${esc(i.p.url)}" class="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-white"><img src="${esc(i.p.image)}" alt="" class="w-full h-full object-cover scale-[1.06]"></a>
+        <a href="${esc(i.p.url)}" class="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-white"><img src="${esc(i.p.image)}" alt="" class="w-full h-full object-cover"></a>
         <div class="flex-1 min-w-0">
           <a href="${esc(i.p.url)}" class="block font-semibold text-sm text-graphite leading-snug hover:text-fire-600">${esc(i.p.name)}</a>
           <div class="mt-2 flex items-center justify-between gap-2">

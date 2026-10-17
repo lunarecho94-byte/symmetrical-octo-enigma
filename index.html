@@ -71,15 +71,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти з оновленою версією кешування -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v29">
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v30">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=hn20261017-v29"></script>
-  <script src="/assets/shop.js?v=hn20261017-v29"></script>
-  <script src="/assets/icons.js?v=hn20261017-v29" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v29" defer></script>
+  <script src="/assets/products.js?v=hn20261017-v30"></script>
+  <script src="/assets/shop.js?v=hn20261017-v30"></script>
+  <script src="/assets/icons.js?v=hn20261017-v30" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v30" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v29">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v30">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -329,7 +329,7 @@
     const list = (window.PRODUCTS || []).filter(p => p.image);
     if (!box || !list.length) return;
     const escA = (t) => String(t).replace(/"/g, '&quot;');
-    const img = (p, extra = '') => `<img src="${p.image}" alt="${escA(p.name)}" class="absolute inset-0 w-full h-full object-cover scale-[1.06] transition-opacity duration-700 ${extra}" loading="eager">`;
+    const img = (p, extra = '') => `<img src="${p.image}" alt="${escA(p.name)}" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${extra}" loading="eager">`;
     box.innerHTML = `<a href="${list[0].url}" title="${escA(list[0].name)}" class="relative block rounded-3xl overflow-hidden bg-white shadow-2xl aspect-square">${img(list[0])}</a>`;
     if (list.length < 2) return;
     list.slice(1).forEach(p => { const i = new Image(); i.src = p.image; });  // попереднє завантаження

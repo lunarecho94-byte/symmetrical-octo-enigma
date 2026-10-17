@@ -57,13 +57,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v29">
-  <script src="/assets/products.js?v=hn20261017-v29"></script>
-  <script src="/assets/shop.js?v=hn20261017-v29"></script>
-  <script src="/assets/icons.js?v=hn20261017-v29" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v29" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v30">
+  <script src="/assets/products.js?v=hn20261017-v30"></script>
+  <script src="/assets/shop.js?v=hn20261017-v30"></script>
+  <script src="/assets/icons.js?v=hn20261017-v30" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v30" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v29">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v30">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -196,11 +196,11 @@
             <span class="bg-buy-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">👔 2 рейли для вішалок</span>
           </div>
           <span class="absolute top-3 right-3 z-10 bg-graphite text-white font-display font-extrabold text-lg px-3 py-1 rounded-xl">-33%</span>
-          <div class="relative z-[1] w-full max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-white">
+          <div class="relative z-[1] w-full max-w-sm sm:max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-100">
             <img src="/assets/img/wardrobe-1.webp"
                  alt="Модульна складна шафа-органайзер з АБС-пластику МР 312-62 на 12 секцій" width="1000" height="1000"
                  fetchpriority="high"
-                 class="w-full h-full object-cover scale-[1.06]">
+                 class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -705,7 +705,7 @@
   const slider = $('#slider'), dots = $('#dots');
   slider.innerHTML = GALLERY.map(([src, caption], i) => `
     <div class="shrink-0 w-72 sm:w-80 md:w-96 rounded-2xl overflow-hidden bg-white shadow-md border border-slate-100">
-      <div class="aspect-square overflow-hidden bg-white"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]"></div>
+      <div class="aspect-square overflow-hidden bg-white"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover"></div>
       <p class="p-3 text-xs text-slate-500 text-center">${caption}</p>
     </div>
   `).join('');

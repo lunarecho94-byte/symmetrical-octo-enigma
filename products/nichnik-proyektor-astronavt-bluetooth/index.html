@@ -59,15 +59,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти з оновленою версією кешування -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v29">
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v30">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=hn20261017-v29"></script>
-  <script src="/assets/shop.js?v=hn20261017-v29"></script>
-  <script src="/assets/icons.js?v=hn20261017-v29" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v29" defer></script>
+  <script src="/assets/products.js?v=hn20261017-v30"></script>
+  <script src="/assets/shop.js?v=hn20261017-v30"></script>
+  <script src="/assets/icons.js?v=hn20261017-v30" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v30" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v29">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v30">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -203,11 +203,11 @@
           <span class="absolute top-3 right-3 z-10 bg-graphite text-white font-display font-extrabold text-lg px-3 py-1 rounded-xl">-33%</span>
           <!-- ФОТО ТОВАРУ (головне): фото постачальника. Для продакшену завантажте на свій хостинг. -->
           <!-- Фото трохи збільшене всередині рамки, щоб обрізати сіру смужку по краю фото постачальника -->
-          <div class="relative z-[1] w-full max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-black">
+          <div class="relative z-[1] w-full max-w-sm sm:max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-100">
             <img src="/assets/img/astronavt-1.webp"
                  alt="Нічник-проєктор зоряного неба Астронавт із Bluetooth та пультом ДК" width="1000" height="1000"
                  fetchpriority="high"
-                 class="w-full h-full object-cover scale-[1.06]">
+                 class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -421,7 +421,7 @@
             <!-- ФОТО ТОВАРУ біля форми -->
             <div class="relative fire-glow shrink-0">
               <div class="relative z-[1] w-32 h-32 sm:w-40 sm:h-40 md:w-full md:h-auto md:max-w-md md:aspect-square rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-2xl ring-1 ring-white/10">
-                <img src="/assets/img/astronavt-1.webp" alt="Нічник-проєктор зоряного неба Астронавт із Bluetooth та пультом ДК" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]">
+                <img src="/assets/img/astronavt-1.webp" alt="Нічник-проєктор зоряного неба Астронавт із Bluetooth та пультом ДК" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover">
               </div>
             </div>
             <div class="md:mt-7 flex items-end gap-x-3 gap-y-1 flex-wrap">
@@ -731,7 +731,7 @@
 
   $('#slider').innerHTML = GALLERY.map(([src, caption], i) => `
     <figure class="shrink-0 w-[85%] sm:w-[60%] md:w-[calc(50%-.5rem)] lg:w-[calc(33.333%-.67rem)] rounded-2xl overflow-hidden bg-cream border border-slate-100">
-      <div class="aspect-square overflow-hidden bg-white"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-contain scale-[1.06]"></div>
+      <div class="aspect-square overflow-hidden bg-white"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover"></div>
       <figcaption class="p-4 font-semibold text-graphite flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-fire-600 text-white text-xs grid place-items-center">${i + 1}</span>${caption}</figcaption>
     </figure>`).join('');
 

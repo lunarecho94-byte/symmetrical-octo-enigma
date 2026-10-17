@@ -8,7 +8,7 @@
     return `
       <div class="group flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition">
         <a href="${esc(p.url)}" class="relative block aspect-square bg-white overflow-hidden">
-          <img src="${esc(p.image)}" alt="${esc(p.name)}" width="600" height="600" loading="lazy" class="w-full h-full object-cover scale-[1.06] group-hover:scale-110 transition duration-300">
+          <img src="${esc(p.image)}" alt="${esc(p.name)}" width="600" height="600" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
           ${(p.badge || discount) ? `
           <div class="product-badges">
             ${p.badge ? `<span class="badge-tag">${esc(p.badge)}</span>` : ''}

@@ -58,13 +58,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v29">
-  <script src="/assets/products.js?v=hn20261017-v29"></script>
-  <script src="/assets/shop.js?v=hn20261017-v29"></script>
-  <script src="/assets/icons.js?v=hn20261017-v29" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v29" defer></script>
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v30">
+  <script src="/assets/products.js?v=hn20261017-v30"></script>
+  <script src="/assets/shop.js?v=hn20261017-v30"></script>
+  <script src="/assets/icons.js?v=hn20261017-v30" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v30" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v29">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v30">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -197,11 +197,11 @@
             <span class="bg-buy-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">🛠️ Нержавіюча сталь</span>
           </div>
           <span class="absolute top-3 right-3 z-10 bg-graphite text-white font-display font-extrabold text-lg px-3 py-1 rounded-xl">-32%</span>
-          <div class="relative z-[1] w-full max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-black">
+          <div class="relative z-[1] w-full max-w-sm sm:max-w-md mx-auto rounded-3xl shadow-xl aspect-square overflow-hidden bg-slate-100">
             <img src="/assets/img/stelazh-1.webp"
                  alt="Стелаж над пральною машиною 3 полиці чорний підлогова стійка-органайзер" width="1000" height="1000"
                  fetchpriority="high"
-                 class="w-full h-full object-cover scale-[1.06]">
+                 class="w-full h-full object-cover">
           </div>
         </div>
 
@@ -411,7 +411,7 @@
           <div class="mt-6 md:mt-8 flex gap-5 items-center md:block">
             <div class="relative fire-glow shrink-0">
               <div class="relative z-[1] w-32 h-32 sm:w-40 sm:h-40 md:w-full md:h-auto md:max-w-md md:aspect-square rounded-2xl md:rounded-3xl overflow-hidden bg-black shadow-2xl ring-1 ring-white/10">
-                <img src="/assets/img/stelazh-1.webp" alt="Стелаж над пральною машиною 3 полиці чорний" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover scale-[1.06]">
+                <img src="/assets/img/stelazh-1.webp" alt="Стелаж над пральною машиною 3 полиці чорний" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover">
               </div>
             </div>
             <div class="md:mt-7 flex items-end gap-x-3 gap-y-1 flex-wrap">
@@ -714,7 +714,7 @@
 
   $('#slider').innerHTML = GALLERY.map(([src, caption], i) => `
     <figure class="shrink-0 w-[85%] sm:w-[60%] md:w-[calc(50%-.5rem)] lg:w-[calc(33.333%-.67rem)] rounded-2xl overflow-hidden bg-cream border border-slate-100">
-      <div class="aspect-square overflow-hidden bg-white"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-contain scale-[1.06]"></div>
+      <div class="aspect-square overflow-hidden bg-white"><img src="${src}" alt="${caption}" width="1000" height="1000" loading="lazy" class="w-full h-full object-cover"></div>
       <figcaption class="p-4 font-semibold text-graphite flex items-center gap-2"><span class="w-6 h-6 rounded-full bg-fire-600 text-white text-xs grid place-items-center">${i + 1}</span>${caption}</figcaption>
     </figure>`).join('');
 
