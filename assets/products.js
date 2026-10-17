@@ -120,7 +120,7 @@ window.PRODUCTS = [
     short: 'Обігрів до 3600 Вт, охолодження з 4 холодоелементами, зволоження повітря, бак 5 л, сенсорний LED-дисплей та пульт',
     price: 2999,
     oldPrice: 4490,
-    badge: '❄️ Охолодження + 🔥 Обігрів',
+    badge: '❄️ Холод + 🔥 Тепло',
     image: '/assets/img/ac-1.webp',
     url: '/products/pidlohovyy-kondytsioner-obihrivach-3v1-ms-1668/',
   },

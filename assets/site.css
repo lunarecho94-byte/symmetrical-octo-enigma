@@ -773,6 +773,9 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
   -webkit-backdrop-filter: blur(4px);
   white-space: nowrap;
   max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 
 .badge-discount {
