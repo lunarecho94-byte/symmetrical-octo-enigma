@@ -71,15 +71,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- Стилі та скрипти з оновленою версією кешування -->
-  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v33">
+  <link rel="stylesheet" href="/assets/tw.css?v=hn20261017-v34">
 
   <!-- Іконки Lucide -->
-  <script src="/assets/products.js?v=hn20261017-v33"></script>
-  <script src="/assets/shop.js?v=hn20261017-v33"></script>
-  <script src="/assets/icons.js?v=hn20261017-v33" defer></script>
-  <script src="/assets/cart.js?v=hn20261017-v33" defer></script>
+  <script src="/assets/products.js?v=hn20261017-v34"></script>
+  <script src="/assets/shop.js?v=hn20261017-v34"></script>
+  <script src="/assets/icons.js?v=hn20261017-v34" defer></script>
+  <script src="/assets/cart.js?v=hn20261017-v34" defer></script>
 
-  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v33">
+  <link rel="stylesheet" href="/assets/site.css?v=hn20261017-v34">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="apple-touch-icon" href="/assets/img/favicon.png">
 </head>
@@ -184,36 +184,44 @@
   </header>
 
   <main id="top">
-    <!-- HERO -->
-    <section class="bg-gradient-to-b from-orange-50 to-white">
-      <div class="max-w-6xl mx-auto px-4 pt-8 pb-10 md:py-16 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+    <!-- КАТАЛОГ -->
+    <section id="catalog" class="pt-6 sm:pt-8 md:pt-10 pb-12 md:pb-16 scroll-mt-16 bg-white">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex items-end justify-between gap-4 flex-wrap mb-6 sm:mb-8">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-fire-600 text-xs font-bold mb-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Акційні ціни та швидка відправка
+            </div>
+            <h1 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-graphite">Каталог товарів</h1>
+          </div>
+          <p id="catalogCount" class="text-slate-500 text-sm font-medium"></p>
+        </div>
+        <div id="catalogGrid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
+        <p id="catalogEmpty" class="hidden mt-10 text-center text-slate-500">Товари скоро зʼявляться.</p>
+      </div>
+    </section>
+
+    <!-- ПРО МАГАЗИН ТА ПЕРЕВАГИ -->
+    <section class="bg-gradient-to-b from-orange-50/70 to-white py-12 md:py-16 border-t border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div>
-          <h1 class="font-display font-extrabold text-[1.9rem] leading-tight sm:text-4xl lg:text-5xl text-graphite">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-fire-100 text-fire-600 text-xs font-bold mb-3">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Надійний інтернет-магазин
+          </span>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-graphite">
             Затишок та <span class="text-fire-600">комфорт</span> у вашому домі
-          </h1>
+          </h2>
           <p class="mt-4 text-base sm:text-lg text-slate-600">Товари для затишку та комфорту вашої оселі. Обирайте, оглядайте у відділенні — і платіть лише тоді, коли все влаштовує.</p>
           <ul class="mt-6 space-y-3">
-            <li class="flex gap-3 items-start"><span class="shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-fire-600 grid place-items-center"><i data-lucide="wallet" class="w-5 h-5"></i></span><span class="pt-1.5">Оплата при отриманні — без передоплати.</span></li>
+            <li class="flex gap-3 items-start"><span class="shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-fire-600 grid place-items-center"><i data-lucide="wallet" class="w-5 h-5"></i></span><span class="pt-1.5">Оплата при отриманні — без обовʼязкової передоплати.</span></li>
             <li class="flex gap-3 items-start"><span class="shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-fire-600 grid place-items-center"><i data-lucide="truck" class="w-5 h-5"></i></span><span class="pt-1.5">Доставка Новою Поштою за 1–3 дні по всій Україні.</span></li>
-            <li class="flex gap-3 items-start"><span class="shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-fire-600 grid place-items-center"><i data-lucide="shield-check" class="w-5 h-5"></i></span><span class="pt-1.5">Обмін та повернення протягом 14 днів.</span></li>
+            <li class="flex gap-3 items-start"><span class="shrink-0 w-9 h-9 rounded-xl bg-orange-100 text-fire-600 grid place-items-center"><i data-lucide="shield-check" class="w-5 h-5"></i></span><span class="pt-1.5">Обмін та повернення протягом 14 днів згідно із законом.</span></li>
           </ul>
-          <a href="#catalog" class="cta-pulse mt-7 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 min-h-[56px] bg-buy-600 hover:bg-buy-700 text-white font-bold text-lg rounded-xl transition"><i data-lucide="layout-grid" class="w-5 h-5"></i> Дивитися товари</a>
+          <a href="#catalog" class="cta-pulse mt-7 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 min-h-[52px] bg-buy-600 hover:bg-buy-700 text-white font-bold text-base rounded-xl transition shadow-md"><i data-lucide="arrow-up" class="w-4 h-4"></i> До каталогу товарів</a>
         </div>
         <div class="relative fire-glow hidden md:block">
           <div id="heroPreview" class="relative z-[1] max-w-lg mx-auto"></div>
         </div>
-      </div>
-    </section>
-
-    <!-- КАТАЛОГ -->
-    <section id="catalog" class="py-12 md:py-20 scroll-mt-16">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="flex items-end justify-between gap-4 flex-wrap">
-          <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-graphite">Каталог товарів</h2>
-          <p id="catalogCount" class="text-slate-500 text-sm"></p>
-        </div>
-        <div id="catalogGrid" class="mt-8 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
-        <p id="catalogEmpty" class="hidden mt-10 text-center text-slate-500">Товари скоро зʼявляться.</p>
       </div>
     </section>
 
