@@ -157,5 +157,17 @@ window.PRODUCTS = [
     image: '/assets/img/jellyfish-1.webp',
     url: '/products/atmosfernyy-nichnyk-meduza-akumulyatornyy/',
   },
+  {
+    slug: 'girlyanda-v-metalevykh-kulkakh-teplyy-bilyy-2m',
+    sku: 'ws54487',
+    name: 'Світлодіодна гірлянда в ажурних металевих кульках «Теплий білий» 2м',
+    short: '10 ажурних металевих кульок у марокканському стилі, мʼяке золотисте тепле світіння, прозорий непомітний дріт, робота від батарейок',
+    price: 250,
+    oldPrice: 390,
+    badge: '✨ Ажурні кульки 2м',
+    image: '/assets/img/girlyanda-kulky-1.webp',
+    url: '/products/girlyanda-v-metalevykh-kulkakh-teplyy-bilyy-2m/',
+  },
 ];
+
 
