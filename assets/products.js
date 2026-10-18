@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'skladnyy-stolyk-dlya-noutbuka-aws-w-019',
+    sku: 'BrownAWSW019',
+    name: 'Складний столик для ноутбука в ліжко AWS-W-019 з підсклянником',
+    short: 'Ергономічний столик для ноутбука в ліжко 48×36 см: слот для планшета й смартфона, підсклянник, вологостійка поверхня МДФ та складні алюмінієві ніжки',
+    price: 550,
+    oldPrice: 790,
+    badge: '☕ Підсклянник + Слот для планшета',
+    image: '/assets/img/stolik-aws019-1.webp',
+    url: '/products/skladnyy-stolyk-dlya-noutbuka-aws-w-019/',
+  },
+  {
     slug: 'nichnyk-3d-misyats-moon-touch-control-15-sm',
     sku: '4009547',
     name: 'Нічник 3D світильник Місяць Moon Touch Control 15 см (5 режимів)',
