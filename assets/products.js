@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'nichnyk-3d-misyats-moon-touch-control-15-sm',
+    sku: '4009547',
+    name: 'Нічник 3D світильник Місяць Moon Touch Control 15 см (5 режимів)',
+    short: 'Реалістичний 3D-нічник Місяць 15 см: рельєф кратерів NASA, сенсорне керування Touch Control, 5 режимів світла, деревʼяна підставка та USB-зарядка',
+    price: 400,
+    oldPrice: 590,
+    badge: '🌕 5 режимів + Дерев’яна підставка',
+    image: '/assets/img/misyats-15sm-1.webp',
+    url: '/products/nichnyk-3d-misyats-moon-touch-control-15-sm/',
+  },
+  {
     slug: 'nastinni-led-godynnyky-6669r-rgb-z-pultom',
     sku: '6669R',
     name: 'Настінні електронні LED-годинники 6669R з пультом ДК та RGB-підсвіткою',
