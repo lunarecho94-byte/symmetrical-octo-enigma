@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'pristavniy-krugliy-stolik-26x-136',
+    sku: '59208',
+    name: 'Приставний круглий столик 26X-136 з металевою основою темний горіх',
+    short: 'Журнальний кавовий столик з круглою стільницею кольору темний горіх та вигнутою ніжкою під диван або ліжко',
+    price: 599,
+    oldPrice: 850,
+    badge: '🪵 Темний горіх',
+    image: '/assets/img/stolik-26x136-1.webp',
+    url: '/products/pristavniy-krugliy-stolik-26x-136/',
+  },
+  {
     slug: 'power-bank-aroimac-vp318-30000-mah-22-5w',
     sku: 'VP318',
     name: 'Потужний Power Bank Aroimac VP318 30000 mAh зі швидкою зарядкою 22.5W та 4 кабелями',
