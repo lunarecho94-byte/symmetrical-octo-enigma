@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'aerofrityurnitsya-air-fryer-2294-4-l',
+    sku: '59204',
+    name: 'Аерофритюрниця Air Fryer-2294 4 л електричний аерогриль 1000 Вт',
+    short: 'Електричний аерогриль 4 л потужністю 1000 Вт: приготування гарячим повітрям 360° без олії, таймер 30 хв та антипригарний кошик',
+    price: 1299,
+    oldPrice: 1790,
+    badge: '🍟 Без олії 4 л',
+    image: '/assets/img/airfryer-2294-1.webp',
+    url: '/products/aerofrityurnitsya-air-fryer-2294-4-l/',
+  },
+  {
     slug: 'pristavniy-krugliy-stolik-26x-136',
     sku: '59208',
     name: 'Приставний круглий столик 26X-136 з металевою основою темний горіх',
