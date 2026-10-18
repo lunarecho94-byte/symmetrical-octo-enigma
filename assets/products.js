@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'avtomatychnyy-sensornyy-dozator-dlya-myla-420-ml',
+    sku: 'DM1965',
+    name: 'Автоматичний сенсорний дозатор для рідкого мила 420 мл (пінний, настінний)',
+    short: 'Безконтактний пінний диспенсер 420 мл: інфрачервоний сенсор 0.25 с, настінне кріплення без свердління, вбудований USB-акумулятор та економія мила в 4 рази',
+    price: 499,
+    oldPrice: 720,
+    badge: '🫧 Сенсор 0.25 с + USB Type-C',
+    image: '/assets/img/dozator-dm1965-1.webp',
+    url: '/products/avtomatychnyy-sensornyy-dozator-dlya-myla-420-ml/',
+  },
+  {
     slug: 'skladnyy-stolyk-dlya-noutbuka-aws-w-019',
     sku: 'BrownAWSW019',
     name: 'Складний столик для ноутбука в ліжко AWS-W-019 з підсклянником',
