@@ -234,6 +234,17 @@ window.PRODUCTS = [
     image: '/assets/img/projector-1.webp',
     url: '/products/led-proektor-dlya-domu-smart-android-11-wifi-bluetooth-black/',
   },
+  {
+    slug: 'bluetooth-kolonka-portable-party-speaker-ttd-2016',
+    sku: '59214',
+    name: 'Bluetooth колонка Portable Party Speaker TTD-2016 з караоке та LED-підсвіткою',
+    short: 'Портативна акустична система 2×6.5" з мікрофоном для караоке, пультом ДК, LED-підсвіткою, Bluetooth, USB, TF, FM-радіо та акумулятором',
+    price: 3600,
+    oldPrice: 4890,
+    badge: '🎵 Party Speaker',
+    image: '/assets/img/speaker-1.webp',
+    url: '/products/bluetooth-kolonka-portable-party-speaker-ttd-2016/',
+  },
 ];
 
 
