@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'nastinni-led-godynnyky-6669r-rgb-z-pultom',
+    sku: '6669R',
+    name: 'Настінні електронні LED-годинники 6669R з пультом ДК та RGB-підсвіткою',
+    short: 'Великий цифровий LED-годинник 42 см: цифри 12 см, дата, термометр, вологість, 2 будильники, 10 рівнів яскравості, пульт ДК та RGB-підсвітка',
+    price: 1500,
+    oldPrice: 2100,
+    badge: '🌈 RGB-підсвітка + Пульт',
+    image: '/assets/img/chasy-6669r-1.webp',
+    url: '/products/nastinni-led-godynnyky-6669r-rgb-z-pultom/',
+  },
+  {
     slug: 'portatyvnyy-akumulyatornyy-kompresor-nasos-dlya-shyn',
     sku: '56844',
     name: 'Портативний акумуляторний компресор з дисплеєм та ліхтариком',
