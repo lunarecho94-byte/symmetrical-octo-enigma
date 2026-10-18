@@ -256,6 +256,18 @@ window.PRODUCTS = [
     image: '/assets/img/speaker-trolley-1.webp',
     url: '/products/bluetooth-kolonka-wireless-speaker-ttd-2820/',
   },
+  {
+    slug: 'bluetooth-kolonka-ttd-2809-20-vt',
+    sku: '59213',
+    name: 'Bluetooth колонка TTD-2809 20 Вт з двома динаміками 8", LED-підсвіткою та караоке',
+    short: 'Портативна акустична система 20 Вт з двома 8" динаміками, караоке-входом, TWS, круговою LED-підсвіткою, Type-C, Bluetooth 5.0, USB, TF та FM',
+    price: 2499,
+    oldPrice: 3490,
+    badge: '🔥 Подвійний бас 2×8"',
+    image: '/assets/img/speaker-2809-1.webp',
+    url: '/products/bluetooth-kolonka-ttd-2809-20-vt/',
+  },
 ];
+
 
 
