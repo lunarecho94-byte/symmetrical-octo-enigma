@@ -267,7 +267,19 @@ window.PRODUCTS = [
     image: '/assets/img/speaker-2809-1.webp',
     url: '/products/bluetooth-kolonka-ttd-2809-20-vt/',
   },
+  {
+    slug: 'avariyna-led-lampa-z-akumulyatorom-fae-3920-e27-20-vt',
+    sku: 'FAE3920',
+    name: 'Аварійна LED лампа з акумулятором FAE-3920 E27 20 Вт 6500K 5000 мАг',
+    short: 'Автономна LED лампа E27 20 Вт при відключенні світла: змінний акумулятор 18650, підвісний гачок-перехідник, до 6–8 год автономної роботи',
+    price: 230,
+    oldPrice: 350,
+    badge: '💡 Світло без електрики',
+    image: '/assets/img/lamp-fae3920-1.webp',
+    url: '/products/avariyna-led-lampa-z-akumulyatorom-fae-3920-e27-20-vt/',
+  },
 ];
+
 
 
 
