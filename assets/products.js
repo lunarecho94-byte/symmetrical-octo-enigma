@@ -278,7 +278,19 @@ window.PRODUCTS = [
     image: '/assets/img/lamp-fae3920-1.webp',
     url: '/products/avariyna-led-lampa-z-akumulyatorom-fae-3920-e27-20-vt/',
   },
+  {
+    slug: 'power-bank-aroimac-vp318-30000-mah-22-5w',
+    sku: 'VP318',
+    name: 'Потужний Power Bank Aroimac VP318 30000 mAh зі швидкою зарядкою 22.5W та 4 кабелями',
+    short: 'Павербанк 30000 мАг зі швидкою зарядкою 22.5W: цифровий LED-дисплей, 4 вбудовані кабелі, 4 порти USB, LED-ліхтар та ремінець',
+    price: 1299,
+    oldPrice: 1799,
+    badge: '⚡ 30000 mAh + 22.5W',
+    image: '/assets/img/powerbank-vp318-1.webp',
+    url: '/products/power-bank-aroimac-vp318-30000-mah-22-5w/',
+  },
 ];
+
 
 
 
