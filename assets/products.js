@@ -245,6 +245,17 @@ window.PRODUCTS = [
     image: '/assets/img/speaker-1.webp',
     url: '/products/bluetooth-kolonka-portable-party-speaker-ttd-2016/',
   },
+  {
+    slug: 'bluetooth-kolonka-wireless-speaker-ttd-2820',
+    sku: '59215',
+    name: 'Bluetooth колонка Wireless Speaker TTD-2820 з караоке, еквалайзером та коліщатками',
+    short: 'Потужна акустика-валіза на колесах із висувною ручкою, DJ-мікшером, мікрофоном, пультом ДК, Bluetooth 5.0, USB, TF, AUX та яскравим RGB-шоу',
+    price: 4500,
+    oldPrice: 5990,
+    badge: '🧳 Валіза на колесах',
+    image: '/assets/img/speaker-trolley-1.webp',
+    url: '/products/bluetooth-kolonka-wireless-speaker-ttd-2820/',
+  },
 ];
 
 
