@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'svitlodiodna-led-hirlyanda-snizhynky-3m',
+    sku: '56854',
+    name: 'Світлодіодна LED гірлянда Сніжинки 3 м (теплий білий, USB)',
+    short: 'Святкова світлодіодна гірлянда 3 м: 20 кришталевих сніжинок 3.5 см, мʼяке тепле світло, живлення від USB або Power Bank',
+    price: 102,
+    oldPrice: 160,
+    badge: '❄️ Тепле світло + USB 5V',
+    image: '/assets/img/girlyanda-snizhynky-1.webp',
+    url: '/products/svitlodiodna-led-hirlyanda-snizhynky-3m/',
+  },
+  {
     slug: 'avtomatychnyy-sensornyy-dozator-dlya-myla-420-ml',
     sku: 'DM1965',
     name: 'Автоматичний сенсорний дозатор для рідкого мила 420 мл (пінний, настінний)',
