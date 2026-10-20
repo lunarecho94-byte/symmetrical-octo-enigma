@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'svitylnyk-z-tumblerom-hy-604',
+    sku: '59228',
+    name: 'Бездротовий світлодіодний світильник із тумблером HY-604 (COB, на магнітах)',
+    short: 'Автономний настінний світильник-вимикач 6W: 4 потужні COB-світлодіоди, зручний тумблер, магнітне та клейове кріплення без дротів, робота від батарейок',
+    price: 180,
+    oldPrice: 280,
+    badge: '💡 COB 6W + Магнітне кріплення',
+    image: '/assets/img/svitylnyk-tumbler-hy604-1.webp',
+    url: '/products/svitylnyk-z-tumblerom-hy-604/',
+  },
+  {
     slug: 'svitlodiodna-led-hirlyanda-snizhynky-3m',
     sku: '56854',
     name: 'Світлодіодна LED гірлянда Сніжинки 3 м (теплий білий, USB)',
