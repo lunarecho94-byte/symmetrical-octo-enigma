@@ -731,7 +731,8 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
 
 /* ==========================================================
    5. Бейджі на картках товарів (каталог та блок «Дивіться також»)
-   Виключає накладання мітки товару та відсотка знижки на смартфонах
+   Бездоганне вирівнювання в одну горизонтальну лінію на всіх фото:
+   мітка товару зліва, бейдж знижки справа на однаковій висоті
    ========================================================== */
 .product-badges {
   position: absolute;
@@ -739,21 +740,19 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
   left: 8px;
   right: 8px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   pointer-events: none;
   z-index: 10;
 }
 
 @media (min-width: 640px) {
   .product-badges {
-    top: 12px;
-    left: 12px;
-    right: 12px;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
+    top: 10px;
+    left: 10px;
+    right: 10px;
     gap: 8px;
   }
 }
@@ -765,14 +764,15 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
   color: #FFFFFF !important;
   font-size: 11px;
   font-weight: 700;
-  line-height: 1.25;
-  padding: 3px 8.5px;
+  line-height: 1;
+  height: 24px;
+  padding: 0 8px;
   border-radius: 9999px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   white-space: nowrap;
-  max-width: 100%;
+  max-width: calc(100% - 48px);
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
@@ -781,27 +781,34 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
 .badge-discount {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background-color: #2563EB !important;
   color: #FFFFFF !important;
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
-  line-height: 1.25;
-  padding: 3px 8px;
-  border-radius: 8px;
+  line-height: 1;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 6px;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45);
   white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 @media (min-width: 640px) {
   .badge-tag {
     font-size: 12px;
-    padding: 5px 11px;
+    height: 26px;
+    padding: 0 10px;
+    max-width: calc(100% - 58px);
   }
   .badge-discount {
-    font-size: 13px;
-    padding: 5px 10px;
-    margin-left: auto;
+    font-size: 12px;
+    height: 26px;
+    padding: 0 9px;
+    border-radius: 8px;
   }
 }
 
