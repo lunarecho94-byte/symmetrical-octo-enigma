@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'elektrokamin-obihrivach-flame-heater-z-pultom',
+    sku: '59149',
+    name: 'Портативний електрокамін-обігрівач Flame Heater з ефектом полум’я та пультом',
+    short: 'Електричний камін-обігрівач для дому: реалістична 3D-імітація живого вогню, швидкий керамічний PTC-нагрів, пульт ДК, термостат 15–32 °C та таймер до 12 годин',
+    price: 3299,
+    oldPrice: 4490,
+    badge: '🔥 Ефект вогню • Пульт ДК',
+    image: '/assets/img/flame-heater-1.webp',
+    url: '/products/elektrokamin-obihrivach-flame-heater-z-pultom/',
+  },
+  {
     slug: 'kanatna-led-girlyanda-lallibrokh-kar306-2m',
     sku: '59141',
     name: 'Декоративна канатна LED-гірлянда «Лалліброх» KAR306 (2 м, 40 LED)',
