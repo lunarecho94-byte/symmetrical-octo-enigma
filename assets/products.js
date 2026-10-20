@@ -78,8 +78,8 @@ window.PRODUCTS = [
     short: 'Розумна LED лампа 20 Вт E27: автоматичне вмикання при блекаутах, 2 знімні акумулятори 18650, підвісний гачок-патрон у комплекті та до 4 годин автономного світла',
     price: 265,
     oldPrice: 390,
-    badge: '🔋 2×18650 акум.',
-    image: '/assets/img/avariyna-lampa-18650-1.webp',
+    badge: '🔋 2×18650',
+    image: '/assets/img/avariyna-lampa-18650-2.webp',
     url: '/products/avariyna-akumulyatorna-lampa-20w-e27-18650/',
   },
   {

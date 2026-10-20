@@ -772,7 +772,7 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   white-space: nowrap;
-  max-width: calc(100% - 48px);
+  max-width: calc(100% - 50px);
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
