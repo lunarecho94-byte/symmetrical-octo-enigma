@@ -248,17 +248,6 @@ window.PRODUCTS = [
     url: '/products/led-proektor-dlya-domu-smart-android-11-wifi-bluetooth-black/',
   },
   {
-    slug: 'polytsya-nad-mikrokhvylovkoyu-yh6616-1',
-    sku: 'YH6616-1',
-    name: 'Кухонна полиця-підставка над мікрохвильовкою YH6616-1',
-    short: 'Стелаж-органайзер 49×49×26 см над мікрохвильовкою, зберігання посуду та спецій, бічні гачки',
-    price: 550,
-    oldPrice: 790,
-    badge: '🍳 Кухонна полиця',
-    image: '/assets/img/microwave-shelf-1.webp',
-    url: '/products/polytsya-nad-mikrokhvylovkoyu-yh6616-1/',
-  },
-  {
     slug: 'retro-girlyanda-and6271-2-na-sonyachniy-batareyi-10m',
     sku: 'YL62712',
     name: 'Вулична ретро-гірлянда AND6271-2 на сонячній батареї 10 м (20 LED)',
