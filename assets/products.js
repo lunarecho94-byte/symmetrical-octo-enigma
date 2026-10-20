@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'smart-girlyanda-shtora-sfk-08-3x2m',
+    sku: '56986',
+    name: 'Розумна Smart-гірлянда штора SFK-08 (3×2 м, 400 LED, додаток Bluetooth + пульт)',
+    short: 'Смарт-гірлянда штора 3×2 м на 400 LED: керування зі смартфона через Bluetooth та з пульта, динамічні анімації, малювання власних візерунків, музичний режим та USB-живлення',
+    price: 1480,
+    oldPrice: 2190,
+    badge: '✨ 400 LED • Додаток + Пульт',
+    image: '/assets/img/smart-shtora-sfk08-cozy.webp',
+    url: '/products/smart-girlyanda-shtora-sfk-08-3x2m/',
+  },
+  {
     slug: 'nabir-svitylnykiv-led-control-set-bl-1012-z-pultom',
     sku: '52086',
     name: 'Набір світлодіодних світильників LED Control Set BL-1012 з пультом (3 шт)',
