@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'kanatna-led-girlyanda-lallibrokh-kar306-2m',
+    sku: '59141',
+    name: 'Декоративна канатна LED-гірлянда «Лалліброх» KAR306 (2 м, 40 LED)',
+    short: 'Автентична канатна гірлянда з натурального джуту 2 м: 40 теплих LED, автономна робота від батарейок без розеток, стильний декор для лофт, бохо та еко інтер’єрів',
+    price: 199,
+    oldPrice: 299,
+    badge: '🌿 Натуральний канат • 40 LED',
+    image: '/assets/img/kanatna-girlyanda-kar306-1.webp',
+    url: '/products/kanatna-led-girlyanda-lallibrokh-kar306-2m/',
+  },
+  {
     slug: 'girlyanda-shtora-zirky-ta-misyats-3m-usb',
     sku: '56695',
     name: 'Світлодіодна LED гірлянда-штора «Зірки та Місяць» SF-43 (3 м, тепле світло, USB)',
