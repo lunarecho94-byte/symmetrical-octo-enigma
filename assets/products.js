@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'girlyanda-shtora-zirky-ta-misyats-3m-usb',
+    sku: '56695',
+    name: 'Світлодіодна LED гірлянда-штора «Зірки та Місяць» SF-43 (3 м, тепле світло, USB)',
+    short: 'Казкова LED штора 3 метри з фігурами зірок та півмісяців: 120 теплих світлодіодів, 8 режимів світіння, живлення від USB або павербанка під час блекаутів, економні 2 Вт',
+    price: 299,
+    oldPrice: 450,
+    badge: '🌙 Зірки та Місяць • USB 5V',
+    image: '/assets/img/shtora-zirky-sf43-cozy.webp',
+    url: '/products/girlyanda-shtora-zirky-ta-misyats-3m-usb/',
+  },
+  {
     slug: 'smart-girlyanda-shtora-sfk-08-3x2m',
     sku: '56986',
     name: 'Розумна Smart-гірлянда штора SFK-08 (3×2 м, 400 LED, додаток Bluetooth + пульт)',
