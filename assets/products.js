@@ -391,17 +391,6 @@ window.PRODUCTS = [
     url: '/products/girlyanda-v-metalevykh-kulkakh-teplyy-bilyy-2m/',
   },
   {
-    slug: 'bezdrotovyy-dvernyy-wifi-videodzvinok-z-kameroyu',
-    sku: 'ws28615',
-    name: 'Бездротовий дверний Wi-Fi відеодзвінок із камерою 90° та нічним баченням',
-    short: 'CMOS-камера 90°, інфрачервоне нічне бачення Starlight, двосторонній звʼязок зі смартфона, акумулятор 800 мА·год до 30 днів, внутрішній Chime в комплекті',
-    price: 599,
-    oldPrice: 899,
-    badge: '📹 Wi-Fi + HD камера',
-    image: '/assets/img/wifi-videodzvinok-1.webp',
-    url: '/products/bezdrotovyy-dvernyy-wifi-videodzvinok-z-kameroyu/',
-  },
-  {
     slug: 'litayuchyy-shar-spinner-flynova-pro',
     sku: 'ws96444',
     name: 'Літаюча куля-спіннер Flynova Pro з RGB-підсвічуванням та ефектом бумеранга',
