@@ -24,7 +24,7 @@ window.PRODUCTS = [
     price: 3299,
     oldPrice: 4490,
     badge: '🔥 Ефект вогню • Пульт ДК',
-    image: '/assets/img/flame-heater-1.webp',
+    image: '/assets/img/flame-heater-cozy.webp',
     url: '/products/elektrokamin-obihrivach-flame-heater-z-pultom/',
   },
   {
