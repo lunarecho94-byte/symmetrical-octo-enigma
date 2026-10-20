@@ -270,17 +270,6 @@ window.PRODUCTS = [
     url: '/products/retro-girlyanda-and6271-2-na-sonyachniy-batareyi-10m/',
   },
   {
-    slug: 'nichnik-proyektor-astronavt-bluetooth',
-    sku: '59192',
-    name: 'Нічник-проєктор зоряного неба Астронавт Bluetooth',
-    short: 'Проєкція зірок та туманності, Bluetooth-колонка, пульт ДК, обертання 360°',
-    price: 500,
-    oldPrice: 750,
-    badge: '✨ Хіт продажу',
-    image: '/assets/img/astronavt-1.webp',
-    url: '/products/nichnik-proyektor-astronavt-bluetooth/',
-  },
-  {
     slug: 'stelazh-nad-pralnoyu-mashynoyu-3-polytsi',
     sku: '59190',
     name: 'Стелаж над пральною машиною 3 полиці чорний',
