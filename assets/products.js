@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'nabir-svitylnykiv-led-control-set-bl-1012-z-pultom',
+    sku: '52086',
+    name: 'Набір світлодіодних світильників LED Control Set BL-1012 з пультом (3 шт)',
+    short: 'Комплект із 3 бездротових LED світильників із пультом ДК: 2 рівні яскравості, таймер на 30 хв, ручне та дистанційне вмикання, монтаж без свердління на скотч 3M',
+    price: 299,
+    oldPrice: 450,
+    badge: '✨ 3 світильники + Пульт ДК',
+    image: '/assets/img/svitylnyky-bl1012-1.webp',
+    url: '/products/nabir-svitylnykiv-led-control-set-bl-1012-z-pultom/',
+  },
+  {
     slug: 'avariyna-akumulyatorna-lampa-20w-e27-18650',
     sku: '52371c',
     name: 'Аварійна світлодіодна лампа 20W E27 зі знімними акумуляторами 18650',
