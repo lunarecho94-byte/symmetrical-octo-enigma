@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'mobilnyy-organayzer-stelazh-ven-s5-5-koshykiv',
+    sku: '19376',
+    name: 'Мобільний органайзер-стелаж VEN-S5 на 5 кошиків',
+    short: 'Вузька металева етажерка на 5 сітчастих ярусів із 4 колесами 360° та бічними гачками для кухні, ванної чи салону',
+    price: 1000,
+    oldPrice: 1390,
+    badge: '🛞 5 кошиків',
+    image: '/assets/img/organayzer-stelazh-ven-s5-1.webp',
+    url: '/products/mobilnyy-organayzer-stelazh-ven-s5-5-koshykiv/',
+  },
+  {
     slug: 'router-r103-1023-4g-5g-iz-sim-kartkoyu',
     sku: '19382',
     name: 'Стаціонарний 4G/5G Wi-Fi роутер R103 (1023) із SIM-карткою',
