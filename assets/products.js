@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'dovhyy-elektrichnyy-kamin-z-efektom-polumya',
+    sku: '19026',
+    name: 'Довгий електричний камін з 3D-ефектом полум’я',
+    short: 'Горизонтальний панорамний електрокамін для вітальні, спальні чи зони відпочинку з реалістичною імітацією живого вогню',
+    price: 3300,
+    oldPrice: 4590,
+    badge: '🔥 Ефект вогню',
+    image: '/assets/img/elektrokamin-dovhyy-1.webp',
+    url: '/products/dovhyy-elektrichnyy-kamin-z-efektom-polumya/',
+  },
+  {
     slug: 'mobilnyy-organayzer-stelazh-ven-s5-5-koshykiv',
     sku: '19376',
     name: 'Мобільний органайзер-стелаж VEN-S5 на 5 кошиків',
