@@ -257,7 +257,7 @@ html:not(.dark) #slider > div {
 }
 html:not(.dark) #slider figure > div,
 html:not(.dark) #slider > div > div:first-child {
-  background-color: #F8FAFC !important;
+  background-color: #FFFFFF !important;
 }
 html:not(.dark) #slider figcaption,
 html:not(.dark) #slider p.p-3 {
@@ -494,7 +494,7 @@ html.dark #slider > div {
 }
 html.dark #slider figure > div,
 html.dark #slider > div > div:first-child {
-  background-color: #000000 !important;
+  background-color: #0E1A38 !important;
 }
 html.dark #slider figcaption,
 html.dark #slider p.p-3 {
