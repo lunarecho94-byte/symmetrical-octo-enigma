@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'router-r103-1023-4g-5g-iz-sim-kartkoyu',
+    sku: '19382',
+    name: 'Стаціонарний 4G/5G Wi-Fi роутер R103 (1023) із SIM-карткою',
+    short: 'Стаціонарний 4G LTE / Wi-Fi 6 роутер зі слотом для Nano-SIM, портами WAN/LAN, 4 антенами та швидкістю до 300 Мбіт/с',
+    price: 1650,
+    oldPrice: 2290,
+    badge: '📶 4G/5G SIM',
+    image: '/assets/img/router-r103-1.webp',
+    url: '/products/router-r103-1023-4g-5g-iz-sim-kartkoyu/',
+  },
+  {
     slug: 'lte-router-b828-4g-5g-iz-sim-kartkoyu',
     sku: '59324',
     name: 'Акумуляторний 4G/5G Wi-Fi роутер B828 із SIM-карткою',
