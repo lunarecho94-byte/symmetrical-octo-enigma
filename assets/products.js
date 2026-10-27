@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'lte-router-b828-4g-5g-iz-sim-kartkoyu',
+    sku: '59324',
+    name: 'Акумуляторний 4G/5G Wi-Fi роутер B828 із SIM-карткою',
+    short: 'Автономний 4G LTE Wi-Fi маршрутизатор 300 Мбіт/с із підтримкою SIM-карток, акумулятором 3000 мАг, Type-C, портом Ethernet та 4 антенами',
+    price: 1850,
+    oldPrice: 2590,
+    badge: '📶 4G/5G SIM',
+    image: '/assets/img/lte-router-b828-1.webp',
+    url: '/products/lte-router-b828-4g-5g-iz-sim-kartkoyu/',
+  },
+  {
     slug: 'elektrokamin-obihrivach-flame-heater-z-pultom',
     sku: '59149',
     name: 'Портативний електрокамін-обігрівач Flame Heater з ефектом полум’я та пультом',
