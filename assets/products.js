@@ -435,17 +435,6 @@ window.PRODUCTS = [
     url: '/products/girlyanda-v-metalevykh-kulkakh-teplyy-bilyy-2m/',
   },
   {
-    slug: 'litayuchyy-shar-spinner-flynova-pro',
-    sku: 'ws96444',
-    name: 'Літаюча куля-спіннер Flynova Pro з RGB-підсвічуванням та ефектом бумеранга',
-    short: 'Ефект бумеранга та левітація над рукою, подвійний пропелер, яскраве динамічне RGB-підсвічування, гнучкий ударостійкий корпус, швидка USB-зарядка',
-    price: 220,
-    oldPrice: 350,
-    badge: '🛸 Хіт бумеранг',
-    image: '/assets/img/flynova-pro-1.webp',
-    url: '/products/litayuchyy-shar-spinner-flynova-pro/',
-  },
-  {
     slug: 'svitlodiodna-strichka-smd-5050-rgb-5m',
     sku: 'ws26826',
     name: 'Світлодіодна стрічка SMD 5050 RGB LED 5 м (IP65) з пультом та блоком живлення 220V',
