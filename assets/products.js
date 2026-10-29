@@ -17,6 +17,17 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'girlyanda-sakura-kar307-1-8m-96-led-usb',
+    sku: '59307',
+    name: 'Декоративна гірлянда Сакура KAR-307 (1,8 м, 96 LED, USB, 8 режимів світіння)',
+    short: '96 світлодіодів із ніжними квітами сакури, тепле затишне світіння, 8 режимів анімації, гнучка гілка для декорування стін, дзеркал і фотозон, зручне живлення від USB',
+    price: 800,
+    oldPrice: 1190,
+    badge: '🌸 Сакура 96 LED',
+    image: '/assets/img/sakura-kar307-1.webp',
+    url: '/products/girlyanda-sakura-kar307-1-8m-96-led-usb/',
+  },
+  {
     slug: 'dovhyy-elektrichnyy-kamin-z-efektom-polumya',
     sku: '19026',
     name: 'Довгий електричний камін з 3D-ефектом полум’я',
