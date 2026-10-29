@@ -193,17 +193,6 @@ window.PRODUCTS = [
     url: '/products/nastinni-led-godynnyky-6669r-rgb-z-pultom/',
   },
   {
-    slug: 'portatyvnyy-akumulyatornyy-kompresor-nasos-dlya-shyn',
-    sku: '56844',
-    name: 'Портативний акумуляторний компресор з дисплеєм та ліхтариком',
-    short: 'Бездротовий автокомпресор до 150 PSI (2×1800 mAh): цифровий дисплей, автовимкнення, ліхтарик SOS, насадки для авто, мото, вело та мʼячів',
-    price: 899,
-    oldPrice: 1250,
-    badge: '🚗 Автокомпресор',
-    image: '/assets/img/kompresor-56844-1.webp',
-    url: '/products/portatyvnyy-akumulyatornyy-kompresor-nasos-dlya-shyn/',
-  },
-  {
     slug: 'aerofrityurnitsya-air-fryer-2294-4-l',
     sku: '59204',
     name: 'Аерофритюрниця Air Fryer-2294 4 л електричний аерогриль 1000 Вт',
