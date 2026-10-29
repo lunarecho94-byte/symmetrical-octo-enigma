@@ -17,6 +17,28 @@
    ========================================================== */
 window.PRODUCTS = [
   {
+    slug: 'nastilnyy-hodynnyk-meteostantsiya-z-proektsiyeyu-chasu-ds-8190',
+    sku: '51568',
+    name: 'Настільний годинник-метеостанція з проектором Color Screen DS-8190',
+    short: 'Багатофункціональний годинник із поворотним лазерним проектором 180°, кольоровим LCD-дисплеєм 3.6\'\', термометром, гігрометром та прогнозом погоди',
+    price: 520,
+    oldPrice: 790,
+    badge: '⏰ Проектор + Метео',
+    image: '/assets/img/meteostantsiya-ds8190-1.webp',
+    url: '/products/nastilnyy-hodynnyk-meteostantsiya-z-proektsiyeyu-chasu-ds-8190/',
+  },
+  {
+    slug: 'aeromysh-pult-z-klaviaturoyu-air-mouse-c120',
+    sku: '55594',
+    name: 'Бездротовий гіроскопічний пульт-миша з клавіатурою Air Mouse C120',
+    short: 'Універсальний пульт-миша з 6-осьовим 3D-гіроскопом 2.4G, повноцінною QWERTY-клавіатурою та вбудованим акумулятором для Smart TV, ПК і приставок',
+    price: 620,
+    oldPrice: 890,
+    badge: '🎯 Гіроскоп 3D + QWERTY',
+    image: '/assets/img/airmouse-c120-1.webp',
+    url: '/products/aeromysh-pult-z-klaviaturoyu-air-mouse-c120/',
+  },
+  {
     slug: 'girlyanda-sakura-kar307-1-8m-96-led-usb',
     sku: '59307',
     name: 'Декоративна гірлянда Сакура KAR-307 (1,8 м, 96 LED, USB, 8 режимів світіння)',
