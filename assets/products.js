@@ -336,17 +336,6 @@ window.PRODUCTS = [
     url: '/products/fotopanno-kar296-125-sm-z-prishchipkami/',
   },
   {
-    slug: 'dispenser-dlya-kharchovoyi-plivki-ta-folgi-26x-409',
-    sku: '59040',
-    name: 'Диспенсер для харчової плівки та фольги 26X-409 магнітний',
-    short: 'Кухонний різак для ідеально рівного нарізання плівки та фольги з вбудованим лезом і магнітним кріпленням',
-    price: 499,
-    oldPrice: 750,
-    badge: '🧲 Диспенсер',
-    image: '/assets/img/dispenser-1.webp',
-    url: '/products/dispenser-dlya-kharchovoyi-plivki-ta-folgi-26x-409/',
-  },
-  {
     slug: 'nabir-led-svichok-ma765-3-sht-z-pultom',
     sku: '59137',
     name: 'Набір LED свічок MA765 3 шт. з пультом та таймером',
