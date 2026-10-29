@@ -98,7 +98,7 @@ window.PRODUCTS = [
     sku: '56986',
     name: 'Розумна Smart-гірлянда штора SFK-08 (3×2 м, 400 LED, додаток Bluetooth + пульт)',
     short: 'Смарт-гірлянда штора 3×2 м на 400 LED: керування зі смартфона через Bluetooth та з пульта, динамічні анімації, малювання власних візерунків, музичний режим та USB-живлення',
-    price: 1480,
+    price: 1450,
     oldPrice: 2190,
     badge: '✨ Smart 400 LED',
     image: '/assets/img/smart-shtora-sfk08-cozy.webp',
