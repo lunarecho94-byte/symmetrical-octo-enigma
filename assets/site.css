@@ -736,14 +736,14 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
    ========================================================== */
 .product-badges {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
+  top: 6px;
+  left: 6px;
+  right: 6px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
   pointer-events: none;
   z-index: 10;
 }
@@ -762,20 +762,22 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
   align-items: center;
   background-color: rgba(14, 24, 48, 0.92) !important;
   color: #FFFFFF !important;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 1;
-  height: 24px;
-  padding: 0 8px;
+  height: 22px;
+  padding: 0 6px;
   border-radius: 9999px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   white-space: nowrap;
-  max-width: calc(100% - 50px);
+  max-width: calc(100% - 44px);
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
+  flex-shrink: 1;
 }
 
 .badge-discount {
@@ -785,11 +787,11 @@ a[href^="tel:"].hidden, .js-phone-link.hidden {
   background-color: #2563EB !important;
   color: #FFFFFF !important;
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   line-height: 1;
-  height: 24px;
-  padding: 0 7px;
+  height: 22px;
+  padding: 0 5px;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45);
   white-space: nowrap;
