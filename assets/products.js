@@ -303,17 +303,6 @@ window.PRODUCTS = [
     url: '/products/retro-girlyanda-and6271-2-na-sonyachniy-batareyi-10m/',
   },
   {
-    slug: 'stelazh-nad-pralnoyu-mashynoyu-3-polytsi',
-    sku: '59190',
-    name: 'Стелаж над пральною машиною 3 полиці чорний',
-    short: 'Підлогова стійка-органайзер 72×25×155 см із нержавіючої сталі над пральною машиною та унітазом',
-    price: 490,
-    oldPrice: 720,
-    badge: '🧺 Органайзер',
-    image: '/assets/img/stelazh-1.webp',
-    url: '/products/stelazh-nad-pralnoyu-mashynoyu-3-polytsi/',
-  },
-  {
     slug: 'girlyanda-z-prishchipkami-lu999-4-5m',
     sku: '59140',
     name: 'Гірлянда з прищіпками для фото LU999 4,5 м 20 LED USB',
